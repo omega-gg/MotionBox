@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>MotionBox</DisplayName>
+    <Version>1.1.1</Version>
+    <Dependencies>Sk, VLC</Dependencies>
+    <ReleaseDate>2015-10-07</ReleaseDate>
+    <SortingPriority>4</SortingPriority>
+    <ForcedInstallation>true</ForcedInstallation>
+</Package>

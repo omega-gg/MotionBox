@@ -1,0 +1,416 @@
+//=================================================================================================
+/*
+    Copyright (C) 2015-2016 MotionBox authors united with omega. <http://omega.gg/about>
+
+    Author: Benjamin Arnaud. <http://bunjee.me> <bunjee@omega.gg>
+
+    This file is part of MotionBox.
+
+    - GNU General Public License Usage:
+    This file may be used under the terms of the GNU General Public License version 3 as published
+    by the Free Software Foundation and appearing in the LICENSE.md file included in the packaging
+    of this file. Please review the following information to ensure the GNU General Public License
+    requirements will be met: https://www.gnu.org/licenses/gpl.html.
+*/
+//=================================================================================================
+
+import QtQuick       1.1
+import Sky           1.0
+import SkyComponents 1.0
+
+MouseArea
+{
+    id: barControls
+
+    //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+
+    /* read */ property bool isExpanded: false
+
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias buttonPlay: buttonPlay
+
+    property alias buttonPrevious: buttonPrevious
+    property alias buttonNext    : buttonNext
+
+    property alias buttonAdd: buttonAdd
+
+    property alias buttonSettings  : buttonSettings
+    property alias buttonShare     : buttonShare
+    property alias buttonFullScreen: buttonFullScreen
+
+    property alias sliderVolume: sliderVolume
+    property alias sliderStream: sliderStream
+
+    property alias border: border
+
+    property alias borderA: borderA
+    property alias borderB: borderB
+
+    //---------------------------------------------------------------------------------------------
+    // Settings
+    //---------------------------------------------------------------------------------------------
+
+    anchors.left : parent.left
+    anchors.right: parent.right
+
+    anchors.bottom: parent.bottom
+
+    height: (gui.isMini) ? st.dp80 + border.size
+                         : st.dp48 + border.size
+
+    acceptedButtons: Qt.NoButton
+
+    hoverRetain: true
+
+    //---------------------------------------------------------------------------------------------
+    // States
+    //---------------------------------------------------------------------------------------------
+
+    states: State
+    {
+        name: "hidden"; when: isExpanded
+
+        AnchorChanges
+        {
+            target: barControls
+
+            anchors.top   : parent.bottom
+            anchors.bottom: undefined
+        }
+    }
+
+    transitions: Transition
+    {
+        SequentialAnimation
+        {
+            AnchorAnimation { duration: st.duration_normal }
+
+            ScriptAction
+            {
+                script: if (isExpanded) visible = false
+            }
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function expand()
+    {
+        if (isExpanded) return;
+
+        isExpanded = true;
+    }
+
+    function restore()
+    {
+        if (isExpanded == false) return;
+
+        isExpanded = false;
+
+        visible = true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Childs
+    //---------------------------------------------------------------------------------------------
+
+    Rectangle
+    {
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : border.bottom
+        anchors.bottom: parent.bottom
+
+        gradient: Gradient
+        {
+            GradientStop { position: 0.0; color: st.barTitle_colorA }
+            GradientStop { position: 1.0; color: st.barTitle_colorB }
+        }
+
+        Item
+        {
+            id: container
+
+            anchors.fill: parent
+
+            anchors.topMargin: (gui.isMini) ? st.dp32 : 0
+        }
+
+        BorderHorizontal { color: st.barTitle_colorBorderLine }
+
+        ButtonRound
+        {
+            id: buttonPrevious
+
+            anchors.left: parent.left
+
+            anchors.leftMargin: (gui.isMini) ? st.dp3 : st.dp6
+
+            anchors.verticalCenter: container.verticalCenter
+
+            enabled: player.hasPreviousTrack
+
+            highlighted: (enabled && player.isPlaying)
+
+            icon          : st.icon24x24_backward
+            iconSourceSize: st.size24x24
+
+            hoverRetain: true
+
+            onClicked: player.setPreviousTrack()
+        }
+
+        ButtonRound
+        {
+            id: buttonNext
+
+            anchors.left: buttonPlay.right
+
+            anchors.leftMargin: -st.dp4
+
+            anchors.verticalCenter: container.verticalCenter
+
+            enabled: player.hasNextTrack
+
+            highlighted: (enabled && player.isPlaying)
+
+            icon: (player.shuffle) ? st.icon24x24_shuffle
+                                   : st.icon24x24_forward
+
+            iconSourceSize: st.size24x24
+
+            acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
+                                                : Qt.LeftButton
+
+            hoverRetain: true
+
+            onClicked:
+            {
+                if (mouse.button & Qt.RightButton)
+                {
+                    if (player.isPlaying)
+                    {
+                        local.shuffle = !(local.shuffle);
+                    }
+                }
+                else player.setNextTrack();
+            }
+        }
+
+        ButtonRound
+        {
+            id: buttonPlay
+
+            anchors.left: buttonPrevious.right
+
+            anchors.leftMargin: -st.dp4
+
+            anchors.verticalCenter: container.verticalCenter
+
+            enabled: (player.source != "")
+
+            highlighted: (enabled && player.isPlaying)
+
+            icon: (player.isPlaying) ? st.icon24x24_pause
+                                     : st.icon24x24_play
+
+            iconSourceSize: st.size24x24
+
+            hoverRetain: true
+
+            onClicked: player.togglePlay()
+        }
+
+        SliderVolume
+        {
+            id: sliderVolume
+
+            anchors.left: buttonNext.right
+
+            anchors.leftMargin: (gui.isMini) ? st.dp7 : st.dp10
+
+            anchors.verticalCenter: container.verticalCenter
+
+            width: st.sliderVolume_width
+
+            value: local.volume
+
+            onValueChanged: player.volume = value
+        }
+
+        BorderVertical
+        {
+            id: borderA
+
+            x: st.dp320
+
+            visible: (gui.isMini == false)
+        }
+
+        LabelStream
+        {
+            height: (gui.isMini) ? st.dp12               + borderSizeHeight
+                                 : st.labelStream_height + borderSizeHeight
+
+            borderTop: 0
+
+            slider: sliderStream
+        }
+
+        SliderStream
+        {
+            id: sliderStream
+
+            anchors.left: (gui.isMini) ? parent.left
+                                       : borderA.right
+
+            anchors.right: (gui.isMini) ? parent.right
+                                        : buttonAdd.left
+
+            anchors.top: parent.top
+
+            anchors.leftMargin : (gui.isMini) ? st.dp4 : st.dp7
+            anchors.rightMargin: (gui.isMini) ? st.dp4 : st.dp2
+            anchors.topMargin  : (gui.isMini) ? st.dp4 : st.dp8
+
+            height: (gui.isMini) ? st.sliderStream_height
+                                 : st.sliderStream_height
+
+            enabled: player.hasStarted
+            active : player.isPlaying
+
+            currentTime: (enabled) ? player.currentTime
+                                   : player.trackCurrentTime
+
+            duration: (player.duration != -1) ? player.duration
+                                              : player.trackDuration
+
+            onHandleReleased: player.seekTo(slider.value)
+
+            onReset:
+            {
+                if (player.isPaused)
+                {
+                    player.stop();
+
+                    playerTab.currentTime = -1;
+                }
+                else if (player.isPlaying)
+                {
+                    player.seekTo(0);
+                }
+                else playerTab.currentTime = -1;
+            }
+        }
+
+        ButtonRound
+        {
+            id: buttonAdd
+
+            anchors.right: (gui.isMini) ? buttonSettings.left
+                                        : borderB.left
+
+            anchors.top: parent.top
+
+            anchors.rightMargin: (gui.isMini) ? st.dp2  : st.dp7
+            anchors.topMargin  : (gui.isMini) ? st.dp37 : st.dp5
+
+            width : st.dp38
+            height: width
+
+            enabled: currentTab.isValid
+
+            highlighted: player.isPlaying
+
+            checkable: true
+            checked  : (panelAdd.item == barControls)
+
+            icon          : st.icon24x24_addIn
+            iconSourceSize: st.size24x24
+
+            onPressed: gui.panelAddShow()
+        }
+
+        BorderVertical
+        {
+            id: borderB
+
+            anchors.right: buttonSettings.left
+
+            anchors.rightMargin: st.dp7
+
+            visible: (gui.isMini == false)
+        }
+
+        ButtonPushIcon
+        {
+            id: buttonSettings
+
+            anchors.right: buttonShare.left
+
+            anchors.verticalCenter: container.verticalCenter
+
+            width: st.dp44
+
+            highlighted: player.isPlaying
+
+            checkable: true
+            checked  : panelSettings.isExposed
+
+            icon          : st.icon24x24_tuning
+            iconSourceSize: st.size24x24
+
+            onPressed: panelSettings.toggleExpose()
+        }
+
+        ButtonPushIcon
+        {
+            id: buttonShare
+
+            anchors.right: buttonFullScreen.left
+
+            anchors.verticalCenter: container.verticalCenter
+
+            width: st.dp44
+
+            checkable: true
+            checked  : panelShare.isExposed
+
+            icon          : st.icon24x24_share
+            iconSourceSize: st.size24x24
+
+            onPressed: panelShare.toggleExpose()
+        }
+
+        ButtonPushIcon
+        {
+            id: buttonFullScreen
+
+            anchors.right: parent.right
+
+            anchors.rightMargin: (gui.isMini) ? st.dp4 : st.dp11
+
+            anchors.verticalCenter: container.verticalCenter
+
+            width: st.dp44
+
+            highlighted: window.fullScreen
+
+            icon: (window.fullScreen) ? st.icon24x24_shrink
+                                      : st.icon24x24_extend
+
+            iconSourceSize: st.size24x24
+
+            onClicked: gui.toggleFullScreen()
+        }
+    }
+
+    BorderHorizontal { id: border }
+}

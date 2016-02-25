@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+<widget class="QWidget" name="form">
+    <layout class="QVBoxLayout">
+        <property name="margin"><number>0</number></property>
+
+        <item><widget class="QLabel" name="label"></widget></item>
+
+        <item><widget class="QRadioButton" name="buttonA"></widget></item>
+        <item><widget class="QRadioButton" name="buttonB"></widget></item>
+
+        <item><widget class="QLabel"></widget></item>
+
+        <item><widget class="QCheckBox" name="checkbox"></widget></item>
+    </layout>
+</widget>
+</ui>

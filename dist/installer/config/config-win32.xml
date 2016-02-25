@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>MotionBox</Name>
+    <Version>1.1.1</Version>
+    <Title>MotionBox</Title>
+    <Publisher>omega</Publisher>
+    <InstallerApplicationIcon>../../dist/icon</InstallerApplicationIcon>
+    <InstallerWindowIcon>../../dist/icon.png</InstallerWindowIcon>
+    <TargetDir>@RootDir@/omega/MotionBox</TargetDir>
+    <MaintenanceToolName>setup</MaintenanceToolName>
+    <TargetConfigurationFile>packages.xml</TargetConfigurationFile>
+    <RunProgram>@TargetDir@/MotionBox</RunProgram>
+    <ControlScript>controller.qs</ControlScript>
+</Installer>

@@ -1,0 +1,8 @@
+<p>Code and Design</p>
+<p class="br"><a href="http://bunjee.me">Benjamin Arnaud</a></p>
+
+<p>Qt Framework</p>
+<p class="br"><a href="http://www.qt.io">Qt Project team</a></p>
+
+<p>VLC Video Engine</p>
+<p class="br"><a href="http://www.videolan.org">VideoLAN organization</a></p>

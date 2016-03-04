@@ -119,15 +119,17 @@ List
             pUpdatePlayerOverlay();
 
             pLoadTracks();
+
+            pRestoreScroll();
         }
         else
         {
             hasPlaylist = false;
 
             pApplyPlaylist();
-
-            pUpdateCurrentY();
         }
+
+        pUpdateCurrentY();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -337,6 +339,8 @@ List
             indexPreview    = -1;
             indexContextual = -1;
             indexPlayer     = -1;
+
+            pUpdateCurrentY();
         }
     }
 

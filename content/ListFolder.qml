@@ -126,9 +126,9 @@ List
 
             indexCurrent = -1;
             indexDrag    = -1;
-
-            pUpdateCurrentY();
         }
+
+        pUpdateCurrentY();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -315,6 +315,8 @@ List
 
             indexContextual = -1;
             indexDrag       = -1;
+
+            pUpdateCurrentY();
         }
     }
 

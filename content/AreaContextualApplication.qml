@@ -80,9 +80,14 @@ AreaContextual
 
     function pCheckPlay(folder, index)
     {
-        if (core.itemStateQuery(folder, index) == LocalObject.Loaded
-            &&
-            folder.itemCover(index) != "")
+        if (folder.currentIndex != index)
+        {
+            return false;
+        }
+
+        var item = folder.currentItem;
+
+        if (item.isPlaylist && item.count)
         {
              return true;
         }

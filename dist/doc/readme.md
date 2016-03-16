@@ -24,11 +24,11 @@ I'm building a Video Browser for you.
 
 #
 
-MotionBox is a [distributist][Distributism] tool for sharing:
+MotionBox is a [distributist][Distributism] tool:
 
-Only the Internet community can make the difference.
+Only your [support][Support MotionBox] can make the difference.
 
-You can make a difference with [MotionKit].
+Let's build a Video Browser together.
 
 #
 
@@ -146,6 +146,6 @@ VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
 ---
 
-MotionKit: [http://omega.gg/MotionKit][MotionKit]
+Support MotionBox: [http://omega.gg/MotionBox/support][Support MotionBox]
 
-[MotionKit]: http://omega.gg/MotionKit
+[Support MotionBox]: http://omega.gg/MotionBox/support

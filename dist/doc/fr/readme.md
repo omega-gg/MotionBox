@@ -24,11 +24,11 @@ Je développe un Navigateur Vidéo pour toi.
 
 #
 
-MotionBox est un outil [distributiste][Distributisme] pour le partage:
+MotionBox est un outil [distributiste][Distributisme]:
 
-Seule la communauté Internet peut faire la différence.
+Seul ton [soutien][Soutenir MotionBox] peut faire la différence.
 
-Tu peux faire une différence avec [MotionKit].
+Ensemble, construisons un Navigateur Vidéo.
 
 #
 
@@ -146,6 +146,6 @@ VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
 ---
 
-MotionKit: [http://omega.gg/MotionKit/fr][MotionKit]
+Soutenir MotionBox: [http://omega.gg/MotionBox/support/fr][Soutenir MotionBox]
 
-[MotionKit]: http://omega.gg/MotionKit/fr
+[Soutenir MotionBox]: http://omega.gg/MotionBox/support/fr

@@ -64,7 +64,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-static const QString CORE_VERSION = "1.1.1";
+static const QString CORE_VERSION = "1.1.1-1";
 
 static const QString PATH_SK = "../../Sk/src";
 

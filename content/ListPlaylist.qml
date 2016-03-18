@@ -961,8 +961,6 @@ List
 
     function pLoadTracks()
     {
-        pRestoreScroll();
-
         var index;
 
         if (playlist.currentIndex == -1)

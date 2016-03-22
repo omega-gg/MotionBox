@@ -1,4 +1,4 @@
-<a href="http://omega.gg/MotionBox">![MotionBox](dist/pictures/MotionBox.png)</a>
+<a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="MotionBox" width="128px"></a>
 ---
 
 [MotionBox](http://omega.gg/MotionBox) is a Video Browser for Motion Freedom.<br>
@@ -7,7 +7,7 @@ Built to load and play multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox for the society of sharing.<br>
 
 ## Technology
-<a href="http://omega.gg/MotionBox/what">![MotionBox](dist/pictures/TheVideoBrowser.png)</a>
+<a href="http://omega.gg/MotionBox/what"><img src="dist/pictures/TheVideoBrowser.png" alt="The Video Browser" width="512px"></a>
 
 MotionBox is built in C++ with [Sky kit](http://omega.gg/Sk/sources).<br>
 Sky kit is built on the [Qt framework](http://github.com/qtproject).<br>

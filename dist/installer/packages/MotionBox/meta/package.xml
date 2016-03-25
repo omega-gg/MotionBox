@@ -2,7 +2,7 @@
 <Package>
     <DisplayName>MotionBox</DisplayName>
     <Version>1.1.1-1</Version>
-    <Dependencies>Sk, VLC</Dependencies>
+    <Dependencies>Sky, VLC</Dependencies>
     <ReleaseDate>2015-10-07</ReleaseDate>
     <SortingPriority>4</SortingPriority>
     <ForcedInstallation>true</ForcedInstallation>

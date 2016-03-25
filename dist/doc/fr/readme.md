@@ -57,7 +57,7 @@ Raccourcis: [documents/fr/shortcuts.html](shortcuts.html)
 
 MotionBox est développé en [C++] avec [Sky kit].
 
-Sky kit est basé sur le [framework Qt].
+Sky est basé sur le [framework Qt].
 
 L'interface utilise [QML] et le lecteur utilise [VLC] core.
 
@@ -126,7 +126,7 @@ Distributisme: [http://omega.gg/about/distributism/fr][Distributisme]
 
 C++: [http://fr.wikipedia.org/wiki/C%2B%2B][C++]
 
-Sky kit: [http://omega.gg/MotionBox/technology/fr][Sky kit]
+Sky kit: [http://omega.gg/Sky/fr][Sky kit]
 
 Framework Qt: [http://fr.wikipedia.org/wiki/Qt][Framework Qt]
 
@@ -136,7 +136,7 @@ VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
 [C++]: http://fr.wikipedia.org/wiki/C%2B%2B
 
-[Sky kit]: http://omega.gg/MotionBox/technology/fr
+[Sky kit]: http://omega.gg/Sky/fr
 
 [Framework Qt]: http://fr.wikipedia.org/wiki/Qt
 

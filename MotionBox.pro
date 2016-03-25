@@ -1,4 +1,4 @@
-SK = $$_PRO_FILE_PWD_/../Sk
+SK = $$_PRO_FILE_PWD_/../Sky
 
 TARGET = MotionBox
 
@@ -128,7 +128,7 @@ OTHER_FILES += configure.sh \
                dist/installer/packages/setup/meta/form.ui \
                dist/installer/packages/setup/data/setup.xml \
                dist/installer/packages/MotionBox/meta/package.xml \
-               dist/installer/packages/Sk/meta/package.xml \
+               dist/installer/packages/Sky/meta/package.xml \
                dist/installer/packages/Qt/meta/package.xml \
                dist/installer/packages/VLC/meta/package.xml \
 

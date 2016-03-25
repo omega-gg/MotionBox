@@ -9,8 +9,8 @@ Built to load and play multiple video resources.<br>
 ## Technology
 <a href="http://omega.gg/MotionBox/what"><img src="dist/pictures/TheVideoBrowser.png" alt="The Video Browser" width="512px"></a>
 
-MotionBox is built in C++ with [Sky kit](http://omega.gg/Sk/sources).<br>
-Sky kit is built on the [Qt framework](http://github.com/qtproject).<br>
+MotionBox is built in C++ with [Sky kit](http://omega.gg/Sky/sources).<br>
+Sky is built on the [Qt framework](http://github.com/qtproject).<br>
 The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) core.<br>
 
 ## Platforms
@@ -21,7 +21,7 @@ Linux and OS-X are coming soon.
 
 ## Requirements
 
-- [Sky kit](http://omega.gg/Sk/sources) latest version.
+- [Sky](http://omega.gg/Sky/sources) latest version.
 - [Qt](http://download.qt.io/official_releases/qt) 4.8.0 / 5.5.0 or later.
 - [VLC](http://download.videolan.org/pub/videolan/vlc) 2.2.0 or later.
 - [OpenSSL](http://www.openssl.org/source) / [Win32OpenSSL](http://slproweb.com/products/Win32OpenSSL.html) 1.0.1 or later.

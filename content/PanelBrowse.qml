@@ -1183,6 +1183,16 @@ MouseArea
         font.pixelSize: st.barTitleText_pixelSize
 
         onPressed: pSelectButton(-1)
+
+        Keys.onPressed:
+        {
+            if (event.key == Qt.Key_Escape)
+            {
+                event.accepted = true;
+
+                window.clearFocus();
+            }
+        }
     }
 
     ButtonsBrowse

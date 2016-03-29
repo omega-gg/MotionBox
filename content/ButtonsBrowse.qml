@@ -511,6 +511,16 @@ Item
 
                     onPressed: buttonsBrowse.pressed(index)
 
+                    Keys.onPressed:
+                    {
+                        if (event.key == Qt.Key_Escape)
+                        {
+                            event.accepted = true;
+
+                            window.clearFocus();
+                        }
+                    }
+
                     function getPreferredWidth()
                     {
                         return sk.textWidth(text, font) + margins;

@@ -155,7 +155,7 @@ Panel
 
             anchors.fill: parent
 
-            text: qsTr("My Library")
+            text: qsTr("Library")
         }
 
         ButtonsUpdater

@@ -945,7 +945,7 @@ PanelContextual
 
                 iconWidth: 0
 
-                text: qsTr("My Library")
+                text: qsTr("Library")
 
                 itemIcon.visible: false
 

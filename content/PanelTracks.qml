@@ -360,7 +360,7 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                visible: (itemTitle.visible && itemTitle.text != "")
+                visible: (itemTitle.visible && itemTitle.text != "" && playlist.isOnline)
 
                 itemTitle: itemTitle
 

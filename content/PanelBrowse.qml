@@ -1207,7 +1207,7 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        anchors.rightMargin: buttonClear.width
+        anchors.rightMargin: buttonClear.width + st.dp14
 
         itemLeft  : buttonBrowse
         itemBottom: buttonBrowse.itemBottom

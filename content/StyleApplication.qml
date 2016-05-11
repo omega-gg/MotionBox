@@ -28,7 +28,6 @@ Style
     property int dp36: 36 * ratio
     property int dp37: 37 * ratio
 
-    property int dp41: 41 * ratio
     property int dp44: 44 * ratio
 
     property int dp52: 52 * ratio

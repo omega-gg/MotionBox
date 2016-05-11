@@ -442,7 +442,7 @@ MouseArea
             anchors.left : lineEditSearch.right
             anchors.right: buttons.left
 
-            anchors.rightMargin: st.dp41
+            anchors.rightMargin: buttonAdd.width + st.dp14
 
             visible: (gui.isMini == false)
 
@@ -519,7 +519,7 @@ MouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            anchors.rightMargin: st.dp41
+            anchors.rightMargin: buttonAdd.width + st.dp14
 
             visible: (gui.isMini && lineEditSearch.isFocused == false)
 

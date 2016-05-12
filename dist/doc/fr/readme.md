@@ -64,11 +64,11 @@ L'interface utilise [QML] et le lecteur utilise [VLC] core.
 
 # Crédits
 
-- Code et Conception: [Benjamin Arnaud](http://bunjee.me/fr)
+Code et Conception: [Benjamin Arnaud](http://bunjee.me/fr)
 
-- Framework Qt: [Qt Project team](http://www.qt.io)
+Framework Qt: [Qt Project team](http://www.qt.io)
 
-- Moteur Vidéo VLC: [VideoLAN organization](http://www.videolan.org)
+Moteur Vidéo VLC: [VideoLAN organization](http://www.videolan.org)
 
 
 # Contacte-nous

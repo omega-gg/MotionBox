@@ -64,11 +64,11 @@ The GUI uses [QML] and the player uses [VLC] core.
 
 # Credits
 
-- Code and Design: [Benjamin Arnaud](http://bunjee.me)
+Code and Design: [Benjamin Arnaud](http://bunjee.me)
 
-- Qt Framework: [Qt Project team](http://www.qt.io)
+Qt Framework: [Qt Project team](http://www.qt.io)
 
-- VLC Video Engine: [VideoLAN organization](http://www.videolan.org)
+VLC Video Engine: [VideoLAN organization](http://www.videolan.org)
 
 
 # Contact us

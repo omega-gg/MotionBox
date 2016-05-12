@@ -1,207 +1,207 @@
-# [MotionBox](../Readme.html) - Shortcuts
+# [MotionBox](../Readme.html) Shortcuts
 
 ### english / [français](fr/shortcuts.html)
 
 # Global
 
-- F1: Toggle the application panel.
+F1: Toggle the application panel.
 
-- F2: Toogle the Player Browser.
+F2: Toogle the Player Browser.
 
-- F3: Toogle the Video Wall.
+F3: Toogle the Video Wall.
 
-- F4: Toogle the Related Browser.
-
-#
-
-- F5: Go to the current track.
-
-- F6: Create a new playlist.
-
-- F7: Create a new folder.
-
-- F8: Toogle the Track Browser.
+F4: Toogle the Related Browser.
 
 #
 
-- F9: Toogle the settings panel.
+F5: Go to the current track.
 
-- F10: Toogle the share panel.
+F6: Create a new playlist.
 
-- F11: Toggle full screen.
+F7: Create a new folder.
 
-- F12: Toogle the track panel.
-
-#
-
-- Ctrl + T: New video tab.
-
-- Ctrl + W: Close the video tab.
-
-- Ctrl + R: Refresh the Related Browser.
+F8: Toogle the Track Browser.
 
 #
 
-- Ctrl + P: Save an application shot.
+F9: Toogle the settings panel.
 
-- Ctrl + U: Update the application.
+F10: Toogle the share panel.
 
-- Ctrl + Q: Exit the application.
+F11: Toggle full screen.
 
-#
-
-- Ctrl + Alt + Left: Video tab previous track.
-
-- Ctrl + Alt + Right: Video tab next track.
+F12: Toogle the track panel.
 
 #
 
-- Ctrl + Alt + Shift: Toggle the Mini Mode
+Ctrl + T: New video tab.
+
+Ctrl + W: Close the video tab.
+
+Ctrl + R: Refresh the Related Browser.
 
 #
 
-- Alt + Left: Previous video tab.
+Ctrl + P: Save an application shot.
 
-- Alt + Right: Next video tab.
+Ctrl + U: Update the application.
 
-- Alt + Return: Toggle full screen.
+Ctrl + Q: Exit the application.
 
 #
 
-- Media Previous: Previous track.
+Ctrl + Alt + Left: Video tab previous track.
 
-- Media Next: Next track.
+Ctrl + Alt + Right: Video tab next track.
 
-- Media Play: Toogle the playback.
+#
 
-- Media Stop: Pause the playback.
+Ctrl + Alt + Shift: Toggle the Mini Mode
+
+#
+
+Alt + Left: Previous video tab.
+
+Alt + Right: Next video tab.
+
+Alt + Return: Toggle full screen.
+
+#
+
+Media Previous: Previous track.
+
+Media Next: Next track.
+
+Media Play: Toogle the playback.
+
+Media Stop: Pause the playback.
 
 
 # GUI
 
-- Left: Seek before in the player.
+Left: Seek before in the player.
 
-- Right: Seek after in the player.
+Right: Seek after in the player.
 
-- Up: Expand track panels.
+Up: Expand track panels.
 
-- Down: Collapse track panels.
-
-#
-
-- Space: Toggle the playback.
-
-- Return: Start the playback / Expand the interface.
-
-- Escape: Collapse the interface.
-
-- Backspace: Stop the playback.
+Down: Collapse track panels.
 
 #
 
-- Tab: Focus the search / Switch the search.
+Space: Toggle the playback.
 
-- Plus: Add the current track to a playlist.
+Return: Start the playback / Expand the interface.
 
-- Menu: Show the contextual menu.
+Escape: Collapse the interface.
 
-#
-
-- Shift + Left: Seek way before in the player.
-
-- Shift + Right: Seek way after in the player.
+Backspace: Stop the playback.
 
 #
 
-- Ctrl + Left: Previous track.
+Tab: Focus the search / Switch the search.
 
-- Ctrl + Right: Next track.
+Plus: Add the current track to a playlist.
 
-- Ctrl + Up: Turn the volume up.
+Menu: Show the contextual menu.
 
-- Ctrl + Down: Turn the volume down.
+#
+
+Shift + Left: Seek way before in the player.
+
+Shift + Right: Seek way after in the player.
+
+#
+
+Ctrl + Left: Previous track.
+
+Ctrl + Right: Next track.
+
+Ctrl + Up: Turn the volume up.
+
+Ctrl + Down: Turn the volume down.
 
 
 # Unified Search
 
-- Up: Previous completion.
+Up: Previous completion.
 
-- Down: Next completion.
-
-#
-
-- Tab: Switch the search action.
-
-- Return: Start the browsing.
-
-- Escape: Clear the text.
+Down: Next completion.
 
 #
 
-- Alt + Up: Previous hub.
+Tab: Switch the search action.
 
-- Alt + Down: Next hub.
+Return: Start the browsing.
+
+Escape: Clear the text.
+
+#
+
+Alt + Up: Previous hub.
+
+Alt + Down: Next hub.
 
 
 # Folder
 
-- Up: Previous item.
+Up: Previous item.
 
-- Down: Next item.
+Down: Next item.
 
-- Left: Focus the left item.
+Left: Focus the left item.
 
-- Right: Focus the right item.
+Right: Focus the right item.
 
 #
 
-- Plus: Add the item to a folder.
+Plus: Add the item to a folder.
 
-- Menu: Show the contextual menu.
+Menu: Show the contextual menu.
 
-- Delete: Delete the item.
+Delete: Delete the item.
 
 
 # Playlist
 
-- Up: Previous track.
+Up: Previous track.
 
-- Down: Next track.
+Down: Next track.
 
-- Left: Focus the left item.
+Left: Focus the left item.
 
-- Right: Focus the right item.
-
-#
-
-- Return: Play the track.
-
-- Plus: Add the track(s) to a playlist.
-
-- Menu: Show the contextual menu.
-
-- Delete: Delete the track(s).
+Right: Focus the right item.
 
 #
 
-- Shift + Up: Select the previous track.
+Return: Play the track.
 
-- Shift + Down: Select the next track.
+Plus: Add the track(s) to a playlist.
+
+Menu: Show the contextual menu.
+
+Delete: Delete the track(s).
 
 #
 
-- Ctrl + A: Select all tracks.
+Shift + Up: Select the previous track.
+
+Shift + Down: Select the next track.
+
+#
+
+Ctrl + A: Select all tracks.
 
 
 # New Playlist
 
-- Tab: Switch the playlist type.
+Tab: Switch the playlist type.
 
 
 # Contextual menu
 
-- Up: Previous item.
+Up: Previous item.
 
-- Down: Next item.
+Down: Next item.
 
-- Return: Validate the item.
+Return: Validate the item.

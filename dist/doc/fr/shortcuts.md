@@ -1,207 +1,207 @@
-# [MotionBox](Readme.html) - Raccourcis
+# [MotionBox](Readme.html) Raccourcis
 
 ### [english](../shortcuts.html) / français
 
 # Global
 
-- F1: Basculer le paneau d'application.
+F1: Basculer le paneau d'application.
 
-- F2: Basculer le Lecteur Navigateur.
+F2: Basculer le Lecteur Navigateur.
 
-- F3: Basculer le Mur Vidéo.
+F3: Basculer le Mur Vidéo.
 
-- F4: Basculer le Navigateur Relatif.
-
-#
-
-- F5: Aller au track courant.
-
-- F6: Créer une nouvelle playlist.
-
-- F7: Créer un nouveau dossier.
-
-- F8: Basculer le Navigateur de Tracks.
+F4: Basculer le Navigateur Relatif.
 
 #
 
-- F9: Basculer le panneau des préférences.
+F5: Aller au track courant.
 
-- F10: Basculer le panneau du partage.
+F6: Créer une nouvelle playlist.
 
-- F11: Basculer le plein écran.
+F7: Créer un nouveau dossier.
 
-- F12: Basculer le panneau de tracks.
-
-#
-
-- Ctrl + T: Nouvel onglet vidéo.
-
-- Ctrl + W: Fermer l'onglet vidéo.
-
-- Ctrl + R: Rafraichir le Navigateur Relatif.
+F8: Basculer le Navigateur de Tracks.
 
 #
 
-- Ctrl + P: Sauver une capture de l'application.
+F9: Basculer le panneau des préférences.
 
-- Ctrl + U: Mettre à jour l'application.
+F10: Basculer le panneau du partage.
 
-- Ctrl + Q: Quitter l'application.
+F11: Basculer le plein écran.
 
-#
-
-- Ctrl + Alt + Gauche: Track précédent de l'onglet vidéo.
-
-- Ctrl + Alt + Droite: Track suivant de l'onglet vidéo.
+F12: Basculer le panneau de tracks.
 
 #
 
-- Ctrl + Alt + Shift: Basculer le Mode Mini.
+Ctrl + T: Nouvel onglet vidéo.
+
+Ctrl + W: Fermer l'onglet vidéo.
+
+Ctrl + R: Rafraichir le Navigateur Relatif.
 
 #
 
-- Alt + Gauche: Onglet vidéo précédent.
+Ctrl + P: Sauver une capture de l'application.
 
-- Alt + Droite: Onglet vidéo suivant.
+Ctrl + U: Mettre à jour l'application.
 
-- Alt + Entrée: Basculer le plein écran.
+Ctrl + Q: Quitter l'application.
 
 #
 
-- Media Précédent: Track précédent.
+Ctrl + Alt + Gauche: Track précédent de l'onglet vidéo.
 
-- Media Suivant: Track suivant.
+Ctrl + Alt + Droite: Track suivant de l'onglet vidéo.
 
-- Media Lecture: Basculer la lecture.
+#
 
-- Media Stop: Pauser la lecture.
+Ctrl + Alt + Shift: Basculer le Mode Mini.
+
+#
+
+Alt + Gauche: Onglet vidéo précédent.
+
+Alt + Droite: Onglet vidéo suivant.
+
+Alt + Entrée: Basculer le plein écran.
+
+#
+
+Media Précédent: Track précédent.
+
+Media Suivant: Track suivant.
+
+Media Lecture: Basculer la lecture.
+
+Media Stop: Pauser la lecture.
 
 
 # GUI
 
-- Gauche: Reculer dans la lecture.
+Gauche: Reculer dans la lecture.
 
-- Droite: Avancer dans la lecture.
+Droite: Avancer dans la lecture.
 
-- Haut: Déployer les panneaux de tracks.
+Haut: Déployer les panneaux de tracks.
 
-- Bas: Replier les panneaux de tracks.
-
-#
-
-- Espace: Basculer la lecture.
-
-- Entrée: Commencer la lecture / Déployer l'interface.
-
-- Escape: Replier l'interface.
-
-- Backspace: Stopper la lecture.
+Bas: Replier les panneaux de tracks.
 
 #
 
-- Tab: Focus de la recherche / Alterner la recherche.
+Espace: Basculer la lecture.
 
-- Plus: Ajouter le track courant à la playlist.
+Entrée: Commencer la lecture / Déployer l'interface.
 
-- Menu: Afficher le menu contextuel.
+Escape: Replier l'interface.
 
-#
-
-- Shift + Gauche: Beaucoup reculer dans la lecture.
-
-- Shift + Droite: Beaucoup avancer dans la lecture.
+Backspace: Stopper la lecture.
 
 #
 
-- Ctrl + Gauche: Track précédent.
+Tab: Focus de la recherche / Alterner la recherche.
 
-- Ctrl + Droite: Track suivant.
+Plus: Ajouter le track courant à la playlist.
 
-- Ctrl + Haut: Augmenter le volume.
+Menu: Afficher le menu contextuel.
 
-- Ctrl + Bas: Reduire le volume.
+#
+
+Shift + Gauche: Beaucoup reculer dans la lecture.
+
+Shift + Droite: Beaucoup avancer dans la lecture.
+
+#
+
+Ctrl + Gauche: Track précédent.
+
+Ctrl + Droite: Track suivant.
+
+Ctrl + Haut: Augmenter le volume.
+
+Ctrl + Bas: Reduire le volume.
 
 
 # Recherche Unifiée
 
-- Haut: Suggestion précédente.
+Haut: Suggestion précédente.
 
-- Bas: Suggestion suivante.
-
-#
-
-- Tab: Alterner l'action de recherche.
-
-- Entrée: Démarrer la navigation.
-
-- Escape: Effacer le texte.
+Bas: Suggestion suivante.
 
 #
 
-- Alt + Haut: Hub précédent.
+Tab: Alterner l'action de recherche.
 
-- Alt + Bas: Hub suivant.
+Entrée: Démarrer la navigation.
+
+Escape: Effacer le texte.
+
+#
+
+Alt + Haut: Hub précédent.
+
+Alt + Bas: Hub suivant.
 
 
 # Dossier
 
-- Haut: Élément précédent.
+Haut: Élément précédent.
 
-- Bas: Élément suivant.
+Bas: Élément suivant.
 
-- Gauche: Focus de l'élément à gauche.
+Gauche: Focus de l'élément à gauche.
 
-- Droite: Focus de l'élément à droite.
+Droite: Focus de l'élément à droite.
 
 #
 
-- Plus: Ajouter l'élément au dossier.
+Plus: Ajouter l'élément au dossier.
 
-- Menu: Afficher le menu contextuel.
+Menu: Afficher le menu contextuel.
 
-- Suppr: Supprimer l'élément.
+Suppr: Supprimer l'élément.
 
 
 # Playlist
 
-- Haut: Track précédent.
+Haut: Track précédent.
 
-- Bas: Track suivant.
+Bas: Track suivant.
 
-- Gauche: Focus de l'élément à gauche.
+Gauche: Focus de l'élément à gauche.
 
-- Droite: Focus de l'élément à droite.
-
-#
-
-- Entrée: Lecture du track.
-
-- Plus: Ajouter le(s) track(s) à la playlist.
-
-- Menu: Afficher le menu contextuel.
-
-- Suppr: Supprimer le(s) track(s).
+Droite: Focus de l'élément à droite.
 
 #
 
-- Shift + Haut: Sélectionner le track précédent.
+Entrée: Lecture du track.
 
-- Shift + Bas: Sélectionner le track suivant.
+Plus: Ajouter le(s) track(s) à la playlist.
+
+Menu: Afficher le menu contextuel.
+
+Suppr: Supprimer le(s) track(s).
 
 #
 
-- Ctrl + A: Sélectionner tous les tracks.
+Shift + Haut: Sélectionner le track précédent.
+
+Shift + Bas: Sélectionner le track suivant.
+
+#
+
+Ctrl + A: Sélectionner tous les tracks.
 
 
 # Nouvelle Playlist
 
-- Tab: Alterner le type de la playlist.
+Tab: Alterner le type de la playlist.
 
 
 # Menu contextuel
 
-- Haut: Élément précédent.
+Haut: Élément précédent.
 
-- Bas: Élément suivant.
+Bas: Élément suivant.
 
-- Entrée: Valider l'élément.
+Entrée: Valider l'élément.

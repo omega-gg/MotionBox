@@ -60,7 +60,8 @@ else
     bin="$bin5"
 fi
 
-mkdir "$bin"/plugins
+rm -rf "$bin"/plugins
+mkdir  "$bin"/plugins
 
 cp -r "$VLC"/plugins/access       "$bin"/plugins
 cp -r "$VLC"/plugins/audio_filter "$bin"/plugins

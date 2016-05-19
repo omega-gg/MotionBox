@@ -46,6 +46,7 @@
 #include <WCache>
 #include <WLoaderNetwork>
 #include <WLoaderWeb>
+#include <WBackendBencode>
 #include <WBackendDuckDuckGo>
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
@@ -210,6 +211,8 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 
     //---------------------------------------------------------------------------------------------
     // Backends
+
+    new WBackendBencode;
 
     new WBackendDuckDuckGo;
 

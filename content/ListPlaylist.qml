@@ -309,14 +309,22 @@ List
 
         onTracksRemoved:
         {
+            var countPreview    = 0;
+            var countContextual = 0;
+            var countPlayer     = 0;
+
             for (var i = 0; i < indexes.length; i++)
             {
                 var index = indexes[i];
 
-                if      (indexPreview    > index) indexPreview--;
-                if      (indexContextual > index) indexContextual--;
-                else if (indexPlayer     > index) indexPlayer--;
+                if      (indexPreview    > index) countPreview++;
+                if      (indexContextual > index) countContextual++;
+                else if (indexPlayer     > index) countPlayer++;
             }
+
+            indexPreview    -= countPreview;
+            indexContextual -= countContextual;
+            indexPlayer     -= countPlayer;
         }
 
         onTracksMoved:

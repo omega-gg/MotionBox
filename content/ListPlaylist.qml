@@ -331,7 +331,8 @@ List
         {
             indexPreview    = -1;
             indexContextual = -1;
-            indexPlayer     = -1;
+
+            pUpdatePlayerOverlay();
         }
 
         onTracksCleared:

@@ -40,6 +40,7 @@
 #include <WControllerDownload>
 #include <WControllerPlaylist>
 #include <WControllerMedia>
+#include <WControllerTorrent>
 #include <WAbstractThreadAction>
 #include <WWindow>
 #include <WDeclarativeContextualPage>
@@ -120,6 +121,7 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     // Controllers
 
     W_CREATE_CONTROLLER(WControllerMedia);
+    W_CREATE_CONTROLLER(WControllerTorrent);
 
     //---------------------------------------------------------------------------------------------
     // QML

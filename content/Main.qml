@@ -64,7 +64,12 @@ Application
 
         onMessageReceived: activate()
 
-        onFadeIn: loader.source = "Gui.qml"
+        onFadeIn:
+        {
+            core.preload();
+
+            loader.source = "Gui.qml";
+        }
 
         //-----------------------------------------------------------------------------------------
         // Keys

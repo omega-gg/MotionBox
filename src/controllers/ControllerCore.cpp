@@ -110,28 +110,14 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 
     _diskCache = NULL;
 
+    _tabs = NULL;
+
     _library = NULL;
     _hubs    = NULL;
     _related = NULL;
 
     _loaderMedia = NULL;
     _loaderWeb   = NULL;
-
-    //---------------------------------------------------------------------------------------------
-    // Controllers
-
-    W_CREATE_CONTROLLER(WControllerMedia);
-    W_CREATE_CONTROLLER(WControllerTorrent);
-
-    //---------------------------------------------------------------------------------------------
-    // QML
-
-    qmlRegisterType<DataLocal> ("Sky", 1,0, "DataLocal");
-    qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
-
-#ifndef SK_DEPLOY
-    wControllerDeclarative->engine()->addImportPath(PATH_SK);
-#endif
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -150,6 +136,8 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     QString path = "storage";
 
     wControllerFile->setPathStorage(path);
+
+    wControllerDeclarative->engine()->addImportPath(PATH_SK);
 #endif
 
     wControllerView->setLoadMode(WControllerView::LoadVisible);
@@ -185,6 +173,30 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     }
 
     //---------------------------------------------------------------------------------------------
+    // QML
+
+    qmlRegisterType<DataLocal>("Sky", 1,0, "DataLocal");
+
+    wControllerDeclarative->setContextProperty("core", this);
+
+    wControllerDeclarative->setContextProperty("local", _local);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Interface
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ void ControllerCore::preload()
+{
+    if (_tabs) return;
+
+    //---------------------------------------------------------------------------------------------
+    // Controllers
+
+    W_CREATE_CONTROLLER(WControllerMedia);
+    W_CREATE_CONTROLLER(WControllerTorrent);
+
+    //---------------------------------------------------------------------------------------------
     // DataOnline
 
     _online = new DataOnline(this);
@@ -195,17 +207,12 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     _tabs = new WTabsTrack(this);
 
     //---------------------------------------------------------------------------------------------
-    // QML Context
+    // QML
 
-    wControllerDeclarative->setContextProperty("core", this);
+    qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
 
-    wControllerDeclarative->setContextProperty("local",  _local);
     wControllerDeclarative->setContextProperty("online", _online);
 }
-
-//-------------------------------------------------------------------------------------------------
-// Interface
-//-------------------------------------------------------------------------------------------------
 
 /* Q_INVOKABLE */ void ControllerCore::load()
 {

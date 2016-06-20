@@ -66,7 +66,8 @@ private:
     ControllerCore();
 
 public: // Interface
-    Q_INVOKABLE void load();
+    Q_INVOKABLE void preload();
+    Q_INVOKABLE void load   ();
 
     Q_INVOKABLE bool updateVersion();
 

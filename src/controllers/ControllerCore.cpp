@@ -136,8 +136,6 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     QString path = "storage";
 
     wControllerFile->setPathStorage(path);
-
-    wControllerDeclarative->engine()->addImportPath(PATH_SK);
 #endif
 
     wControllerView->setLoadMode(WControllerView::LoadVisible);
@@ -180,6 +178,10 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
     wControllerDeclarative->setContextProperty("core", this);
 
     wControllerDeclarative->setContextProperty("local", _local);
+
+#ifndef SK_DEPLOY
+    wControllerDeclarative->engine()->addImportPath(PATH_SK);
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

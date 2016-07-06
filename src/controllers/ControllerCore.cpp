@@ -416,9 +416,7 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 
     WControllerFile::createFolder(path);
 
-    QDateTime date = QDateTime::currentDateTime();
-
-    path.append("/MotionBox_" + date.toString("yyyy-MM-dd_hhmmsszzz") + ".png");
+    path.append("/MotionBox_" + Sk::currentDateString("yyyy-MM-dd_hhmmsszzz") + ".png");
 
     ShotWrite * action = new ShotWrite(image, path);
 

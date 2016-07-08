@@ -49,6 +49,8 @@ ItemTab
 
     text: gui.getTabTitle(tab.title, tab.state, tab.source)
 
+    iconFillMode: Image.PreserveAspectCrop
+
     textColor: st.text1_color
 
     textStyle: (isCurrent) ? Text.Raised

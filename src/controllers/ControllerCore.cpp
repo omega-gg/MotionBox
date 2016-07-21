@@ -104,7 +104,7 @@ public: // Variables
 //=================================================================================================
 // Private ctor / dtor
 
-ControllerCore::ControllerCore() : WController("ControllerCore")
+ControllerCore::ControllerCore() : WController()
 {
     _cache = NULL;
 

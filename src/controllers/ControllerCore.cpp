@@ -491,25 +491,6 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::itemType(WLibraryFolder * folder, int index) const
-{
-    return folder->itemType(index);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ int ControllerCore::itemState(WLibraryFolder * folder, int index) const
-{
-    return folder->itemState(index);
-}
-
-/* Q_INVOKABLE */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index) const
-{
-    return folder->itemStateQuery(index);
-}
-
-//-------------------------------------------------------------------------------------------------
-
 /* Q_INVOKABLE */ bool ControllerCore::checkUrl(const QString & text) const
 {
     if (textIsUrl(text) || textIsPath(text))
@@ -546,6 +527,25 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE */ int ControllerCore::urlType(const QUrl & url) const
 {
     return wControllerPlaylist->urlType(url);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ int ControllerCore::itemType(WLibraryFolder * folder, int index) const
+{
+    return folder->itemType(index);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ int ControllerCore::itemState(WLibraryFolder * folder, int index) const
+{
+    return folder->itemState(index);
+}
+
+/* Q_INVOKABLE */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index) const
+{
+    return folder->itemStateQuery(index);
 }
 
 //-------------------------------------------------------------------------------------------------

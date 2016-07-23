@@ -52,6 +52,7 @@
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
+#include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WPlaylistNet>
 #include <WTabsTrack>
@@ -487,6 +488,13 @@ ControllerCore::ControllerCore() : WController()
 
         wControllerMedia->setLoader(NULL);
     }
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend) const
+{
+    return new WHookTorrent(backend);
 }
 
 //-------------------------------------------------------------------------------------------------

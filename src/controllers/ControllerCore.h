@@ -30,6 +30,8 @@
 // Forward declarations
 class QNetworkDiskCache;
 class QSize;
+class WAbstractBackend;
+class WAbstractHook;
 class WWindow;
 class WDeclarativeContextualPage;
 class WCache;
@@ -78,6 +80,8 @@ public: // Interface
     Q_INVOKABLE void saveSplash(WWindow * window, int border);
 
     Q_INVOKABLE void applyProxy(bool active);
+
+    Q_INVOKABLE WAbstractHook * createHook(WAbstractBackend * backend) const;
 
     //---------------------------------------------------------------------------------------------
 

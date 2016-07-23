@@ -504,11 +504,17 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ bool ControllerCore::textIsUrl(const QString & text) const
 {
-    if (WControllerNetwork::urlIsFile(text)
-        ||
-        (WControllerNetwork::urlIsHttp(text) && text.contains(' ') == false))
+    if (WControllerNetwork::urlIsFile(text))
     {
-         return true;
+        return true;
+    }
+    else if (WControllerNetwork::urlIsHttp(text) || text.startsWith("www."))
+    {
+        if (text.contains(' '))
+        {
+             return false;
+        }
+        else return true;
     }
     else return false;
 }

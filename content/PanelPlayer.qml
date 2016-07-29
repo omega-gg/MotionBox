@@ -227,6 +227,8 @@ Item
 
             asynchronous: Image.AsynchronousOn
 
+            player.hook: core.createHook(player.backend)
+
             player.shuffle: (player.isPlaying) ? local.shuffle : false
 
             playerMouseArea.anchors.leftMargin: (gui.isExpanded) ? st.dp16 : 0

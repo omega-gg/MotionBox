@@ -30,6 +30,8 @@
 // Forward declarations
 class QNetworkDiskCache;
 class QSize;
+class WAbstractBackend;
+class WAbstractHook;
 class WWindow;
 class WDeclarativeContextualPage;
 class WCache;
@@ -79,10 +81,9 @@ public: // Interface
 
     Q_INVOKABLE void applyProxy(bool active);
 
-    Q_INVOKABLE int itemType(WLibraryFolder * folder, int index) const;
+    Q_INVOKABLE WAbstractHook * createHook(WAbstractBackend * backend) const;
 
-    Q_INVOKABLE int itemState     (WLibraryFolder * folder, int index) const;
-    Q_INVOKABLE int itemStateQuery(WLibraryFolder * folder, int index) const;
+    //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE bool checkUrl(const QString & text) const;
 
@@ -91,12 +92,21 @@ public: // Interface
 
     Q_INVOKABLE int urlType(const QUrl & url) const;
 
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE int itemType(WLibraryFolder * folder, int index) const;
+
+    Q_INVOKABLE int itemState     (WLibraryFolder * folder, int index) const;
+    Q_INVOKABLE int itemStateQuery(WLibraryFolder * folder, int index) const;
+
     Q_INVOKABLE int getPlaylistType(WBackendNet * backend, const QUrl & url) const;
 
     Q_INVOKABLE WLibraryFolder * createFolder  (int type = WLibraryItem::Folder)      const;
     Q_INVOKABLE WPlaylistNet   * createPlaylist(int type = WLibraryItem::PlaylistNet) const;
 
     Q_INVOKABLE int idFromTitle(WLibraryFolder * folder, const QString & title) const;
+
+    //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE void updateCache(WPlaylistNet * playlist, int index) const;
 

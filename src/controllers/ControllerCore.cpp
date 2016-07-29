@@ -52,6 +52,7 @@
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
+#include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WPlaylistNet>
 #include <WTabsTrack>
@@ -104,7 +105,7 @@ public: // Variables
 //=================================================================================================
 // Private ctor / dtor
 
-ControllerCore::ControllerCore() : WController("ControllerCore")
+ControllerCore::ControllerCore() : WController()
 {
     _cache = NULL;
 
@@ -491,21 +492,9 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::itemType(WLibraryFolder * folder, int index) const
+/* Q_INVOKABLE */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend) const
 {
-    return folder->itemType(index);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ int ControllerCore::itemState(WLibraryFolder * folder, int index) const
-{
-    return folder->itemState(index);
-}
-
-/* Q_INVOKABLE */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index) const
-{
-    return folder->itemStateQuery(index);
+    return new WHookTorrent(backend);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -523,11 +512,17 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 
 /* Q_INVOKABLE */ bool ControllerCore::textIsUrl(const QString & text) const
 {
-    if (WControllerNetwork::urlIsFile(text)
-        ||
-        (WControllerNetwork::urlIsHttp(text) && text.contains(' ') == false))
+    if (WControllerNetwork::urlIsFile(text))
     {
-         return true;
+        return true;
+    }
+    else if (WControllerNetwork::urlIsHttp(text) || text.startsWith("www."))
+    {
+        if (text.contains(' '))
+        {
+             return false;
+        }
+        else return true;
     }
     else return false;
 }
@@ -546,6 +541,25 @@ ControllerCore::ControllerCore() : WController("ControllerCore")
 /* Q_INVOKABLE */ int ControllerCore::urlType(const QUrl & url) const
 {
     return wControllerPlaylist->urlType(url);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ int ControllerCore::itemType(WLibraryFolder * folder, int index) const
+{
+    return folder->itemType(index);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ int ControllerCore::itemState(WLibraryFolder * folder, int index) const
+{
+    return folder->itemState(index);
+}
+
+/* Q_INVOKABLE */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index) const
+{
+    return folder->itemStateQuery(index);
 }
 
 //-------------------------------------------------------------------------------------------------

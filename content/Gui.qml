@@ -756,7 +756,7 @@ Item
 
         panelTracks.restore();
 
-        if (wall.isExposed == true || actionCue.tryPush(actionWallExpose)) return;
+        if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
 
         wall.expose();
 

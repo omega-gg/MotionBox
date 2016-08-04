@@ -683,7 +683,8 @@ void ControllerCore::restoreBrowse()
 {
     WLibraryFolder * browse = _hubs->createLibraryItemFromId(1)->toFolder();
 
-    browse->clearItems();
+    browse->clearItems ();
+    browse->clearSource();
 
     browse->tryDelete();
 }

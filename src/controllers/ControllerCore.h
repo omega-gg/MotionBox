@@ -112,6 +112,15 @@ public: // Interface
 
     Q_INVOKABLE void clearCache();
 
+protected: // Events
+    /* virtual */ void timerEvent(QTimerEvent * event);
+
+private: // Functions
+    void createBrowse ();
+    void restoreBrowse();
+
+    void deleteBrowse();
+
 signals:
     void cacheEmptyChanged();
 
@@ -121,15 +130,6 @@ signals:
 
     void dateCoverChanged  ();
     void datePreviewChanged();
-
-protected: // Events
-    /* virtual */ void timerEvent(QTimerEvent * event);
-
-private: // Functions
-    void createBrowse ();
-    void restoreBrowse();
-
-    void deleteBrowse();
 
 public: // Properties
     bool cacheIsEmpty() const;

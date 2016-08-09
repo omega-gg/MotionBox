@@ -110,6 +110,9 @@ public: // WLocalObject reimplementation
 
     /* Q_INVOKABLE virtual */ QString getFilePath() const;
 
+protected: // WLocalObject reimplementation
+    /* virtual */ WAbstractThreadAction * onSave(const QString & path);
+
 signals:
     void scaleChanged();
 
@@ -149,9 +152,6 @@ signals:
 
     void proxyStreamChanged();
     void proxyActiveChanged();
-
-protected: // WLocalObject reimplementation
-    /* virtual */ WAbstractThreadAction * onSave(const QString & path);
 
 public: // Properties
     QString version() const;

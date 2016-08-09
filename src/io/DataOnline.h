@@ -44,11 +44,6 @@ public: // Interface
     Q_INVOKABLE void load       ();
     Q_INVOKABLE void loadMessage();
 
-signals:
-    void dataChanged();
-
-    void messageChanged();
-
 protected: // Events
     /* virtual */ void timerEvent(QTimerEvent * event);
 
@@ -60,6 +55,11 @@ private: // Functions
 private slots:
     void onLoaded       (WRemoteData * data);
     void onLoadedMessage(WRemoteData * data);
+
+signals:
+    void dataChanged();
+
+    void messageChanged();
 
 public: // Properties
     QString version() const;

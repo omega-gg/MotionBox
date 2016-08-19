@@ -24,6 +24,8 @@ Linux and OS-X are coming soon.
 - [Sky](http://omega.gg/Sky/sources) latest version.
 - [Qt](http://download.qt.io/official_releases/qt) 4.8.0 / 5.5.0 or later.
 - [VLC](http://download.videolan.org/pub/videolan/vlc) 2.2.0 or later.
+- [libtorrent](http://github.com/arvidn/libtorrent/releases) 1.1.0 or later.
+- [Boost](http://www.boost.org/users/download) 1.55.0 or later.
 - [OpenSSL](http://www.openssl.org/source) / [Win32OpenSSL](http://slproweb.com/products/Win32OpenSSL.html) 1.0.1 or later.
 
 On Windows:

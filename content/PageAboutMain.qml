@@ -38,7 +38,7 @@ Item
 
     function pLoad(page)
     {
-        // FIXME: Clearing updater before page loading.
+        // FIXME: Clearing the updater before page loading.
         buttonsUpdater.clearActive();
 
         pageAbout.load(Qt.resolvedUrl(page));

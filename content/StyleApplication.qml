@@ -321,7 +321,7 @@ Style
     //---------------------------------------------------------------------------------------------
     // Global
 
-    // FIXME: Workaround for rounding issue.
+    // FIXME: Workaround for the rounding issue.
     scale: local.scale.toFixed(3)
 
     icon: "pictures/icons/icon.svg"

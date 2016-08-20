@@ -2514,7 +2514,7 @@ Item
         {
             areaContextual.hidePanels();
         }
-        // FIXME: Sometimes focus is lost.
+        // FIXME: Sometimes the focus is lost.
         else if (window.getFocus() == false)
         {
             window.clearFocus();

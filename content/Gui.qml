@@ -2984,9 +2984,37 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function pGetCurrentList()
+    {
+        if (listPlaylist.visible && listPlaylist.activeFocus)
+        {
+            return listPlaylist;
+        }
+
+        var list = panelBrowse.listPlaylist;
+
+        if (list.visible && list.activeFocus)
+        {
+            return list;
+        }
+
+        list = panelRelated.list;
+
+        if (list.visible && list.activeFocus)
+        {
+            return list;
+        }
+    }
+
     function pGetCurrentPlaylist()
     {
-        if (currentTab.playlist)
+        var list = pGetCurrentList();
+
+        if (list && list.count)
+        {
+            return list.playlist;
+        }
+        else if (currentTab.playlist)
         {
             return currentTab.playlist;
         }

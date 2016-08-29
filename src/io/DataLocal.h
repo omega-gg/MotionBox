@@ -70,7 +70,7 @@ class DataLocal : public WLocalObject
 
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
 
-    Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)
+    Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged)
 
     Q_PROPERTY(bool shuffle READ shuffle WRITE setShuffle NOTIFY shuffleChanged)
 
@@ -212,8 +212,8 @@ public: // Properties
     WDeclarativePlayer::Repeat repeat() const;
     void                       setRepeat(WDeclarativePlayer::Repeat repeat);
 
-    int  volume() const;
-    void setVolume(int volume);
+    qreal volume() const;
+    void  setVolume(qreal volume);
 
     WAbstractBackend::Quality quality() const;
     void                      setQuality(WAbstractBackend::Quality quality);
@@ -278,7 +278,7 @@ private: // Variables
 
     QString _query;
 
-    int _volume;
+    qreal _volume;
 
     bool                       _shuffle;
     WDeclarativePlayer::Repeat _repeat;

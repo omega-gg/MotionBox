@@ -92,7 +92,7 @@ public: // Variables
 
     QString query;
 
-    int volume;
+    qreal volume;
 
     bool                       shuffle;
     WDeclarativePlayer::Repeat repeat;
@@ -242,7 +242,7 @@ public: // Variables
 
     _typePlaylist = false;
 
-    _volume = 100;
+    _volume = 1.0;
 
     _shuffle = false;
     _repeat  = WDeclarativePlayer::RepeatNone;
@@ -472,7 +472,7 @@ public: // Variables
 
     if (wControllerXml->readNextStartElement(&stream, "volume") == false) return false;
 
-    _volume = wControllerXml->readNextInt(&stream);
+    _volume = wControllerXml->readNextFloat(&stream);
 
     //---------------------------------------------------------------------------------------------
     // shuffle
@@ -898,12 +898,12 @@ void DataLocal::setQuery(const QString & query)
 
 //-------------------------------------------------------------------------------------------------
 
-int DataLocal::volume() const
+qreal DataLocal::volume() const
 {
     return _volume;
 }
 
-void DataLocal::setVolume(int volume)
+void DataLocal::setVolume(qreal volume)
 {
     if (_volume == volume) return;
 

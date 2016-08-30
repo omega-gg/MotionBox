@@ -3002,8 +3002,9 @@ Item
 
         if (list.visible && list.activeFocus)
         {
-            return list;
+             return list;
         }
+        else return null;
     }
 
     function pGetCurrentPlaylist()

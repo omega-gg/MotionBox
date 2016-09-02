@@ -22,7 +22,6 @@
 #include <QProcess>
 #include <QFileDialog>
 #ifdef SK_DEPLOY
-#include <QDeclarativeComponent>
 #include <QDir>
 #ifdef QT_LATEST
 #include <QStandardPaths>

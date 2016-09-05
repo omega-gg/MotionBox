@@ -262,7 +262,7 @@ Item
         {
             visible: scrollFolder.dragAccepted
 
-            opacity: (visible) ? bordersDrop.opacity : 1
+            opacity: (visible) ? bordersDrop.opacity : 1.0
 
             scrollArea: scrollFolder
         }
@@ -463,7 +463,7 @@ Item
         {
             visible: scrollPlaylist.dragAccepted
 
-            opacity: (visible) ? bordersDrop.opacity : 1
+            opacity: (visible) ? bordersDrop.opacity : 1.0
 
             scrollArea: scrollPlaylist
         }

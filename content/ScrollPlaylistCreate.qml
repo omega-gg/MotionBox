@@ -196,6 +196,6 @@ ScrollPlaylist
     {
         id: lineDrop
 
-        opacity: (visible) ? bordersDrop.opacity : 1
+        opacity: (visible) ? bordersDrop.opacity : 1.0
     }
 }

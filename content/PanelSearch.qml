@@ -59,7 +59,7 @@ Panel
 
     z: 1
 
-    opacity: 0
+    opacity: 0.0
 
     enableFocus: false
 
@@ -92,13 +92,13 @@ Panel
 
             action = 0;
 
-            opacity = 1;
+            opacity = 1.0;
         }
         else
         {
             lineEditSearch.clear();
 
-            opacity = 0;
+            opacity = 0.0;
         }
     }
 

@@ -873,7 +873,7 @@ ScrollFolder
     {
         id: lineDrop
 
-        opacity: (visible) ? bordersDrop.opacity : 1
+        opacity: (visible) ? bordersDrop.opacity : 1.0
     }
 
     RectangleBordersDrop
@@ -898,6 +898,6 @@ ScrollFolder
 
         x: (pDropType) ? 0 : st.dp2
 
-        opacity: (visible) ? bordersDrop.opacity : 1
+        opacity: (visible) ? bordersDrop.opacity : 1.0
     }
 }

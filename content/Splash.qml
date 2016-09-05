@@ -144,7 +144,7 @@ MouseArea
             {
                 target: splash
 
-                opacity: 0
+                opacity: 0.0
             }
         }
 

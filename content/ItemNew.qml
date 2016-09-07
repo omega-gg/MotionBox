@@ -118,7 +118,7 @@ Item
             onClicked: switchType()
         }
 
-        LineEditClear
+        EditBox
         {
             id: lineEdit
 
@@ -126,8 +126,6 @@ Item
             anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
-
-            itemFocus.visible: false
 
             function onKeyPressed(event)
             {

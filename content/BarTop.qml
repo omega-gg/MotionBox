@@ -440,7 +440,7 @@ MouseArea
             anchors.left : lineEditSearch.right
             anchors.right: buttons.left
 
-            anchors.rightMargin: buttonAdd.width + st.dp14
+            anchors.rightMargin: buttonAdd.width - buttonAdd.borderRight
 
             visible: (gui.isMini == false)
 
@@ -517,7 +517,7 @@ MouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            anchors.rightMargin: buttonAdd.width + st.dp14
+            anchors.rightMargin: buttonAdd.width - buttonAdd.borderRight
 
             visible: (gui.isMini && lineEditSearch.isFocused == false)
 
@@ -605,22 +605,20 @@ MouseArea
             visible: ((gui.isMini && lineEditSearch.visible) || itemSlide.isAnimated)
         }
 
-        ButtonPushIcon
+        ButtonPianoIcon
         {
             id: buttonAdd
 
-            anchors.verticalCenter: parent.verticalCenter
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-            width : st.dp28
-            height: st.dp28
-
-            x: (gui.isMini) ? itemSlide.x + itemSlide.width    + st.dp2
-                            : itemTabs .x + itemTabs.tabsWidth + st.dp2
+            x: (gui.isMini) ? itemSlide.x + itemSlide.width
+                            : itemTabs .x + itemTabs.tabsWidth
 
             enabled: (tabs.isFull == false)
 
-            icon          : st.icon16x16_add
-            iconSourceSize: st.size16x16
+            icon          : st.icon24x24_addBold
+            iconSourceSize: st.size24x24
 
             Behavior on x
             {

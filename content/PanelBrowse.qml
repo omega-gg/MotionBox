@@ -1213,7 +1213,7 @@ MouseArea
         onPressed: pSelectButton(index)
     }
 
-    ButtonPushIcon
+    ButtonPianoIcon
     {
         id: buttonClear
 
@@ -1223,7 +1223,7 @@ MouseArea
 
         anchors.leftMargin: buttonsBrowse.getWidth()
 
-        width: height
+        width: height + borderSizeWidth
 
         enabled: (buttonsBrowse.count)
 

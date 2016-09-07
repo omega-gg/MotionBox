@@ -240,7 +240,6 @@ Panel
             anchors.bottom: parent.bottom
 
             anchors.leftMargin : -st.dp2
-            anchors.rightMargin:  st.dp2
 
             spacing: st.dp2
 
@@ -275,18 +274,15 @@ Panel
             }
         }
 
-        ButtonPushIcon
+        ButtonPianoIcon
         {
             id: buttonClose
 
-            anchors.right: parent.right
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-            anchors.rightMargin: st.dp2
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            width : st.dp28
-            height: st.dp28
+            borderRight: 0
 
             icon          : st.icon16x16_close
             iconSourceSize: st.size16x16

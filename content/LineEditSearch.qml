@@ -35,7 +35,7 @@ EditBox
 
     width: widthMinimum
 
-    paddingLeft: (isFocused) ? st.dp10 : st.dp28
+    paddingLeft: (isFocused) ? st.baseEdit_padding : st.dp28
 
     textDefault: qsTr("What do you want to watch ?")
 

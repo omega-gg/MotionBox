@@ -989,7 +989,7 @@ MouseArea
             PropertyAnimation { duration: st.duration_fast }
         }
 
-        LineEditClear
+        EditBox
         {
             id: lineEdit
 
@@ -1003,8 +1003,6 @@ MouseArea
             text: pText
 
             textDefault: qsTr("What are you looking for ?")
-
-            itemFocus.visible: false
 
             onTextChanged:
             {

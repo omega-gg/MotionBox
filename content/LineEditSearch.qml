@@ -18,7 +18,7 @@ import QtQuick       1.1
 import Sky           1.0
 import SkyComponents 1.0
 
-LineEditClear
+EditBox
 {
     id: lineEditSearch
 
@@ -35,7 +35,7 @@ LineEditClear
 
     width: widthMinimum
 
-    paddingLeft: (isFocused) ? st.dp10 : st.dp26
+    paddingLeft: (isFocused) ? st.dp10 : st.dp28
 
     textDefault: qsTr("What do you want to watch ?")
 

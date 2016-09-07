@@ -420,8 +420,6 @@ MouseArea
 
             widthMaximum: (gui.isMini) ? borderItem.x : st.dp300
 
-            itemFocus.visible: false
-
             onIsFocusedChanged:
             {
                 if (gui.isMini && isFocused == false)

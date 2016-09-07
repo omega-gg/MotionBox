@@ -145,7 +145,7 @@ Style
     {
         id: lineEditSearch_filterIcon
 
-        color: st.text4_color
+        color: editBox_colorDefault
     }
 
     //---------------------------------------------------------------------------------------------

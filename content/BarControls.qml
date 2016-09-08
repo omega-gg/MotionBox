@@ -145,7 +145,7 @@ MouseArea
 
         BorderHorizontal { color: st.barTitle_colorBorderLine }
 
-        ButtonRound
+        ButtonPushIcon
         {
             id: buttonPrevious
 
@@ -154,6 +154,9 @@ MouseArea
             anchors.leftMargin: (gui.isMini) ? st.dp3 : st.dp6
 
             anchors.verticalCenter: container.verticalCenter
+
+            width : st.dp48
+            height: width
 
             enabled: player.hasPreviousTrack
 
@@ -167,7 +170,7 @@ MouseArea
             onClicked: player.setPreviousTrack()
         }
 
-        ButtonRound
+        ButtonPushIcon
         {
             id: buttonNext
 
@@ -176,6 +179,9 @@ MouseArea
             anchors.leftMargin: -st.dp4
 
             anchors.verticalCenter: container.verticalCenter
+
+            width : st.dp48
+            height: width
 
             enabled: player.hasNextTrack
 
@@ -204,7 +210,7 @@ MouseArea
             }
         }
 
-        ButtonRound
+        ButtonPushIcon
         {
             id: buttonPlay
 
@@ -213,6 +219,9 @@ MouseArea
             anchors.leftMargin: -st.dp4
 
             anchors.verticalCenter: container.verticalCenter
+
+            width : st.dp48
+            height: width
 
             enabled: (player.source != "")
 

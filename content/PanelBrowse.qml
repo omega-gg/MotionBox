@@ -1037,17 +1037,6 @@ MouseArea
                 }
             }
 
-            function onClear()
-            {
-                if (text)
-                {
-                    text = "";
-
-                    local.query = text;
-                }
-                else window.clearFocus();
-            }
-
             function onKeyPressed(event)
             {
                 if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)

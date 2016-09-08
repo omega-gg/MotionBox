@@ -125,7 +125,11 @@ LineEditBox
         {
             event.accepted = true;
 
-            onClear();
+            if (text)
+            {
+                text = "";
+            }
+            else window.clearFocus();
         }
         else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab)
         {

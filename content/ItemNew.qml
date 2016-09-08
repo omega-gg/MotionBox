@@ -31,8 +31,8 @@ Item
     //---------------------------------------------------------------------------------------------
     // Style
 
-    property color colorA: st.buttonPianoEdit_colorPressA
-    property color colorB: st.buttonPianoEdit_colorPressB
+    property color colorA: st.buttonPiano_colorHighlightHoverA
+    property color colorB: st.buttonPiano_colorHighlightHoverB
 
     //---------------------------------------------------------------------------------------------
     // Aliases

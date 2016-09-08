@@ -942,14 +942,26 @@ List
         onPressed: showPanel(indexHover)
     }
 
-    LineEditClear
+    BorderVertical
+    {
+        id: border
+
+        anchors.right : lineEdit.left
+        anchors.top   : lineEdit.top
+        anchors.bottom: lineEdit.bottom
+
+        visible: lineEdit.visible
+    }
+
+    LineEditBox
     {
         id: lineEdit
 
         width : parent.width - x
         height: st.dp32
 
-        x: st.dp32
+        x: st.dp32 + border.size
+
         y: indexEdit * itemSize
 
         visible: (indexEdit != -1)

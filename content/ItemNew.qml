@@ -91,7 +91,7 @@ Item
         {
             anchors.fill: button
 
-            visible: (type == 1)
+            visible: (button.visible == false)
 
             source    : st.icon32x32_folder
             sourceSize: st.size32x32
@@ -116,6 +116,15 @@ Item
                                        : st.icon32x32_playlist
 
             onClicked: switchType()
+        }
+
+        BorderVertical
+        {
+            anchors.right : lineEdit.left
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            visible: (button.visible == false)
         }
 
         LineEditBox

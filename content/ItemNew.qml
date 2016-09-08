@@ -118,7 +118,7 @@ Item
             onClicked: switchType()
         }
 
-        EditBox
+        LineEditBox
         {
             id: lineEdit
 

@@ -390,7 +390,7 @@ Item
 
         anchors.verticalCenter: buttonsScale.verticalCenter
 
-        width: st.dp40
+        width: st.dp46
 
         text: st.scale * 100
 

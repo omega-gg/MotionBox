@@ -940,9 +940,9 @@ MouseArea
         color: st.panelBrowse_colorPlaylist
     }
 
-    ButtonPianoEdit
+    Item
     {
-        id: buttonEdit
+        id: itemEdit
 
         anchors.left : scrollBrowse.left
         anchors.right: scrollBrowse.right
@@ -951,8 +951,6 @@ MouseArea
         anchors.topMargin: (pSearchHidden) ? -height : 0
 
         height: lineEdit.height + borderEdit.size
-
-        lineEdit: lineEdit
 
         states: State { name: "Hidden"; when: pSearchHidden }
 
@@ -968,7 +966,7 @@ MouseArea
                     {
                         if (pSearchHidden)
                         {
-                            buttonEdit.visible = false;
+                            itemEdit.visible = false;
                         }
 
                         panelBrowse.clip = false;
@@ -989,14 +987,12 @@ MouseArea
             PropertyAnimation { duration: st.duration_fast }
         }
 
-        EditBox
+        LineEditBox
         {
             id: lineEdit
 
             anchors.left : parent.left
             anchors.right: parent.right
-
-            isHovered: (containsMouse || buttonEdit.isHovered)
 
             enabled: (pSearchHidden == false)
 
@@ -1507,7 +1503,7 @@ MouseArea
         id: scrollBrowse
 
         anchors.left  : borderHubs.right
-        anchors.top   : buttonEdit.bottom
+        anchors.top   : itemEdit.bottom
         anchors.bottom: parent.bottom
 
         width: widthColum

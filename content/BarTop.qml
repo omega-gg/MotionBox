@@ -398,17 +398,6 @@ MouseArea
             }
         }
 
-        ButtonPianoEdit
-        {
-            id: buttonEdit
-
-            anchors.fill: lineEditSearch
-
-            visible: lineEditSearch.visible
-
-            lineEdit: lineEditSearch
-        }
-
         LineEditSearch
         {
             id: lineEditSearch

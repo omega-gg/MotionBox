@@ -181,12 +181,8 @@ LineEditBox
 
         anchors.right: parent.right
 
-        anchors.rightMargin: st.dp4
-
-        anchors.verticalCenter: parent.verticalCenter
-
-        width : st.dp24
-        height: st.dp24
+        width : st.dp32
+        height: st.dp32
 
         visible: (isFocused == false && panelBrowse.isSelecting && gui.isExpanded)
 

@@ -429,7 +429,7 @@ MouseArea
             anchors.left : lineEditSearch.right
             anchors.right: buttons.left
 
-            anchors.rightMargin: buttonAdd.width - buttonAdd.borderRight
+            anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth
 
             visible: (gui.isMini == false)
 
@@ -506,7 +506,7 @@ MouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            anchors.rightMargin: buttonAdd.width - buttonAdd.borderRight
+            anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth
 
             visible: (gui.isMini && lineEditSearch.isFocused == false)
 
@@ -601,8 +601,10 @@ MouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            x: (gui.isMini) ? itemSlide.x + itemSlide.width
-                            : itemTabs .x + itemTabs.tabsWidth
+            x: (gui.isMini) ? itemSlide.x + itemSlide.width    - borderLeft
+                            : itemTabs .x + itemTabs.tabsWidth - borderLeft
+
+            borderLeft: borderSize
 
             enabled: (tabs.isFull == false)
 

@@ -176,7 +176,7 @@ MouseArea
 
             anchors.left: buttonPlay.right
 
-            anchors.leftMargin: -st.dp4
+            anchors.leftMargin: -st.dp2
 
             anchors.verticalCenter: container.verticalCenter
 
@@ -216,7 +216,7 @@ MouseArea
 
             anchors.left: buttonPrevious.right
 
-            anchors.leftMargin: -st.dp4
+            anchors.leftMargin: -st.dp2
 
             anchors.verticalCenter: container.verticalCenter
 
@@ -243,7 +243,7 @@ MouseArea
 
             anchors.left: buttonNext.right
 
-            anchors.leftMargin: (gui.isMini) ? st.dp7 : st.dp10
+            anchors.leftMargin: (gui.isMini) ? st.dp5 : st.dp8
 
             anchors.verticalCenter: container.verticalCenter
 

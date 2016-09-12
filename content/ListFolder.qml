@@ -946,9 +946,10 @@ List
     {
         id: border
 
-        anchors.right : lineEdit.left
         anchors.top   : lineEdit.top
         anchors.bottom: lineEdit.bottom
+
+        x: st.dp32 + size
 
         visible: lineEdit.visible
     }
@@ -957,10 +958,10 @@ List
     {
         id: lineEdit
 
-        width : parent.width - x
-        height: st.dp32
+        anchors.left : border.right
+        anchors.right: parent.right
 
-        x: st.dp32 + border.size
+        height: st.dp32
 
         y: indexEdit * itemSize
 

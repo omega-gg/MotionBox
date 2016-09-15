@@ -500,6 +500,7 @@ Item
 
         onCurrentTabChanged:
         {
+            barTop      .updateTab();
             panelRelated.updateTab();
 
             loadTabItems(currentTab);
@@ -572,8 +573,6 @@ Item
             }
             else sk.screenSaverEnabled = false;
         }
-
-        onTabChanged: barTop.updateTab()
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1167,6 +1166,8 @@ Item
 
         window.visible = true;
 
+        barTop.updateTab();
+
         wall.updateView();
 
         wall.enableAnimation = true;
@@ -1243,7 +1244,9 @@ Item
 
         window.resizeHeight(window.minimumHeight, true);
 
-        startActionCue(st.duration_fast);
+        barTop.updateTab();
+
+        startActionCue(st.duration_normal);
 
         local.micro = true;
     }
@@ -1258,7 +1261,9 @@ Item
 
         window.resizeHeight(window.minimumHeight + st.dp2 + st.dp270, true);
 
-        startActionCue(st.duration_fast);
+        barTop.updateTab();
+
+        startActionCue(st.duration_normal);
 
         local.micro = false;
     }
@@ -2941,6 +2946,8 @@ Item
             isMicro = false;
 
             window.height = window.minimumHeight + st.dp2 + st.dp270;
+
+            barTop.updateTab();
         }
         else pMiniMicro = false;
 

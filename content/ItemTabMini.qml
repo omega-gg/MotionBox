@@ -24,7 +24,7 @@ ItemTab
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool isHighlighted: (highlightedTab != null)
+    property bool isHighlighted: (tab == highlightedTab)
 
     property bool isContextualHovered: (containsMouse && buttonsItem.checked)
 

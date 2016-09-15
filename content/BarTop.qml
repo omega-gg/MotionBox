@@ -147,7 +147,13 @@ MouseArea
 
     function closeCurrentTab()
     {
-        itemTabs.closeCurrentTab();
+        if (gui.isMini)
+        {
+            var index = tabs.indexOf(itemTab.tab);
+
+            itemTabs.closeTab(index);
+        }
+        else itemTabs.closeCurrentTab();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -176,7 +182,7 @@ MouseArea
 
             if (actionCue.tryPush(actionTabContextual)) return;
 
-            panelContextual.loadPageTab(currentTab);
+            panelContextual.loadPageTab(itemTab.tab);
 
             areaContextual.showPanelFrom(panelContextual, itemTab);
 
@@ -202,19 +208,39 @@ MouseArea
 
     function updateTab()
     {
-        if (gui.isMini)
+        if (gui.isMicro)
         {
-            var index = tabs.indexOf(pTab);
+            var indexA = tabs.indexOf(pTab);
+
+            var indexB = player.tabIndex;
+
+            if (indexA == indexB) return;
+
+            if (indexA < indexB)
+            {
+                 itemSlide.slideLeft();
+            }
+            else itemSlide.slideRight();
 
             pTab = playerTab;
-
-            if (index > player.tabIndex)
-            {
-                 itemSlide.slideRight();
-            }
-            else itemSlide.slideLeft();
         }
-        else pTab = playerTab;
+        else if (gui.isMini)
+        {
+            /* var */ indexA = tabs.indexOf(pTab);
+
+            /* var */ indexB = tabs.currentIndex;
+
+            if (indexA == indexB) return;
+
+            if (indexA < indexB)
+            {
+                 itemSlide.slideLeft();
+            }
+            else itemSlide.slideRight();
+
+            pTab = currentTab;
+        }
+        else pTab = currentTab;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -516,8 +542,6 @@ MouseArea
 
                 anchors.fill: parent
 
-                tab: playerTab
-
                 textMargin: (buttonsItem.visible) ? st.dp60 : st.dp8
 
                 onPressed:
@@ -536,12 +560,10 @@ MouseArea
                 {
                     if (mouse.button & Qt.LeftButton)
                     {
-                        if (highlightedTab)
+                        if (gui.isMicro)
                         {
-                            tabs.currentTab = highlightedTab;
+                            gui.restoreMicro();
                         }
-
-                        wall.updateCurrentPage();
                     }
                     else if (mouse.button & Qt.MiddleButton)
                     {
@@ -551,13 +573,11 @@ MouseArea
 
                 onDoubleClicked:
                 {
-                    if ((mouse.button & Qt.LeftButton) == false
-                        ||
-                        highlightedTab) return;
+                    if ((mouse.button & Qt.LeftButton) == false || isMicro) return;
 
-                    if (isMicro)
+                    if (highlightedTab)
                     {
-                         gui.restoreMicro();
+                        playerBrowser.play();
                     }
                     else gui.playTab();
                 }

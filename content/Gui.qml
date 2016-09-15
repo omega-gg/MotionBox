@@ -107,9 +107,10 @@ Item
     /* read */ property int actionMicroExpose : 27
     /* read */ property int actionMicroRestore: 28
 
-    /* read */ property int actionTabContextual: 29
+    /* read */ property int actionTabOpen: 29
+    /* read */ property int actionTabMenu: 30
 
-    /* read */ property int actionZoom: 30
+    /* read */ property int actionZoom: 31
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -2221,7 +2222,11 @@ Item
 
                 restoreBars();
 
-                itemTabs.selectPrevious();
+                if (isMicro)
+                {
+                    restoreMicro();
+                }
+                else itemTabs.selectPrevious();
             }
             else if (event.modifiers == (Qt.ControlModifier | Qt.AltModifier))
             {
@@ -2238,7 +2243,11 @@ Item
 
                 restoreBars();
 
-                itemTabs.selectNext();
+                if (isMicro)
+                {
+                    restoreMicro();
+                }
+                else itemTabs.selectNext();
             }
             else if (event.modifiers == (Qt.ControlModifier | Qt.AltModifier))
             {
@@ -3086,53 +3095,54 @@ Item
 
         onProcessAction:
         {
-            if      (id == actionExpand)            expand ();
-            else if (id == actionRestore)           restore();
+            if      (id == actionExpand)  expand ();
+            else if (id == actionRestore) restore();
 
-            else if (id == actionWallExpose)        exposeWall ();
-            else if (id == actionWallRestore)       restoreWall();
+            else if (id == actionWallExpose)  exposeWall ();
+            else if (id == actionWallRestore) restoreWall();
 
-            else if (id == actionRelatedExpose)     panelRelated.expose  ();
-            else if (id == actionRelatedCollapse)   panelRelated.collapse();
-            else if (id == actionRelatedExpand)     panelRelated.expand  ();
-            else if (id == actionRelatedRestore)    panelRelated.restore ();
+            else if (id == actionRelatedExpose)   panelRelated.expose  ();
+            else if (id == actionRelatedCollapse) panelRelated.collapse();
+            else if (id == actionRelatedExpand)   panelRelated.expand  ();
+            else if (id == actionRelatedRestore)  panelRelated.restore ();
 
-            else if (id == actionBarsExpand)        expandBars ();
-            else if (id == actionBarsRestore)       restoreBars();
+            else if (id == actionBarsExpand)  expandBars ();
+            else if (id == actionBarsRestore) restoreBars();
 
-            else if (id == actionTracksExpand)      panelTracks.expand ();
-            else if (id == actionTracksRestore)     panelTracks.restore();
+            else if (id == actionTracksExpand)  panelTracks.expand ();
+            else if (id == actionTracksRestore) panelTracks.restore();
 
-            else if (id == actionBrowseExpose)      panelBrowse.expose  ();
-            else if (id == actionBrowseCollapse)    panelBrowse.collapse();
+            else if (id == actionBrowseExpose)   panelBrowse.expose  ();
+            else if (id == actionBrowseCollapse) panelBrowse.collapse();
 
-            else if (id == actionAddShow)           panelAddShow();
-            else if (id == actionAddHide)           panelAddHide();
+            else if (id == actionAddShow) panelAddShow();
+            else if (id == actionAddHide) panelAddHide();
 
-            else if (id == actionSettingsExpose)    panelSettings.expose  ();
-            else if (id == actionSettingsCollapse)  panelSettings.collapse();
+            else if (id == actionSettingsExpose)   panelSettings.expose  ();
+            else if (id == actionSettingsCollapse) panelSettings.collapse();
 
-            else if (id == actionShareExpose)       panelShare.expose  ();
-            else if (id == actionShareCollapse)     panelShare.collapse();
+            else if (id == actionShareExpose)   panelShare.expose  ();
+            else if (id == actionShareCollapse) panelShare.collapse();
 
-            else if (id == actionSearchExpose)      lineEditSearch.focus();
+            else if (id == actionSearchExpose) lineEditSearch.focus();
 
-            else if (id == actionExposeMaximize)    exposeMaximize ();
-            else if (id == actionRestoreMaximize)   restoreMaximize();
+            else if (id == actionExposeMaximize)  exposeMaximize ();
+            else if (id == actionRestoreMaximize) restoreMaximize();
 
             else if (id == actionExposeFullScreen)  exposeFullScreen ();
             else if (id == actionRestoreFullScreen) restoreFullScreen();
 
-            else if (id == actionMiniExpose)        exposeMini ();
-            else if (id == actionMiniRestore)       restoreMini();
+            else if (id == actionMiniExpose)  exposeMini ();
+            else if (id == actionMiniRestore) restoreMini();
 
-            else if (id == actionMicroExpose)       exposeMicro ();
-            else if (id == actionMicroRestore)      restoreMicro();
+            else if (id == actionMicroExpose)  exposeMicro ();
+            else if (id == actionMicroRestore) restoreMicro();
 
-            else if (id == actionTabContextual)     barTop.showCurrentTabMenu();
+            else if (id == actionTabOpen) barTop.openTab           ();
+            else if (id == actionTabMenu) barTop.showCurrentTabMenu();
 
-            else if (id == actionZoom)              zoom(pZoomScale, pZoomX, pZoomY,
-                                                         pZoomDuration, pZoomEasing, pZoomAfter);
+            else if (id == actionZoom) zoom(pZoomScale, pZoomX, pZoomY, pZoomDuration, pZoomEasing,
+                                            pZoomAfter);
         }
 
         onActiveChanged:

@@ -136,14 +136,23 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
+    function openTab()
+    {
+        return openTabPlaylist(currentPlaylist);
+    }
+
     function openTabPlaylist(playlist)
     {
-        if (tabs.isFull) return false;
+        if (tabs.isFull == false)
+        {
+            pOpenTabPlaylist(playlist);
 
-        pOpenTabPlaylist(playlist);
-
-        return true;
+            return true;
+        }
+        else return false;
     }
+
+    //---------------------------------------------------------------------------------------------
 
     function closeCurrentTab()
     {
@@ -152,6 +161,8 @@ MouseArea
             var index = tabs.indexOf(itemTab.tab);
 
             itemTabs.closeTab(index);
+
+            updateTab();
         }
         else itemTabs.closeCurrentTab();
     }
@@ -180,7 +191,7 @@ MouseArea
         {
             gui.restoreMicro();
 
-            if (actionCue.tryPush(actionTabContextual)) return;
+            if (actionCue.tryPush(actionTabMenu)) return;
 
             panelContextual.loadPageTab(itemTab.tab);
 
@@ -248,6 +259,10 @@ MouseArea
 
     function pOpenTabPlaylist(playlist)
     {
+        gui.restoreMicro();
+
+        if (actionCue.tryPush(actionTabOpen)) return;
+
         var index;
 
         if (playlist) index = playlist.lastSelected;
@@ -311,6 +326,8 @@ MouseArea
         gui.setCurrentTrack(playlist, playlistIndex);
 
         wall.asynchronous = Image.AsynchronousOn;
+
+        startActionCue(st.duration_normal);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -499,14 +516,14 @@ MouseArea
 
                 if (lineEditSearch.width != lineEditSearch.widthMinimum)
                 {
-                    if (actionCue.tryPush(actionTabContextual)) return;
+                    if (actionCue.tryPush(actionTabMenu)) return;
 
                     startActionCue(st.duration_faster);
 
                     pContextualTab  = tab;
                     pContextualItem = itemHovered;
 
-                    actionCue.tryPush(actionTabContextual);
+                    actionCue.tryPush(actionTabMenu);
 
                     return;
                 }
@@ -642,7 +659,7 @@ MouseArea
             {
                 if (gui.isMini) window.clearFocus();
 
-                pOpenTabPlaylist(currentPlaylist);
+                openTab();
             }
         }
 

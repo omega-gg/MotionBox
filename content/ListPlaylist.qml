@@ -821,10 +821,7 @@ List
 
     function selectedItemY()
     {
-        if (playlist == null)
-        {
-            return -1;
-        }
+        if (playlist == null) return -1;
 
         var index = playlist.lastSelected;
 

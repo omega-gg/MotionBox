@@ -59,8 +59,11 @@ ComponentLibraryItem
     {
         if (isActive)
         {
-            if (player.isPaused) return st.icon24x24_pause;
-            else                 return st.icon24x24_play;
+            if (player.isPaused)
+            {
+                 return st.icon24x24_pause;
+            }
+            else return st.icon24x24_play;
         }
         else if (type == LibraryItem.PlaylistNet)
         {

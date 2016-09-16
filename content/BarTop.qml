@@ -143,13 +143,11 @@ MouseArea
 
     function openTabPlaylist(playlist)
     {
-        if (tabs.isFull == false)
-        {
-            pOpenTabPlaylist(playlist);
+        if (tabs.isFull) return false;
 
-            return true;
-        }
-        else return false;
+        pOpenTabPlaylist(playlist);
+
+        return true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -315,11 +313,11 @@ MouseArea
             }
             else playlistIndex = 0;
         }
-        else
+        else if (index != -1)
         {
-            if (index != -1) playlistIndex = index;
-            else             playlistIndex = 0;
+             playlistIndex = index;
         }
+        else playlistIndex = 0;
 
         wall.asynchronous = Image.AsynchronousOff;
 
@@ -559,6 +557,8 @@ MouseArea
 
                 anchors.fill: parent
 
+                tab: currentTab
+
                 textMargin: (buttonsItem.visible) ? st.dp60 : st.dp8
 
                 onPressed:
@@ -577,7 +577,7 @@ MouseArea
                 {
                     if (mouse.button & Qt.LeftButton)
                     {
-                        if (gui.isMicro)
+                        if (isHighlighted)
                         {
                             gui.restoreMicro();
                         }
@@ -590,11 +590,11 @@ MouseArea
 
                 onDoubleClicked:
                 {
-                    if ((mouse.button & Qt.LeftButton) == false || isMicro) return;
+                    if ((mouse.button & Qt.LeftButton) == false) return;
 
-                    if (highlightedTab)
+                    if (gui.isMicro)
                     {
-                        playerBrowser.play();
+                         gui.restoreMicro();
                     }
                     else gui.playTab();
                 }
@@ -659,7 +659,7 @@ MouseArea
             {
                 if (gui.isMini) window.clearFocus();
 
-                openTab();
+                pOpenTabPlaylist(currentPlaylist);
             }
         }
 

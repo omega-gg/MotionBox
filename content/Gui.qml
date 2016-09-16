@@ -95,11 +95,11 @@ Item
 
     /* read */ property int actionSearchExpose: 20
 
-    /* read */ property int actionExposeMaximize : 21
-    /* read */ property int actionRestoreMaximize: 22
+    /* read */ property int actionMaximizeExpose : 21
+    /* read */ property int actionMaximizeRestore: 22
 
-    /* read */ property int actionExposeFullScreen : 23
-    /* read */ property int actionRestoreFullScreen: 24
+    /* read */ property int actionFullScreenExpose : 23
+    /* read */ property int actionFullScreenRestore: 24
 
     /* read */ property int actionMiniExpose : 25
     /* read */ property int actionMiniRestore: 26
@@ -907,7 +907,7 @@ Item
 
     function exposeMaximize()
     {
-        if (window.maximized || actionCue.tryPush(actionExposeMaximize)) return;
+        if (window.maximized || actionCue.tryPush(actionMaximizeExpose)) return;
 
         wall.clearDrag();
 
@@ -947,7 +947,7 @@ Item
 
     function restoreMaximize()
     {
-        if (window.maximized == false || actionCue.tryPush(actionRestoreMaximize)) return;
+        if (window.maximized == false || actionCue.tryPush(actionMaximizeRestore)) return;
 
         pMini = false;
 
@@ -978,7 +978,7 @@ Item
 
     function exposeFullScreen()
     {
-        if (window.fullScreen || actionCue.tryPush(actionExposeFullScreen)) return;
+        if (window.fullScreen || actionCue.tryPush(actionFullScreenExpose)) return;
 
         wall.clearDrag();
 
@@ -1018,7 +1018,7 @@ Item
 
     function restoreFullScreen()
     {
-        if (window.fullScreen == false || actionCue.tryPush(actionRestoreFullScreen)) return;
+        if (window.fullScreen == false || actionCue.tryPush(actionFullScreenRestore)) return;
 
         if (pMini)
         {
@@ -1146,6 +1146,8 @@ Item
             isMicro = true;
 
             window.height = height;
+
+            barTop.updateTab();
         }
         else window.height = height + st.dp2 + st.dp270;
 
@@ -1166,8 +1168,6 @@ Item
         restoreEdit();
 
         window.visible = true;
-
-        barTop.updateTab();
 
         wall.updateView();
 
@@ -1608,16 +1608,22 @@ Item
     {
         var list = getListFolder(folder);
 
-        if (list) return list.scrollArea;
-        else      return null;
+        if (list)
+        {
+             return list.scrollArea;
+        }
+        else return null;
     }
 
     function getScrollPlaylist(playlist)
     {
         var list = getListPlaylist(playlist);
 
-        if (list) return list.scrollArea;
-        else      return null;
+        if (list)
+        {
+             return list.scrollArea;
+        }
+        else return null;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3126,11 +3132,11 @@ Item
 
             else if (id == actionSearchExpose) lineEditSearch.focus();
 
-            else if (id == actionExposeMaximize)  exposeMaximize ();
-            else if (id == actionRestoreMaximize) restoreMaximize();
+            else if (id == actionMaximizeExpose)  exposeMaximize ();
+            else if (id == actionMaximizeRestore) restoreMaximize();
 
-            else if (id == actionExposeFullScreen)  exposeFullScreen ();
-            else if (id == actionRestoreFullScreen) restoreFullScreen();
+            else if (id == actionFullScreenExpose)  exposeFullScreen ();
+            else if (id == actionFullScreenRestore) restoreFullScreen();
 
             else if (id == actionMiniExpose)  exposeMini ();
             else if (id == actionMiniRestore) restoreMini();

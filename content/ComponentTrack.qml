@@ -55,8 +55,11 @@ ComponentLibraryItem
     {
         if (isCurrent)
         {
-            if (player.isPaused) return st.icon24x24_pause;
-            else                 return st.icon24x24_play;
+            if (player.isPaused)
+            {
+                 return st.icon24x24_pause;
+            }
+            else return st.icon24x24_play;
         }
         else return st.icon42x32_track;
     }

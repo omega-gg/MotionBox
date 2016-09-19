@@ -408,6 +408,12 @@ MouseArea
         {
             pSearchStart();
         }
+        else if (pItemBrowse.queryIsLoading)
+        {
+            pLoading = false;
+
+            pInitSearch(pQuery);
+        }
     }
 
     function pSearchStart()
@@ -434,14 +440,19 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pStartSearch(query)
+    function pInitSearch(query)
     {
-        pHideCompletion();
-
         local.query = panelBrowse.query;
 
         isSearching = true;
         isSelecting = pSelect;
+    }
+
+    function pStartSearch(query)
+    {
+        pHideCompletion();
+
+        pInitSearch(query);
 
         var source;
 

@@ -557,8 +557,6 @@ MouseArea
 
                 anchors.fill: parent
 
-                tab: currentTab
-
                 textMargin: (buttonsItem.visible) ? st.dp60 : st.dp8
 
                 onPressed:

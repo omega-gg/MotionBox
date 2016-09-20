@@ -39,7 +39,7 @@ Stand United.
 
 ## Changelog
 
-- 1.1.2: [Improved interface, fast startup, wide edit box](documents/changes/1.1.2.html).
+- 1.1.2: [Improved interface, fast startup, wide search bars](documents/changes/1.1.2.html).
 
 - 1.1.1: [Buttons highlight, cleaner interface, components style](documents/changes/1.1.1.html).
 

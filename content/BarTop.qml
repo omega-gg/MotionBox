@@ -263,8 +263,11 @@ MouseArea
 
         var index;
 
-        if (playlist) index = playlist.lastSelected;
-        else          index = -1;
+        if (playlist)
+        {
+             index = playlist.lastSelected;
+        }
+        else index = -1;
 
         var samePlaylist;
 

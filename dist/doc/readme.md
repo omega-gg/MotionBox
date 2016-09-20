@@ -26,7 +26,7 @@ I'm building a Video Browser for you.
 
 MotionBox is a [distributist][Distributism] tool:
 
-Only your [support][Support MotionBox] can make the difference.
+Your [support][Support MotionBox] will make a difference.
 
 Let's build a Video Browser together.
 
@@ -38,6 +38,8 @@ Stand United.
 
 
 ## Changelog
+
+- 1.1.2: [Improved interface, fast startup, wide edit box](documents/changes/1.1.2.html).
 
 - 1.1.1: [Buttons highlight, cleaner interface, components style](documents/changes/1.1.1.html).
 

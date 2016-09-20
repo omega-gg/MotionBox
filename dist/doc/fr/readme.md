@@ -39,6 +39,8 @@ Singulier en Unité.
 
 ## Historique
 
+- 1.1.2: [Amélioration de l'interface, démarrage rapide, grandes zones de texte](../changes/1.1.2.html).
+
 - 1.1.1: [Surbrillance des boutons, clarté de l'interface, style des composants](../changes/1.1.1.html).
 
 - 1.1.0: [Navigateur de tracks complet, chargement dynamique, fichiers vidéo](../changes/1.1.0.html).

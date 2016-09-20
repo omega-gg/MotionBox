@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.1.1
+# [MotionBox] - alpha 1.1.2
 
 ### english / [français](documents/fr/Readme.html)
 

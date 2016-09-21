@@ -383,6 +383,8 @@ Panel
 
         onTriggered:
         {
+            stop();
+
             interval = 0;
 
             pRefresh();

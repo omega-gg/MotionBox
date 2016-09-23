@@ -285,7 +285,12 @@ MouseArea
         }
         else if (itemTabs.openTab() == false) return;
 
-        if (playlist == null || playlist.isEmpty) return;
+        if (playlist == null || playlist.isEmpty)
+        {
+            startActionCue(st.duration_normal);
+
+            return;
+        }
 
         var playlistIndex;
 

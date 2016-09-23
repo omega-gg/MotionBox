@@ -62,6 +62,7 @@ OTHER_FILES += configure.sh \
                deploy.sh \
                README.md \
                LICENSE.md \
+               AUTHORS.md \
                content/text/credits.txt \
                content/Main.qml \
                content/StyleApplication.qml \

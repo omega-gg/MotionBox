@@ -312,19 +312,19 @@ AreaContextual
         {
             pItem = tab;
 
-            pageTab.setItemEnabled(1, tab.isValid);
+            pageTab.setItemEnabled(2, tab.isValid);
 
             if (tabs.count > 1)
-            {
-                 pageTab.setItemEnabled(2, true);
-            }
-            else pageTab.setItemEnabled(2, false);
-
-            if (tabs.count > 1 || currentTab.isValid)
             {
                  pageTab.setItemEnabled(3, true);
             }
             else pageTab.setItemEnabled(3, false);
+
+            if (tabs.count > 1 || currentTab.isValid)
+            {
+                 pageTab.setItemEnabled(4, true);
+            }
+            else pageTab.setItemEnabled(4, false);
 
             if (tab.isValid)
             {
@@ -334,11 +334,11 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTab.set(4, { "title": gui.getOpenTitle(pSource) });
+                    pageTab.set(5, { "title": gui.getOpenTitle(pSource) });
 
-                    pageTab.setItemVisible(4, true);
+                    pageTab.setItemVisible(5, true);
                 }
-                else pageTab.setItemVisible(4, false);
+                else pageTab.setItemVisible(5, false);
 
                 pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
 
@@ -350,7 +350,7 @@ AreaContextual
                 pAuthor = "";
                 pFeed   = "";
 
-                pageTab.setItemVisible(4, false);
+                pageTab.setItemVisible(5, false);
             }
 
             listContextual.currentPage = pageTab;
@@ -376,7 +376,7 @@ AreaContextual
 
                 panelBrowse.browse(title);
             }
-            if (id == 1) // Play
+            else if (id == 1) // Play
             {
                 gui.playItem(pItem.folder, pIndex);
             }
@@ -492,7 +492,11 @@ AreaContextual
 
         function onTabClicked(id)
         {
-            if (id == 0) // Add to ...
+            if (id == 0) // Browse
+            {
+                panelBrowse.browse(pItem.title);
+            }
+            else if (id == 1) // Add to ...
             {
                 var playlist = pItem.playlist;
 
@@ -510,7 +514,7 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 1) // Close other tabs
+            else if (id == 2) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -518,7 +522,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 2) // Close all tabs
+            else if (id == 3) // Close all tabs
             {
                 wall.enableAnimation = false;
 
@@ -526,7 +530,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 3) // Webpage
+            else if (id == 4) // Webpage
             {
                 gui.openSource(pItem.source);
             }
@@ -701,13 +705,16 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Tab") },
 
-                    { "id": 0, "icon"    : st.icon24x24_addIn,
+                    { "id": 0, "icon"    : st.icon24x24_goRelated,
+                               "iconSize": st.size24x24, "title": qsTr("Browse") },
+
+                    { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 1, "title": qsTr("Close other Tabs") },
-                    { "id": 2, "title": qsTr("Close all Tabs")   },
+                    { "id": 2, "title": qsTr("Close other Tabs") },
+                    { "id": 3, "title": qsTr("Close all Tabs")   },
 
-                    { "id": 3, "icon"    : st.icon16x16_external,
+                    { "id": 4, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") }
                 ]
             }

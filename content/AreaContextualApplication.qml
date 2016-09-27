@@ -148,61 +148,61 @@ AreaContextual
                 if (type == LibraryItem.PlaylistNet)
                 {
                     pageFolder.set(0, { "title": qsTr("Playlist")        });
-                    pageFolder.set(6, { "title": qsTr("Remove Playlist") });
+                    pageFolder.set(7, { "title": qsTr("Remove Playlist") });
 
-                    pageFolder.setItemVisible(1, pCheckPlay(folder, index));
-                    pageFolder.setItemVisible(3, true);
+                    pageFolder.setItemVisible(2, pCheckPlay(folder, index));
+                    pageFolder.setItemVisible(4, true);
 
                     if (local)
                     {
-                        pageFolder.set(6, { "title": qsTr("Delete Playlist") });
+                        pageFolder.set(7, { "title": qsTr("Delete Playlist") });
 
-                        pageFolder.setItemVisible(2, true);
-                        pageFolder.setItemVisible(5, false);
+                        pageFolder.setItemVisible(3, true);
+                        pageFolder.setItemVisible(6, false);
                     }
                     else
                     {
-                        pageFolder.set(6, { "title": qsTr("Remove Playlist") });
+                        pageFolder.set(7, { "title": qsTr("Remove Playlist") });
 
-                        pageFolder.setItemVisible(2, false);
-                        pageFolder.setItemVisible(5, true);
+                        pageFolder.setItemVisible(3, false);
+                        pageFolder.setItemVisible(6, true);
                     }
                 }
                 else if (type == LibraryItem.PlaylistFeed)
                 {
                     pageFolder.set(0, { "title": qsTr("Feed") });
 
-                    pageFolder.setItemVisible(1, pCheckPlay(folder, index));
-                    pageFolder.setItemVisible(3, true);
+                    pageFolder.setItemVisible(2, pCheckPlay(folder, index));
+                    pageFolder.setItemVisible(4, true);
 
                     if (local)
                     {
-                        pageFolder.set(6, { "title": qsTr("Delete Feed") });
+                        pageFolder.set(7, { "title": qsTr("Delete Feed") });
 
-                        pageFolder.setItemVisible(2, true);
-                        pageFolder.setItemVisible(5, false);
+                        pageFolder.setItemVisible(3, true);
+                        pageFolder.setItemVisible(6, false);
                     }
                     else
                     {
-                        pageFolder.set(6, { "title": qsTr("Remove Feed") });
+                        pageFolder.set(7, { "title": qsTr("Remove Feed") });
 
-                        pageFolder.setItemVisible(2, false);
-                        pageFolder.setItemVisible(5, true);
+                        pageFolder.setItemVisible(3, false);
+                        pageFolder.setItemVisible(6, true);
                     }
                 }
                 else
                 {
                     pageFolder.set(0, { "title": qsTr("Folder")        });
-                    pageFolder.set(6, { "title": qsTr("Delete Folder") });
+                    pageFolder.set(7, { "title": qsTr("Delete Folder") });
 
-                    pageFolder.setItemVisible(1, false);
-                    pageFolder.setItemVisible(2, true);
-                    pageFolder.setItemVisible(3, false);
-                    pageFolder.setItemVisible(5, false);
+                    pageFolder.setItemVisible(2, false);
+                    pageFolder.setItemVisible(3, true);
+                    pageFolder.setItemVisible(4, false);
+                    pageFolder.setItemVisible(6, false);
                 }
 
-                pageFolder.setItemVisible(4, false);
-                pageFolder.setItemVisible(6, true);
+                pageFolder.setItemVisible(5, false);
+                pageFolder.setItemVisible(7, true);
             }
             else
             {
@@ -210,37 +210,37 @@ AreaContextual
                 {
                     pageFolder.set(0, { "title": qsTr("Playlist") });
 
-                    pageFolder.setItemVisible(1, pCheckPlay(folder, index));
-                    pageFolder.setItemVisible(4, true);
+                    pageFolder.setItemVisible(2, pCheckPlay(folder, index));
+                    pageFolder.setItemVisible(5, true);
                 }
                 else if (type == LibraryItem.PlaylistFeed)
                 {
                     pageFolder.set(0, { "title": qsTr("Feed") });
 
-                    pageFolder.setItemVisible(1, pCheckPlay(folder, index));
-                    pageFolder.setItemVisible(4, true);
+                    pageFolder.setItemVisible(2, pCheckPlay(folder, index));
+                    pageFolder.setItemVisible(5, true);
                 }
                 else
                 {
                     pageFolder.set(0, { "title": qsTr("Folder") });
 
-                    pageFolder.setItemVisible(1, false);
-                    pageFolder.setItemVisible(4, false);
+                    pageFolder.setItemVisible(2, false);
+                    pageFolder.setItemVisible(5, false);
                 }
 
-                pageFolder.setItemVisible(2, false);
                 pageFolder.setItemVisible(3, false);
-                pageFolder.setItemVisible(6, false);
+                pageFolder.setItemVisible(4, false);
+                pageFolder.setItemVisible(7, false);
 
                 if (local == false)
                 {
                     var source = folder.itemSource(index);
 
-                    pageFolder.set(5, { "title": gui.getOpenTitle(source) });
+                    pageFolder.set(6, { "title": gui.getOpenTitle(source) });
 
-                    pageFolder.setItemVisible(5, true);
+                    pageFolder.setItemVisible(6, true);
                 }
-                else pageFolder.setItemVisible(5, false);
+                else pageFolder.setItemVisible(6, false);
             }
 
             listContextual.currentPage = pageFolder;
@@ -370,15 +370,21 @@ AreaContextual
 
         function onFolderClicked(id)
         {
-            if (id == 0) // Play
+            if (id == 0) // Browse
+            {
+                var title = pItem.folder.itemTitle(pIndex);
+
+                panelBrowse.browse(title);
+            }
+            if (id == 1) // Play
             {
                 gui.playItem(pItem.folder, pIndex);
             }
-            else if (id == 1) // Rename
+            else if (id == 2) // Rename
             {
                 pItem.renameItem(pIndex);
             }
-            else if (id == 2) // Move to ...
+            else if (id == 3) // Move to ...
             {
                 panelAdd.setSource(2, pItem.folder, pIndex);
 
@@ -386,7 +392,7 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 3) // Add to ...
+            else if (id == 4) // Add to ...
             {
                 panelAdd.setSource(1, pItem.folder, pIndex);
 
@@ -394,13 +400,13 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 4) // Webpage
+            else if (id == 5) // Webpage
             {
                 var source = pItem.folder.itemSource(pIndex);
 
                 gui.openSource(source);
             }
-            else if (id == 5) // Remove
+            else if (id == 6) // Remove
             {
                 pItem.removeItem(pIndex, true);
             }
@@ -619,20 +625,23 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category },
 
-                    { "id": 0, "icon"    : st.icon24x24_play,
+                    { "id": 0, "icon"    : st.icon24x24_goRelated,
+                               "iconSize": st.size24x24, "title": qsTr("Browse") },
+
+                    { "id": 1, "icon"    : st.icon24x24_play,
                                "iconSize": st.size24x24, "title": qsTr("Play") },
 
-                    { "id": 1, "title": qsTr("Rename") },
+                    { "id": 2, "title": qsTr("Rename") },
 
-                    { "id": 2, "title": qsTr("Move to ...") },
+                    { "id": 3, "title": qsTr("Move to ...") },
 
-                    { "id": 3, "icon"    : st.icon24x24_addIn,
+                    { "id": 4, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 4, "icon"    : st.icon16x16_external,
+                    { "id": 5, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
-                    { "id": 5, "type": ContextualPage.ItemConfirm }
+                    { "id": 6, "type": ContextualPage.ItemConfirm }
                 ]
             }
 

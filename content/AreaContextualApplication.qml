@@ -277,13 +277,13 @@ AreaContextual
             {
                 if (playlist.isLocal)
                 {
-                    pageTrack.setItemVisible(3, true);
-                    pageTrack.setItemVisible(5, true);
+                    pageTrack.setItemVisible(4, true);
+                    pageTrack.setItemVisible(6, true);
                 }
                 else
                 {
-                    pageTrack.setItemVisible(3, false);
-                    pageTrack.setItemVisible(5, false);
+                    pageTrack.setItemVisible(4, false);
+                    pageTrack.setItemVisible(6, false);
                 }
 
                 pData = playlist.trackData(index);
@@ -292,11 +292,11 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTrack.set(4, { "title": gui.getOpenTitle(pSource) });
+                    pageTrack.set(5, { "title": gui.getOpenTitle(pSource) });
 
-                    pageTrack.setItemVisible(4, true);
+                    pageTrack.setItemVisible(5, true);
                 }
-                else pageTrack.setItemVisible(4, false);
+                else pageTrack.setItemVisible(5, false);
 
                 pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
 
@@ -412,11 +412,17 @@ AreaContextual
 
         function onTrackClicked(id)
         {
-            if (id == 0) // Play
+            if (id == 0) // Browse
+            {
+                var title = pItem.playlist.trackTitle(pIndex);
+
+                panelBrowse.browse(title);
+            }
+            else if (id == 1) // Play
             {
                 pItem.playAt(pIndex);
             }
-            else if (id == 1) // Add to ...
+            else if (id == 2) // Add to ...
             {
                 if (pItem.playlist.indexSelected(pIndex) == false)
                 {
@@ -428,7 +434,7 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Set as Cover
+            else if (id == 3) // Set as Cover
             {
                 var playlist = pItem.playlist;
 
@@ -440,13 +446,13 @@ AreaContextual
                 }
 
             }
-            else if (id == 3) // Webpage
+            else if (id == 4) // Webpage
             {
                 var source = pItem.playlist.trackSource(pIndex);
 
                 gui.openSource(source);
             }
-            else if (id == 4) // Remove
+            else if (id == 5) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -640,18 +646,21 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Track") },
 
-                    { "id": 0, "icon"    : st.icon24x24_play,
+                    { "id": 0, "icon"    : st.icon24x24_goRelated,
+                               "iconSize": st.size24x24, "title": qsTr("Browse") },
+
+                    { "id": 1, "icon"    : st.icon24x24_play,
                                "iconSize": st.size24x24, "title": qsTr("Play") },
 
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
+                    { "id": 2, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 2, "title": qsTr("Set as Cover") },
+                    { "id": 3, "title": qsTr("Set as Cover") },
 
-                    { "id": 3, "icon"    : st.icon16x16_external,
+                    { "id": 4, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
-                    { "id": 4, "title": qsTr("Remove Track") }
+                    { "id": 5, "title": qsTr("Remove Track") }
                 ]
             }
 

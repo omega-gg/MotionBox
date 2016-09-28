@@ -300,24 +300,24 @@ AreaContextual
 
                 if (playlist.isLocal)
                 {
-                    pageTrack.setItemVisible(4, true);
-                    pageTrack.setItemVisible(6, true);
+                    pageTrack.setItemVisible(3, true);
+                    pageTrack.setItemVisible(5, true);
                 }
                 else
                 {
-                    pageTrack.setItemVisible(4, false);
-                    pageTrack.setItemVisible(6, false);
+                    pageTrack.setItemVisible(3, false);
+                    pageTrack.setItemVisible(5, false);
                 }
 
                 pSource = pData.source;
 
                 if (pSource)
                 {
-                    pageTrack.set(5, { "title": gui.getOpenTitle(pSource) });
+                    pageTrack.set(4, { "title": gui.getOpenTitle(pSource) });
 
-                    pageTrack.setItemVisible(5, true);
+                    pageTrack.setItemVisible(4, true);
                 }
-                else pageTrack.setItemVisible(5, false);
+                else pageTrack.setItemVisible(4, false);
 
                 pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
 
@@ -680,18 +680,15 @@ AreaContextual
                     { "id": 0, "icon"    : st.icon24x24_addBold,
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
-                    { "id": 1, "icon"    : st.icon24x24_play,
-                               "iconSize": st.size24x24, "title": qsTr("Play") },
-
-                    { "id": 2, "icon"    : st.icon24x24_addIn,
+                    { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 3, "title": qsTr("Set as Cover") },
+                    { "id": 2, "title": qsTr("Set as Cover") },
 
-                    { "id": 4, "icon"    : st.icon16x16_external,
+                    { "id": 3, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
-                    { "id": 5, "title": qsTr("Remove Track") }
+                    { "id": 4, "title": qsTr("Remove Track") }
                 ]
             }
 

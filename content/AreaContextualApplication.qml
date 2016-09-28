@@ -677,7 +677,7 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Track") },
 
-                    { "id": 0, "icon"    : st.icon24x24_goRelated,
+                    { "id": 0, "icon"    : st.icon24x24_addBold,
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 1, "icon"    : st.icon24x24_play,
@@ -723,7 +723,7 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Tab") },
 
-                    { "id": 0, "icon"    : st.icon24x24_goRelated,
+                    { "id": 0, "icon"    : st.icon24x24_addBold,
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 1, "icon"    : st.icon24x24_addIn,

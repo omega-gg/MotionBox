@@ -300,12 +300,12 @@ AreaContextual
 
                 if (playlist.isLocal)
                 {
-                    pageTrack.setItemVisible(3, true);
+                    pageTrack.setItemVisible(4, true);
                     pageTrack.setItemVisible(5, true);
                 }
                 else
                 {
-                    pageTrack.setItemVisible(3, false);
+                    pageTrack.setItemVisible(4, false);
                     pageTrack.setItemVisible(5, false);
                 }
 
@@ -313,11 +313,11 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTrack.set(4, { "title": gui.getOpenTitle(pSource) });
+                    pageTrack.set(3, { "title": gui.getOpenTitle(pSource) });
 
-                    pageTrack.setItemVisible(4, true);
+                    pageTrack.setItemVisible(3, true);
                 }
-                else pageTrack.setItemVisible(4, false);
+                else pageTrack.setItemVisible(3, false);
 
                 pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
 
@@ -343,15 +343,15 @@ AreaContextual
 
             if (tabs.count > 1)
             {
-                 pageTab.setItemEnabled(3, true);
-            }
-            else pageTab.setItemEnabled(3, false);
-
-            if (tabs.count > 1 || currentTab.isValid)
-            {
                  pageTab.setItemEnabled(4, true);
             }
             else pageTab.setItemEnabled(4, false);
+
+            if (tabs.count > 1 || currentTab.isValid)
+            {
+                 pageTab.setItemEnabled(5, true);
+            }
+            else pageTab.setItemEnabled(5, false);
 
             if (tab.isValid)
             {
@@ -361,11 +361,11 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTab.set(5, { "title": gui.getOpenTitle(pSource) });
+                    pageTab.set(3, { "title": gui.getOpenTitle(pSource) });
 
-                    pageTab.setItemVisible(5, true);
+                    pageTab.setItemVisible(3, true);
                 }
-                else pageTab.setItemVisible(5, false);
+                else pageTab.setItemVisible(3, false);
 
                 pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
 
@@ -377,7 +377,7 @@ AreaContextual
                 pAuthor = "";
                 pFeed   = "";
 
-                pageTab.setItemVisible(5, false);
+                pageTab.setItemVisible(3, false);
             }
 
             listContextual.currentPage = pageTab;
@@ -445,11 +445,7 @@ AreaContextual
 
                 pBrowse(title);
             }
-            else if (id == 1) // Play
-            {
-                pItem.playAt(pIndex);
-            }
-            else if (id == 2) // Add to ...
+            else if (id == 1) // Add to ...
             {
                 if (pItem.playlist.indexSelected(pIndex) == false)
                 {
@@ -460,6 +456,12 @@ AreaContextual
                 pShowPanelAdd();
 
                 return false;
+            }
+            else if (id == 2) // Webpage
+            {
+                var source = pItem.playlist.trackSource(pIndex);
+
+                gui.openSource(source);
             }
             else if (id == 3) // Set as Cover
             {
@@ -473,13 +475,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 4) // Webpage
-            {
-                var source = pItem.playlist.trackSource(pIndex);
-
-                gui.openSource(source);
-            }
-            else if (id == 5) // Remove
+            else if (id == 4) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -535,7 +531,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Close other tabs
+            else if (id == 2) // Webpage
+            {
+                gui.openSource(pItem.source);
+            }
+            else if (id == 3) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -543,17 +543,13 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 3) // Close all tabs
+            else if (id == 4) // Close all tabs
             {
                 wall.enableAnimation = false;
 
                 tabs.closeTabs();
 
                 wall.enableAnimation = true;
-            }
-            else if (id == 4) // Webpage
-            {
-                gui.openSource(pItem.source);
             }
 
             return true;
@@ -659,8 +655,7 @@ AreaContextual
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
-                    { "id": 3, "title": qsTr("Rename") },
-
+                    { "id": 3, "title": qsTr("Rename")      },
                     { "id": 4, "title": qsTr("Move to ...") },
 
                     { "id": 5, "type": ContextualPage.ItemConfirm }
@@ -683,11 +678,10 @@ AreaContextual
                     { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 2, "title": qsTr("Set as Cover") },
-
-                    { "id": 3, "icon"    : st.icon16x16_external,
+                    { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
+                    { "id": 3, "title": qsTr("Set as Cover") },
                     { "id": 4, "title": qsTr("Remove Track") }
                 ]
             }
@@ -726,11 +720,11 @@ AreaContextual
                     { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 2, "title": qsTr("Close other Tabs") },
-                    { "id": 3, "title": qsTr("Close all Tabs")   },
+                    { "id": 2, "icon"    : st.icon16x16_external,
+                               "iconSize": st.size16x16, "title": qsTr("Webpage") },
 
-                    { "id": 4, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Webpage") }
+                    { "id": 3, "title": qsTr("Close other Tabs") },
+                    { "id": 4, "title": qsTr("Close all Tabs")   }
                 ]
             }
 

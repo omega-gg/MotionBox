@@ -840,14 +840,15 @@ PanelContextual
             text: pAction + " " + pName + " " + qsTr("to")
         }
 
-        ButtonPushIcon
+        ButtonPianoIcon
         {
             anchors.right: parent.right
 
-            anchors.verticalCenter: parent.verticalCenter
-
-            width : st.dp28
+            width : st.dp28 + borderSizeWidth
             height: st.dp28
+
+            borderLeft : borderSize
+            borderRight: 0
 
             visible: (posX != -1 || posY != -1)
 

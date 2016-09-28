@@ -350,9 +350,9 @@ MouseArea
         }
     }
 
-    function browse(url)
+    function browse(query)
     {
-        search(1, url, true, false);
+        search(1, query, true, false);
     }
 
     //---------------------------------------------------------------------------------------------

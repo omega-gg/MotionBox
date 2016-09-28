@@ -91,15 +91,18 @@ AreaContextual
 
         if (item.isPlaylist && item.count)
         {
-            if (item.currentTime > 0)
-            {
-                 pageFolder.set(1, { "title": qsTr("Resume") });
-            }
-            else pageFolder.set(1, { "title": qsTr("Play") });
-
-            pageFolder.setItemVisible(1, true);
+             pageFolder.setItemVisible(1, true);
         }
         else pageFolder.setItemVisible(1, false);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pBrowse(query)
+    {
+        gui.restore();
+
+        panelBrowse.browse(query);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -287,6 +290,14 @@ AreaContextual
             }
             else
             {
+                pData = playlist.trackData(index);
+
+                if (pData.title)
+                {
+                     pageTrack.setItemEnabled(1, true);
+                }
+                else pageTrack.setItemEnabled(1, false);
+
                 if (playlist.isLocal)
                 {
                     pageTrack.setItemVisible(4, true);
@@ -297,8 +308,6 @@ AreaContextual
                     pageTrack.setItemVisible(4, false);
                     pageTrack.setItemVisible(6, false);
                 }
-
-                pData = playlist.trackData(index);
 
                 pSource = pData.source;
 
@@ -323,6 +332,12 @@ AreaContextual
         function loadPageTab(tab)
         {
             pItem = tab;
+
+            if (tab.title)
+            {
+                 pageTab.setItemEnabled(1, true);
+            }
+            else pageTab.setItemEnabled(1, false);
 
             pageTab.setItemEnabled(2, tab.isValid);
 
@@ -428,7 +443,7 @@ AreaContextual
             {
                 var title = pItem.playlist.trackTitle(pIndex);
 
-                panelBrowse.browse(title);
+                pBrowse(title);
             }
             else if (id == 1) // Play
             {
@@ -500,7 +515,7 @@ AreaContextual
         {
             if (id == 0) // Browse
             {
-                panelBrowse.browse(pItem.title);
+                pBrowse(pItem.title);
             }
             else if (id == 1) // Add to ...
             {

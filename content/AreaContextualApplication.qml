@@ -294,9 +294,9 @@ AreaContextual
 
                 if (pData.title)
                 {
-                     pageTrack.setItemEnabled(1, true);
+                     pageTrack.setItemEnabled(2, true);
                 }
-                else pageTrack.setItemEnabled(1, false);
+                else pageTrack.setItemEnabled(2, false);
 
                 if (playlist.isLocal)
                 {
@@ -333,13 +333,13 @@ AreaContextual
         {
             pItem = tab;
 
+            pageTab.setItemEnabled(1, tab.isValid);
+
             if (tab.title)
             {
-                 pageTab.setItemEnabled(1, true);
+                 pageTab.setItemEnabled(2, true);
             }
-            else pageTab.setItemEnabled(1, false);
-
-            pageTab.setItemEnabled(2, tab.isValid);
+            else pageTab.setItemEnabled(2, false);
 
             if (tabs.count > 1)
             {
@@ -439,13 +439,7 @@ AreaContextual
 
         function onTrackClicked(id)
         {
-            if (id == 0) // Browse
-            {
-                var title = pItem.playlist.trackTitle(pIndex);
-
-                pBrowse(title);
-            }
-            else if (id == 1) // Add to ...
+            if (id == 0) // Add to ...
             {
                 if (pItem.playlist.indexSelected(pIndex) == false)
                 {
@@ -456,6 +450,12 @@ AreaContextual
                 pShowPanelAdd();
 
                 return false;
+            }
+            else if (id == 1) // Browse
+            {
+                var title = pItem.playlist.trackTitle(pIndex);
+
+                pBrowse(title);
             }
             else if (id == 2) // Webpage
             {
@@ -505,11 +505,7 @@ AreaContextual
 
         function onTabClicked(id)
         {
-            if (id == 0) // Browse
-            {
-                pBrowse(pItem.title);
-            }
-            else if (id == 1) // Add to ...
+            if (id == 0) // Add to ...
             {
                 var playlist = pItem.playlist;
 
@@ -526,6 +522,10 @@ AreaContextual
                 pShowPanelAdd();
 
                 return false;
+            }
+            else if (id == 1) // Browse
+            {
+                pBrowse(pItem.title);
             }
             else if (id == 2) // Webpage
             {
@@ -668,11 +668,11 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Track") },
 
-                    { "id": 0, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("Browse") },
-
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
+                    { "id": 0, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+
+                    { "id": 1, "icon"    : st.icon24x24_addBold,
+                               "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },
@@ -707,11 +707,11 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Tab") },
 
-                    { "id": 0, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("Browse") },
-
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
+                    { "id": 0, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+
+                    { "id": 1, "icon"    : st.icon24x24_addBold,
+                               "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Webpage") },

@@ -280,11 +280,11 @@ AreaContextual
 
                 if (gui.listPlaylist == list)
                 {
-                    pageTracks.set(3, { "title": qsTr("Remove") + " " + title });
+                    pageTracks.set(2, { "title": qsTr("Remove") + " " + title });
 
-                    pageTracks.setItemVisible(3, true);
+                    pageTracks.setItemVisible(2, true);
                 }
-                else pageTracks.setItemVisible(3, false);
+                else pageTracks.setItemVisible(2, false);
 
                 listContextual.currentPage = pageTracks;
             }
@@ -485,11 +485,7 @@ AreaContextual
 
         function onTracksClicked(id)
         {
-            if (id == 0) // Play
-            {
-                pItem.playAt(pIndex);
-            }
-            else if (id == 1) // Add to ...
+            if (id == 0) // Add to ...
             {
                 panelAdd.setSource(0, pItem.playlist, -1);
 
@@ -497,7 +493,7 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Remove selected
+            else if (id == 1) // Remove selected
             {
                 pItem.removeSelected(true);
             }
@@ -694,13 +690,10 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category },
 
-                    { "id": 0, "icon"    : st.icon24x24_play,
-                               "iconSize": st.size24x24, "title": qsTr("Play") },
-
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
+                    { "id": 0, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
-                    { "id": 2, "type" : ContextualPage.ItemConfirm }
+                    { "id": 1, "type" : ContextualPage.ItemConfirm }
                 ]
             }
 

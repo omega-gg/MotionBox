@@ -380,7 +380,7 @@ Panel
         anchors.left: scrollCompletion.right
     }
 
-    BarTitleTiny
+    BarTitleSmall
     {
         id: barHubs
 

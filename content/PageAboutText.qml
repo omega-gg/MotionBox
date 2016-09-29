@@ -61,7 +61,7 @@ Item
     {
         panelApplication.pAnimate = false;
 
-        panelApplication.color = st.panelApplication_color;
+        panelApplication.color = st.panel_color;
     }
 
     //---------------------------------------------------------------------------------------------

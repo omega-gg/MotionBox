@@ -835,7 +835,7 @@ PanelContextual
         {
             anchors.fill: parent
 
-            text: pAction + " " + pName + " " + qsTr("to")
+            text: pAction + " " + pName
 
             font.pixelSize: st.dp12
         }

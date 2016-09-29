@@ -820,14 +820,14 @@ PanelContextual
         }
     }
 
-    BarTitle
+    BarTitleSmall
     {
         id: barTitle
 
         anchors.left : parent.left
         anchors.right: parent.right
 
-        height: st.dp28 + borderSizeHeight
+        height: st.dp26 + borderSizeHeight
 
         borderTop: 0
 
@@ -836,14 +836,16 @@ PanelContextual
             anchors.fill: parent
 
             text: pAction + " " + pName + " " + qsTr("to")
+
+            font.pixelSize: st.dp12
         }
 
         ButtonPianoIcon
         {
             anchors.right: parent.right
 
-            width : st.dp28 + borderSizeWidth
-            height: st.dp28
+            width : st.dp26 + borderSizeWidth
+            height: st.dp26
 
             borderLeft : borderSize
             borderRight: 0

@@ -55,12 +55,6 @@ Panel
 
     backgroundOpacity: st.panelContextual_backgroundOpacity
 
-    gradient: Gradient
-    {
-        GradientStop { position: 0.0; color: st.barTitle_colorA }
-        GradientStop { position: 1.0; color: st.barTitle_colorB }
-    }
-
     //---------------------------------------------------------------------------------------------
     // States
     //---------------------------------------------------------------------------------------------

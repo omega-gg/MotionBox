@@ -39,7 +39,7 @@ Panel
 
     width: buttonWebpage.x + buttonWebpage.width + st.dp7 + borderRight
 
-    height: st.dp74 + borderSizeHeight
+    height: st.dp76 + borderSizeHeight
 
     borderBottom: 0
 
@@ -140,7 +140,7 @@ Panel
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarTitleTiny
+    BarTitleSmall
     {
         id: barShare
 
@@ -168,7 +168,7 @@ Panel
         anchors.left: barShare.right
     }
 
-    BarTitleTiny
+    BarTitleSmall
     {
         id: barGoto
 
@@ -195,8 +195,8 @@ Panel
     {
         anchors.right: parent.right
 
-        width : st.dp24 + borderSizeWidth
-        height: st.dp24
+        width : st.dp26 + borderSizeWidth
+        height: st.dp26
 
         borderLeft : borderSize
         borderRight: 0

@@ -33,7 +33,7 @@ Style
     property int dp52: 52 * ratio
 
     property int dp72: 72 * ratio
-    property int dp74: 74 * ratio
+    property int dp76: 76 * ratio
 
     property int dp92: 92 * ratio
 
@@ -113,8 +113,6 @@ Style
 
     property int panelAdd_durationCollapse: 1000
     property int panelAdd_durationAdd     : 1400
-
-    property color panelAdd_color: "#565656"
 
     //---------------------------------------------------------------------------------------------
     // PanelPreview

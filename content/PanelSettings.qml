@@ -47,7 +47,7 @@ Panel
 
     width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
 
-    height: st.dp74 + borderSizeHeight
+    height: st.dp76 + borderSizeHeight
 
     borderBottom: 0
 
@@ -164,7 +164,7 @@ Panel
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarTitleTiny
+    BarTitleSmall
     {
         id: barPlayback
 
@@ -192,7 +192,7 @@ Panel
         anchors.left: barPlayback.right
     }
 
-    BarTitleTiny
+    BarTitleSmall
     {
         anchors.left : border.right
         anchors.right: parent.right
@@ -216,8 +216,8 @@ Panel
     {
         anchors.right: parent.right
 
-        width : st.dp24 + borderSizeWidth
-        height: st.dp24
+        width : st.dp26 + borderSizeWidth
+        height: st.dp26
 
         borderLeft : borderSize
         borderRight: 0

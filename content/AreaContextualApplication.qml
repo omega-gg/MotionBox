@@ -744,8 +744,8 @@ AreaContextual
         {
             anchors.right: parent.right
 
-            width : st.dp26 + borderSizeWidth
-            height: st.dp26
+            width : st.barTitleSmall_height + borderSizeWidth
+            height: st.barTitleSmall_height
 
             borderLeft : borderSize
             borderRight: 0

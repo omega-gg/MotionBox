@@ -827,7 +827,7 @@ PanelContextual
         anchors.left : parent.left
         anchors.right: parent.right
 
-        height: st.barTitleSmall_height + borderSizeHeight
+        height: st.barTitle_height + borderSizeHeight
 
         borderTop: 0
 
@@ -844,8 +844,8 @@ PanelContextual
         {
             anchors.right: parent.right
 
-            width : st.barTitleSmall_height + borderSizeWidth
-            height: st.barTitleSmall_height
+            width : st.barTitle_height + borderSizeWidth
+            height: st.barTitle_height
 
             borderLeft : borderSize
             borderRight: 0

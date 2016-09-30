@@ -195,8 +195,8 @@ Panel
     {
         anchors.right: parent.right
 
-        width : st.barTitleSmall_height + borderSizeWidth
-        height: st.barTitleSmall_height
+        width : st.barTitle_height + borderSizeWidth
+        height: st.barTitle_height
 
         borderLeft : borderSize
         borderRight: 0

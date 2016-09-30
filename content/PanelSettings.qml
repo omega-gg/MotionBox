@@ -47,7 +47,7 @@ Panel
 
     width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
 
-    height: st.dp76 + borderSizeHeight
+    height: st.dp78 + borderSizeHeight
 
     borderBottom: 0
 

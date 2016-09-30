@@ -739,8 +739,6 @@ Panel
         anchors.right : parent.right
         anchors.bottom: parent.bottom
 
-        height: st.dp28 + borderSizeHeight
-
         borderBottom: 0
 
         visible: itemCover.visible

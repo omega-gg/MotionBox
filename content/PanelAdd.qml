@@ -827,8 +827,6 @@ PanelContextual
         anchors.left : parent.left
         anchors.right: parent.right
 
-        height: st.barTitle_height + borderSizeHeight
-
         borderTop: 0
 
         BarTitleText
@@ -1509,15 +1507,13 @@ PanelContextual
         }
     }
 
-    BarTitle
+    BarTitleSmall
     {
         id: barButtons
 
         anchors.left  : parent.left
         anchors.right : parent.right
         anchors.bottom: parent.bottom
-
-        height: st.dp28 + borderSizeHeight
 
         borderTop   : borderSize
         borderBottom: 0

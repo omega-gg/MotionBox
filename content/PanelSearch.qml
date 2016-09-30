@@ -447,8 +447,6 @@ Panel
 
         width: Math.round((scrollHubs.width) / 2)
 
-        height: st.dp28 + borderSizeHeight
-
         borderRight: 0
         borderTop  : borderSize
 

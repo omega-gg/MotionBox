@@ -398,8 +398,6 @@ Panel
         anchors.left : parent.left
         anchors.right: parent.right
 
-        height: st.dp28 + borderSizeHeight
-
         borderTop: 0
 
         onDoubleClicked: toggleExpand()

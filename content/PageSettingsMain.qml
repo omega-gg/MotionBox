@@ -68,8 +68,6 @@ Item
 
     function pClearCache()
     {
-        lineEditSearch.clear();
-
         panelBrowse.clearEdit();
 
         core.clearCache();

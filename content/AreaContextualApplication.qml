@@ -152,20 +152,17 @@ AreaContextual
 
             var type = core.itemType(folder, index);
 
-            var local = folder.itemIsLocal(index);
-
             if (folder.isFolderBase)
             {
                 if (type == LibraryItem.PlaylistNet)
                 {
-                    pageFolder.set(0, { "title": qsTr("Playlist")        });
-                    pageFolder.set(6, { "title": qsTr("Remove Playlist") });
+                    pageFolder.set(0, { "title": qsTr("Playlist") });
 
                     pCheckPlay(folder, index);
 
                     pageFolder.setItemVisible(5, true);
 
-                    if (local)
+                    if (folder.itemIsLocal(index))
                     {
                         pageFolder.set(6, { "title": qsTr("Delete Playlist") });
 
@@ -175,6 +172,7 @@ AreaContextual
                     else
                     {
                         pageFolder.set(6, { "title": qsTr("Remove Playlist") });
+                        pageFolder.set(3, { "title": qsTr("Webpage")         });
 
                         pageFolder.setItemVisible(3, true);
                         pageFolder.setItemVisible(4, false);
@@ -188,7 +186,7 @@ AreaContextual
 
                     pageFolder.setItemVisible(5, true);
 
-                    if (local)
+                    if (folder.itemIsLocal(index))
                     {
                         pageFolder.set(6, { "title": qsTr("Delete Feed") });
 
@@ -198,6 +196,7 @@ AreaContextual
                     else
                     {
                         pageFolder.set(6, { "title": qsTr("Remove Feed") });
+                        pageFolder.set(3, { "title": qsTr("Webpage")     });
 
                         pageFolder.setItemVisible(3, true);
                         pageFolder.setItemVisible(4, false);
@@ -243,7 +242,7 @@ AreaContextual
                     pageFolder.setItemVisible(2, false);
                 }
 
-                if (local == false)
+                if (folder.itemIsLocal(index) == false)
                 {
                     var source = folder.itemSource(index);
 
@@ -292,11 +291,24 @@ AreaContextual
             {
                 pData = playlist.trackData(index);
 
+                pSource = pData.source;
+                pFeed   = pData.feed;
+
+                pAuthor = gui.getTrackAuthor(pData.author, pFeed);
+
                 if (pData.title)
                 {
                      pageTrack.setItemEnabled(2, true);
                 }
                 else pageTrack.setItemEnabled(2, false);
+
+                if (pSource)
+                {
+                    pageTrack.set(3, { "title": gui.getOpenTitle(pSource) });
+
+                    pageTrack.setItemVisible(3, true);
+                }
+                else pageTrack.setItemVisible(3, false);
 
                 if (playlist.isLocal)
                 {
@@ -309,20 +321,6 @@ AreaContextual
                     pageTrack.setItemVisible(5, false);
                 }
 
-                pSource = pData.source;
-
-                if (pSource)
-                {
-                    pageTrack.set(3, { "title": gui.getOpenTitle(pSource) });
-
-                    pageTrack.setItemVisible(3, true);
-                }
-                else pageTrack.setItemVisible(3, false);
-
-                pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
-
-                pFeed = pData.feed;
-
                 listContextual.currentPage = pageTrack;
             }
         }
@@ -333,8 +331,6 @@ AreaContextual
         {
             pItem = tab;
 
-            pageTab.setItemEnabled(1, tab.isValid);
-
             if (tab.title)
             {
                  pageTab.setItemEnabled(2, true);
@@ -343,21 +339,30 @@ AreaContextual
 
             if (tabs.count > 1)
             {
-                 pageTab.setItemEnabled(4, true);
+                pageTab.setItemEnabled(4, true);
+                pageTab.setItemEnabled(5, true);
             }
-            else pageTab.setItemEnabled(4, false);
-
-            if (tabs.count > 1 || currentTab.isValid)
+            else if (currentTab.isValid)
             {
-                 pageTab.setItemEnabled(5, true);
+                pageTab.setItemEnabled(4, false);
+                pageTab.setItemEnabled(5, true);
             }
-            else pageTab.setItemEnabled(5, false);
+            else
+            {
+                pageTab.setItemEnabled(4, false);
+                pageTab.setItemEnabled(5, false);
+            }
 
             if (tab.isValid)
             {
                 pData = tab.trackData;
 
                 pSource = pData.source;
+                pFeed   = pData.feed;
+
+                pAuthor = gui.getTrackAuthor(pData.author, pFeed);
+
+                pageTab.setItemEnabled(1, true);
 
                 if (pSource)
                 {
@@ -366,16 +371,14 @@ AreaContextual
                     pageTab.setItemVisible(3, true);
                 }
                 else pageTab.setItemVisible(3, false);
-
-                pAuthor = gui.getTrackAuthor(pData.author, pData.feed);
-
-                pFeed = pData.feed;
             }
             else
             {
                 pSource = "";
                 pAuthor = "";
                 pFeed   = "";
+
+                pageTab.setItemEnabled(1, false);
 
                 pageTab.setItemVisible(3, false);
             }
@@ -387,7 +390,7 @@ AreaContextual
 
         function loadPageBrowse()
         {
-            pageBrowse.setItemEnabled(pageBrowse.count() - 1, local.cache);
+            pageBrowse.setItemEnabled(3, local.cache);
 
             listContextual.currentPage = pageBrowse;
         }
@@ -441,11 +444,13 @@ AreaContextual
         {
             if (id == 0) // Add to ...
             {
-                if (pItem.playlist.indexSelected(pIndex) == false)
+                var playlist = pItem.playlist;
+
+                if (playlist.indexSelected(pIndex))
                 {
-                     panelAdd.setSource(0, pItem.playlist, pIndex);
+                     panelAdd.setSource(0, playlist, -1);
                 }
-                else panelAdd.setSource(0, pItem.playlist, -1);
+                else panelAdd.setSource(0, playlist, pIndex);
 
                 pShowPanelAdd();
 
@@ -465,7 +470,7 @@ AreaContextual
             }
             else if (id == 3) // Set as Cover
             {
-                var playlist = pItem.playlist;
+                /* var */ playlist = pItem.playlist;
 
                 var cover = playlist.trackCover(pIndex);
 
@@ -555,16 +560,18 @@ AreaContextual
 
         function onBrowseClicked(id)
         {
-            listContextual.setCurrentId(id);
-
             if (id == 0) // Open File
             {
+                listContextual.setCurrentId(0);
+
                 var path = core.openFile("Select File");
 
                 panelBrowse.browse(path);
             }
             else if (id == 1) // Open Folder
             {
+                listContextual.setCurrentId(1);
+
                 /* var */ path = core.openFolder("Select Folder");
 
                 panelBrowse.browse(path);
@@ -649,7 +656,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Webpage") },
+                               "iconSize": st.size16x16 },
 
                     { "id": 3, "title": qsTr("Rename")      },
                     { "id": 4, "title": qsTr("Move to ...") },
@@ -675,7 +682,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Webpage") },
+                               "iconSize": st.size16x16 },
 
                     { "id": 3, "title": qsTr("Set as Cover") },
                     { "id": 4, "title": qsTr("Remove Track") }
@@ -714,7 +721,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Webpage") },
+                               "iconSize": st.size16x16 },
 
                     { "id": 3, "title": qsTr("Close other Tabs") },
                     { "id": 4, "title": qsTr("Close all Tabs")   }

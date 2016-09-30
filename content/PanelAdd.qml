@@ -820,7 +820,7 @@ PanelContextual
         }
     }
 
-    BarTitleSmall
+    BarTitle
     {
         id: barTitle
 
@@ -834,8 +834,6 @@ PanelContextual
             anchors.fill: parent
 
             text: pAction + " " + pName
-
-            font.pixelSize: st.dp12
         }
 
         ButtonPianoIcon
@@ -1507,7 +1505,7 @@ PanelContextual
         }
     }
 
-    BarTitleSmall
+    BarTitle
     {
         id: barButtons
 

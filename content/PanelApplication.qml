@@ -52,7 +52,7 @@ Panel
     width: st.dp320 + borderRight
 
     height: bar.height
-            + (st.barTitle_height + st.dp2 * 2 + st.buttonPush_height + st.dp3 * 2) * 4
+            + (st.barTitleSmall_height + st.dp2 * 2 + st.buttonPush_height + st.dp3 * 2) * 4
             - st.dp2 + borderSizeHeight
 
     borderLeft: 0

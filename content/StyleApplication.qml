@@ -69,12 +69,6 @@ Style
     property real splash_shadowOpacity: 0.8
 
     //---------------------------------------------------------------------------------------------
-    // PanelSearch
-
-    property color panelSearch_colorA: "#646464"
-    property color panelSearch_colorB: "#323232"
-
-    //---------------------------------------------------------------------------------------------
     // PanelFolder
 
     property color panelFolder_color: "#565656"

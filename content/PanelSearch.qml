@@ -63,13 +63,7 @@ Panel
 
     enableFocus: false
 
-    backgroundOpacity: st.panelContextual_backgroundOpacity
-
-    gradient: Gradient
-    {
-        GradientStop { position: 0.0; color: st.panelSearch_colorA }
-        GradientStop { position: 1.0; color: st.panelSearch_colorB }
-    }
+    backgroundOpacity: (gui.isExpanded) ? st.panelContextual_backgroundOpacity : 1.0
 
     //---------------------------------------------------------------------------------------------
     // Events

@@ -200,11 +200,13 @@ Item
 
         onClicked:
         {
-            if (core.updateVersion())
+            if (core.updateVersion() == false)
             {
-                window.close();
+                gui.openUrl("http://omega.gg/MotionBox/get");
+
+                window.clearFocus();
             }
-            else text = qsTr("Cannot run the updater.");
+            else window.close();
         }
 
         Keys.onPressed:

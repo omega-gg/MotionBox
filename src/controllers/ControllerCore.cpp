@@ -133,7 +133,7 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else
-    QString path = "storage";
+    QString path = QDir::currentPath() + "/storage";
 
     wControllerFile->setPathStorage(path);
 #endif

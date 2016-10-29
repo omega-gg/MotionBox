@@ -22,7 +22,7 @@ bin5="latest"
 if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
                                                                        $2 != "linux" ]; then
 
-    echo "Usage: configure <qt4 | qt5 | clean> <win32>"
+    echo "Usage: configure <qt4 | qt5 | clean> <win32 | linux>"
 
     exit 1
 fi

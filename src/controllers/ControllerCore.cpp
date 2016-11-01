@@ -192,6 +192,8 @@ ControllerCore::ControllerCore() : WController()
 {
     if (_cache) return;
 
+    _pathOpen = QDir::rootPath();
+
     //---------------------------------------------------------------------------------------------
     // Controllers
 
@@ -328,8 +330,6 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("online", _online);
 
     //---------------------------------------------------------------------------------------------
-
-    _pathOpen = QDir::rootPath();
 
     startTimer(60000); // 1 minute
 

@@ -66,9 +66,11 @@ Application
 
         onFadeIn:
         {
-            core.preload();
+            core.load();
 
             loader.source = "Gui.qml";
+
+            gui.load();
         }
 
         //-----------------------------------------------------------------------------------------

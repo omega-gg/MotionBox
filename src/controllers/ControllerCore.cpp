@@ -188,37 +188,15 @@ ControllerCore::ControllerCore() : WController()
 // Interface
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::preload()
+/* Q_INVOKABLE */ void ControllerCore::load()
 {
-    if (_tabs) return;
+    if (_cache) return;
 
     //---------------------------------------------------------------------------------------------
     // Controllers
 
     W_CREATE_CONTROLLER(WControllerMedia);
     W_CREATE_CONTROLLER(WControllerTorrent);
-
-    //---------------------------------------------------------------------------------------------
-    // DataOnline
-
-    _online = new DataOnline(this);
-
-    //---------------------------------------------------------------------------------------------
-    // Tabs
-
-    _tabs = new WTabsTrack(this);
-
-    //---------------------------------------------------------------------------------------------
-    // QML
-
-    qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
-
-    wControllerDeclarative->setContextProperty("online", _online);
-}
-
-/* Q_INVOKABLE */ void ControllerCore::load()
-{
-    if (_cache) return;
 
     //---------------------------------------------------------------------------------------------
     // Backends
@@ -265,6 +243,8 @@ ControllerCore::ControllerCore() : WController()
 
     //---------------------------------------------------------------------------------------------
     // Tabs
+
+    _tabs = new WTabsTrack(this);
 
     _tabs->setId(1);
 
@@ -334,6 +314,18 @@ ControllerCore::ControllerCore() : WController()
     // Network
 
     wControllerNetwork->setCheckConnected(true);
+
+    //---------------------------------------------------------------------------------------------
+    // DataOnline
+
+    _online = new DataOnline(this);
+
+    //---------------------------------------------------------------------------------------------
+    // QML
+
+    qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
+
+    wControllerDeclarative->setContextProperty("online", _online);
 
     //---------------------------------------------------------------------------------------------
 

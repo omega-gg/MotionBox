@@ -29,11 +29,7 @@
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-#if defined(Q_OS_WIN)
-    static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/win32/";
-#else
-    static const QString ONLINE_PATH;
-#endif
+static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/win32/";
 
 //-------------------------------------------------------------------------------------------------
 // Ctor / dtor

@@ -28,7 +28,7 @@ ItemTab
 
     property bool isContextualHovered: (containsMouse && buttonsItem.checked)
 
-    property TabTrack tab: null
+    property TabTrack tab: currentTab
 
     //---------------------------------------------------------------------------------------------
     // Settings

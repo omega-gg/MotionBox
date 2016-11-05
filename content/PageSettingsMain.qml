@@ -116,7 +116,7 @@ Item
 
             text: qsTr("Content")
 
-            onClicked: gui.openUrl(core.pathStorage)
+            onClicked: gui.openFile(core.pathStorage)
         }
     }
 

@@ -2022,6 +2022,11 @@ Item
         Qt.openUrlExternally(url);
     }
 
+    function openFile(url)
+    {
+        Qt.openUrlExternally(controllerFile.fileUrl(url));
+    }
+
     function openSource(url)
     {
         player.pause();

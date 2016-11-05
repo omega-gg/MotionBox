@@ -291,6 +291,59 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
+    Component.onCompleted:
+    {
+        loadTabItems(currentTab);
+
+        if (local.browserVisible)
+        {
+            panelBrowse.expose();
+        }
+
+        if (local.related)
+        {
+            panelRelated.expose();
+
+            if (local.relatedExpanded)
+            {
+                panelRelated.expand();
+            }
+        }
+
+        if (panelTracks.isExpanded)
+        {
+            panelPlayer.visible = false;
+        }
+
+        player.volume = local.volume;
+
+        player.repeat  = local.repeat;
+        player.quality = local.quality;
+
+        if      (local.networkCache == 0) player.backend.networkCache = 5000;
+        else if (local.networkCache == 1) player.backend.networkCache = 1000;
+        else if (local.networkCache == 2) player.backend.networkCache = 500;
+        else                              player.backend.networkCache = 200;
+
+        if (local.proxyActive)
+        {
+            var backend = player.backend;
+
+            backend.setProxy(local.proxyHost, local.proxyPort, local.proxyPassword);
+        }
+
+        barTop      .updateTab();
+        panelRelated.updateTab();
+
+        window.resizable = true;
+
+        window.clearFocus();
+
+        isLoaded = true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     onPReadyChanged:
     {
         if (pReady == false) return;
@@ -525,59 +578,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
     // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function load()
-    {
-        loadTabItems(currentTab);
-
-        if (local.browserVisible)
-        {
-            panelBrowse.expose();
-        }
-
-        if (local.related)
-        {
-            panelRelated.expose();
-
-            if (local.relatedExpanded)
-            {
-                panelRelated.expand();
-            }
-        }
-
-        if (panelTracks.isExpanded)
-        {
-            panelPlayer.visible = false;
-        }
-
-        player.volume = local.volume;
-
-        player.repeat  = local.repeat;
-        player.quality = local.quality;
-
-        if      (local.networkCache == 0) player.backend.networkCache = 5000;
-        else if (local.networkCache == 1) player.backend.networkCache = 1000;
-        else if (local.networkCache == 2) player.backend.networkCache = 500;
-        else                              player.backend.networkCache = 200;
-
-        if (local.proxyActive)
-        {
-            var backend = player.backend;
-
-            backend.setProxy(local.proxyHost, local.proxyPort, local.proxyPassword);
-        }
-
-        barTop      .updateTab();
-        panelRelated.updateTab();
-
-        window.resizable = true;
-
-        window.clearFocus();
-
-        isLoaded = true;
-    }
-
     //---------------------------------------------------------------------------------------------
 
     function scale(scale)

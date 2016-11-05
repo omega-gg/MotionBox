@@ -38,9 +38,9 @@ int main(int argc, char * argv[])
     argv = av;
 #endif
 
-    QApplication * app = WApplication::create(argc, argv, Sk::Script);
+    QApplication * application = WApplication::create(argc, argv, Sk::Script);
 
-    if (app == NULL) return 0;
+    if (application == NULL) return 0;
 
     //---------------------------------------------------------------------------------------------
     // Controllers
@@ -58,5 +58,5 @@ int main(int argc, char * argv[])
 
     sk->startScript();
 
-    return app->exec();
+    return application->exec();
 }

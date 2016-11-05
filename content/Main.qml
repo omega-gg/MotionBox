@@ -58,7 +58,7 @@ Application
             zoom: window.zoom
         }
 
-        icon: (sk.osUnix) ? st.icon : ""
+        icon: (sk.osLinux) ? st.icon : ""
 
         //-----------------------------------------------------------------------------------------
         // Events

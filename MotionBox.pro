@@ -20,6 +20,8 @@ deploy {
     DEFINES += SK_DEPLOY
 
     #RESOURCES = dist/MotionBox.qrc
+
+    unix:QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 }
 
 include(src/global/global.pri)

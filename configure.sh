@@ -63,22 +63,22 @@ else
     bin="$bin5"
 fi
 
-rm -rf "$bin"/plugins
-mkdir  "$bin"/plugins
-
-cp -r "$VLC"/plugins/access       "$bin"/plugins
-cp -r "$VLC"/plugins/audio_filter "$bin"/plugins
-cp -r "$VLC"/plugins/audio_mixer  "$bin"/plugins
-cp -r "$VLC"/plugins/audio_output "$bin"/plugins
-cp -r "$VLC"/plugins/codec        "$bin"/plugins
-cp -r "$VLC"/plugins/control      "$bin"/plugins
-cp -r "$VLC"/plugins/demux        "$bin"/plugins
-cp -r "$VLC"/plugins/misc         "$bin"/plugins
-cp -r "$VLC"/plugins/video_chroma "$bin"/plugins
-cp -r "$VLC"/plugins/video_filter "$bin"/plugins
-cp -r "$VLC"/plugins/video_output "$bin"/plugins
-
 if [ $2 = "win32" ]; then
+
+    rm -rf "$bin"/plugins
+    mkdir  "$bin"/plugins
+
+    cp -r "$VLC"/plugins/access       "$bin"/plugins
+    cp -r "$VLC"/plugins/audio_filter "$bin"/plugins
+    cp -r "$VLC"/plugins/audio_mixer  "$bin"/plugins
+    cp -r "$VLC"/plugins/audio_output "$bin"/plugins
+    cp -r "$VLC"/plugins/codec        "$bin"/plugins
+    cp -r "$VLC"/plugins/control      "$bin"/plugins
+    cp -r "$VLC"/plugins/demux        "$bin"/plugins
+    cp -r "$VLC"/plugins/misc         "$bin"/plugins
+    cp -r "$VLC"/plugins/video_chroma "$bin"/plugins
+    cp -r "$VLC"/plugins/video_filter "$bin"/plugins
+    cp -r "$VLC"/plugins/video_output "$bin"/plugins
 
     cp "$VLC"/libvlc*.dll "$bin"
 fi

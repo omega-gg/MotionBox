@@ -56,7 +56,6 @@ cd -
 deploy="$Sky/deploy"
 
 cp -r "$deploy"/imageformats deploy
-cp -r "$deploy"/plugins      deploy
 
 if [ $1 = "qt5" ]; then
 
@@ -65,9 +64,13 @@ fi
 
 if [ $2 = "win32" ]; then
 
+    cp -r "$deploy"/plugins deploy
+
     cp "$deploy"/*.dll deploy
 
 elif [ $2 = "linux" ]; then
+
+    cp -r "$deploy"/vlc deploy
 
     cp "$deploy"/*.so deploy
 fi

@@ -16,9 +16,9 @@ content="../content"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "win32" -a $1 != "linux" -a $1 != "clean" ]; then
+if [ $# != 1 ] || [ $1 != "deploy" -a $1 != "clean" ]; then
 
-    echo "Usage: qrc <win32 | linux | clean>"
+    echo "Usage: qrc <deploy | clean>"
 
     exit 1
 fi

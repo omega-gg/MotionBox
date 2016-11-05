@@ -72,7 +72,7 @@ elif [ $2 = "linux" ]; then
 
     cp -r "$deploy"/vlc deploy
 
-    cp "$deploy"/*.so deploy
+    cp "$deploy"/*.so* deploy
 fi
 
 echo "------------"

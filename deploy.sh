@@ -15,9 +15,10 @@ bin5="latest"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" ]; then
+if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
+                                                                       $2 != "linux" ]; then
 
-    echo "Usage: deploy <qt4 | qt5 | clean> <win32>"
+    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | linux>"
 
     exit 1
 fi
@@ -65,6 +66,10 @@ fi
 if [ $2 = "win32" ]; then
 
     cp "$deploy"/*.dll deploy
+
+elif [ $2 = "linux" ]; then
+
+    cp "$deploy"/*.so deploy
 fi
 
 echo "------------"
@@ -83,7 +88,4 @@ else
     bin="$bin5"
 fi
 
-if [ $2 = "win32" ]; then
-
-    cp "$bin"/MotionBox.exe deploy
-fi
+cp "$bin"/MotionBox* deploy

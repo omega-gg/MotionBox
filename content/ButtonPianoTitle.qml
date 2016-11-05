@@ -29,7 +29,7 @@ BaseButtonPiano
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pSize: sk.textWidth(itemTitle.text, itemTitle.font) + borderSize
+    property int pSize: sk.textWidth(itemTitle.font, itemTitle.text) + borderSize
 
     //---------------------------------------------------------------------------------------------
     // Settings

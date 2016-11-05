@@ -174,7 +174,7 @@ Panel
 
                 maximumWidth: barTitle.width - parent.buttonVersion.width
                               -
-                              sk.textWidth(libraryTitle.text, libraryTitle.font) - st.dp16
+                              sk.textWidth(libraryTitle.font, libraryTitle.text) - st.dp16
 
                 borderLeft : borderSize
                 borderRight: 0

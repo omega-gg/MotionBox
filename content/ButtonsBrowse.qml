@@ -523,7 +523,7 @@ Item
 
                     function getPreferredWidth()
                     {
-                        return sk.textWidth(text, font) + margins;
+                        return sk.textWidth(font, text) + margins;
                     }
                 }
             }

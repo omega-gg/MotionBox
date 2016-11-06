@@ -125,6 +125,10 @@ ControllerCore::ControllerCore() : WController()
     sk->setName("MotionBox");
 
 #ifdef SK_DEPLOY
+#ifdef Q_OS_LINUX
+    sk->setIcon(":/pictures/content/icon.svg");
+#endif
+
 #ifdef QT_LATEST
     QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #else
@@ -133,6 +137,10 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else
+#ifdef Q_OS_LINUX
+    sk->setIcon("pictures/content/icon.svg");
+#endif
+
     QString path = QDir::currentPath() + "/storage";
 
     wControllerFile->setPathStorage(path);

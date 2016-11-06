@@ -126,7 +126,7 @@ ControllerCore::ControllerCore() : WController()
 
 #ifdef SK_DEPLOY
 #ifdef Q_OS_LINUX
-    sk->setIcon(":/pictures/icons/icon.svg");
+    sk->setIcon(":/qrc/pictures/icons/icon.svg");
 #endif
 
 #ifdef QT_LATEST

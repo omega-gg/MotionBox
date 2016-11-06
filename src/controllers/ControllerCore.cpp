@@ -126,7 +126,7 @@ ControllerCore::ControllerCore() : WController()
 
 #ifdef SK_DEPLOY
 #ifdef Q_OS_LINUX
-    sk->setIcon(":/pictures/content/icon.svg");
+    sk->setIcon(":/pictures/icons/icon.svg");
 #endif
 
 #ifdef QT_LATEST
@@ -138,7 +138,7 @@ ControllerCore::ControllerCore() : WController()
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else
 #ifdef Q_OS_LINUX
-    sk->setIcon("pictures/content/icon.svg");
+    sk->setIcon("pictures/icons/icon.svg");
 #endif
 
     QString path = QDir::currentPath() + "/storage";

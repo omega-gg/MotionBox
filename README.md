@@ -23,7 +23,9 @@ The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) core.<br
 
 - Windows XP and later.
 
-Linux and OS-X are coming soon.
+- Linux 32 bit and 64 bit.
+
+OS-X is coming soon.
 
 ## Requirements
 
@@ -44,7 +46,7 @@ Recommended:
 
 You can configure MotionBox with:
 
-    sh configure.sh <qt4 | qt5 | clean> <win32>
+    sh configure.sh <qt4 | qt5 | clean> <win32 | linux>
 
 - Edit [configure.sh](configure.sh) to check your dependencies.
 
@@ -64,9 +66,9 @@ Or the console:
 You can deploy MotionBox with:
 
     cd dist
-    sh qrc <win32 | clean>
+    sh qrc <deploy | clean>
     cd ..
-    sh deploy.sh <qt4 | qt5 | clean> <win32>
+    sh deploy.sh <qt4 | qt5 | clean> <win32 | linux>
 
 - Edit [dist/qrc.sh](dist/qrc.sh) and [deploy.sh](deploy.sh) to check your dependencies.
 

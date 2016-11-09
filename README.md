@@ -75,7 +75,6 @@ Open [MotionBox.pro](MotionBox.pro) and uncomment these two lines:
 
 Rebuild MotionBox and run the following:
 
-    cd ..
     sh deploy.sh <qt4 | qt5 | clean> <win32 | linux>
 
 - Edit [dist/qrc.sh](dist/qrc.sh) and [deploy.sh](deploy.sh) to check your dependencies.

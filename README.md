@@ -67,6 +67,18 @@ You can deploy MotionBox with:
 
     cd dist
     sh qrc <deploy | clean>
+
+- Open [MotionBox.pro](MotionBox.pro).
+
+Uncomment these two lines:
+
+    #CONFIG += deploy
+    #RESOURCES = dist/MotionBox.qrc
+
+- Rebuild MotionBox.
+
+Run the following:
+
     cd ..
     sh deploy.sh <qt4 | qt5 | clean> <win32 | linux>
 

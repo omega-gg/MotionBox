@@ -70,8 +70,6 @@ if [ $2 = "win32" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    cp -r "$deploy"/vlc deploy
-
     cp "$deploy"/*.so* deploy
 fi
 

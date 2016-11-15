@@ -54,8 +54,6 @@ fi
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-echo "COPYING VLC"
-
 if [ $1 = "qt4" ]; then
 
     bin="$bin4"
@@ -64,6 +62,8 @@ else
 fi
 
 if [ $2 = "win32" ]; then
+
+    echo "COPYING VLC"
 
     rm -rf "$bin"/plugins
     mkdir  "$bin"/plugins

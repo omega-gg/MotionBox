@@ -448,7 +448,12 @@ Item
 
                 restoreMini();
             }
-            else restoreFullScreen();
+            else
+            {
+                local.maximized = window.maximized;
+
+                restoreFullScreen();
+            }
 
             local.setMiniPos(-1, -1);
 

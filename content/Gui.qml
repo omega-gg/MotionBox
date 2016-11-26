@@ -1242,7 +1242,7 @@ Item
 
     function restoreMini()
     {
-        if (isMini == false || actionCue.tryPush(actionMiniRestore)) return;
+        if (isMini == false || pMini || actionCue.tryPush(actionMiniRestore)) return;
 
         st.animate = false;
 

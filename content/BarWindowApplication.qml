@@ -55,7 +55,7 @@ BarWindow
     {
         if (mouse.button & Qt.LeftButton)
         {
-             gui.toggleBarMaximize();
+             gui.toggleMaximize();
         }
         else pToggleMini();
     }

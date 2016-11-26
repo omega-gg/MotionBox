@@ -24,9 +24,9 @@ F8: Basculer le Navigateur de Tracks.
 
 #
 
-F9: Basculer le panneau des préférences.
+F9: Basculer le Mode Mini.
 
-F10: Basculer le panneau du partage.
+F10: Basculer la fenêtre maximisée.
 
 F11: Basculer le plein écran.
 
@@ -53,10 +53,6 @@ Ctrl + Q: Quitter l'application.
 Ctrl + Alt + Gauche: Track précédent de l'onglet vidéo.
 
 Ctrl + Alt + Droite: Track suivant de l'onglet vidéo.
-
-#
-
-Ctrl + Alt + Shift: Basculer le Mode Mini.
 
 #
 

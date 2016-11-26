@@ -174,6 +174,11 @@ Item
     property alias toolTip: toolTip
 
     //---------------------------------------------------------------------------------------------
+    // BarWindow
+
+    property alias buttonMaximize: barWindow.buttonMaximize
+
+    //---------------------------------------------------------------------------------------------
     // BarTop
 
     property alias tabs: barTop.tabs
@@ -388,6 +393,17 @@ Item
     Connections
     {
         target: window
+
+        onStateChanged:
+        {
+            if (state != Qt.WindowNoState || pMini == false) return;
+
+            window.autoSize = false;
+
+            exposeMini();
+
+            window.autoSize = true;
+        }
 
         onActiveChanged: updateScreenDim()
 
@@ -920,9 +936,13 @@ Item
 
         if (isMini)
         {
+            pMini = true;
+
             st.animate = false;
 
             pRestoreMiniA();
+
+            if (sk.osWin) window.setWindowSnap(true);
 
             window.autoSize = false;
 
@@ -934,7 +954,21 @@ Item
 
             st.animate = true;
         }
-        else window.maximized = true;
+        // FIXME Windows: Hide the window to avoid animation.
+        else if (sk.osWin && window.fullScreen)
+        {
+            window.visible = false;
+
+            window.fullScreen = false;
+            window.maximized  = true;
+
+            window.visible = true;
+        }
+        else
+        {
+            window.fullScreen = false;
+            window.maximized  = true;
+        }
 
         wall.updateView();
 
@@ -942,10 +976,7 @@ Item
 
         pSaveSize();
 
-        if (pMini == false)
-        {
-            local.maximized = true;
-        }
+        local.maximized = true;
 
         startActionCue(st.duration_faster);
     }
@@ -954,7 +985,12 @@ Item
     {
         if (window.maximized == false || actionCue.tryPush(actionMaximizeRestore)) return;
 
-        pMini = false;
+        if (pMini)
+        {
+            exposeMini();
+
+            return;
+        }
 
         wall.clearDrag();
 
@@ -975,8 +1011,15 @@ Item
 
     function toggleMaximize()
     {
-        if (window.maximized) restoreMaximize();
-        else                  exposeMaximize ();
+        if (window.maximized)
+        {
+            if (window.fullScreen)
+            {
+                 restoreFullScreen();
+            }
+            else restoreMaximize();
+        }
+        else exposeMaximize();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -997,6 +1040,8 @@ Item
 
             pRestoreMiniA();
 
+            if (sk.osWin) window.setWindowSnap(true);
+
             window.autoSize = false;
 
             window.fullScreen = true;
@@ -1007,12 +1052,7 @@ Item
 
             st.animate = true;
         }
-        else
-        {
-            pMini = false;
-
-            window.fullScreen = true;
-        }
+        else window.fullScreen = true;
 
         wall.updateView();
 
@@ -1025,7 +1065,7 @@ Item
     {
         if (window.fullScreen == false || actionCue.tryPush(actionFullScreenRestore)) return;
 
-        if (pMini)
+        if (pMini && window.maximized == false)
         {
             pMini = false;
 
@@ -1058,6 +1098,8 @@ Item
     function exposeMini()
     {
         if (isMini || actionCue.tryPush(actionMiniExpose)) return;
+
+        pMini = false;
 
         isMinified = true;
 
@@ -1111,8 +1153,16 @@ Item
             lineEditSearch.visible = false;
         }
 
-        if (window.fullScreen || window.maximized)
+        if (window.maximized || window.fullScreen)
         {
+            // FIXME Windows: Hide the window to avoid animation.
+            if (sk.osWin)
+            {
+                window.visible = false;
+
+                if (sk.osWin) window.setWindowSnap(false);
+            }
+
             window.autoSize = false;
 
             window.fullScreen = false;
@@ -1120,7 +1170,15 @@ Item
 
             window.autoSize = true;
         }
-        else window.saveGeometry();
+        else
+        {
+            if (sk.osWin) window.setWindowSnap(false);
+
+            if (window.autoSize)
+            {
+                window.saveGeometry();
+            }
+        }
 
         isMini = true;
 
@@ -1133,8 +1191,7 @@ Item
 
         var geometry = window.geometryNormal;
 
-        local.setMiniPos (geometry.x,     geometry.y);
-        local.setMiniSize(geometry.width, geometry.height);
+        local.setMiniPos(geometry.x, geometry.y);
 
         var width = st.dp480 + window.borderSizeWidth;
 
@@ -1191,29 +1248,19 @@ Item
 
         wall.enableAnimation = false;
 
-        var x = local.miniX;
-        var y = local.miniY;
-
         pRestoreMiniA();
 
-        window.x = x;
-        window.y = y;
+        if (sk.osWin) window.setWindowSnap(true);
 
-        if (local.maximized)
-        {
-            window.autoSize = false;
+        var geometry = window.geometryNormal;
 
-            window.maximized = true;
+        window.width  = geometry.width;
+        window.height = geometry.height;
 
-            window.autoSize = true;
-        }
-        else
-        {
-            window.width  = local.miniWidth;
-            window.height = local.miniHeight;
+        window.x = geometry.x;
+        window.y = geometry.y;
 
-            window.checkPosition();
-        }
+        window.checkPosition();
 
         window.resizable = true;
 
@@ -1278,25 +1325,6 @@ Item
     {
         if (isMicro) restoreMicro();
         else         exposeMicro ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function toggleBarMaximize()
-    {
-        if (isMini)
-        {
-            pMini = true;
-
-            exposeMaximize();
-        }
-        else if (pMini)
-        {
-            pMini = false;
-
-            exposeMini();
-        }
-        else toggleMaximize();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2472,17 +2500,23 @@ Item
         {
             event.accepted = true;
 
-            restoreBars();
+            if (event.isAutoRepeat) return;
 
-            buttonSettings.returnPressed();
+            toggleMini();
+
+            window.checkLeave(st.duration_faster);
         }
         else if (event.key == Qt.Key_F10)
         {
             event.accepted = true;
 
-            restoreBars();
+            if (event.isAutoRepeat) return;
 
-            buttonShare.returnPressed();
+            if (buttonMaximize.visible)
+            {
+                buttonMaximize.returnPressed();
+            }
+            else toggleMaximize();
         }
         else if (event.key == Qt.Key_F11)
         {
@@ -2640,6 +2674,10 @@ Item
         else if (buttonShare.isReturnPressed)
         {
             buttonShare.returnReleased();
+        }
+        else if (buttonMaximize.isReturnPressed)
+        {
+            buttonMaximize.returnReleased();
         }
         else if (buttonFullScreen.isReturnPressed)
         {

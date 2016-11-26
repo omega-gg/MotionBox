@@ -24,9 +24,9 @@ F8: Toogle the Track Browser.
 
 #
 
-F9: Toogle the settings panel.
+F9: Toggle the Mini Mode.
 
-F10: Toogle the share panel.
+F10: Toogle maximize window.
 
 F11: Toggle full screen.
 
@@ -53,10 +53,6 @@ Ctrl + Q: Exit the application.
 Ctrl + Alt + Left: Video tab previous track.
 
 Ctrl + Alt + Right: Video tab next track.
-
-#
-
-Ctrl + Alt + Shift: Toggle the Mini Mode
 
 #
 

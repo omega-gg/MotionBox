@@ -2,17 +2,17 @@ SK = $$_PRO_FILE_PWD_/../Sky
 
 TARGET = MotionBox
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-    DESTDIR = $$_PRO_FILE_PWD_/latest
-} else {
+contains(QT_MAJOR_VERSION, 4) {
     DESTDIR = $$_PRO_FILE_PWD_/bin
+} else {
+    DESTDIR = $$_PRO_FILE_PWD_/latest
 }
 
 QT += declarative network xml
 
 macx: CONFIG -= app_bundle
 
-greaterThan(QT_MAJOR_VERSION, 4): DEFINES += QT_LATEST
+contains(QT_MAJOR_VERSION, 5): DEFINES += QT_LATEST
 
 #CONFIG += deploy
 

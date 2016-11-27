@@ -23,10 +23,10 @@
 #include <QFileDialog>
 #ifdef SK_DEPLOY
 #include <QDir>
-#ifdef QT_LATEST
-#include <QStandardPaths>
-#else
+#ifdef QT_4
 #include <QDesktopServices>
+#else
+#include <QStandardPaths>
 #endif
 #endif
 
@@ -129,10 +129,10 @@ ControllerCore::ControllerCore() : WController()
     sk->setIcon(":/qrc/pictures/icons/icon.svg");
 #endif
 
-#ifdef QT_LATEST
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#else
+#ifdef QT_4
     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
+#else
+    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
 #endif
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));

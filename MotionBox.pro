@@ -12,7 +12,11 @@ QT += declarative network xml
 
 macx: CONFIG -= app_bundle
 
-contains(QT_MAJOR_VERSION, 5): DEFINES += QT_LATEST
+contains(QT_MAJOR_VERSION, 4) {
+    DEFINES += QT_4
+} else {
+    DEFINES += QT_LATEST
+}
 
 #CONFIG += deploy
 

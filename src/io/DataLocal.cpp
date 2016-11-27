@@ -64,9 +64,6 @@ public: // Variables
     int miniX;
     int miniY;
 
-    int miniWidth;
-    int miniHeight;
-
     int splashWidth;
     int splashHeight;
 
@@ -148,9 +145,6 @@ public: // Variables
     stream.writeTextElement("miniX", QString::number(miniX));
     stream.writeTextElement("miniY", QString::number(miniY));
 
-    stream.writeTextElement("miniWidth",  QString::number(miniWidth));
-    stream.writeTextElement("miniHeight", QString::number(miniHeight));
-
     stream.writeTextElement("splashWidth",  QString::number(splashWidth));
     stream.writeTextElement("splashHeight", QString::number(splashHeight));
 
@@ -216,9 +210,6 @@ public: // Variables
     _miniX = -1;
     _miniY = -1;
 
-    _miniWidth  = -1;
-    _miniHeight = -1;
-
     _splashWidth  = -1;
     _splashHeight = -1;
 
@@ -276,12 +267,6 @@ public: // Variables
 {
     _miniX = x;
     _miniY = y;
-}
-
-/* Q_INVOKABLE */ void DataLocal::setMiniSize(int width, int height)
-{
-    _miniWidth  = width;
-    _miniHeight = height;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -354,20 +339,6 @@ public: // Variables
     if (wControllerXml->readNextStartElement(&stream, "miniY") == false) return false;
 
     _miniY = wControllerXml->readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // miniWidth
-
-    if (wControllerXml->readNextStartElement(&stream, "miniWidth") == false) return false;
-
-    _miniWidth = wControllerXml->readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // miniHeight
-
-    if (wControllerXml->readNextStartElement(&stream, "miniHeight") == false) return false;
-
-    _miniHeight = wControllerXml->readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // splashWidth
@@ -572,9 +543,6 @@ public: // Variables
     action->miniX = _miniX;
     action->miniY = _miniY;
 
-    action->miniWidth  = _miniWidth;
-    action->miniHeight = _miniHeight;
-
     action->splashWidth  = _splashWidth;
     action->splashHeight = _splashHeight;
 
@@ -658,18 +626,6 @@ int DataLocal::miniX() const
 int DataLocal::miniY() const
 {
     return _miniY;
-}
-
-//-------------------------------------------------------------------------------------------------
-
-int DataLocal::miniWidth() const
-{
-    return _miniWidth;
-}
-
-int DataLocal::miniHeight() const
-{
-    return _miniHeight;
 }
 
 //-------------------------------------------------------------------------------------------------

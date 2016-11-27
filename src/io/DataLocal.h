@@ -36,9 +36,6 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(int miniX READ miniX CONSTANT)
     Q_PROPERTY(int miniY READ miniY CONSTANT)
 
-    Q_PROPERTY(int miniWidth  READ miniWidth  CONSTANT)
-    Q_PROPERTY(int miniHeight READ miniHeight CONSTANT)
-
     Q_PROPERTY(int splashWidth  READ splashWidth  CONSTANT)
     Q_PROPERTY(int splashHeight READ splashHeight CONSTANT)
 
@@ -100,8 +97,7 @@ public:
 public: // Interface
     Q_INVOKABLE void setSize(int screen, int width, int height);
 
-    Q_INVOKABLE void setMiniPos (int x,     int y);
-    Q_INVOKABLE void setMiniSize(int width, int height);
+    Q_INVOKABLE void setMiniPos(int x, int y);
 
     Q_INVOKABLE void setSplashSize(int width, int height);
 
@@ -163,9 +159,6 @@ public: // Properties
 
     int miniX() const;
     int miniY() const;
-
-    int miniWidth () const;
-    int miniHeight() const;
 
     int splashWidth () const;
     int splashHeight() const;
@@ -249,9 +242,6 @@ private: // Variables
 
     int _miniX;
     int _miniY;
-
-    int _miniWidth;
-    int _miniHeight;
 
     int _splashWidth;
     int _splashHeight;

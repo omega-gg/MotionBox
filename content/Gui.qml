@@ -942,8 +942,6 @@ Item
 
             pRestoreMiniA();
 
-            if (sk.osWin) window.setWindowSnap(true);
-
             window.autoSize = false;
 
             window.maximized = true;
@@ -1039,8 +1037,6 @@ Item
             st.animate = false;
 
             pRestoreMiniA();
-
-            if (sk.osWin) window.setWindowSnap(true);
 
             window.autoSize = false;
 
@@ -1160,7 +1156,7 @@ Item
             {
                 window.visible = false;
 
-                if (sk.osWin) window.setWindowSnap(false);
+                window.setWindowSnap(false);
             }
 
             window.autoSize = false;

@@ -84,6 +84,8 @@ BarWindow
         borderLeft : borderSize
         borderRight: 0
 
+        highlighted: gui.pMini
+
         checkable: true
         checked  : gui.isMini
 

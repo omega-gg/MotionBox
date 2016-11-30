@@ -322,13 +322,4 @@ Style
 
     separator_colorA: "#868686"
     separator_colorB: "#565656"
-
-    //---------------------------------------------------------------------------------------------
-    // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function restoreMinimum(window)
-    {
-        window.setMinimumSize(minimumWidth, minimumHeight);
-    }
 }

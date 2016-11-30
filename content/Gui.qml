@@ -624,7 +624,7 @@ Item
 
         local.setMiniPos(-1, -1);
 
-        st.restoreMinimum(window);
+        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
         window.setDefaultGeometry();
 
@@ -942,6 +942,8 @@ Item
 
             pRestoreMiniA();
 
+            if (sk.osWin) window.setWindowMaximize(true);
+
             window.autoSize = false;
 
             window.maximized = true;
@@ -955,7 +957,12 @@ Item
         // FIXME Windows: Hide the window to avoid animation.
         else if (sk.osWin && window.fullScreen)
         {
-            window.setWindowSnap(true);
+            if (pMini == false)
+            {
+                window.setWindowSnap(true);
+            }
+
+            window.setWindowMaximize(true);
 
             window.visible = false;
 
@@ -1165,7 +1172,8 @@ Item
             {
                 window.visible = false;
 
-                window.setWindowSnap(false);
+                window.setWindowSnap    (false);
+                window.setWindowMaximize(false);
             }
 
             window.autoSize = false;
@@ -1177,7 +1185,11 @@ Item
         }
         else
         {
-            if (sk.osWin) window.setWindowSnap(false);
+            if (sk.osWin)
+            {
+                window.setWindowSnap    (false);
+                window.setWindowMaximize(false);
+            }
 
             if (window.autoSize)
             {
@@ -1255,7 +1267,13 @@ Item
 
         pRestoreMiniA();
 
-        if (sk.osWin) window.setWindowSnap(true);
+        if (sk.osWin)
+        {
+            window.setWindowSnap    (true);
+            window.setWindowMaximize(true);
+        }
+
+        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
         var geometry = window.geometryNormal;
 
@@ -3026,8 +3044,6 @@ Item
 
     function pRestoreMiniB()
     {
-        st.restoreMinimum(window);
-
         window.visible = pMiniVisible;
 
         restoreBars();

@@ -954,7 +954,7 @@ Item
 
             st.animate = true;
         }
-        // FIXME Windows: Hide the window to avoid animation.
+        // FIXME Windows: Hide the window to avoid the animation.
         else if (sk.osWin && window.fullScreen)
         {
             if (pMini == false)
@@ -1167,7 +1167,7 @@ Item
 
         if (window.maximized || window.fullScreen)
         {
-            // FIXME Windows: Hide the window to avoid animation.
+            // FIXME Windows: Hide the window to avoid the animation.
             if (sk.osWin)
             {
                 window.visible = false;

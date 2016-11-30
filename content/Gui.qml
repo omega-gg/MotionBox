@@ -955,6 +955,8 @@ Item
         // FIXME Windows: Hide the window to avoid animation.
         else if (sk.osWin && window.fullScreen)
         {
+            window.setWindowSnap(true);
+
             window.visible = false;
 
             window.fullScreen = false;
@@ -1048,7 +1050,12 @@ Item
 
             st.animate = true;
         }
-        else window.fullScreen = true;
+        else
+        {
+            if (sk.osWin) window.setWindowSnap(false);
+
+            window.fullScreen = true;
+        }
 
         wall.updateView();
 
@@ -1061,14 +1068,16 @@ Item
     {
         if (window.fullScreen == false || actionCue.tryPush(actionFullScreenRestore)) return;
 
-        if (pMini && window.maximized == false)
+        if (pMini)
         {
-            pMini = false;
+            if (window.maximized == false)
+            {
+                exposeMini();
 
-            exposeMini();
-
-            return;
+                return;
+            }
         }
+        else if (sk.osWin) window.setWindowSnap(true);
 
         wall.clearDrag();
 
@@ -3003,8 +3012,6 @@ Item
             panelPlayer.visible = true;
 
             isMicro = false;
-
-            window.height = window.minimumHeight + st.dp2 + st.dp270;
 
             barTop.updateTab();
         }

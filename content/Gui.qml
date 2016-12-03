@@ -1187,6 +1187,8 @@ Item
         {
             if (sk.osWin)
             {
+                window.view.showNormal();
+
                 window.setWindowSnap    (false);
                 window.setWindowMaximize(false);
             }

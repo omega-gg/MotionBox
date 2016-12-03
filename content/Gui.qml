@@ -954,7 +954,7 @@ Item
 
             st.animate = true;
         }
-        // FIXME Windows: Hide the window to avoid the animation.
+        // FIXME Windows: Hiding the window to avoid the animation.
         else if (sk.osWin && window.fullScreen)
         {
             if (pMini == false)
@@ -1167,7 +1167,7 @@ Item
 
         if (window.maximized || window.fullScreen)
         {
-            // FIXME Windows: Hide the window to avoid the animation.
+            // FIXME Windows: Hiding the window to avoid the animation.
             if (sk.osWin)
             {
                 window.visible = false;
@@ -1275,8 +1275,6 @@ Item
             window.setWindowMaximize(true);
         }
 
-        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
-
         var geometry = window.geometryNormal;
 
         window.width  = geometry.width;
@@ -1284,6 +1282,9 @@ Item
 
         window.x = geometry.x;
         window.y = geometry.y;
+
+        // FIXME Windows: Applying the minimum size after the resize.
+        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
         window.checkPosition();
 

@@ -39,7 +39,7 @@ Panel
 
     width: buttonWebpage.x + buttonWebpage.width + st.dp7 + borderRight
 
-    height: st.dp78 + borderSizeHeight
+    height: bar.height + st.dp50 + borderSizeHeight
 
     borderBottom: 0
 
@@ -142,11 +142,24 @@ Panel
 
     BarTitleSmall
     {
-        id: barShare
+        id: bar
 
-        width: lineEdit.x + lineEdit.width + st.dp6
+        anchors.left : parent.left
+        anchors.right: parent.right
 
         borderTop: 0
+    }
+
+    Item
+    {
+        id: itemShare
+
+        anchors.top   : bar.top
+        anchors.bottom: bar.bottom
+
+        anchors.bottomMargin: bar.borderBottom
+
+        width: lineEdit.x + lineEdit.width + st.dp6
 
         BarTitleText
         {
@@ -165,17 +178,13 @@ Panel
     {
         id: border
 
-        anchors.left: barShare.right
+        anchors.left: itemShare.right
     }
 
-    BarTitleSmall
+    Item
     {
-        id: barGoto
-
-        anchors.left : border.right
-        anchors.right: parent.right
-
-        borderTop: 0
+        anchors.top   : itemShare.top
+        anchors.bottom: itemShare.bottom
 
         BarTitleText
         {
@@ -207,89 +216,82 @@ Panel
         onClicked: collapse()
     }
 
-    Item
+    Image
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
+        id: image
 
-        anchors.top   : barShare.bottom
+        anchors.top   : bar   .bottom
         anchors.bottom: parent.bottom
 
-        Image
+        width: parent.height
+
+        sourceSize: Qt.size(width, height)
+
+        visible: false
+    }
+
+    BorderVertical
+    {
+        id: borderImage
+
+        anchors.left: image.right
+        anchors.top : bar.bottom
+
+        visible: image.visible
+    }
+
+    LineEditCopy
+    {
+        id: lineEdit
+
+        anchors.left: (borderImage.visible) ? borderImage.right
+                                            : parent.left
+
+        anchors.top: bar.bottom
+
+        anchors.leftMargin: st.dp6
+        anchors.topMargin : st.dp6
+
+        width: st.dp180
+
+        text: controllerFile.filePath(currentTab.source)
+
+        textDefault: qsTr("No track selected")
+
+        onTextChanged:
         {
-            id: image
+            var backend = controllerPlaylist.backendFromUrl(text);
 
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            width: parent.height
-
-            sourceSize: Qt.size(width, height)
-
-            visible: false
-        }
-
-        BorderVertical
-        {
-            id: borderImage
-
-            anchors.left: image.right
-
-            visible: image.visible
-        }
-
-        LineEditCopy
-        {
-            id: lineEdit
-
-            anchors.left: (borderImage.visible) ? borderImage.right
-                                                : parent.left
-
-            anchors.leftMargin: st.dp6
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            width: st.dp180
-
-            text: controllerFile.filePath(currentTab.source)
-
-            textDefault: qsTr("No track selected")
-
-            onTextChanged:
+            if (backend == null)
             {
-                var backend = controllerPlaylist.backendFromUrl(text);
+                image.visible = false;
 
-                if (backend == null)
-                {
-                    image.visible = false;
-
-                    return;
-                }
-
-                image.source = "pictures/icons/hub/" + backend.id + ".png"
-
-                image.visible = true;
+                return;
             }
+
+            image.source = "pictures/icons/hub/" + backend.id + ".png"
+
+            image.visible = true;
         }
+    }
 
-        ButtonPushFull
-        {
-            id: buttonWebpage
+    ButtonPushFull
+    {
+        id: buttonWebpage
 
-            anchors.left: lineEdit.right
+        anchors.left: lineEdit.right
+        anchors.top : bar.bottom
 
-            anchors.leftMargin: st.dp13
+        anchors.leftMargin: st.dp13
+        anchors.topMargin : st.dp5
 
-            anchors.verticalCenter: parent.verticalCenter
+        enabled: (currentTab.source != "")
 
-            enabled: (currentTab.source != "")
+        icon          : st.icon16x16_external
+        iconSourceSize: st.size16x16
 
-            icon          : st.icon16x16_external
-            iconSourceSize: st.size16x16
+        text: gui.getOpenTitle(currentTab.source)
 
-            text: gui.getOpenTitle(currentTab.source)
-
-            onClicked: gui.openSource(currentTab.source)
-        }
+        onClicked: gui.openSource(currentTab.source)
     }
 }

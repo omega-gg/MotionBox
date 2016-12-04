@@ -47,7 +47,7 @@ Panel
 
     width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
 
-    height: st.dp78 + borderSizeHeight
+    height: barBottom.y + barBottom.height + st.dp50 + borderSizeHeight
 
     borderBottom: 0
 
@@ -166,11 +166,24 @@ Panel
 
     BarTitleSmall
     {
-        id: barPlayback
+        id: barBottom
 
-        width: buttonRepeat.x + buttonRepeat.width + st.dp5
+        anchors.left : parent.left
+        anchors.right: parent.right
 
         borderTop: 0
+    }
+
+    Item
+    {
+        id: itemPlayback
+
+        anchors.top   : barBottom.top
+        anchors.bottom: barBottom.bottom
+
+        anchors.bottomMargin: barBottom.borderBottom
+
+        width: buttonRepeat.x + buttonRepeat.width + st.dp5
 
         BarTitleText
         {
@@ -189,15 +202,17 @@ Panel
     {
         id: border
 
-        anchors.left: barPlayback.right
+        anchors.left: itemPlayback.right
     }
 
-    BarTitleSmall
+    Item
     {
-        anchors.left : border.right
-        anchors.right: parent.right
+        anchors.left  : border.right
+        anchors.right : parent.right
+        anchors.top   : itemPlayback.top
+        anchors.bottom: itemPlayback.bottom
 
-        borderTop: 0
+        height: st.barTitleSmall_height
 
         BarTitleText
         {
@@ -228,198 +243,182 @@ Panel
         onClicked: collapse()
     }
 
-    Item
+    ButtonPushIcon
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
+        id: buttonShuffle
 
-        anchors.top   : barPlayback.bottom
-        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.top : barBottom.bottom
 
-        ButtonPushIcon
+        anchors.leftMargin: st.dp5
+        anchors.topMargin : st.dp5
+
+        width: st.dp44
+
+        checkable: true
+        checked  : local.shuffle
+
+        icon          : st.icon24x24_shuffle
+        iconSourceSize: st.size24x24
+
+        onClicked: local.shuffle = !(checked)
+    }
+
+    ButtonPushIcon
+    {
+        id: buttonRepeat
+
+        anchors.left: buttonShuffle.right
+        anchors.top : buttonShuffle.top
+
+        width: st.dp44
+
+        checkable: true
+        checked  : (pRepeat > 0)
+
+        icon: (pRepeat == 2) ? st.icon24x24_repeatOne
+                             : st.icon24x24_repeat
+
+        iconSourceSize: st.size24x24
+
+        onClicked:
         {
-            id: buttonShuffle
+            pRepeat = (pRepeat + 1) % 3;
 
-            anchors.left: parent.left
+            if (pRepeat == 0) checked = false;
+            else              checked = true;
 
-            anchors.leftMargin: st.dp5
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            width: st.dp44
-
-            checkable: true
-            checked  : local.shuffle
-
-            icon          : st.icon24x24_shuffle
-            iconSourceSize: st.size24x24
-
-            onClicked: local.shuffle = !(checked)
+            player.repeat = pRepeat;
         }
+    }
 
-        ButtonPushIcon
-        {
-            id: buttonRepeat
+    ButtonPushLeftIcon
+    {
+        id: buttonMinimum
 
-            anchors.left: buttonShuffle.right
+        anchors.left: buttonRepeat.right
+        anchors.top : buttonRepeat.top
 
-            anchors.verticalCenter: parent.verticalCenter
+        anchors.leftMargin: st.dp12
 
-            width: st.dp44
+        width: st.dp38
 
-            checkable: true
-            checked  : (pRepeat > 0)
+        padding: st.dp6
 
-            icon: (pRepeat == 2) ? st.icon24x24_repeatOne
-                                 : st.icon24x24_repeat
+        highlighted: (pQualityActive == 1)
 
-            iconSourceSize: st.size24x24
+        checked   : (pQuality == 1)
+        checkHover: false
 
-            onClicked:
-            {
-                pRepeat = (pRepeat + 1) % 3;
+        icon          : st.icon16x16_point
+        iconSourceSize: st.size16x16
 
-                if (pRepeat == 0) checked = false;
-                else              checked = true;
+        onPressed: pQuality = 1
+    }
 
-                player.repeat = pRepeat;
-            }
-        }
+    ButtonPushCenter
+    {
+        id: buttonLow
 
-        ButtonPushLeftIcon
-        {
-            id: buttonMinimum
+        anchors.left: buttonMinimum.right
+        anchors.top : buttonMinimum.top
 
-            anchors.left: buttonRepeat.right
+        width: st.dp52
 
-            anchors.leftMargin: st.dp12
+        padding: 0
 
-            anchors.verticalCenter: parent.verticalCenter
+        highlighted: (pQualityActive == 2)
 
-            width: st.dp38
+        checked   : (pQuality == 2)
+        checkHover: false
 
-            padding: st.dp6
+        text: qsTr("Low")
 
-            highlighted: (pQualityActive == 1)
+        onPressed: pQuality = 2
+    }
 
-            checked   : (pQuality == 1)
-            checkHover: false
+    ButtonPushCenter
+    {
+        id: buttonMedium
 
-            icon          : st.icon16x16_point
-            iconSourceSize: st.size16x16
+        anchors.left: buttonLow.right
+        anchors.top : buttonLow.top
 
-            onPressed: pQuality = 1
-        }
+        width: st.dp52
 
-        ButtonPushCenter
-        {
-            id: buttonLow
+        padding: 0
 
-            anchors.left: buttonMinimum.right
+        highlighted: (pQualityActive == 3)
 
-            anchors.verticalCenter: parent.verticalCenter
+        checked   : (pQuality == 3)
+        checkHover: false
 
-            width: st.dp52
+        text: qsTr("Med")
 
-            padding: 0
+        onPressed: pQuality = 3
+    }
 
-            highlighted: (pQualityActive == 2)
+    ButtonPushCenter
+    {
+        id: buttonHigh
 
-            checked   : (pQuality == 2)
-            checkHover: false
+        anchors.left: buttonMedium.right
+        anchors.top : buttonMedium.top
 
-            text: qsTr("Low")
+        width: st.dp52
 
-            onPressed: pQuality = 2
-        }
+        padding: 0
 
-        ButtonPushCenter
-        {
-            id: buttonMedium
+        highlighted: (pQualityActive == 4)
 
-            anchors.left: buttonLow.right
+        checked   : (pQuality == 4)
+        checkHover: false
 
-            anchors.verticalCenter: parent.verticalCenter
+        text: qsTr("High")
 
-            width: st.dp52
+        onPressed: pQuality = 4
+    }
 
-            padding: 0
+    ButtonPushCenter
+    {
+        id: buttonUltra
 
-            highlighted: (pQualityActive == 3)
+        anchors.left: buttonHigh.right
+        anchors.top : buttonHigh.top
 
-            checked   : (pQuality == 3)
-            checkHover: false
+        width: st.dp52
 
-            text: qsTr("Med")
+        padding: 0
 
-            onPressed: pQuality = 3
-        }
+        highlighted: (pQualityActive == 5)
 
-        ButtonPushCenter
-        {
-            id: buttonHigh
+        checked   : (pQuality == 5)
+        checkHover: false
 
-            anchors.left: buttonMedium.right
+        text: qsTr("Ultra")
 
-            anchors.verticalCenter: parent.verticalCenter
+        onPressed: pQuality = 5
+    }
 
-            width: st.dp52
+    ButtonPushRightIcon
+    {
+        id: buttonMaximum
 
-            padding: 0
+        anchors.left: buttonUltra.right
+        anchors.top : buttonUltra.top
 
-            highlighted: (pQualityActive == 4)
+        width: st.dp38
 
-            checked   : (pQuality == 4)
-            checkHover: false
+        padding: st.dp6
 
-            text: qsTr("High")
+        highlighted: (pQualityActive == 6)
 
-            onPressed: pQuality = 4
-        }
+        checked   : (pQuality == 6)
+        checkHover: false
 
-        ButtonPushCenter
-        {
-            id: buttonUltra
+        icon          : st.icon16x16_point
+        iconSourceSize: st.size16x16
 
-            anchors.left: buttonHigh.right
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            width: st.dp52
-
-            padding: 0
-
-            highlighted: (pQualityActive == 5)
-
-            checked   : (pQuality == 5)
-            checkHover: false
-
-            text: qsTr("Ultra")
-
-            onPressed: pQuality = 5
-        }
-
-        ButtonPushRightIcon
-        {
-            id: buttonMaximum
-
-            anchors.left: buttonUltra.right
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            width: st.dp38
-
-            padding: st.dp6
-
-            highlighted: (pQualityActive == 6)
-
-            checked   : (pQuality == 6)
-            checkHover: false
-
-            icon          : st.icon16x16_point
-            iconSourceSize: st.size16x16
-
-            onPressed: pQuality = 6
-        }
+        onPressed: pQuality = 6
     }
 }

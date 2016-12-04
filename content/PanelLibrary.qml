@@ -140,7 +140,7 @@ Panel
 
     BarTitle
     {
-        id: barTitle
+        id: bar
 
         anchors.left : parent.left
         anchors.right: parent.right
@@ -172,7 +172,7 @@ Panel
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                maximumWidth: barTitle.width - parent.buttonVersion.width
+                maximumWidth: bar.width - parent.buttonVersion.width
                               -
                               sk.textWidth(libraryTitle.font, libraryTitle.text) - st.dp16
 
@@ -208,7 +208,7 @@ Panel
     {
         id: buttonPlaylist
 
-        anchors.top: barTitle.bottom
+        anchors.top: bar.bottom
 
         width: Math.round(parent.width / 3)
 

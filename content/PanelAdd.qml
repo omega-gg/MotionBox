@@ -510,9 +510,7 @@ PanelContextual
 
     function pGetMinimumHeight()
     {
-        var height = barTitle.height + st.itemList_height * 3 + barButtons.height
-                     +
-                     borderSizeHeight;
+        var height = bar.height + st.itemList_height * 3 + barButtons.height + borderSizeHeight;
 
         if (preferredHeight < height)
         {
@@ -523,7 +521,7 @@ PanelContextual
 
     function pGetPreferredHeight()
     {
-        var height = barTitle.height + barButtons.height - barButtons.borderTop + borderSizeHeight;
+        var height = bar.height + barButtons.height - barButtons.borderTop + borderSizeHeight;
 
         if (scrollFolder.visible)
         {
@@ -822,7 +820,7 @@ PanelContextual
 
     BarTitle
     {
-        id: barTitle
+        id: bar
 
         anchors.left : parent.left
         anchors.right: parent.right
@@ -865,7 +863,7 @@ PanelContextual
         // Settings
         //-----------------------------------------------------------------------------------------
 
-        anchors.top   : barTitle.bottom
+        anchors.top   : bar.bottom
         anchors.bottom: barButtons.top
 
         anchors.bottomMargin: -(barButtons.borderTop)
@@ -1246,7 +1244,7 @@ PanelContextual
         id: borderVertical
 
         anchors.left  : scrollLibrary.right
-        anchors.top   : barTitle.bottom
+        anchors.top   : bar.bottom
         anchors.bottom: barButtons.top
     }
 

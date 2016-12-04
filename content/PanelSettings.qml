@@ -332,6 +332,8 @@ Panel
         anchors.rightMargin: st.dp5
         anchors.topMargin  : st.dp5
 
+        enabled: (player.speed != 1.0)
+
         text: player.speed.toFixed(1)
 
         onCheckClicked:

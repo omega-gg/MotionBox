@@ -166,7 +166,7 @@ Panel
 
     BarTitleSmall
     {
-        id: barBottom
+        id: barTop
 
         anchors.left : parent.left
         anchors.right: parent.right
@@ -176,12 +176,190 @@ Panel
 
     Item
     {
+        id: itemOutput
+
+        anchors.top   : barTop.top
+        anchors.bottom: barTop.bottom
+
+        anchors.bottomMargin: barTop.borderBottom
+
+        width: buttonVideo.x + buttonVideo.width + st.dp5
+
+        BarTitleText
+        {
+            anchors.fill: parent
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment  : Text.AlignVCenter
+
+            text: qsTr("Output")
+
+            font.pixelSize: st.dp12
+        }
+    }
+
+    BorderVertical
+    {
+        id: borderTop
+
+        anchors.left  : itemOutput.right
+        anchors.top   : barTop.top
+        anchors.bottom: barBottom.top
+    }
+
+    Item
+    {
+        anchors.left  : borderTop.right
+        anchors.right : buttonClose.left
+        anchors.top   : itemOutput.top
+        anchors.bottom: itemOutput.bottom
+
+        BarTitleText
+        {
+            anchors.fill: parent
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment  : Text.AlignVCenter
+
+            text: qsTr("Speed")
+
+            font.pixelSize: st.dp12
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        id: buttonClose
+
+        anchors.right: parent.right
+
+        width : st.barTitleSmall_height + borderSizeWidth
+        height: st.barTitleSmall_height
+
+        borderLeft : borderSize
+        borderRight: 0
+
+        icon          : st.icon16x16_close
+        iconSourceSize: st.size16x16
+
+        onClicked: collapse()
+    }
+
+    ButtonPushLeft
+    {
+        id: buttonAudio
+
+        anchors.left: parent.left
+        anchors.top : barTop.bottom
+
+        anchors.leftMargin: st.dp5
+        anchors.topMargin : st.dp5
+
+        width: st.dp70
+
+        highlighted: (player.outputActive == AbstractBackend.OutputAudio)
+        checked    : (player.output       == AbstractBackend.OutputAudio)
+
+        checkHover: false
+
+        text: qsTr("Audio")
+
+        onClicked: player.output = AbstractBackend.OutputAudio
+    }
+
+    ButtonPushRight
+    {
+        id: buttonVideo
+
+        anchors.left: buttonAudio.right
+        anchors.top : buttonAudio.top
+
+        width: st.dp70
+
+        highlighted: (player.outputActive == AbstractBackend.OutputMedia)
+        checked    : (player.output       == AbstractBackend.OutputMedia)
+
+        checkHover: false
+
+        text: qsTr("Video")
+
+        onClicked: player.output = AbstractBackend.OutputMedia
+    }
+
+    Slider
+    {
+        id: slider
+
+        anchors.left: borderTop.right
+        anchors.top : barTop.bottom
+
+        anchors.leftMargin: st.dp5
+        anchors.topMargin : st.dp12
+
+        width: st.dp120
+
+        minimum: 0.0
+        maximum: 2.0
+
+        value: 1.0
+
+        onValueChanged:
+        {
+            var speed = value.toFixed(1);
+
+            if (speed != 1.0)
+            {
+                buttonCheck.checked = true;
+
+                if (speed < 1.0)
+                {
+                    speed = 0.5 + speed * 0.5;
+                }
+            }
+            else buttonCheck.checked = false;
+
+            player.speed = speed;
+        }
+    }
+
+    ButtonCheckLabel
+    {
+        id: buttonCheck
+
+        anchors.left: slider.right
+        anchors.top : barTop.bottom
+
+        anchors.rightMargin: st.dp5
+        anchors.topMargin  : st.dp5
+
+        text: player.speed.toFixed(1)
+
+        onCheckClicked:
+        {
+            if (checked == false)
+            {
+                slider.value = 1.0;
+            }
+        }
+    }
+
+    BarTitleSmall
+    {
+        id: barBottom
+
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : barTop.bottom
+
+        anchors.topMargin: st.dp50
+    }
+
+    Item
+    {
         id: itemPlayback
 
         anchors.top   : barBottom.top
         anchors.bottom: barBottom.bottom
-
-        anchors.bottomMargin: barBottom.borderBottom
 
         width: buttonRepeat.x + buttonRepeat.width + st.dp5
 
@@ -200,19 +378,18 @@ Panel
 
     BorderVertical
     {
-        id: border
+        id: borderBottom
 
         anchors.left: itemPlayback.right
+        anchors.top : barBottom.top
     }
 
     Item
     {
-        anchors.left  : border.right
+        anchors.left  : borderBottom.right
         anchors.right : parent.right
         anchors.top   : itemPlayback.top
         anchors.bottom: itemPlayback.bottom
-
-        height: st.barTitleSmall_height
 
         BarTitleText
         {
@@ -221,26 +398,10 @@ Panel
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment  : Text.AlignVCenter
 
-            text: qsTr("Video quality")
+            text: qsTr("Quality")
 
             font.pixelSize: st.dp12
         }
-    }
-
-    ButtonPianoIcon
-    {
-        anchors.right: parent.right
-
-        width : st.barTitleSmall_height + borderSizeWidth
-        height: st.barTitleSmall_height
-
-        borderLeft : borderSize
-        borderRight: 0
-
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
-
-        onClicked: collapse()
     }
 
     ButtonPushIcon

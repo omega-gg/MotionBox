@@ -183,6 +183,8 @@ Panel
 
     Item
     {
+        anchors.left  : border.right
+        anchors.right : parent.right
         anchors.top   : itemShare.top
         anchors.bottom: itemShare.bottom
 
@@ -220,7 +222,7 @@ Panel
     {
         id: image
 
-        anchors.top   : bar   .bottom
+        anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
 
         width: parent.height

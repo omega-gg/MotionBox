@@ -119,18 +119,21 @@ Item
                                        &&
                                        related.isLoading == false)
 
-    property bool pMiniExpanded: false
-    property bool pMiniTracks  : false
-
-    property bool pMiniRelated        : false
-    property bool pMiniRelatedExpanded: false
-
-    property bool pMiniWall: false
 
     property bool pMini     : false
     property bool pMiniMicro: local.micro
 
+    property bool pMiniSize: true
+
     property bool pMiniVisible: false
+
+    property bool pMiniExpanded: false
+    property bool pMiniTracks  : false
+
+    property bool pMiniWall: false
+
+    property bool pMiniRelated        : false
+    property bool pMiniRelatedExpanded: false
 
     //---------------------------------------------------------------------------------------------
 
@@ -398,11 +401,11 @@ Item
         {
             if (state != Qt.WindowNoState || pMini == false) return;
 
-            window.autoSize = false;
+            pMiniSize = false;
 
             exposeMini();
 
-            window.autoSize = true;
+            pMiniSize = true;
         }
 
         onActiveChanged: updateScreenDim()
@@ -944,11 +947,7 @@ Item
 
             if (sk.osWin) window.setWindowMaximize(true);
 
-            window.autoSize = false;
-
             window.maximized = true;
-
-            window.autoSize = true;
 
             pRestoreMiniB();
 
@@ -1047,11 +1046,7 @@ Item
 
             pRestoreMiniA();
 
-            window.autoSize = false;
-
             window.fullScreen = true;
-
-            window.autoSize = true;
 
             pRestoreMiniB();
 
@@ -1176,12 +1171,8 @@ Item
                 window.setWindowMaximize(false);
             }
 
-            window.autoSize = false;
-
             window.fullScreen = false;
             window.maximized  = false;
-
-            window.autoSize = true;
         }
         else
         {
@@ -1193,7 +1184,7 @@ Item
                 window.setWindowMaximize(false);
             }
 
-            if (window.autoSize)
+            if (pMiniSize)
             {
                 window.saveGeometry();
             }

@@ -65,6 +65,7 @@ CONFIG(debug, debug|release) {
 RC_FILE = dist/MotionBox.rc
 
 OTHER_FILES += configure.sh \
+               build.sh \
                deploy.sh \
                README.md \
                LICENSE.md \

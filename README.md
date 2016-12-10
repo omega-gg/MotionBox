@@ -56,24 +56,30 @@ You can build MotionBox with Qt Creator:
 - Open [MotionBox.pro](MotionBox.pro).
 - Click on "Build > Build all".
 
+Or the build script:
+
+    build <qt4 | qt5 | clean> <win32 | linux> [deploy]
+
 Or the console:
 
     qmake -r
     make (mingw32-make on Windows)
 
+- Edit [build.sh](build.sh) to check your dependencies.
+
 ## Deploy
 
-You can deploy MotionBox with:
+1\. Generate the qrc file:
 
     cd dist
     sh qrc <deploy | clean>
 
-Open [MotionBox.pro](MotionBox.pro) and uncomment these two lines:
+2\. Build MotionBox:
 
-    #CONFIG += deploy
-    #RESOURCES = dist/MotionBox.qrc
+    qmake -r "DEFINES += SK_DEPLOY" "RESOURCES = dist/MotionBox.qrc"
+    make (mingw32-make on Windows)
 
-Rebuild MotionBox and run the following:
+3\. Deploy MotionBox:
 
     sh deploy.sh <qt4 | qt5 | clean> <win32 | linux>
 

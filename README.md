@@ -58,7 +58,7 @@ You can build MotionBox with Qt Creator:
 
 Or the build script:
 
-    build <qt4 | qt5 | clean> <win32 | linux> [deploy]
+    sh build.sh <qt4 | qt5 | clean> <win32 | linux> [deploy]
 
 Or the console:
 

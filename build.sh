@@ -119,8 +119,6 @@ else
     qmake -r -spec $spec "CONFIG += release" $MotionBox
 fi
 
-echo ""
-
 if [ $2 = "win32" ]; then
 
     mingw32-make
@@ -129,7 +127,6 @@ else
 fi
 
 echo "------------------"
-echo ""
 
 #--------------------------------------------------------------------------------------------------
 # Deploying MotionBox
@@ -137,6 +134,7 @@ echo ""
 
 if [ "$3" = "deploy" ]; then
 
+    echo ""
     echo "DEPLOYING MotionBox"
     echo "-------------------"
 

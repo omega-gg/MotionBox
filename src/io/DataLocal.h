@@ -67,12 +67,17 @@ class DataLocal : public WLocalObject
 
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
 
+    Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY speedChanged)
+
     Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged)
 
     Q_PROPERTY(bool shuffle READ shuffle WRITE setShuffle NOTIFY shuffleChanged)
 
     Q_PROPERTY(WDeclarativePlayer::Repeat repeat READ repeat WRITE setRepeat
                NOTIFY repeatChanged)
+
+    Q_PROPERTY(WAbstractBackend::Output output READ output WRITE setOutput
+               NOTIFY outputChanged)
 
     Q_PROPERTY(WAbstractBackend::Quality quality READ quality WRITE setQuality
                NOTIFY qualityChanged)
@@ -132,10 +137,14 @@ signals:
 
     void queryChanged();
 
+    void speedChanged();
+
     void volumeChanged();
 
     void shuffleChanged();
     void repeatChanged ();
+
+    void outputChanged ();
     void qualityChanged();
 
     void networkCacheChanged();
@@ -205,8 +214,14 @@ public: // Properties
     WDeclarativePlayer::Repeat repeat() const;
     void                       setRepeat(WDeclarativePlayer::Repeat repeat);
 
+    qreal speed() const;
+    void  setSpeed(qreal speed);
+
     qreal volume() const;
     void  setVolume(qreal volume);
+
+    WAbstractBackend::Output output() const;
+    void                     setOutput(WAbstractBackend::Output output);
 
     WAbstractBackend::Quality quality() const;
     void                      setQuality(WAbstractBackend::Quality quality);
@@ -268,11 +283,15 @@ private: // Variables
 
     QString _query;
 
+    qreal _speed;
+
     qreal _volume;
 
     bool                       _shuffle;
     WDeclarativePlayer::Repeat _repeat;
-    WAbstractBackend::Quality  _quality;
+
+    WAbstractBackend::Output  _output;
+    WAbstractBackend::Quality _quality;
 
     int _networkCache;
 

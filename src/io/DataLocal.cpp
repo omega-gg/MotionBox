@@ -89,11 +89,15 @@ public: // Variables
 
     QString query;
 
+    qreal speed;
+
     qreal volume;
 
     bool                       shuffle;
     WDeclarativePlayer::Repeat repeat;
-    WAbstractBackend::Quality  quality;
+
+    WAbstractBackend::Output  output;
+    WAbstractBackend::Quality quality;
 
     int networkCache;
 
@@ -170,10 +174,14 @@ public: // Variables
 
     stream.writeTextElement("query", query);
 
+    stream.writeTextElement("speed", QString::number(speed));
+
     stream.writeTextElement("volume", QString::number(volume));
 
     stream.writeTextElement("shuffle", QString::number(shuffle));
     stream.writeTextElement("repeat",  QString::number(repeat));
+
+    stream.writeTextElement("output",  QString::number(output));
     stream.writeTextElement("quality", QString::number(quality));
 
     stream.writeTextElement("networkCache", QString::number(networkCache));
@@ -233,10 +241,14 @@ public: // Variables
 
     _typePlaylist = false;
 
+    _speed = 1.0;
+
     _volume = 1.0;
 
     _shuffle = false;
     _repeat  = WDeclarativePlayer::RepeatNone;
+
+    _output  = WAbstractBackend::OutputMedia;
     _quality = WAbstractBackend::QualityHigh;
 
     _networkCache = 1;
@@ -439,6 +451,13 @@ public: // Variables
     _query = wControllerXml->readNextString(&stream);
 
     //---------------------------------------------------------------------------------------------
+    // speed
+
+    if (wControllerXml->readNextStartElement(&stream, "speed") == false) return false;
+
+    _speed = wControllerXml->readNextFloat(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // volume
 
     if (wControllerXml->readNextStartElement(&stream, "volume") == false) return false;
@@ -453,11 +472,18 @@ public: // Variables
     _shuffle = wControllerXml->readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
-    // volume
+    // repeat
 
     if (wControllerXml->readNextStartElement(&stream, "repeat") == false) return false;
 
     _repeat = static_cast<WDeclarativePlayer::Repeat> (wControllerXml->readNextInt(&stream));
+
+    //---------------------------------------------------------------------------------------------
+    // output
+
+    if (wControllerXml->readNextStartElement(&stream, "output") == false) return false;
+
+    _output = static_cast<WAbstractBackend::Output> (wControllerXml->readNextInt(&stream));
 
     //---------------------------------------------------------------------------------------------
     // quality
@@ -568,10 +594,14 @@ public: // Variables
 
     action->query = _query;
 
+    action->speed = _speed;
+
     action->volume = _volume;
 
     action->shuffle = _shuffle;
     action->repeat  = _repeat;
+
+    action->output  = _output;
     action->quality = _quality;
 
     action->networkCache = _networkCache;
@@ -854,6 +884,22 @@ void DataLocal::setQuery(const QString & query)
 
 //-------------------------------------------------------------------------------------------------
 
+qreal DataLocal::speed() const
+{
+    return _speed;
+}
+
+void DataLocal::setSpeed(qreal speed)
+{
+    if (_speed == speed) return;
+
+    _speed = speed;
+
+    emit speedChanged();
+}
+
+//-------------------------------------------------------------------------------------------------
+
 qreal DataLocal::volume() const
 {
     return _volume;
@@ -898,6 +944,24 @@ void DataLocal::setRepeat(WDeclarativePlayer::Repeat repeat)
     _repeat = repeat;
 
     emit repeatChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+WAbstractBackend::Output DataLocal::output() const
+{
+    return _output;
+}
+
+void DataLocal::setOutput(WAbstractBackend::Output output)
+{
+    if (_output == output) return;
+
+    _output = output;
+
+    emit outputChanged();
 
     save();
 }

@@ -2335,18 +2335,6 @@ Item
 
             toggleFullScreen();
         }
-        else if (event.key == Qt.Key_Shift
-                 &&
-                 event.modifiers == (Qt.AltModifier | Qt.ShiftModifier))
-        {
-            event.accepted = true;
-
-            if (event.isAutoRepeat) return;
-
-            toggleMini();
-
-            window.checkLeave(st.duration_faster);
-        }
         else if (event.key == Qt.Key_T && event.modifiers == Qt.ControlModifier)
         {
             event.accepted = true;

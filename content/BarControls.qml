@@ -134,15 +134,6 @@ MouseArea
             GradientStop { position: 1.0; color: st.barTitle_colorB }
         }
 
-        Item
-        {
-            id: container
-
-            anchors.fill: parent
-
-            anchors.topMargin: (gui.isMini) ? st.dp32 : 0
-        }
-
         BorderHorizontal { color: st.barTitle_colorBorderLine }
 
         ButtonPushIcon
@@ -150,10 +141,10 @@ MouseArea
             id: buttonPrevious
 
             anchors.left: parent.left
+            anchors.top : parent.top
 
-            anchors.leftMargin: (gui.isMini) ? st.dp3 : st.dp6
-
-            anchors.verticalCenter: container.verticalCenter
+            anchors.leftMargin: (gui.isMini) ? st.dp3  : st.dp6
+            anchors.topMargin : (gui.isMini) ? st.dp32 : 0
 
             width : st.dp48
             height: width
@@ -175,10 +166,9 @@ MouseArea
             id: buttonNext
 
             anchors.left: buttonPlay.right
+            anchors.top : buttonPlay.top
 
             anchors.leftMargin: -st.dp2
-
-            anchors.verticalCenter: container.verticalCenter
 
             width : st.dp48
             height: width
@@ -215,10 +205,9 @@ MouseArea
             id: buttonPlay
 
             anchors.left: buttonPrevious.right
+            anchors.top : buttonPrevious.top
 
             anchors.leftMargin: -st.dp2
-
-            anchors.verticalCenter: container.verticalCenter
 
             width : st.dp48
             height: width
@@ -242,10 +231,10 @@ MouseArea
             id: sliderVolume
 
             anchors.left: buttonNext.right
+            anchors.top : parent.top
 
-            anchors.leftMargin: (gui.isMini) ? st.dp5 : st.dp8
-
-            anchors.verticalCenter: container.verticalCenter
+            anchors.leftMargin: (gui.isMini) ? st.dp5  : st.dp8
+            anchors.topMargin : (gui.isMini) ? st.dp40 : st.dp8
 
             width: st.sliderVolume_width
 
@@ -363,8 +352,7 @@ MouseArea
             id: buttonSettings
 
             anchors.right: buttonShare.left
-
-            anchors.verticalCenter: container.verticalCenter
+            anchors.top  : buttonShare.top
 
             width: st.dp44
 
@@ -384,8 +372,7 @@ MouseArea
             id: buttonShare
 
             anchors.right: buttonFullScreen.left
-
-            anchors.verticalCenter: container.verticalCenter
+            anchors.top  : buttonFullScreen.top
 
             width: st.dp44
 
@@ -403,10 +390,10 @@ MouseArea
             id: buttonFullScreen
 
             anchors.right: parent.right
+            anchors.top  : parent.top
 
-            anchors.rightMargin: (gui.isMini) ? st.dp4 : st.dp11
-
-            anchors.verticalCenter: container.verticalCenter
+            anchors.rightMargin: (gui.isMini) ? st.dp4  : st.dp11
+            anchors.topMargin  : (gui.isMini) ? st.dp36 : st.dp4
 
             width: st.dp44
 

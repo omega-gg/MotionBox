@@ -18,14 +18,6 @@ contains(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_LATEST
 }
 
-#CONFIG += deploy
-
-deploy {
-    DEFINES += SK_DEPLOY
-
-    #RESOURCES = dist/MotionBox.qrc
-}
-
 unix:QMAKE_LFLAGS += "-Wl,-rpath,\'\$$ORIGIN\'"
 
 include(src/global/global.pri)

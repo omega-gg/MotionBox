@@ -225,7 +225,7 @@ Panel
         anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
 
-        width: parent.height
+        width: st.dp50
 
         sourceSize: Qt.size(width, height)
 

@@ -323,9 +323,13 @@ Item
             panelPlayer.visible = false;
         }
 
+        player.speed = local.speed;
+
         player.volume = local.volume;
 
-        player.repeat  = local.repeat;
+        player.repeat = local.repeat;
+
+        player.output  = local.output;
         player.quality = local.quality;
 
         if      (local.networkCache == 0) player.backend.networkCache = 5000;
@@ -579,9 +583,13 @@ Item
 
         onHasStartedChanged: restoreBars()
 
+        onSpeedChanged: local.speed = player.speed
+
         onVolumeChanged: local.volume = player.volume
 
-        onRepeatChanged : local.repeat  = player.repeat
+        onRepeatChanged: local.repeat = player.repeat
+
+        onOutputChanged : local.output  = player.output
         onQualityChanged: local.quality = player.quality
 
         onIsPlayingChanged:

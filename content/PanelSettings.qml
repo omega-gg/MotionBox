@@ -94,10 +94,12 @@ Panel
     // Events
     //---------------------------------------------------------------------------------------------
 
+    Component.onCompleted: slider.value = local.speed
+
+    //---------------------------------------------------------------------------------------------
+
     onPQualityChanged:
     {
-        if (player.isPaused) player.stop();
-
         if      (pQuality == 1) player.quality = AbstractBackend.QualityMinimum;
         else if (pQuality == 2) player.quality = AbstractBackend.QualityLow;
         else if (pQuality == 3) player.quality = AbstractBackend.QualityMedium;
@@ -296,12 +298,10 @@ Panel
         anchors.leftMargin: st.dp5
         anchors.topMargin : st.dp12
 
-        width: st.dp120
+        width: st.slider_width
 
         minimum: 0.0
         maximum: 2.0
-
-        value: 1.0
 
         onValueChanged:
         {
@@ -309,12 +309,12 @@ Panel
 
             if (speed != 1.0)
             {
-                buttonCheck.checked = true;
-
                 if (speed < 1.0)
                 {
                     speed = 0.5 + speed * 0.5;
                 }
+
+                buttonCheck.checked = true;
             }
             else buttonCheck.checked = false;
 
@@ -331,6 +331,8 @@ Panel
 
         anchors.rightMargin: st.dp5
         anchors.topMargin  : st.dp5
+
+        checkable: (player.outputActive != AbstractBackend.OutputInvalid)
 
         text: player.speed.toFixed(1)
 

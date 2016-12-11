@@ -94,10 +94,6 @@ Panel
     // Events
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted: slider.value = local.speed
-
-    //---------------------------------------------------------------------------------------------
-
     onPQualityChanged:
     {
         if      (pQuality == 1) player.quality = AbstractBackend.QualityMinimum;
@@ -302,6 +298,8 @@ Panel
 
         minimum: 0.0
         maximum: 2.0
+
+        Component.onCompleted: value = local.speed
 
         onValueChanged:
         {

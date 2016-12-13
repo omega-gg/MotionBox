@@ -37,7 +37,6 @@ Style
 
     property int dp100: 100 * ratio
     property int dp110: 110 * ratio
-    property int dp120: 120 * ratio
     property int dp146: 146 * ratio
     property int dp160: 160 * ratio
 

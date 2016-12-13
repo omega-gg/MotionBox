@@ -29,7 +29,15 @@
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
+#ifdef Q_OS_LINUX
+#ifdef Q_PROCESSOR_X86_32
+static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/linux32/";
+#else
+static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/linux64/";
+#endif
+#else
 static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/win32/";
+#endif
 
 //-------------------------------------------------------------------------------------------------
 // Ctor / dtor

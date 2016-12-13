@@ -3229,21 +3229,10 @@ Item
 
         onTriggered:
         {
-            if (pLoadPlaylist == null) return;
-
-            if (pLoadPlaylist.trackIsDefault(pLoadIndex) == false)
+            if (pLoadPlaylist)
             {
-                for (var i = 3; i; i--)
-                {
-                    if (pLoadPlaylist.trackIsDefault(pLoadIndex - i)
-                        ||
-                        pLoadPlaylist.trackIsDefault(pLoadIndex + i))
-                    {
-                        pLoadPlaylist.loadTracks(pLoadIndex, 10);
-                    }
-                }
+                pLoadPlaylist.loadTracks(pLoadIndex, 10);
             }
-            else pLoadPlaylist.loadTracks(pLoadIndex, 10);
         }
     }
 

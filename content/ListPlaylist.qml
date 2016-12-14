@@ -526,7 +526,7 @@ List
                 {
                     playlist.selectSingleTrack(last);
 
-                    if (last != -1 && last != (count -1))
+                    if (last != -1 && last != (count - 1))
                     {
                         last++;
 

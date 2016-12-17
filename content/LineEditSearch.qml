@@ -35,7 +35,7 @@ LineEditBox
 
     width: widthMinimum
 
-    paddingLeft: (isFocused) ? st.baseLineEdit_padding : st.dp28
+    paddingLeft: (isFocused) ? padding : st.dp28
 
     textDefault: qsTr("What do you want to watch ?")
 

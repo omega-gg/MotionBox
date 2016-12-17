@@ -465,6 +465,8 @@ Item
 
         onFadeOut:
         {
+            window.minimized = false;
+
             if (isMini)
             {
                 local.maximized = false;

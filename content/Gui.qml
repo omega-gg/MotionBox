@@ -35,7 +35,7 @@ Item
 
     /* read */ property bool isExpanded: local.expanded
 
-    property int itemAsynchronous: Image.AsynchronousOn
+    property bool itemAsynchronous: true
 
     /* read */ property TabTrack currentTab    : tabs.currentTab
     /* read */ property TabTrack highlightedTab: tabs.highlightedTab
@@ -446,7 +446,7 @@ Item
 
                 scaleAfter();
 
-                itemAsynchronous = Image.AsynchronousOn;
+                itemAsynchronous = true;
             }
         }
 
@@ -688,7 +688,7 @@ Item
 
         wall.enableAnimation = false;
 
-        itemAsynchronous = Image.AsynchronousOff;
+        itemAsynchronous = false;
 
         scaleBefore();
 
@@ -698,7 +698,7 @@ Item
 
             scaleAfter();
 
-            itemAsynchronous = Image.AsynchronousOn;
+            itemAsynchronous = true;
         }
         else window.zoomTo(scale, x, y, duration, easing, true);
 

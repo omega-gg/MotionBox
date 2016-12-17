@@ -95,7 +95,7 @@ PanelImage
 
     itemImage.clip: true
 
-    itemImage.asynchronous: Image.AsynchronousOn
+    itemImage.asynchronous: true
 
     //---------------------------------------------------------------------------------------------
     // Events

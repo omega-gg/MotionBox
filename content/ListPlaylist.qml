@@ -794,11 +794,11 @@ List
         }
         else if (itemTabs.openTab() == false) return;
 
-        wall.asynchronous = Image.AsynchronousOff;
+        wall.asynchronous = false;
 
         playlist.selectSingleTrack(index);
 
-        wall.asynchronous = Image.AsynchronousOn;
+        wall.asynchronous = true;
     }
 
     //---------------------------------------------------------------------------------------------

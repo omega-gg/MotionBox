@@ -327,11 +327,11 @@ MouseArea
         }
         else playlistIndex = 0;
 
-        wall.asynchronous = Image.AsynchronousOff;
+        wall.asynchronous = false;
 
         gui.setCurrentTrack(playlist, playlistIndex);
 
-        wall.asynchronous = Image.AsynchronousOn;
+        wall.asynchronous = true;
 
         startActionCue(st.duration_normal);
     }
@@ -493,7 +493,7 @@ MouseArea
 
             iconDefault: st.icon42x32_track
 
-            asynchronous: Image.AsynchronousOn
+            asynchronous: true
 
             //-------------------------------------------------------------------------------------
             // Events

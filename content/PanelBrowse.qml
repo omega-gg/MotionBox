@@ -1728,7 +1728,7 @@ MouseArea
 
             fillMode: Image.PreserveAspectFit
 
-            asynchronous: Image.AsynchronousOn
+            asynchronous: true
 
             onClicked: gui.openSource(playlist.source)
         }

@@ -225,7 +225,7 @@ Item
 
             enableTitle: (currentTab.playlist != null)
 
-            asynchronous: Image.AsynchronousOn
+            asynchronous: true
 
             player.hook: core.createHook(player.backend)
 

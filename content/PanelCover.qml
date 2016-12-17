@@ -486,7 +486,7 @@ Panel
 
             fillMode: Image.PreserveAspectCrop
 
-            asynchronous: Image.AsynchronousOn
+            asynchronous: true
 
             filter: (isSourceDefault) ? st.buttonPiano_filterIcon : null
 
@@ -720,7 +720,7 @@ Panel
 
             fillMode: Image.PreserveAspectFit
 
-            asynchronous: Image.AsynchronousOn
+            asynchronous: true
         }
 
         LabelLoading

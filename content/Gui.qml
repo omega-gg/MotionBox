@@ -1276,6 +1276,8 @@ Item
             window.setWindowMaximize(true);
         }
 
+        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
+
         var geometry = window.geometryNormal;
 
         window.width  = geometry.width;
@@ -1283,9 +1285,6 @@ Item
 
         window.x = geometry.x;
         window.y = geometry.y;
-
-        // FIXME Windows: Applying the minimum size after the resize.
-        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
         window.checkPosition();
 

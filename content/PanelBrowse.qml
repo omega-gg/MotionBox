@@ -1040,7 +1040,7 @@ MouseArea
 
                 isSelecting = false;
 
-                text = local.query;
+                if (text) text = local.query;
 
                 if (pBrowsing && buttonsBrowse.count)
                 {

@@ -287,8 +287,8 @@ MouseArea
             currentTime: (active) ? player.currentTime
                                   : player.trackCurrentTime
 
-            duration: (player.duration != -1) ? player.duration
-                                              : player.trackDuration
+            duration: (player.duration == -1) ? player.trackDuration
+                                              : player.duration
 
             onHandleReleased: player.seekTo(slider.value)
 

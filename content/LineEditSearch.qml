@@ -26,8 +26,8 @@ LineEditBox
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* mandatory */ property real widthMinimum
-    /* mandatory */ property real widthMaximum
+    /* mandatory */ property int widthMinimum
+    /* mandatory */ property int widthMaximum
 
     //---------------------------------------------------------------------------------------------
     // Settings

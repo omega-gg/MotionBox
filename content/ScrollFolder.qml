@@ -31,7 +31,7 @@ ScrollAreaVertical
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property real pSelectedY: -1
+    property int pSelectedY: -1
 
     property bool pAtBottom: false
 

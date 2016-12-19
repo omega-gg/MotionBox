@@ -37,8 +37,8 @@ Panel
     property string pPageSettings: "PageSettingsMain.qml"
     property string pPageAbout   : "PageAboutMain.qml"
 
-    property real pMessageValue: 0
-    property real pCreditsValue: 0
+    property int pMessageValue: 0
+    property int pCreditsValue: 0
 
     //---------------------------------------------------------------------------------------------
     // Settings

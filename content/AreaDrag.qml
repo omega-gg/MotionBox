@@ -25,8 +25,8 @@ MouseArea
 
     property variant pItem: null
 
-    property real pMargin    : 8
-    property real pMarginSize: pMargin * 2
+    property int pMargin    : 8
+    property int pMarginSize: pMargin * 2
 
     //---------------------------------------------------------------------------------------------
     // Settings

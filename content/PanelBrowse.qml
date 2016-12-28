@@ -258,6 +258,8 @@ MouseArea
         onQueryEnded: if (playlist.isEmpty == false) pCompleteSearch()
 
         onQueryCompleted: if (playlist.isEmpty) pSearchStop()
+
+        onTrackQueryEnded: pCompleteSearch()
     }
 
     //---------------------------------------------------------------------------------------------

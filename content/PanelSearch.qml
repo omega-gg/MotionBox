@@ -409,6 +409,8 @@ Panel
         anchors.top   : barHubs.bottom
         anchors.bottom: buttonSearch.top
 
+        anchors.bottomMargin: -(buttonSearch.borderTop)
+
         width: barHubs.width
 
         model: ModelLibraryFolder { folder: hubs }

@@ -476,7 +476,7 @@ Panel
 
             anchors.rightMargin: st.dp1
 
-            sourceSize.height: st.dp28
+            sourceSize: Qt.size(st.dp36, st.dp28)
 
             clip: true
 

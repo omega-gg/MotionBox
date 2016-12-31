@@ -63,7 +63,7 @@ PanelImage
 
     height: pGetHeight(detail)
 
-    sourceSize.height: st.dp110
+    sourceSize: Qt.size(st.dp146, st.dp110)
 
     z: 1
 

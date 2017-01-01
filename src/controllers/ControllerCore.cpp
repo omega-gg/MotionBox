@@ -51,6 +51,7 @@
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
+#include <WBackendSoundCloud>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WPlaylistNet>
@@ -218,6 +219,7 @@ ControllerCore::ControllerCore() : WController()
     new WBackendYoutube;
     new WBackendDailymotion;
     new WBackendVimeo;
+    new WBackendSoundCloud;
 
     //---------------------------------------------------------------------------------------------
     // Cache

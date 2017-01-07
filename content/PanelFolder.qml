@@ -54,7 +54,7 @@ Item
 
         anchors.rightMargin: border.size
 
-        color: st.panelFolder_color
+        color: st.panel_color
     }
 
     BorderVertical

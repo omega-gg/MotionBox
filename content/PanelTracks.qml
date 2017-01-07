@@ -276,7 +276,7 @@ Item
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
-        color: st.panelTracks_color
+        color: st.panel_color
 
         BarTitle
         {

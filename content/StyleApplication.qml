@@ -66,23 +66,6 @@ Style
     property real splash_shadowOpacity: 0.8
 
     //---------------------------------------------------------------------------------------------
-    // PanelFolder
-
-    property color panelFolder_color: "#565656"
-
-    //---------------------------------------------------------------------------------------------
-    // PanelTracks
-
-    property color panelTracks_color: "#484848"
-
-    //---------------------------------------------------------------------------------------------
-    // PanelBrowse
-
-    property color panelBrowse_color: "#484848"
-
-    property color panelBrowse_colorPlaylist: "#404040"
-
-    //---------------------------------------------------------------------------------------------
     // PanelRelated
 
     property int panelRelated_durationMinimum:  500

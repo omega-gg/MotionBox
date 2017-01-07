@@ -936,21 +936,9 @@ MouseArea
 
     Rectangle
     {
-        anchors.left  : parent.left
-        anchors.right : backgroundPlaylist.left
-        anchors.top   : backgroundPlaylist.top
-        anchors.bottom: backgroundPlaylist.bottom
+        anchors.fill: parent
 
-        color: st.panelBrowse_color
-    }
-
-    Rectangle
-    {
-        id: backgroundPlaylist
-
-        anchors.fill: scrollPlaylist
-
-        color: st.panelBrowse_colorPlaylist
+        color: st.panel_color
     }
 
     Item

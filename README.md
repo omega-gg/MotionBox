@@ -10,7 +10,7 @@ Built to load and play multiple video resources.<br>
 <a href="http://omega.gg/MotionBox"><img src="dist/pictures/TheVideoBrowser.png" alt="The Video Browser" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](http://en.wikipedia.org/wiki/DuckDuckGo).<br>
-It streams video files, [Youtube](http://en.wikipedia.org/wiki/Youtube), [Dailymotion](http://en.wikipedia.org/wiki/Dailymotion) and [Vimeo](http://en.wikipedia.org/wiki/Vimeo).<br>
+It streams [Youtube](http://en.wikipedia.org/wiki/Youtube), [Dailymotion](http://en.wikipedia.org/wiki/Dailymotion), [Vimeo](http://en.wikipedia.org/wiki/Vimeo) and [SoundCloud](http://en.wikipedia.org/wiki/SoundCloud).<br>
 All of this inside multiple tabs and without ever showing an ad.<br>
 
 ## Technology

@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.1.2
+# [MotionBox] - alpha 1.1.3
 
 ### english / [français](documents/fr/Readme.html)
 
@@ -38,6 +38,8 @@ Stand United.
 
 
 ## Changelog
+
+- 1.1.3: [Complete audio support, playback speed, native window](documents/changes/1.1.3.html).
 
 - 1.1.2: [Improved interface, fast startup, wide search bars](documents/changes/1.1.2.html).
 

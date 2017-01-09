@@ -96,7 +96,7 @@ Item
             source    : st.icon32x32_folder
             sourceSize: st.size32x32
 
-            iconStyle: Sk.IconRaised
+            style: Sk.IconRaised
         }
 
         ButtonPianoIcon

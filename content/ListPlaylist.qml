@@ -1335,7 +1335,7 @@ List
         source    : st.icon32x32_search
         sourceSize: st.size32x32
 
-        iconStyle: Sk.IconRaised
+        style: Sk.IconRaised
     }
 
     CheckBox

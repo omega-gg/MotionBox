@@ -71,8 +71,6 @@ Style
     property int panelRelated_durationMinimum:  500
     property int panelRelated_durationMaximum: 2000
 
-    property color panelRelated_color: "#484848"
-
     //---------------------------------------------------------------------------------------------
     // PanelCover
 

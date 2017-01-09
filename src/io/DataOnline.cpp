@@ -1,6 +1,6 @@
 //=================================================================================================
 /*
-    Copyright (C) 2015-2016 MotionBox authors united with omega. <http://omega.gg/about>
+    Copyright (C) 2015-2017 MotionBox authors united with omega. <http://omega.gg/about>
 
     Author: Benjamin Arnaud. <http://bunjee.me> <bunjee@omega.gg>
 

@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.1.3
+# [MotionBox] - alpha 1.2.0
 
 ### [english](../../Readme.html) / français
 
@@ -39,7 +39,7 @@ Singulier en Unité.
 
 ## Historique
 
-- 1.1.3: [Support audio complet, vitesse de lecture, fenêtre native](../changes/1.1.3.html).
+- 1.2.0: [Support audio complet, vitesse de lecture, fenêtre native](../changes/1.2.0.html).
 
 - 1.1.2: [Amélioration de l'interface, démarrage rapide, grandes barres de recherche](../changes/1.1.2.html).
 

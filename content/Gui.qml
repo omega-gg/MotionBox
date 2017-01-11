@@ -53,11 +53,11 @@ Item
     //---------------------------------------------------------------------------------------------
     // Drag
 
-    property int     drag     : -1
-    property variant dragList : null
-    property variant dragItem : null
-    property int     dragId   : -1
-    property int     dragType : -1
+    property int     drag    : -1
+    property variant dragList: null
+    property variant dragItem: null
+    property int     dragId  : -1
+    property int     dragType: -1
     property variant dragData
 
     //---------------------------------------------------------------------------------------------

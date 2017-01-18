@@ -315,8 +315,7 @@ Panel
         anchors.left: slider.right
         anchors.top : barTop.bottom
 
-        anchors.rightMargin: st.dp5
-        anchors.topMargin  : st.dp5
+        anchors.topMargin: st.dp5
 
         checkable: (player.outputActive != AbstractBackend.OutputInvalid)
 

@@ -91,7 +91,7 @@ if [ $2 = "win32" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    if [ -d "$lib64" ]; then
+    if [ $(uname -m) = "x86_64" ]; then
 
         spec=linux-g++-64
     else

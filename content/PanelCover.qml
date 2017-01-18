@@ -446,7 +446,7 @@ Panel
     {
         id: background
 
-        width : st.dp37
+        width : st.dp36 + borderIcon.size
         height: st.dp28
 
         color: st.panelCover_colorBackground
@@ -472,9 +472,10 @@ Panel
         {
             id: itemIcon
 
-            anchors.fill: parent
-
-            anchors.rightMargin: st.dp1
+            anchors.left  : parent.left
+            anchors.right : borderIcon.left
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
             sourceSize: Qt.size(st.dp36, st.dp28)
 
@@ -531,7 +532,12 @@ Panel
             }
         }
 
-        BorderVertical { anchors.right: parent.right }
+        BorderVertical
+        {
+            id: borderIcon
+
+            anchors.right: parent.right
+        }
     }
 
     ButtonPiano

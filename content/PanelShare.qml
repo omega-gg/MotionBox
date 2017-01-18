@@ -150,7 +150,7 @@ Panel
         borderTop: 0
     }
 
-    Item
+    BarTitleText
     {
         id: itemShare
 
@@ -161,17 +161,12 @@ Panel
 
         width: lineEdit.x + lineEdit.width + st.dp6
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+        text: qsTr("Share Track")
 
-            text: qsTr("Share Track")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     BorderVertical
@@ -181,25 +176,20 @@ Panel
         anchors.left: itemShare.right
     }
 
-    Item
+    BarTitleText
     {
         anchors.left  : border.right
         anchors.right : parent.right
         anchors.top   : itemShare.top
         anchors.bottom: itemShare.bottom
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        leftMargin: st.dp8
 
-            leftMargin: st.dp8
+        verticalAlignment: Text.AlignVCenter
 
-            verticalAlignment: Text.AlignVCenter
+        text: qsTr("Go to")
 
-            text: qsTr("Go to")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     ButtonPianoIcon

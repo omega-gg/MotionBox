@@ -345,8 +345,7 @@ Item
             backend.setProxy(local.proxyHost, local.proxyPort, local.proxyPassword);
         }
 
-        barTop      .updateTab();
-        panelRelated.updateTab();
+        barTop.updateTab();
 
         window.resizable = true;
 
@@ -532,8 +531,7 @@ Item
 
         onCurrentTabChanged:
         {
-            barTop      .updateTab();
-            panelRelated.updateTab();
+            barTop.updateTab();
 
             loadTabItems(currentTab);
 

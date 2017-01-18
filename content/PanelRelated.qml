@@ -34,8 +34,6 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property TabTrack pTab: null
-
     property bool pLoading: (playlist != null && playlist.queryIsLoading)
 
     //---------------------------------------------------------------------------------------------
@@ -215,13 +213,6 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function updateTab()
-    {
-        pTab = currentTab;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function load(data)
     {
         saveScroll();
@@ -355,7 +346,7 @@ Panel
     {
         saveScroll();
 
-        related.loadTracks(pTab.trackData);
+        related.loadTracks(currentTab.trackData);
 
         local.cache = true;
     }
@@ -428,7 +419,7 @@ Panel
 
             width: st.dp36 + borderSizeWidth
 
-            enabled: (isAnimated == false && pTab != null && pTab.isValid)
+            enabled: (isAnimated == false && currentTab.isValid)
 
             icon: (pLoading) ? st.icon24x24_abort
                              : st.icon24x24_refresh

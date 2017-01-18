@@ -172,7 +172,7 @@ Panel
         borderTop: 0
     }
 
-    Item
+    BarTitleText
     {
         id: itemOutput
 
@@ -183,17 +183,12 @@ Panel
 
         width: buttonVideo.x + buttonVideo.width + st.dp5
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+        text: qsTr("Output")
 
-            text: qsTr("Output")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     BorderVertical
@@ -205,24 +200,19 @@ Panel
         anchors.bottom: barBottom.top
     }
 
-    Item
+    BarTitleText
     {
         anchors.left  : borderTop.right
         anchors.right : buttonClose.left
         anchors.top   : itemOutput.top
         anchors.bottom: itemOutput.bottom
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+        text: qsTr("Speed")
 
-            text: qsTr("Speed")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     ButtonPianoIcon
@@ -294,8 +284,6 @@ Panel
         anchors.leftMargin: st.dp5
         anchors.topMargin : st.dp12
 
-        width: st.slider_width
-
         minimum: 0.0
         maximum: 2.0
 
@@ -307,12 +295,12 @@ Panel
 
             if (speed != 1.0)
             {
+                buttonCheck.checked = true;
+
                 if (speed < 1.0)
                 {
                     speed = 0.5 + speed * 0.5;
                 }
-
-                buttonCheck.checked = true;
             }
             else buttonCheck.checked = false;
 
@@ -356,7 +344,7 @@ Panel
         anchors.topMargin: st.dp50
     }
 
-    Item
+    BarTitleText
     {
         id: itemPlayback
 
@@ -365,17 +353,12 @@ Panel
 
         width: buttonRepeat.x + buttonRepeat.width + st.dp5
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+        text: qsTr("Playback")
 
-            text: qsTr("Playback")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     BorderVertical
@@ -386,24 +369,19 @@ Panel
         anchors.top : barBottom.top
     }
 
-    Item
+    BarTitleText
     {
         anchors.left  : borderBottom.right
         anchors.right : parent.right
         anchors.top   : itemPlayback.top
         anchors.bottom: itemPlayback.bottom
 
-        BarTitleText
-        {
-            anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+        text: qsTr("Quality")
 
-            text: qsTr("Quality")
-
-            font.pixelSize: st.dp12
-        }
+        font.pixelSize: st.dp12
     }
 
     ButtonPushIcon

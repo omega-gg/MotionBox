@@ -177,8 +177,9 @@ Item
     property alias toolTip: toolTip
 
     //---------------------------------------------------------------------------------------------
-    // BarWindow
+    // BarWindowApplication
 
+    property alias buttonMini    : barWindow.buttonMini
     property alias buttonMaximize: barWindow.buttonMaximize
 
     //---------------------------------------------------------------------------------------------
@@ -2516,7 +2517,11 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            toggleMini();
+            if (buttonMini.visible)
+            {
+                buttonMini.returnPressed();
+            }
+            else toggleMini();
 
             window.checkLeave(st.duration_faster);
         }
@@ -2688,6 +2693,10 @@ Item
         else if (buttonShare.isReturnPressed)
         {
             buttonShare.returnReleased();
+        }
+        else if (buttonMini.isReturnPressed)
+        {
+            buttonMini.returnReleased();
         }
         else if (buttonMaximize.isReturnPressed)
         {

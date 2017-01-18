@@ -72,7 +72,6 @@ if [ $1 = "qt4" ]; then
 
     build="build/qt4"
 else
-
     QT_SELECT=qt5
 
     build="build/qt5"

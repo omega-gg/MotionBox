@@ -71,7 +71,7 @@ Or the console:
 1\. Generate the qrc file:
 
     cd dist
-    sh qrc <deploy | clean>
+    sh qrc.sh <deploy | clean>
 
 2\. Build MotionBox:
 

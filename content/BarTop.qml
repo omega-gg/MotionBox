@@ -369,8 +369,7 @@ MouseArea
             checkable: true
             checked  : panelApplication.isExposed
 
-            icon: st.icon
-
+            icon          : st.icon
             iconSourceSize: st.size24x24
 
             enableFilter: false

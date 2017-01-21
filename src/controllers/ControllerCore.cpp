@@ -206,6 +206,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Controllers
 
+    W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
     W_CREATE_CONTROLLER(WControllerTorrent);
 
@@ -336,6 +337,8 @@ ControllerCore::ControllerCore() : WController()
     // QML
 
     qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
+
+    wControllerDeclarative->setContextProperty("controllerPlaylist", wControllerPlaylist);
 
     wControllerDeclarative->setContextProperty("online", _online);
 

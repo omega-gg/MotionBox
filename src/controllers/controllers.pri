@@ -1,7 +1,5 @@
 # Controllers module
 
-HEADERS += \
-        src/controllers/ControllerCore.h \
+HEADERS += src/controllers/ControllerCore.h \
 
-SOURCES += \
-        src/controllers/ControllerCore.cpp \
+SOURCES += src/controllers/ControllerCore.cpp \

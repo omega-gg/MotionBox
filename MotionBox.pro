@@ -24,34 +24,30 @@ include(src/global/global.pri)
 include(src/controllers/controllers.pri)
 include(src/io/io.pri)
 
-INCLUDEPATH += \
-            $$SK/include/SkCore \
-            $$SK/include/SkGui \
-            $$SK/include/SkMedia \
-            $$SK/include/SkWeb \
-            $$SK/include/SkTorrent \
-            $$SK/include/SkBackend \
-            src/controllers \
-            src/io \
+INCLUDEPATH += $$SK/include/SkCore \
+               $$SK/include/SkGui \
+               $$SK/include/SkMedia \
+               $$SK/include/SkWeb \
+               $$SK/include/SkTorrent \
+               $$SK/include/SkBackend \
+               src/controllers \
+               src/io \
 
 CONFIG(debug, debug|release) {
-    LIBS += \
-         -L$$SK/lib -lSkCoreD \
-         -L$$SK/lib -lSkGuiD \
-         -L$$SK/lib -lSkMediaD \
-         -L$$SK/lib -lSkWebD \
-         -L$$SK/lib -lSkTorrentD \
-         -L$$SK/lib -lSkBackendD \
 
+    LIBS += -L$$SK/lib -lSkCoreD \
+            -L$$SK/lib -lSkGuiD \
+            -L$$SK/lib -lSkMediaD \
+            -L$$SK/lib -lSkWebD \
+            -L$$SK/lib -lSkTorrentD \
+            -L$$SK/lib -lSkBackendD
 } else {
-    LIBS += \
-         -L$$SK/lib -lSkCore \
-         -L$$SK/lib -lSkGui \
-         -L$$SK/lib -lSkMedia \
-         -L$$SK/lib -lSkWeb \
-         -L$$SK/lib -lSkTorrent \
-         -L$$SK/lib -lSkBackend \
-
+    LIBS += -L$$SK/lib -lSkCore \
+            -L$$SK/lib -lSkGui \
+            -L$$SK/lib -lSkMedia \
+            -L$$SK/lib -lSkWeb \
+            -L$$SK/lib -lSkTorrent \
+            -L$$SK/lib -lSkBackend
 }
 
 RC_FILE = dist/MotionBox.rc

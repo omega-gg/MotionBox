@@ -1,6 +1,3 @@
 # Global module
 
-HEADERS += \
-
-SOURCES += \
-        src/global/main.cpp \
+SOURCES += src/global/main.cpp \

@@ -2710,7 +2710,55 @@ Item
 
     function keyPressed(event)
     {
-        if (event.key == Qt.Key_Up)
+        if (event.key == Qt.Key_Left)
+        {
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                barControls.buttonPrevious.returnPressed();
+            }
+            else if (playerBrowser.visible)
+            {
+                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
+                {
+                    playerBrowser.buttonPrevious.returnPressed();
+                }
+            }
+            else if (player.isPlaying)
+            {
+                restoreBars();
+
+                if (event.modifiers == Qt.ShiftModifier)
+                {
+                     sliderStream.moveTo(sliderStream.value - 30000);
+                }
+                else sliderStream.moveTo(sliderStream.value - 10000);
+            }
+        }
+        else if (event.key == Qt.Key_Right)
+        {
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                barControls.buttonNext.returnPressed();
+            }
+            else if (playerBrowser.visible)
+            {
+                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
+                {
+                    playerBrowser.buttonNext.returnPressed();
+                }
+            }
+            else if (player.isPlaying)
+            {
+                restoreBars();
+
+                if (event.modifiers == Qt.ShiftModifier)
+                {
+                     sliderStream.moveTo(sliderStream.value + 30000);
+                }
+                else sliderStream.moveTo(sliderStream.value + 10000);
+            }
+        }
+        else if (event.key == Qt.Key_Up)
         {
             if (event.modifiers == Qt.ControlModifier)
             {
@@ -2788,54 +2836,6 @@ Item
                     restoreWall();
                 }
                 else expandBars();
-            }
-        }
-        else if (event.key == Qt.Key_Left)
-        {
-            if (event.modifiers == Qt.ControlModifier)
-            {
-                barControls.buttonPrevious.returnPressed();
-            }
-            else if (playerBrowser.visible)
-            {
-                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
-                {
-                    playerBrowser.buttonPrevious.returnPressed();
-                }
-            }
-            else if (player.isPlaying)
-            {
-                restoreBars();
-
-                if (event.modifiers == Qt.ShiftModifier)
-                {
-                     sliderStream.moveTo(sliderStream.value - 30000);
-                }
-                else sliderStream.moveTo(sliderStream.value - 10000);
-            }
-        }
-        else if (event.key == Qt.Key_Right)
-        {
-            if (event.modifiers == Qt.ControlModifier)
-            {
-                barControls.buttonNext.returnPressed();
-            }
-            else if (playerBrowser.visible)
-            {
-                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
-                {
-                    playerBrowser.buttonNext.returnPressed();
-                }
-            }
-            else if (player.isPlaying)
-            {
-                restoreBars();
-
-                if (event.modifiers == Qt.ShiftModifier)
-                {
-                     sliderStream.moveTo(sliderStream.value + 30000);
-                }
-                else sliderStream.moveTo(sliderStream.value + 10000);
             }
         }
         else if (event.key == Qt.Key_Space)

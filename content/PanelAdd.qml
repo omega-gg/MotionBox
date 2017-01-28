@@ -1159,37 +1159,7 @@ PanelContextual
             {
                 var index;
 
-                if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
-                {
-                    event.accepted = true;
-
-                    index = model.indexFromId(currentId);
-
-                    if (index > 0)
-                    {
-                        currentId = model.idAt(index - 1);
-                    }
-                    else if (itemListA.visible)
-                    {
-                        itemListA.selectIndex();
-                    }
-                    else if (itemLibrary.visible)
-                    {
-                        itemLibrary.selectIndex();
-                    }
-                }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
-                {
-                    event.accepted = true;
-
-                    index = model.indexFromId(currentId);
-
-                    if (index < (count - 1))
-                    {
-                        currentId = model.idAt(index + 1);
-                    }
-                }
-                else if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
                 {
                     event.accepted = true;
 
@@ -1220,6 +1190,36 @@ PanelContextual
 
                             pOnCollapse();
                         }
+                    }
+                }
+                else if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                {
+                    event.accepted = true;
+
+                    index = model.indexFromId(currentId);
+
+                    if (index > 0)
+                    {
+                        currentId = model.idAt(index - 1);
+                    }
+                    else if (itemListA.visible)
+                    {
+                        itemListA.selectIndex();
+                    }
+                    else if (itemLibrary.visible)
+                    {
+                        itemLibrary.selectIndex();
+                    }
+                }
+                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                {
+                    event.accepted = true;
+
+                    index = model.indexFromId(currentId);
+
+                    if (index < (count - 1))
+                    {
+                        currentId = model.idAt(index + 1);
                     }
                 }
             }
@@ -1446,7 +1446,17 @@ PanelContextual
             {
                 var index;
 
-                if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
+                {
+                    event.accepted = true;
+
+                    listLibrary.focus();
+                }
+                else if (event.key == Qt.Key_Right && event.modifiers == Qt.NoModifier)
+                {
+                    event.accepted = true;
+                }
+                else if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
                 {
                     event.accepted = true;
 
@@ -1475,16 +1485,6 @@ PanelContextual
                     {
                         currentId = model.idAt(index + 1);
                     }
-                }
-                else if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
-                {
-                    event.accepted = true;
-
-                    listLibrary.focus();
-                }
-                else if (event.key == Qt.Key_Right && event.modifiers == Qt.NoModifier)
-                {
-                    event.accepted = true;
                 }
             }
 

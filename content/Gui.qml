@@ -894,8 +894,16 @@ Item
 
     function toggleBars()
     {
-        if (barTop.isExpanded) restoreBars();
-        else                   expandBars ();
+        if (barTop.isExpanded)
+        {
+            restoreBars();
+
+            if (isMini == false)
+            {
+                restore();
+            }
+        }
+        else expandBars();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2130,11 +2138,6 @@ Item
         {
             actionCue.start(duration);
         }
-    }
-
-    function clearActionCue()
-    {
-        actionCue.clear();
     }
 
     //---------------------------------------------------------------------------------------------

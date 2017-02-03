@@ -28,31 +28,23 @@ int main(int argc, char * argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_ImmediateWidgetCreation);
 
-#ifndef SK_DEPLOY
-    char * av[2];
-
-    av[0] = strdup("MotionBox");
-    av[1] = strdup("../content");
-
-    argc = 2;
-    argv = av;
-#endif
-
-    QApplication * application = WApplication::create(argc, argv, Sk::Script);
+    QApplication * application = WApplication::create(argc, argv);
 
     if (application == NULL) return 0;
-
-    //---------------------------------------------------------------------------------------------
-    // Controllers
-
-    W_CREATE_CONTROLLER(ControllerCore);
 
     //---------------------------------------------------------------------------------------------
     // Settings
 
 #ifdef SK_DEPLOY
     sk->setQrc(true);
+#else
+    Sk::setCurrent("../content");
 #endif
+
+    //---------------------------------------------------------------------------------------------
+    // Controllers
+
+    W_CREATE_CONTROLLER(ControllerCore);
 
     //---------------------------------------------------------------------------------------------
 

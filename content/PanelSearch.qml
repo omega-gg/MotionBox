@@ -79,10 +79,13 @@ Panel
 
             pIndexFocus = 1;
 
-            if (getHubIndex() == -1)
+            var index = getHubIndex();
+
+            if (index == -1)
             {
                 selectHub(0);
             }
+            else scrollHubs.scrollToItem(index);
 
             action = 0;
 

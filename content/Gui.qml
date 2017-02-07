@@ -3236,7 +3236,7 @@ Item
     {
         id: timerLoad
 
-        interval: st.ms200
+        interval: 200
 
         onTriggered:
         {

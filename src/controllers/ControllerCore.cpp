@@ -263,11 +263,14 @@ ControllerCore::ControllerCore() : WController()
 
     _tabs->setMaxCount(8);
 
+    _tabs->addTab();
+
     _tabs->setSaveEnabled(true);
 
-    _tabs->load();
-
-    _tabs->addTab();
+    if (_tabs->load() == false)
+    {
+        _tabs->save();
+    }
 
     //---------------------------------------------------------------------------------------------
     // Library

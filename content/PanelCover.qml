@@ -234,6 +234,9 @@ Panel
 
     onExited: clearItemLater()
 
+    //---------------------------------------------------------------------------------------------
+    // Private
+
     onPButtonActiveChanged:
     {
         if (pButtonActive)

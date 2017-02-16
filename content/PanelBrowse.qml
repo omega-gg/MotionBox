@@ -782,14 +782,11 @@ MouseArea
                 return;
             }
         }
-        else if (lineEdit.isFocused)
+        else if (lineEdit.isFocused && local.query != query)
         {
-            if (local.query != query)
-            {
-                local.query = query;
+            local.query = query;
 
-                pHideCompletion();
-            }
+            pHideCompletion();
         }
 
         if (index == 1)
@@ -836,6 +833,7 @@ MouseArea
 
                 pFolderBrowse.loadSource(source);
             }
+            else pClearSource();
         }
         else if (index == 0)
         {
@@ -849,22 +847,19 @@ MouseArea
 
                 local.cache = true;
             }
-            else
+            else if (pItemBrowse.title == title)
             {
-                if (pItemBrowse.title == title)
+                if (query)
                 {
-                    if (query)
-                    {
-                        /* var */ source = pSiteQuery(title, query);
+                    /* var */ source = pSiteQuery(title, query);
 
-                        source = controllerPlaylist.createSource(pSearchEngine,
-                                                                 "search", "site", source);
+                    source = controllerPlaylist.createSource(pSearchEngine,
+                                                             "search", "site", source);
 
-                        pItemBrowse.loadSource(source);
-                    }
+                    pItemBrowse.loadSource(source);
                 }
-                else pBrowseSource(title);
             }
+            else pBrowseSource(title);
         }
         else // if (index == 1)
         {

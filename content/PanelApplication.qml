@@ -41,6 +41,12 @@ Panel
     property int pCreditsValue: 0
 
     //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias itemTabs: itemTabs
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -195,19 +201,31 @@ Panel
         model.setProperty(1, "sourceDefault", st.icon32x32_about);
     }
 
+    //---------------------------------------------------------------------------------------------
+
     function setAboutPage(page)
     {
-        expose();
-
-        pPageAbout = page;
-
         if (itemTabs.indexCurrent != 1)
         {
             itemTabs.indexCurrent = 1;
 
-            loader.load(Qt.resolvedUrl("PageAbout.qml"));
+            pPageAbout = page;
+
+            if (isExposed == false)
+            {
+                loader.load(Qt.resolvedUrl("PageAbout.qml"));
+
+                expose();
+            }
+            else loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
         }
-        else loader.reload();
+        else if (isExposed == false)
+        {
+            loader.item.load(Qt.resolvedUrl(page));
+
+            expose();
+        }
+        else loader.item.loadLeft(Qt.resolvedUrl(page));
 
         loader.item.forceActiveFocus();
     }
@@ -249,7 +267,9 @@ Panel
 
             function selectTab(index)
             {
-                if (loader.isAnimated || index < 0 || index >= count) return;
+                if (loader.isAnimated
+                    ||
+                    index < 0 || index >= count || indexCurrent == index) return;
 
                 if (indexCurrent == -1)
                 {
@@ -263,9 +283,16 @@ Panel
 
                     if (indexCurrent == 0)
                     {
-                         loader.loadRight(Qt.resolvedUrl("PageSettings.qml"));
+                        pPageSettings = "PageSettingsMain.qml";
+
+                        loader.loadRight(Qt.resolvedUrl("PageSettings.qml"));
                     }
-                    else loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
+                    else
+                    {
+                        pPageAbout = "PageAboutMain.qml";
+
+                        loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
+                    }
                 }
 
                 loader.item.forceActiveFocus();

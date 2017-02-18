@@ -489,7 +489,8 @@ Item
 
             collapsePanels();
 
-            panelLibrary.buttonsUpdater.visible = false;
+            barWindow.buttonVersion.visible = false;
+            barWindow.buttonMessage.visible = false;
 
             playerBrowser.visible = true;
 

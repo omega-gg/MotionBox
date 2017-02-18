@@ -88,7 +88,6 @@ OTHER_FILES += configure.sh \
                content/ButtonLogo.qml \
                content/ButtonLogoBorders.qml \
                content/ButtonsBrowse.qml \
-               content/ButtonsUpdater.qml \
                content/LineEditSearch.qml \
                content/ListFolder.qml \
                content/ListPlaylist.qml \

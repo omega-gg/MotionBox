@@ -37,8 +37,6 @@ Panel
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias buttonsUpdater: buttonsUpdater
-
     property alias buttonPlaylist: buttonPlaylist
     property alias buttonFolder  : buttonFolder
     property alias buttonBrowse  : buttonBrowse
@@ -152,53 +150,6 @@ Panel
             anchors.fill: parent
 
             text: qsTr("Library")
-        }
-
-        ButtonsUpdater
-        {
-            id: buttonsUpdater
-
-            anchors.fill: parent
-
-            buttonVersion.width: Math.max(buttonBrowse.width + buttonFolder.borderRight,
-                                          buttonVersion.getPreferredWidth())
-
-            ButtonPianoFull
-            {
-                anchors.right: parent.buttonVersion.left
-
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                maximumWidth: bar.width - parent.buttonVersion.width
-                              -
-                              sk.textWidth(libraryTitle.font, libraryTitle.text) - st.dp16
-
-                borderLeft : borderSize
-                borderRight: 0
-
-                spacing: st.dp2
-
-                visible: (opacity != 0.0)
-
-                opacity: (online.messageUrl != "")
-
-                icon: online.messageIcon
-
-                iconDefault   : st.icon24x24_love
-                iconSourceSize: st.size24x24
-
-                enableFilter: isIconDefault
-
-                text: online.messageTitle
-
-                onClicked: panelApplication.setAboutPage("PageAboutMessage.qml")
-
-                Behavior on opacity
-                {
-                    PropertyAnimation { duration: st.duration_normal }
-                }
-            }
         }
     }
 

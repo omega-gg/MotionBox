@@ -38,9 +38,6 @@ Item
 
     function pLoad(page)
     {
-        // FIXME: Clearing the updater before page loading.
-        buttonsUpdater.clearActive();
-
         pageAbout.load(Qt.resolvedUrl(page));
     }
 
@@ -216,24 +213,13 @@ Item
             text: qsTr("Stand United")
         }
 
-        ButtonsUpdater
+        BarTitleText
         {
-            id: buttonsUpdater
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-            anchors.fill: parent
-
-            buttonUpdate.anchors.leftMargin: logoW.width
-
-            BarTitleText
-            {
-                anchors.right: buttonsUpdater.buttonVersion.left
-
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                text: (buttonsUpdater.isExposed) ? core.version
-                                                 : core.versionName
-            }
+            text: core.versionName
         }
 
         ButtonLogo

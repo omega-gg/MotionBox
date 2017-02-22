@@ -23,6 +23,10 @@ Qt5="$external/Qt/$Qt5_version/bin"
 MinGW="$external/MinGW/$MinGW_version/bin"
 
 #--------------------------------------------------------------------------------------------------
+
+make_arguments="-j 4"
+
+#--------------------------------------------------------------------------------------------------
 # Linux
 
 lib64="/lib/x86_64-linux-gnu"
@@ -120,9 +124,9 @@ fi
 
 if [ $2 = "win32" ]; then
 
-    mingw32-make
+    mingw32-make $make_arguments
 else
-    make
+    make $make_arguments
 fi
 
 echo "------------------"

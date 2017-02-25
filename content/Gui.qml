@@ -2734,9 +2734,9 @@ Item
 
                 if (event.modifiers == Qt.ShiftModifier)
                 {
-                     sliderStream.moveTo(sliderStream.value - 30000);
+                     sliderStream.moveTo(sliderStream.value - st.sliderStream_intervalB);
                 }
-                else sliderStream.moveTo(sliderStream.value - 10000);
+                else sliderStream.moveTo(sliderStream.value - st.sliderStream_intervalA);
             }
         }
         else if (event.key == Qt.Key_Right)
@@ -2758,9 +2758,9 @@ Item
 
                 if (event.modifiers == Qt.ShiftModifier)
                 {
-                     sliderStream.moveTo(sliderStream.value + 30000);
+                     sliderStream.moveTo(sliderStream.value + st.sliderStream_intervalB);
                 }
-                else sliderStream.moveTo(sliderStream.value + 10000);
+                else sliderStream.moveTo(sliderStream.value + st.sliderStream_intervalA);
             }
         }
         else if (event.key == Qt.Key_Up)

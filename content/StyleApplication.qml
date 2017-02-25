@@ -122,6 +122,12 @@ Style
     property int scrollPlaylistCreate_durationAdd: panelAdd_durationAdd
 
     //---------------------------------------------------------------------------------------------
+    // SliderStream
+
+    property int sliderStream_intervalA: 10000
+    property int sliderStream_intervalB: 30000
+
+    //---------------------------------------------------------------------------------------------
     // PageAboutText
 
     property color pageAboutText_color: "#323232"

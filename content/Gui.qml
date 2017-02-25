@@ -1516,6 +1516,15 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function pause()
+    {
+        if (player.isStarting || player.isResuming)
+        {
+             player.stop();
+        }
+        else player.pause();
+    }
+
     function stop()
     {
         var tab = playerTab;
@@ -2097,7 +2106,7 @@ Item
 
     function openSource(url)
     {
-        player.pause();
+        pause();
 
         if (controllerNetwork.urlIsFile(url))
         {
@@ -3004,7 +3013,7 @@ Item
     {
         if (player.isPlaying && player.tabIndex == index)
         {
-            player.pause();
+            pause();
 
             return false;
         }

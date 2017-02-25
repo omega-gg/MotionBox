@@ -223,7 +223,14 @@ MouseArea
 
             hoverRetain: true
 
-            onClicked: player.togglePlay()
+            onClicked:
+            {
+                if (player.isPlaying)
+                {
+                    gui.pause();
+                }
+                else player.play();
+            }
         }
 
         SliderVolume

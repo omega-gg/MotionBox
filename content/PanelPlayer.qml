@@ -270,7 +270,7 @@ Item
                 }
                 else if (mouse.button & Qt.MiddleButton)
                 {
-                    player.pause();
+                    gui.pause();
                 }
                 else gui.toggleBars();
             }

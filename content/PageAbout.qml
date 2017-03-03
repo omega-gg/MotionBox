@@ -26,7 +26,7 @@ PageSlide
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    source: panelApplication.sourceAbout
+    source: sourceAbout
 
     mainSource: "PageAboutMain.qml"
 
@@ -34,5 +34,5 @@ PageSlide
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onSourceChanged: panelApplication.sourceAbout = source
+    onSourceChanged: sourceAbout = source
 }

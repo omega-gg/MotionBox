@@ -96,7 +96,10 @@ BarWindow
     {
         clip = true;
 
-        buttonMessage.visible = pMessage;
+        if (pMessage)
+        {
+            buttonMessage.visible = true;
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -137,8 +140,6 @@ BarWindow
         anchors.left: buttonApplication.right
         anchors.top : parent.bottom
 
-        anchors.topMargin: -borderSize
-
         height: buttonApplication.height + borderSizeHeight
 
         borderTop: borderSize
@@ -160,7 +161,8 @@ BarWindow
             {
                 target: buttonVersion
 
-                anchors.top: parent.top
+                anchors.top   : undefined
+                anchors.bottom: parent.bottom
             }
         }
 
@@ -200,8 +202,6 @@ BarWindow
         anchors.right: buttonVersion.left
         anchors.top  : parent.bottom
 
-        anchors.topMargin : -borderSize
-
         height: buttonVersion.height
 
         borderTop: borderSize
@@ -220,7 +220,8 @@ BarWindow
             {
                 target: buttonUpdate
 
-                anchors.top: parent.top
+                anchors.top   : undefined
+                anchors.bottom: parent.bottom
             }
         }
 
@@ -277,8 +278,6 @@ BarWindow
 
         anchors.top: parent.bottom
 
-        anchors.topMargin: -borderSize
-
         height: buttonVersion.height
 
         maximumWidth: buttonMini.x - x + borderRight
@@ -289,7 +288,7 @@ BarWindow
 
         checked: (panelApplication.isExposed && panelApplication.itemTabs.indexCurrent == 1
                   &&
-                  panelApplication.pPageAbout == Qt.resolvedUrl("PageAboutMessage.qml"))
+                  panelApplication.sourceAbout == Qt.resolvedUrl("PageAboutMessage.qml"))
 
         icon: online.messageIcon
 
@@ -319,7 +318,8 @@ BarWindow
             {
                 target: buttonMessage
 
-                anchors.top: parent.top
+                anchors.top   : undefined
+                anchors.bottom: parent.bottom
             }
         }
 

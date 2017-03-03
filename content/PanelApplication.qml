@@ -29,13 +29,13 @@ Panel
     /* read */ property bool isExposed : false
     /* read */ property bool isAnimated: false
 
+    /* read */ property string sourceSettings: "PageSettingsMain.qml"
+    /* read */ property string sourceAbout   : "PageAboutMain.qml"
+
     //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pAnimate: false
-
-    property string pPageSettings: "PageSettingsMain.qml"
-    property string pPageAbout   : "PageAboutMain.qml"
 
     property int pMessageValue: 0
     property int pCreditsValue: 0
@@ -209,7 +209,7 @@ Panel
         {
             itemTabs.indexCurrent = 1;
 
-            pPageAbout = page;
+            sourceAbout = page;
 
             if (isExposed == false)
             {
@@ -283,13 +283,13 @@ Panel
 
                     if (indexCurrent == 0)
                     {
-                        pPageSettings = "PageSettingsMain.qml";
+                        sourceSettings = "PageSettingsMain.qml";
 
                         loader.loadRight(Qt.resolvedUrl("PageSettings.qml"));
                     }
                     else
                     {
-                        pPageAbout = "PageAboutMain.qml";
+                        sourceAbout = "PageAboutMain.qml";
 
                         loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
                     }

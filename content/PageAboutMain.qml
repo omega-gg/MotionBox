@@ -38,7 +38,7 @@ Item
 
     function pLoad(page)
     {
-        pageAbout.load(Qt.resolvedUrl(page));
+        loadPage(Qt.resolvedUrl(page));
     }
 
     //---------------------------------------------------------------------------------------------

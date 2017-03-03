@@ -265,7 +265,7 @@ Item
 
         text: qsTr("Configure")
 
-        onClicked: pageSettings.load(Qt.resolvedUrl("PageSettingsProxy.qml"))
+        onClicked: loadPage(Qt.resolvedUrl("PageSettingsProxy.qml"))
     }
 
     ButtonCheckLabel

@@ -395,8 +395,9 @@ Panel
 
         width: st.dp44
 
-        checkable: true
-        checked  : local.shuffle
+        highlighted: (player.isPlaying && checked)
+
+        checked: local.shuffle
 
         icon          : st.icon24x24_shuffle
         iconSourceSize: st.size24x24
@@ -413,8 +414,9 @@ Panel
 
         width: st.dp44
 
-        checkable: true
-        checked  : (pRepeat > 0)
+        highlighted: (player.isPlaying && checked)
+
+        checked: (pRepeat > 0)
 
         icon: (pRepeat == 2) ? st.icon24x24_repeatOne
                              : st.icon24x24_repeat

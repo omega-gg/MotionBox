@@ -1026,11 +1026,6 @@ MouseArea
                 isSelecting = false;
 
                 if (text) text = local.query;
-
-                if (pBrowsing && buttonsBrowse.count)
-                {
-                    pBrowseIndex = 0;
-                }
             }
 
             function onKeyPressed(event)

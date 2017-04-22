@@ -418,14 +418,24 @@ Panel
 
         checked: (pRepeat > 0)
 
-        icon: (pRepeat == 2) ? st.icon24x24_repeatOne
-                             : st.icon24x24_repeat
+        icon:
+        {
+            if (pRepeat == 2)
+            {
+                return st.icon24x24_repeatOne;
+            }
+            else if (pRepeat == 3)
+            {
+                return st.icon24x24_pause;
+            }
+            else return st.icon24x24_repeat;
+        }
 
         iconSourceSize: st.size24x24
 
         onClicked:
         {
-            pRepeat = (pRepeat + 1) % 3;
+            pRepeat = (pRepeat + 1) % 4;
 
             if (pRepeat == 0) checked = false;
             else              checked = true;

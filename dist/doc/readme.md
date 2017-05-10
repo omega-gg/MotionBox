@@ -74,8 +74,10 @@ Qt Framework: [Qt Project team](http://www.qt.io)
 
 VLC Video Engine: [VideoLAN organization](http://www.videolan.org)
 
+libtorrent: [Arvid Norberg](http://www.libtorrent.org)
 
-# Contact us
+
+# Contacts
 
 Forum: [http://omega.gg/forum][Forum]
 

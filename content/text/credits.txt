@@ -6,3 +6,6 @@
 
 <p>VLC Video Engine</p>
 <p class="br"><a href="http://www.videolan.org">VideoLAN organization</a></p>
+
+<p>libtorrent</p>
+<p class="br"><a href="http://www.libtorrent.org">Arvid Norberg</a></p>

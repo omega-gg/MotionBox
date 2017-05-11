@@ -74,7 +74,7 @@ Framework Qt: [Qt Project team](http://www.qt.io)
 
 Moteur Vidéo VLC: [VideoLAN organization](http://www.videolan.org)
 
-libtorrent: [Arvid Norberg](http://www.libtorrent.org)
+Librairie libtorrent: [Arvid Norberg](http://www.libtorrent.org)
 
 
 # Contacts

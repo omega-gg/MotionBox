@@ -58,7 +58,7 @@
 #include <WTabsTrack>
 #include <WTabTrack>
 
-// App includes
+// Application includes
 #include "DataLocal.h"
 #include "DataOnline.h"
 

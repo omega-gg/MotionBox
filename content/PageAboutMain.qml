@@ -187,7 +187,7 @@ Item
         source: (isHovered) ? st.icon_sky
                             : st.icon_skyGray
 
-        onClicked: gui.openUrl("http://omega.gg/MotionBox/technology")
+        onClicked: gui.openUrl("http://omega.gg/Sky")
     }
 
     BarTitleSmall

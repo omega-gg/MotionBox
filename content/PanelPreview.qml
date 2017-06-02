@@ -380,11 +380,11 @@ PanelImage
 
         if (detail)
         {
-            if (author)
+            if (duration == -1)
             {
-                 return size + buttonFeed.height + border.size + details.height;
+                 return size + buttonFeed.height;
             }
-            else return size + buttonFeed.height;
+            else return size + buttonFeed.height + border.size + details.height;
         }
         else return size;
     }
@@ -448,7 +448,7 @@ PanelImage
 
         height: st.dp48
 
-        visible: (detail && author)
+        visible: (detail && duration != -1)
 
         Rectangle
         {

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>libVLC</DisplayName>
-    <Version>2.2.5</Version>
+    <Version>2.2.6</Version>
     <ReleaseDate>2017-05-12</ReleaseDate>
     <SortingPriority>1</SortingPriority>
     <ForcedInstallation>true</ForcedInstallation>

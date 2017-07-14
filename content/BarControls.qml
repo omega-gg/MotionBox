@@ -288,7 +288,7 @@ MouseArea
             height: (gui.isMini) ? st.sliderStream_height
                                  : st.sliderStream_height
 
-            enabled: (player.hasStarted && duration != -1)
+            enabled: (player.hasStarted && duration > 0)
 
             active: player.isPlaying
 
@@ -300,7 +300,7 @@ MouseArea
 
             progress: player.progress
 
-            onHandleReleased: player.seekTo(slider.value)
+            onHandleReleased: player.seek(slider.value)
 
             onReset:
             {
@@ -312,7 +312,7 @@ MouseArea
                 }
                 else if (player.isPlaying)
                 {
-                    player.seekTo(0);
+                    player.seek(0);
                 }
                 else playerTab.currentTime = -1;
             }

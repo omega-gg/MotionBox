@@ -206,9 +206,12 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Controllers
 
+    QString path = pathStorage();
+
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
-    W_CREATE_CONTROLLER(WControllerTorrent);
+
+    W_CREATE_CONTROLLER_1(WControllerTorrent, path + "/torrents");
 
     //---------------------------------------------------------------------------------------------
     // Backends
@@ -224,8 +227,6 @@ ControllerCore::ControllerCore() : WController()
 
     //---------------------------------------------------------------------------------------------
     // Cache
-
-    QString path = pathStorage();
 
     _cache = new WCache(path + "/cache");
 

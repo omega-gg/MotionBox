@@ -1460,7 +1460,7 @@ Item
                 {
                     playerTab.currentTime = time;
                 }
-                else player.seekTo(time);
+                else player.seek(time);
             }
         }
 

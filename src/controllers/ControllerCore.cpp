@@ -653,6 +653,8 @@ ControllerCore::ControllerCore() : WController()
 
     _diskCache->clear();
 
+    wControllerTorrent->clearTorrents();
+
     _local->setCache(false);
 }
 

@@ -17,7 +17,7 @@ All of this inside multiple tabs and without ever showing an ad.<br>
 
 MotionBox is built in C++ with [Sky kit](http://omega.gg/Sky/sources).<br>
 Sky is built on the [Qt framework](http://github.com/qtproject).<br>
-The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) core.<br>
+The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) and [libtorrent](http://en.wikipedia.org/wiki/libtorrent).<br>
 
 ## Platforms
 

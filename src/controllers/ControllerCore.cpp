@@ -467,6 +467,9 @@ ControllerCore::ControllerCore() : WController()
 
             wControllerDownload->clearProxy();
 
+            wControllerTorrent->setProxy(_local->_proxyHost,
+                                         _local->_proxyPort, _local->_proxyPassword);
+
             if (_loaderMedia == NULL)
             {
                 _loaderMedia = new WLoaderNetwork(this);
@@ -484,6 +487,9 @@ ControllerCore::ControllerCore() : WController()
             wControllerDownload->setProxy(_local->_proxyHost,
                                           _local->_proxyPort, _local->_proxyPassword);
 
+            wControllerTorrent->setProxy(_local->_proxyHost,
+                                         _local->_proxyPort, _local->_proxyPassword);
+
             wControllerMedia->setLoader(NULL);
         }
     }
@@ -493,6 +499,7 @@ ControllerCore::ControllerCore() : WController()
         _loaderWeb->clearProxy();
 
         wControllerDownload->clearProxy();
+        wControllerTorrent ->clearProxy();
 
         wControllerMedia->setLoader(NULL);
     }

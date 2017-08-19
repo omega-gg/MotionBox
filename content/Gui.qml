@@ -1538,6 +1538,17 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function browse(url)
+    {
+        if (controllerPlaylist.urlIsTrack(url) && player.isPlaying && highlightedTab == null)
+        {
+             panelBrowse.search(panelSearch.hubAt(0), url, true, true);
+        }
+        else panelBrowse.search(panelSearch.hubAt(0), url, true, false);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function browseFeed(tab)
     {
         if (tab == null) return;

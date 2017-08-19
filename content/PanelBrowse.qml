@@ -395,6 +395,8 @@ MouseArea
 
             pQuery = query;
 
+            pSetQuery("");
+
             pStartSearch(pQuery);
         }
         else pStartSearch(query);

@@ -514,6 +514,32 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
+{
+    if (argc < 2) return;
+
+    _argument = QString(argv[1]);
+}
+
+/* Q_INVOKABLE */ QString ControllerCore::extractArgument(const QString & message) const
+{
+    int indexA = message.indexOf(' ');
+
+    if (indexA == -1) return QString();
+
+    indexA++;
+
+    int indexB = message.indexOf(' ', indexA);
+
+    if (indexB == -1)
+    {
+         return message.mid(indexA, indexB);
+    }
+    else return message.mid(indexA, indexB - indexA);
+}
+
+//-------------------------------------------------------------------------------------------------
+
 /* Q_INVOKABLE */ bool ControllerCore::checkUrl(const QString & text) const
 {
     if (textIsUrl(text) || textIsPath(text))
@@ -724,6 +750,13 @@ void ControllerCore::deleteBrowse()
 
 //-------------------------------------------------------------------------------------------------
 // Properties
+//-------------------------------------------------------------------------------------------------
+
+QString ControllerCore::argument() const
+{
+    return _argument;
+}
+
 //-------------------------------------------------------------------------------------------------
 
 bool ControllerCore::cacheIsEmpty() const

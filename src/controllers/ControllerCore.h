@@ -46,6 +46,8 @@ class ControllerCore : public WController
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString argument READ argument CONSTANT)
+
     Q_PROPERTY(bool cacheIsEmpty READ cacheIsEmpty NOTIFY cacheEmptyChanged)
 
     Q_PROPERTY(QString version     READ version     CONSTANT)
@@ -81,6 +83,12 @@ public: // Interface
     Q_INVOKABLE void applyProxy(bool active);
 
     Q_INVOKABLE WAbstractHook * createHook(WAbstractBackend * backend) const;
+
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE void applyArguments(int & argc, char ** argv);
+
+    Q_INVOKABLE QString extractArgument(const QString & message) const;
 
     //---------------------------------------------------------------------------------------------
 
@@ -131,6 +139,8 @@ signals:
     void datePreviewChanged();
 
 public: // Properties
+    QString argument() const;
+
     bool cacheIsEmpty() const;
 
     QString version    () const;
@@ -152,6 +162,8 @@ public: // Properties
     QString pathSplash () const;
 
 private: // Variables
+    QString _argument;
+
     WCache * _cache;
 
     QNetworkDiskCache * _diskCache;

@@ -46,6 +46,8 @@ int main(int argc, char * argv[])
 
     W_CREATE_CONTROLLER(ControllerCore);
 
+    core->applyArguments(argc, argv);
+
     //---------------------------------------------------------------------------------------------
 
     sk->startScript();

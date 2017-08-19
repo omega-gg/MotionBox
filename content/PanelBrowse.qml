@@ -40,8 +40,10 @@ MouseArea
 
     property url pSearchCover: pGetSearchCover()
 
+    property bool pLoaded : false
+    property bool pLoading: false
+
     property bool pBrowsing: (pFolderHubs.currentId == 1)
-    property bool pLoading : false
 
     property bool pSelect: false
     property bool pPlay  : false
@@ -194,7 +196,24 @@ MouseArea
     {
         target: (pFolderBrowse && pBrowseEvents) ? pFolderBrowse : null
 
-        onLoaded: if (pLoading) pSearchBrowse()
+        onLoaded:
+        {
+            if (pLoaded == false)
+            {
+                pLoaded = true;
+
+                var argument = core.getArgument();
+
+                if (argument)
+                {
+                    gui.browse(core.getArgument());
+
+                    return;
+                }
+            }
+
+            if (pLoading) pSearchBrowse();
+        }
 
         onQueryEnded:
         {

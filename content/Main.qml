@@ -62,7 +62,14 @@ Application
         // Events
         //-----------------------------------------------------------------------------------------
 
-        onMessageReceived: activate()
+        onMessageReceived:
+        {
+            activate();
+
+            var argument = core.extractArgument(message);
+
+            if (argument) gui.browse(argument);
+        }
 
         onFadeIn:
         {

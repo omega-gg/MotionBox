@@ -158,6 +158,17 @@ MouseArea
 
     onActiveFocusChanged: isSelecting = false
 
+    onPFolderBrowseChanged:
+    {
+        if (pLoaded || pFolderBrowse == null) return;
+
+        pLoaded = true;
+
+        var argument = core.argument;
+
+        if (argument) gui.browse(argument);
+    }
+
     //---------------------------------------------------------------------------------------------
     // Connections
     //---------------------------------------------------------------------------------------------
@@ -196,24 +207,7 @@ MouseArea
     {
         target: (pFolderBrowse && pBrowseEvents) ? pFolderBrowse : null
 
-        onLoaded:
-        {
-            if (pLoaded == false)
-            {
-                pLoaded = true;
-
-                var argument = core.getArgument();
-
-                if (argument)
-                {
-                    gui.browse(core.getArgument());
-
-                    return;
-                }
-            }
-
-            if (pLoading) pSearchBrowse();
-        }
+        onLoaded: if (pLoading) pSearchBrowse()
 
         onQueryEnded:
         {

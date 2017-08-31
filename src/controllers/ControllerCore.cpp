@@ -46,17 +46,18 @@
 #include <WCache>
 #include <WLoaderNetwork>
 #include <WLoaderWeb>
+#include <WHookTorrent>
+#include <WLibraryFolderRelated>
+#include <WPlaylistNet>
+#include <WTabsTrack>
+#include <WTabTrack>
+#include <WVlcEngine>
 #include <WBackendTorrent>
 #include <WBackendDuckDuckGo>
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
 #include <WBackendSoundCloud>
-#include <WHookTorrent>
-#include <WLibraryFolderRelated>
-#include <WPlaylistNet>
-#include <WTabsTrack>
-#include <WTabTrack>
 
 // Application includes
 #include "DataLocal.h"

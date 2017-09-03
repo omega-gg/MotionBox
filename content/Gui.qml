@@ -365,6 +365,8 @@ Item
 
         st.animate = true;
 
+        browse(core.argument);
+
         splash.hide();
     }
 
@@ -1540,6 +1542,8 @@ Item
 
     function browse(url)
     {
+        if (url == "") return;
+
         if (controllerPlaylist.urlIsTrack(url) && player.isPlaying && highlightedTab == null)
         {
              panelBrowse.search(panelSearch.hubAt(0), url, true, true);

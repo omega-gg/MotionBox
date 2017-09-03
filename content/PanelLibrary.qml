@@ -357,8 +357,8 @@ Panel
 
         folder: library
 
-        listPlaylist: gui.listPlaylist
         listFolder  : gui.listFolder
+        listPlaylist: gui.listPlaylist
 
         itemRight: (listFolder.visible) ? listFolder
                                         : listPlaylist

@@ -68,7 +68,7 @@ Application
 
             var argument = core.extractArgument(message);
 
-            if (argument) gui.browse(argument);
+            gui.browse(argument);
         }
 
         onFadeIn:

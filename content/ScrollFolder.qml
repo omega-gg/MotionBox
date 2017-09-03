@@ -46,8 +46,8 @@ ScrollAreaVertical
     property alias model   : list.model
     property alias delegate: list.delegate
 
-    property alias listPlaylist: list.listPlaylist
     property alias listFolder  : list.listFolder
+    property alias listPlaylist: list.listPlaylist
 
     /* read */ property alias count: list.count
 

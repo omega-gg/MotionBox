@@ -30,8 +30,8 @@ List
 
     property LibraryFolder folder: null
 
-    property variant listPlaylist: null
     property variant listFolder  : null
+    property variant listPlaylist: null
 
     /* read */ property variant itemHovered: null
 

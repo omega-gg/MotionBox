@@ -27,12 +27,9 @@ Style
 
     property int dp36: 36 * ratio
     property int dp37: 37 * ratio
-
     property int dp44: 44 * ratio
-
     property int dp50: 50 * ratio
     property int dp52: 52 * ratio
-
     property int dp92: 92 * ratio
 
     property int dp100: 100 * ratio

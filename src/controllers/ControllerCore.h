@@ -77,10 +77,13 @@ public: // Interface
     Q_INVOKABLE QString openFile  (const QString & title);
     Q_INVOKABLE QString openFolder(const QString & title);
 
-    Q_INVOKABLE void saveShot  (WWindow * window);
-    Q_INVOKABLE void saveSplash(WWindow * window, int border);
+    Q_INVOKABLE void saveShot  (WWindow * window)             const;
+    Q_INVOKABLE void saveSplash(WWindow * window, int border) const;
 
     Q_INVOKABLE void applyProxy(bool active);
+
+    Q_INVOKABLE void applyTorrentOptions(int connections, int upload, int download,
+                                                                      int cache) const;
 
     Q_INVOKABLE WAbstractHook * createHook(WAbstractBackend * backend) const;
 
@@ -93,9 +96,6 @@ public: // Interface
     //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE bool checkUrl(const QString & text) const;
-
-    Q_INVOKABLE bool textIsUrl (const QString & text) const;
-    Q_INVOKABLE bool textIsPath(const QString & text) const;
 
     Q_INVOKABLE int urlType(const QUrl & url) const;
 
@@ -111,6 +111,9 @@ public: // Interface
     Q_INVOKABLE WLibraryFolder * createFolder  (int type = WLibraryItem::Folder)      const;
     Q_INVOKABLE WPlaylistNet   * createPlaylist(int type = WLibraryItem::PlaylistNet) const;
 
+    Q_INVOKABLE void addLibraryItem(WLibraryFolder * folder,
+                                    int              type = WLibraryItem::PlaylistNet) const;
+
     Q_INVOKABLE int idFromTitle(WLibraryFolder * folder, const QString & title) const;
 
     //---------------------------------------------------------------------------------------------
@@ -118,6 +121,8 @@ public: // Interface
     Q_INVOKABLE void updateCache(WPlaylistNet * playlist, int index) const;
 
     Q_INVOKABLE void clearCache();
+
+    Q_INVOKABLE void clearTorrentCache();
 
 protected: // Events
     /* virtual */ void timerEvent(QTimerEvent * event);

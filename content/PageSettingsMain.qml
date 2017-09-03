@@ -81,7 +81,7 @@ Item
         {
             percent = 80;
 
-            lineEditScale.text = "80";
+            editScale.text = "80";
         }
 
         if      (percent == 92)  buttonsScale.currentIndex =  0;
@@ -98,7 +98,7 @@ Item
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarSetting
+    BarTitleSmall
     {
         id: barContent
 
@@ -218,7 +218,7 @@ Item
         onPressed: pSetNetworkQuality(currentIndex)
     }
 
-    BarSettingReset
+    BarTitleSmall
     {
         id: barProxy
 
@@ -227,14 +227,41 @@ Item
         anchors.top  : buttonsNetwork.bottom
 
         anchors.topMargin: st.dp3
+    }
+
+    BarTitleText
+    {
+        id: itemTextProxy
+
+        anchors.left  : barProxy.left
+        anchors.right : border.right
+        anchors.top   : barProxy.top
+        anchors.bottom: barProxy.bottom
+
+        anchors.topMargin   : barProxy.borderTop
+        anchors.bottomMargin: barProxy.borderBottom
+
+        verticalAlignment: Text.AlignVCenter
+
+        text: qsTr("Proxy")
+
+        font.pixelSize: st.dp12
+    }
+
+    ButtonPianoReset
+    {
+        anchors.right : border.left
+        anchors.top   : barProxy.top
+        anchors.bottom: barProxy.bottom
+
+        anchors.topMargin   : borderSize
+        anchors.bottomMargin: borderSize
 
         enabled: (local.proxyHost || local.proxyPort != -1 || local.proxyPassword
                   ||
                   local.proxyStream || local.proxyActive)
 
-        text: qsTr("Proxy")
-
-        onReset:
+        onClicked:
         {
             local.proxyHost     = "";
             local.proxyPort     = -1;
@@ -251,9 +278,35 @@ Item
         }
     }
 
+    BarTitleText
+    {
+        anchors.left  : border.right
+        anchors.right : barProxy.right
+        anchors.top   : itemTextProxy.top
+        anchors.bottom: itemTextProxy.bottom
+
+        verticalAlignment: Text.AlignVCenter
+
+        text: qsTr("Torrent")
+
+        font.pixelSize: st.dp12
+    }
+
+    ButtonPianoReset
+    {
+        anchors.right : barProxy.right
+        anchors.top   : barProxy.top
+        anchors.bottom: barProxy.bottom
+
+        anchors.topMargin   : borderSize
+        anchors.bottomMargin: borderSize
+
+        enabled: false
+    }
+
     ButtonPush
     {
-        id: buttonConfigure
+        id: buttonProxy
 
         anchors.left: parent.left
         anchors.top : barProxy.bottom
@@ -268,25 +321,29 @@ Item
         onClicked: loadPage(Qt.resolvedUrl("PageSettingsProxy.qml"))
     }
 
-    ButtonCheckLabel
+    BorderVertical
     {
-        anchors.right: parent.right
-        anchors.top  : buttonConfigure.top
+        id: border
 
-        anchors.rightMargin: st.dp3
+        anchors.top   : barProxy.top
+        anchors.bottom: barScale.bottom
 
-        visible: local.proxyHost
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
 
-        checked: local.proxyActive
+    ButtonPush
+    {
+        anchors.left: border.right
+        anchors.top : barProxy.bottom
 
-        text: qsTr("Active")
+        anchors.leftMargin: st.dp3
+        anchors.topMargin : st.dp3
 
-        onCheckClicked:
-        {
-            local.proxyActive = !(checked);
+        width: st.dp100
 
-            gui.applyProxy(checked);
-        }
+        text: qsTr("Configure")
+
+        onClicked: loadPage(Qt.resolvedUrl("PageSettingsTorrent.qml"))
     }
 
     BarSettingReset
@@ -295,7 +352,7 @@ Item
 
         anchors.left : parent.left
         anchors.right: parent.right
-        anchors.top  : buttonConfigure.bottom
+        anchors.top  : buttonProxy.bottom
 
         anchors.topMargin: st.dp3
 
@@ -316,7 +373,7 @@ Item
         id: buttonsScale
 
         anchors.left : parent.left
-        anchors.right: lineEditScale.left
+        anchors.right: editScale.left
         anchors.top  : barScale.bottom
 
         anchors.leftMargin: st.dp3
@@ -345,31 +402,31 @@ Item
         {
             if (currentIndex == 0)
             {
-                lineEditScale.text = "92";
+                editScale.text = "92";
 
                 gui.scale(0.92);
             }
             else if (currentIndex == 1)
             {
-                lineEditScale.text = "100";
+                editScale.text = "100";
 
                 gui.scale(1.0);
             }
             else if (currentIndex == 2)
             {
-                lineEditScale.text = "128";
+                editScale.text = "128";
 
                 gui.scale(1.28);
             }
             else if (currentIndex == 3)
             {
-                lineEditScale.text = "160";
+                editScale.text = "160";
 
                 gui.scale(1.6);
             }
             else // if (currentIndex == 4)
             {
-                lineEditScale.text = "200";
+                editScale.text = "200";
 
                 gui.scale(2.0);
             }
@@ -380,7 +437,7 @@ Item
 
     LineEdit
     {
-        id: lineEditScale
+        id: editScale
 
         anchors.right: parent.right
 
@@ -388,7 +445,7 @@ Item
 
         anchors.verticalCenter: buttonsScale.verticalCenter
 
-        width: st.dp46
+        width: st.dp48
 
         text: st.scale * 100
 
@@ -412,7 +469,7 @@ Item
 
                 pSetScale(text);
 
-                lineEditScale.selectAll();
+                editScale.selectAll();
             }
             else if (event.key == Qt.Key_Escape)
             {

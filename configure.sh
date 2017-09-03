@@ -94,6 +94,7 @@ if [ $2 = "win32" ]; then
     cp -r "$VLC"/plugins/control      "$bin"/plugins
     cp -r "$VLC"/plugins/demux        "$bin"/plugins
     cp -r "$VLC"/plugins/misc         "$bin"/plugins
+    cp -r "$VLC"/plugins/packetizer   "$bin"/plugins
     cp -r "$VLC"/plugins/video_chroma "$bin"/plugins
     cp -r "$VLC"/plugins/video_filter "$bin"/plugins
     cp -r "$VLC"/plugins/video_output "$bin"/plugins

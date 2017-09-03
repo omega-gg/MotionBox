@@ -40,7 +40,7 @@ MouseArea
 
     dropEnabled: true
 
-    KeyNavigation.tab: lineEditHost
+    KeyNavigation.tab: editHost
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -68,11 +68,11 @@ MouseArea
 
     onDrop:
     {
-        lineEditHost.editText = controllerNetwork.extractIpBase(pClipboard);
+        editHost.editText = controllerNetwork.extractIpBase(pClipboard);
 
         var port = controllerNetwork.extractIpPort(pClipboard);
 
-        if (port) lineEditPort.editText = port;
+        if (port) editHost.editText = port;
 
         pClearDrop();
     }
@@ -87,7 +87,7 @@ MouseArea
         {
             event.accepted = true;
 
-            buttonOk.returnPressed();
+            barPage.buttonOk.returnPressed();
         }
     }
 
@@ -97,17 +97,17 @@ MouseArea
 
     function pApply()
     {
-        var host = sk.simplify(lineEditHost.editText);
+        var host = sk.simplify(editHost.editText);
 
         var port;
 
-        if (lineEditPort.editText)
+        if (editPort.editText)
         {
-             port = parseInt(lineEditPort.editText, 10);
+             port = parseInt(editPort.editText, 10);
         }
         else port = -1;
 
-        var password = lineEditPassword.editText;
+        var password = editPassword.editText;
 
         var stream = pStream;
 
@@ -146,9 +146,9 @@ MouseArea
 
     function pReset()
     {
-        lineEditHost    .editText = "";
-        lineEditPort    .editText = "";
-        lineEditPassword.editText = "";
+        editHost    .editText = "";
+        editPort    .editText = "";
+        editPassword.editText = "";
 
         pStream = false;
 
@@ -166,7 +166,7 @@ MouseArea
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarTitleSmall
+    BarSettingReset
     {
         id: bar
 
@@ -175,72 +175,44 @@ MouseArea
 
         borderTop: 0
 
-        BarTitleText
-        {
-            anchors.left  : parent.left
-            anchors.right : buttonReset.left
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
+        enabled: (editHost.editText || editPort.editText || editPassword.editText
+                  ||
+                  pStream || buttonActive.checked)
 
-            verticalAlignment: Text.AlignVCenter
+        text: qsTr("Proxy settings")
 
-            text: qsTr("Proxy settings")
-
-            font.pixelSize: st.dp12
-        }
-
-        ButtonPiano
-        {
-            id: buttonReset
-
-            anchors.right : parent.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            borderLeft : borderSize
-            borderRight: 0
-
-            enabled: (lineEditHost.editText || lineEditPort.editText || lineEditPassword.editText
-                      ||
-                      pStream || buttonActive.checked)
-
-            text: qsTr("Reset")
-
-            onClicked: pReset()
-        }
+        onReset: pReset()
     }
 
     LineEditLabel
     {
-        id: lineEditHost
+        id: editHost
 
         anchors.left : parent.left
-        anchors.right: lineEditPort.left
-        anchors.top  : lineEditPort.top
+        anchors.right: editPort.left
+        anchors.top  : editPort.top
 
-        anchors.leftMargin: st.dp4
+        anchors.leftMargin: st.dp3
 
         text: qsTr("Host")
 
         editText: local.proxyHost
 
-        KeyNavigation.backtab: buttonCancel
-        KeyNavigation.tab    : lineEditPort
+        KeyNavigation.backtab: barPage.buttonCancel
+        KeyNavigation.tab    : editPort
     }
 
     LineEditLabel
     {
-        id: lineEditPort
+        id: editPort
 
-        anchors.left : buttonActive.left
-        anchors.right: buttonActive.right
+        anchors.right: parent.right
         anchors.top  : bar.bottom
 
-        anchors.leftMargin : st.dp1
-        anchors.rightMargin: st.dp1
-        anchors.topMargin  : st.dp4
+        anchors.rightMargin: st.dp3
+        anchors.topMargin  : st.dp3
 
-        width: st.dp120
+        width: st.dp128
 
         text: qsTr("Port")
 
@@ -248,17 +220,17 @@ MouseArea
 
         textInput.validator: RegExpValidator { regExp: /[0-9]*/ }
 
-        KeyNavigation.backtab: lineEditHost
-        KeyNavigation.tab    : lineEditPassword
+        KeyNavigation.backtab: editHost
+        KeyNavigation.tab    : editPassword
     }
 
     LineEditLabel
     {
-        id: lineEditPassword
+        id: editPassword
 
-        anchors.left : lineEditHost.left
-        anchors.right: lineEditPort.right
-        anchors.top  : lineEditHost.bottom
+        anchors.left : editHost.left
+        anchors.right: editPort.right
+        anchors.top  : editHost.bottom
 
         text: qsTr("Password")
 
@@ -266,8 +238,8 @@ MouseArea
 
         textInput.echoMode: TextInput.Password
 
-        KeyNavigation.backtab: lineEditPort
-        KeyNavigation.tab    : buttonOk
+        KeyNavigation.backtab: editPort
+        KeyNavigation.tab    : barPage.buttonOk
     }
 
     ButtonPushLeft
@@ -309,7 +281,7 @@ MouseArea
         id: buttonActive
 
         anchors.right: parent.right
-        anchors.top  : lineEditPassword.bottom
+        anchors.top  : editPassword.bottom
 
         anchors.rightMargin: st.dp3
 
@@ -318,52 +290,19 @@ MouseArea
         text: qsTr("Active")
     }
 
-    BarTitle
+    BarPage
     {
+        id: barPage
+
         anchors.left  : parent.left
         anchors.right : parent.right
         anchors.bottom: parent.bottom
 
-        height: st.dp32 + borderSizeHeight
+        itemBefore: editPassword
+        itemAfter : editHost
 
-        borderBottom: 0
+        onCancel: pageSettings.loadMain()
 
-        ButtonPiano
-        {
-            id: buttonCancel
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            width: st.dp100
-
-            text: qsTr("Cancel")
-
-            KeyNavigation.backtab: buttonOk
-            KeyNavigation.tab    : lineEditHost
-
-            onClicked: pageSettings.loadMain()
-        }
-
-        ButtonPiano
-        {
-            id: buttonOk
-
-            anchors.right : parent.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            width: st.dp100
-
-            borderLeft : borderSize
-            borderRight: 0
-
-            text: qsTr("OK")
-
-            KeyNavigation.backtab: lineEditPassword
-            KeyNavigation.tab    : buttonCancel
-
-            onClicked: pApply()
-        }
+        onOk: pApply()
     }
 }

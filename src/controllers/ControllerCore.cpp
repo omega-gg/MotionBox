@@ -360,9 +360,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ bool ControllerCore::updateVersion()
 {
-    if (_online->_version.isEmpty()
-        ||
-        _online->_version == CORE_VERSION) return false;
+    if (_online->_version.isEmpty() || _online->_version == CORE_VERSION) return false;
 
 #ifdef Q_OS_WIN
     QString path = QCoreApplication::applicationDirPath() + "/setup.exe";
@@ -418,7 +416,7 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::saveShot(WWindow * window)
+/* Q_INVOKABLE */ void ControllerCore::saveShot(WWindow * window) const
 {
     QImage image = window->takeShot(0, 0, window->width(), window->height()).toImage();
 
@@ -433,7 +431,7 @@ ControllerCore::ControllerCore() : WController()
     wControllerFile->startWriteAction(action);
 }
 
-/* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border)
+/* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border) const
 {
     QImage image;
 
@@ -508,6 +506,17 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::applyTorrentOptions(int connections, int upload,
+                                                                            int download,
+                                                                            int cache) const
+{
+    wControllerTorrent->setOptions(connections, upload, download);
+
+    wControllerTorrent->setSizeMax(cache);
+}
+
+//-------------------------------------------------------------------------------------------------
+
 /* Q_INVOKABLE */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend) const
 {
     return new WHookTorrent(backend);
@@ -543,37 +552,15 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ bool ControllerCore::checkUrl(const QString & text) const
 {
-    if (textIsUrl(text) || textIsPath(text))
-    {
-         return true;
-    }
-    else return false;
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ bool ControllerCore::textIsUrl(const QString & text) const
-{
-    if (WControllerNetwork::urlIsFile(text))
-    {
-        return true;
-    }
-    else if (WControllerNetwork::urlIsHttp(text) || text.startsWith("www."))
+    if (WControllerNetwork::urlIsFile(text) || WControllerNetwork::urlIsHttp(text)
+        ||
+        text.startsWith('/') || (text.length() > 1 && text.at(1) == ':') || text.contains('.'))
     {
         if (text.contains(' '))
         {
              return false;
         }
         else return true;
-    }
-    else return false;
-}
-
-/* Q_INVOKABLE */ bool ControllerCore::textIsPath(const QString & text) const
-{
-    if (text.length() > 1 && text.at(1) == ':')
-    {
-         return true;
     }
     else return false;
 }
@@ -622,6 +609,15 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE */ WPlaylistNet * ControllerCore::createPlaylist(int type) const
 {
     return WPlaylistNet::create(static_cast<WLibraryItem::Type> (type));
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ void ControllerCore::addLibraryItem(WLibraryFolder * folder, int type) const
+{
+    WLibraryFolderItem item(static_cast<WLibraryItem::Type> (type));
+
+    folder->addItem(item);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -690,6 +686,13 @@ ControllerCore::ControllerCore() : WController()
     wControllerTorrent->clearTorrents();
 
     _local->setCache(false);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ void ControllerCore::clearTorrentCache()
+{
+    wControllerTorrent->clearCache();
 }
 
 //-------------------------------------------------------------------------------------------------

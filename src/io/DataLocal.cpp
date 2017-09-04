@@ -109,6 +109,16 @@ public: // Variables
 
     bool proxyStream;
     bool proxyActive;
+
+    int torrentConnections;
+
+    int torrentUpload;
+    int torrentDownload;
+
+    bool torrentUploadActive;
+    bool torrentDownloadActive;
+
+    int torrentCache;
 };
 
 //=================================================================================================
@@ -195,6 +205,16 @@ public: // Variables
     stream.writeTextElement("proxyStream", QString::number(proxyStream));
     stream.writeTextElement("proxyActive", QString::number(proxyActive));
 
+    stream.writeTextElement("torrentConnections", QString::number(torrentConnections));
+
+    stream.writeTextElement("torrentUpload",   QString::number(torrentUpload));
+    stream.writeTextElement("torrentDownload", QString::number(torrentDownload));
+
+    stream.writeTextElement("torrentUploadActive",   QString::number(torrentUploadActive));
+    stream.writeTextElement("torrentDownloadActive", QString::number(torrentDownloadActive));
+
+    stream.writeTextElement("torrentCache", QString::number(torrentCache));
+
     stream.writeEndElement(); // name
 
     stream.writeEndDocument();
@@ -259,6 +279,16 @@ public: // Variables
 
     _proxyStream = false;
     _proxyActive = false;
+
+    _torrentConnections = 500;
+
+    _torrentUpload   = 0;
+    _torrentDownload = 0;
+
+    _torrentUploadActive   = false;
+    _torrentDownloadActive = false;
+
+    _torrentCache = 1000;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -541,6 +571,54 @@ public: // Variables
 
     _proxyActive = wControllerXml->readNextInt(&stream);
 
+    //---------------------------------------------------------------------------------------------
+    // torrentConnections
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentConnections") == false) return false;
+
+    _torrentConnections = wControllerXml->readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
+    // torrentUpload
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentUpload") == false) return false;
+
+    _torrentUpload = wControllerXml->readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
+    // torrentDownload
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentDownload") == false) return false;
+
+    _torrentDownload = wControllerXml->readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
+    // torrentUploadActive
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentUploadActive") == false)
+    {
+        return false;
+    }
+
+    _torrentUploadActive = wControllerXml->readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
+    // torrentDownloadActive
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentDownloadActive") == false)
+    {
+        return false;
+    }
+
+    _torrentDownloadActive = wControllerXml->readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
+    // torrentCache
+
+    if (wControllerXml->readNextStartElement(&stream, "torrentCache") == false) return false;
+
+    _torrentCache = wControllerXml->readNextInt(&stream);
+
     qDebug("DATA LOCAL LOADED");
 
     return true;
@@ -614,6 +692,16 @@ public: // Variables
 
     action->proxyStream = _proxyStream;
     action->proxyActive = _proxyActive;
+
+    action->torrentConnections = _torrentConnections;
+
+    action->torrentUpload   = _torrentUpload;
+    action->torrentDownload = _torrentDownload;
+
+    action->torrentUploadActive   = _torrentUploadActive;
+    action->torrentDownloadActive = _torrentDownloadActive;
+
+    action->torrentCache = _torrentCache;
 
     return action;
 }
@@ -1084,6 +1172,8 @@ void DataLocal::setProxyStream(bool stream)
     save();
 }
 
+//-------------------------------------------------------------------------------------------------
+
 bool DataLocal::proxyActive() const
 {
     return _proxyActive;
@@ -1096,6 +1186,114 @@ void DataLocal::setProxyActive(bool active)
     _proxyActive = active;
 
     emit proxyActiveChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::torrentConnections() const
+{
+    return _torrentConnections;
+}
+
+void DataLocal::setTorrentConnections(int connections)
+{
+    if (_torrentConnections == connections) return;
+
+    _torrentConnections = connections;
+
+    emit torrentConnectionsChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::torrentUpload() const
+{
+    return _torrentUpload;
+}
+
+void DataLocal::setTorrentUpload(int upload)
+{
+    if (_torrentUpload == upload) return;
+
+    _torrentUpload = upload;
+
+    emit torrentUploadChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::torrentDownload() const
+{
+    return _torrentDownload;
+}
+
+void DataLocal::setTorrentDownload(int download)
+{
+    if (_torrentDownload == download) return;
+
+    _torrentDownload = download;
+
+    emit torrentDownloadChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool DataLocal::torrentUploadActive() const
+{
+    return _torrentUploadActive;
+}
+
+void DataLocal::setTorrentUploadActive(bool active)
+{
+    if (_torrentUploadActive == active) return;
+
+    _torrentUploadActive = active;
+
+    emit torrentUploadActiveChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool DataLocal::torrentDownloadActive() const
+{
+    return _torrentDownloadActive;
+}
+
+void DataLocal::setTorrentDownloadActive(bool active)
+{
+    if (_torrentDownloadActive == active) return;
+
+    _torrentDownloadActive = active;
+
+    emit torrentDownloadActiveChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::torrentCache() const
+{
+    return _torrentCache;
+}
+
+void DataLocal::setTorrentCache(int cache)
+{
+    if (_torrentCache == cache) return;
+
+    _torrentCache = cache;
+
+    emit torrentCacheChanged();
 
     save();
 }

@@ -96,6 +96,23 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool proxyStream READ proxyStream WRITE setProxyStream NOTIFY proxyStreamChanged)
     Q_PROPERTY(bool proxyActive READ proxyActive WRITE setProxyActive NOTIFY proxyActiveChanged)
 
+    Q_PROPERTY(int torrentConnections READ torrentConnections WRITE setTorrentConnections
+               NOTIFY torrentConnectionsChanged)
+
+    Q_PROPERTY(int torrentUpload READ torrentUpload WRITE setTorrentUpload
+               NOTIFY torrentUploadChanged)
+
+    Q_PROPERTY(int torrentDownload READ torrentDownload WRITE setTorrentDownload
+               NOTIFY torrentDownloadChanged)
+
+    Q_PROPERTY(bool torrentUploadActive READ torrentUploadActive WRITE setTorrentUploadActive
+               NOTIFY torrentUploadActiveChanged)
+
+    Q_PROPERTY(bool torrentDownloadActive READ torrentDownloadActive WRITE setTorrentDownloadActive
+               NOTIFY torrentDownloadActiveChanged)
+
+    Q_PROPERTY(int torrentCache READ torrentCache WRITE setTorrentCache NOTIFY torrentCacheChanged)
+
 public:
     explicit DataLocal(QObject * parent = NULL);
 
@@ -157,6 +174,16 @@ signals:
 
     void proxyStreamChanged();
     void proxyActiveChanged();
+
+    void torrentConnectionsChanged();
+
+    void torrentUploadChanged  ();
+    void torrentDownloadChanged();
+
+    void torrentUploadActiveChanged  ();
+    void torrentDownloadActiveChanged();
+
+    void torrentCacheChanged();
 
 public: // Properties
     QString version() const;
@@ -247,6 +274,24 @@ public: // Properties
     bool proxyActive() const;
     void setProxyActive(bool active);
 
+    int  torrentConnections() const;
+    void setTorrentConnections(int connections);
+
+    int  torrentUpload() const;
+    void setTorrentUpload(int upload);
+
+    int  torrentDownload() const;
+    void setTorrentDownload(int download);
+
+    bool torrentUploadActive() const;
+    void setTorrentUploadActive(bool active);
+
+    bool torrentDownloadActive() const;
+    void setTorrentDownloadActive(bool active);
+
+    int  torrentCache() const;
+    void setTorrentCache(int cache);
+
 private: // Variables
     QString _version;
 
@@ -303,6 +348,16 @@ private: // Variables
 
     bool _proxyStream;
     bool _proxyActive;
+
+    int _torrentConnections;
+
+    int  _torrentUpload;
+    int  _torrentDownload;
+
+    bool _torrentUploadActive;
+    bool _torrentDownloadActive;
+
+    int _torrentCache;
 
 private:
     Q_DISABLE_COPY(DataLocal)

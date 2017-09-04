@@ -67,7 +67,7 @@ BarTitle
         KeyNavigation.backtab: buttonOk
         KeyNavigation.tab    : itemAfter
 
-        onClicked: ok()
+        onClicked: cancel()
     }
 
     ButtonPiano
@@ -88,6 +88,6 @@ BarTitle
         KeyNavigation.backtab: itemBefore
         KeyNavigation.tab    : buttonCancel
 
-        onClicked: cancel()
+        onClicked: ok()
     }
 }

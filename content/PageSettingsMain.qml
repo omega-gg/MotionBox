@@ -301,7 +301,28 @@ Item
         anchors.topMargin   : borderSize
         anchors.bottomMargin: borderSize
 
-        enabled: false
+        enabled: (local.torrentConnections != 500
+                  ||
+                  local.torrentUpload != 0 || local.torrentDownload != 0
+                  ||
+                  local.torrentUploadActive != false || local.torrentDownloadActive != false
+                  ||
+                  local.torrentCache != 1000)
+
+        onClicked:
+        {
+            local.torrentConnections = 500;
+
+            local.torrentUpload   = 0;
+            local.torrentDownload = 0;
+
+            local.torrentUploadActive   = false;
+            local.torrentDownloadActive = false;
+
+            local.torrentCache = 1000;
+
+            core.applyTorrentOptions(500, 0, 0, 1000);
+        }
     }
 
     ButtonPush

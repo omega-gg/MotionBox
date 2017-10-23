@@ -18,7 +18,7 @@ import QtQuick       1.1
 import Sky           1.0
 import SkyComponents 1.0
 
-BarTitle
+MouseArea
 {
     //---------------------------------------------------------------------------------------------
     // Properties
@@ -30,6 +30,8 @@ BarTitle
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
+
+    property alias footer: footer
 
     property alias buttonCancel: buttonCancel
     property alias buttonOk    : buttonOk
@@ -45,49 +47,76 @@ BarTitle
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    height: st.dp32 + borderSizeHeight
+    anchors.fill: parent
 
-    borderBottom: 0
+    acceptedButtons: Qt.NoButton
+
+    //---------------------------------------------------------------------------------------------
+    // Keys
+    //---------------------------------------------------------------------------------------------
+
+    Keys.onPressed:
+    {
+        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
+        {
+            event.accepted = true;
+
+            ok();
+        }
+    }
 
     //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    ButtonPiano
+    BarTitle
     {
-        id: buttonCancel
+        id: footer
 
-        anchors.top   : parent.top
-        anchors.bottom: parent.bottom
-
-        width: st.dp100
-
-        text: qsTr("Cancel")
-
-        KeyNavigation.backtab: buttonOk
-        KeyNavigation.tab    : itemAfter
-
-        onClicked: cancel()
-    }
-
-    ButtonPiano
-    {
-        id: buttonOk
-
+        anchors.left  : parent.left
         anchors.right : parent.right
-        anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
-        width: st.dp100
+        height: st.dp32 + borderSizeHeight
 
-        borderLeft : borderSize
-        borderRight: 0
+        borderBottom: 0
 
-        text: qsTr("OK")
+        ButtonPiano
+        {
+            id: buttonCancel
 
-        KeyNavigation.backtab: itemBefore
-        KeyNavigation.tab    : buttonCancel
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-        onClicked: ok()
+            width: st.dp100
+
+            text: qsTr("Cancel")
+
+            KeyNavigation.backtab: buttonOk
+            KeyNavigation.tab    : itemAfter
+
+            onClicked: cancel()
+        }
+
+        ButtonPiano
+        {
+            id: buttonOk
+
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: st.dp100
+
+            borderLeft : borderSize
+            borderRight: 0
+
+            text: qsTr("OK")
+
+            KeyNavigation.backtab: itemBefore
+            KeyNavigation.tab    : buttonCancel
+
+            onClicked: ok()
+        }
     }
 }

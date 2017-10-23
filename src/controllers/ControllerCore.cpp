@@ -44,8 +44,10 @@
 #include <WWindow>
 #include <WDeclarativeContextualPage>
 #include <WCache>
+#include <WPixmapCache>
 #include <WLoaderNetwork>
 #include <WLoaderWeb>
+#include <WLoaderTorrent>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WPlaylistNet>
@@ -54,6 +56,8 @@
 #include <WVlcEngine>
 #include <WBackendTorrent>
 #include <WBackendDuckDuckGo>
+#include <WBackendTmdb>
+#include <WBackendLastFm>
 #include <WBackendYoutube>
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
@@ -220,6 +224,8 @@ ControllerCore::ControllerCore() : WController()
     new WBackendTorrent;
 
     new WBackendDuckDuckGo;
+    new WBackendTmdb;
+    new WBackendLastFm;
 
     new WBackendYoutube;
     new WBackendDailymotion;
@@ -229,7 +235,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Cache
 
-    _cache = new WCache(path + "/cache");
+    _cache = new WCache(path + "/cache", 1048576 * 100); // 100 megabytes
 
     wControllerFile->setCache(_cache);
 
@@ -252,9 +258,23 @@ ControllerCore::ControllerCore() : WController()
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeWeb, _loaderWeb);
 
     //---------------------------------------------------------------------------------------------
+    // LoaderTorrent
+
+    WLoaderTorrent * loaderTorrent = new WLoaderTorrent(this);
+
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
+    wControllerTorrent ->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
+
+    //---------------------------------------------------------------------------------------------
     // Proxy
 
     applyProxy(_local->_proxyActive);
+
+    //---------------------------------------------------------------------------------------------
+    // Torrents
+
+    applyTorrentOptions(_local->_torrentConnections,
+                        _local->_torrentUpload, _local->_torrentDownload, _local->_torrentCache);
 
     //---------------------------------------------------------------------------------------------
     // Tabs
@@ -510,9 +530,9 @@ ControllerCore::ControllerCore() : WController()
                                                                             int download,
                                                                             int cache) const
 {
-    wControllerTorrent->setOptions(connections, upload, download);
+    wControllerTorrent->setOptions(connections, upload * 1024, download * 1024);
 
-    wControllerTorrent->setSizeMax(cache);
+    wControllerTorrent->setSizeMax(cache * 1048576);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -554,7 +574,7 @@ ControllerCore::ControllerCore() : WController()
 {
     if (WControllerNetwork::urlIsFile(text) || WControllerNetwork::urlIsHttp(text)
         ||
-        text.startsWith('/') || (text.length() > 1 && text.at(1) == ':') || text.contains('.'))
+        text.startsWith('/') || text.contains(':') || text.contains('.'))
     {
         if (text.contains(' '))
         {
@@ -613,9 +633,12 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::addLibraryItem(WLibraryFolder * folder, int type) const
+/* Q_INVOKABLE */ void ControllerCore::addFolderSearch(WLibraryFolder * folder,
+                                                       const QString  & title) const
 {
-    WLibraryFolderItem item(static_cast<WLibraryItem::Type> (type));
+    WLibraryFolderItem item(WLibraryItem::FolderSearch);
+
+    item.title = title;
 
     folder->addItem(item);
 }

@@ -102,9 +102,9 @@ List
     {
         if (folder)
         {
-            if (enableLoad) folder.loadQuery();
-
             hasFolder = true;
+
+            if (enableLoad) folder.loadQuery();
 
             pApplyFolder();
 

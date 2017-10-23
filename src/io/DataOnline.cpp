@@ -64,10 +64,7 @@ static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/win32/";
 
     WRemoteData * data = wControllerDownload->getData(_messageText, this);
 
-    if (data)
-    {
-        connect(data, SIGNAL(loaded(WRemoteData *)), this, SLOT(onLoadedMessage(WRemoteData *)));
-    }
+    connect(data, SIGNAL(loaded(WRemoteData *)), this, SLOT(onLoadedMessage(WRemoteData *)));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -87,10 +84,7 @@ static const QString ONLINE_PATH = "http://omega.gg/get/MotionBox/1.0.0/win32/";
 {
     WRemoteData * data = wControllerDownload->getData(generateUrl("data.xml"), this);
 
-    if (data)
-    {
-        connect(data, SIGNAL(loaded(WRemoteData *)), this, SLOT(onLoaded(WRemoteData *)));
-    }
+    connect(data, SIGNAL(loaded(WRemoteData *)), this, SLOT(onLoaded(WRemoteData *)));
 }
 
 //-------------------------------------------------------------------------------------------------

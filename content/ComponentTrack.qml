@@ -31,6 +31,8 @@ ComponentLibraryItem
 
     iconHeight: (isCurrent) ? st.dp24 : st.dp32
 
+    iconSourceSize: (isCurrent) ? st.size24x24 : st.size42x32
+
     //---------------------------------------------------------------------------------------------
 
     isEnabled: (source != "")

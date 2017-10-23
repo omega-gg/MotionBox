@@ -2111,7 +2111,7 @@ Item
 
     function openUrl(url)
     {
-        Qt.openUrlExternally(url);
+        Qt.openUrlExternally(controllerNetwork.encodedUrl(url));
     }
 
     function openFile(url)
@@ -2119,15 +2119,22 @@ Item
         Qt.openUrlExternally(controllerFile.fileUrl(url));
     }
 
+    function openFolder(url)
+    {
+        Qt.openUrlExternally(controllerFile.folderPath(url));
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function openSource(url)
     {
         pause();
 
         if (controllerNetwork.urlIsFile(url))
         {
-             Qt.openUrlExternally(controllerFile.folderPath(url));
+             openFolder(url);
         }
-        else Qt.openUrlExternally(url);
+        else openUrl(url);
     }
 
     //---------------------------------------------------------------------------------------------

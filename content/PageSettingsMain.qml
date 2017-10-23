@@ -251,11 +251,8 @@ Item
     ButtonPianoReset
     {
         anchors.right : border.left
-        anchors.top   : barProxy.top
-        anchors.bottom: barProxy.bottom
-
-        anchors.topMargin   : borderSize
-        anchors.bottomMargin: borderSize
+        anchors.top   : itemTextProxy.top
+        anchors.bottom: itemTextProxy.bottom
 
         enabled: (local.proxyHost || local.proxyPort != -1 || local.proxyPassword
                   ||
@@ -295,11 +292,8 @@ Item
     ButtonPianoReset
     {
         anchors.right : barProxy.right
-        anchors.top   : barProxy.top
-        anchors.bottom: barProxy.bottom
-
-        anchors.topMargin   : borderSize
-        anchors.bottomMargin: borderSize
+        anchors.top   : itemTextProxy.top
+        anchors.bottom: itemTextProxy.bottom
 
         enabled: (local.torrentConnections != 500
                   ||
@@ -348,6 +342,9 @@ Item
 
         anchors.top   : barProxy.top
         anchors.bottom: barScale.bottom
+
+        anchors.topMargin   : barProxy.borderTop
+        anchors.bottomMargin: barScale.borderTop
 
         anchors.horizontalCenter: parent.horizontalCenter
     }

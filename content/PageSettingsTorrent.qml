@@ -18,31 +18,24 @@ import QtQuick       1.1
 import Sky           1.0
 import SkyComponents 1.0
 
-MouseArea
+BasePageSettings
 {
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    anchors.fill: parent
-
-    acceptedButtons: Qt.NoButton
+    itemBefore: editConnections
+    itemAfter : editCache
 
     KeyNavigation.tab: editCache
 
     //---------------------------------------------------------------------------------------------
-    // Keys
+    // Events
     //---------------------------------------------------------------------------------------------
 
-    Keys.onPressed:
-    {
-        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
-        {
-            event.accepted = true;
+    onCancel: pageSettings.loadMain()
 
-            barPage.buttonOk.returnPressed();
-        }
-    }
+    onOk: pApply()
 
     //---------------------------------------------------------------------------------------------
     // Functions private
@@ -153,7 +146,7 @@ MouseArea
 
         textInput.validator: IntValidator { bottom: 0; top: 100000 }
 
-        KeyNavigation.backtab: barPage.buttonCancel
+        KeyNavigation.backtab: buttonCancel
         KeyNavigation.tab    : editUpload
     }
 
@@ -298,22 +291,6 @@ MouseArea
         textInput.validator: IntValidator { bottom: 0; top: 1000 }
 
         KeyNavigation.backtab: editDownload
-        KeyNavigation.tab    : barPage.buttonOk
-    }
-
-    BarPage
-    {
-        id: barPage
-
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.bottom: parent.bottom
-
-        itemBefore: editConnections
-        itemAfter : editCache
-
-        onCancel: pageSettings.loadMain()
-
-        onOk: pApply()
+        KeyNavigation.tab    : buttonOk
     }
 }

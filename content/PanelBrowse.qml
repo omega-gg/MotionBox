@@ -36,6 +36,10 @@ MouseArea
     //---------------------------------------------------------------------------------------------
     // Private
 
+    property bool pState: false
+
+    property bool pStateActive: (scrollPlaylists.count > 1)
+
     property string pSearchEngine: "duckduckgo"
 
     property url pSearchCover: pGetSearchCover()
@@ -89,9 +93,10 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    property alias pFolderHubs  : scrollHubs  .folder
-    property alias pFolderBrowse: scrollBrowse.folder
-    property alias pFolder      : scrollFolder.folder
+    property alias pFolderHubs     : scrollHubs  .folder
+    property alias pFolderBrowse   : scrollBrowse.folder
+    property alias pFolder         : scrollFolder.folder
+    property alias pFolderPlaylists: scrollPlaylists.folder
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -155,6 +160,11 @@ MouseArea
     onPressed: window.clearFocus()
 
     onActiveFocusChanged: isSelecting = false
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    onPStateActiveChanged: if (pStateActive == false) pState = false
 
     //---------------------------------------------------------------------------------------------
     // Connections
@@ -246,16 +256,60 @@ MouseArea
                 }
                 else pCompleteSearch();
             }
+
+            if (pFolderPlaylists && pFolderPlaylists.currentIndex == -1)
+            {
+                pFolderPlaylists.loadCurrentIndex(0, true);
+            }
         }
 
         onQueryCompleted: if (pFolder.isEmpty) pSearchStop()
+
+        onCurrentIndexChanged:
+        {
+            if (pFolderPlaylists && pFolderPlaylists.currentIndex == -1)
+            {
+                pFolderPlaylists.loadCurrentIndex(0, true);
+            }
+        }
+    }
+
+    Connections
+    {
+        target: (pFolderPlaylists) ? pFolderPlaylists : null
+
+        onQueryEnded:
+        {
+            if (playlist == null) return;
+
+            if (playlist.queryIsLoading == false)
+            {
+                if (playlist.isEmpty)
+                {
+                    pSearchStop();
+                }
+                else pCompleteSearch();
+            }
+
+            pFolderPlaylists.cover = playlist.cover;
+        }
+
+        onQueryCompleted: if (pFolderPlaylists.isEmpty) pSearchStop()
     }
 
     Connections
     {
         target: (playlist) ? playlist : null
 
-        onQueryEnded: if (playlist.isEmpty == false) pCompleteSearch()
+        onQueryEnded:
+        {
+            if (playlist.isEmpty == false) pCompleteSearch();
+
+            if (pFolderPlaylists && pFolderPlaylists.currentIndex == 0)
+            {
+                pFolderPlaylists.cover = playlist.cover;
+            }
+        }
 
         onQueryCompleted: if (playlist.isEmpty) pSearchStop()
 
@@ -472,15 +526,17 @@ MouseArea
                     {
                         pFolderBrowse.clearItems();
 
-                        core.addLibraryItem(pFolderBrowse, LibraryItem.FolderSearch);
+                        core.addFolderSearch(pFolderBrowse, controllerNetwork.urlName(query));
 
                         pFolderBrowse.loadCurrentIndex(0, true);
 
-                        if (pFolder.loadSource(source))
+                        if (pFolder.loadSource(query))
                         {
                             local.cache = true;
                         }
                         else pSearchEnd();
+
+                        pFolder.cover = controllerPlaylist.backendCoverFromUrl(query);
 
                         pUpdateButtonsBrowsing();
                     }
@@ -769,7 +825,7 @@ MouseArea
 
             var backend = controllerPlaylist.backendFromUrl(title);
 
-            if (backend)
+            if (backend && backend.isHub())
             {
                 buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
             }
@@ -1261,9 +1317,20 @@ MouseArea
 
         onPressed:
         {
-            panelAdd.setSource(1, pFolder, -1);
+            if (pFolderPlaylists)
+            {
+                 panelAdd.setSource(1, pFolderPlaylists, -1);
+            }
+            else panelAdd.setSource(1, pFolder, -1);
 
             areaContextual.showPanelMargins(panelAdd, buttonAddItem, 2, 0);
+        }
+
+        onCheckedChanged:
+        {
+            if (checked || mouseArea.containsMouse) return;
+
+            pState = false;
         }
     }
 
@@ -1606,9 +1673,9 @@ MouseArea
         }
     }
 
-    ScrollFolder
+    Item
     {
-        id: scrollFolder
+        id: itemFolder
 
         anchors.left  : borderBrowse.right
         anchors.top   : bar.bottom
@@ -1616,46 +1683,200 @@ MouseArea
 
         width: widthColum
 
-        visible: hasFolder
+        visible: scrollFolder.hasFolder
 
-        listPlaylist: scrollPlaylist.list
+        states:
+        [
+            State
+            {
+                name: "expanded"; when: pState
 
-        enableAdd: false
+                PropertyChanges
+                {
+                    target: scrollFolder
 
-        textDefault:
+                    width: (scrollFolder.isScrollable) ? st.dp32 + scrollFolder.scrollBar.width
+                                                       : st.dp32
+                }
+            },
+            State
+            {
+                name: "playlists"; when: pStateActive
+
+                PropertyChanges
+                {
+                    target: scrollFolder
+
+                    width: widthColum - st.dp32 - borderPlaylists.size
+                }
+            }
+        ]
+
+        transitions: Transition
         {
-            if (folder == null || folder.isFolderSearch == false)
+            SequentialAnimation
             {
-                return qsTr("Empty Folder");
+                NumberAnimation
+                {
+                    property: "width"
+
+                    duration: st.duration_normal
+                }
+
+                ScriptAction
+                {
+                    script:
+                    {
+                        if (pState || pStateActive == false)
+                        {
+                            itemFolder.clip = false;
+                        }
+                    }
+                }
             }
-            else if (folder.source == "")
-            {
-                return qsTr("Type a query");
-            }
-            else return qsTr("No results");
         }
 
-        itemLeft : scrollBrowse
-        itemRight: scrollPlaylist
+        onStateChanged: itemFolder.clip = true
 
-        Keys.onPressed:
+        ScrollFolder
         {
-            if (event.key == Qt.Key_Plus && buttonAddItem.visible)
+            id: scrollFolder
+
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: widthColum
+
+            listFolder  : scrollPlaylists.list
+            listPlaylist: scrollPlaylist .list
+
+            enablePreview   : (pStateActive == false || pState == false)
+            enableContextual: enablePreview
+            enableAdd       : false
+
+            textDefault:
             {
-                event.accepted = true;
+                if (folder == null || folder.isFolderSearch == false)
+                {
+                    return qsTr("Empty Folder");
+                }
+                else if (folder.source == "")
+                {
+                    return qsTr("Type a query");
+                }
+                else return qsTr("No results");
+            }
 
-                buttonAddItem.focus();
+            itemLeft: scrollBrowse
 
-                buttonAddItem.returnPressed();
+            itemRight: (pStateActive) ? scrollPlaylists
+                                      : scrollPlaylist
+
+            list.onActiveFocusChanged: if (list.activeFocus) pState = false
+
+            Keys.onPressed:
+            {
+                if (event.key == Qt.Key_Plus && buttonAddItem.visible)
+                {
+                    event.accepted = true;
+
+                    buttonAddItem.focus();
+
+                    buttonAddItem.returnPressed();
+                }
+            }
+
+            Keys.onReleased:
+            {
+                if (buttonAddItem.isReturnPressed)
+                {
+                    buttonAddItem.returnReleased();
+                }
             }
         }
 
-        Keys.onReleased:
+        Rectangle
         {
-            if (buttonAddItem.isReturnPressed)
+            anchors.fill: scrollPlaylists
+
+            visible: borderPlaylists.visible
+
+            color: st.panelBrowse_colorBackground
+        }
+
+        ScrollFolder
+        {
+            id: scrollPlaylists
+
+            anchors.left  : borderPlaylists.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: (scrollFolder.isScrollable) ? widthColum - st.dp32 - borderPlaylists.size
+                                                 - scrollFolder.scrollBar.width
+                                               : widthColum - st.dp32 - borderPlaylists.size
+
+            visible: pStateActive
+
+            listPlaylist: scrollPlaylist.list
+
+            enablePreview   : (pState && itemFolder.clip == false)
+            enableContextual: enablePreview
+            enableAdd       : false
+
+            textDefault: qsTr("No playlists")
+
+            itemLeft : scrollFolder
+            itemRight: scrollPlaylist
+
+            list.onActiveFocusChanged: pState = list.activeFocus
+        }
+
+        BorderVertical
+        {
+            id: borderPlaylists
+
+            anchors.left  : scrollFolder.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            visible: (pStateActive || itemFolder.clip)
+        }
+    }
+
+    MouseArea
+    {
+        id: mouseArea
+
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
+
+        anchors.topMargin: bar.borderTop
+
+        width: Math.round(widthColum - scrollFolder.width)
+
+        x: scrollPlaylist.x - borderFolder.size - width
+
+        visible: pStateActive
+
+        hoverEnabled: true
+
+        acceptedButtons: Qt.NoButton
+
+        cursor: MouseArea.BlankCursor
+
+        onEntered: pState = true
+
+        onExited:
+        {
+            if (buttonAddItem.checked) return;
+
+            if (scrollPlaylists.list.activeFocus)
             {
-                buttonAddItem.returnReleased();
+                window.clearFocus();
             }
+
+            pState = false;
         }
     }
 
@@ -1663,12 +1884,12 @@ MouseArea
     {
         id: scrollPlaylist
 
-        anchors.left: (borderFolder.visible) ? borderFolder.right
-                                             : borderBrowse.right
+        anchors.left: (itemFolder.visible) ? borderFolder.right
+                                           : borderBrowse.right
 
         anchors.right : parent.right
-        anchors.top   : scrollFolder.top
-        anchors.bottom: scrollFolder.bottom
+        anchors.top   : itemFolder.top
+        anchors.bottom: itemFolder.bottom
 
         enableAdd: false
 
@@ -1689,8 +1910,18 @@ MouseArea
             else return qsTr("No Track results");
         }
 
-        itemLeft: (scrollFolder.visible) ? scrollFolder
-                                         : scrollBrowse
+        itemLeft:
+        {
+            if (pStateActive)
+            {
+                return scrollPlaylists;
+            }
+            else if (scrollFolder.visible)
+            {
+                return scrollFolder;
+            }
+            else return scrollBrowse;
+        }
 
         itemTop: (buttonTitle.visible) ? buttonTitle : null
 
@@ -1788,10 +2019,10 @@ MouseArea
     {
         id: borderFolder
 
-        anchors.left  : scrollFolder.right
+        anchors.left  : itemFolder.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
-        visible: scrollFolder.visible
+        visible: itemFolder.visible
     }
 }

@@ -108,9 +108,9 @@ List
     {
         if (playlist)
         {
-            if (enableLoad) playlist.loadQuery();
-
             hasPlaylist = true;
+
+            if (enableLoad) playlist.loadQuery();
 
             pApplyPlaylist();
 
@@ -986,7 +986,7 @@ List
 
         for (var i = index; i < count; i++)
         {
-            if (playlist.trackTitle(i) == "")
+            if (playlist.trackTitle(i) == "" || playlist.trackCover(i) == "")
             {
                 playlist.loadTracks(index, 5);
 

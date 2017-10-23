@@ -446,7 +446,7 @@ PanelImage
         anchors.right : parent.right
         anchors.bottom: buttonFeed.top
 
-        height: st.dp48
+        height: (textDate.text == "") ? st.dp24 : st.dp48
 
         visible: (detail && duration != -1)
 
@@ -509,6 +509,8 @@ PanelImage
 
         TextDate
         {
+            id: textDate
+
             anchors.left  : parent.left
             anchors.right : parent.right
             anchors.top   : itemDuration.bottom

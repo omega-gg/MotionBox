@@ -18,7 +18,7 @@ import QtQuick       1.1
 import Sky           1.0
 import SkyComponents 1.0
 
-MouseArea
+BasePageSettings
 {
     id: pageSettingsProxy
 
@@ -34,16 +34,21 @@ MouseArea
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    anchors.fill: parent
-
-    acceptedButtons: Qt.NoButton
-
     dropEnabled: true
+
+    itemBefore: editPassword
+    itemAfter : editHost
 
     KeyNavigation.tab: editHost
 
     //---------------------------------------------------------------------------------------------
     // Events
+    //---------------------------------------------------------------------------------------------
+
+    onCancel: pageSettings.loadMain()
+
+    onOk: pApply()
+
     //---------------------------------------------------------------------------------------------
 
     onDragEntered:
@@ -72,23 +77,9 @@ MouseArea
 
         var port = controllerNetwork.extractIpPort(pClipboard);
 
-        if (port) editHost.editText = port;
+        if (port) editPort.editText = port;
 
         pClearDrop();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Keys
-    //---------------------------------------------------------------------------------------------
-
-    Keys.onPressed:
-    {
-        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
-        {
-            event.accepted = true;
-
-            barPage.buttonOk.returnPressed();
-        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -103,7 +94,7 @@ MouseArea
 
         if (editPort.editText)
         {
-             port = parseInt(editPort.editText, 10);
+             port = editPort.editText;
         }
         else port = -1;
 
@@ -198,7 +189,7 @@ MouseArea
 
         editText: local.proxyHost
 
-        KeyNavigation.backtab: barPage.buttonCancel
+        KeyNavigation.backtab: buttonCancel
         KeyNavigation.tab    : editPort
     }
 
@@ -239,7 +230,7 @@ MouseArea
         textInput.echoMode: TextInput.Password
 
         KeyNavigation.backtab: editPort
-        KeyNavigation.tab    : barPage.buttonOk
+        KeyNavigation.tab    : buttonOk
     }
 
     ButtonPushLeft
@@ -288,21 +279,5 @@ MouseArea
         checked: local.proxyActive
 
         text: qsTr("Active")
-    }
-
-    BarPage
-    {
-        id: barPage
-
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.bottom: parent.bottom
-
-        itemBefore: editPassword
-        itemAfter : editHost
-
-        onCancel: pageSettings.loadMain()
-
-        onOk: pApply()
     }
 }

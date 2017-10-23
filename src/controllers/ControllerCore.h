@@ -111,8 +111,7 @@ public: // Interface
     Q_INVOKABLE WLibraryFolder * createFolder  (int type = WLibraryItem::Folder)      const;
     Q_INVOKABLE WPlaylistNet   * createPlaylist(int type = WLibraryItem::PlaylistNet) const;
 
-    Q_INVOKABLE void addLibraryItem(WLibraryFolder * folder,
-                                    int              type = WLibraryItem::PlaylistNet) const;
+    Q_INVOKABLE void addFolderSearch(WLibraryFolder * folder, const QString & title) const;
 
     Q_INVOKABLE int idFromTitle(WLibraryFolder * folder, const QString & title) const;
 

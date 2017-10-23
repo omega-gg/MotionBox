@@ -63,7 +63,7 @@ MotionBox est développé en [C++] avec [Sky kit].
 
 Sky est basé sur le [framework Qt].
 
-L'interface utilise [QML] et le lecteur utilise [VLC] core et [libtorrent].
+L'interface utilise [QML] et le lecteur utilise [VLC] et [libtorrent].
 
 
 # Crédits

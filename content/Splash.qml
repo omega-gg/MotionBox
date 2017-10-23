@@ -105,8 +105,8 @@ MouseArea
 
         gradient: Gradient
         {
-            GradientStop { position: 0.0; color: st.logo_colorB }
-            GradientStop { position: 1.0; color: st.logo_colorA }
+            GradientStop { position: 0.0; color: st.splash_colorA }
+            GradientStop { position: 1.0; color: st.splash_colorB }
         }
 
         BorderVertical { anchors.left: parent.right }
@@ -132,8 +132,7 @@ MouseArea
 
         cache: false
 
-        scaling: isSourceDefault
-
+        scaling   : isSourceDefault
         scaleDelay: 0
 
         states: State
@@ -168,6 +167,9 @@ MouseArea
             visible: image.isSourceDefault
 
             opacity: st.splash_shadowOpacity
+
+            scaling   : image.scaling
+            scaleDelay: image.scaleDelay
         }
     }
 }

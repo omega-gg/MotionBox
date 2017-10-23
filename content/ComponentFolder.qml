@@ -37,6 +37,8 @@ ComponentLibraryItem
 
     iconHeight: (isActive) ? st.dp24 : st.dp32
 
+    iconSourceSize: (isActive) ? st.size24x24 : st.size32x32
+
     //---------------------------------------------------------------------------------------------
 
     isHovered: (index == indexHover || index == indexDrag)

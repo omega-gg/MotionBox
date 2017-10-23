@@ -63,6 +63,14 @@ Style
 
     property real splash_shadowOpacity: 0.8
 
+    property color splash_colorA: "#969696"
+    property color splash_colorB: "#242424"
+
+    //---------------------------------------------------------------------------------------------
+    // PanelBrowse
+
+    property color panelBrowse_colorBackground: "#323232"
+
     //---------------------------------------------------------------------------------------------
     // PanelRelated
 

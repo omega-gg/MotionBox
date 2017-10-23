@@ -84,7 +84,6 @@ OTHER_FILES += configure.sh \
                content/BarWindowApplication.qml \
                content/BarTop.qml \
                content/BarControls.qml \
-               content/BarPage.qml \
                content/ButtonPianoTitle.qml \
                content/ButtonLogo.qml \
                content/ButtonLogoBorders.qml \
@@ -99,6 +98,7 @@ OTHER_FILES += configure.sh \
                content/ComponentLibraryItem.qml \
                content/ComponentTrack.qml \
                content/ComponentFolder.qml \
+               content/BasePageSettings.qml \
                content/PageSettings.qml \
                content/PageSettingsMain.qml \
                content/PageSettingsProxy.qml \

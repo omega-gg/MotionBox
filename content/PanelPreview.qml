@@ -397,8 +397,7 @@ PanelImage
     {
         id: timer
 
-        interval: (pActive) ? st.duration_faster
-                            : st.duration_slower
+        interval: st.duration_normal
 
         onTriggered:
         {

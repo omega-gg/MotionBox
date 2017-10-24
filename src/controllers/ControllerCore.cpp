@@ -572,9 +572,11 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ bool ControllerCore::checkUrl(const QString & text) const
 {
-    if (WControllerNetwork::urlIsFile(text) || WControllerNetwork::urlIsHttp(text)
-        ||
-        text.startsWith('/') || text.contains(':') || text.contains('.'))
+    if (WControllerNetwork::urlIsFile(text) || WControllerNetwork::urlIsHttp(text))
+    {
+        return true;
+    }
+    else if (text.startsWith('/') || text.contains(':') || text.contains('.'))
     {
         if (text.contains(' '))
         {

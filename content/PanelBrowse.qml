@@ -512,7 +512,7 @@ MouseArea
 
         pInitSearch(query);
 
-        var source;
+        var source = controllerNetwork.encodedUrl(query);
 
         if (pBrowsing)
         {
@@ -520,40 +520,28 @@ MouseArea
             {
                 if (panelBrowse.query == "")
                 {
-                    source = query;
+                    pFolderBrowse.loadSource(source, false);
 
-                    if (pFolderBrowse.count != 1 || pFolderBrowse.itemSource(0) != query)
+                    pFolderBrowse.clearItems();
+
+                    core.addFolderSearch(pFolderBrowse, controllerNetwork.urlName(source));
+
+                    pFolderBrowse.loadCurrentIndex(0, true);
+
+                    if (pFolder.loadSource(source))
                     {
-                        pFolderBrowse.clearItems();
-
-                        core.addFolderSearch(pFolderBrowse, controllerNetwork.urlName(query));
-
-                        pFolderBrowse.loadCurrentIndex(0, true);
-
-                        if (pFolder.loadSource(query))
-                        {
-                            local.cache = true;
-                        }
-                        else pSearchEnd();
-
-                        pFolder.cover = controllerPlaylist.backendCoverFromUrl(query);
-
-                        pUpdateButtonsBrowsing();
+                        local.cache = true;
                     }
-                    else
-                    {
-                        pFolderBrowse.loadCurrentIndex(0, true);
+                    else pSearchEnd();
 
-                        if (pFolder.reloadQuery() == false)
-                        {
-                            pSearchEnd();
-                        }
-                    }
+                    pFolder.cover = controllerPlaylist.backendCoverFromUrl(source);
+
+                    pUpdateButtonsBrowsing();
                 }
                 else
                 {
                     source = controllerPlaylist.createSource(pSearchEngine,
-                                                             "search", "urls", query);
+                                                             "search", "urls", source);
 
                     if (pFolderBrowse.source == source)
                     {
@@ -572,7 +560,7 @@ MouseArea
                 return;
             }
 
-            source = pSiteQuery(pItemBrowse.title, query);
+            source = pSiteQuery(pItemBrowse.title, source);
 
             source = controllerPlaylist.createSource(pSearchEngine,
                                                      "search", "site", source);
@@ -580,7 +568,7 @@ MouseArea
         else if (pItemBrowse)
         {
             source = controllerPlaylist.createSource(pFolderBrowse.label,
-                                                     "search", pItemBrowse.label, query);
+                                                     "search", pItemBrowse.label, source);
         }
 
         if (pItemBrowse.source == source)

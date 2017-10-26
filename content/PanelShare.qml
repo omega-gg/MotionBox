@@ -246,7 +246,7 @@ Panel
 
         width: st.dp180
 
-        text: controllerFile.filePath(currentTab.source)
+        text: currentTab.source
 
         textDefault: qsTr("No track selected")
 

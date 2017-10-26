@@ -578,15 +578,15 @@ ControllerCore::ControllerCore() : WController()
     }
     else if (text.contains(':'))
     {
-        if (text.length() > 1 && text.at(0).isLetter())
+        if (text.length() > 1)
         {
-            return true;
+            if (text.at(0).isLetter() || text.contains(' ') == false)
+            {
+                return true;
+            }
         }
-        else if (text.contains(' '))
-        {
-            return false;
-        }
-        else return true;
+
+        return false;
     }
     else if (text.contains('.') && text.contains(' ') == false)
     {

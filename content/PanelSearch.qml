@@ -111,11 +111,16 @@ Panel
         {
             if (pTextEvents == false) return;
 
-            updateHub();
+            var text = lineEditSearch.text;
+
+            if (text && core.checkUrl(text))
+            {
+                selectHub(0);
+            }
 
             scrollCompletion.currentIndex = -1;
 
-            scrollCompletion.query = lineEditSearch.text;
+            scrollCompletion.query = text;
 
             scrollCompletion.runQuery();
 
@@ -259,16 +264,6 @@ Panel
     {
         if (action == 0) buttonSearch.triggerReleased();
         else             buttonPlay  .triggerReleased();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function updateHub()
-    {
-        if (core.checkUrl(lineEditSearch.text))
-        {
-            selectHub(0);
-        }
     }
 
     //---------------------------------------------------------------------------------------------

@@ -534,7 +534,7 @@ MouseArea
                     }
                     else pSearchEnd();
 
-                    pFolder.cover = controllerPlaylist.backendCoverFromUrl(source);
+                    pFolder.cover = controllerPlaylist.backendCoverFromHub(source);
 
                     pUpdateButtonsBrowsing();
                 }
@@ -755,7 +755,7 @@ MouseArea
         var folder = core.createFolder(LibraryItem.FolderSearch);
 
         folder.title = url;
-        folder.cover = controllerPlaylist.backendCoverFromUrl(url);
+        folder.cover = controllerPlaylist.backendCoverFromHub(url);
 
         if (query != "")
         {

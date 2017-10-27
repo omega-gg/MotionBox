@@ -119,6 +119,20 @@ Item
                                        &&
                                        related.isLoading == false)
 
+    property bool pExpand: (player.hasStarted
+                            &&
+                            player.output != AbstractBackend.OutputAudio
+                            &&
+                            player.outputActive != AbstractBackend.OutputAudio)
+
+    //---------------------------------------------------------------------------------------------
+
+    property bool pExpanded: true
+
+    property bool pRelated        : false
+    property bool pRelatedExpanded: false
+
+    //---------------------------------------------------------------------------------------------
 
     property bool pMini     : false
     property bool pMiniMicro: local.micro
@@ -774,6 +788,8 @@ Item
 
         panelCover.updatePanel();
 
+        pExpanded = true;
+
         local.expanded = false;
 
         startActionCue(st.duration_normal);
@@ -1071,6 +1087,8 @@ Item
 
             pRestoreMiniB();
 
+            if (pExpand) pExpandFullScreen();
+
             st.animate = true;
         }
         else
@@ -1078,6 +1096,15 @@ Item
             if (sk.osWin) window.setWindowSnap(false);
 
             window.fullScreen = true;
+
+            if (pExpand)
+            {
+                st.animate = false;
+
+                pExpandFullScreen();
+
+                st.animate = true;
+            }
         }
 
         wall.updateView();
@@ -1107,6 +1134,29 @@ Item
         wall.enableAnimation = false;
 
         window.fullScreen = false;
+
+        st.animate = false;
+
+        if (pExpanded == false)
+        {
+            pExpanded = false;
+
+            restore();
+        }
+
+        if (pRelated)
+        {
+            pRelated = false;
+
+            panelRelated.expose();
+
+            if (pRelatedExpanded)
+            {
+                panelRelated.expand();
+            }
+        }
+
+        st.animate = true;
 
         wall.updateView();
 
@@ -1378,6 +1428,13 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function clearRelated()
+    {
+        pRelated = false;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function setCurrentTrack(playlist, index)
     {
         playlist.currentIndex = index;
@@ -1593,29 +1650,6 @@ Item
         panelRelated.expose();
 
         panelRelated.load(data);
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function trackData(source, title, cover, author, feed, duration, date, quality)
-    {
-        var data = new Object;
-
-        data.source = source;
-
-        data.title = title;
-        data.cover = cover;
-
-        data.author = author;
-        data.feed   = feed;
-
-        data.duration = duration;
-
-        data.date = date;
-
-        data.quality = quality;
-
-        return data;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3050,6 +3084,25 @@ Item
 
     //---------------------------------------------------------------------------------------------
     // Private
+
+    function pExpandFullScreen()
+    {
+        var expanded = isExpanded;
+
+        var relatedExposed  = panelRelated.isExposed;
+        var relatedExpanded = panelRelated.isExpanded;
+
+        expand();
+
+        panelRelated.collapse();
+
+        pExpanded = expanded;
+
+        pRelated         = relatedExposed;
+        pRelatedExpanded = relatedExpanded;
+    }
+
+    //---------------------------------------------------------------------------------------------
 
     function pRestoreMiniA()
     {

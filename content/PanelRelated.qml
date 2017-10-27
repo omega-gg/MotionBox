@@ -145,6 +145,8 @@ Panel
 
         if (pCheckRefresh()) pRefresh();
 
+        gui.clearRelated();
+
         local.related = true;
 
         gui.startActionCue(st.duration_normal);

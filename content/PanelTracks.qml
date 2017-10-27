@@ -77,6 +77,8 @@ Item
 
         gui.updateScreenDim();
 
+        gui.clearExpand();
+
         local.tracksExpanded = isExpanded;
 
         gui.startActionCue(st.duration_normal);

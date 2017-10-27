@@ -145,7 +145,7 @@ Panel
 
         if (pCheckRefresh()) pRefresh();
 
-        gui.clearRelated();
+        gui.clearExpand();
 
         local.related = true;
 

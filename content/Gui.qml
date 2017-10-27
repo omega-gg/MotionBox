@@ -119,15 +119,11 @@ Item
                                        &&
                                        related.isLoading == false)
 
-    property bool pExpand: (player.hasStarted
-                            &&
-                            player.output != AbstractBackend.OutputAudio
-                            &&
-                            player.outputActive != AbstractBackend.OutputAudio)
-
     //---------------------------------------------------------------------------------------------
 
     property bool pExpanded: true
+
+    property bool pWall: false
 
     property bool pRelated        : false
     property bool pRelatedExpanded: false
@@ -788,8 +784,6 @@ Item
 
         panelCover.updatePanel();
 
-        pExpanded = true;
-
         local.expanded = false;
 
         startActionCue(st.duration_normal);
@@ -812,6 +806,8 @@ Item
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
 
         wall.expose();
+
+        clearExpand();
 
         startActionCue(st.duration_normal);
     }
@@ -1087,7 +1083,7 @@ Item
 
             pRestoreMiniB();
 
-            if (pExpand) pExpandFullScreen();
+            if (player.hasStarted) pExpandFullScreen();
 
             st.animate = true;
         }
@@ -1097,7 +1093,7 @@ Item
 
             window.fullScreen = true;
 
-            if (pExpand)
+            if (player.hasStarted)
             {
                 st.animate = false;
 
@@ -1137,23 +1133,15 @@ Item
 
         st.animate = false;
 
-        if (pExpanded == false)
-        {
-            pExpanded = false;
+        if (pExpanded == false) restore();
 
-            restore();
-        }
+        if (pWall) wall.expose();
 
         if (pRelated)
         {
-            pRelated = false;
-
             panelRelated.expose();
 
-            if (pRelatedExpanded)
-            {
-                panelRelated.expand();
-            }
+            if (pRelatedExpanded) panelRelated.expand();
         }
 
         st.animate = true;
@@ -1428,9 +1416,17 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function clearRelated()
+    function clearExpand()
     {
-        pRelated = false;
+        if (pExpanded) return;
+
+        pExpanded = true;
+        pRelated  = false;
+
+        pWall = false;
+
+        pRelated         = false;
+        pRelatedExpanded = false;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3087,19 +3083,18 @@ Item
 
     function pExpandFullScreen()
     {
-        var expanded = isExpanded;
+        pExpanded = isExpanded;
 
-        var relatedExposed  = panelRelated.isExposed;
-        var relatedExpanded = panelRelated.isExpanded;
+        pWall = wall.isExposed;
+
+        pRelated         = panelRelated.isExposed;
+        pRelatedExpanded = panelRelated.isExpanded;
 
         expand();
 
+        wall.restore();
+
         panelRelated.collapse();
-
-        pExpanded = expanded;
-
-        pRelated         = relatedExposed;
-        pRelatedExpanded = relatedExpanded;
     }
 
     //---------------------------------------------------------------------------------------------

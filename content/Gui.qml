@@ -945,7 +945,7 @@ Item
         {
             timer.stop();
 
-            expandBars();
+            restoreBars();
 
             restore();
         }

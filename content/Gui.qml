@@ -910,17 +910,30 @@ Item
 
     function toggleBars()
     {
-        if (barTop.isExpanded)
+        if (isMini)
         {
-            restoreBars();
-
+            if (barTop.isExpanded)
+            {
+                 restoreBars();
+            }
+            else expandBars();
+        }
+        else if (barTop.isExpanded)
+        {
             if (timer.running)
             {
                 timer.stop();
 
-                if (isMini == false) restore();
+                restoreBars();
+
+                restore();
             }
-            else timer.start();
+            else
+            {
+                restoreBars();
+
+                timer.start();
+            }
         }
         else if (isExpanded == false)
         {
@@ -934,7 +947,7 @@ Item
 
             expandBars();
 
-            if (isMini == false) restore();
+            restore();
         }
         else
         {

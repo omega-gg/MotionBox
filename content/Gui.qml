@@ -914,12 +914,34 @@ Item
         {
             restoreBars();
 
-            if (isMini == false)
+            if (timer.running)
             {
-                restore();
+                timer.stop();
+
+                if (isMini == false) restore();
             }
+            else timer.start();
         }
-        else expandBars();
+        else if (isExpanded == false)
+        {
+            timer.stop();
+
+            expandBars();
+        }
+        else if (timer.running)
+        {
+            timer.stop();
+
+            expandBars();
+
+            if (isMini == false) restore();
+        }
+        else
+        {
+            expandBars();
+
+            timer.start();
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1083,7 +1105,7 @@ Item
 
             pRestoreMiniB();
 
-            if (player.hasStarted) pExpandFullScreen();
+            pExpandFullScreen();
 
             st.animate = true;
         }
@@ -1093,14 +1115,11 @@ Item
 
             window.fullScreen = true;
 
-            if (player.hasStarted)
-            {
-                st.animate = false;
+            st.animate = false;
 
-                pExpandFullScreen();
+            pExpandFullScreen();
 
-                st.animate = true;
-            }
+            st.animate = true;
         }
 
         wall.updateView();
@@ -1132,6 +1151,8 @@ Item
         window.fullScreen = false;
 
         st.animate = false;
+
+        restoreBars();
 
         if (pExpanded == false) restore();
 
@@ -3311,6 +3332,13 @@ Item
                 panelPreview.update();
             }
         }
+    }
+
+    Timer
+    {
+        id: timer
+
+        interval: 400
     }
 
     Timer

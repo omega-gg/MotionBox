@@ -2825,8 +2825,6 @@ Item
             }
             else if (player.isPlaying)
             {
-                restoreBars();
-
                 if (event.modifiers == Qt.ShiftModifier)
                 {
                      sliderStream.moveTo(sliderStream.value - st.sliderStream_intervalB);
@@ -2849,8 +2847,6 @@ Item
             }
             else if (player.isPlaying)
             {
-                restoreBars();
-
                 if (event.modifiers == Qt.ShiftModifier)
                 {
                      sliderStream.moveTo(sliderStream.value + st.sliderStream_intervalB);

@@ -224,6 +224,8 @@ MouseArea
         {
             pLoadItem();
 
+            pLoadPlaylists();
+
             if (pBrowsing)
             {
                 pBrowseIndex = pUpdateButtonsBrowsing();
@@ -257,21 +259,12 @@ MouseArea
                 else pCompleteSearch();
             }
 
-            if (pFolderPlaylists && pFolderPlaylists.currentIndex == -1)
-            {
-                pFolderPlaylists.loadCurrentIndex(0, true);
-            }
+            pLoadPlaylists();
         }
 
         onQueryCompleted: if (pFolder.isEmpty) pSearchStop()
 
-        onCurrentIndexChanged:
-        {
-            if (pFolderPlaylists && pFolderPlaylists.currentIndex == -1)
-            {
-                pFolderPlaylists.loadCurrentIndex(0, true);
-            }
-        }
+        onCurrentIndexChanged: pLoadPlaylists()
     }
 
     Connections
@@ -744,6 +737,13 @@ MouseArea
                                                       "search", pItemBrowse.label, query);
 
         pItemBrowse.loadSource(source);
+    }
+
+    function pLoadPlaylists()
+    {
+        if (pFolderPlaylists == null || pFolderPlaylists.currentIndex != -1) return;
+
+        pFolderPlaylists.loadCurrentIndex(0, true);
     }
 
     //---------------------------------------------------------------------------------------------

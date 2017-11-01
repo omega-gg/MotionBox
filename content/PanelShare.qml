@@ -219,7 +219,7 @@ Panel
 
         sourceSize: Qt.size(width, height)
 
-        visible: false
+        visible: (source != "")
     }
 
     BorderVertical
@@ -254,16 +254,9 @@ Panel
         {
             var backend = controllerPlaylist.backendFromUrl(currentTab.source);
 
-            if (backend == null)
-            {
-                image.visible = false;
+            if (backend == null) return;
 
-                return;
-            }
-
-            image.source = "pictures/icons/hub/" + backend.id + ".png"
-
-            image.visible = true;
+            image.source = controllerPlaylist.backendCover(backend);
         }
     }
 

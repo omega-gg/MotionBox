@@ -254,9 +254,11 @@ Panel
         {
             var backend = controllerPlaylist.backendFromUrl(currentTab.source);
 
-            if (backend == null) return;
-
-            image.source = controllerPlaylist.backendCover(backend);
+            if (backend)
+            {
+                 image.source = controllerPlaylist.backendCover(backend);
+            }
+            else image.source = "";
         }
     }
 

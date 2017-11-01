@@ -252,7 +252,7 @@ Panel
 
         onTextChanged:
         {
-            var backend = controllerPlaylist.backendFromUrl(text);
+            var backend = controllerPlaylist.backendFromUrl(currentTab.source);
 
             if (backend == null)
             {

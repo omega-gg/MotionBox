@@ -252,13 +252,11 @@ Panel
 
         onTextChanged:
         {
-            var backend = controllerPlaylist.backendFromUrl(currentTab.source);
-
-            if (backend)
+            if (text == "")
             {
-                 image.source = controllerPlaylist.backendCover(backend);
+                 image.source = "";
             }
-            else image.source = "";
+            else image.source = controllerPlaylist.backendCoverFromUrl(currentTab.source);
         }
     }
 

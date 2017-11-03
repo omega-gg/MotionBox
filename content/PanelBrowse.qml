@@ -93,9 +93,9 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    property alias pFolderHubs     : scrollHubs  .folder
-    property alias pFolderBrowse   : scrollBrowse.folder
-    property alias pFolder         : scrollFolder.folder
+    property alias pFolderHubs     : scrollHubs     .folder
+    property alias pFolderBrowse   : scrollBrowse   .folder
+    property alias pFolder         : scrollFolder   .folder
     property alias pFolderPlaylists: scrollPlaylists.folder
 
     //---------------------------------------------------------------------------------------------

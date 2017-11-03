@@ -1022,27 +1022,32 @@ Item
             st.animate = true;
         }
         // FIXME Windows: Hiding the window to avoid the animation.
-        else if (sk.osWin && window.fullScreen)
+        else if (sk.osWin)
         {
-            if (pMini == false)
+            if (window.fullScreen)
             {
-                window.setWindowSnap(true);
+                if (pMini == false)
+                {
+                    window.setWindowSnap(true);
+                }
+
+                window.setWindowMaximize(true);
+
+                window.visible = false;
+
+                pRestoreFullScreen();
+
+                window.maximized = true;
+
+                window.visible = true;
             }
-
-            window.setWindowMaximize(true);
-
-            window.visible = false;
-
-            window.fullScreen = false;
-            window.maximized  = true;
-
-            window.visible = true;
+            else window.maximized = true;
         }
-        else
+        else if (window.fullScreen)
         {
-            window.fullScreen = false;
-            window.maximized  = true;
+            pRestoreFullScreen();
         }
+        else window.maximized = true;
 
         wall.updateView();
 
@@ -1161,24 +1166,7 @@ Item
 
         wall.enableAnimation = false;
 
-        window.fullScreen = false;
-
-        st.animate = false;
-
-        restoreBars();
-
-        if (pExpanded == false) restore();
-
-        if (pWall) wall.expose();
-
-        if (pRelated)
-        {
-            panelRelated.expose();
-
-            if (pRelatedExpanded) panelRelated.expand();
-        }
-
-        st.animate = true;
+        pRestoreFullScreen();
 
         wall.updateView();
 
@@ -1210,6 +1198,48 @@ Item
         wall.enableAnimation = false;
 
         saveEdit();
+
+        if (window.maximized)
+        {
+            // FIXME Windows: Hiding the window to avoid the animation.
+            if (sk.osWin)
+            {
+                window.visible = false;
+
+                window.setWindowSnap    (false);
+                window.setWindowMaximize(false);
+            }
+
+            if (window.fullScreen)
+            {
+                window.fullScreen = false;
+
+                pRestoreExpand();
+            }
+
+            window.maximized = false;
+        }
+        else if (window.fullScreen)
+        {
+            window.fullScreen = false;
+
+            pRestoreExpand();
+        }
+        else
+        {
+            if (sk.osWin)
+            {
+                window.view.showNormal();
+
+                window.setWindowSnap    (false);
+                window.setWindowMaximize(false);
+            }
+
+            if (pMiniSize)
+            {
+                window.saveGeometry();
+            }
+        }
 
         collapsePanels();
 
@@ -1251,36 +1281,6 @@ Item
         if (lineEditSearch.isFocused == false)
         {
             lineEditSearch.visible = false;
-        }
-
-        if (window.maximized || window.fullScreen)
-        {
-            // FIXME Windows: Hiding the window to avoid the animation.
-            if (sk.osWin)
-            {
-                window.visible = false;
-
-                window.setWindowSnap    (false);
-                window.setWindowMaximize(false);
-            }
-
-            window.fullScreen = false;
-            window.maximized  = false;
-        }
-        else
-        {
-            if (sk.osWin)
-            {
-                window.view.showNormal();
-
-                window.setWindowSnap    (false);
-                window.setWindowMaximize(false);
-            }
-
-            if (pMiniSize)
-            {
-                window.saveGeometry();
-            }
         }
 
         isMini = true;
@@ -1455,7 +1455,6 @@ Item
         if (pExpanded) return;
 
         pExpanded = true;
-        pRelated  = false;
 
         pWall = false;
 
@@ -3125,6 +3124,35 @@ Item
         wall.restore();
 
         panelRelated.collapse();
+    }
+
+    function pRestoreFullScreen()
+    {
+        window.fullScreen = false;
+
+        st.animate = false;
+
+        pRestoreExpand();
+
+        st.animate = true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pRestoreExpand()
+    {
+        restoreBars();
+
+        if (pExpanded == false) restore();
+
+        if (pWall) wall.expose();
+
+        if (pRelated)
+        {
+            panelRelated.expose();
+
+            if (pRelatedExpanded) panelRelated.expand();
+        }
     }
 
     //---------------------------------------------------------------------------------------------

@@ -22,9 +22,8 @@ The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) and [lib
 ## Platforms
 
 - Windows XP and later.
+- Mac OS-X 64 bit.
 - Linux 32 bit and 64 bit.
-
-OS-X is coming soon.
 
 ## Requirements
 

@@ -44,7 +44,7 @@ Recommended:
 
 You can configure MotionBox with:
 
-    sh configure.sh <qt4 | qt5 | clean> <win32 | linux>
+    sh configure.sh <qt4 | qt5 | clean> <win32 | osx | linux>
 
 - Edit [configure.sh](configure.sh) to check your dependencies.
 
@@ -56,7 +56,7 @@ You can build MotionBox with Qt Creator:
 
 Or the build script:
 
-    sh build.sh <qt4 | qt5 | clean> <win32 | linux> [deploy]
+    sh build.sh <qt4 | qt5 | clean> <win32 | osx | linux> [deploy]
 
 Or the console:
 
@@ -79,7 +79,7 @@ Or the console:
 
 3\. Deploy MotionBox:
 
-    sh deploy.sh <qt4 | qt5 | clean> <win32 | linux>
+    sh deploy.sh <qt4 | qt5 | clean> <win32 | osx | linux>
 
 - Edit [dist/qrc.sh](dist/qrc.sh) and [deploy.sh](deploy.sh) to check your dependencies.
 

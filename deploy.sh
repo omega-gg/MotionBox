@@ -18,7 +18,7 @@ bin5="latest"
 if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
                                                                        $2 != "linux" ]; then
 
-    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | linux>"
+    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | osx | linux>"
 
     exit 1
 fi
@@ -67,6 +67,12 @@ if [ $2 = "win32" ]; then
     cp -r "$deploy"/plugins deploy
 
     cp "$deploy"/*.dll deploy
+
+elif [ $2 = "osx" ]; then
+
+    cp -r "$deploy"/vlc deploy
+
+    cp "$deploy"/*.dylib deploy
 
 elif [ $2 = "linux" ]; then
 

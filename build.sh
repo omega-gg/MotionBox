@@ -37,11 +37,13 @@ lib64="/lib/x86_64-linux-gnu"
 
 if [ $# != 2 -a $# != 3 ] \
    || \
-   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a $2 != "linux" ] \
+   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+   || \
+   [ $2 != "win32" -a $2 != "osx" -a $2 != "linux" ] \
    || \
    [ $# = 3 -a "$3" != "deploy" ]; then
 
-    echo "Usage: build <qt4 | qt5 | clean> <win32 | linux> [deploy]"
+    echo "Usage: build <qt4 | qt5 | clean> <win32 | osx | linux> [deploy]"
 
     exit 1
 fi
@@ -91,6 +93,14 @@ if [ $2 = "win32" ]; then
     else
         PATH="$Qt5:$MinGW:$PATH"
     fi
+
+elif if [ $2 = "osx" ]; then
+
+    spec=macx-g++
+
+    export PATH=/usr/local/opt/qt\@5.5/bin/:$PATH
+
+    export LIBRARY_PATH=/usr/local/lib:/usr/local/opt/openssl/lib
 
 elif [ $2 = "linux" ]; then
 

@@ -445,7 +445,7 @@ PanelImage
         anchors.right : parent.right
         anchors.bottom: buttonFeed.top
 
-        height: (textDate.text == "") ? st.dp24 : st.dp48
+        height: (itemDuration.visible && textDate.visible) ? st.dp48 : st.dp24
 
         visible: (detail && duration != -1)
 
@@ -491,11 +491,13 @@ PanelImage
 
             leftMargin : st.dp6
             rightMargin: st.dp6
-            topMargin  : st.dp1
+            topMargin  : (textDate.visible) ? st.dp1 : 0
+
+            height: st.dp24
 
             verticalAlignment: Text.AlignVCenter
 
-            height: st.dp24
+            visible: (text != "")
 
             text: gui.getTrackDuration(duration)
 
@@ -512,14 +514,17 @@ PanelImage
 
             anchors.left  : parent.left
             anchors.right : parent.right
-            anchors.top   : itemDuration.bottom
             anchors.bottom: parent.bottom
 
-            leftMargin :  st.dp6
-            rightMargin:  st.dp6
-            topMargin  : -st.dp4
+            leftMargin  : st.dp6
+            rightMargin : st.dp6
+            bottomMargin: (itemDuration.visible) ? st.dp1 : 0
+
+            height: st.dp24
 
             verticalAlignment: Text.AlignVCenter
+
+            visible: (text != "")
 
             date: core.datePreview
 

@@ -94,7 +94,7 @@ if [ $2 = "win32" ]; then
         PATH="$Qt5:$MinGW:$PATH"
     fi
 
-elif if [ $2 = "osx" ]; then
+elif [ $2 = "osx" ]; then
 
     spec=macx-g++
 

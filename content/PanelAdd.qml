@@ -650,7 +650,7 @@ PanelContextual
 
         if (indexCurrent == 1)
         {
-            gui.listLibrary.insertItem(0, LibraryItem.PlaylistNet, itemNewA.text, true);
+            gui.listLibrary.insertItem(0, LibraryItem.Playlist, itemNewA.text, true);
 
             listLibrary.currentId = modelLibrary.idAt(0);
         }
@@ -660,11 +660,11 @@ PanelContextual
 
             if (list == null)
             {
-                target.insertNewItem(0, LibraryItem.PlaylistNet);
+                target.insertNewItem(0, LibraryItem.Playlist);
 
                 target.setItemTitle(0, itemNewB.text);
             }
-            else list.insertItem(0, LibraryItem.PlaylistNet, itemNewB.text, true);
+            else list.insertItem(0, LibraryItem.Playlist, itemNewB.text, true);
 
             listFolder.currentId = modelFolder.idAt(0);
         }
@@ -763,7 +763,7 @@ PanelContextual
 
             iconDefault:
             {
-                if (type == LibraryItem.PlaylistNet)
+                if (type == LibraryItem.Playlist)
                 {
                      return st.icon32x32_playlist;
                 }
@@ -778,7 +778,7 @@ PanelContextual
             {
                 if (title == "")
                 {
-                    if (type == LibraryItem.PlaylistNet || type == LibraryItem.PlaylistSearch)
+                    if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistSearch)
                     {
                          return qsTr("Invalid Playlist");
                     }
@@ -804,7 +804,7 @@ PanelContextual
             {
                 if (buttonAdd.enabled
                     &&
-                    (panelAdd.type == 0 && type == LibraryItem.PlaylistNet)
+                    (panelAdd.type == 0 && type == LibraryItem.Playlist)
                     ||
                     (panelAdd.type != 0 && type == LibraryItem.Folder))
                 {
@@ -1410,7 +1410,7 @@ PanelContextual
 
                 model: ModelLibraryFolder { folder: null }
 
-                filter: (LibraryItem.PlaylistNet)
+                filter: (LibraryItem.Playlist)
 
                 local: true
             }

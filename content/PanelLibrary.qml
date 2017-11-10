@@ -276,7 +276,7 @@ Panel
 
             if (gui.drag == 1)
             {
-                if (gui.dragType != LibraryItem.PlaylistNet
+                if (gui.dragType != LibraryItem.Playlist
                     &&
                     gui.dragType != LibraryItem.PlaylistFeed) return;
 

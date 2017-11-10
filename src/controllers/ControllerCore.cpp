@@ -50,7 +50,7 @@
 #include <WLoaderTorrent>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
-#include <WPlaylistNet>
+#include <WPlaylist>
 #include <WTabsTrack>
 #include <WTabTrack>
 #include <WVlcEngine>
@@ -636,9 +636,9 @@ ControllerCore::ControllerCore() : WController()
     return WLibraryFolder::create(static_cast<WLibraryItem::Type> (type));
 }
 
-/* Q_INVOKABLE */ WPlaylistNet * ControllerCore::createPlaylist(int type) const
+/* Q_INVOKABLE */ WPlaylist * ControllerCore::createPlaylist(int type) const
 {
-    return WPlaylistNet::create(static_cast<WLibraryItem::Type> (type));
+    return WPlaylist::create(static_cast<WLibraryItem::Type> (type));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -673,7 +673,7 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::updateCache(WPlaylistNet * playlist, int index) const
+/* Q_INVOKABLE */ void ControllerCore::updateCache(WPlaylist * playlist, int index) const
 {
     if (playlist == NULL || index == -1) return;
 

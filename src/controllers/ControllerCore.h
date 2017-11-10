@@ -109,7 +109,7 @@ public: // Interface
     Q_INVOKABLE int getPlaylistType(WBackendNet * backend, const QUrl & url) const;
 
     Q_INVOKABLE WLibraryFolder * createFolder  (int type = WLibraryItem::Folder)      const;
-    Q_INVOKABLE WPlaylistNet   * createPlaylist(int type = WLibraryItem::PlaylistNet) const;
+    Q_INVOKABLE WPlaylist   * createPlaylist(int type = WLibraryItem::Playlist) const;
 
     Q_INVOKABLE void addFolderSearch(WLibraryFolder * folder, const QString & title) const;
 
@@ -117,7 +117,7 @@ public: // Interface
 
     //---------------------------------------------------------------------------------------------
 
-    Q_INVOKABLE void updateCache(WPlaylistNet * playlist, int index) const;
+    Q_INVOKABLE void updateCache(WPlaylist * playlist, int index) const;
 
     Q_INVOKABLE void clearCache();
 

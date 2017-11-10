@@ -154,7 +154,7 @@ AreaContextual
 
             if (folder.isFolderBase)
             {
-                if (type == LibraryItem.PlaylistNet)
+                if (type == LibraryItem.Playlist)
                 {
                     pageFolder.set(0, { "title": qsTr("Playlist") });
 
@@ -218,7 +218,7 @@ AreaContextual
             }
             else
             {
-                if (type == LibraryItem.PlaylistNet)
+                if (type == LibraryItem.Playlist)
                 {
                     pageFolder.set(0, { "title": qsTr("Playlist") });
 

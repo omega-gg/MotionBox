@@ -25,7 +25,7 @@ ComponentLibraryItem
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool isActive: (isCurrent && (pActiveType == LibraryItem.PlaylistNet
+    property bool isActive: (isCurrent && (pActiveType == LibraryItem.Playlist
                                            ||
                                            pActiveType == LibraryItem.PlaylistFeed))
 
@@ -67,7 +67,7 @@ ComponentLibraryItem
             }
             else return st.icon24x24_play;
         }
-        else if (type == LibraryItem.PlaylistNet)
+        else if (type == LibraryItem.Playlist)
         {
             return st.icon32x32_playlist;
         }

@@ -617,7 +617,7 @@ List
 
     function pDragInit(type, x, y)
     {
-        if (type != LibraryItem.PlaylistNet && type != LibraryItem.PlaylistFeed
+        if (type != LibraryItem.Playlist && type != LibraryItem.PlaylistFeed
             &&
             type != LibraryItem.Folder) return;
 
@@ -674,7 +674,7 @@ List
 
             cover = st.icon32x32_feed;
         }
-        else if (pDragType == LibraryItem.PlaylistNet)
+        else if (pDragType == LibraryItem.Playlist)
         {
             pSavePlaylistScroll();
 

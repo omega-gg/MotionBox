@@ -48,7 +48,7 @@ Item
 
     /* read */ property variant currentPlaylist: pGetCurrentPlaylist()
 
-    /* read */ property PlaylistNet playlistTemp: core.createPlaylist()
+    /* read */ property Playlist playlistTemp: core.createPlaylist()
 
     //---------------------------------------------------------------------------------------------
     // Drag
@@ -147,7 +147,7 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    property PlaylistNet pLoadPlaylist: null
+    property Playlist pLoadPlaylist: null
 
     property int pLoadIndex: -1
 
@@ -1841,7 +1841,7 @@ Item
 
     function getItemName(type)
     {
-        if      (type == LibraryItem.PlaylistNet)  return qsTr("Playlist");
+        if      (type == LibraryItem.Playlist)  return qsTr("Playlist");
         else if (type == LibraryItem.PlaylistFeed) return qsTr("Feed");
         else                                       return qsTr("Folder");
     }
@@ -2322,7 +2322,7 @@ Item
         {
             var type = core.urlType(text);
 
-            if (type == LibraryItem.PlaylistNet)
+            if (type == LibraryItem.Playlist)
             {
                 toolTip.show(qsTr("Browse Playlist"), st.icon32x32_playlist, 32, 32);
             }

@@ -33,7 +33,7 @@ PanelImage
 
     /* read */ property bool detail: false
 
-    /* read */ property PlaylistNet playlist
+    /* read */ property Playlist playlist
 
     /* read */ property url trackSource
 

@@ -28,7 +28,7 @@ List
 
     /* read */ property bool hasPlaylist: false
 
-    property PlaylistNet playlist: null
+    property Playlist playlist: null
 
     /* read */ property bool isSelecting: false
 
@@ -59,7 +59,7 @@ List
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property PlaylistNet pPlaylist: null
+    property Playlist pPlaylist: null
 
     property bool pSelect: true
     property bool pScroll: true
@@ -96,7 +96,7 @@ List
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    model: ModelPlaylistNet { id: model }
+    model: ModelPlaylist { id: model }
 
     delegate: ComponentTrack {}
 

@@ -35,7 +35,7 @@ Panel
     /* read */ property bool detail: true
 
     /* read */ property ListPlaylist list
-    /* read */ property PlaylistNet  playlist
+    /* read */ property Playlist  playlist
 
     /* read */ property int trackState
 

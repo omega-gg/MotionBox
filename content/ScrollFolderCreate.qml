@@ -104,14 +104,14 @@ ScrollFolder
 
                     event.action = Qt.MoveAction;
                 }
-                else if (type == LibraryItem.PlaylistNet || type == LibraryItem.PlaylistFeed)
+                else if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
                 {
                     pAcceptDrop(event);
 
                     event.action = Qt.MoveAction;
                 }
             }
-            else if (type == LibraryItem.PlaylistNet || type == LibraryItem.PlaylistFeed)
+            else if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
             {
                 pAcceptDrop(event);
             }
@@ -147,7 +147,7 @@ ScrollFolder
             }
             else
             {
-                pDropType = LibraryItem.PlaylistNet;
+                pDropType = LibraryItem.Playlist;
 
                 toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, 32, 32);
             }
@@ -399,7 +399,7 @@ ScrollFolder
                 {
                      list.insertItem(0, LibraryItem.PlaylistFeed, text, false);
                 }
-                else list.insertItem(0, LibraryItem.PlaylistNet, text, false);
+                else list.insertItem(0, LibraryItem.Playlist, text, false);
 
                 folder.setItemSource(0, text);
 
@@ -411,7 +411,7 @@ ScrollFolder
             {
                  list.insertItem(0, LibraryItem.PlaylistFeed, text, false);
             }
-            else list.insertItem(0, LibraryItem.PlaylistNet, text, false);
+            else list.insertItem(0, LibraryItem.Playlist, text, false);
 
             folder.currentIndex = 0;
 

@@ -304,7 +304,7 @@ MouseArea
             }
         }
 
-        onQueryCompleted: if (playlist.isEmpty) pSearchStop()
+        onQueryCompleted: if (playlist.queryIsLoading == false && playlist.isEmpty) pSearchStop()
 
         onTrackQueryEnded: pCompleteSearch()
     }

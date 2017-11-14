@@ -29,15 +29,14 @@
 
 // Forward declarations
 class QNetworkDiskCache;
-class QSize;
 class WAbstractBackend;
 class WAbstractHook;
 class WWindow;
-class WDeclarativeContextualPage;
 class WCache;
 class WLoaderNetwork;
 class WLoaderWeb;
 class WBackendNet;
+class WLibraryFolderRelated;
 class WTabsTrack;
 class DataLocal;
 class DataOnline;

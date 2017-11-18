@@ -380,7 +380,7 @@ PanelImage
 
         if (detail)
         {
-            if (duration == -1)
+            if (itemDuration.text == "" && textDate.text == "")
             {
                  return size + buttonFeed.height;
             }

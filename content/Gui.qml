@@ -949,12 +949,13 @@ Item
 
             restore();
         }
-        else
+        else if (highlightedTab == null)
         {
             expandBars();
 
             timer.start();
         }
+        else expandBars();
     }
 
     //---------------------------------------------------------------------------------------------

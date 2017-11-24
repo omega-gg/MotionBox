@@ -35,7 +35,7 @@ LineEditBox
 
     width: widthMinimum
 
-    paddingLeft: (isFocused) ? padding : st.dp28
+    paddingLeft: (isFocused) ? padding : st.dp32
 
     textDefault: qsTr("What do you want to watch ?")
 
@@ -165,7 +165,7 @@ LineEditBox
 
         anchors.verticalCenter: parent.verticalCenter
 
-        visible: (isFocused == false)
+        visible: (isFocused == false && imageLoading.visible == false)
 
         source    : st.icon16x16_searchSmall
         sourceSize: st.size16x16
@@ -176,8 +176,6 @@ LineEditBox
     Image
     {
         id: imageLoading
-
-        anchors.right: parent.right
 
         width : st.dp32
         height: st.dp32
@@ -191,7 +189,7 @@ LineEditBox
 
         NumberAnimation on rotation
         {
-            running: imageLoading.visible
+            running: (st.animate && imageLoading.visible)
 
             from: 0
             to  : 360

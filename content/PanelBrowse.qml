@@ -60,9 +60,9 @@ MouseArea
     property string pQuery
     property string pText: local.query
 
-    property bool pSearchHidden: (pItemBrowse != null
+    property bool pSearchHidden: (pFolderBrowse != null
                                   &&
-                                  controllerNetwork.urlIsFile(pItemBrowse.source))
+                                  controllerNetwork.urlIsFile(pFolderBrowse.source))
 
     property bool pTextEvents: true
 
@@ -523,6 +523,8 @@ MouseArea
 
                     if (pFolder.loadSource(source))
                     {
+                        pFolder.loadCurrentIndex(0, true);
+
                         local.cache = true;
                     }
                     else pSearchEnd();
@@ -1290,7 +1292,7 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        width: height + borderSizeWidth
+        width: st.dp32 + borderSizeWidth
 
         borderLeft : borderSize
         borderRight: 0
@@ -1744,7 +1746,7 @@ MouseArea
 
             textDefault:
             {
-                if (folder == null || folder.isFolderSearch == false)
+                if (folder == null || folder.isFolderSearch == false || folder.isLocal)
                 {
                     return qsTr("Empty Folder");
                 }

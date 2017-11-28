@@ -380,11 +380,19 @@ PanelImage
 
         if (detail)
         {
-            if (itemDuration.text == "" && textDate.text == "")
+            if (itemDuration.text == "")
             {
-                 return size + buttonFeed.height;
+                if (textDate.text == "")
+                {
+                     return size + buttonFeed.height;
+                }
+                else return size + buttonFeed.height + border.size + st.dp24;
             }
-            else return size + buttonFeed.height + border.size + details.height;
+            else if (textDate.text == "")
+            {
+                 return size + buttonFeed.height + border.size + st.dp24;
+            }
+            else return size + buttonFeed.height + border.size + st.dp48;
         }
         else return size;
     }

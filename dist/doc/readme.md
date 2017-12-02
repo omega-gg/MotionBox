@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.2.0
+# [MotionBox] - alpha 1.3.0
 
 ### english / [français](documents/fr/Readme.html)
 
@@ -38,6 +38,8 @@ Stand United.
 
 
 ## Changelog
+
+- 1.3.0: [Torrent streaming, dynamic covers, improved full screen](documents/changes/1.3.0.html).
 
 - 1.2.0: [Complete audio support, playback speed, native window](documents/changes/1.2.0.html).
 

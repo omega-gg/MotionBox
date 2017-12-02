@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.2.0
+# [MotionBox] - alpha 1.3.0
 
 ### [english](../../Readme.html) / français
 
@@ -38,6 +38,8 @@ Singulier en Unité.
 
 
 ## Historique
+
+- 1.3.0: [Streaming torrent, covers dynamiques, plein écran amélioré](../changes/1.3.0.html).
 
 - 1.2.0: [Support audio complet, vitesse de lecture, fenêtre native](../changes/1.2.0.html).
 

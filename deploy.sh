@@ -76,7 +76,7 @@ elif [ $2 = "osx" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    cp -r "$deploy"/vlc deploy
+    #cp -r "$deploy"/vlc deploy
 
     cp "$deploy"/*.so* deploy
 fi

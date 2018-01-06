@@ -1744,18 +1744,8 @@ MouseArea
             enableContextual: enablePreview
             enableAdd       : false
 
-            textDefault:
-            {
-                if (folder == null || folder.isFolderSearch == false || folder.isLocal)
-                {
-                    return qsTr("Empty Folder");
-                }
-                else if (folder.source == "")
-                {
-                    return qsTr("Type a query");
-                }
-                else return qsTr("No results");
-            }
+            textDefault: (folder == null || folder.source == "") ? qsTr("Type a query")
+                                                                 : qsTr("No results")
 
             itemLeft: scrollBrowse
 

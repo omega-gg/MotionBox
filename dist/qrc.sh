@@ -16,9 +16,13 @@ content="../content"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "deploy" -a $1 != "clean" ]; then
+if [ $# != 2 ] \
+   || \
+   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+   || \
+   [ $2 != "deploy" -a $2 != "generate" ]; then
 
-    echo "Usage: qrc <deploy | clean>"
+    echo "Usage: qrc <qt4 | qt5 | clean> <deploy | clean>"
 
     exit 1
 fi
@@ -31,8 +35,11 @@ echo "CLEANING"
 
 rm -f qrc/*.qml
 
-rm -rf qrc/pictures
-rm -rf qrc/text
+if [ $2 = "deploy" ]; then
+
+    rm -rf qrc/pictures
+    rm -rf qrc/text
+fi
 
 if [ $1 = "clean" ]; then
 
@@ -51,25 +58,34 @@ cp "$SkyComponents"/*.qml qrc
 
 cp "$content"/*.qml qrc
 
-rm -f qrc/Dev*.qml
+if [ $2 = "deploy" ]; then
+
+    rm -f qrc/Dev*.qml
+fi
 
 #--------------------------------------------------------------------------------------------------
 # Pictures
 #--------------------------------------------------------------------------------------------------
 
-echo "COPYING pictures"
+if [ $2 = "deploy" ]; then
 
-cp -r "$SkyComponents"/pictures qrc
+    echo "COPYING pictures"
 
-cp -r "$content"/pictures qrc
+    cp -r "$SkyComponents"/pictures qrc
+
+    cp -r "$content"/pictures qrc
+fi
 
 #--------------------------------------------------------------------------------------------------
 # Text
 #--------------------------------------------------------------------------------------------------
 
-echo "COPYING text"
+if [ $2 = "deploy" ]; then
 
-cp -r "$content"/text qrc
+    echo "COPYING text"
+
+    cp -r "$content"/text qrc
+fi
 
 echo ""
 
@@ -77,4 +93,9 @@ echo ""
 # Deployer
 #--------------------------------------------------------------------------------------------------
 
-"$Sky"/deploy/deployer qrc/ MotionBox.qrc
+if [ $1 = "qt4" ]; then
+
+    "$Sky"/deploy/deployer qrc/ 1.1 MotionBox.qrc
+else
+    "$Sky"/deploy/deployer qrc/ 2.7 MotionBox.qrc
+fi

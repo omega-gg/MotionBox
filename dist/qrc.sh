@@ -16,13 +16,13 @@ content="../content"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $2 != "deploy" -a $2 != "generate" ]; then
+   [ $# = 2 -a "$2" != "deploy" -a "$2" != "generate" ]; then
 
-    echo "Usage: qrc <qt4 | qt5 | clean> <deploy | clean>"
+    echo "Usage: qrc <qt4 | qt5 | clean> [deploy | generate]"
 
     exit 1
 fi
@@ -95,7 +95,7 @@ echo ""
 
 if [ $1 = "qt4" ]; then
 
-    "$Sky"/deploy/deployer qrc/ 1.1 MotionBox.qrc
+    "$Sky"/deploy/deployer qrc 1.1 MotionBox.qrc
 else
-    "$Sky"/deploy/deployer qrc/ 2.7 MotionBox.qrc
+    "$Sky"/deploy/deployer qrc 2.7 MotionBox.qrc
 fi

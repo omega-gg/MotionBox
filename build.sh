@@ -117,18 +117,23 @@ echo ""
 
 if [ "$3" = "deploy" ]; then
 
-    cd dist
-
-    sh qrc.sh deploy
-    echo ""
-
-    cd ../$build
-
-    qmake -r -spec $spec "CONFIG += release" \
-                         "DEFINES += SK_DEPLOY" "RESOURCES = dist/MotionBox.qrc" $MotionBox
+    qrc=deploy
 else
-    cd $build
+    qrc=generate
+fi
 
+cd dist
+
+sh qrc.sh $QT_SELECT $qrc
+
+echo ""
+
+cd ../$build
+
+if [ "$3" = "deploy" ]; then
+
+    qmake -r -spec $spec "CONFIG += release" "DEFINES += SK_DEPLOY" $MotionBox
+else
     qmake -r -spec $spec "CONFIG += release" $MotionBox
 fi
 

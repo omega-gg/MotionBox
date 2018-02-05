@@ -52,6 +52,8 @@ CONFIG(debug, debug|release) {
 
 RC_FILE = dist/MotionBox.rc
 
+RESOURCES = dist/MotionBox.qrc
+
 OTHER_FILES += configure.sh \
                build.sh \
                deploy.sh \

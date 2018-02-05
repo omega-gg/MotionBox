@@ -31,22 +31,22 @@ fi
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-echo "CLEANING"
+if [ $1 = "clean" ] || [ $2 = "deploy" ]; then
 
-rm -f qrc/*.qml
+    echo "CLEANING"
 
-if [ $2 = "deploy" ]; then
+    rm -f qrc/*.qml
 
     rm -rf qrc/pictures
     rm -rf qrc/text
+
+    if [ $1 = "clean" ]; then
+
+        exit 0
+    fi
+
+    echo ""
 fi
-
-if [ $1 = "clean" ]; then
-
-    exit 0
-fi
-
-echo ""
 
 #--------------------------------------------------------------------------------------------------
 # QML

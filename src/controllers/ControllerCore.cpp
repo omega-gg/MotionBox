@@ -17,6 +17,9 @@
 #include "ControllerCore.h"
 
 // Qt includes
+#ifdef QT_4
+#include <QCoreApplication>
+#endif
 #include <QDeclarativeEngine>
 #include <QNetworkDiskCache>
 #include <QProcess>
@@ -125,11 +128,11 @@ ControllerCore::ControllerCore() : WController()
 
     sk->setName("MotionBox");
 
-#ifdef SK_DEPLOY
 #ifdef Q_OS_LINUX
     sk->setIcon(":/qrc/pictures/icons/icon.svg");
 #endif
 
+#ifdef SK_DEPLOY
 #ifdef QT_4
     QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
 #else
@@ -138,10 +141,6 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else
-#ifdef Q_OS_LINUX
-    sk->setIcon("pictures/icons/icon.svg");
-#endif
-
     QString path = QDir::currentPath() + "/storage";
 
     wControllerFile->setPathStorage(path);
@@ -187,10 +186,6 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("core", this);
 
     wControllerDeclarative->setContextProperty("local", _local);
-
-#ifndef SK_DEPLOY
-    wControllerDeclarative->engine()->addImportPath(PATH_SK);
-#endif
 }
 
 //-------------------------------------------------------------------------------------------------

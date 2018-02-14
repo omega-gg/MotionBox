@@ -35,9 +35,9 @@ int main(int argc, char * argv[])
     //---------------------------------------------------------------------------------------------
     // Settings
 
-#ifdef SK_DEPLOY
     sk->setQrc(true);
-#else
+
+#ifndef SK_DEPLOY
     Sk::setCurrentPath("../content");
 #endif
 

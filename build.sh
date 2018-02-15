@@ -13,7 +13,7 @@ external="/c/dev/workspace/3rdparty"
 Qt4_version="4.8.7"
 Qt5_version="5.10.0"
 
-MinGW_version="4.9.2"
+MinGW_version="5.3.0"
 
 #--------------------------------------------------------------------------------------------------
 

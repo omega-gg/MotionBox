@@ -8,7 +8,11 @@ contains(QT_MAJOR_VERSION, 4) {
     DESTDIR = $$_PRO_FILE_PWD_/latest
 }
 
-QT += declarative network xml
+contains(QT_MAJOR_VERSION, 4) {
+    QT += declarative network xml
+} else {
+    QT += widgets quick network xml
+}
 
 macx: CONFIG -= app_bundle
 
@@ -27,7 +31,7 @@ include(src/io/io.pri)
 INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
                $$SK/include/SkMedia \
-               $$SK/include/SkWeb \
+               #$$SK/include/SkWeb \
                $$SK/include/SkTorrent \
                $$SK/include/SkBackend \
                src/controllers \
@@ -38,14 +42,14 @@ CONFIG(debug, debug|release) {
     LIBS += -L$$SK/lib -lSkCoreD \
             -L$$SK/lib -lSkGuiD \
             -L$$SK/lib -lSkMediaD \
-            -L$$SK/lib -lSkWebD \
+            #-L$$SK/lib -lSkWebD \
             -L$$SK/lib -lSkTorrentD \
             -L$$SK/lib -lSkBackendD
 } else {
     LIBS += -L$$SK/lib -lSkCore \
             -L$$SK/lib -lSkGui \
             -L$$SK/lib -lSkMedia \
-            -L$$SK/lib -lSkWeb \
+            #-L$$SK/lib -lSkWeb \
             -L$$SK/lib -lSkTorrent \
             -L$$SK/lib -lSkBackend
 }
@@ -148,8 +152,8 @@ CONFIG(debug, debug|release) {
     QMAKE_POST_LINK += install_name_tool -change libSkMediaD.dylib \
                        @executable_path/libSkMediaD.dylib $${DESTDIR}/$${TARGET} ;
 
-    QMAKE_POST_LINK += install_name_tool -change libSkWebD.dylib \
-                       @executable_path/libSkWebD.dylib $${DESTDIR}/$${TARGET} ;
+    #QMAKE_POST_LINK += install_name_tool -change libSkWebD.dylib \
+    #                   @executable_path/libSkWebD.dylib $${DESTDIR}/$${TARGET} ;
 
     QMAKE_POST_LINK += install_name_tool -change libSkBackendD.dylib \
                        @executable_path/libSkBackendD.dylib $${DESTDIR}/$${TARGET} ;
@@ -163,8 +167,8 @@ CONFIG(debug, debug|release) {
     QMAKE_POST_LINK += install_name_tool -change libSkMedia.dylib \
                        @executable_path/libSkMedia.dylib $${DESTDIR}/$${TARGET} ;
 
-    QMAKE_POST_LINK += install_name_tool -change libSkWeb.dylib \
-                       @executable_path/libSkWeb.dylib $${DESTDIR}/$${TARGET} ;
+    #QMAKE_POST_LINK += install_name_tool -change libSkWeb.dylib \
+    #                   @executable_path/libSkWeb.dylib $${DESTDIR}/$${TARGET} ;
 
     QMAKE_POST_LINK += install_name_tool -change libSkBackend.dylib \
                        @executable_path/libSkBackend.dylib $${DESTDIR}/$${TARGET} ;

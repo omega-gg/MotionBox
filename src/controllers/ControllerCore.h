@@ -181,7 +181,7 @@ private: // Variables
     WLibraryFolderRelated * _related;
 
     WLoaderNetwork * _loaderMedia;
-    WLoaderWeb     * _loaderWeb;
+    //WLoaderWeb     * _loaderWeb;
 
     QDateTime _dateCover;
     QDateTime _datePreview;

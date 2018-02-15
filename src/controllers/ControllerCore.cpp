@@ -19,8 +19,10 @@
 // Qt includes
 #ifdef QT_4
 #include <QCoreApplication>
-#endif
 #include <QDeclarativeEngine>
+#else
+#include <QQmlEngine>
+#endif
 #include <QNetworkDiskCache>
 #include <QProcess>
 #include <QFileDialog>
@@ -46,7 +48,7 @@
 #include <WWindow>
 #include <WCache>
 #include <WLoaderNetwork>
-#include <WLoaderWeb>
+//#include <WLoaderWeb>
 #include <WLoaderTorrent>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
@@ -121,7 +123,7 @@ ControllerCore::ControllerCore() : WController()
     _related = NULL;
 
     _loaderMedia = NULL;
-    _loaderWeb   = NULL;
+    //_loaderWeb   = NULL;
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -241,11 +243,11 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // LoaderWeb
 
-    _loaderWeb = new WLoaderWeb(this);
+    /*_loaderWeb = new WLoaderWeb(this);
 
     _loaderWeb->setCache(_diskCache);
 
-    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeWeb, _loaderWeb);
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeWeb, _loaderWeb);*/
 
     //---------------------------------------------------------------------------------------------
     // LoaderTorrent
@@ -472,7 +474,7 @@ ControllerCore::ControllerCore() : WController()
         if (_local->_proxyStream)
         {
             _cache    ->clearProxy();
-            _loaderWeb->clearProxy();
+            //_loaderWeb->clearProxy();
 
             wControllerDownload->clearProxy();
 
@@ -491,7 +493,7 @@ ControllerCore::ControllerCore() : WController()
         else
         {
             _cache    ->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
-            _loaderWeb->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
+            //_loaderWeb->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
 
             wControllerDownload->setProxy(_local->_proxyHost,
                                           _local->_proxyPort, _local->_proxyPassword);
@@ -505,7 +507,7 @@ ControllerCore::ControllerCore() : WController()
     else
     {
         _cache    ->clearProxy();
-        _loaderWeb->clearProxy();
+        //_loaderWeb->clearProxy();
 
         wControllerDownload->clearProxy();
         wControllerTorrent ->clearProxy();

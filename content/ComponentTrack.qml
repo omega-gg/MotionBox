@@ -92,9 +92,9 @@ ComponentLibraryItem
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-    // Events
+    // Private
 
-    function onPositionChanged(mouse)
+    function pPositionChanged(mouse)
     {
         if (pDragX != -1)
         {
@@ -103,7 +103,6 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
-    // Private
 
     function pPressed(mouse)
     {

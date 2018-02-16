@@ -125,6 +125,8 @@ Panel
             else scrollHubs.scrollToItem(index);
 
             action = 0;
+
+            visible = true;
         }
         else lineEditSearch.clear();
     }

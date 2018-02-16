@@ -122,13 +122,13 @@ ComponentLibraryItem
     onEntered: setItemHovered  (componentFolder)
     onExited : clearItemHovered()
 
-    onPositionChanged: componentFolder.onPositionChanged(mouse)
+    onPositionChanged: pPositionChanged(mouse)
 
-    onPressed : componentFolder.onPressed (mouse)
-    onReleased: componentFolder.onReleased(mouse)
+    onPressed : pPressed (mouse)
+    onReleased: pReleased(mouse)
 
-    onClicked      : componentFolder.onClicked      (mouse)
-    onDoubleClicked: componentFolder.onDoubleClicked(mouse)
+    onClicked      : pClicked      (mouse)
+    onDoubleClicked: pDoubleClicked(mouse)
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -140,9 +140,9 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
-    // Events
+    // Private
 
-    function onPositionChanged(mouse)
+    function pPositionChanged(mouse)
     {
         if (pDragX != -1)
         {
@@ -152,7 +152,7 @@ ComponentLibraryItem
 
     //---------------------------------------------------------------------------------------------
 
-    function onPressed(mouse)
+    function pPressed(mouse)
     {
         if (mouse.button & Qt.LeftButton)
         {
@@ -165,14 +165,14 @@ ComponentLibraryItem
         else pShowPanel();
     }
 
-    function onReleased(mouse)
+    function pReleased(mouse)
     {
         pDragX = -1;
     }
 
     //---------------------------------------------------------------------------------------------
 
-    function onClicked(mouse)
+    function pClicked(mouse)
     {
         if ((mouse.button & Qt.LeftButton) && enableDrag)
         {
@@ -180,7 +180,7 @@ ComponentLibraryItem
         }
     }
 
-    function onDoubleClicked(mouse)
+    function pDoubleClicked(mouse)
     {
         if (mouse.button & Qt.RightButton) return;
 
@@ -192,7 +192,6 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
-    // Private
 
     function pShowPanel()
     {

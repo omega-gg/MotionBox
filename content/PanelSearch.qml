@@ -20,6 +20,8 @@ import SkyComponents 1.0
 
 Panel
 {
+    id: panelSearch
+
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
@@ -59,11 +61,46 @@ Panel
 
     z: 1
 
+    visible: false
     opacity: 0.0
 
     enableFocus: false
 
     backgroundOpacity: (gui.isExpanded) ? st.panelContextual_backgroundOpacity : 1.0
+
+    //---------------------------------------------------------------------------------------------
+    // States
+    //---------------------------------------------------------------------------------------------
+
+    states: State
+    {
+        name: "active"; when: isActive
+
+        PropertyChanges
+        {
+            target: panelSearch
+
+            opacity: 1.0
+        }
+    }
+
+    transitions: Transition
+    {
+        SequentialAnimation
+        {
+            NumberAnimation
+            {
+                property: "opacity"
+
+                duration: st.duration_faster
+            }
+
+            ScriptAction
+            {
+                script: if (isActive == false) visible = false
+            }
+        }
+    }
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -88,15 +125,8 @@ Panel
             else scrollHubs.scrollToItem(index);
 
             action = 0;
-
-            opacity = 1.0;
         }
-        else
-        {
-            lineEditSearch.clear();
-
-            opacity = 0.0;
-        }
+        else lineEditSearch.clear();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -126,15 +156,6 @@ Panel
 
             pText = scrollCompletion.query;
         }
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Animations
-    //---------------------------------------------------------------------------------------------
-
-    Behavior on opacity
-    {
-        PropertyAnimation { duration: st.duration_faster }
     }
 
     //---------------------------------------------------------------------------------------------

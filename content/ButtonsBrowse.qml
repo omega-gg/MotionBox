@@ -124,7 +124,7 @@ Item
 
         pCount++;
 
-        pModel.append({ "id": 0, "title": title, "cover": cover });
+        pModel.append({ "id": 0, "title": title, "cover": Qt.resolvedUrl(cover) });
 
         pStart();
     }
@@ -217,7 +217,7 @@ Item
         {
             var index = count - 1;
 
-            if (model.get(index).active == false)
+            if (model.get(index).ready == false)
             {
                 model.remove(index);
             }
@@ -271,7 +271,7 @@ Item
     {
         pId = 0;
 
-        model.append({ "active": true, "title": item.title, "cover": item.cover });
+        model.append({ "ready": true, "title": item.title, "cover": item.cover });
 
         isAnimated = enableAnimation;
 
@@ -284,7 +284,7 @@ Item
 
         isAnimated = enableAnimation;
 
-        model.get(count - 1).active = false;
+        model.get(count - 1).ready = false;
 
         pUpdateWidth();
     }
@@ -295,10 +295,10 @@ Item
     {
         var item = model.get(index);
 
-        item.active = true;
+        item.ready = true;
 
         item.title = title;
-        item.cover = cover;
+        item.cover = Qt.resolvedUrl(cover);
 
         pUpdateWidth();
 
@@ -307,9 +307,7 @@ Item
 
     function pClearItem(index, title)
     {
-        var item = model.get(index);
-
-        item.active = false;
+        model.get(index).ready = false;
 
         pUpdateWidth();
 
@@ -334,9 +332,14 @@ Item
             return;
         }
 
-        var items = pItems;
+        var items = new Array;
 
-        var length = items.length;
+        var length = pItems.length;
+
+        for (/* var */ i = 0; i < length; i++)
+        {
+            items.push(pItems[i]);
+        }
 
         while (length)
         {
@@ -461,13 +464,13 @@ Item
             // Settings
             //-------------------------------------------------------------------------------------
 
-            width: (active) ? currentWidth : 0
+            width: (ready) ? currentWidth : 0
 
             height: repeater.height
 
             x: pGetX(index)
 
-            clip: (active == false)
+            clip: (ready == false)
 
             sourceComponent: Component
             {
@@ -540,7 +543,7 @@ Item
 
             Behavior on width
             {
-                enabled: (isAnimated)
+                enabled: isAnimated
 
                 PropertyAnimation { duration: pDurationAnimation }
             }

@@ -1527,7 +1527,7 @@ MouseArea
             iconDefault: (index == 0) ? st.icon32x32_url
                                       : st.icon32x32_feed
 
-            function onPressed(mouse)
+            function pPressed(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -1535,7 +1535,7 @@ MouseArea
                 }
             }
 
-            function onDoubleClicked(mouse)
+            function pDoubleClicked(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -1578,7 +1578,7 @@ MouseArea
 
         delegate: ComponentFolder
         {
-            function onPressed(mouse)
+            function pPressed(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -1586,7 +1586,7 @@ MouseArea
                 }
             }
 
-            function onDoubleClicked(mouse)
+            function pDoubleClicked(mouse)
             {
                 if (mouse.button & Qt.LeftButton
                     &&
@@ -1843,7 +1843,7 @@ MouseArea
 
         acceptedButtons: Qt.NoButton
 
-        cursor: MouseArea.BlankCursor
+        cursor: Qt.BlankCursor
 
         onEntered: pState = true
 

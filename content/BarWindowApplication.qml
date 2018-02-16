@@ -117,16 +117,7 @@ BarWindow
         {
              gui.toggleMaximize();
         }
-        else pToggleMini();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pToggleMini()
-    {
-        gui.toggleMini();
-
-        window.checkLeave(st.duration_faster);
+        else gui.toggleMini();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -365,6 +356,6 @@ BarWindow
 
         iconSourceSize: st.size16x16
 
-        onClicked: pToggleMini()
+        onClicked: gui.toggleMini();
     }
 }

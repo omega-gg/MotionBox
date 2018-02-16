@@ -357,8 +357,6 @@ Item
 
         barTop.updateTab();
 
-        window.resizable = true;
-
         window.clearFocus();
 
         isLoaded = true;
@@ -654,9 +652,7 @@ Item
 
         window.setDefaultGeometry();
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         st.animate = true;
 
@@ -715,9 +711,7 @@ Item
         }
         else window.zoomTo(scale, x, y, duration, easing, true);
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         panelPreview.update();
 
@@ -1052,9 +1046,7 @@ Item
         }
         else window.maximized = true;
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         pSaveSize();
 
@@ -1080,9 +1072,7 @@ Item
 
         window.maximized = false;
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         pSaveSize();
 
@@ -1143,9 +1133,7 @@ Item
             st.animate = true;
         }
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         startActionCue(st.duration_faster);
     }
@@ -1171,9 +1159,7 @@ Item
 
         pRestoreFullScreen();
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         startActionCue(st.duration_faster);
     }
@@ -1337,9 +1323,7 @@ Item
 
         window.visible = true;
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         st.animate = true;
 
@@ -2622,8 +2606,6 @@ Item
                 buttonMini.returnPressed();
             }
             else toggleMini();
-
-            window.checkLeave(st.duration_faster);
         }
         else if (event.key == Qt.Key_F10)
         {
@@ -3212,6 +3194,26 @@ Item
         restoreEdit();
 
         isMinified = false;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pRestoreWall()
+    {
+//#QT_4
+        pUpdateWall();
+//#ELSE
+        Qt.callLater(pUpdateWall);
+//#END
+    }
+
+    function pUpdateWall()
+    {
+        wall.stopAnimation();
+
+        wall.updateView();
+
+        wall.enableAnimation = true;
     }
 
     //---------------------------------------------------------------------------------------------

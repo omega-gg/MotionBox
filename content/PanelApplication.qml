@@ -156,7 +156,7 @@ Panel
 
         if (itemTabs.indexCurrent == -1)
         {
-            itemTabs.selectTab(0);
+            itemTabs.pSelectTab(0);
         }
 
         visible = true;
@@ -197,8 +197,8 @@ Panel
     {
         var model = itemTabs.model;
 
-        model.setProperty(0, "sourceDefault", st.icon32x32_setting);
-        model.setProperty(1, "sourceDefault", st.icon32x32_about);
+        model.setProperty(0, "sourceDefault", Qt.resolvedUrl(st.icon32x32_setting));
+        model.setProperty(1, "sourceDefault", Qt.resolvedUrl(st.icon32x32_about));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -266,6 +266,15 @@ Panel
             }
 
             function selectTab(index)
+            {
+//#QT_4
+                pSelectTab(index);
+//#ELSE
+                Qt.callLater(pSelectTab, index);
+//#END
+            }
+
+            function pSelectTab(index)
             {
                 if (loader.isAnimated
                     ||

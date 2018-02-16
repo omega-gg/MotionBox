@@ -703,7 +703,7 @@ Panel
         enabled     : buttonTrack.enabled
         hoverEnabled: buttonTrack.enabled
 
-        cursor: MouseArea.PointingHandCursor
+        cursor: Qt.PointingHandCursor
 
         onPressed: pSelectTrack()
 

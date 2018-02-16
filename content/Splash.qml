@@ -82,6 +82,8 @@ MouseArea
 
     function pClearSpash()
     {
+        window.resizable = true;
+
         visible = false;
 
         width  = undefined;

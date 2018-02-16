@@ -239,9 +239,20 @@ Item
 
             playerMouseArea.acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
 
+            playerBackground.visible: (isActive && player.visible)
+
             //-------------------------------------------------------------------------------------
             // Events
             //-------------------------------------------------------------------------------------
+
+            onIsActiveChanged:
+            {
+                if (isActive)
+                {
+                     window.color = st.window_color;
+                }
+                else window.color = "black";
+            }
 
             onIsExposedChanged: local.macro = isExposed
 

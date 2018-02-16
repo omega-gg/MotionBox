@@ -81,13 +81,13 @@ ComponentLibraryItem
     onEntered: setItemHovered  (componentTrack)
     onExited : clearItemHovered()
 
-    onPositionChanged: componentTrack.onPositionChanged(mouse)
+    onPositionChanged: pPositionChanged(mouse)
 
-    onPressed : componentTrack.onPressed (mouse)
-    onReleased: componentTrack.onReleased(mouse)
+    onPressed : pPressed (mouse)
+    onReleased: pReleased(mouse)
 
-    onClicked      : componentTrack.onClicked      (mouse)
-    onDoubleClicked: componentTrack.onDoubleClicked(mouse)
+    onClicked      : pClicked      (mouse)
+    onDoubleClicked: pDoubleClicked(mouse)
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -103,8 +103,9 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
 
-    function onPressed(mouse)
+    function pPressed(mouse)
     {
         if (mouse.button & Qt.LeftButton)
         {
@@ -142,14 +143,14 @@ ComponentLibraryItem
         }
     }
 
-    function onReleased(mouse)
+    function pReleased(mouse)
     {
         pDragX = -1;
     }
 
     //---------------------------------------------------------------------------------------------
 
-    function onClicked(mouse)
+    function pClicked(mouse)
     {
         if (mouse.button & Qt.LeftButton)
         {
@@ -172,7 +173,7 @@ ComponentLibraryItem
         }
     }
 
-    function onDoubleClicked(mouse)
+    function pDoubleClicked(mouse)
     {
         if (mouse.button & Qt.LeftButton)
         {
@@ -183,7 +184,6 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
-    // Private
 
     function pShowPanel()
     {

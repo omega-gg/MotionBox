@@ -35,4 +35,22 @@ PageSlide
     //---------------------------------------------------------------------------------------------
 
     onSourceChanged: sourceSettings = source
+
+//#QT_5
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function loadPage(source)
+    {
+        Qt.callLater(loadLeft, source);
+    }
+
+    function loadMain()
+    {
+        Qt.callLater(loadRight, mainSource);
+    }
+
+//#END
 }

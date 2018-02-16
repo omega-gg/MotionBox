@@ -121,6 +121,8 @@ PanelContextual
     {
         if (visible) return;
 
+        label.enableAnimation = false;
+
         isAdding = false;
 
         pAnimate = false;
@@ -132,6 +134,8 @@ PanelContextual
     {
         if (isActive)
         {
+            label.enableAnimation = false;
+
             isAdding = false;
 
             timerAdd.stop();
@@ -464,20 +468,30 @@ PanelContextual
 
         scrollFolder.visible = true;
 
-        if (isExpanded && pAnimate == animate) return;
+        if (isExpanded == false)
+        {
+            pAnimate = animate;
 
-        pAnimate = animate;
+            clip = true;
 
-        clip = true;
-
-        isExpanded = true;
+            isExpanded = true;
+        }
+        else if (animate == false)
+        {
+            pAnimate = false;
+        }
     }
 
     function pCollapse(animate)
     {
-        if (isExpanded == false && pAnimate == animate) return;
-
-        if (animate)
+        if (isExpanded == false)
+        {
+            if (animate == false)
+            {
+                pAnimate = false;
+            }
+        }
+        else if (animate)
         {
             scrollFolder.visible = false;
 
@@ -634,6 +648,8 @@ PanelContextual
         if      (type == 0) pAddTracks   ();
         else if (type == 1) pAddPlaylist ();
         else                pMovePlaylist();
+
+        label.enableAnimation = true;
 
         isAdding = true;
 
@@ -1106,7 +1122,22 @@ PanelContextual
 
             onCurrentIdChanged:
             {
-                if (currentId != -1)
+                if (currentId == -1)
+                {
+                    if (target && target != library)
+                    {
+                        target.tryDelete();
+
+                        target = null;
+                    }
+
+                    pFolder = null;
+
+                    listFolder.currentId = -1;
+
+                    pCollapse(true);
+                }
+                else
                 {
                     var oldTarget = target;
 
@@ -1133,21 +1164,6 @@ PanelContextual
                     {
                         pApplyTarget();
                     }
-                }
-                else
-                {
-                    if (target && target != library)
-                    {
-                        target.tryDelete();
-
-                        target = null;
-                    }
-
-                    pFolder = null;
-
-                    listFolder.currentId = -1;
-
-                    pCollapse(true);
                 }
             }
 
@@ -1516,10 +1532,12 @@ PanelContextual
 
         LabelRoundAnimated
         {
+            id: label
+
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            enableAnimation: (isAdding)
+            enableAnimation: false
 
             text:
             {

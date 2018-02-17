@@ -20,9 +20,9 @@ if [ $# != 1 -a $# != 2 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $# = 2 -a "$2" != "deploy" -a "$2" != "generate" ]; then
+   [ $# = 2 -a "$2" != "deploy" ]; then
 
-    echo "Usage: qrc <qt4 | qt5 | clean> [deploy | generate]"
+    echo "Usage: qrc <qt4 | qt5 | clean> [deploy]"
 
     exit 1
 fi
@@ -31,7 +31,7 @@ fi
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "clean" ] || [ $2 = "deploy" ]; then
+if [ $1 = "clean" ] || [ "$2" = "deploy" ]; then
 
     echo "CLEANING"
 
@@ -58,7 +58,7 @@ cp "$SkyComponents"/*.qml qrc
 
 cp "$content"/*.qml qrc
 
-if [ $2 = "deploy" ]; then
+if [ "$2" = "deploy" ]; then
 
     rm -f qrc/Dev*.qml
 fi
@@ -67,7 +67,7 @@ fi
 # Pictures
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "deploy" ]; then
+if [ "$2" = "deploy" ]; then
 
     echo "COPYING pictures"
 
@@ -80,7 +80,7 @@ fi
 # Text
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "deploy" ]; then
+if [ "$2" = "deploy" ]; then
 
     echo "COPYING text"
 

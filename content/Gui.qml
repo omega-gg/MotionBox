@@ -1362,9 +1362,7 @@ Item
 
         pRestoreMiniB();
 
-        wall.updateView();
-
-        wall.enableAnimation = true;
+        pRestoreWall();
 
         st.animate = true;
 

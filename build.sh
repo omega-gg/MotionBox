@@ -115,16 +115,14 @@ fi
 qmake --version
 echo ""
 
-if [ "$3" = "deploy" ]; then
-
-    qrc=deploy
-else
-    qrc=generate
-fi
-
 cd dist
 
-sh qrc.sh $QT_SELECT $qrc
+if [ "$3" = "deploy" ]; then
+
+    sh qrc.sh $QT_SELECT deploy
+else
+    sh qrc.sh $QT_SELECT
+fi
 
 echo ""
 

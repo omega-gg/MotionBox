@@ -588,6 +588,10 @@ List
         {
             pUpdateCheckBox(indexHover);
         }
+
+//#QT_5
+        if (overlay.containsMouse) pUpdatePreview();
+//#END
     }
 
     function clearItemHovered()
@@ -1136,6 +1140,19 @@ List
 
     //---------------------------------------------------------------------------------------------
 
+    function pUpdatePreview()
+    {
+        if (itemHovered == null) return;
+
+        indexPreview = indexHover;
+
+        if (panelCover.isExpanded)
+        {
+            panelCover.setItem(list);
+        }
+        else panelPreview.activatePlaylist(list);
+    }
+
     function pClearPreview()
     {
         if (panelPreview.list == list)
@@ -1258,26 +1275,7 @@ List
 
         background.opacity: 0.8
 
-        onEntered:
-        {
-            if (itemHovered == null)
-            {
-                if (panelPreview.list == list && panelPreview.item)
-                {
-                    panelPreview.show();
-                }
-
-                return;
-            }
-
-            indexPreview = indexHover;
-
-            if (panelCover.isExpanded)
-            {
-                 panelCover.setItem(list);
-            }
-            else panelPreview.activatePlaylist(list);
-        }
+        onEntered: pUpdatePreview()
 
         onExited:
         {

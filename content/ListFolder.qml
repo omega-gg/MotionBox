@@ -367,6 +367,10 @@ List
     function setItemHovered(item)
     {
         itemHovered = item;
+
+//#QT_5
+        if (overlay.containsMouse) pUpdatePreview();
+//#END
     }
 
     function clearItemHovered()
@@ -776,6 +780,15 @@ List
 
     //---------------------------------------------------------------------------------------------
 
+    function pUpdatePreview()
+    {
+        if (itemHovered == null) return;
+
+        panelPreview.activateFolder(list);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function pRemove(index, animate)
     {
         pProcessRemove(folder);
@@ -888,12 +901,7 @@ List
 
         background.opacity: 0.8
 
-        onEntered:
-        {
-            if (itemHovered == null) return;
-
-            panelPreview.activateFolder(list);
-        }
+        onEntered: pUpdatePreview()
 
         onExited: panelPreview.clearNow()
 

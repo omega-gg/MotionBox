@@ -79,7 +79,7 @@ Panel
 
     width: panelLibrary.width
 
-    height: Math.round(width * 0.5625) + buttonTrack.height + details.height
+    height: Math.round(contentWidth * 0.5625) + borderTop + buttonTrack.height + details.height
 
     y: parent.height - buttonTrack.height
 

@@ -20,9 +20,9 @@ if [ $# != 1 -a $# != 2 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $# = 2 -a "$2" != "deploy" ]; then
+   [ $# = 2 -a "$2" != "deploy" -a "$2" != "generate" ]; then
 
-    echo "Usage: qrc <qt4 | qt5 | clean> [deploy]"
+    echo "Usage: qrc <qt4 | qt5 | clean> [deploy | generate]"
 
     exit 1
 fi

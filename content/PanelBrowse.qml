@@ -273,6 +273,12 @@ MouseArea
 
         onQueryEnded:
         {
+            // Making sure the current index is set on startup.
+            if (pFolderPlaylists.currentIndex == -1)
+            {
+                pFolderPlaylists.loadCurrentIndex(0, true);
+            }
+
             if (playlist == null) return;
 
             if (playlist.queryIsLoading == false)
@@ -1924,57 +1930,58 @@ MouseArea
                 buttonAddTrack.returnReleased();
             }
         }
+    }
 
-        ButtonLogoBorders
-        {
-            id: buttonCover
+    ButtonLogoBorders
+    {
+        id: buttonCover
 
-            anchors.top: parent.top
+        anchors.top: scrollPlaylist.top
 
-            anchors.topMargin: st.dp16
+        anchors.topMargin: st.dp16
 
-            anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: scrollPlaylist.horizontalCenter
 
-            imageDefaultWidth : st.dp96
-            imageDefaultHeight: st.dp96
+        imageDefaultWidth : st.dp96
+        imageDefaultHeight: st.dp96
 
-            imageMaximumWidth: st.dp256
+        imageMaximumWidth: st.dp256
 
-            sourceSize.height: imageDefaultHeight
+        sourceSize.height: imageDefaultHeight
 
-            visible: (source != "")
+        visible: (source != "")
 
-            source: (buttonOpen.visible) ? playlist.cover : ""
+        source: (buttonOpen.visible) ? playlist.cover : ""
 
-            fillMode: Image.PreserveAspectFit
+        fillMode: Image.PreserveAspectFit
 
-            asynchronous: true
+        asynchronous: true
 
-            onClicked: gui.openSource(playlist.source)
-        }
+        onClicked: gui.openSource(playlist.source)
+    }
 
-        ButtonPushFull
-        {
-            id: buttonOpen
+    ButtonPushFull
+    {
+        id: buttonOpen
 
-            anchors.top: (buttonCover.visible) ? buttonCover.bottom
-                                               : scrollPlaylist.itemText.bottom
+        anchors.top: (buttonCover.visible) ? buttonCover.bottom
+                                           : scrollPlaylist.top
 
-            anchors.topMargin: st.dp11
+        anchors.topMargin: (buttonCover.visible) ? st.dp11
+                                                 : st.dp48
 
-            anchors.horizontalCenter: parent.horizontalCenter
+        anchors.horizontalCenter: scrollPlaylist.horizontalCenter
 
-            visible: (text != "")
+        visible: (text != "")
 
-            icon          : st.icon16x16_external
-            iconSourceSize: st.size16x16
+        icon          : st.icon16x16_external
+        iconSourceSize: st.size16x16
 
-            text: (buttonPlaylist.visible
-                   &&
-                   scrollPlaylist.itemText.visible) ? getOpenTitle(playlist.source) : ""
+        text: (buttonPlaylist.visible
+               &&
+               scrollPlaylist.itemText.visible) ? getOpenTitle(playlist.source) : ""
 
-            onClicked: gui.openSource(playlist.source)
-        }
+        onClicked: gui.openSource(playlist.source)
     }
 
     BorderVertical

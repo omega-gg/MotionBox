@@ -99,6 +99,10 @@ MouseArea
     property alias pFolderPlaylists: scrollPlaylists.folder
 
     //---------------------------------------------------------------------------------------------
+
+    property alias pItemText: scrollPlaylist.itemText
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -1968,7 +1972,7 @@ MouseArea
                                            : scrollPlaylist.top
 
         anchors.topMargin: (buttonCover.visible) ? st.dp11
-                                                 : st.dp48
+                                                 : pItemText.y + pItemText.height + st.dp15
 
         anchors.horizontalCenter: scrollPlaylist.horizontalCenter
 

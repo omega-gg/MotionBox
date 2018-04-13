@@ -1,6 +1,8 @@
 <a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="MotionBox" width="128px"></a>
 ---
 
+[![travis](http://api.travis-ci.org/omega-gg/MotionBox.svg)](http://travis-ci.org/omega-gg/MotionBox)
+
 [MotionBox](http://omega.gg/MotionBox) is a Video Browser for Motion Freedom.<br>
 Built to access and traverse decentralized video sources.<br>
 Built to load and play multiple video resources.<br>

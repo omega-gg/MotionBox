@@ -19,7 +19,7 @@ before_install:
 install:
   - docker exec -t ubuntu bash -c "cd /travis;
                                    apt-get update;
-                                   apt-get -y install sudo wget;
+                                   apt-get -y install sudo wget git;
                                    cd ..;
                                    git clone https://github.com/omega-gg/Sky;
                                    cd Sky;

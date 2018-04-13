@@ -104,7 +104,7 @@ elif [ $2 = "osx" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    if [ $(uname -m) = "x86_64" ]; then
+    if [ -d "/usr/lib/x86_64-linux-gnu" ]; then
 
         spec=linux-g++-64
     else

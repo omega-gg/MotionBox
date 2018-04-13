@@ -1,0 +1,35 @@
+sudo: required
+
+services:
+  - docker
+
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      env: QT=qt4 OS=ubuntu TARGET=i386
+    - os: linux
+      env: QT=qt4 OS=ubuntu TARGET=amd64
+
+before_install:
+  - docker run -d --name ubuntu -v $(pwd):/travis ${TARGET}/ubuntu:17.10 tail -f /dev/null
+  - docker ps
+
+install:
+  - docker exec -t ubuntu bash -c "cd /travis;
+                                   apt-get update;
+                                   apt-get -y install sudo wget;
+                                   cd ..;
+                                   git clone https://github.com/omega-gg/Sky;
+                                   cd Sky;
+                                   sh 3rdparty.sh all ubuntu;
+                                   sh configure.sh ${QT} linux;
+                                   cd ../travis;
+                                   sh configure.sh ${QT} linux"
+
+script:
+  - docker exec -t ubuntu bash -c "cd /travis/../Sky;
+                                   sh build.sh ${QT} linux deploy;
+                                   cd ../travis;
+                                   sh build.sh ${QT} linux deploy"

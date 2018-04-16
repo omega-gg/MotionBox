@@ -17,13 +17,6 @@ MinGW_version="5.3.0"
 
 #--------------------------------------------------------------------------------------------------
 
-Qt4="$external/Qt/$Qt4_version/bin"
-Qt5="$external/Qt/$Qt5_version/bin"
-
-MinGW="$external/MinGW/$MinGW_version/bin"
-
-#--------------------------------------------------------------------------------------------------
-
 make_arguments="-j 4"
 
 #--------------------------------------------------------------------------------------------------
@@ -54,10 +47,21 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "qt5" -a $2 = "linux" ]; then
+if [ $1 = "qt4" ]; then
 
-    Qt5_version="$Qt5_version_linux"
+    Qt="$external/Qt/$Qt4_version/bin"
+else
+    if [ $2 = "linux" ]; then
+
+        Qt5_version="$Qt5_version_linux"
+    fi
+
+    Qt="$external/Qt/$Qt5_version/bin"
 fi
+
+#--------------------------------------------------------------------------------------------------
+
+MinGW="$external/MinGW/$MinGW_version/bin"
 
 #--------------------------------------------------------------------------------------------------
 # Clean
@@ -98,12 +102,7 @@ if [ $2 = "win32" ]; then
 
     spec=win32-g++
 
-    if [ $1 = "qt4" ]; then
-
-        PATH="$Qt4:$MinGW:$PATH"
-    else
-        PATH="$Qt5:$MinGW:$PATH"
-    fi
+    PATH="$Qt:$MinGW:$PATH"
 
 elif [ $2 = "osx" ]; then
 

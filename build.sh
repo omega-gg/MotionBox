@@ -24,8 +24,6 @@ make_arguments="-j 4"
 
 lib64="/lib/x86_64-linux-gnu"
 
-Qt5_version_linux="5.9.1"
-
 #--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
@@ -49,17 +47,10 @@ fi
 
 if [ $1 = "qt4" ]; then
 
-    Qt="$external/Qt/$Qt4_version/bin"
+    Qt="$external/Qt/$Qt4_version"
 else
-    if [ $2 = "linux" ]; then
-
-        Qt5_version="$Qt5_version_linux"
-    fi
-
-    Qt="$external/Qt/$Qt5_version/bin"
+    Qt="$external/Qt/$Qt5_version"
 fi
-
-#--------------------------------------------------------------------------------------------------
 
 MinGW="$external/MinGW/$MinGW_version/bin"
 
@@ -102,7 +93,7 @@ if [ $2 = "win32" ]; then
 
     spec=win32-g++
 
-    PATH="$Qt:$MinGW:$PATH"
+    PATH="$Qt/bin:$MinGW:$PATH"
 
 elif [ $2 = "osx" ]; then
 

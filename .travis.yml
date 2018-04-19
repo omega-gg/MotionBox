@@ -11,6 +11,10 @@ matrix:
       env: QT=qt4 OS=ubuntu TARGET=i386
     - os: linux
       env: QT=qt4 OS=ubuntu TARGET=amd64
+    - os: linux
+      env: QT=qt5 OS=ubuntu TARGET=i386
+    - os: linux
+      env: QT=qt5 OS=ubuntu TARGET=amd64
 
 before_install:
   - docker run -d --name ubuntu -v $(pwd):/travis ${TARGET}/ubuntu:17.10 tail -f /dev/null

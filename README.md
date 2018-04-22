@@ -6,7 +6,7 @@
 [MotionBox](http://omega.gg/MotionBox) is a Video Browser for Motion Freedom.<br>
 Built to access and traverse decentralized video sources.<br>
 Built to load and play multiple video resources.<br>
-[omega](http://omega.gg/about) is building MotionBox for the society of sharing.<br>
+[omega](http://omega.gg/about) is building MotionBox to empower you.<br>
 
 ## The Video Browser
 <a href="http://omega.gg/MotionBox"><img src="dist/pictures/TheVideoBrowser.png" alt="The Video Browser" width="512px"></a>

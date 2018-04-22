@@ -18,21 +18,13 @@ Conçue pour charger et lire une multitude de ressources vidéo.
 
 Mon nom est Benjamin Arnaud alias [bunjee].
 
-Je développe MotionBox pour la [société du partage].
+Je développe MotionBox au service de l'utilisateur:
 
-Je développe un Navigateur Vidéo pour toi.
-
-#
-
-MotionBox est un outil [distributiste][Distributisme]:
-
-Seul ton [soutien][Soutenir MotionBox] peut faire la différence.
+Ton [soutien][Soutenir MotionBox] peut faire la différence.
 
 Ensemble, construisons un Navigateur Vidéo.
 
 #
-
-Partage MotionBox.
 
 Singulier en Unité.
 
@@ -119,16 +111,6 @@ Liberté Médiatique: [http://omega.gg/about/MotionFreedom/fr][Liberté Médiati
 bunjee: [http://bunjee.me/fr][bunjee]
 
 [bunjee]: http://bunjee.me/fr
-
----
-
-Société du partage: [http://omega.gg/about/society/fr][Société du partage]
-
-Distributisme: [http://omega.gg/about/distributism/fr][Distributisme]
-
-[Société du partage]: http://omega.gg/about/society/fr
-
-[Distributisme]: http://omega.gg/about/distributism/fr
 
 ---
 

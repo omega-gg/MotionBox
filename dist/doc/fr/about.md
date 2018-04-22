@@ -1,6 +1,6 @@
 # À propos
 
-[MotionBox] par [omega] pour la société du partage.
+[MotionBox] par [omega] pour la Liberté Médiatique.
 
 Licence: [GPLv3](../license.html).
 

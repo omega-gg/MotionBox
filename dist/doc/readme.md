@@ -18,21 +18,13 @@ Built to load and play multiple video resources.
 
 My name is Benjamin Arnaud aka [bunjee].
 
-I'm building MotionBox for the [society of sharing].
-
-I'm building a Video Browser for you.
-
-#
-
-MotionBox is a [distributist][Distributism] tool:
+I'm building MotionBox to empower you:
 
 Your [support][Support MotionBox] will make a difference.
 
 Let's build a Video Browser together.
 
 #
-
-Share MotionBox.
 
 Stand United.
 
@@ -119,16 +111,6 @@ Motion Freedom: [http://omega.gg/about/MotionFreedom][Motion Freedom]
 bunjee: [http://bunjee.me][bunjee]
 
 [bunjee]: http://bunjee.me
-
----
-
-Society of sharing: [http://omega.gg/about/society][Society of sharing]
-
-Distributism: [http://omega.gg/about/distributism][Distributism]
-
-[Society of sharing]: http://omega.gg/about/society
-
-[Distributism]: http://omega.gg/about/distributism
 
 ---
 

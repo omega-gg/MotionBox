@@ -1,6 +1,6 @@
 # About
 
-[MotionBox] by [omega] for the society of sharing.
+[MotionBox] by [omega] for Motion Freedom.
 
 License: [GPLv3](documents/license.html).
 

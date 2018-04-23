@@ -16,4 +16,7 @@ install:
   - sh configure.sh %qt% win32
 
 build_script:
+  - cd ../Sky
+  - sh build.sh %qt% win32 deploy
+  - cd MotionBox
   - sh build.sh %qt% win32 deploy

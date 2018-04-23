@@ -11,7 +11,6 @@ install:
   - 7z x 3rdparty.zip
   - git clone https://github.com/omega-gg/Sky
   - cd Sky
-  - sh 3rdparty.sh all %qt% win32
   - sh configure.sh %qt% win32
   - cd ../MotionBox
   - sh configure.sh %qt% win32

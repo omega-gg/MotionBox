@@ -65,6 +65,7 @@ OTHER_FILES += configure.sh \
                LICENSE.md \
                AUTHORS.md \
                .travis.yml \
+               .appveyor.yml \
                content/text/credits.txt \
                content/Main.qml \
                content/StyleApplication.qml \

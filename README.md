@@ -2,6 +2,7 @@
 ---
 
 [![travis](http://api.travis-ci.org/omega-gg/MotionBox.svg)](http://travis-ci.org/omega-gg/MotionBox)
+[![appveyor](http://ci.appveyor.com/api/projects/status/ct0kbo659jviskec?svg=true)](http://ci.appveyor.com/project/3unjee/motionbox)
 
 [MotionBox](http://omega.gg/MotionBox) is a Video Browser for Motion Freedom.<br>
 Built to access and traverse decentralized video sources.<br>

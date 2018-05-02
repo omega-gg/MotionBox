@@ -801,10 +801,22 @@ MouseArea
 
         if (backend)
         {
-            buttonsBrowse.pushItem(backend.getHost (), pSearchCover);
-            buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
+            var host = backend.getHost();
 
-            return 1;
+            if (host)
+            {
+                buttonsBrowse.pushItem(host, pSearchCover);
+
+                buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
+
+                return 1;
+            }
+            else
+            {
+                buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
+
+                return 0;
+            }
         }
         else return -1;
     }

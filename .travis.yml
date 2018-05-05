@@ -17,7 +17,7 @@ matrix:
       env: QT=qt5 OS=ubuntu TARGET=amd64
 
 before_install:
-  - docker run -d --name ubuntu -v $(pwd):/travis ${TARGET}/ubuntu:17.10 tail -f /dev/null
+  - docker run -d --name ubuntu -v $(pwd):/travis ${TARGET}/ubuntu:18.04 tail -f /dev/null
   - docker ps
 
 install:

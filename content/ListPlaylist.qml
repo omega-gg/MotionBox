@@ -110,7 +110,7 @@ List
         {
             hasPlaylist = true;
 
-            if (enableLoad) playlist.loadQuery();
+            if (enableLoad && playlist.count == 0) playlist.loadQuery();
 
             pApplyPlaylist();
 
@@ -590,7 +590,7 @@ List
         }
 
 //#QT_5
-        if (overlay.containsMouse) pUpdatePreview();
+        if (overlay.visible && overlay.containsMouse) pUpdatePreview();
 //#END
     }
 

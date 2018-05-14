@@ -232,7 +232,9 @@ MouseArea
 
             if (pBrowsing)
             {
-                pBrowseIndex = pUpdateButtonsBrowsing();
+                pUpdateButtonsBrowsing();
+
+                pBrowseIndex = -1;
             }
         }
     }
@@ -676,10 +678,7 @@ MouseArea
 
         pFolderBrowse.loadCurrentIndex(index, true);
 
-        if (pBrowsing)
-        {
-            pBrowseIndex = pUpdateButtonsBrowsing();
-        }
+        if (pBrowsing) pUpdateButtonsBrowsing();
 
         pBrowseEvents = true;
     }
@@ -790,7 +789,9 @@ MouseArea
     {
         if (pBrowsing)
         {
-            return pUpdateButtonsBrowsing();
+            pUpdateButtonsBrowsing();
+
+            return -1;
         }
 
         buttonsBrowse.clearItems();
@@ -825,26 +826,22 @@ MouseArea
     {
         buttonsBrowse.clearItems();
 
-        if (pItemBrowse)
+        if (pItemBrowse == null) return;
+
+        var title = pItemBrowse.title;
+
+        if (pSearchHidden)
         {
-            var title = pItemBrowse.title;
-
-            if (pSearchHidden)
-            {
-                 buttonsBrowse.pushItem(title);
-            }
-            else buttonsBrowse.pushItem(title, pSearchCover);
-
-            var backend = controllerPlaylist.backendFromUrl(title);
-
-            if (backend && backend.isHub())
-            {
-                buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
-            }
-
-            return 0;
+             buttonsBrowse.pushItem(title);
         }
-        else return -1;
+        else buttonsBrowse.pushItem(title, pSearchCover);
+
+        var backend = controllerPlaylist.backendFromUrl(title);
+
+        if (backend && backend.isHub())
+        {
+            buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
+        }
     }
 
     //---------------------------------------------------------------------------------------------

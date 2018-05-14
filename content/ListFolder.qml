@@ -104,7 +104,7 @@ List
         {
             hasFolder = true;
 
-            if (enableLoad) folder.loadQuery();
+            if (enableLoad && folder.count) folder.loadQuery();
 
             pApplyFolder();
 
@@ -369,7 +369,7 @@ List
         itemHovered = item;
 
 //#QT_5
-        if (overlay.containsMouse) pUpdatePreview();
+        if (overlay.visible && overlay.containsMouse) pUpdatePreview();
 //#END
     }
 

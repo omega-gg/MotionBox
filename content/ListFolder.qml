@@ -104,7 +104,7 @@ List
         {
             hasFolder = true;
 
-            if (enableLoad && folder.count) folder.loadQuery();
+            if (enableLoad && folder.count == 0) folder.loadQuery();
 
             pApplyFolder();
 

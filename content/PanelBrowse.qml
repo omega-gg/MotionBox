@@ -467,16 +467,7 @@ MouseArea
     {
         pSetBrowseIndex(0);
 
-        if (pItemBrowse == null || pItemBrowse.isLoading == false)
-        {
-            pSearchStart();
-        }
-        else if (pItemBrowse.queryIsLoading)
-        {
-            pLoading = false;
-
-            pInitSearch(pQuery);
-        }
+        pSearchStart();
     }
 
     function pSearchStart()

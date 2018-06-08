@@ -62,8 +62,8 @@ Style
 
     property real splash_shadowOpacity: 0.8
 
-    property color splash_colorA: "#969696"
-    property color splash_colorB: "#242424"
+    property color splash_colorA: logo_colorB
+    property color splash_colorB: logo_colorA
 
     //---------------------------------------------------------------------------------------------
     // PanelBrowse

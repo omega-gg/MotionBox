@@ -130,7 +130,7 @@ MouseArea
                  &&
                  local.splashHeight == loader.height) ? core.pathSplash : ""
 
-        sourceSize: (isSourceDefault) ? undefined : Qt.size(width, height)
+        sourceSize: (isSourceDefault) ? undefined : Qt.size(local.splashWidth, local.splashHeight)
 
         sourceDefault: st.logoApplication
 

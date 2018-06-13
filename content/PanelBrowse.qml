@@ -226,6 +226,8 @@ MouseArea
 
         onCurrentIdChanged:
         {
+            if (pLoading) return;
+
             pLoadItem();
 
             pLoadPlaylists();

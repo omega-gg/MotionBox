@@ -273,7 +273,13 @@ Item
 
             onPlayerPressed:
             {
-                if (mouse.button & Qt.RightButton)
+                if (mouse.button & Qt.LeftButton)
+                {
+                    gui.toggleBars();
+
+                    window.clearFocus();
+                }
+                else if (mouse.button & Qt.RightButton)
                 {
                     gui.restoreBars();
 
@@ -283,7 +289,6 @@ Item
                 {
                     gui.pause();
                 }
-                else gui.toggleBars();
             }
 
             //-------------------------------------------------------------------------------------

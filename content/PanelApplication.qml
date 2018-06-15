@@ -181,8 +181,6 @@ Panel
 
         barWindow.buttonApplication.checked = false;
         barTop   .buttonApplication.checked = false;
-
-        window.clearFocusItem(panelApplication);
     }
 
     function toggleExpose()

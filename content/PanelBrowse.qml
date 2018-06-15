@@ -163,6 +163,8 @@ MouseArea
 
     onPressed: window.clearFocus()
 
+    onVisibleChanged: if (visible == false) window.clearFocusItem(panelBrowse)
+
     onActiveFocusChanged: isSelecting = false
 
     //---------------------------------------------------------------------------------------------

@@ -299,7 +299,7 @@ Style
 
     icon: "pictures/icons/icon.svg"
 
-    logo: "pictures/logoBackground.png"
+    logo: "pictures/logoBackground.svg"
 
     //---------------------------------------------------------------------------------------------
     // Animation

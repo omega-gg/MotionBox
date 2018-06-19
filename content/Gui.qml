@@ -3198,16 +3198,10 @@ Item
 
     function pRestoreWall()
     {
-//#QT_4
-        pUpdateWall();
-//#ELSE
-        Qt.callLater(pUpdateWall);
+//#QT_5
+        // FIXME Qt5: Waiting for resize to be applied.
+        sk.processEvents();
 //#END
-    }
-
-    function pUpdateWall()
-    {
-        wall.stopAnimation();
 
         wall.updateView();
 

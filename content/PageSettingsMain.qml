@@ -75,6 +75,15 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function pScale(scale)
+    {
+//#QT_4
+        gui.scale(scale);
+//#ELSE
+        Qt.callLater(gui.scale, scale);
+//#END
+    }
+
     function pSetScale(percent)
     {
         if (percent < 80)
@@ -92,6 +101,39 @@ Item
         else                     buttonsScale.currentIndex = -1;
 
         gui.scale(percent / 100);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pResetProxy()
+    {
+        local.proxyHost     = "";
+        local.proxyPort     = -1;
+        local.proxyPassword = "";
+
+        local.proxyStream = false;
+
+        if (local.proxyActive)
+        {
+            local.proxyActive = false;
+
+            gui.applyProxy(false);
+        }
+    }
+
+    function pResetTorrent()
+    {
+        local.torrentConnections = 500;
+
+        local.torrentUpload   = 0;
+        local.torrentDownload = 0;
+
+        local.torrentUploadActive   = false;
+        local.torrentDownloadActive = false;
+
+        local.torrentCache = 1000;
+
+        core.applyTorrentOptions(500, 0, 0, 1000);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -258,21 +300,7 @@ Item
                   ||
                   local.proxyStream || local.proxyActive)
 
-        onClicked:
-        {
-            local.proxyHost     = "";
-            local.proxyPort     = -1;
-            local.proxyPassword = "";
-
-            local.proxyStream = false;
-
-            if (local.proxyActive)
-            {
-                local.proxyActive = false;
-
-                gui.applyProxy(false);
-            }
-        }
+        onClicked: pResetProxy()
     }
 
     BarTitleText
@@ -303,20 +331,7 @@ Item
                   ||
                   local.torrentCache != 1000)
 
-        onClicked:
-        {
-            local.torrentConnections = 500;
-
-            local.torrentUpload   = 0;
-            local.torrentDownload = 0;
-
-            local.torrentUploadActive   = false;
-            local.torrentDownloadActive = false;
-
-            local.torrentCache = 1000;
-
-            core.applyTorrentOptions(500, 0, 0, 1000);
-        }
+        onClicked: pResetTorrent()
     }
 
     ButtonPush
@@ -422,31 +437,31 @@ Item
             {
                 editScale.text = "92";
 
-                gui.scale(0.92);
+                pScale(0.92);
             }
             else if (currentIndex == 1)
             {
                 editScale.text = "100";
 
-                gui.scale(1.0);
+                pScale(1.0);
             }
             else if (currentIndex == 2)
             {
                 editScale.text = "128";
 
-                gui.scale(1.28);
+                pScale(1.28);
             }
             else if (currentIndex == 3)
             {
                 editScale.text = "160";
 
-                gui.scale(1.6);
+                pScale(1.6);
             }
             else // if (currentIndex == 4)
             {
                 editScale.text = "200";
 
-                gui.scale(2.0);
+                pScale(2.0);
             }
 
             window.clearFocus();

@@ -6,11 +6,11 @@
 
 F1: Toggle the application panel.
 
-F2: Toogle the Player Browser.
+F2: Toggle the Player Browser.
 
-F3: Toogle the Video Wall.
+F3: Toggle the Video Wall.
 
-F4: Toogle the Related Browser.
+F4: Toggle the Related Browser.
 
 #
 
@@ -20,17 +20,17 @@ F6: Create a new playlist.
 
 F7: Create a new folder.
 
-F8: Toogle the Track Browser.
+F8: Toggle the Track Browser.
 
 #
 
 F9: Toggle the Mini Mode.
 
-F10: Toogle maximize window.
+F10: Toggle maximize window.
 
 F11: Toggle full screen.
 
-F12: Toogle the track panel.
+F12: Toggle the track panel.
 
 #
 
@@ -68,7 +68,7 @@ Media Previous: Previous track.
 
 Media Next: Next track.
 
-Media Play: Toogle the playback.
+Media Play: Toggle the playback.
 
 Media Stop: Pause the playback.
 

@@ -343,281 +343,281 @@ public: // Variables
     //---------------------------------------------------------------------------------------------
     // version
 
-    if (wControllerXml->readNextStartElement(&stream, "version") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "version") == false) return false;
 
-    _version = wControllerXml->readNextString(&stream);
+    _version = WControllerXml::readNextString(&stream);
 
     //---------------------------------------------------------------------------------------------
     // screen
 
-    if (wControllerXml->readNextStartElement(&stream, "screen") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "screen") == false) return false;
 
-    _screen = wControllerXml->readNextInt(&stream);
+    _screen = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // width
 
-    if (wControllerXml->readNextStartElement(&stream, "width") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "width") == false) return false;
 
-    _width = wControllerXml->readNextInt(&stream);
+    _width = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // height
 
-    if (wControllerXml->readNextStartElement(&stream, "height") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "height") == false) return false;
 
-    _height = wControllerXml->readNextInt(&stream);
+    _height = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // miniX
 
-    if (wControllerXml->readNextStartElement(&stream, "miniX") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "miniX") == false) return false;
 
-    _miniX = wControllerXml->readNextInt(&stream);
+    _miniX = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // miniY
 
-    if (wControllerXml->readNextStartElement(&stream, "miniY") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "miniY") == false) return false;
 
-    _miniY = wControllerXml->readNextInt(&stream);
+    _miniY = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // splashWidth
 
-    if (wControllerXml->readNextStartElement(&stream, "splashWidth") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "splashWidth") == false) return false;
 
-    _splashWidth = wControllerXml->readNextInt(&stream);
+    _splashWidth = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // splashHeight
 
-    if (wControllerXml->readNextStartElement(&stream, "splashHeight") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "splashHeight") == false) return false;
 
-    _splashHeight = wControllerXml->readNextInt(&stream);
+    _splashHeight = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // scale
 
-    if (wControllerXml->readNextStartElement(&stream, "scale") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "scale") == false) return false;
 
-    _scale = wControllerXml->readNextFloat(&stream);
+    _scale = WControllerXml::readNextFloat(&stream);
 
     //---------------------------------------------------------------------------------------------
     // maximized
 
-    if (wControllerXml->readNextStartElement(&stream, "maximized") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "maximized") == false) return false;
 
-    _maximized = wControllerXml->readNextInt(&stream);
+    _maximized = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // micro
 
-    if (wControllerXml->readNextStartElement(&stream, "micro") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "micro") == false) return false;
 
-    _micro = wControllerXml->readNextInt(&stream);
+    _micro = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // expanded
 
-    if (wControllerXml->readNextStartElement(&stream, "expanded") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "expanded") == false) return false;
 
-    _expanded = wControllerXml->readNextInt(&stream);
+    _expanded = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // macro
 
-    if (wControllerXml->readNextStartElement(&stream, "macro") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "macro") == false) return false;
 
-    _macro = wControllerXml->readNextInt(&stream);
+    _macro = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // related
 
-    if (wControllerXml->readNextStartElement(&stream, "related") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "related") == false) return false;
 
-    _related = wControllerXml->readNextInt(&stream);
+    _related = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // relatedExpanded
 
-    if (wControllerXml->readNextStartElement(&stream, "relatedExpanded") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "relatedExpanded") == false) return false;
 
-    _relatedExpanded = wControllerXml->readNextInt(&stream);
+    _relatedExpanded = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // tracksExpanded
 
-    if (wControllerXml->readNextStartElement(&stream, "tracksExpanded") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "tracksExpanded") == false) return false;
 
-    _tracksExpanded = wControllerXml->readNextInt(&stream);
+    _tracksExpanded = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // panelCoverVisible
 
-    if (wControllerXml->readNextStartElement(&stream, "panelCoverVisible") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "panelCoverVisible") == false) return false;
 
-    _panelCoverVisible = wControllerXml->readNextInt(&stream);
+    _panelCoverVisible = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // browserVisible
 
-    if (wControllerXml->readNextStartElement(&stream, "browserVisible") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "browserVisible") == false) return false;
 
-    _browserVisible = wControllerXml->readNextInt(&stream);
+    _browserVisible = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // typePlaylist
 
-    if (wControllerXml->readNextStartElement(&stream, "typePlaylist") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "typePlaylist") == false) return false;
 
-    _typePlaylist = wControllerXml->readNextInt(&stream);
+    _typePlaylist = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // query
 
-    if (wControllerXml->readNextStartElement(&stream, "query") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "query") == false) return false;
 
-    _query = wControllerXml->readNextString(&stream);
+    _query = WControllerXml::readNextString(&stream);
 
     //---------------------------------------------------------------------------------------------
     // speed
 
-    if (wControllerXml->readNextStartElement(&stream, "speed") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "speed") == false) return false;
 
-    _speed = wControllerXml->readNextFloat(&stream);
+    _speed = WControllerXml::readNextFloat(&stream);
 
     //---------------------------------------------------------------------------------------------
     // volume
 
-    if (wControllerXml->readNextStartElement(&stream, "volume") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "volume") == false) return false;
 
-    _volume = wControllerXml->readNextFloat(&stream);
+    _volume = WControllerXml::readNextFloat(&stream);
 
     //---------------------------------------------------------------------------------------------
     // shuffle
 
-    if (wControllerXml->readNextStartElement(&stream, "shuffle") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "shuffle") == false) return false;
 
-    _shuffle = wControllerXml->readNextInt(&stream);
+    _shuffle = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // repeat
 
-    if (wControllerXml->readNextStartElement(&stream, "repeat") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "repeat") == false) return false;
 
-    _repeat = static_cast<WDeclarativePlayer::Repeat> (wControllerXml->readNextInt(&stream));
+    _repeat = static_cast<WDeclarativePlayer::Repeat> (WControllerXml::readNextInt(&stream));
 
     //---------------------------------------------------------------------------------------------
     // output
 
-    if (wControllerXml->readNextStartElement(&stream, "output") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "output") == false) return false;
 
-    _output = static_cast<WAbstractBackend::Output> (wControllerXml->readNextInt(&stream));
+    _output = static_cast<WAbstractBackend::Output> (WControllerXml::readNextInt(&stream));
 
     //---------------------------------------------------------------------------------------------
     // quality
 
-    if (wControllerXml->readNextStartElement(&stream, "quality") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "quality") == false) return false;
 
-    _quality = static_cast<WAbstractBackend::Quality> (wControllerXml->readNextInt(&stream));
+    _quality = static_cast<WAbstractBackend::Quality> (WControllerXml::readNextInt(&stream));
 
     //---------------------------------------------------------------------------------------------
     // networkCache
 
-    if (wControllerXml->readNextStartElement(&stream, "networkCache") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "networkCache") == false) return false;
 
-    _networkCache = wControllerXml->readNextInt(&stream);
+    _networkCache = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // cache
 
-    if (wControllerXml->readNextStartElement(&stream, "cache") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "cache") == false) return false;
 
-    _cache = wControllerXml->readNextInt(&stream);
+    _cache = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // proxyHost
 
-    if (wControllerXml->readNextStartElement(&stream, "proxyHost") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "proxyHost") == false) return false;
 
-    _proxyHost = wControllerXml->readNextString(&stream);
+    _proxyHost = WControllerXml::readNextString(&stream);
 
     //---------------------------------------------------------------------------------------------
     // proxyPort
 
-    if (wControllerXml->readNextStartElement(&stream, "proxyPort") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "proxyPort") == false) return false;
 
-    _proxyPort = wControllerXml->readNextInt(&stream);
+    _proxyPort = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // proxyPassword
 
-    if (wControllerXml->readNextStartElement(&stream, "proxyPassword") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "proxyPassword") == false) return false;
 
-    _proxyPassword = wControllerXml->readNextString(&stream);
+    _proxyPassword = WControllerXml::readNextString(&stream);
 
     //---------------------------------------------------------------------------------------------
     // proxyStream
 
-    if (wControllerXml->readNextStartElement(&stream, "proxyStream") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "proxyStream") == false) return false;
 
-    _proxyStream = wControllerXml->readNextInt(&stream);
+    _proxyStream = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // proxyActive
 
-    if (wControllerXml->readNextStartElement(&stream, "proxyActive") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "proxyActive") == false) return false;
 
-    _proxyActive = wControllerXml->readNextInt(&stream);
+    _proxyActive = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentConnections
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentConnections") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "torrentConnections") == false) return false;
 
-    _torrentConnections = wControllerXml->readNextInt(&stream);
+    _torrentConnections = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentUpload
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentUpload") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "torrentUpload") == false) return false;
 
-    _torrentUpload = wControllerXml->readNextInt(&stream);
+    _torrentUpload = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentDownload
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentDownload") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "torrentDownload") == false) return false;
 
-    _torrentDownload = wControllerXml->readNextInt(&stream);
+    _torrentDownload = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentUploadActive
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentUploadActive") == false)
+    if (WControllerXml::readNextStartElement(&stream, "torrentUploadActive") == false)
     {
         return false;
     }
 
-    _torrentUploadActive = wControllerXml->readNextInt(&stream);
+    _torrentUploadActive = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentDownloadActive
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentDownloadActive") == false)
+    if (WControllerXml::readNextStartElement(&stream, "torrentDownloadActive") == false)
     {
         return false;
     }
 
-    _torrentDownloadActive = wControllerXml->readNextInt(&stream);
+    _torrentDownloadActive = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // torrentCache
 
-    if (wControllerXml->readNextStartElement(&stream, "torrentCache") == false) return false;
+    if (WControllerXml::readNextStartElement(&stream, "torrentCache") == false) return false;
 
-    _torrentCache = wControllerXml->readNextInt(&stream);
+    _torrentCache = WControllerXml::readNextInt(&stream);
 
     qDebug("DATA LOCAL LOADED");
 

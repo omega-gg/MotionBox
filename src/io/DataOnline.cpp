@@ -117,27 +117,27 @@ void DataOnline::onLoaded(WRemoteData * data)
 
         if (stream.name() == "version")
         {
-            _version = wControllerXml->readNextString(&stream);
+            _version = WControllerXml::readNextString(&stream);
         }
         else if (stream.name() == "messageUrl")
         {
-            _messageUrl = generateUrl(wControllerXml->readNextString(&stream));
+            _messageUrl = generateUrl(WControllerXml::readNextString(&stream));
         }
         else if (stream.name() == "messageIcon")
         {
-            _messageIcon = generateUrl(wControllerXml->readNextString(&stream));
+            _messageIcon = generateUrl(WControllerXml::readNextString(&stream));
         }
         else if (stream.name() == "messageTitle")
         {
-            _messageTitle = wControllerXml->readNextString(&stream);
+            _messageTitle = WControllerXml::readNextString(&stream);
         }
         else if (stream.name() == "messageCover")
         {
-            _messageCover = generateUrl(wControllerXml->readNextString(&stream));
+            _messageCover = generateUrl(WControllerXml::readNextString(&stream));
         }
         else if (stream.name() == "messageText")
         {
-            _messageText = generateUrl(wControllerXml->readNextString(&stream));
+            _messageText = generateUrl(WControllerXml::readNextString(&stream));
         }
     }
 

@@ -257,8 +257,7 @@ List
     {
         target: (hasFolder) ? folder : null
 
-        onLoaded        : pRestoreScroll()
-        onQueryCompleted: pRestoreScroll()
+        onLoaded: pRestoreScroll()
 
         onCurrentIdChanged:
         {

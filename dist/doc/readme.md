@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.3.0
+# [MotionBox] - alpha 1.4.0
 
 ### english / [français](documents/fr/Readme.html)
 
@@ -31,24 +31,26 @@ Stand United.
 
 ## Changelog
 
-- 1.3.0: [Torrent streaming, dynamic covers, improved full screen](documents/changes/1.3.0.html).
+- 1.4.0: [Torrent search, Qt5, VLC 3.0](../changes/1.4.0.md)
 
-- 1.2.0: [Complete audio support, playback speed, native window](documents/changes/1.2.0.html).
+- 1.3.0: [Torrent streaming, dynamic covers, improved full screen](../changes/1.3.0.md).
 
-- 1.1.2: [Improved interface, fast startup, wide search bars](documents/changes/1.1.2.html).
+- 1.2.0: [Complete audio support, playback speed, native window](../changes/1.2.0.md).
 
-- 1.1.1: [Buttons highlight, cleaner interface, components style](documents/changes/1.1.1.html).
+- 1.1.2: [Improved interface, fast startup, wide search bars](../changes/1.1.2.md).
 
-- 1.1.0: [Complete track browser, dynamic loading, video files](documents/changes/1.1.0.html).
+- 1.1.1: [Buttons highlight, cleaner interface, components style](../changes/1.1.1.md).
 
-- 1.0.1: [Window and player inputs, url parsing, contextual menus](documents/changes/1.0.1.html).
+- 1.1.0: [Complete track browser, dynamic loading, video files](../changes/1.1.0.md).
+
+- 1.0.1: [Window and player inputs, url parsing, contextual menus](../changes/1.0.1.md).
 
 - 1.0.0: Initial release.
 
 
 # Pages
 
-Shortcuts: [documents/shortcuts.html](documents/shortcuts.html)
+Shortcuts: [shortcuts.md](./shortcuts.md)
 
 
 # Technology

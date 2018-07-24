@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.3.0
+# [MotionBox] - alpha 1.4.0
 
 ### english / [français](documents/fr/Readme.html)
 
@@ -30,6 +30,8 @@ Stand United.
 
 
 ## Changelog
+
+- 1.4.0: [Torrent search, Qt 5, VLC 3.0](documents/changes/1.4.0.html).
 
 - 1.3.0: [Torrent streaming, dynamic covers, improved full screen](documents/changes/1.3.0.html).
 

@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.3.0
+# [MotionBox] - alpha 1.4.0
 
 ### [english](../../Readme.html) / français
 
@@ -30,6 +30,8 @@ Singulier en Unité.
 
 
 ## Historique
+
+- 1.4.0: [Recherche torrent, Qt 5, VLC 3.0](../changes/1.4.0.html).
 
 - 1.3.0: [Streaming torrent, covers dynamiques, plein écran amélioré](../changes/1.3.0.html).
 

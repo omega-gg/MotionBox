@@ -871,7 +871,7 @@ PanelContextual
         }
     }
 
-    ScrollAreaVertical
+    ScrollArea
     {
         id: scrollLibrary
 
@@ -1264,7 +1264,7 @@ PanelContextual
         anchors.bottom: barButtons.top
     }
 
-    ScrollAreaVertical
+    ScrollArea
     {
         id: scrollFolder
 

@@ -68,7 +68,7 @@ Item
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    ScrollAreaVertical
+    ScrollArea
     {
         id: scrollArea
 

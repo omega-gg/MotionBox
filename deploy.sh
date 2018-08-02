@@ -60,12 +60,13 @@ cp -r "$deploy"/imageformats deploy
 
 if [ $1 = "qt5" ]; then
 
-    if [ $2 = "win32" ]; then
-
-        cp -r "$deploy"/platforms deploy
-    fi
-
+    cp -r "$deploy"/platforms deploy
     cp -r "$deploy"/QtQuick.2 deploy
+
+    if [ $2 = "linux" ]; then
+
+        cp -r "$deploy"/xcbglintegrations deploy
+    fi
 fi
 
 if [ $2 = "win32" ]; then

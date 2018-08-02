@@ -109,4 +109,6 @@ cp "$bin"/MotionBox* deploy
 if [ $2 = "linux" ]; then
 
     cp dist/scripts/start.sh deploy
+
+    chmod 775 dist/scripts/start.sh
 fi

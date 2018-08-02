@@ -104,3 +104,8 @@ else
 fi
 
 cp "$bin"/MotionBox* deploy
+
+if [ $2 = "linux" ]; then
+
+    cp dist/scripts/start.sh deploy
+fi

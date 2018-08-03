@@ -60,6 +60,8 @@ Style
     //---------------------------------------------------------------------------------------------
     // Splash
 
+    property int splash_borderSize: dp8
+
     property color splash_colorA: logo_colorB
     property color splash_colorB: logo_colorA
 

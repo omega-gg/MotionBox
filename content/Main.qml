@@ -106,12 +106,6 @@ Application
             anchors.fill: parent
         }
 
-        Splash
-        {
-            id: splash
-
-            width : parent.width
-            height: parent.height
-        }
+        Splash { id: splash }
     }
 }

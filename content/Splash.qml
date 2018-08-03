@@ -32,6 +32,9 @@ MouseArea
     // Settings
     //---------------------------------------------------------------------------------------------
 
+    width : parent.width + st.splash_borderSize
+    height: parent.height
+
     hoverRetain: true
 
     //---------------------------------------------------------------------------------------------
@@ -68,13 +71,18 @@ MouseArea
 
     function hide()
     {
-        if (image.isSourceDefault == false)
+        if (image.isSourceDefault)
+        {
+            clip = true;
+
+            pTransition = 0;
+        }
+        else
         {
             hoverRetain = false;
 
             pTransition = 1;
         }
-        else pTransition = 0;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -85,6 +93,7 @@ MouseArea
         window.resizable = true;
 
         visible = false;
+        clip    = false;
 
         width  = undefined;
         height = undefined;
@@ -101,7 +110,14 @@ MouseArea
 
     Rectangle
     {
-        anchors.fill: parent
+        id: background
+
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
+
+        width: window.width
+
+        x: -parent.x
 
         visible: image.isSourceDefault
 
@@ -110,15 +126,13 @@ MouseArea
             GradientStop { position: 0.0; color: st.splash_colorA }
             GradientStop { position: 1.0; color: st.splash_colorB }
         }
-
-        BorderVertical { anchors.left: parent.right }
     }
 
     ImageScale
     {
         id: image
 
-        anchors.centerIn: parent
+        anchors.centerIn: background
 
         width: (isSourceDefault) ? Math.round(parent.width / 1.5)
                                  : parent.width
@@ -165,5 +179,12 @@ MouseArea
                 ScriptAction { script: pClearSpash() }
             }
         }
+    }
+
+    BorderVertical
+    {
+        anchors.right: parent.right
+
+        size: st.splash_borderSize
     }
 }

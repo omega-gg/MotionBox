@@ -115,7 +115,7 @@ MouseArea
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
-        width: window.width
+        width: loader.width
 
         x: -parent.x
 
@@ -135,10 +135,10 @@ MouseArea
         anchors.centerIn: background
 
         width: (isSourceDefault) ? Math.round(parent.width / 1.5)
-                                 : parent.width
+                                 : loader.width
 
         height: (isSourceDefault) ? Math.round(width / 3.875)
-                                  : parent.height
+                                  : loader.height
 
         source: (local.splashWidth  == loader.width
                  &&
@@ -186,5 +186,7 @@ MouseArea
         anchors.right: parent.right
 
         size: st.splash_borderSize
+
+        visible: image.isSourceDefault
     }
 }

@@ -88,8 +88,6 @@ Panel
     borderLeft  : 0
     borderBottom: 0
 
-    shadowOpacity: isExpanded
-
     color: st.panelCover_color
 
     //---------------------------------------------------------------------------------------------

@@ -94,7 +94,6 @@ OTHER_FILES += configure.sh \
                content/BarControls.qml \
                content/ButtonPianoTitle.qml \
                content/ButtonLogo.qml \
-               content/ButtonLogoBorders.qml \
                content/ButtonsBrowse.qml \
                content/LineEditSearch.qml \
                content/ListFolder.qml \

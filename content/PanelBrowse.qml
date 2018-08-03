@@ -1940,7 +1940,7 @@ MouseArea
         }
     }
 
-    ButtonLogoBorders
+    ButtonImageBorders
     {
         id: buttonCover
 

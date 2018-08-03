@@ -165,15 +165,5 @@ MouseArea
                 ScriptAction { script: pClearSpash() }
             }
         }
-
-        BorderImageShadow
-        {
-            visible: image.isSourceDefault
-
-            opacity: st.splash_shadowOpacity
-
-            scaling   : image.scaling
-            scaleDelay: image.scaleDelay
-        }
     }
 }

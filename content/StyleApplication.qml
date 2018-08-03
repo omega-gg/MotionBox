@@ -60,8 +60,6 @@ Style
     //---------------------------------------------------------------------------------------------
     // Splash
 
-    property real splash_shadowOpacity: 0.8
-
     property color splash_colorA: logo_colorB
     property color splash_colorB: logo_colorA
 
@@ -95,11 +93,6 @@ Style
     // PanelPreview
 
     property color panelPreview_colorText: playerBrowser_colorTextB
-
-    //---------------------------------------------------------------------------------------------
-    // ButtonLogo
-
-    property real buttonLogo_shadowOpacity: 0.6
 
     //---------------------------------------------------------------------------------------------
     // LineEditSearch

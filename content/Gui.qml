@@ -1511,10 +1511,7 @@ Item
     {
         if (playlist == null) return;
 
-        if (tabs.highlightedTab)
-        {
-            tabs.highlightedTab = null;
-        }
+        if (highlightedTab) tabs.currentTab = playerTab;
 
         playlist.currentIndex = index;
 
@@ -1565,10 +1562,7 @@ Item
 
         if (playlist.isEmpty == false)
         {
-            if (tabs.highlightedTab)
-            {
-                tabs.highlightedTab = null;
-            }
+            if (highlightedTab) tabs.currentTab = playerTab;
 
             if (playlist.currentIndex == -1)
             {

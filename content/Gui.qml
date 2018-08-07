@@ -1511,14 +1511,16 @@ Item
     {
         if (playlist == null) return;
 
+        if (tabs.highlightedTab)
+        {
+            tabs.highlightedTab = null;
+        }
+
         playlist.currentIndex = index;
 
         playerTab.playlist = playlist;
 
-        if (playerTab.isValid)
-        {
-            play(playlist, resume);
-        }
+        play(playlist, resume);
     }
 
     function play(playlist, resume)
@@ -1563,6 +1565,11 @@ Item
 
         if (playlist.isEmpty == false)
         {
+            if (tabs.highlightedTab)
+            {
+                tabs.highlightedTab = null;
+            }
+
             if (playlist.currentIndex == -1)
             {
                 playlist.currentIndex = 0;

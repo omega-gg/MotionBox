@@ -384,13 +384,54 @@ MouseArea
 
         ButtonPianoIcon
         {
-            id: buttonBackward
+            id: buttonDiscover
 
             anchors.left: (buttonApplication.visible) ? buttonApplication.right
                                                       : parent.left
 
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
+
+            visible: (gui.isMini == false)
+
+            icon          : st.icon32x32_url
+            iconSourceSize: st.size32x32
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonSearch
+
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            visible: (gui.isMini && lineEditSearch.visible == false)
+
+            icon: st.icon32x32_search
+
+            itemIcon.visible: (panelBrowse.isSearching == false)
+
+            onClicked: lineEditSearch.showAndFocus()
+
+            IconLoading
+            {
+                anchors.centerIn: parent
+
+                visible: panelBrowse.isSearching
+            }
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonBackward
+
+            anchors.left: (gui.isMini) ? buttonSearch.right
+                                       : lineEditSearch.right
+
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            borderLeft: (gui.isMini) ? 0 : borderSize
 
             visible: (gui.isMini == false || lineEditSearch.visible == false)
 
@@ -422,40 +463,16 @@ MouseArea
             onClicked: currentTab.setNextBookmark()
         }
 
-        ButtonPianoIcon
-        {
-            id: buttonSearch
-
-            anchors.left  : buttonForward.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            visible: (gui.isMini && lineEditSearch.visible == false)
-
-            icon: st.icon32x32_search
-
-            itemIcon.visible: (panelBrowse.isSearching == false)
-
-            onClicked: lineEditSearch.showAndFocus()
-
-            IconLoading
-            {
-                anchors.centerIn: parent
-
-                visible: panelBrowse.isSearching
-            }
-        }
-
         LineEditSearch
         {
             id: lineEditSearch
 
             anchors.left: (gui.isMini) ? parent.left
-                                       : buttonForward.right
+                                       : buttonDiscover.right
 
             widthMinimum: st.dp320 - x
 
-            widthMaximum: (gui.isMini) ? borderItem.x : st.dp300
+            widthMaximum: (gui.isMini) ? borderItem.x : st.dp320
 
             onIsFocusedChanged:
             {
@@ -474,8 +491,10 @@ MouseArea
             // Settings
             //-------------------------------------------------------------------------------------
 
-            anchors.left : lineEditSearch.right
+            anchors.left : buttonForward.right
             anchors.right: buttons.left
+
+            anchors.leftMargin: -(buttonForward.borderRight)
 
             anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth
 
@@ -549,7 +568,7 @@ MouseArea
         {
             id: itemSlide
 
-            anchors.left  : buttonSearch.right
+            anchors.left  : buttonForward.right
             anchors.right : buttons.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom

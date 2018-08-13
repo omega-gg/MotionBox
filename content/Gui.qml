@@ -611,7 +611,17 @@ Item
 
             updateScreenDim();
 
-            if (player.isPlaying == false)
+            if (player.isStopped)
+            {
+                var playlist = pGetCurrentPlaylist();
+
+                if (playlist) setCurrentTrack(playlist, playlist.lastSelected);
+
+                restoreBars();
+
+                sk.screenSaverEnabled = true;
+            }
+            else if (player.isPlaying == false)
             {
                 restoreBars();
 

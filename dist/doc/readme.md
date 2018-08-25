@@ -20,7 +20,7 @@ My name is Benjamin Arnaud aka [bunjee].
 
 I'm building MotionBox to empower you:
 
-Your [support][Support MotionBox] will make a difference.
+Your [support][Support MotionBox] can make a difference.
 
 Let's build a Video Browser together.
 

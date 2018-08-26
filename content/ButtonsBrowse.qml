@@ -456,7 +456,7 @@ Item
             // Properties
             //-------------------------------------------------------------------------------------
 
-            property int preferredWidth: (children.length) ? children[0].getPreferredWidth() : 0
+            property int preferredWidth: (children.length) ? children[0].getWidth() : 0
 
             property int currentWidth: 0
 
@@ -524,7 +524,7 @@ Item
                         }
                     }
 
-                    function getPreferredWidth()
+                    function getWidth()
                     {
                         return sk.textWidth(font, text) + margins;
                     }

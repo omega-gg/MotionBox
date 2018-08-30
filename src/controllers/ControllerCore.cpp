@@ -518,9 +518,41 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::applyTorrentOptions(int connections, int upload,
-                                                                            int download,
-                                                                            int cache) const
+/* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
+{
+    if (argc < 2) return;
+
+    _argument = QString(argv[1]);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ void ControllerCore::clearCache()
+{
+    _related->clearItems();
+
+    restoreBrowse();
+
+    wControllerPlaylist->restoreBackendItems(_hubs);
+
+    _hubs->setCurrentIndex(0);
+
+    _cache->clearFiles();
+
+    _diskCache->clear();
+
+    wControllerTorrent->clearTorrents();
+
+    _local->setCache(false);
+}
+
+//-------------------------------------------------------------------------------------------------
+// Static functions
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE static */ void ControllerCore::applyTorrentOptions(int connections, int upload,
+                                                                                   int download,
+                                                                                   int cache)
 {
     wControllerTorrent->setOptions(connections, upload * 1024, download * 1024);
 
@@ -529,21 +561,14 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend) const
+/* Q_INVOKABLE static */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend)
 {
     return new WHookTorrent(backend);
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
-{
-    if (argc < 2) return;
-
-    _argument = QString(argv[1]);
-}
-
-/* Q_INVOKABLE */ QString ControllerCore::extractArgument(const QString & message) const
+/* Q_INVOKABLE static */ QString ControllerCore::extractArgument(const QString & message)
 {
     int indexA = message.indexOf(' ');
 
@@ -562,7 +587,7 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ bool ControllerCore::checkUrl(const QString & text) const
+/* Q_INVOKABLE static */ bool ControllerCore::checkUrl(const QString & text)
 {
     if (WControllerNetwork::textIsUrl(text) || text.startsWith('/'))
     {
@@ -587,56 +612,54 @@ ControllerCore::ControllerCore() : WController()
     else return false;
 }
 
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ int ControllerCore::urlType(const QUrl & url) const
+/* Q_INVOKABLE static */ int ControllerCore::urlType(const QUrl & url)
 {
     return wControllerPlaylist->urlType(url);
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::itemType(WLibraryFolder * folder, int index) const
+/* Q_INVOKABLE static */ int ControllerCore::itemType(WLibraryFolder * folder, int index)
 {
     return folder->itemType(index);
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::itemState(WLibraryFolder * folder, int index) const
+/* Q_INVOKABLE static */ int ControllerCore::itemState(WLibraryFolder * folder, int index)
 {
     return folder->itemState(index);
 }
 
-/* Q_INVOKABLE */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index) const
+/* Q_INVOKABLE static */ int ControllerCore::itemStateQuery(WLibraryFolder * folder, int index)
 {
     return folder->itemStateQuery(index);
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::getPlaylistType(WBackendNet * backend,
-                                                      const QUrl  & url) const
+/* Q_INVOKABLE static */ int ControllerCore::getPlaylistType(WBackendNet * backend,
+                                                             const QUrl  & url)
 {
     return backend->getPlaylistType(url);
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ WLibraryFolder * ControllerCore::createFolder(int type) const
+/* Q_INVOKABLE static */ WLibraryFolder * ControllerCore::createFolder(int type)
 {
     return WLibraryFolder::create(static_cast<WLibraryItem::Type> (type));
 }
 
-/* Q_INVOKABLE */ WPlaylist * ControllerCore::createPlaylist(int type) const
+/* Q_INVOKABLE static */ WPlaylist * ControllerCore::createPlaylist(int type)
 {
     return WPlaylist::create(static_cast<WLibraryItem::Type> (type));
 }
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::addFolderSearch(WLibraryFolder * folder,
-                                                       const QString  & title) const
+/* Q_INVOKABLE static */ void ControllerCore::addFolderSearch(WLibraryFolder * folder,
+                                                              const QString  & title)
 {
     WLibraryFolderItem item(WLibraryItem::FolderSearch);
 
@@ -647,8 +670,8 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ int ControllerCore::idFromTitle(WLibraryFolder * folder,
-                                                  const QString  & title) const
+/* Q_INVOKABLE static */ int ControllerCore::idFromTitle(WLibraryFolder * folder,
+                                                         const QString  & title)
 {
     for (int i = 0; i < folder->count(); i++)
     {
@@ -665,7 +688,14 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::updateCache(WPlaylist * playlist, int index) const
+/* Q_INVOKABLE static */ QString ControllerCore::getQuery(const QString & title)
+{
+    return QString(title).replace('.', ' ');
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE static */ void ControllerCore::updateCache(WPlaylist * playlist, int index)
 {
     if (playlist == NULL || index == -1) return;
 
@@ -692,41 +722,9 @@ ControllerCore::ControllerCore() : WController()
     wControllerFile->cache()->load(urls);
 }
 
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ void ControllerCore::clearCache()
-{
-    _related->clearItems();
-
-    restoreBrowse();
-
-    wControllerPlaylist->restoreBackendItems(_hubs);
-
-    _hubs->setCurrentIndex(0);
-
-    _cache->clearFiles();
-
-    _diskCache->clear();
-
-    wControllerTorrent->clearTorrents();
-
-    _local->setCache(false);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ void ControllerCore::clearTorrentCache()
+/* Q_INVOKABLE static */ void ControllerCore::clearTorrentCache()
 {
     wControllerTorrent->clearCache();
-}
-
-//-------------------------------------------------------------------------------------------------
-// Static functions
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE static */ QString ControllerCore::getQuery(const QString & title)
-{
-    return QString(title).replace('.', ' ');
 }
 
 //-------------------------------------------------------------------------------------------------

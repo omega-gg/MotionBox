@@ -81,49 +81,53 @@ public: // Interface
 
     Q_INVOKABLE void applyProxy(bool active);
 
-    Q_INVOKABLE void applyTorrentOptions(int connections, int upload, int download,
-                                                                      int cache) const;
-
-    Q_INVOKABLE WAbstractHook * createHook(WAbstractBackend * backend) const;
-
     //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE void applyArguments(int & argc, char ** argv);
 
-    Q_INVOKABLE QString extractArgument(const QString & message) const;
-
     //---------------------------------------------------------------------------------------------
-
-    Q_INVOKABLE bool checkUrl(const QString & text) const;
-
-    Q_INVOKABLE int urlType(const QUrl & url) const;
-
-    //---------------------------------------------------------------------------------------------
-
-    Q_INVOKABLE int itemType(WLibraryFolder * folder, int index) const;
-
-    Q_INVOKABLE int itemState     (WLibraryFolder * folder, int index) const;
-    Q_INVOKABLE int itemStateQuery(WLibraryFolder * folder, int index) const;
-
-    Q_INVOKABLE int getPlaylistType(WBackendNet * backend, const QUrl & url) const;
-
-    Q_INVOKABLE WLibraryFolder * createFolder  (int type = WLibraryItem::Folder)   const;
-    Q_INVOKABLE WPlaylist      * createPlaylist(int type = WLibraryItem::Playlist) const;
-
-    Q_INVOKABLE void addFolderSearch(WLibraryFolder * folder, const QString & title) const;
-
-    Q_INVOKABLE int idFromTitle(WLibraryFolder * folder, const QString & title) const;
-
-    //---------------------------------------------------------------------------------------------
-
-    Q_INVOKABLE void updateCache(WPlaylist * playlist, int index) const;
 
     Q_INVOKABLE void clearCache();
 
-    Q_INVOKABLE void clearTorrentCache();
-
 public: // Static functions
+    Q_INVOKABLE static void applyTorrentOptions(int connections, int upload, int download,
+                                                                             int cache);
+
+    Q_INVOKABLE static WAbstractHook * createHook(WAbstractBackend * backend);
+
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE static QString extractArgument(const QString & message);
+
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE static bool checkUrl(const QString & text);
+
+    Q_INVOKABLE static int urlType(const QUrl & url);
+
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE static int itemType(WLibraryFolder * folder, int index);
+
+    Q_INVOKABLE static int itemState     (WLibraryFolder * folder, int index);
+    Q_INVOKABLE static int itemStateQuery(WLibraryFolder * folder, int index);
+
+    Q_INVOKABLE static int getPlaylistType(WBackendNet * backend, const QUrl & url);
+
+    Q_INVOKABLE static WLibraryFolder * createFolder  (int type = WLibraryItem::Folder);
+    Q_INVOKABLE static WPlaylist      * createPlaylist(int type = WLibraryItem::Playlist);
+
+    Q_INVOKABLE static void addFolderSearch(WLibraryFolder * folder, const QString & title);
+
+    Q_INVOKABLE static int idFromTitle(WLibraryFolder * folder, const QString & title);
+
     Q_INVOKABLE static QString getQuery(const QString & title);
+
+    //---------------------------------------------------------------------------------------------
+
+    Q_INVOKABLE static void updateCache(WPlaylist * playlist, int index);
+
+    Q_INVOKABLE static void clearTorrentCache();
 
 protected: // Events
     /* virtual */ void timerEvent(QTimerEvent * event);

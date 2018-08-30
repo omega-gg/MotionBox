@@ -109,6 +109,8 @@ PanelImage
         }
     }
 
+    backgroundImage.image.visible: itemImage.isSourceDefault
+
     //---------------------------------------------------------------------------------------------
 
     itemImage.anchors.fill: undefined

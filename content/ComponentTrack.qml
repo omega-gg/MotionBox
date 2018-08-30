@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 ComponentLibraryItem
@@ -27,11 +27,11 @@ ComponentLibraryItem
 
     height: itemSize
 
-    iconWidth: st.dp42
+    iconWidth: st.dp56
 
     iconHeight: (isCurrent) ? st.dp24 : st.dp32
 
-    iconSourceSize: (isCurrent) ? st.size24x24 : st.size42x32
+    iconSourceSize: (isCurrent) ? st.size24x24 : st.size56x32
 
     //---------------------------------------------------------------------------------------------
 

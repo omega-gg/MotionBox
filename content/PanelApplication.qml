@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Panel
@@ -246,13 +246,10 @@ Panel
         {
             id: itemTabs
 
-            anchors.left : parent.left
-            anchors.right: buttonClose.left
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
+            anchors.fill: parent
 
             anchors.leftMargin : -st.dp2
+            anchors.rightMargin: -st.dp2
 
             spacing: st.dp2
 
@@ -303,22 +300,6 @@ Panel
 
                 loader.item.forceActiveFocus();
             }
-        }
-
-        ButtonPianoIcon
-        {
-            id: buttonClose
-
-            anchors.right : parent.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            borderRight: 0
-
-            icon          : st.icon16x16_close
-            iconSourceSize: st.size16x16
-
-            onClicked: collapse()
         }
     }
 

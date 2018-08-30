@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Item
@@ -71,6 +71,8 @@ Item
 
         if (isExpanded || actionCue.tryPush(gui.actionTracksExpand)) return;
 
+        panelDiscover.collapse();
+
         if (panelBrowse.visible)
         {
             gui.scrollLibrary.clearItem();
@@ -92,6 +94,8 @@ Item
     function restore()
     {
         if (isExpanded == false || actionCue.tryPush(gui.actionTracksRestore)) return;
+
+        panelDiscover.collapse();
 
         isExpanded = false;
 
@@ -301,7 +305,7 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                width: st.dp42 + borderSizeWidth
+                width: st.dp56 + borderSizeWidth
 
                 visible: (playlist != null)
 

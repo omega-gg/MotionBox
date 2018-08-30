@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 List
@@ -1243,7 +1243,7 @@ List
     {
         id: overlay
 
-        width : st.dp42 + borderSizeWidth
+        width : st.dp56 + borderSizeWidth
         height: itemSize
 
         y: indexHover * itemSize
@@ -1325,7 +1325,7 @@ List
         anchors.left: overlay.left
         anchors.top : overlay.top
 
-        anchors.leftMargin: st.dp5
+        anchors.leftMargin: st.dp12
 
         visible: overlay.background.visible
 

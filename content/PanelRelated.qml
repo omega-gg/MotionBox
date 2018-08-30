@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Panel
@@ -134,9 +134,11 @@ Panel
     {
         if (isExposed || actionCue.tryPush(gui.actionRelatedExpose)) return;
 
+        panelDiscover.collapse();
+
         visible = true;
 
-        parent.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
+        panelPlayer.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
 
         isExposed = true;
 
@@ -155,7 +157,9 @@ Panel
 
         pClearRefresh();
 
-        parent.wallExpand(parent.width, wall.height);
+        panelDiscover.collapse();
+
+        panelPlayer.wallExpand(parent.width, wall.height);
 
         isExposed  = false;
         isExpanded = false;
@@ -180,7 +184,7 @@ Panel
             ||
             actionCue.tryPush(gui.actionRelatedExpand)) return;
 
-        parent.wallExpand(Math.round(parent.width / 2), wall.height);
+        panelPlayer.wallExpand(Math.round(parent.width / 2), wall.height);
 
         isExpanded = true;
 
@@ -195,7 +199,7 @@ Panel
             ||
             actionCue.tryPush(gui.actionRelatedRestore)) return;
 
-        parent.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
+        panelPlayer.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
 
         isExpanded = false;
 
@@ -496,8 +500,6 @@ Panel
         anchors.right : parent.right
         anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
-
-        durationAnimation: 260
 
         TextListDefault
         {

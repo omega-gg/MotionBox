@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 LineEditBox
@@ -116,7 +116,7 @@ LineEditBox
         {
             event.accepted = true;
 
-            panelSearch.triggerActionPressed();
+            panelSearch.search();
         }
         else if (event.key == Qt.Key_Escape)
         {
@@ -141,14 +141,6 @@ LineEditBox
                 else window.clearFocus();
             }
             else panelSearch.selectNextAction();
-        }
-    }
-
-    function onKeyReleased(event)
-    {
-        if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
-        {
-            panelSearch.triggerActionReleased();
         }
     }
 

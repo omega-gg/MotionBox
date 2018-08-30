@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Toggle the application panel.
+F1: Toggle the Discovery Mode.
 
 F2: Toggle the Player Browser.
 

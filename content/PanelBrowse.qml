@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 MouseArea
@@ -332,6 +332,8 @@ MouseArea
     {
         if (isExposed || actionCue.tryPush(gui.actionBrowseExpose)) return;
 
+        panelDiscover.collapse();
+
         gui.scrollFolder.clearItem();
 
         isExposed = true;
@@ -356,6 +358,8 @@ MouseArea
     function collapse()
     {
         if (isExposed == false || actionCue.tryPush(gui.actionBrowseCollapse)) return;
+
+        panelDiscover.collapse();
 
         isExposed = false;
 
@@ -503,6 +507,11 @@ MouseArea
 
         isSearching = true;
         isSelecting = pSelect;
+
+        if (pSelect && player.isPlaying && highlightedTab == null)
+        {
+            pOpenTab();
+        }
     }
 
     function pStartSearch(query)
@@ -535,7 +544,7 @@ MouseArea
                     }
                     else pSearchEnd();
 
-                    pFolder.cover = controllerPlaylist.backendCoverFromHub(source);
+                    pFolder.cover = controllerPlaylist.backendCoverFromUrl(source);
 
                     pUpdateButtonsBrowsing();
                 }
@@ -618,14 +627,7 @@ MouseArea
         {
             playlist.selectSingleTrack(index);
 
-            if (gui.isExpanded)
-            {
-                if (barTop.openTabPlaylist(playlist))
-                {
-                     gui.restoreBars();
-                }
-                else gui.restore();
-            }
+            pOpenTab();
         }
         else gui.setCurrentTrack(playlist, index);
 
@@ -675,6 +677,19 @@ MouseArea
         if (pBrowsing) pUpdateButtonsBrowsing();
 
         pBrowseEvents = true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pOpenTab()
+    {
+        if (gui.isExpanded == false) return;
+
+        if (barTop.openTabPlaylist(null))
+        {
+             gui.restoreBars();
+        }
+        else gui.restore();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -760,7 +775,7 @@ MouseArea
         var folder = core.createFolder(LibraryItem.FolderSearch);
 
         folder.title = url;
-        folder.cover = controllerPlaylist.backendCoverFromHub(url);
+        folder.cover = controllerPlaylist.backendCoverFromUrl(url);
 
         if (query != "")
         {
@@ -832,7 +847,7 @@ MouseArea
 
         var backend = controllerPlaylist.backendFromUrl(title);
 
-        if (backend && backend.isHub())
+        if (backend && backend.hasSearch())
         {
             buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
         }
@@ -1196,7 +1211,7 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        text: qsTr("Hubs")
+        text: qsTr("Backends")
     }
 
     ButtonPianoIcon
@@ -1416,7 +1431,7 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        width: st.dp42 + borderSizeWidth
+        width: st.dp56 + borderSizeWidth
 
         visible: (playlist != null && playlist.isPlaylistSearch == false)
 

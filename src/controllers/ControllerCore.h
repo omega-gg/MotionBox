@@ -122,6 +122,9 @@ public: // Interface
 
     Q_INVOKABLE void clearTorrentCache();
 
+public: // Static functions
+    Q_INVOKABLE static QString getQuery(const QString & title);
+
 protected: // Events
     /* virtual */ void timerEvent(QTimerEvent * event);
 

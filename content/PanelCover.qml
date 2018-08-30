@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Panel
@@ -448,7 +448,7 @@ Panel
     {
         id: background
 
-        width : st.dp36 + borderIcon.size
+        width : st.dp50 + borderIcon.size
         height: st.dp28
 
         color: st.panelCover_colorBackground
@@ -479,7 +479,7 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            sourceSize: Qt.size(st.dp36, st.dp28)
+            sourceSize: Qt.size(st.dp50, st.dp28)
 
             clip: true
 
@@ -598,7 +598,12 @@ Panel
         itemText.style: (enabled) ? Text.Sunken
                                   : Text.Raised
 
-        onPressed: pSelectTrack()
+        onPressed:
+        {
+            panelDiscover.collapse();
+
+            pSelectTrack();
+        }
 
         BorderHorizontal
         {
@@ -797,7 +802,7 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            maximumWidth: parent.width - (itemDuration.x + itemDuration.width + st.dp36)
+            maximumWidth: parent.width - (itemDuration.x + itemDuration.width + st.dp50)
 
             borderLeft : borderSize
             borderRight: 0

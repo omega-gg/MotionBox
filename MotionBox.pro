@@ -77,6 +77,7 @@ OTHER_FILES += configure.sh \
                content/ItemTabMini.qml \
                content/TextLogo.qml \
                content/PanelApplication.qml \
+               content/PanelDiscover.qml \
                content/PanelSearch.qml \
                content/PanelLibrary.qml \
                content/PanelFolder.qml \
@@ -102,6 +103,7 @@ OTHER_FILES += configure.sh \
                content/ScrollFolderCreate.qml \
                content/ScrollPlaylist.qml \
                content/ScrollPlaylistCreate.qml \
+               content/ComponentDiscover.qml \
                content/ComponentLibraryItem.qml \
                content/ComponentTrack.qml \
                content/ComponentFolder.qml \

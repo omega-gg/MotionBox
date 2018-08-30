@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Item
@@ -198,10 +198,12 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    property alias buttonBackward: barTop.buttonBackward
-    property alias buttonForward : barTop.buttonForward
+    property alias buttonDiscover: barTop.buttonDiscover
 
     property alias lineEditSearch: barTop.lineEditSearch
+
+    property alias buttonBackward: barTop.buttonBackward
+    property alias buttonForward : barTop.buttonForward
 
     property alias itemTabs: barTop.itemTabs
 
@@ -741,6 +743,8 @@ Item
 
         areaContextual.hidePanels();
 
+        panelDiscover.collapse();
+
         panelLibrary.saveScroll();
 
         isExpanded = true;
@@ -765,6 +769,8 @@ Item
         restoreMini();
 
         if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
+
+        panelDiscover.collapse();
 
         if (panelBrowse.isExposed)
         {
@@ -808,6 +814,8 @@ Item
 
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
 
+        panelDiscover.collapse();
+
         wall.expose();
 
         clearExpand();
@@ -818,6 +826,8 @@ Item
     function restoreWall()
     {
         if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
+
+        panelDiscover.collapse();
 
         wall.restore();
 
@@ -2492,12 +2502,9 @@ Item
             event.accepted = true;
 
             restoreBars();
+            restoreMini();
 
-            if (window.fullScreen)
-            {
-                 barTop.buttonApplication.returnPressed();
-            }
-            else barWindow.buttonApplication.returnPressed();
+            buttonDiscover.returnPressed();
         }
         else if (event.key == Qt.Key_F2)
         {
@@ -2700,17 +2707,13 @@ Item
         {
             return;
         }
-        else if (barWindow.buttonApplication.isReturnPressed)
-        {
-            barWindow.buttonApplication.returnReleased();
-        }
         else if (barWindow.buttonClose.isReturnPressed)
         {
             barWindow.buttonClose.returnReleased();
         }
-        else if (barTop.buttonApplication.isReturnPressed)
+        else if (buttonDiscover.isReturnPressed)
         {
-            barTop.buttonApplication.returnReleased();
+            buttonDiscover.returnReleased();
         }
         else if (barTop.buttonAdd.isReturnPressed)
         {
@@ -2967,6 +2970,10 @@ Item
             {
                 panelShare.collapse();
             }
+            else if (panelDiscover.isExposed)
+            {
+                panelDiscover.collapse();
+            }
             else if (panelTracks.isExpanded)
             {
                 panelTracks.restore();
@@ -2999,7 +3006,7 @@ Item
         }
         else if (event.key == Qt.Key_Tab)
         {
-            if (panelBrowse.lineEdit.visible)
+            if (panelBrowse.lineEdit.visible && panelDiscover.isExposed == false)
             {
                 panelBrowse.lineEdit.focus();
             }
@@ -3419,6 +3426,8 @@ Item
         PanelBrowse { id: panelBrowse }
 
         PanelCover { id: panelCover }
+
+        PanelDiscover { id: panelDiscover }
 
         PanelShare { id: panelShare }
 

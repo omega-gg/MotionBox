@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 PanelImage
@@ -57,12 +57,12 @@ PanelImage
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: (type) ? st.dp146 + borderSizeWidth
-                  : st.dp110 + borderSizeWidth
+    width: (type) ? st.dp192 + borderSizeWidth
+                  : st.dp108 + borderSizeWidth
 
     height: pGetHeight(detail)
 
-    sourceSize: Qt.size(st.dp146, st.dp110)
+    sourceSize: Qt.size(st.dp192, st.dp108)
 
     z: 1
 
@@ -74,21 +74,49 @@ PanelImage
 
     hoverEnabled: (type)
 
-    fillMode: Image.PreserveAspectCrop
+    fillMode: (type) ? Image.PreserveAspectFit
+                     : Image.PreserveAspectCrop
 
-    background.anchors.fill: undefined
+    //---------------------------------------------------------------------------------------------
 
-    background.anchors.left : itemImage.parent.left
-    background.anchors.right: itemImage.parent.right
+    backgroundImage.anchors.fill: undefined
 
-    background.height: itemImage.height + borderTop
+    backgroundImage.anchors.left : itemImage.parent.left
+    backgroundImage.anchors.right: itemImage.parent.right
+
+    backgroundImage.height: itemImage.height
+
+    backgroundImage.z: itemImage.z
+
+    backgroundImage.visible: true
+
+    backgroundImage.gradient: Gradient
+    {
+        GradientStop
+        {
+            position: 0.0
+
+            color: (itemImage.isSourceDefault) ? backgroundImage.colorA
+                                               : st.panelImage_color
+        }
+
+        GradientStop
+        {
+            position: 1.0
+
+            color: (itemImage.isSourceDefault) ? backgroundImage.colorB
+                                               : st.panelImage_color
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
 
     itemImage.anchors.fill: undefined
 
     itemImage.anchors.left : itemImage.parent.left
     itemImage.anchors.right: itemImage.parent.right
 
-    itemImage.height: st.dp110
+    itemImage.height: st.dp108
 
     itemImage.z: 1
 
@@ -375,7 +403,7 @@ PanelImage
 
     function pGetHeight(detail)
     {
-        var size = st.dp110 + borderSizeHeight;
+        var size = st.dp108 + borderSizeHeight;
 
         if (detail)
         {
@@ -404,7 +432,7 @@ PanelImage
     {
         id: timer
 
-        interval: st.duration_normal
+        interval: st.duration_faster
 
         onTriggered:
         {
@@ -433,15 +461,6 @@ PanelImage
 
             visible: (pAnimate && detail == false)
         }
-    }
-
-    BorderHorizontal
-    {
-        id: border
-
-        anchors.bottom: details.top
-
-        visible: details.visible
     }
 
     Item
@@ -570,5 +589,14 @@ PanelImage
 
             pClear();
         }
+    }
+
+    BorderHorizontal
+    {
+        id: border
+
+        anchors.top: itemImage.bottom
+
+        visible: details.visible
     }
 }

@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 MouseArea
@@ -42,11 +42,12 @@ MouseArea
     //---------------------------------------------------------------------------------------------
 
     property alias buttonApplication: buttonApplication
+    property alias buttonDiscover   : buttonDiscover
+
+    property alias lineEditSearch: lineEditSearch
 
     property alias buttonBackward: buttonBackward
     property alias buttonForward : buttonForward
-
-    property alias lineEditSearch: lineEditSearch
 
     property alias itemTabs: itemTabs
 
@@ -260,6 +261,8 @@ MouseArea
 
         if (actionCue.tryPush(actionTabOpen)) return;
 
+        panelDiscover.collapse();
+
         var index;
 
         if (playlist)
@@ -393,8 +396,18 @@ MouseArea
 
             visible: (gui.isMini == false)
 
+            checkable: true
+            checked  : panelDiscover.isExposed
+
             icon          : st.icon32x32_url
             iconSourceSize: st.size32x32
+
+            onPressed:
+            {
+                gui.restoreBars();
+
+                panelDiscover.toggleExpose();
+            }
         }
 
         ButtonPianoIcon
@@ -440,7 +453,12 @@ MouseArea
 
             icon: st.icon32x32_goBackward
 
-            onClicked: currentTab.setPreviousBookmark()
+            onClicked:
+            {
+                panelDiscover.collapse();
+
+                currentTab.setPreviousBookmark();
+            }
         }
 
         ButtonPianoIcon
@@ -459,7 +477,12 @@ MouseArea
 
             icon: st.icon32x32_goForward
 
-            onClicked: currentTab.setNextBookmark()
+            onClicked:
+            {
+                panelDiscover.collapse();
+
+                currentTab.setNextBookmark();
+            }
         }
 
         LineEditSearch
@@ -516,7 +539,12 @@ MouseArea
             // Events
             //-------------------------------------------------------------------------------------
 
-            onTabClicked: wall.updateCurrentPage()
+            onTabClicked:
+            {
+                panelDiscover.collapse();
+
+                wall.updateCurrentPage();
+            }
 
             onTabDoubleClicked:
             {

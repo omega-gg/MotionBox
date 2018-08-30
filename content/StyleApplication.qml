@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Style
@@ -34,8 +34,8 @@ Style
     property int dp100: 100 * ratio
     property int dp108: 108 * ratio
     property int dp110: 110 * ratio
-    property int dp146: 146 * ratio
     property int dp160: 160 * ratio
+    property int dp192: 192 * ratio
 
     property int dp202: 202 * ratio
     property int dp220: 220 * ratio
@@ -47,7 +47,7 @@ Style
 
     property int dp480: 480 * ratio
 
-    property variant size42x32: size(42, 32)
+    property variant size56x32: size(56, 32)
 
     //---------------------------------------------------------------------------------------------
 
@@ -130,6 +130,11 @@ Style
     // PageAboutText
 
     property color pageAboutText_color: "#323232"
+
+    //---------------------------------------------------------------------------------------------
+    // ComponentDiscover
+
+    property int componentDiscover_height: dp48 + border_size
 
     //---------------------------------------------------------------------------------------------
     // Icons

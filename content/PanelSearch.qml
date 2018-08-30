@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 Panel
@@ -41,16 +41,10 @@ Panel
     property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias buttonSearch: buttonSearch
-
-    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: barHubs.x + barHubs.width + borders.sizeWidth
+    width: scrollHubs.x + scrollHubs.width + borders.sizeWidth
 
     height: st.dp202 + borderSizeHeight
 
@@ -112,6 +106,7 @@ Panel
             gui.restoreMicro();
 
             panelApplication.collapse();
+            panelDiscover   .collapse();
 
             pIndexFocus = 1;
 
@@ -119,7 +114,7 @@ Panel
 
             if (index == -1)
             {
-                selectHub(0);
+                selectBackend(0);
             }
             else scrollHubs.scrollToItem(index);
 
@@ -146,7 +141,7 @@ Panel
 
             if (text && core.checkUrl(text))
             {
-                selectHub(0);
+                selectBackend(0);
             }
 
             scrollCompletion.currentIndex = -1;
@@ -168,6 +163,13 @@ Panel
         lineEditSearch.focus();
 
         hub = 1;
+    }
+
+    function search()
+    {
+        action = 0;
+
+        pStartSearch();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -235,7 +237,7 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function selectHub(index)
+    function selectBackend(index)
     {
         var id = hubs.idAt(index);
 
@@ -250,14 +252,14 @@ Panel
     {
         var index = getHubIndex() - 1;
 
-        selectHub(index);
+        selectBackend(index);
     }
 
     function selectNextHub()
     {
         var index = getHubIndex() + 1;
 
-        selectHub(index);
+        selectBackend(index);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -275,20 +277,6 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function triggerActionPressed()
-    {
-        if (action == 0) buttonSearch.triggerPressed();
-        else             buttonPlay  .triggerPressed();
-    }
-
-    function triggerActionReleased()
-    {
-        if (action == 0) buttonSearch.triggerReleased();
-        else             buttonPlay  .triggerReleased();
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Private
 
     function pStartSearch()
@@ -298,34 +286,6 @@ Panel
              panelBrowse.search(hub, lineEditSearch.text, true, false);
         }
         else panelBrowse.search(hub, lineEditSearch.text, true, true);
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pSearch()
-    {
-        action = 0;
-
-        pStartSearch();
-    }
-
-    function pPlay()
-    {
-        action = 1;
-
-        pStartSearch();
-    }
-
-    function pTriggerSearch()
-    {
-        if (buttonSearch.isFocused)
-        {
-            pSearch();
-        }
-        else if (buttonPlay.isFocused)
-        {
-            pPlay();
-        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -358,6 +318,8 @@ Panel
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
+        anchors.bottomMargin: -st.border_size
+
         width: (gui.isMini) ? st.dp258
                             : lineEditSearch.width
 
@@ -384,7 +346,7 @@ Panel
             else scrollTo(0);
         }
 
-        onItemDoubleClicked: pTriggerSearch()
+        onItemDoubleClicked: search()
     }
 
     BorderVertical
@@ -392,28 +354,6 @@ Panel
         id: border
 
         anchors.left: scrollCompletion.right
-    }
-
-    BarTitleSmall
-    {
-        id: barHubs
-
-        anchors.left: border.right
-
-        width: st.dp220
-
-        borderTop: 0
-
-        acceptedButtons: Qt.NoButton
-
-        BarTitleText
-        {
-            anchors.fill: parent
-
-            text: qsTr("Hubs")
-
-            font.pixelSize: st.dp12
-        }
     }
 
     ScrollView
@@ -426,12 +366,12 @@ Panel
                                                : -1
 
         anchors.left  : border.right
-        anchors.top   : barHubs.bottom
-        anchors.bottom: buttonSearch.top
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
 
-        anchors.bottomMargin: -(buttonSearch.borderTop)
+        anchors.bottomMargin: -st.border_size
 
-        width: barHubs.width
+        width: st.dp220
 
         model: ModelLibraryFolder { folder: hubs }
 
@@ -450,60 +390,7 @@ Panel
 
             onPressed: hub = id
 
-            onDoubleClicked: pTriggerSearch()
+            onDoubleClicked: search()
         }
-    }
-
-    ButtonPianoFull
-    {
-        id: buttonSearch
-
-        anchors.left  : border.right
-        anchors.bottom: parent.bottom
-
-        width: Math.round((scrollHubs.width) / 2)
-
-        borderRight: 0
-        borderTop  : borderSize
-
-        spacing: st.dp2
-
-        enabled: (scrollCompletion.query)
-
-        isFocused: (enabled && action == 0)
-
-        icon          : st.icon16x16_searchSmall
-        iconSourceSize: st.size16x16
-
-        text: qsTr("Browse")
-
-        onClicked: pSearch()
-    }
-
-    ButtonPianoFull
-    {
-        id: buttonPlay
-
-        anchors.left  : buttonSearch.right
-        anchors.right : parent.right
-        anchors.top   : buttonSearch.top
-        anchors.bottom: buttonSearch.bottom
-
-        borderLeft : borderSize
-        borderRight: 0
-        borderTop  : borderSize
-
-        spacing: st.dp2
-
-        enabled: buttonSearch.enabled
-
-        isFocused: (enabled && action == 1)
-
-        icon          : st.icon16x16_playSmall
-        iconSourceSize: st.size16x16
-
-        text: qsTr("Play")
-
-        onClicked: pPlay()
     }
 }

@@ -14,7 +14,7 @@
 */
 //=================================================================================================
 
-import QtQuick 1.1
+import QtQuick 1.0
 import Sky     1.0
 
 AreaContextual
@@ -459,7 +459,7 @@ AreaContextual
             {
                 var title = pItem.playlist.trackTitle(pIndex);
 
-                pBrowse(title);
+                pBrowse(core.getQuery(title));
             }
             else if (id == 2) // Webpage
             {

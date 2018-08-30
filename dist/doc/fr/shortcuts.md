@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Basculer le paneau d'application.
+F1: Basculer le Mode Découverte.
 
 F2: Basculer le Lecteur Navigateur.
 

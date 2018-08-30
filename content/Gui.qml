@@ -65,17 +65,17 @@ Item
     /* read */ property int actionExpand : 0
     /* read */ property int actionRestore: 1
 
-    /* read */ property int actionWallExpose : 2
-    /* read */ property int actionWallRestore: 3
+    /* read */ property int actionBarsExpand : 2
+    /* read */ property int actionBarsRestore: 3
 
-    /* read */ property int actionRelatedExpose  : 4
-    /* read */ property int actionRelatedCollapse: 5
+    /* read */ property int actionWallExpose : 4
+    /* read */ property int actionWallRestore: 5
 
-    /* read */ property int actionRelatedExpand : 6
-    /* read */ property int actionRelatedRestore: 7
+    /* read */ property int actionRelatedExpose  : 6
+    /* read */ property int actionRelatedCollapse: 7
 
-    /* read */ property int actionBarsExpand : 8
-    /* read */ property int actionBarsRestore: 9
+    /* read */ property int actionRelatedExpand : 8
+    /* read */ property int actionRelatedRestore: 9
 
     /* read */ property int actionTracksExpand : 10
     /* read */ property int actionTracksRestore: 11
@@ -806,42 +806,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function exposeWall()
-    {
-        restoreMicro();
-
-        panelTracks.restore();
-
-        if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
-
-        panelDiscover.collapse();
-
-        wall.expose();
-
-        clearExpand();
-
-        startActionCue(st.duration_normal);
-    }
-
-    function restoreWall()
-    {
-        if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
-
-        panelDiscover.collapse();
-
-        wall.restore();
-
-        startActionCue(st.duration_normal);
-    }
-
-    function toggleWall()
-    {
-        if (wall.isExposed) restoreWall();
-        else                exposeWall ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function expandBars()
     {
         if (areaContextual.isActive)
@@ -971,6 +935,42 @@ Item
                 timer.start();
             }
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function exposeWall()
+    {
+        restoreMicro();
+
+        panelTracks.restore();
+
+        if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
+
+        panelDiscover.collapse();
+
+        wall.expose();
+
+        clearExpand();
+
+        startActionCue(st.duration_normal);
+    }
+
+    function restoreWall()
+    {
+        if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
+
+        panelDiscover.collapse();
+
+        wall.restore();
+
+        startActionCue(st.duration_normal);
+    }
+
+    function toggleWall()
+    {
+        if (wall.isExposed) restoreWall();
+        else                exposeWall ();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1448,6 +1448,8 @@ Item
 
         panelSettings.collapse();
         panelShare   .collapse();
+
+        panelDiscover.collapse();
 
         panelCover.clearItem();
     }
@@ -3325,6 +3327,9 @@ Item
             if      (id == actionExpand)  expand ();
             else if (id == actionRestore) restore();
 
+            else if (id == actionBarsExpand)  expandBars ();
+            else if (id == actionBarsRestore) restoreBars();
+
             else if (id == actionWallExpose)  exposeWall ();
             else if (id == actionWallRestore) restoreWall();
 
@@ -3332,9 +3337,6 @@ Item
             else if (id == actionRelatedCollapse) panelRelated.collapse();
             else if (id == actionRelatedExpand)   panelRelated.expand  ();
             else if (id == actionRelatedRestore)  panelRelated.restore ();
-
-            else if (id == actionBarsExpand)  expandBars ();
-            else if (id == actionBarsRestore) restoreBars();
 
             else if (id == actionTracksExpand)  panelTracks.expand ();
             else if (id == actionTracksRestore) panelTracks.restore();

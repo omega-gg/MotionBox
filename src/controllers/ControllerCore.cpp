@@ -690,7 +690,9 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE static */ QString ControllerCore::getQuery(const QString & title)
 {
-    return QString(title).replace('.', ' ');
+    QString result = title;
+
+    return result.replace('.', ' ').simplified();
 }
 
 //-------------------------------------------------------------------------------------------------

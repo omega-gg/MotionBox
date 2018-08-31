@@ -64,6 +64,7 @@ if [ $1 = "qt5" ]; then
 
     if [ $2 = "linux" ]; then
 
+        cp -r "$deploy"/QtQuick.2         deploy
         cp -r "$deploy"/xcbglintegrations deploy
     fi
 fi

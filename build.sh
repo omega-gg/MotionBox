@@ -84,10 +84,14 @@ if [ $1 = "qt4" ]; then
     QT_SELECT=qt4
 
     build="build/qt4"
+
+    config="CONFIG += release"
 else
     QT_SELECT=qt5
 
     build="build/qt5"
+
+    config="CONFIG += release qtquickcompiler"
 fi
 
 if [ $2 = "win32" ]; then
@@ -132,9 +136,9 @@ cd ../$build
 
 if [ "$3" = "deploy" ]; then
 
-    qmake -r -spec $spec "CONFIG += release" "DEFINES += SK_DEPLOY" $MotionBox
+    qmake -r -spec $spec $config "DEFINES += SK_DEPLOY" $MotionBox
 else
-    qmake -r -spec $spec "CONFIG += release" $MotionBox
+    qmake -r -spec $spec $config $MotionBox
 fi
 
 if [ $2 = "win32" ]; then

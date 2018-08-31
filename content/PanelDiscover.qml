@@ -189,7 +189,7 @@ MouseArea
         id: borderBackends
 
         anchors.left  : scrollBackends.right
-        anchors.top   : undefined
+        anchors.top   : scrollBackends.top
         anchors.bottom: undefined
 
         height: Math.min(scrollBackends.contentHeight, scrollBackends.height)

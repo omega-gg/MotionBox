@@ -136,9 +136,9 @@ cd ../$build
 
 if [ "$3" = "deploy" ]; then
 
-    qmake -r -spec $spec $config "DEFINES += SK_DEPLOY" $MotionBox
+    qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
 else
-    qmake -r -spec $spec $config $MotionBox
+    qmake -r -spec $spec "$config" $MotionBox
 fi
 
 if [ $2 = "win32" ]; then

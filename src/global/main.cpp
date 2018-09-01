@@ -26,10 +26,6 @@
 
 int main(int argc, char * argv[])
 {
-#ifdef QT_4
-    QCoreApplication::setAttribute(Qt::AA_ImmediateWidgetCreation);
-#endif
-
     QApplication * application = WApplication::create(argc, argv);
 
     if (application == NULL) return 0;

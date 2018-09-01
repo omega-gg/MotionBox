@@ -211,8 +211,8 @@ Style
     //---------------------------------------------------------------------------------------------
     // 42x32 and 36x28
 
-    property url icon42x32_track: vector("pictures/icons/track.png",      icon_trackWide)
-    property url icon36x28_track: vector("pictures/icons/trackSmall.png", icon_trackWide)
+    property url icon56x32_track: vector("pictures/icons/track.png",      icon_trackWide)
+    property url icon50x28_track: vector("pictures/icons/trackSmall.png", icon_trackWide)
 
     //---------------------------------------------------------------------------------------------
     // 16x16

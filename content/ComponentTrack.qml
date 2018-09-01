@@ -63,7 +63,7 @@ ComponentLibraryItem
             }
             else return st.icon24x24_play;
         }
-        else return st.icon42x32_track;
+        else return st.icon56x32_track;
     }
 
     text: gui.getTrackTitle(title, loadState, source)

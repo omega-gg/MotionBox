@@ -485,7 +485,7 @@ Panel
 
             source: player.trackCover
 
-            sourceDefault: st.icon36x28_track
+            sourceDefault: st.icon50x28_track
 
             fillMode: Image.PreserveAspectCrop
 

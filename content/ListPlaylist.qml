@@ -1070,7 +1070,7 @@ List
 
             source = data.source;
 
-            toolTip.showIcon(data.title, st.icon42x32_track, data.cover, 42, 32);
+            toolTip.showIcon(data.title, st.icon56x32_track, data.cover, 42, 32);
         }
         else
         {

@@ -396,6 +396,8 @@ MouseArea
 
             visible: (gui.isMini == false)
 
+            enabled: false
+
             checkable: true
             checked  : panelDiscover.isExposed
 
@@ -531,7 +533,7 @@ MouseArea
 
             player: gui.player
 
-            iconDefault: st.icon42x32_track
+            iconDefault: st.icon56x32_track
 
             asynchronous: true
 

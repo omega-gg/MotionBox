@@ -529,7 +529,7 @@ AreaContextual
             }
             else if (id == 1) // Browse
             {
-                pBrowse(pItem.title);
+                pBrowse(core.getQuery(pItem.title));
             }
             else if (id == 2) // Webpage
             {

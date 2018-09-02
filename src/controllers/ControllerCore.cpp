@@ -692,7 +692,9 @@ ControllerCore::ControllerCore() : WController()
 {
     QString result = title;
 
-    return result.replace('.', ' ').simplified();
+    result.replace(QRegExp("[.:]"), " ");
+
+    return result.simplified();
 }
 
 //-------------------------------------------------------------------------------------------------

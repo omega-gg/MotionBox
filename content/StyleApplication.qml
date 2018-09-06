@@ -304,10 +304,4 @@ Style
     // Animation
 
     animate: false
-
-    //---------------------------------------------------------------------------------------------
-    // Separator
-
-    separator_colorA: "#868686"
-    separator_colorB: "#565656"
 }

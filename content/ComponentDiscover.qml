@@ -112,7 +112,7 @@ ContextualItem
         source    : st.icon_slideRight
         sourceSize: st.size32x32
 
-        style: Sk.IconSunken
+        style: st.icon_sunken
 
         filter: st.icon_filter
     }

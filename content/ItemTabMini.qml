@@ -52,11 +52,11 @@ ItemTab
 
     textColor: st.text1_color
 
-    textStyle: (isCurrent) ? Text.Raised
-                           : Text.Sunken
+    textStyle: (isCurrent) ? st.text_raised
+                           : st.text_sunken
 
-    iconStyle: (isCurrent) ? Sk.IconRaised
-                           : Sk.IconSunken
+    iconStyle: (isCurrent) ? st.icon_raised
+                           : st.icon_sunken
 
     textStyleColor: (isCurrent) ? st.text1_colorShadow
                                 : st.text1_colorSunken

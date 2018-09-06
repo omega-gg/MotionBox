@@ -56,14 +56,6 @@ Panel
     property bool pAnimate  : false
     property bool pAnimating: false
 
-    property bool pExposed: local.panelCoverVisible
-
-    property bool pButtonActive: (player.isPlaying && isPreview == false
-                                  &&
-                                  gui.isExpanded == false && (panelTracks.isExpanded
-                                                              ||
-                                                              panelBrowse.isExposed == false))
-
     property bool pClearLater: false
 
     //---------------------------------------------------------------------------------------------
@@ -234,19 +226,6 @@ Panel
     onExited: clearItemLater()
 
     //---------------------------------------------------------------------------------------------
-    // Private
-
-    onPButtonActiveChanged:
-    {
-        if (pButtonActive)
-        {
-            buttonUp.visible = true;
-        }
-
-        clip = true;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Connections
     //---------------------------------------------------------------------------------------------
 
@@ -268,23 +247,6 @@ Panel
 
     //---------------------------------------------------------------------------------------------
     // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function updatePanel()
-    {
-        if (isExpanded) return;
-
-        if (player.isPlaying && pExposed
-            &&
-            gui.isExpanded == false && (panelTracks.isExpanded
-                                        ||
-                                        panelBrowse.isExposed == false))
-        {
-             expose();
-        }
-        else collapse();
-    }
-
     //---------------------------------------------------------------------------------------------
 
     function expose()
@@ -406,7 +368,7 @@ Panel
 
         pClearLater = true;
 
-        updatePanel();
+        if (isExpanded == false) collapse();
 
         if (isExposed) pClearSource();
     }
@@ -530,7 +492,7 @@ Panel
                 source    : st.icon32x32_search
                 sourceSize: st.size32x32
 
-                style: Sk.IconRaised
+                style: st.icon_raised
             }
         }
 
@@ -547,7 +509,7 @@ Panel
         id: buttonTrack
 
         anchors.left  : background.right
-        anchors.right : buttonUp.left
+        anchors.right : parent.right
         anchors.top   : background.top
         anchors.bottom: border.bottom
 
@@ -595,8 +557,8 @@ Panel
 
         itemText.opacity: 1.0
 
-        itemText.style: (enabled) ? Text.Sunken
-                                  : Text.Raised
+        itemText.style: (enabled) ? st.text_sunken
+                                  : st.text_raised
 
         onPressed:
         {
@@ -607,80 +569,9 @@ Panel
 
         BorderHorizontal
         {
-            visible: hasItem
+            visible: (hasItem && buttonTrack.colorA != buttonTrack.colorB)
 
             color: st.barTitle_colorBorderLine
-        }
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonUp
-
-        anchors.left  : parent.right
-        anchors.top   : background.top
-        anchors.bottom: border.bottom
-
-        width: height + borderSizeWidth
-
-        borderLeft  : borderSize
-        borderRight : 0
-        borderBottom: borderSize
-
-        visible: false
-
-        checkable: true
-        checked  : pExposed
-
-        icon          : st.icon24x24_slideUp
-        iconSourceSize: st.size24x24
-
-        states: State
-        {
-            name: "active"; when: pButtonActive
-
-            AnchorChanges
-            {
-                target: buttonUp
-
-                anchors.left : undefined
-                anchors.right: parent.right
-            }
-        }
-
-        transitions: Transition
-        {
-            SequentialAnimation
-            {
-                AnchorAnimation
-                {
-                    duration: (pAnimating) ? 0 : st.duration_normal
-                }
-
-                ScriptAction
-                {
-                    script:
-                    {
-                        if (pButtonActive == false)
-                        {
-                            buttonUp.visible = false;
-                        }
-
-                        panelCover.clip = false;
-                    }
-                }
-            }
-        }
-
-        onClicked:
-        {
-            if (pButtonActive == false) return;
-
-            toggleExpose();
-
-            pExposed = isExposed;
-
-            local.panelCoverVisible = isExposed;
         }
     }
 
@@ -791,7 +682,7 @@ Panel
             text: (hasItem) ? gui.getTrackDuration(duration)
                             : gui.getTrackDuration(playerTab.duration)
 
-            style: Text.Sunken
+            style: st.text_sunken
 
             font.pixelSize: st.dp14
         }

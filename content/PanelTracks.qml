@@ -80,8 +80,6 @@ Item
 
         isExpanded = true;
 
-        panelCover.updatePanel();
-
         gui.updateScreenDim();
 
         gui.clearExpand();
@@ -101,8 +99,6 @@ Item
 
         panelLibrary.visible = true;
         panelPlayer .visible = true;
-
-        panelCover.updatePanel();
 
         gui.updateScreenDim();
 

@@ -505,7 +505,7 @@ PanelImage
             source    : st.icon28x28_hd
             sourceSize: st.size28x28
 
-            style: Sk.IconRaised
+            style: st.icon_raised
         }
 
         TextBase
@@ -531,7 +531,7 @@ PanelImage
 
             color: st.panelPreview_colorText
 
-            style: Text.Raised
+            style: st.text_raised
 
             font.pixelSize: st.dp14
         }
@@ -556,7 +556,7 @@ PanelImage
 
             date: core.datePreview
 
-            style: Text.Raised
+            style: st.text_raised
         }
     }
 

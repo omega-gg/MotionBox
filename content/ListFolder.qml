@@ -920,7 +920,7 @@ List
         source    : st.icon32x32_search
         sourceSize: st.size32x32
 
-        style: Sk.IconRaised
+        style: st.icon_raised
     }
 
     ButtonPushIcon

@@ -313,6 +313,8 @@ Item
 
     Component.onCompleted:
     {
+        if (local.style) st.applyFlat();
+
         loadTabItems(currentTab);
 
         if (local.browserVisible)
@@ -343,11 +345,6 @@ Item
 
         player.output  = local.output;
         player.quality = local.quality;
-
-        if      (local.networkCache == 0) player.backend.networkCache = 5000;
-        else if (local.networkCache == 1) player.backend.networkCache = 1000;
-        else if (local.networkCache == 2) player.backend.networkCache = 500;
-        else                              player.backend.networkCache = 200;
 
         if (local.proxyActive)
         {
@@ -608,8 +605,6 @@ Item
 
         onIsPlayingChanged:
         {
-            panelCover.updatePanel();
-
             updateScreenDim();
 
             if (player.isStopped)
@@ -757,8 +752,6 @@ Item
         }
         else panelPlayer.wallExpand(itemContent.width, itemContent.height);
 
-        panelCover.updatePanel();
-
         local.expanded = true;
 
         startActionCue(st.duration_normal);
@@ -790,8 +783,6 @@ Item
         }
         else panelPlayer.wallExpand(itemContent.width - panelLibrary.width,
                                     panelPlayer.heightPlayer);
-
-        panelCover.updatePanel();
 
         local.expanded = false;
 

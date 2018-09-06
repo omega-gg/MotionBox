@@ -357,7 +357,12 @@ MouseArea
             GradientStop { position: 1.0; color: st.barTitle_colorB }
         }
 
-        BorderHorizontal { color: st.barTitle_colorBorderLine }
+        BorderHorizontal
+        {
+            visible: (st.barTitle_colorA != st.barTitle_colorB)
+
+            color: st.barTitle_colorBorderLine
+        }
 
         ButtonPianoIcon
         {

@@ -67,6 +67,8 @@ public: // Variables
     int splashWidth;
     int splashHeight;
 
+    int style;
+
     qreal scale;
 
     bool maximized;
@@ -80,8 +82,6 @@ public: // Variables
     bool relatedExpanded;
 
     bool tracksExpanded;
-
-    bool panelCoverVisible;
 
     bool browserVisible;
 
@@ -98,8 +98,6 @@ public: // Variables
 
     WAbstractBackend::Output  output;
     WAbstractBackend::Quality quality;
-
-    int networkCache;
 
     bool cache;
 
@@ -162,6 +160,8 @@ public: // Variables
     stream.writeTextElement("splashWidth",  QString::number(splashWidth));
     stream.writeTextElement("splashHeight", QString::number(splashHeight));
 
+    stream.writeTextElement("style", QString::number(style));
+
     stream.writeTextElement("scale", QString::number(scale));
 
     stream.writeTextElement("maximized", QString::number(maximized));
@@ -175,8 +175,6 @@ public: // Variables
     stream.writeTextElement("relatedExpanded", QString::number(relatedExpanded));
 
     stream.writeTextElement("tracksExpanded", QString::number(tracksExpanded));
-
-    stream.writeTextElement("panelCoverVisible", QString::number(panelCoverVisible));
 
     stream.writeTextElement("browserVisible", QString::number(browserVisible));
 
@@ -193,8 +191,6 @@ public: // Variables
 
     stream.writeTextElement("output",  QString::number(output));
     stream.writeTextElement("quality", QString::number(quality));
-
-    stream.writeTextElement("networkCache", QString::number(networkCache));
 
     stream.writeTextElement("cache", QString::number(cache));
 
@@ -241,6 +237,8 @@ public: // Variables
     _splashWidth  = -1;
     _splashHeight = -1;
 
+    _style = 0;
+
     _scale = 1.0;
 
     _maximized = false;
@@ -255,8 +253,6 @@ public: // Variables
 
     _tracksExpanded = false;
 
-    _panelCoverVisible = false;
-
     _browserVisible = false;
 
     _typePlaylist = false;
@@ -270,8 +266,6 @@ public: // Variables
 
     _output  = WAbstractBackend::OutputMedia;
     _quality = WAbstractBackend::QualityHigh;
-
-    _networkCache = 1;
 
     _cache = false;
 
@@ -397,6 +391,13 @@ public: // Variables
     _splashHeight = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
+    // style
+
+    if (WControllerXml::readNextStartElement(&stream, "style") == false) return false;
+
+    _style = WControllerXml::readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // scale
 
     if (WControllerXml::readNextStartElement(&stream, "scale") == false) return false;
@@ -451,13 +452,6 @@ public: // Variables
     if (WControllerXml::readNextStartElement(&stream, "tracksExpanded") == false) return false;
 
     _tracksExpanded = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // panelCoverVisible
-
-    if (WControllerXml::readNextStartElement(&stream, "panelCoverVisible") == false) return false;
-
-    _panelCoverVisible = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // browserVisible
@@ -521,13 +515,6 @@ public: // Variables
     if (WControllerXml::readNextStartElement(&stream, "quality") == false) return false;
 
     _quality = static_cast<WAbstractBackend::Quality> (WControllerXml::readNextInt(&stream));
-
-    //---------------------------------------------------------------------------------------------
-    // networkCache
-
-    if (WControllerXml::readNextStartElement(&stream, "networkCache") == false) return false;
-
-    _networkCache = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // cache
@@ -650,6 +637,8 @@ public: // Variables
     action->splashWidth  = _splashWidth;
     action->splashHeight = _splashHeight;
 
+    action->style = _style;
+
     action->scale = _scale;
 
     action->maximized = _maximized;
@@ -663,8 +652,6 @@ public: // Variables
     action->relatedExpanded = _relatedExpanded;
 
     action->tracksExpanded = _tracksExpanded;
-
-    action->panelCoverVisible = _panelCoverVisible;
 
     action->browserVisible = _browserVisible;
 
@@ -681,8 +668,6 @@ public: // Variables
 
     action->output  = _output;
     action->quality = _quality;
-
-    action->networkCache = _networkCache;
 
     action->cache = _cache;
 
@@ -756,6 +741,22 @@ int DataLocal::splashWidth() const
 int DataLocal::splashHeight() const
 {
     return _splashHeight;
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::style() const
+{
+    return _style;
+}
+
+void DataLocal::setStyle(int style)
+{
+    _style = style;
+
+    emit styleChanged();
+
+    save();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -892,24 +893,6 @@ void DataLocal::setTracksExpanded(bool expanded)
     _tracksExpanded = expanded;
 
     emit tracksExpandedChanged();
-
-    save();
-}
-
-//-------------------------------------------------------------------------------------------------
-
-bool DataLocal::panelCoverVisible() const
-{
-    return _panelCoverVisible;
-}
-
-void DataLocal::setPanelCoverVisible(bool visible)
-{
-    if (_panelCoverVisible == visible) return;
-
-    _panelCoverVisible = visible;
-
-    emit panelCoverVisibleChanged();
 
     save();
 }
@@ -1066,22 +1049,6 @@ void DataLocal::setQuality(WAbstractBackend::Quality quality)
     _quality = quality;
 
     emit qualityChanged();
-
-    save();
-}
-
-//-------------------------------------------------------------------------------------------------
-
-int DataLocal::networkCache() const
-{
-    return _networkCache;
-}
-
-void DataLocal::setNetworkCache(int index)
-{
-    _networkCache = index;
-
-    emit networkCacheChanged();
 
     save();
 }

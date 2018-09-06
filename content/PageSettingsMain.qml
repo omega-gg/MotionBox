@@ -29,27 +29,15 @@ Item
     // Functions private
     //---------------------------------------------------------------------------------------------
 
-    function pSetNetworkQuality(index)
+    function pSetStyle(index)
     {
-        if (local.networkCache == index) return;
-
-        if      (index == 0) player.backend.networkCache = 5000;
-        else if (index == 1) player.backend.networkCache = 1000;
-        else if (index == 2) player.backend.networkCache = 500;
-        else                 player.backend.networkCache = 200;
-
-        if (player.isPlaying)
+        if (index == 0)
         {
-            player.keepState = true;
-
-            player.stop();
-            player.play();
-
-            player.keepState = false;
+             st.applyDefault();
         }
-        else player.stop();
+        else st.applyFlat();
 
-        local.networkCache = index;
+        local.style = index;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -225,38 +213,36 @@ Item
 
         anchors.topMargin: st.dp3
 
-        enabled: (buttonsNetwork.currentIndex != 1)
+        enabled: (buttonsStyle.currentIndex != 1)
 
-        text: qsTr("Network stability")
+        text: qsTr("Style")
 
-        onReset: buttonsNetwork.pressAt(1)
+        onReset: buttonsStyle.pressAt(1)
     }
 
     ButtonsCheck
     {
-        id: buttonsNetwork
+        id: buttonsStyle
 
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : barNetwork.bottom
+        anchors.left: parent.left
+        anchors.top : barNetwork.bottom
 
-        anchors.leftMargin : st.dp3
-        anchors.rightMargin: st.dp3
-        anchors.topMargin  : st.dp3
+        anchors.leftMargin: st.dp3
+        anchors.topMargin : st.dp3
+
+        width: st.dp200
 
         model: ListModel {}
 
-        currentIndex: local.networkCache
+        currentIndex: local.style
 
         Component.onCompleted:
         {
-            model.append({ "title": qsTr("Low")   });
-            model.append({ "title": qsTr("Med")   });
-            model.append({ "title": qsTr("High")  });
-            model.append({ "title": qsTr("Ultra") });
+            model.append({ "title": qsTr("Default") });
+            model.append({ "title": qsTr("Flat")    });
         }
 
-        onPressed: pSetNetworkQuality(currentIndex)
+        onPressed: pSetStyle(currentIndex)
     }
 
     BarTitleSmall
@@ -265,7 +251,7 @@ Item
 
         anchors.left : parent.left
         anchors.right: parent.right
-        anchors.top  : buttonsNetwork.bottom
+        anchors.top  : buttonsStyle.bottom
 
         anchors.topMargin: st.dp3
     }

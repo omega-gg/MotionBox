@@ -39,6 +39,8 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(int splashWidth  READ splashWidth  CONSTANT)
     Q_PROPERTY(int splashHeight READ splashHeight CONSTANT)
 
+    Q_PROPERTY(int style READ style WRITE setStyle NOTIFY styleChanged)
+
     Q_PROPERTY(qreal scale READ scale WRITE setScale NOTIFY scaleChanged)
 
     Q_PROPERTY(bool maximized READ maximized WRITE setMaximized NOTIFY maximizedChanged)
@@ -55,9 +57,6 @@ class DataLocal : public WLocalObject
 
     Q_PROPERTY(bool tracksExpanded READ tracksExpanded WRITE setTracksExpanded
                NOTIFY tracksExpandedChanged)
-
-    Q_PROPERTY(bool panelCoverVisible READ panelCoverVisible WRITE setPanelCoverVisible
-               NOTIFY panelCoverVisibleChanged)
 
     Q_PROPERTY(bool browserVisible READ browserVisible WRITE setBrowserVisible
                NOTIFY browserVisibleChanged)
@@ -81,9 +80,6 @@ class DataLocal : public WLocalObject
 
     Q_PROPERTY(WAbstractBackend::Quality quality READ quality WRITE setQuality
                NOTIFY qualityChanged)
-
-    Q_PROPERTY(int networkCache READ networkCache WRITE setNetworkCache
-               NOTIFY networkCacheChanged)
 
     Q_PROPERTY(bool cache READ cache WRITE setCache NOTIFY cacheChanged)
 
@@ -132,6 +128,8 @@ protected: // WLocalObject reimplementation
     /* virtual */ WAbstractThreadAction * onSave(const QString & path);
 
 signals:
+    void styleChanged();
+
     void scaleChanged();
 
     void maximizedChanged();
@@ -145,8 +143,6 @@ signals:
     void relatedExpandedChanged();
 
     void tracksExpandedChanged();
-
-    void panelCoverVisibleChanged();
 
     void browserVisibleChanged();
 
@@ -163,8 +159,6 @@ signals:
 
     void outputChanged ();
     void qualityChanged();
-
-    void networkCacheChanged();
 
     void cacheChanged();
 
@@ -199,6 +193,9 @@ public: // Properties
     int splashWidth () const;
     int splashHeight() const;
 
+    int  style() const;
+    void setStyle(int style);
+
     qreal scale() const;
     void  setScale(qreal scale);
 
@@ -222,9 +219,6 @@ public: // Properties
 
     bool tracksExpanded() const;
     void setTracksExpanded(bool expanded);
-
-    bool panelCoverVisible() const;
-    void setPanelCoverVisible(bool visible);
 
     bool browserVisible() const;
     void setBrowserVisible(bool visible);
@@ -252,9 +246,6 @@ public: // Properties
 
     WAbstractBackend::Quality quality() const;
     void                      setQuality(WAbstractBackend::Quality quality);
-
-    int  networkCache() const;
-    void setNetworkCache(int index);
 
     bool cache() const;
     void setCache(bool cache);
@@ -306,6 +297,8 @@ private: // Variables
     int _splashWidth;
     int _splashHeight;
 
+    int _style;
+
     qreal _scale;
 
     bool _maximized;
@@ -319,8 +312,6 @@ private: // Variables
     bool _relatedExpanded;
 
     bool _tracksExpanded;
-
-    bool _panelCoverVisible;
 
     bool _browserVisible;
 
@@ -337,8 +328,6 @@ private: // Variables
 
     WAbstractBackend::Output  _output;
     WAbstractBackend::Quality _quality;
-
-    int _networkCache;
 
     bool _cache;
 

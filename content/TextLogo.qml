@@ -29,7 +29,7 @@ TextBase
 
     color: st.text3_color
 
-    style: Text.Raised
+    style: st.text_raised
 
     font.pixelSize: st.dp14
 }

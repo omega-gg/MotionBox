@@ -348,8 +348,6 @@ MouseArea
             window.clearFocus();
         }
 
-        panelCover.updatePanel();
-
         local.browserVisible = true;
 
         gui.startActionCue(st.duration_normal);
@@ -365,8 +363,6 @@ MouseArea
 
         panelLibrary.visible = true;
         panelTracks .visible = true;
-
-        panelCover.updatePanel();
 
         local.browserVisible = false;
 

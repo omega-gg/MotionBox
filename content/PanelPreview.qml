@@ -79,52 +79,54 @@ PanelImage
 
     //---------------------------------------------------------------------------------------------
 
-    backgroundImage.anchors.fill: undefined
+    imageBack.anchors.fill: undefined
 
-    backgroundImage.anchors.left : itemImage.parent.left
-    backgroundImage.anchors.right: itemImage.parent.right
+    imageBack.anchors.left : imageFront.parent.left
+    imageBack.anchors.right: imageFront.parent.right
 
-    backgroundImage.height: itemImage.height
+    imageBack.height: imageFront.height
 
-    backgroundImage.z: itemImage.z
+    imageBack.z: imageFront.z
 
-    backgroundImage.visible: true
+    imageBack.visible: true
 
-    backgroundImage.gradient: Gradient
+    imageBack.gradient: Gradient
     {
         GradientStop
         {
             position: 0.0
 
-            color: (itemImage.isSourceDefault) ? backgroundImage.colorA
-                                               : st.panelImage_color
+            color: (imageFront.isSourceDefault) ? imageBack.colorA
+                                                : st.panelImage_color
         }
 
         GradientStop
         {
             position: 1.0
 
-            color: (itemImage.isSourceDefault) ? backgroundImage.colorB
-                                               : st.panelImage_color
+            color: (imageFront.isSourceDefault) ? imageBack.colorB
+                                                : st.panelImage_color
         }
     }
 
-    backgroundImage.image.visible: itemImage.isSourceDefault
+    //---------------------------------------------------------------------------------------------
+
+    imageFront.anchors.fill: undefined
+
+    imageFront.anchors.left : imageFront.parent.left
+    imageFront.anchors.right: imageFront.parent.right
+
+    imageFront.height: st.dp108
+
+    imageFront.z: 1
+
+    imageFront.clip: true
+
+    imageFront.asynchronous: true
 
     //---------------------------------------------------------------------------------------------
 
-    itemImage.anchors.fill: undefined
-
-    itemImage.anchors.left : itemImage.parent.left
-    itemImage.anchors.right: itemImage.parent.right
-
-    itemImage.height: st.dp108
-
-    itemImage.z: 1
-
-    itemImage.clip: true
-
-    itemImage.asynchronous: true
+    imageBackground.visible: imageFront.isSourceDefault
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -451,7 +453,7 @@ PanelImage
 
     MouseArea
     {
-        anchors.fill: itemImage
+        anchors.fill: imageFront
 
         z: 1
 
@@ -597,7 +599,7 @@ PanelImage
     {
         id: border
 
-        anchors.top: itemImage.bottom
+        anchors.top: imageFront.bottom
 
         visible: details.visible
     }

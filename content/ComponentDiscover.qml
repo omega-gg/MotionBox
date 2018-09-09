@@ -25,6 +25,9 @@ ContextualItem
 
     height: st.componentDiscover_height
 
+    textMargin: (itemIcon.width) ? st.contextualItem_padding + pIconWidth
+                                 : st.contextualItem_padding
+
     filter: null
 
     background.visible: true
@@ -91,9 +94,6 @@ ContextualItem
             }
         }
     }
-
-    itemText.leftMargin: (itemIcon.width) ? st.contextualItem_padding + pIconWidth
-                                          : st.contextualItem_padding
 
     itemText.font.pixelSize: st.dp16
 

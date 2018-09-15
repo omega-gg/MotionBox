@@ -390,6 +390,8 @@ Panel
 
             onPressed: hub = id
 
+            onClicked: if (isFocused == false) search()
+
             onDoubleClicked: search()
         }
     }

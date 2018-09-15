@@ -147,8 +147,9 @@ Item
         anchors.top  : logoVlc.top
 
         anchors.rightMargin: st.dp16
+        anchors.topMargin  : st.dp4
 
-        sourceSize.height: st.dp48
+        sourceSize.height: st.dp40
 
         source: (isHovered) ? st.icon_qt
                             : st.icon_qtGray

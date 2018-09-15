@@ -72,7 +72,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-static const QString CORE_VERSION = "1.4.0-6";
+static const QString CORE_VERSION = "1.4.0-7";
 
 static const QString PATH_SK = "../../Sky/src";
 

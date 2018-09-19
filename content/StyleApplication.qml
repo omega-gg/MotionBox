@@ -61,8 +61,8 @@ Style
 
     property int splash_borderSize: dp8
 
-    property color splash_colorA: logo_colorB
-    property color splash_colorB: logo_colorA
+    property color splash_colorA: (local.style) ? "#484848" : logo_colorB
+    property color splash_colorB: (local.style) ? "#484848" : logo_colorA
 
     //---------------------------------------------------------------------------------------------
     // PanelBrowse

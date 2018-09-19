@@ -454,8 +454,6 @@ Panel
 
         width: st.dp38
 
-        padding: st.dp6
-
         highlighted: (pQualityActive == 1)
 
         checked   : (pQuality == 1)
@@ -476,8 +474,6 @@ Panel
 
         width: st.dp52
 
-        padding: 0
-
         highlighted: (pQualityActive == 2)
 
         checked   : (pQuality == 2)
@@ -496,8 +492,6 @@ Panel
         anchors.top : buttonLow.top
 
         width: st.dp52
-
-        padding: 0
 
         highlighted: (pQualityActive == 3)
 
@@ -518,8 +512,6 @@ Panel
 
         width: st.dp52
 
-        padding: 0
-
         highlighted: (pQualityActive == 4)
 
         checked   : (pQuality == 4)
@@ -539,8 +531,6 @@ Panel
 
         width: st.dp52
 
-        padding: 0
-
         highlighted: (pQualityActive == 5)
 
         checked   : (pQuality == 5)
@@ -559,8 +549,6 @@ Panel
         anchors.top : buttonUltra.top
 
         width: st.dp38
-
-        padding: st.dp6
 
         highlighted: (pQualityActive == 6)
 

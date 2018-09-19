@@ -72,7 +72,7 @@ Item
             {
                 target: panelPlayer
 
-                y: -(heightPlayer + st.dp2)
+                y: -(heightPlayer + st.border_size)
             }
         },
         State

@@ -2999,6 +2999,8 @@ Item
         }
         else if (event.key == Qt.Key_Tab)
         {
+            areaContextual.hidePanels();
+
             if (panelBrowse.lineEdit.visible && panelDiscover.isExposed == false)
             {
                 panelBrowse.lineEdit.focus();

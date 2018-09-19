@@ -213,11 +213,11 @@ Item
 
         anchors.topMargin: st.dp3
 
-        enabled: (buttonsStyle.currentIndex != 1)
+        enabled: (buttonsStyle.currentIndex != 0)
 
         text: qsTr("Style")
 
-        onReset: buttonsStyle.pressAt(1)
+        onReset: buttonsStyle.pressAt(0)
     }
 
     ButtonsCheck

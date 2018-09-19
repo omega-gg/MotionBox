@@ -57,8 +57,8 @@ Panel
     width: st.dp320 + borderRight
 
     height: bar.height
-            + (st.barTitleSmall_height + st.dp2 * 2 + st.buttonPush_height + st.dp3 * 2) * 4
-            - st.dp2 + borderSizeHeight
+            +
+            (st.barTitleSmall_height + st.border_size * 2 + st.buttonPush_height + st.dp3 * 2) * 4
 
     borderLeft: 0
     borderTop : 0
@@ -248,8 +248,8 @@ Panel
 
             anchors.fill: parent
 
-            anchors.leftMargin : -st.dp2
-            anchors.rightMargin: -st.dp2
+            anchors.leftMargin : -st.border_size
+            anchors.rightMargin: -st.border_size
 
             spacing: st.dp2
 

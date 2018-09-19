@@ -153,6 +153,8 @@ MouseArea
             width : st.dp48
             height: width
 
+            margins: st.dp6
+
             enabled: player.hasPreviousTrack
 
             highlighted: (enabled && player.isPlaying)
@@ -176,6 +178,8 @@ MouseArea
 
             width : st.dp48
             height: width
+
+            margins: st.dp6
 
             enabled: player.hasNextTrack
 
@@ -215,6 +219,8 @@ MouseArea
 
             width : st.dp48
             height: width
+
+            margins: st.dp6
 
             enabled: (player.source != "")
 

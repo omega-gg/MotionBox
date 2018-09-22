@@ -33,9 +33,9 @@ Item
     {
         if (index == 0)
         {
-             st.applyDefault();
+             st.applyFlat();
         }
-        else st.applyFlat();
+        else st.applyClassic();
 
         local.style = index;
     }
@@ -238,8 +238,8 @@ Item
 
         Component.onCompleted:
         {
-            model.append({ "title": qsTr("Default") });
             model.append({ "title": qsTr("Flat")    });
+            model.append({ "title": qsTr("Classic") });
         }
 
         onPressed: pSetStyle(currentIndex)

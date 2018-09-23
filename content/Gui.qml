@@ -3360,7 +3360,8 @@ Item
             else if (id == actionMicroExpose)  exposeMicro ();
             else if (id == actionMicroRestore) restoreMicro();
 
-            else if (id == actionTabOpen) barTop.openTab           ();
+            else if (id == actionTabOpen) barTop.openTabPlaylist(barTop.playlist);
+
             else if (id == actionTabMenu) barTop.showCurrentTabMenu();
 
             else if (id == actionZoom) zoom(pZoomScale, pZoomX, pZoomY, pZoomDuration, pZoomEasing,

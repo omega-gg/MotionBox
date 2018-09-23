@@ -27,6 +27,8 @@ MouseArea
 
     /* read */ property bool isExpanded: false
 
+    /* read */ property variant playlist: null
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -259,7 +261,12 @@ MouseArea
     {
         gui.restoreMicro();
 
-        if (actionCue.tryPush(actionTabOpen)) return;
+        if (actionCue.tryPush(actionTabOpen))
+        {
+            barTop.playlist = playlist;
+
+            return;
+        }
 
         panelDiscover.collapse();
 

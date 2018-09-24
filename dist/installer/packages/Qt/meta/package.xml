@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>Qt framework</DisplayName>
-    <Version>5.11.2-3</Version>
+    <Version>5.11.2</Version>
     <ReleaseDate>2018-09-20</ReleaseDate>
     <SortingPriority>2</SortingPriority>
     <ForcedInstallation>true</ForcedInstallation>

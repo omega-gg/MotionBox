@@ -2188,7 +2188,7 @@ Item
 
         if (controllerNetwork.urlIsFile(url))
         {
-             openFile(url);
+            Qt.openUrlExternally(controllerFile.folderUrl(url));
         }
         else openUrl(url);
     }

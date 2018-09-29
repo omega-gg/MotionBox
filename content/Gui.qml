@@ -1839,7 +1839,7 @@ Item
 
     function getItemName(type)
     {
-        if      (type == LibraryItem.Playlist)  return qsTr("Playlist");
+        if      (type == LibraryItem.Playlist)     return qsTr("Playlist");
         else if (type == LibraryItem.PlaylistFeed) return qsTr("Feed");
         else                                       return qsTr("Folder");
     }
@@ -2180,11 +2180,6 @@ Item
         Qt.openUrlExternally(controllerFile.fileUrl(url));
     }
 
-    function openFolder(url)
-    {
-        Qt.openUrlExternally(controllerFile.folderPath(url));
-    }
-
     //---------------------------------------------------------------------------------------------
 
     function openSource(url)
@@ -2193,7 +2188,7 @@ Item
 
         if (controllerNetwork.urlIsFile(url))
         {
-             openFolder(url);
+             openFile(url);
         }
         else openUrl(url);
     }

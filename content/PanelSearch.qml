@@ -323,6 +323,11 @@ Panel
         width: (gui.isMini) ? st.dp258
                             : lineEditSearch.width
 
+        delegate: ComponentCompletion
+        {
+            itemText.font.pixelSize: st.dp14
+        }
+
         textDefault: qsTr("Type something to watch")
 
         onQueryCompleted: pUpdateFocus()

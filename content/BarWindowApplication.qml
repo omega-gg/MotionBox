@@ -48,7 +48,7 @@ BarWindow
 
     buttonApplicationMaximum: buttonMini.x - st.dp32
 
-    viewDrag.acceptedButtons: Qt.LeftButton | Qt.RightButton
+    //viewDrag.acceptedButtons: Qt.LeftButton | Qt.RightButton
 
     buttonMaximize.visible: (gui.isMini == false)
 
@@ -102,15 +102,15 @@ BarWindow
     }
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Functions private
     //---------------------------------------------------------------------------------------------
 
-    function onMaximize()
+    function pMaximize()
     {
         gui.toggleMaximize();
     }
 
-    function onDoubleClicked(mouse)
+    function pDoubleClicked(mouse)
     {
         if (mouse.button & Qt.LeftButton)
         {

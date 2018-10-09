@@ -17,7 +17,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-MouseArea
+Item
 {
     id: barTop
 
@@ -27,33 +27,14 @@ MouseArea
 
     /* read */ property bool isExpanded: false
 
-    /* read */ property variant playlist: null
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    property TabTrack pContextualTab : null
-    property variant  pContextualItem: null
-
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias tabs: itemTabs.tabs
-
-    //---------------------------------------------------------------------------------------------
-
-    property alias buttonApplication: buttonApplication
-    property alias buttonDiscover   : buttonDiscover
+    property alias buttonDiscover: buttonDiscover
+    property alias buttonBrowse  : buttonBrowse
 
     property alias lineEditSearch: lineEditSearch
-
-    property alias buttonBackward: buttonBackward
-    property alias buttonForward : buttonForward
-
-    property alias itemTabs: itemTabs
-
-    property alias buttonAdd: buttonAdd
 
     property alias buttonExpand : buttonExpand
     property alias buttonWall   : buttonWall
@@ -62,27 +43,18 @@ MouseArea
     property alias border: border
 
     //---------------------------------------------------------------------------------------------
-    // Private
-
-    property alias pTab: itemTab.tab
-
-    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
     anchors.left : parent.left
     anchors.right: parent.right
+    anchors.top  : parent.top
 
-    anchors.top: (barWindow.visible) ? barWindow.bottom
-                                     : parent.top
+    anchors.topMargin: barWindow.height
 
     height: st.dp32 + border.size
 
     z: (window.fullScreen) ? 1 : 0
-
-    acceptedButtons: Qt.NoButton
-
-    hoverRetain: true
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -98,8 +70,7 @@ MouseArea
 
             anchors.top: undefined
 
-            anchors.bottom: (barWindow.visible) ? barWindow.bottom
-                                                : parent.top
+            anchors.bottom: parent.top
         }
     }
 
@@ -111,7 +82,14 @@ MouseArea
 
             ScriptAction
             {
-                script: if (isExpanded) visible = false
+                script:
+                {
+                    if (isExpanded == false) return;
+
+                    if (window.fullScreen) barWindow.visible = false;
+
+                    visible = false;
+                }
             }
         }
     }
@@ -134,215 +112,6 @@ MouseArea
         isExpanded = false;
 
         visible = true;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function openTab()
-    {
-        return openTabPlaylist(currentPlaylist);
-    }
-
-    function openTabPlaylist(playlist)
-    {
-        if (tabs.isFull) return false;
-
-        pOpenTabPlaylist(playlist);
-
-        return true;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function closeCurrentTab()
-    {
-        if (gui.isMini)
-        {
-            var index = tabs.indexOf(itemTab.tab);
-
-            itemTabs.closeTab(index);
-
-            updateTab();
-        }
-        else itemTabs.closeCurrentTab();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function showTabMenu(tab, item, x, y, isCursorChild)
-    {
-        panelContextual.loadPageTab(tab);
-
-        if (areaContextual.showPanelAt(panelContextual, item, x, y, isCursorChild)
-            &&
-            x == -1 && y == -1)
-        {
-            var index = tabs.indexOf(tab);
-
-            itemTabs.setIndexContextual(index);
-
-            areaContextual.parentContextual = itemTabs;
-        }
-    }
-
-    function showCurrentTabMenu()
-    {
-        if (gui.isMini)
-        {
-            gui.restoreMicro();
-
-            if (actionCue.tryPush(actionTabMenu)) return;
-
-            panelContextual.loadPageTab(itemTab.tab);
-
-            areaContextual.showPanelFrom(panelContextual, itemTab);
-
-            startActionCue(st.duration_faster);
-        }
-        else if (pContextualTab)
-        {
-            showTabMenu(pContextualTab, pContextualItem, -1, -1, false);
-
-            pContextualTab = null;
-        }
-        else
-        {
-            var index = tabs.currentIndex;
-
-            var item = itemTabs.itemAt(index);
-
-            showTabMenu(currentTab, item, -1, -1, false);
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function updateTab()
-    {
-        if (gui.isMicro)
-        {
-            var indexA = tabs.indexOf(pTab);
-
-            var indexB = player.tabIndex;
-
-            if (indexA == indexB) return;
-
-            if (indexA < indexB)
-            {
-                 itemSlide.slideLeft();
-            }
-            else itemSlide.slideRight();
-
-            pTab = playerTab;
-        }
-        else if (gui.isMini)
-        {
-            /* var */ indexA = tabs.indexOf(pTab);
-
-            /* var */ indexB = tabs.currentIndex;
-
-            if (indexA == indexB) return;
-
-            if (indexA < indexB)
-            {
-                 itemSlide.slideLeft();
-            }
-            else itemSlide.slideRight();
-
-            pTab = currentTab;
-        }
-        else pTab = currentTab;
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Functions
-
-    function pOpenTabPlaylist(playlist)
-    {
-        gui.restoreMicro();
-
-        if (actionCue.tryPush(actionTabOpen))
-        {
-            barTop.playlist = playlist;
-
-            return;
-        }
-
-        panelDiscover.collapse();
-
-        var index;
-
-        if (playlist)
-        {
-             index = playlist.lastSelected;
-        }
-        else index = -1;
-
-        var samePlaylist;
-
-        if (playlist && currentTab.playlist == playlist)
-        {
-             samePlaylist = true;
-        }
-        else samePlaylist = false;
-
-        if (samePlaylist)
-        {
-            var indexTab = tabs.indexOf(currentTab) + 1;
-
-            if (itemTabs.openTabAt(indexTab) == false) return;
-        }
-        else if (itemTabs.openTab() == false) return;
-
-        if (playlist == null || playlist.isEmpty)
-        {
-            startActionCue(st.duration_normal);
-
-            return;
-        }
-
-        var playlistIndex;
-
-        if (samePlaylist)
-        {
-            if (index != -1 && index != playlist.currentIndex)
-            {
-                playlistIndex = index;
-            }
-            else if (playlist.currentIndex != -1)
-            {
-                if (playlist.isFeed)
-                {
-                    if (playlist.currentIndex > 0)
-                    {
-                         playlistIndex = playlist.currentIndex - 1;
-                    }
-                    else playlistIndex = playlist.currentIndex;
-                }
-                else
-                {
-                    if (playlist.currentIndex < (playlist.count - 1))
-                    {
-                         playlistIndex = playlist.currentIndex + 1;
-                    }
-                    else playlistIndex = playlist.currentIndex;
-                }
-            }
-            else playlistIndex = 0;
-        }
-        else if (index != -1)
-        {
-             playlistIndex = index;
-        }
-        else playlistIndex = 0;
-
-        wall.asynchronous = false;
-
-        gui.setCurrentTrack(playlist, playlistIndex);
-
-        wall.asynchronous = true;
-
-        startActionCue(st.duration_normal);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -373,38 +142,9 @@ MouseArea
 
         ButtonPianoIcon
         {
-            id: buttonApplication
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            visible: window.fullScreen
-
-            checkable: true
-            checked  : panelApplication.isExposed
-
-            icon          : st.icon
-            iconSourceSize: st.size24x24
-
-            enableFilter: false
-
-            onPressed:
-            {
-                gui.restoreBars();
-
-                panelApplication.toggleExpose();
-            }
-        }
-
-        ButtonPianoIcon
-        {
             id: buttonDiscover
 
-            anchors.left: (buttonApplication.visible) ? buttonApplication.right
-                                                      : parent.left
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
+            width: pWidth
 
             visible: (gui.isMini == false)
 
@@ -416,6 +156,10 @@ MouseArea
             icon          : st.icon32x32_url
             iconSourceSize: st.size32x32
 
+            text: qsTr("Discovery")
+
+            font.pixelSize: st.dp14
+
             onPressed:
             {
                 gui.restoreBars();
@@ -424,78 +168,36 @@ MouseArea
             }
         }
 
-        ButtonPianoIcon
+        ButtonPianoFull
         {
-            id: buttonSearch
+            id: buttonBrowse
 
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
+            anchors.left: buttonDiscover.right
 
-            visible: (gui.isMini && lineEditSearch.visible == false)
+            width: panelLibrary.width - buttonDiscover.width
 
-            icon: st.icon32x32_search
+            visible: (gui.isMini == false)
 
-            itemIcon.visible: (panelBrowse.isSearching == false)
+            checkable: true
 
-            onClicked: lineEditSearch.showAndFocus()
+            checked: (gui.isExpanded == false && panelBrowse.isExposed)
 
-            IconLoading
+            icon          : st.icon32x32_search
+            iconSourceSize: st.size32x32
+
+            text: qsTr("Browse")
+
+            font.pixelSize: st.dp14
+
+            onPressed:
             {
-                anchors.centerIn: parent
+                if (gui.isExpanded)
+                {
+                    gui.restore();
 
-                visible: panelBrowse.isSearching
-            }
-        }
-
-        ButtonPianoIcon
-        {
-            id: buttonBackward
-
-            anchors.left: (gui.isMini) ? buttonSearch.right
-                                       : lineEditSearch.right
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            borderLeft: (gui.isMini) ? 0 : borderSize
-
-            visible: (gui.isMini == false || lineEditSearch.visible == false)
-
-            enabled: (currentTab != null && currentTab.hasPreviousBookmark)
-
-            highlighted: enabled
-
-            icon: st.icon32x32_goBackward
-
-            onClicked:
-            {
-                panelDiscover.collapse();
-
-                currentTab.setPreviousBookmark();
-            }
-        }
-
-        ButtonPianoIcon
-        {
-            id: buttonForward
-
-            anchors.left  : buttonBackward.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            visible: buttonBackward.visible
-
-            enabled: (currentTab != null && currentTab.hasNextBookmark)
-
-            highlighted: enabled
-
-            icon: st.icon32x32_goForward
-
-            onClicked:
-            {
-                panelDiscover.collapse();
-
-                currentTab.setNextBookmark();
+                    panelBrowse.expose();
+                }
+                else panelBrowse.toggleExpose();
             }
         }
 
@@ -504,228 +206,9 @@ MouseArea
             id: lineEditSearch
 
             anchors.left: (gui.isMini) ? parent.left
-                                       : buttonDiscover.right
+                                       : buttonBrowse.right
 
-            widthMinimum: st.dp320 - x
-
-            widthMaximum: (gui.isMini) ? borderItem.x : st.dp320
-
-            onIsFocusedChanged:
-            {
-                if (gui.isMini && isFocused == false)
-                {
-                    visible = false;
-                }
-            }
-        }
-
-        TabsPlayer
-        {
-            id: itemTabs
-
-            //-------------------------------------------------------------------------------------
-            // Settings
-            //-------------------------------------------------------------------------------------
-
-            anchors.left : buttonForward.right
             anchors.right: buttons.left
-
-            anchors.leftMargin: -(buttonForward.borderRight)
-
-            anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth
-
-            visible: (gui.isMini == false)
-
-            tabs: core.tabs
-
-            delegate: ComponentTabTrack
-            {
-                text: gui.getTabTitle(item.title, item.state, item.source)
-            }
-
-            player: gui.player
-
-            iconDefault: st.icon56x32_track
-
-            asynchronous: true
-
-            //-------------------------------------------------------------------------------------
-            // Events
-            //-------------------------------------------------------------------------------------
-
-            onTabClicked:
-            {
-                panelDiscover.collapse();
-
-                wall.updateCurrentPage();
-            }
-
-            onTabDoubleClicked:
-            {
-                if (tabs.highlightedIndex == indexHover) return;
-
-                if (panelTracks.isExpanded)
-                {
-                    panelTracks.restore();
-                }
-                else gui.playTab();
-            }
-
-            //-------------------------------------------------------------------------------------
-
-            onContextual:
-            {
-                window.clearFocus();
-
-                var tab = tabs.tabAt(indexHover);
-
-                if (lineEditSearch.width != lineEditSearch.widthMinimum)
-                {
-                    if (actionCue.tryPush(actionTabMenu)) return;
-
-                    startActionCue(st.duration_faster);
-
-                    pContextualTab  = tab;
-                    pContextualItem = itemHovered;
-
-                    actionCue.tryPush(actionTabMenu);
-
-                    return;
-                }
-                else showTabMenu(tab, itemHovered, -1, -1, false);
-            }
-
-            //-------------------------------------------------------------------------------------
-            // Functions
-            //-------------------------------------------------------------------------------------
-
-            function onBeforeCloseTab(index)
-            {
-                return gui.onBeforeCloseTab(index);
-            }
-        }
-
-        ItemSlide
-        {
-            id: itemSlide
-
-            anchors.left  : buttonForward.right
-            anchors.right : buttons.left
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth
-
-            visible: (gui.isMini && lineEditSearch.isFocused == false)
-
-            ItemTabMini
-            {
-                id: itemTab
-
-                anchors.fill: parent
-
-                textMargin: (buttonsItem.visible) ? st.dp60 : st.dp8
-
-                onPressed:
-                {
-                    if (mouse.button & Qt.LeftButton)
-                    {
-                        window.clearFocus();
-                    }
-                    else if (mouse.button & Qt.RightButton)
-                    {
-                        showCurrentTabMenu();
-                    }
-                }
-
-                onClicked:
-                {
-                    if (mouse.button & Qt.LeftButton)
-                    {
-                        if (isHighlighted)
-                        {
-                            gui.restoreMicro();
-                        }
-                    }
-                    else if (mouse.button & Qt.MiddleButton)
-                    {
-                        itemTabs.closeTab(tabs.currentIndex);
-                    }
-                }
-
-                onDoubleClicked:
-                {
-                    if ((mouse.button & Qt.LeftButton) == false) return;
-
-                    if (gui.isMicro)
-                    {
-                         gui.restoreMicro();
-                    }
-                    else gui.playTab();
-                }
-            }
-
-            ButtonsItem
-            {
-                id: buttonsItem
-
-                anchors.right: parent.right
-
-                anchors.rightMargin: st.dp4
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                visible: (itemTab.isHovered || checked)
-
-                checked: (panelContextual.item == itemTab || panelAdd.item == barTop)
-
-                buttonClose.enabled: (itemTabs.count > 1 || pTab.isValid)
-
-                onContextual: showCurrentTabMenu()
-
-                onClose: closeCurrentTab()
-            }
-        }
-
-        BorderVertical
-        {
-            id: borderItem
-
-            anchors.right: itemSlide.right
-
-            visible: ((gui.isMini && lineEditSearch.visible) || itemSlide.isAnimated)
-        }
-
-        ButtonPianoIcon
-        {
-            id: buttonAdd
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            x: (gui.isMini) ? itemSlide.x + itemSlide.width    - borderLeft
-                            : itemTabs .x + itemTabs.tabsWidth - borderLeft
-
-            borderLeft: borderSize
-
-            enabled: (tabs.isFull == false)
-
-            icon          : st.icon24x24_addBold
-            iconSourceSize: st.size24x24
-
-            Behavior on x
-            {
-                enabled: itemTabs.isAnimated
-
-                PropertyAnimation { duration: itemTabs.durationAnimation }
-            }
-
-            onClicked:
-            {
-                if (gui.isMini) window.clearFocus();
-
-                pOpenTabPlaylist(currentPlaylist);
-            }
         }
 
         Item
@@ -763,9 +246,7 @@ MouseArea
             {
                 id: buttonExpand
 
-                anchors.right : buttonWall.left
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
+                anchors.right: buttonWall.left
 
                 borderLeft: borderSize
 
@@ -793,9 +274,6 @@ MouseArea
                 anchors.right: (gui.isMini) ? parent.right
                                             : buttonRelated.left
 
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
                 checkable: true
                 checked  : wall.isExposed
 
@@ -809,9 +287,7 @@ MouseArea
             {
                 id: buttonRelated
 
-                anchors.right : parent.right
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
+                anchors.right: parent.right
 
                 visible: (gui.isMini == false)
 

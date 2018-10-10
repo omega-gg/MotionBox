@@ -140,11 +140,11 @@ Item
             color: st.barTitle_colorBorderLine
         }
 
-        ButtonPianoIcon
+        ButtonPianoFull
         {
             id: buttonDiscover
 
-            width: pWidth
+            width: Math.round((panelLibrary.width - panelLibrary.borderRight) / 2)
 
             visible: (gui.isMini == false)
 

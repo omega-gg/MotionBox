@@ -35,7 +35,7 @@ ItemTab
 
     iconWidth: st.componentTabBrowser_iconWidth
 
-    borderLeft: (lineEditSearch.isFocused) ? st.dp2 : 0
+    borderLeft: 0
 
     isHovered: (containsMouse || buttonsItem.checked)
 

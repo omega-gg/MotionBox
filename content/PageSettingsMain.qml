@@ -230,7 +230,7 @@ Item
         anchors.leftMargin: st.dp3
         anchors.topMargin : st.dp3
 
-        width: st.dp200
+        width: st.dp192
 
         model: ListModel {}
 

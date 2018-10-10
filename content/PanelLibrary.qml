@@ -36,9 +36,7 @@ Panel
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias buttonPlaylist: buttonPlaylist
-    property alias buttonFolder  : buttonFolder
-    property alias buttonBrowse  : buttonBrowse
+    property alias buttonAdd: buttonAdd
 
     property alias scrollLibrary: scrollLibrary
 
@@ -140,207 +138,125 @@ Panel
 
         borderTop: 0
 
+        ButtonPianoIcon
+        {
+            id: buttonAdd
+
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: st.dp32 + borderSizeWidth
+
+            checkable: true
+            checked  : scrollLibrary.isCreating
+
+            icon          : st.icon24x24_addBold
+            iconSourceSize: st.size24x24
+
+            onPressed:
+            {
+                if (checked)
+                {
+                     scrollLibrary.clearItem();
+                }
+                else scrollLibrary.createItem(0);
+            }
+        }
+
         BarTitleText
         {
             id: libraryTitle
 
-            anchors.fill: parent
+            anchors.left  : buttonAdd.right
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
             text: qsTr("Library")
         }
-    }
 
-    ButtonPianoFull
-    {
-        id: buttonPlaylist
-
-        anchors.top: bar.bottom
-
-        width: Math.round(parent.width / 3)
-
-        height: st.dp32 + borderSizeHeight
-
-        borderBottom: borderSize
-
-        enabled: (library.isFull == false)
-
-        checkable: true
-        checked  : (scrollLibrary.createType == 0)
-
-        dropEnabled: true
-
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
-
-        icon: (local.typePlaylist) ? st.icon32x32_feed
-                                   : st.icon32x32_playlist
-
-        text: (local.typePlaylist) ? qsTr("Feed")
-                                   : qsTr("Playlist")
-
-        onPressed:
+        ButtonPianoFull
         {
-            if (mouse.button & Qt.RightButton)
-            {
-                return;
-            }
-            else if (checked == false)
-            {
-                 scrollLibrary.createItem(0);
-            }
-            else scrollLibrary.clearItem();
-        }
+            id: buttonPlaylist
 
-        onClicked:
-        {
-            if (mouse.button & Qt.RightButton)
+            anchors.left  : buttonAdd.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: Math.round((parent.width - buttonAdd.width) / 3)
+
+            visible: (opacity != 0.0)
+
+            opacity: (scrollLibrary.isCreating) ? 1.0 : 0.0
+
+            enabled: (library.isFull == false)
+
+            checkable: true
+            checked  : (scrollLibrary.type == 0)
+
+            checkHover: false
+
+            icon: st.icon28x28_playlist
+            text: qsTr("Playlist")
+
+            onPressed: scrollLibrary.createItem(0)
+
+            Behavior on opacity
             {
-                scrollLibrary.switchType();
+                PropertyAnimation { duration: st.duration_faster }
             }
         }
 
-        onDragEntered:
+        ButtonPianoFull
         {
-            if (library.isFull) return;
+            id: buttonFeed
 
-            if (gui.drag == 0)
-            {
-                event.accepted = true;
+            anchors.left  : buttonPlaylist.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-                bordersDrop.setItem(buttonPlaylist);
-            }
-            else if (gui.drag == -1)
-            {
-                var backend = controllerPlaylist.backendFromTrack(event.text);
+            width: buttonPlaylist.width
 
-                if (backend == null) return;
+            visible: buttonPlaylist.visible
+            opacity: buttonPlaylist.opacity
 
-                event.accepted = true;
+            enabled: (library.isFull == false)
 
-                bordersDrop.setItem(buttonPlaylist);
+            checkable: true
+            checked  : (scrollLibrary.type == 1)
 
-                toolTip.show(qsTr("Add Track"), st.icon32x32_addList, 32, 32);
-            }
+            checkHover: false
+
+            icon: st.icon28x28_feed
+            text: qsTr("Feed")
+
+            onPressed: scrollLibrary.createItem(1)
         }
 
-        onDragExited: bordersDrop.clearItem(buttonPlaylist)
-
-        onDrop:
+        ButtonPianoFull
         {
-            scrollLibrary.createItem(0);
+            anchors.left  : buttonFeed.right
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
 
-            if (gui.drag == 0)
-            {
-                 scrollLibrary.setAddTracks(gui.dragItem, gui.dragData);
-            }
-            else scrollLibrary.setAddTrackSource(event.text);
+            borderRight: 0
+
+            visible: buttonPlaylist.visible
+            opacity: buttonPlaylist.opacity
+
+            enabled: (library.isFull == false)
+
+            checkable: true
+            checked  : (scrollLibrary.type == 2)
+
+            checkHover: false
+
+            icon: st.icon28x28_folder
+            text: qsTr("Folder")
+
+            onPressed: scrollLibrary.createItem(2)
         }
-    }
-
-    ButtonPianoFull
-    {
-        id: buttonFolder
-
-        anchors.left  : buttonPlaylist.right
-        anchors.top   : buttonPlaylist.top
-        anchors.bottom: buttonPlaylist.bottom
-
-        width: buttonPlaylist.width
-
-        borderBottom: borderSize
-
-        enabled: (library.isFull == false)
-
-        checkable: true
-        checked  : (scrollLibrary.createType == 1)
-
-        dropEnabled: true
-
-        icon: st.icon32x32_folder
-        text: qsTr("Folder")
-
-        onPressed:
-        {
-            if (checked == false)
-            {
-                 scrollLibrary.createItem(1);
-            }
-            else scrollLibrary.clearItem();
-        }
-
-        onDragEntered:
-        {
-            if (library.isFull) return;
-
-            if (gui.drag == 1)
-            {
-                if (gui.dragType != LibraryItem.Playlist
-                    &&
-                    gui.dragType != LibraryItem.PlaylistFeed) return;
-
-                event.accepted = true;
-
-                if (event.actions & Qt.MoveAction)
-                {
-                    event.action = Qt.MoveAction;
-                }
-
-                bordersDrop.setItem(buttonFolder);
-            }
-            else if (gui.drag == -1)
-            {
-                var url = event.text;
-
-                var backend = controllerPlaylist.backendFromPlaylist(url);
-
-                if (backend == null) return;
-
-                event.accepted = true;
-
-                bordersDrop.setItem(buttonFolder);
-
-                var type = core.getPlaylistType(backend, url);
-
-                if (type == LibraryItem.PlaylistFeed)
-                {
-                     toolTip.show(qsTr("Add Feed"), st.icon32x32_addList, 32, 32);
-                }
-                else toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, 32, 32);
-            }
-        }
-
-        onDragExited: bordersDrop.clearItem(buttonFolder)
-
-        onDrop:
-        {
-            scrollLibrary.createItem(1);
-
-            if (gui.drag == 1)
-            {
-                 scrollLibrary.setAddItem(event.action, gui.dragItem, gui.dragId);
-            }
-            else scrollLibrary.setAddItemSource(event.action, gui.dragType, event.text);
-        }
-    }
-
-    ButtonPianoFull
-    {
-        id: buttonBrowse
-
-        anchors.left  : buttonFolder.right
-        anchors.right : parent.right
-        anchors.top   : buttonFolder.top
-        anchors.bottom: buttonFolder.bottom
-
-        borderRight : 0
-        borderBottom: borderSize
-
-        checkable: true
-        checked  : panelBrowse.isExposed
-
-        icon: st.icon32x32_search
-        text: qsTr("Browse")
-
-        onPressed: panelBrowse.toggleExpose()
     }
 
     ScrollFolderCreate
@@ -349,7 +265,7 @@ Panel
 
         anchors.left  : parent.left
         anchors.right : parent.right
-        anchors.top   : buttonPlaylist.bottom
+        anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
 
         folder: library

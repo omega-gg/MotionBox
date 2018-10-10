@@ -116,7 +116,7 @@ MouseArea
 
         width: loader.width
 
-        x: -parent.x
+        x: -(parent.x)
 
         visible: image.isSourceDefault
 

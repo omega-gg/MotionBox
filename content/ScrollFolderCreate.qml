@@ -19,13 +19,13 @@ import Sky     1.0
 
 ScrollFolder
 {
+    id: scrollFolder
+
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
 
     /* read */ property bool isCreating: false
-
-    /* read */ property int createType: -1
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -53,6 +53,9 @@ ScrollFolder
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
+
+    property alias type : itemNew.type
+    property alias count: itemNew.count
 
     property alias text: itemNew.text
 
@@ -188,11 +191,9 @@ ScrollFolder
 
     function createItem(type)
     {
-        if (createType == type) return;
+        if (scrollFolder.type == type) return;
 
-        createType = type;
-
-        itemNew.type = type;
+        scrollFolder.type = type;
 
         list.enableContextual = false;
 
@@ -388,70 +389,39 @@ ScrollFolder
 
     function pCreateItem()
     {
-        if (createType == 0)
+        if (type == 0)
         {
+            list.insertItem(0, LibraryItem.Playlist, text, false);
+
             if (core.checkUrl(text))
             {
-                var type = core.urlType(text);
-
-                if (type == LibraryItem.PlaylistFeed)
-                {
-                     list.insertItem(0, LibraryItem.PlaylistFeed, text, false);
-                }
-                else list.insertItem(0, LibraryItem.Playlist, text, false);
-
                 folder.setItemSource(0, text);
 
                 folder.currentIndex = 0;
+            }
+            else pAddTracks();
+        }
+        else if (type == 1)
+        {
+            list.insertItem(0, LibraryItem.PlaylistFeed, text, false);
 
-                return;
-            }
-            else if (local.typePlaylist)
+            if (core.checkUrl(text))
             {
-                 list.insertItem(0, LibraryItem.PlaylistFeed, text, false);
+                folder.setItemSource(0, text);
+
+                folder.currentIndex = 0;
             }
-            else list.insertItem(0, LibraryItem.Playlist, text, false);
+            else pAddTracks();
+        }
+        else // if (type == 2)
+        {
+            list.insertItem(0, LibraryItem.Folder, text, false);
 
             folder.currentIndex = 0;
 
-            if (pAdd == -1)
-            {
-                return;
-            }
-            else if (pAdd == 0)
-            {
-                gui.copyTracksToPlaylist(pAddItem, pAddData, folder, 0);
+            if (pAdd == -1) return;
 
-                var length = pAddData.length;
-
-                if (length == 1)
-                {
-                     pSetDropItem(0, true, qsTr("Track added"));
-                }
-                else pSetDropItem(0, true, length + " " + qsTr("Tracks added"));
-
-                timerAdd.restart();
-            }
-            else if (pAdd == 1)
-            {
-                gui.insertTrackToPlaylist(pAddSource, folder, 0);
-
-                pSetDropItem(0, true, qsTr("Track added"));
-
-                timerAdd.restart();
-            }
-        }
-        else list.insertItem(0, LibraryItem.Folder, text, false);
-
-        folder.currentIndex = 0;
-
-        if (createType == 1)
-        {
-            if (pAdd == -1)
-            {
-                return;
-            }
-            else if (pAdd == 2)
+            if (pAdd == 2)
             {
                 var index = pAddItem.indexFromId(pAddId);
 
@@ -480,6 +450,36 @@ ScrollFolder
 
                 timerAdd.restart();
             }
+        }
+    }
+
+    function pAddTracks()
+    {
+        folder.currentIndex = 0;
+
+        if (pAdd == -1) return;
+
+        if (pAdd == 0)
+        {
+            gui.copyTracksToPlaylist(pAddItem, pAddData, folder, 0);
+
+            var length = pAddData.length;
+
+            if (length == 1)
+            {
+                 pSetDropItem(0, true, qsTr("Track added"));
+            }
+            else pSetDropItem(0, true, length + " " + qsTr("Tracks added"));
+
+            timerAdd.restart();
+        }
+        else if (pAdd == 1)
+        {
+            gui.insertTrackToPlaylist(pAddSource, folder, 0);
+
+            pSetDropItem(0, true, qsTr("Track added"));
+
+            timerAdd.restart();
         }
     }
 
@@ -791,7 +791,7 @@ ScrollFolder
 
                         itemNew.visible = false;
 
-                        createType = -1;
+                        type = -1;
 
                         list.enableContextual = true;
 

@@ -25,13 +25,14 @@ Item
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property int type: 0
+    property int type : -1
+    property int count:  3
 
     //---------------------------------------------------------------------------------------------
     // Style
 
-    property color colorA: st.buttonPiano_colorHighlightHoverA
-    property color colorB: st.buttonPiano_colorHighlightHoverB
+    property color colorA: st.buttonPiano_colorCheckA
+    property color colorB: st.buttonPiano_colorCheckB
 
     //---------------------------------------------------------------------------------------------
     // Aliases
@@ -57,17 +58,43 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function switchType()
-    {
-        local.typePlaylist = (local.typePlaylist + 1) % 2;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Events
 
     function onKeyPressed (event) {}
     function onKeyReleased(event) {}
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pSwitchA()
+    {
+        type = (type + 1) % count;
+    }
+
+    function pSwitchB()
+    {
+        type = (type - 1) % count;
+
+        if (type < 0)
+        {
+            type = count - 1;
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pGetIcon()
+    {
+        if (type == 1)
+        {
+            return st.icon32x32_feed;
+        }
+        else if (type == 2)
+        {
+            return st.icon32x32_folder;
+        }
+        else return st.icon32x32_playlist;
+    }
 
     //---------------------------------------------------------------------------------------------
     // Childs
@@ -86,18 +113,6 @@ Item
             GradientStop { position: 1.0; color: colorB }
         }
 
-        Icon
-        {
-            anchors.fill: button
-
-            visible: (button.visible == false)
-
-            source    : st.icon32x32_folder
-            sourceSize: st.size32x32
-
-            style: st.icon_raised
-        }
-
         ButtonPianoIcon
         {
             id: button
@@ -107,23 +122,20 @@ Item
 
             width: st.dp32 + borderSizeWidth
 
-            visible: (type != 1)
+            borderRight: borderSize
 
             acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-            icon: (local.typePlaylist) ? st.icon32x32_feed
-                                       : st.icon32x32_playlist
+            icon: pGetIcon()
 
-            onClicked: switchType()
-        }
-
-        BorderVertical
-        {
-            anchors.right : lineEdit.left
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            visible: (button.visible == false)
+            onClicked:
+            {
+                if (mouse.button & Qt.LeftButton)
+                {
+                     pSwitchA();
+                }
+                else pSwitchB();
+            }
         }
 
         LineEditBox
@@ -141,14 +153,20 @@ Item
                 {
                     event.accepted = true;
 
-                    if (type == 0) switchType();
+                    pSwitchA();
+                }
+                else if (event.key == Qt.Key_Backtab)
+                {
+                    event.accepted = true;
+
+                    pSwitchB();
                 }
                 else itemNew.onKeyPressed(event);
             }
 
             function onKeyReleased(event)
             {
-                if (event.key == Qt.Key_Tab)
+                if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab)
                 {
                     event.accepted = true;
                 }

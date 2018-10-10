@@ -188,24 +188,22 @@ Item
     //---------------------------------------------------------------------------------------------
     // BarWindowApplication
 
+    property alias tabs: barWindow.tabs
+
+    property alias buttonBackward: barWindow.buttonBackward
+    property alias buttonForward : barWindow.buttonForward
+
+    property alias itemTabs: barWindow.itemTabs
+
     property alias buttonMini    : barWindow.buttonMini
     property alias buttonMaximize: barWindow.buttonMaximize
 
     //---------------------------------------------------------------------------------------------
     // BarTop
 
-    property alias tabs: barTop.tabs
-
-    //---------------------------------------------------------------------------------------------
-
     property alias buttonDiscover: barTop.buttonDiscover
 
     property alias lineEditSearch: barTop.lineEditSearch
-
-    property alias buttonBackward: barTop.buttonBackward
-    property alias buttonForward : barTop.buttonForward
-
-    property alias itemTabs: barTop.itemTabs
 
     property alias buttonExpand : barTop.buttonExpand
     property alias buttonWall   : barTop.buttonWall
@@ -313,7 +311,7 @@ Item
 
     Component.onCompleted:
     {
-        if (local.style) st.applyFlat();
+        if (local.style) st.applyClassic();
 
         loadTabItems(currentTab);
 
@@ -353,7 +351,7 @@ Item
             backend.setProxy(local.proxyHost, local.proxyPort, local.proxyPassword);
         }
 
-        barTop.updateTab();
+        barWindow.updateTab();
 
         window.clearFocus();
 
@@ -541,7 +539,11 @@ Item
 
         onCurrentTabChanged:
         {
-            barTop.updateTab();
+            gui.restoreBars();
+
+            panelSearch.setText(currentTab.source);
+
+            barWindow.updateTab();
 
             loadTabItems(currentTab);
 
@@ -557,6 +559,8 @@ Item
 
         onCurrentBookmarkChanged:
         {
+            panelSearch.setText(currentTab.source);
+
             var playlist = currentTab.playlist;
 
             if (playlist == null) return;
@@ -1277,11 +1281,6 @@ Item
         }
         else pMiniWall = false;
 
-        if (lineEditSearch.isFocused == false)
-        {
-            lineEditSearch.visible = false;
-        }
-
         isMini = true;
 
         window.locked = true;
@@ -1311,7 +1310,7 @@ Item
 
             window.height = height;
 
-            barTop.updateTab();
+            barWindow.updateTab();
         }
         else window.height = height + st.dp2 + st.dp270;
 
@@ -1401,7 +1400,7 @@ Item
 
         window.resizeHeight(window.minimumHeight, true);
 
-        barTop.updateTab();
+        barWindow.updateTab();
 
         startActionCue(st.duration_normal);
 
@@ -1418,7 +1417,7 @@ Item
 
         window.resizeHeight(window.minimumHeight + st.dp2 + st.dp270, true);
 
-        barTop.updateTab();
+        barWindow.updateTab();
 
         startActionCue(st.duration_normal);
 
@@ -1595,6 +1594,8 @@ Item
     {
         if (currentTab.isValid == false || (player.isPlaying && highlightedTab == null))
         {
+            restoreBars();
+
             toggleWall();
         }
         else playerBrowser.play();
@@ -2433,7 +2434,7 @@ Item
 
             restoreBars();
 
-            barTop.buttonAdd.returnPressed();
+            barWindow.buttonAdd.returnPressed();
         }
         else if (event.key == Qt.Key_W && event.modifiers == Qt.ControlModifier)
         {
@@ -2441,7 +2442,7 @@ Item
 
             restoreBars();
 
-            barTop.closeCurrentTab();
+            barWindow.closeCurrentTab();
         }
         else if (event.key == Qt.Key_R && event.modifiers == Qt.ControlModifier)
         {
@@ -2490,9 +2491,8 @@ Item
             event.accepted = true;
 
             restoreBars();
-            restoreMini();
 
-            buttonDiscover.returnPressed();
+            barWindow.buttonApplication.returnPressed();
         }
         else if (event.key == Qt.Key_F2)
         {
@@ -2542,30 +2542,23 @@ Item
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat) return;
-
             restoreBars();
-            restore    ();
+            restoreMini();
 
-            panelCover.buttonTrack.returnPressed();
+            buttonDiscover.returnPressed();
         }
         else if (event.key == Qt.Key_F6)
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat) return;
-
-            panelApplication.collapse();
-
-            restoreBars();
-            restore    ();
-
-            if (panelBrowse.isExposed)
+            if (isMini || isExpanded)
             {
-                panelTracks.restore();
-            }
+                restoreBars();
+                restore    ();
 
-            panelLibrary.buttonPlaylist.returnPressed();
+                panelBrowse.expose();
+            }
+            else barTop.buttonBrowse.returnPressed();
         }
         else if (event.key == Qt.Key_F7)
         {
@@ -2583,20 +2576,18 @@ Item
                 panelTracks.restore();
             }
 
-            panelLibrary.buttonFolder.returnPressed();
+            panelLibrary.buttonAdd.returnPressed();
         }
         else if (event.key == Qt.Key_F8)
         {
             event.accepted = true;
 
-            if (isMini || isExpanded)
-            {
-                restoreBars();
-                restore    ();
+            if (event.isAutoRepeat) return;
 
-                panelBrowse.expose();
-            }
-            else panelLibrary.buttonBrowse.returnPressed();
+            restoreBars();
+            restore    ();
+
+            panelCover.buttonTrack.returnPressed();
         }
         else if (event.key == Qt.Key_F9)
         {
@@ -2699,14 +2690,6 @@ Item
         {
             barWindow.buttonClose.returnReleased();
         }
-        else if (buttonDiscover.isReturnPressed)
-        {
-            buttonDiscover.returnReleased();
-        }
-        else if (barTop.buttonAdd.isReturnPressed)
-        {
-            barTop.buttonAdd.returnReleased();
-        }
         else if (buttonBackward.isReturnPressed)
         {
             buttonBackward.returnReleased();
@@ -2714,6 +2697,18 @@ Item
         else if (buttonForward.isReturnPressed)
         {
             buttonForward.returnReleased();
+        }
+        else if (barWindow.buttonAdd.isReturnPressed)
+        {
+            barWindow.buttonAdd.returnReleased();
+        }
+        else if (buttonDiscover.isReturnPressed)
+        {
+            buttonDiscover.returnReleased();
+        }
+        else if (barTop.buttonBrowse.isReturnPressed)
+        {
+            barTop.buttonBrowse.returnReleased();
         }
         else if (buttonExpand.isReturnPressed)
         {
@@ -2727,17 +2722,9 @@ Item
         {
             buttonRelated.returnReleased();
         }
-        else if (panelLibrary.buttonPlaylist.isReturnPressed)
+        else if (panelLibrary.buttonAdd.isReturnPressed)
         {
-            panelLibrary.buttonPlaylist.returnReleased();
-        }
-        else if (panelLibrary.buttonFolder.isReturnPressed)
-        {
-            panelLibrary.buttonFolder.returnReleased();
-        }
-        else if (panelLibrary.buttonBrowse.isReturnPressed)
-        {
-            panelLibrary.buttonBrowse.returnReleased();
+            panelLibrary.buttonAdd.returnReleased();
         }
         else if (panelTracks.buttonUp.isReturnPressed)
         {
@@ -2862,7 +2849,7 @@ Item
             }
             else if (panelBrowse.isExposed == false)
             {
-                panelLibrary.buttonBrowse.returnPressed();
+                barTop.buttonBrowse.returnPressed();
             }
             else if (panelTracks.isExpanded == false)
             {
@@ -2900,7 +2887,7 @@ Item
                 }
                 else if (panelBrowse.isExposed)
                 {
-                    panelLibrary.buttonBrowse.returnPressed();
+                    barTop.buttonBrowse.returnPressed();
                 }
                 else buttonExpand.returnPressed();
             }
@@ -3016,7 +3003,7 @@ Item
         {
             if (areaContextual.isActive == false)
             {
-                barTop.showCurrentTabMenu();
+                barWindow.showCurrentTabMenu();
             }
         }
     }
@@ -3027,6 +3014,10 @@ Item
         {
             return;
         }
+        else if (barTop.buttonBrowse.isReturnPressed)
+        {
+            barTop.buttonBrowse.returnReleased();
+        }
         else if (buttonExpand.isReturnPressed)
         {
             buttonExpand.returnReleased();
@@ -3034,10 +3025,6 @@ Item
         else if (buttonRelated.isReturnPressed)
         {
             buttonRelated.returnReleased();
-        }
-        else if (panelLibrary.buttonBrowse.isReturnPressed)
-        {
-            panelLibrary.buttonBrowse.returnReleased();
         }
         else if (playerBrowser.buttonPrevious.isReturnPressed)
         {
@@ -3161,7 +3148,7 @@ Item
 
             isMicro = false;
 
-            barTop.updateTab();
+            barWindow.updateTab();
         }
         else pMiniMicro = false;
 
@@ -3193,8 +3180,6 @@ Item
         }
 
         if (pMiniWall) wall.expose();
-
-        lineEditSearch.visible = true;
 
         restoreEdit();
 
@@ -3355,9 +3340,9 @@ Item
             else if (id == actionMicroExpose)  exposeMicro ();
             else if (id == actionMicroRestore) restoreMicro();
 
-            else if (id == actionTabOpen) barTop.openTabPlaylist(barTop.playlist);
+            else if (id == actionTabOpen) barWindow.openTabPlaylist(barWindow.playlist);
 
-            else if (id == actionTabMenu) barTop.showCurrentTabMenu();
+            else if (id == actionTabMenu) barWindow.showCurrentTabMenu();
 
             else if (id == actionZoom) zoom(pZoomScale, pZoomX, pZoomY, pZoomDuration, pZoomEasing,
                                             pZoomAfter);

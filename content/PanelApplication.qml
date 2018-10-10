@@ -165,7 +165,6 @@ Panel
         isExposed = true;
 
         barWindow.buttonApplication.checked = true;
-        barTop   .buttonApplication.checked = true;
 
         focus();
     }
@@ -179,7 +178,6 @@ Panel
         isExposed = false;
 
         barWindow.buttonApplication.checked = false;
-        barTop   .buttonApplication.checked = false;
     }
 
     function toggleExpose()
@@ -251,7 +249,7 @@ Panel
             anchors.leftMargin : -st.border_size
             anchors.rightMargin: -st.border_size
 
-            spacing: st.dp2
+            delegate: ComponentTab { font.pixelSize: st.dp14 }
 
             Component.onCompleted:
             {

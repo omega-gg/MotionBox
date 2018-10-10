@@ -681,7 +681,7 @@ MouseArea
     {
         if (gui.isExpanded == false) return;
 
-        if (barTop.openTabPlaylist(null))
+        if (barWindow.openTabPlaylist(null))
         {
              gui.restoreBars();
         }
@@ -1094,6 +1094,8 @@ MouseArea
             text: pText
 
             textDefault: qsTr("What are you looking for ?")
+
+            font.pixelSize: st.dp14
 
             onTextChanged:
             {
@@ -1629,8 +1631,7 @@ MouseArea
         enableAdd       : false
         enableDrag      : false
 
-        textDefault: (pBrowsing) ? qsTr("Type something to watch")
-                                 : qsTr("Empty Folder")
+        textDefault: (pBrowsing) ? "" : qsTr("Empty Folder")
 
         itemLeft: scrollHubs
 

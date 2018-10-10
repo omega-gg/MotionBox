@@ -955,7 +955,7 @@ List
         anchors.top   : lineEdit.top
         anchors.bottom: lineEdit.bottom
 
-        x: st.dp32 + size
+        x: st.dp32
 
         visible: lineEdit.visible
     }

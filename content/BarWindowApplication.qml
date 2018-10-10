@@ -52,6 +52,9 @@ Item
     property alias buttonVersion: buttonVersion
     property alias buttonMessage: buttonMessage
 
+    property alias buttonBackward: buttonBackward
+    property alias buttonForward : buttonForward
+
     property alias itemTabs: itemTabs
 
     property alias buttonAdd: buttonAdd
@@ -345,6 +348,59 @@ Item
     //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
+
+    Rectangle
+    {
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : parent.top
+        anchors.bottom: border.top
+
+        gradient: Gradient
+        {
+            GradientStop
+            {
+                position: 0.0
+
+                color: (window.isActive) ? st.barWindow_colorA
+                                         : st.barWindow_colorDisableA
+            }
+
+            GradientStop
+            {
+                position: 1.0
+
+                color: (window.isActive) ? st.barWindow_colorB
+                                         : st.barWindow_colorDisableB
+            }
+        }
+
+        BorderHorizontal
+        {
+            color: st.barWindow_colorBorderLine
+
+            visible: (st.barWindow_colorA != st.barWindow_colorB)
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        id: buttonApplication
+
+        checkable: true
+
+        icon          : st.icon
+        iconSourceSize: st.size24x24
+
+        enableFilter: false
+
+        onPressed:
+        {
+            gui.restoreBars();
+
+            panelApplication.toggleExpose();
+        }
+    }
 
     ButtonPiano
     {
@@ -900,13 +956,27 @@ Item
     {
         id: buttonClose
 
-        anchors.right: parent.right
-        anchors.top  : parent.top
-
-        height: st.barWindow_height + borderSizeHeight
+        anchors.right : parent.right
+        anchors.top   : parent.top
+        anchors.bottom: border.top
 
         anchors.rightMargin : st.dp16
         anchors.bottomMargin: st.dp6
+
+        borderBottom: borderSize
+
+        icon          : st.icon16x16_close
+        iconSourceSize: st.size16x16
+
+        colorHoverA: st.button_colorConfirmHoverA
+        colorHoverB: st.button_colorConfirmHoverB
+
+        colorPressA: st.button_colorConfirmPressA
+        colorPressB: st.button_colorConfirmPressB
+
+        colorFocus: st.button_colorConfirmFocus
+
+        onClicked: window.close()
     }
 
     BorderHorizontal

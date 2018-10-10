@@ -25,7 +25,7 @@ Panel
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool isActive: lineEditSearch.isFocused
+    property bool isActive: false
 
     /* read */ property int hub: -1
 
@@ -44,7 +44,8 @@ Panel
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: scrollHubs.x + scrollHubs.width + borders.sizeWidth
+    width: (gui.isMini) ? parent.width         + borderSizeWidth
+                        : lineEditSearch.width + borderSizeWidth
 
     height: st.dp202 + borderSizeHeight
 
@@ -59,7 +60,7 @@ Panel
 
     enableFocus: false
 
-    backgroundOpacity: (gui.isExpanded) ? st.panelContextual_backgroundOpacity : 1.0
+    backgroundOpacity: st.panelContextual_backgroundOpacity
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -101,28 +102,26 @@ Panel
 
     onIsActiveChanged:
     {
-        if (isActive)
+        if (isActive == false) return;
+
+        gui.restoreMicro();
+
+        panelApplication.collapse();
+        panelDiscover   .collapse();
+
+        pIndexFocus = 1;
+
+        var index = getHubIndex();
+
+        if (index == -1)
         {
-            gui.restoreMicro();
-
-            panelApplication.collapse();
-            panelDiscover   .collapse();
-
-            pIndexFocus = 1;
-
-            var index = getHubIndex();
-
-            if (index == -1)
-            {
-                selectBackend(0);
-            }
-            else scrollHubs.scrollToItem(index);
-
-            action = 0;
-
-            visible = true;
+            selectBackend(0);
         }
-        else lineEditSearch.clear();
+        else scrollHubs.scrollToItem(index);
+
+        action = 0;
+
+        visible = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -151,6 +150,11 @@ Panel
             scrollCompletion.runQuery();
 
             pText = scrollCompletion.query;
+
+            if (lineEditSearch.isFocused)
+            {
+                isActive = true;
+            }
         }
     }
 
@@ -277,6 +281,26 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function setText(text)
+    {
+        if (isActive == false)
+        {
+            pTextEvents = false;
+
+            lineEditSearch.text = text;
+
+            pTextEvents = true;
+        }
+        else lineEditSearch.text = text;
+
+        if (lineEditSearch.isFocused)
+        {
+            lineEditSearch.selectAll();
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     function pStartSearch()
@@ -320,8 +344,7 @@ Panel
 
         anchors.bottomMargin: -st.border_size
 
-        width: (gui.isMini) ? st.dp258
-                            : lineEditSearch.width
+        width: Math.max(st.dp256, parent.width - st.dp256)
 
         delegate: ComponentCompletion
         {
@@ -371,12 +394,11 @@ Panel
                                                : -1
 
         anchors.left  : border.right
+        anchors.right : parent.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
         anchors.bottomMargin: -st.border_size
-
-        width: st.dp220
 
         model: ModelLibraryFolder { folder: hubs }
 

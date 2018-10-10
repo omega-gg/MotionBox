@@ -176,7 +176,7 @@ Item
                 visible: (folder != null && folder.isFull == false)
 
                 checkable: true
-                checked  : (scrollFolder.createType == 0)
+                checked  : scrollFolder.isCreating
 
                 dropEnabled: true
 
@@ -185,11 +185,7 @@ Item
 
                 onPressed:
                 {
-                    if (mouse.button & Qt.RightButton)
-                    {
-                        return;
-                    }
-                    else if (checked)
+                    if (checked)
                     {
                          scrollFolder.clearItem();
                     }
@@ -247,6 +243,63 @@ Item
 
                 text: (folder) ? folder.title : ""
             }
+
+            ButtonPianoFull
+            {
+                id: buttonAddPlaylist
+
+                anchors.left  : buttonAdd.right
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
+
+                width: Math.round((parent.width - buttonAdd.x - buttonAdd.width) / 2)
+
+                visible: (opacity != 0.0)
+
+                opacity: (scrollFolder.isCreating) ? 1.0 : 0.0
+
+                enabled: (folder != null && folder.isFull == false)
+
+                checkable: true
+                checked  : (scrollFolder.type == 0)
+
+                checkHover: false
+
+                icon: st.icon28x28_playlist
+                text: qsTr("Playlist")
+
+                onPressed: scrollFolder.createItem(0)
+
+                Behavior on opacity
+                {
+                    PropertyAnimation { duration: st.duration_faster }
+                }
+            }
+
+            ButtonPianoFull
+            {
+                anchors.left  : buttonAddPlaylist.right
+                anchors.right : parent.right
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
+
+                borderRight: 0
+
+                visible: buttonAddPlaylist.visible
+                opacity: buttonAddPlaylist.opacity
+
+                enabled: (folder != null && folder.isFull == false)
+
+                checkable: true
+                checked  : (scrollFolder.type == 1)
+
+                checkHover: false
+
+                icon: st.icon28x28_feed
+                text: qsTr("Feed")
+
+                onPressed: scrollFolder.createItem(1)
+            }
         }
 
         ScrollFolderCreate
@@ -260,6 +313,8 @@ Item
             anchors.right: parent.right
 
             listPlaylist: scrollPlaylist.list
+
+            count: 2
 
             itemLeft : gui.listLibrary
             itemRight: listPlaylist

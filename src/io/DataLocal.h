@@ -61,9 +61,6 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool browserVisible READ browserVisible WRITE setBrowserVisible
                NOTIFY browserVisibleChanged)
 
-    Q_PROPERTY(bool typePlaylist READ typePlaylist WRITE setTypePlaylist
-               NOTIFY typePlaylistChanged)
-
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
 
     Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY speedChanged)
@@ -146,8 +143,6 @@ signals:
 
     void browserVisibleChanged();
 
-    void typePlaylistChanged();
-
     void queryChanged();
 
     void speedChanged();
@@ -222,9 +217,6 @@ public: // Properties
 
     bool browserVisible() const;
     void setBrowserVisible(bool visible);
-
-    bool typePlaylist() const;
-    void setTypePlaylist(bool type);
 
     QString query() const;
     void    setQuery(const QString & query);
@@ -314,8 +306,6 @@ private: // Variables
     bool _tracksExpanded;
 
     bool _browserVisible;
-
-    bool _typePlaylist;
 
     QString _query;
 

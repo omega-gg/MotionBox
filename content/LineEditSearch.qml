@@ -32,37 +32,30 @@ LineEditBox
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: widthMinimum
-
-    paddingLeft: (isFocused) ? padding : st.dp32
-
     textDefault: qsTr("What do you want to watch ?")
+
+    //---------------------------------------------------------------------------------------------
+    // Style
 
     maximumLength: st.lineEditSearch_maximumLength
 
+    font.pixelSize: st.dp14
+
     //---------------------------------------------------------------------------------------------
-    // States
+    // Events
     //---------------------------------------------------------------------------------------------
 
-    states: State
+    onIsFocusedChanged:
     {
-        name: "active"; when: isFocused
-
-        PropertyChanges
+        if (isFocused == false)
         {
-            target: lineEditSearch
+            text = currentTab.source;
 
-            width: widthMaximum
+            panelSearch.isActive = false;
         }
-    }
-
-    transitions: Transition
-    {
-        NumberAnimation
+        else if (text == "")
         {
-            property: "width"
-
-            duration: (gui.isMini) ? 0 : st.duration_faster
+            panelSearch.isActive = true;
         }
     }
 
@@ -122,17 +115,13 @@ LineEditBox
         {
             event.accepted = true;
 
-            if (text)
-            {
-                text = "";
-            }
-            else window.clearFocus();
+            window.clearFocus();
         }
         else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab)
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat == false && text == "")
+            if (event.isAutoRepeat == false && (panelSearch.isActive == false || text == ""))
             {
                 if (panelBrowse.lineEdit.visible)
                 {
@@ -141,53 +130,6 @@ LineEditBox
                 else window.clearFocus();
             }
             else panelSearch.selectNextAction();
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Childs
-    //---------------------------------------------------------------------------------------------
-
-    Image
-    {
-        anchors.left: parent.left
-
-        anchors.leftMargin: st.dp8
-
-        anchors.verticalCenter: parent.verticalCenter
-
-        visible: (isFocused == false && imageLoading.visible == false)
-
-        source    : st.icon16x16_searchSmall
-        sourceSize: st.size16x16
-
-        filter: st.lineEditSearch_filterIcon
-    }
-
-    Image
-    {
-        id: imageLoading
-
-        width : st.dp32
-        height: st.dp32
-
-        visible: (isFocused == false && panelBrowse.isSelecting && gui.isExpanded)
-
-        source    : st.icon32x32_loading
-        sourceSize: st.size32x32
-
-        filter: st.lineEditSearch_filterIcon
-
-        NumberAnimation on rotation
-        {
-            running: (st.animate && imageLoading.visible)
-
-            from: 0
-            to  : 360
-
-            duration: st.iconLoading_durationAnimation
-
-            loops: Animation.Infinite
         }
     }
 }

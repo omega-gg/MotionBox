@@ -85,8 +85,6 @@ public: // Variables
 
     bool browserVisible;
 
-    bool typePlaylist;
-
     QString query;
 
     qreal speed;
@@ -178,8 +176,6 @@ public: // Variables
 
     stream.writeTextElement("browserVisible", QString::number(browserVisible));
 
-    stream.writeTextElement("typePlaylist", QString::number(typePlaylist));
-
     stream.writeTextElement("query", query);
 
     stream.writeTextElement("speed", QString::number(speed));
@@ -254,8 +250,6 @@ public: // Variables
     _tracksExpanded = false;
 
     _browserVisible = false;
-
-    _typePlaylist = false;
 
     _speed = 1.0;
 
@@ -461,13 +455,6 @@ public: // Variables
     _browserVisible = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
-    // typePlaylist
-
-    if (WControllerXml::readNextStartElement(&stream, "typePlaylist") == false) return false;
-
-    _typePlaylist = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
     // query
 
     if (WControllerXml::readNextStartElement(&stream, "query") == false) return false;
@@ -654,8 +641,6 @@ public: // Variables
     action->tracksExpanded = _tracksExpanded;
 
     action->browserVisible = _browserVisible;
-
-    action->typePlaylist = _typePlaylist;
 
     action->query = _query;
 
@@ -911,24 +896,6 @@ void DataLocal::setBrowserVisible(bool visible)
     _browserVisible = visible;
 
     emit browserVisibleChanged();
-
-    save();
-}
-
-//-------------------------------------------------------------------------------------------------
-
-bool DataLocal::typePlaylist() const
-{
-    return _typePlaylist;
-}
-
-void DataLocal::setTypePlaylist(bool type)
-{
-    if (_typePlaylist == type) return;
-
-    _typePlaylist = type;
-
-    emit typePlaylistChanged();
 
     save();
 }

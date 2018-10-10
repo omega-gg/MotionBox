@@ -311,7 +311,7 @@ Panel
     {
         var size = Math.round(width / 3);
 
-        var minimum = st.dp200 + borderLeft;
+        var minimum = st.dp192 + borderLeft;
         var maximum = st.dp320 + borderLeft;
 
         if      (size < minimum) return minimum;

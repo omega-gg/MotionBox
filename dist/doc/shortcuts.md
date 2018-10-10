@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Toggle the Discovery Mode.
+F1: Toggle the application panel.
 
 F2: Toggle the Player Browser.
 
@@ -14,13 +14,13 @@ F4: Toggle the Related Browser.
 
 #
 
-F5: Go to the current track.
+F5: Toggle the Discovery Mode.
 
-F6: Create a new playlist.
+F6: Toggle the Track Browser.
 
-F7: Create a new folder.
+F7: Create a new playlist.
 
-F8: Toggle the Track Browser.
+F8: Go to the current track.
 
 #
 

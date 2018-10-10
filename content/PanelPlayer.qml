@@ -181,9 +181,10 @@ Item
     {
         if (gui.isMini)
         {
-             barTop.showCurrentTabMenu();
+             barWindow.showCurrentTabMenu();
         }
-        else barTop.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(), true);
+        else barWindow.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(),
+                                   true);
     }
 
     //---------------------------------------------------------------------------------------------

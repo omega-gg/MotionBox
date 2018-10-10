@@ -61,8 +61,8 @@ Style
 
     property int splash_borderSize: dp8
 
-    property color splash_colorA: (local.style) ? "#323232" : logo_colorB
-    property color splash_colorB: (local.style) ? "#646464" : logo_colorA
+    property color splash_colorA: (local.style) ? "#646464" : logo_colorB
+    property color splash_colorB: (local.style) ? "#323232" : logo_colorA
 
     //---------------------------------------------------------------------------------------------
     // PanelBrowse
@@ -99,15 +99,6 @@ Style
     // LineEditSearch
 
     property int lineEditSearch_maximumLength: 10000
-
-    property alias lineEditSearch_filterIcon: lineEditSearch_filterIcon
-
-    ImageColorFilter
-    {
-        id: lineEditSearch_filterIcon
-
-        color: baseLineEdit_colorDefault
-    }
 
     //---------------------------------------------------------------------------------------------
     // ScrollFolderCreate

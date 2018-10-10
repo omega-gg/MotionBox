@@ -195,7 +195,7 @@ ComponentLibraryItem
 
     function pShowPanel()
     {
-        if ((width - componentFolder.mouseX) > st.dp200)
+        if ((width - componentFolder.mouseX) > st.dp192)
         {
              showPanelAt(index, window.contentMouseX(), -1, true);
         }

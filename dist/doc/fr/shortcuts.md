@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Basculer le Mode Découverte.
+F1: Basculer le panneau d'application.
 
 F2: Basculer le Lecteur Navigateur.
 
@@ -14,13 +14,13 @@ F4: Basculer le Navigateur Relatif.
 
 #
 
-F5: Aller au track courant.
+F5: Basculer le Mode Découverte.
 
-F6: Créer une nouvelle playlist.
+F6: Basculer le Navigateur de Tracks.
 
-F7: Créer un nouveau dossier.
+F7: Créer une nouvelle playlist.
 
-F8: Basculer le Navigateur de Tracks.
+F8: Aller au track courant.
 
 #
 

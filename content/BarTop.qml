@@ -111,6 +111,8 @@ Item
 
         isExpanded = false;
 
+        barWindow.visible = true;
+
         visible = true;
     }
 

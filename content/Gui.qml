@@ -202,6 +202,7 @@ Item
     // BarTop
 
     property alias buttonDiscover: barTop.buttonDiscover
+    property alias buttonBrowse  : barTop.buttonBrowse
 
     property alias lineEditSearch: barTop.lineEditSearch
 
@@ -2558,7 +2559,7 @@ Item
 
                 panelBrowse.expose();
             }
-            else barTop.buttonBrowse.returnPressed();
+            else buttonBrowse.returnPressed();
         }
         else if (event.key == Qt.Key_F7)
         {
@@ -2706,9 +2707,9 @@ Item
         {
             buttonDiscover.returnReleased();
         }
-        else if (barTop.buttonBrowse.isReturnPressed)
+        else if (buttonBrowse.isReturnPressed)
         {
-            barTop.buttonBrowse.returnReleased();
+            buttonBrowse.returnReleased();
         }
         else if (buttonExpand.isReturnPressed)
         {
@@ -2849,7 +2850,7 @@ Item
             }
             else if (panelBrowse.isExposed == false)
             {
-                barTop.buttonBrowse.returnPressed();
+                buttonBrowse.returnPressed();
             }
             else if (panelTracks.isExpanded == false)
             {
@@ -2887,7 +2888,7 @@ Item
                 }
                 else if (panelBrowse.isExposed)
                 {
-                    barTop.buttonBrowse.returnPressed();
+                    buttonBrowse.returnPressed();
                 }
                 else buttonExpand.returnPressed();
             }
@@ -3014,9 +3015,9 @@ Item
         {
             return;
         }
-        else if (barTop.buttonBrowse.isReturnPressed)
+        else if (buttonBrowse.isReturnPressed)
         {
-            barTop.buttonBrowse.returnReleased();
+            buttonBrowse.returnReleased();
         }
         else if (buttonExpand.isReturnPressed)
         {

@@ -330,22 +330,6 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function pMaximize()
-    {
-        gui.toggleMaximize();
-    }
-
-    function pDoubleClicked(mouse)
-    {
-        if (mouse.button & Qt.LeftButton)
-        {
-             gui.toggleMaximize();
-        }
-        else gui.toggleMini();
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
@@ -388,6 +372,7 @@ Item
         id: buttonApplication
 
         checkable: true
+        checked  : panelApplication.isExposed
 
         icon          : st.icon
         iconSourceSize: st.size24x24
@@ -669,7 +654,7 @@ Item
 
         anchors.leftMargin: -(buttonForward.borderRight)
 
-        anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth + st.dp32
+        anchors.rightMargin: buttonAdd.width - buttonForward.borderRight + st.dp32
 
         visible: (gui.isMini == false)
 
@@ -749,9 +734,9 @@ Item
         anchors.left  : buttonForward.right
         anchors.right : buttonMini.left
         anchors.top   : parent.top
-        anchors.bottom: parent.bottom
+        anchors.bottom: border.top
 
-        anchors.rightMargin: buttonAdd.width - buttonAdd.borderSizeWidth + st.dp16
+        anchors.rightMargin: buttonAdd.width - buttonForward.borderRight + st.dp16
 
         visible: gui.isMini
 
@@ -867,8 +852,12 @@ Item
         anchors.left : buttonAdd.right
         anchors.right: parent.right
 
+//#QT_4
+        height: parent.height
+//#ELSE
         // FIXME Qt5: Clickable area is larger than item height.
         height: parent.height - border.size
+//#END
 
         y: -(parent.y)
 

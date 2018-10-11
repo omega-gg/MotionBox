@@ -30,6 +30,8 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
+    property int pMargin: buttonAdd.width - buttonForward.borderRight
+
     property bool pVersion: (gui.isMini == false && online.version && online.version != sk.version)
 
     property bool pUpdate: false
@@ -650,11 +652,14 @@ Item
         //-------------------------------------------------------------------------------------
 
         anchors.left : buttonForward.right
-        anchors.right: buttonMini.left
+
+        anchors.right: (buttonMini.visible) ? buttonMini.left
+                                            : parent.right
 
         anchors.leftMargin: -(buttonForward.borderRight)
 
-        anchors.rightMargin: buttonAdd.width - buttonForward.borderRight + st.dp32
+        anchors.rightMargin: (buttonMini.visible) ? pMargin + st.dp32
+                                                  : pMargin + st.dp16
 
         visible: (gui.isMini == false)
 
@@ -677,6 +682,8 @@ Item
 
         onTabClicked:
         {
+            gui.restoreBars();
+
             panelDiscover.collapse();
 
             wall.updateCurrentPage();
@@ -736,7 +743,7 @@ Item
         anchors.top   : parent.top
         anchors.bottom: border.top
 
-        anchors.rightMargin: buttonAdd.width - buttonForward.borderRight + st.dp16
+        anchors.rightMargin: pMargin + st.dp16
 
         visible: gui.isMini
 
@@ -750,6 +757,8 @@ Item
 
             onPressed:
             {
+                gui.restoreBars();
+
                 if (mouse.button & Qt.LeftButton)
                 {
                     window.clearFocus();
@@ -861,6 +870,8 @@ Item
 
         y: -(parent.y)
 
+        visible: (window.fullScreen == false)
+
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         onPressed: window.clearFocus()
@@ -886,6 +897,8 @@ Item
         borderLeft  : borderSize
         borderRight : 0
         borderBottom: borderSize
+
+        visible: buttonClose.visible
 
         highlighted: gui.pMini
 
@@ -913,6 +926,8 @@ Item
         borderLeft  : borderSize
         borderBottom: borderSize
 
+        visible: buttonClose.visible
+
         icon          : st.icon16x16_iconify
         iconSourceSize: st.size16x16
 
@@ -929,7 +944,7 @@ Item
 
         borderBottom: borderSize
 
-        visible: (gui.isMini == false)
+        visible: (buttonClose.visible && gui.isMini == false)
 
         highlighted: window.maximized
 
@@ -953,6 +968,8 @@ Item
         anchors.bottomMargin: st.dp6
 
         borderBottom: borderSize
+
+        visible: (window.fullScreen == false)
 
         icon          : st.icon16x16_close
         iconSourceSize: st.size16x16

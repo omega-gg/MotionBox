@@ -32,7 +32,12 @@ LineEditBox
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    textDefault: qsTr("What do you want to watch ?")
+    textDefault: (text) ? text
+                        : qsTr("What do you want to watch ?")
+
+    textInput.visible: isFocused
+
+    itemTextDefault.visible: (isFocused == false)
 
     //---------------------------------------------------------------------------------------------
     // Style

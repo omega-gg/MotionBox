@@ -111,13 +111,7 @@ Panel
 
         pIndexFocus = 1;
 
-        var index = getHubIndex();
-
-        if (index == -1)
-        {
-            selectBackend(0);
-        }
-        else scrollHubs.scrollToItem(index);
+        selectBackend(0);
 
         action = 0;
 

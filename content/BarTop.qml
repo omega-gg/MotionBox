@@ -60,19 +60,35 @@ Item
     // States
     //---------------------------------------------------------------------------------------------
 
-    states: State
-    {
-        name: "hidden"; when: isExpanded
-
-        AnchorChanges
+    states:
+    [
+        State
         {
-            target: barTop
+            name: "hiddenFullScreen"; when: (window.fullScreen && isExpanded)
 
-            anchors.top: undefined
+            AnchorChanges
+            {
+                target: barTop
 
-            anchors.bottom: parent.top
+                anchors.top: undefined
+
+                anchors.bottom: parent.top
+            }
+        },
+        State
+        {
+            name: "hidden"; when: isExpanded
+
+            AnchorChanges
+            {
+                target: barTop
+
+                anchors.top: undefined
+
+                anchors.bottom: barWindow.bottom
+            }
         }
-    }
+    ]
 
     transitions: Transition
     {

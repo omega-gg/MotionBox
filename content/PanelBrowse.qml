@@ -504,7 +504,7 @@ MouseArea
         isSearching = true;
         isSelecting = pSelect;
 
-        if (pSelect && player.isPlaying && highlightedTab == null)
+        if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
         {
             pOpenTab();
         }
@@ -1093,9 +1093,14 @@ MouseArea
 
             text: pText
 
-            textDefault: qsTr("What are you looking for ?")
+            textDefault: (text) ? text
+                                : qsTr("What are you looking for ?")
 
             font.pixelSize: st.dp14
+
+            textInput.visible: isFocused
+
+            itemTextDefault.visible: (isFocused == false)
 
             onTextChanged:
             {

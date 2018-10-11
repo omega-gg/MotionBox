@@ -190,6 +190,8 @@ Item
 
     property alias tabs: barWindow.tabs
 
+    property alias buttonApplication: barWindow.buttonApplication
+
     property alias buttonBackward: barWindow.buttonBackward
     property alias buttonForward : barWindow.buttonForward
 
@@ -540,7 +542,7 @@ Item
 
         onCurrentTabChanged:
         {
-            gui.restoreBars();
+            restoreBars();
 
             panelSearch.setText(currentTab.source);
 
@@ -2491,9 +2493,7 @@ Item
         {
             event.accepted = true;
 
-            restoreBars();
-
-            barWindow.buttonApplication.returnPressed();
+            buttonApplication.returnPressed();
         }
         else if (event.key == Qt.Key_F2)
         {
@@ -2690,6 +2690,10 @@ Item
         else if (barWindow.buttonClose.isReturnPressed)
         {
             barWindow.buttonClose.returnReleased();
+        }
+        else if (buttonApplication.isReturnPressed)
+        {
+            buttonApplication.returnReleased();
         }
         else if (buttonBackward.isReturnPressed)
         {

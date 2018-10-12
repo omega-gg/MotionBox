@@ -479,19 +479,6 @@ PanelImage
 
         visible: (detail && duration != -1)
 
-        Rectangle
-        {
-            anchors.fill: parent
-
-            opacity: st.panelContextual_backgroundOpacity
-
-            gradient: Gradient
-            {
-                GradientStop { position: 0.0; color: "#161616" }
-                GradientStop { position: 1.0; color: "#323232" }
-            }
-        }
-
         Icon
         {
             id: icon

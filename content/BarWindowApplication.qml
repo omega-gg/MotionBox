@@ -238,6 +238,8 @@ Item
             pTab = currentTab;
         }
         else pTab = currentTab;
+
+        panelSearch.setText(pTab.source);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -651,7 +653,7 @@ Item
         // Settings
         //-------------------------------------------------------------------------------------
 
-        anchors.left : buttonForward.right
+        anchors.left: buttonForward.right
 
         anchors.right: (buttonMini.visible) ? buttonMini.left
                                             : parent.right
@@ -727,6 +729,23 @@ Item
         //-------------------------------------------------------------------------------------
         // Functions
         //-------------------------------------------------------------------------------------
+
+//#QT_5
+        function onBeforeSelectTab(index)
+        {
+            if (gui.isMini)
+            {
+                var indexA = tabs.indexOf(pTab);
+
+                var indexB = index;
+
+                if (indexA != indexB)
+                {
+                    itemSlide.init();
+                }
+            }
+        }
+//#END
 
         function onBeforeCloseTab(index)
         {
@@ -960,12 +979,12 @@ Item
     {
         id: buttonClose
 
-        anchors.right : parent.right
-        anchors.top   : parent.top
-        anchors.bottom: border.top
+        anchors.right: parent.right
+        anchors.top  : parent.top
 
-        anchors.rightMargin : st.dp16
-        anchors.bottomMargin: st.dp6
+        anchors.rightMargin: st.dp16
+
+        height: st.barWindow_height + borderSizeHeight
 
         borderBottom: borderSize
 

@@ -544,8 +544,6 @@ Item
         {
             restoreBars();
 
-            panelSearch.setText(currentTab.source);
-
             barWindow.updateTab();
 
             loadTabItems(currentTab);

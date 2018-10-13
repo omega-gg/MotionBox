@@ -653,15 +653,13 @@ Item
         // Settings
         //-------------------------------------------------------------------------------------
 
-        anchors.left: buttonForward.right
-
-        anchors.right: (buttonMini.visible) ? buttonMini.left
-                                            : parent.right
+        anchors.left : buttonForward.right
+        anchors.right: buttonMini.left
 
         anchors.leftMargin: -(buttonForward.borderRight)
 
-        anchors.rightMargin: (buttonMini.visible) ? pMargin + st.dp32
-                                                  : pMargin + st.dp16
+        anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
+                                                 : pMargin + st.dp32
 
         visible: (gui.isMini == false)
 
@@ -889,7 +887,7 @@ Item
 
         y: -(parent.y)
 
-        visible: (window.fullScreen == false)
+        dragEnabled: (window.fullScreen == false)
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
@@ -899,7 +897,11 @@ Item
         {
             if (mouse.button & Qt.LeftButton)
             {
-                 gui.toggleMaximize();
+                if (window.fullScreen)
+                {
+                     gui.restoreFullScreen();
+                }
+                else gui.toggleMaximize();
             }
             else gui.toggleMini();
         }
@@ -916,8 +918,6 @@ Item
         borderLeft  : borderSize
         borderRight : 0
         borderBottom: borderSize
-
-        visible: buttonClose.visible
 
         highlighted: gui.pMini
 
@@ -945,8 +945,6 @@ Item
         borderLeft  : borderSize
         borderBottom: borderSize
 
-        visible: buttonClose.visible
-
         icon          : st.icon16x16_iconify
         iconSourceSize: st.size16x16
 
@@ -963,16 +961,25 @@ Item
 
         borderBottom: borderSize
 
-        visible: (buttonClose.visible && gui.isMini == false)
+        visible: (gui.isMini == false)
 
-        highlighted: window.maximized
+        highlighted: (window.maximized || window.fullScreen)
 
-        icon: (window.maximized) ? st.icon16x16_minimize
-                                 : st.icon16x16_maximize
+        icon: (highlighted) ? st.icon16x16_minimize
+                            : st.icon16x16_maximize
 
         iconSourceSize: st.size16x16
 
-        onClicked: gui.toggleMaximize()
+        onClicked:
+        {
+            if (window.fullScreen)
+            {
+                gui.restoreFullScreen();
+
+                gui.restoreMaximize();
+            }
+            else gui.toggleMaximize();
+        }
     }
 
     ButtonPianoIcon
@@ -987,8 +994,6 @@ Item
         height: st.barWindow_height + borderSizeHeight
 
         borderBottom: borderSize
-
-        visible: (window.fullScreen == false)
 
         icon          : st.icon16x16_close
         iconSourceSize: st.size16x16

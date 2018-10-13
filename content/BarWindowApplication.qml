@@ -335,6 +335,19 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function pRestoreMaximize()
+    {
+        if (window.fullScreen)
+        {
+            gui.restoreFullScreen();
+
+            gui.restoreMaximize();
+        }
+        else gui.toggleMaximize();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
 //#QT_5
     function pUpdateMini(index)
     {
@@ -913,11 +926,7 @@ Item
         {
             if (mouse.button & Qt.LeftButton)
             {
-                if (window.fullScreen)
-                {
-                     gui.restoreFullScreen();
-                }
-                else gui.toggleMaximize();
+                pRestoreMaximize();
             }
             else gui.toggleMini();
         }
@@ -990,9 +999,7 @@ Item
         {
             if (window.fullScreen)
             {
-                gui.restoreFullScreen();
-
-                gui.restoreMaximize();
+                pRestoreMaximize();
             }
             else gui.toggleMaximize();
         }

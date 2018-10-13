@@ -315,9 +315,9 @@ Item
             // Functions events
             //-------------------------------------------------------------------------------------
 
-            function onBeforeCloseItem(index)
+            function onBeforeItemClose(index)
             {
-                return gui.onBeforeCloseTab(index);
+                return gui.onBeforeTabClose(index);
             }
         }
     }

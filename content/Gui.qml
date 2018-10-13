@@ -3070,7 +3070,7 @@ Item
     //---------------------------------------------------------------------------------------------
     // Events
 
-    function onBeforeCloseTab(index)
+    function onBeforeTabClose(index)
     {
         if (player.isPlaying && player.tabIndex == index)
         {

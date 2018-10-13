@@ -334,6 +334,27 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
+
+//#QT_5
+    function pUpdateMini(index)
+    {
+        if (gui.isMini)
+        {
+            var indexA = tabs.indexOf(pTab);
+
+            var indexB = index;
+
+            if (indexA != indexB)
+            {
+                itemSlide.init();
+            }
+        }
+
+        return true;
+    }
+//#END
+
+    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
@@ -728,27 +749,22 @@ Item
         // Functions
         //-------------------------------------------------------------------------------------
 
-//#QT_5
-        function onBeforeSelectTab(index)
+        function onBeforeTabClose(index)
         {
-            if (gui.isMini)
-            {
-                var indexA = tabs.indexOf(pTab);
+            return gui.onBeforeTabClose(index);
+        }
 
-                var indexB = index;
+//#QT_5
+        function onBeforeTabOpen(index)
+        {
+            return pUpdateMini(index);
+        }
 
-                if (indexA != indexB)
-                {
-                    itemSlide.init();
-                }
-            }
+        function onBeforeTabSelect(index)
+        {
+            return pUpdateMini(index);
         }
 //#END
-
-        function onBeforeCloseTab(index)
-        {
-            return gui.onBeforeCloseTab(index);
-        }
     }
 
     ItemSlide

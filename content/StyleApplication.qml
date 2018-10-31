@@ -267,12 +267,15 @@ Style
     // FIXME: Workaround for the rounding issue.
     scale: local.scale.toFixed(3)
 
-    logo_colorA: (local.style == 1) ? "#c8c8c8"
-                                    : "#484848"
-
     icon: "pictures/icons/icon.svg"
 
     logo: "pictures/logoBackground.svg"
+
+    logo_colorA: (local.style == 1) ? "#c8c8c8"
+                                    : "#484848"
+
+    //---------------------------------------------------------------------------------------------
+    // Border
 
     border_size: (local.style == 1) ? st.dp1
                                     : st.dp2

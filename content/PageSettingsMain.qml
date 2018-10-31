@@ -31,6 +31,8 @@ Item
 
     function pSetStyle(index)
     {
+        gui.restoreMini();
+
         st.applyStyle(index);
 
         local.style = index;

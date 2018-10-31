@@ -1008,14 +1008,7 @@ Item
 
         iconSourceSize: st.size16x16
 
-        onClicked:
-        {
-            if (window.fullScreen)
-            {
-                pRestoreMaximize();
-            }
-            else gui.toggleMaximize();
-        }
+        onClicked: pRestoreMaximize()
     }
 
     ButtonPianoIcon

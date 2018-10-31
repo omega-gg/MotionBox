@@ -42,7 +42,7 @@ Panel
     anchors.right: parent.right
     anchors.top  : parent.bottom
 
-    anchors.rightMargin: (gui.isMini) ? -st.dp2 : st.dp96
+    anchors.rightMargin: (gui.isMini) ? -st.border_size : st.dp96
 
     width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
 
@@ -52,7 +52,7 @@ Panel
 
     visible: false
 
-    backgroundOpacity: (gui.isExpanded) ? st.panelContextual_backgroundOpacity : 1.0
+    backgroundOpacity: st.panelContextual_backgroundOpacity
 
     //---------------------------------------------------------------------------------------------
     // States

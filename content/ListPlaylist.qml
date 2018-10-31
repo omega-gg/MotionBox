@@ -1333,6 +1333,8 @@ List
         sourceSize: st.size32x32
 
         style: st.icon_raised
+
+        filter: st.icon2_filter
     }
 
     CheckBox
@@ -1395,7 +1397,7 @@ List
         width : st.dp28
         height: st.dp28
 
-        y: itemWatcher.y + st.dp2
+        y: itemWatcher.y + st.border_size
 
         visible: (enableContextual && checkBox.visible)
 

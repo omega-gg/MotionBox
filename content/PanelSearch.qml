@@ -47,7 +47,7 @@ Panel
     width: (gui.isMini) ? parent.width         + borderSizeWidth
                         : lineEditSearch.width + borderSizeWidth
 
-    height: st.dp202 + borderSizeHeight
+    height: st.list_itemSize * 6 + borderSizeHeight
 
     borderTop: 0
 

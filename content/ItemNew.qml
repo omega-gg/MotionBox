@@ -25,14 +25,19 @@ Item
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property int type : -1
-    property int count:  3
+    property int type: -1
+    property int mode:  0
 
     //---------------------------------------------------------------------------------------------
     // Style
 
     property color colorA: st.buttonPiano_colorCheckA
     property color colorB: st.buttonPiano_colorCheckB
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    property int pCount: 3
 
     //---------------------------------------------------------------------------------------------
     // Aliases
@@ -43,10 +48,35 @@ Item
     property alias text: lineEdit.text
 
     //---------------------------------------------------------------------------------------------
+
+    property alias button: button
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
     height: st.itemList_height
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onModeChanged:
+    {
+        if (mode == 1)
+        {
+            type = 0;
+
+            pCount = 2;
+        }
+        else if (mode != 2)
+        {
+            type = 0;
+
+            pCount = 3;
+        }
+        else type = 2;
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -68,16 +98,20 @@ Item
 
     function pSwitchA()
     {
-        type = (type + 1) % count;
+        if (mode == 2) return;
+
+        type = (type + 1) % pCount;
     }
 
     function pSwitchB()
     {
-        type = (type - 1) % count;
+        if (mode == 2) return;
+
+        type = (type - 1) % pCount;
 
         if (type < 0)
         {
-            type = count - 1;
+            type = pCount - 1;
         }
     }
 
@@ -124,9 +158,13 @@ Item
 
             borderRight: borderSize
 
+            enabled: (mode != 2)
+
             acceptedButtons: Qt.LeftButton | Qt.RightButton
 
             icon: pGetIcon()
+
+            itemIcon.opacity: 1.0
 
             onClicked:
             {

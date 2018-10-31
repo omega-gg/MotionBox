@@ -19,25 +19,11 @@ import Sky     1.0
 
 LineEditBox
 {
-    id: lineEditSearch
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* mandatory */ property int widthMinimum
-    /* mandatory */ property int widthMaximum
-
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    textDefault: (text) ? text
-                        : qsTr("What do you want to watch ?")
-
-    textInput.visible: isFocused
-
-    itemTextDefault.visible: (isFocused == false)
+    textDefault: qsTr("What do you want to watch ?")
 
     //---------------------------------------------------------------------------------------------
     // Style

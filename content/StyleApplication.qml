@@ -37,7 +37,6 @@ Style
     property int dp160: 160 * ratio
     property int dp192: 192 * ratio
 
-    property int dp202: 202 * ratio
     property int dp220: 220 * ratio
     property int dp256: 256 * ratio
     property int dp258: 258 * ratio
@@ -61,13 +60,8 @@ Style
 
     property int splash_borderSize: dp8
 
-    property color splash_colorA: (local.style) ? "#646464" : logo_colorB
-    property color splash_colorB: (local.style) ? "#323232" : logo_colorA
-
-    //---------------------------------------------------------------------------------------------
-    // PanelBrowse
-
-    property color panelBrowse_colorBackground: "#323232"
+    property color splash_colorA: (local.style == 2) ? "#646464" : logo_colorB
+    property color splash_colorB: (local.style == 2) ? "#323232" : logo_colorA
 
     //---------------------------------------------------------------------------------------------
     // PanelRelated
@@ -80,20 +74,11 @@ Style
 
     property int panelCover_intervalClear: ms1000
 
-    property color panelCover_color: "black"
-
-    property color panelCover_colorBackground: "#323232"
-
     //---------------------------------------------------------------------------------------------
     // PanelAdd
 
     property int panelAdd_durationCollapse: 1000
     property int panelAdd_durationAdd     : 1400
-
-    //---------------------------------------------------------------------------------------------
-    // PanelPreview
-
-    property color panelPreview_colorText: playerBrowser_colorTextB
 
     //---------------------------------------------------------------------------------------------
     // LineEditSearch
@@ -129,11 +114,6 @@ Style
 
     //---------------------------------------------------------------------------------------------
     // Icons
-
-    property color icon_colorActive  : "#008cdc"
-    property color icon_colorSelected: "white"
-
-    //---------------------------------------------------------------------------------------------
 
     property url icon_qt    : "pictures/icons/qt.png"
     property url icon_qtGray: "pictures/icons/qtGray.png"
@@ -287,12 +267,43 @@ Style
     // FIXME: Workaround for the rounding issue.
     scale: local.scale.toFixed(3)
 
+    logo_colorA: (local.style == 1) ? "#c8c8c8"
+                                    : "#484848"
+
     icon: "pictures/icons/icon.svg"
 
     logo: "pictures/logoBackground.svg"
+
+    border_size: (local.style == 1) ? st.dp1
+                                    : st.dp2
+
+    border_sizeFocus: st.dp2
+
+    border_color: (local.style == 1) ? "#969696"
+                                     : "#161616"
 
     //---------------------------------------------------------------------------------------------
     // Animation
 
     animate: false
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function applyStyle(index)
+    {
+        if (index == 0)
+        {
+            applyNight();
+        }
+        else if (index == 1)
+        {
+            applyLight();
+        }
+        else // if (index == 2)
+        {
+            applyClassic();
+        }
+    }
 }

@@ -71,7 +71,7 @@ ComponentLibraryItem
     iconFillMode: (isCurrent) ? Image.PreserveAspectFit
                               : Image.PreserveAspectCrop
 
-    textMargin: (index == indexActive) ? width + st.dp2 - checkBox.x
+    textMargin: (index == indexActive) ? width + st.border_size - checkBox.x
                                        : st.dp8
 
     //---------------------------------------------------------------------------------------------

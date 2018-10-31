@@ -54,8 +54,8 @@ ScrollFolder
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias type : itemNew.type
-    property alias count: itemNew.count
+    property alias type: itemNew.type
+    property alias mode: itemNew.mode
 
     property alias text: itemNew.text
 
@@ -605,11 +605,11 @@ ScrollFolder
 
         y = index * list.itemSize;
 
-        var min = 2;
+        var min = rectangleDrop.size;
         var max;
 
-        if (isScrollable) max = contentHeight - 4;
-        else              max = contentHeight - 2;
+        if (isScrollable) max = contentHeight - rectangleDrop.sizeHeight;
+        else              max = contentHeight - rectangleDrop.size;
 
         if      (y < min) y = min;
         else if (y > max) y = max;
@@ -887,15 +887,15 @@ ScrollFolder
             }
             else if (isScrollable)
             {
-                 return parent.width - st.dp2;
+                 return parent.width - size;
             }
-            else return parent.width - st.dp4;
+            else return parent.width - sizeWidth;
         }
 
         height: (pDropType) ? st.itemList_iconHeight
                             : st.itemList_height
 
-        x: (pDropType) ? 0 : st.dp2
+        x: (pDropType) ? 0 : size
 
         opacity: (visible) ? bordersDrop.opacity : 1.0
     }

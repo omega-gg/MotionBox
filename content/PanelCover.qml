@@ -79,7 +79,7 @@ Panel
     borderLeft  : 0
     borderBottom: 0
 
-    color: st.panelCover_color
+    color: st.panelImage_color
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -119,7 +119,7 @@ Panel
             {
                 target: panelCover
 
-                width: panelBrowse.widthColum + st.dp2
+                width: panelBrowse.widthColum + st.border_size
 
                 y: parent.height - height
             }
@@ -143,7 +143,7 @@ Panel
             {
                 target: panelCover
 
-                width: panelBrowse.widthColum + st.dp2
+                width: panelBrowse.widthColum + st.border_size
 
                 y: parent.height
             }
@@ -167,7 +167,7 @@ Panel
             {
                 target: panelCover
 
-                width: panelBrowse.widthColum + st.dp2
+                width: panelBrowse.widthColum + st.border_size
             }
         }
     ]
@@ -413,11 +413,11 @@ Panel
         width : st.dp50 + borderIcon.size
         height: st.dp28
 
-        color: st.panelCover_colorBackground
+        color: st.panel_color
 
         states: State
         {
-            name: "Exposed"; when: isExposed
+            name: "exposed"; when: isExposed
 
             AnchorChanges
             {
@@ -453,7 +453,7 @@ Panel
 
             asynchronous: true
 
-            filter: (isSourceDefault) ? st.buttonPiano_filterIcon : null
+            filter: (isSourceDefault) ? st.button_filterIconA : null
 
             ButtonPiano
             {
@@ -493,6 +493,8 @@ Panel
                 sourceSize: st.size32x32
 
                 style: st.icon_raised
+
+                filter: st.icon2_filter
             }
         }
 
@@ -647,33 +649,15 @@ Panel
 
         visible: itemCover.visible
 
-        Icon
-        {
-            id: icon
-
-            anchors.left: parent.left
-
-            anchors.leftMargin: st.dp3
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            visible: (hasItem) ? (quality           >= AbstractBackend.QualityHigh)
-                               : (playerTab.quality >= AbstractBackend.QualityHigh)
-
-            source    : st.icon28x28_hd
-            sourceSize: st.size28x28
-        }
-
         TextBase
         {
             id: itemDuration
 
-            anchors.left: (icon.visible) ? icon.right : parent.left
-
+            anchors.left  : parent.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            leftMargin: (icon.visible) ? st.dp4 : st.dp6
+            leftMargin: st.dp6
 
             verticalAlignment: Text.AlignVCenter
 

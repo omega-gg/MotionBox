@@ -174,7 +174,7 @@ MouseArea
             anchors.left: buttonPlay.right
             anchors.top : buttonPlay.top
 
-            anchors.leftMargin: -st.dp2
+            anchors.leftMargin: -st.border_size
 
             width : st.dp48
             height: width
@@ -215,7 +215,7 @@ MouseArea
             anchors.left: buttonPrevious.right
             anchors.top : buttonPrevious.top
 
-            anchors.leftMargin: -st.dp2
+            anchors.leftMargin: -st.border_size
 
             width : st.dp48
             height: width
@@ -271,10 +271,11 @@ MouseArea
 
         LabelStream
         {
-            height: (gui.isMini) ? st.dp12               + borderSizeHeight
-                                 : st.labelStream_height + borderSizeHeight
+            height: (gui.isMini) ? st.dp12
+                                 : st.labelStream_height
 
-            borderTop: 0
+            borderTop   : 0
+            borderBottom: 0
 
             slider: sliderStream
         }

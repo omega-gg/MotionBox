@@ -921,6 +921,8 @@ List
         sourceSize: st.size32x32
 
         style: st.icon_raised
+
+        filter: st.icon2_filter
     }
 
     ButtonPushIcon
@@ -931,7 +933,7 @@ List
 
         anchors.rightMargin: st.dp4
 
-        y: itemWatcher.y + st.dp2
+        y: itemWatcher.y + st.border_size
 
         visible: (enableContextual && gui.dragList != list && itemWatcher.visible
                   &&

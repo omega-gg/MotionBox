@@ -68,6 +68,8 @@ PanelImage
 
     visible: false
 
+    backgroundOpacity: st.panelContextual_backgroundOpacity
+
     animate: false
 
     acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
@@ -76,6 +78,8 @@ PanelImage
 
     fillMode: (type) ? Image.PreserveAspectFit
                      : Image.PreserveAspectCrop
+
+    color: st.panel_color
 
     //---------------------------------------------------------------------------------------------
 
@@ -348,18 +352,18 @@ PanelImage
             }
             else panelPreview.x = x;
 
-            y = pos.y - st.dp2;
+            y = pos.y - st.border_size;
         }
         else
         {
-            panelPreview.x = pos.x - st.dp2;
+            panelPreview.x = pos.x - st.border_size;
 
             y = pos.y - height;
         }
 
-        var minY = barTop.y + barTop.height - st.dp2;
+        var minY = barTop.y + barTop.height - st.border_size;
 
-        var maxY = barControls.y + st.dp2;
+        var maxY = barControls.y + st.border_size;
 
         if (y < minY)
         {
@@ -479,32 +483,13 @@ PanelImage
 
         visible: (detail && duration != -1)
 
-        Icon
-        {
-            id: icon
-
-            anchors.right: parent.right
-            anchors.top  : parent.top
-
-            anchors.rightMargin:  st.dp3
-            anchors.topMargin  : -st.dp1
-
-            visible: (quality >= AbstractBackend.QualityHigh)
-
-            source    : st.icon28x28_hd
-            sourceSize: st.size28x28
-
-            style: st.icon_raised
-        }
-
         TextBase
         {
             id: itemDuration
 
-            anchors.left: parent.left
-            anchors.top : parent.top
-
-            anchors.right: (icon.visible) ? icon.left : parent.right
+            anchors.left : parent.left
+            anchors.right: parent.right
+            anchors.top  : parent.top
 
             leftMargin : st.dp6
             rightMargin: st.dp6
@@ -517,8 +502,6 @@ PanelImage
             visible: (text != "")
 
             text: gui.getTrackDuration(duration)
-
-            color: st.panelPreview_colorText
 
             style: st.text_raised
 

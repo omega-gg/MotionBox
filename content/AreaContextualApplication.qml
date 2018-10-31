@@ -63,7 +63,7 @@ AreaContextual
     {
         if (gui.isMini)
         {
-             areaContextual.showPanelMargins(panelAdd, barTop, st.dp2, -st.dp2);
+             areaContextual.showPanelMargins(panelAdd, barTop, st.border_size, -st.border_size);
         }
         else areaContextual.showPanel(panelAdd,
                                       panelContextual.item,

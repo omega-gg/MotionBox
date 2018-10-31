@@ -30,6 +30,11 @@ ItemTab
     property TabTrack tab: currentTab
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    property bool pCurrent: (isCurrent || isHighlighted)
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -50,7 +55,8 @@ ItemTab
 
     iconFillMode: Image.PreserveAspectCrop
 
-    textColor: st.text1_color
+    textColor: (pCurrent) ? st.text2_color
+                          : st.text1_color
 
     textStyle: (isCurrent) ? st.text_raised
                            : st.text_sunken
@@ -61,7 +67,9 @@ ItemTab
     textStyleColor: (isCurrent) ? st.text1_colorShadow
                                 : st.text1_colorSunken
 
-    filterIcon      : st.icon1_filter
+    filterIcon: (pCurrent) ? st.icon2_filter
+                           : st.icon1_filter
+
     filterIconShadow: st.icon1_filterShadow
 
     background.gradient: Gradient

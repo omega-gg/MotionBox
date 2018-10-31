@@ -159,7 +159,7 @@ Item
                     panelContextual.loadPageFolder(gui.listLibrary, index);
 
                     areaContextual.showPanelPositionMargins(panelContextual, buttonFolder,
-                                                            Sk.BottomRight, -st.dp2, 0);
+                                                            Sk.BottomRight, -st.border_size, 0);
                 }
             }
 
@@ -314,7 +314,7 @@ Item
 
             listPlaylist: scrollPlaylist.list
 
-            count: 2
+            mode: 1
 
             itemLeft : gui.listLibrary
             itemRight: listPlaylist
@@ -388,7 +388,7 @@ Item
                     panelContextual.loadPageFolder(list, index);
 
                     areaContextual.showPanelPositionMargins(panelContextual, buttonPlaylist,
-                                                            Sk.BottomRight, -st.dp2, 0);
+                                                            Sk.BottomRight, -st.border_size, 0);
                 }
             }
 

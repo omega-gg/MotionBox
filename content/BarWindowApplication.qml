@@ -78,12 +78,37 @@ Item
     anchors.left : parent.left
     anchors.right: parent.right
 
-    anchors.bottom: (window.fullScreen) ? barTop.top : undefined
+    anchors.bottomMargin: barTop.height
 
     height: st.dp32 + border.size
 
     //---------------------------------------------------------------------------------------------
+    // States
+    //---------------------------------------------------------------------------------------------
+
+    states: State
+    {
+        name: "hidden"; when: (window.fullScreen && barTop.isExpanded)
+
+        AnchorChanges
+        {
+            target: barWindow
+
+            anchors.bottom: parent.top
+        }
+    }
+
+    transitions: Transition
+    {
+        SequentialAnimation
+        {
+            AnchorAnimation { duration: st.duration_normal }
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Events private
+    //---------------------------------------------------------------------------------------------
 
     onPVersionChanged:
     {
@@ -714,9 +739,12 @@ Item
         // Events
         //-------------------------------------------------------------------------------------
 
-        onTabClicked:
+        onTabPressed:
         {
-            gui.restoreBars();
+            if (player.tabIndex == index)
+            {
+                gui.restoreBars();
+            }
 
             panelDiscover.collapse();
 
@@ -738,24 +766,9 @@ Item
 
         onContextual:
         {
-            window.clearFocus();
-
             var tab = tabs.tabAt(indexHover);
 
-            if (lineEditSearch.width != lineEditSearch.widthMinimum)
-            {
-                if (actionCue.tryPush(actionTabMenu)) return;
-
-                startActionCue(st.duration_faster);
-
-                pContextualTab  = tab;
-                pContextualItem = itemHovered;
-
-                actionCue.tryPush(actionTabMenu);
-
-                return;
-            }
-            else showTabMenu(tab, itemHovered, -1, -1, false);
+            showTabMenu(tab, itemHovered, -1, -1, false);
         }
 
         //-------------------------------------------------------------------------------------
@@ -1027,7 +1040,8 @@ Item
         colorPressA: st.button_colorConfirmPressA
         colorPressB: st.button_colorConfirmPressB
 
-        colorFocus: st.button_colorConfirmFocus
+        filterIcon: (isHovered) ? st.button_filterIconB
+                                : st.button_filterIconA
 
         onClicked: window.close()
     }

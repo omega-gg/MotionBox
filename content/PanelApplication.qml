@@ -65,7 +65,7 @@ Panel
 
     visible: false
 
-    backgroundOpacity: (gui.isExpanded) ? st.panelContextual_backgroundOpacity : 1.0
+    backgroundOpacity: st.panelContextual_backgroundOpacity
 
     //---------------------------------------------------------------------------------------------
     // States

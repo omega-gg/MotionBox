@@ -314,7 +314,7 @@ Item
 
     Component.onCompleted:
     {
-        if (local.style) st.applyClassic();
+        st.applyStyle(local.style);
 
         loadTabItems(currentTab);
 
@@ -542,7 +542,10 @@ Item
 
         onCurrentTabChanged:
         {
-            restoreBars();
+            if (currentTab.currentTime == -1)
+            {
+                restoreBars();
+            }
 
             barWindow.updateTab();
 
@@ -989,11 +992,11 @@ Item
         if (isMini)
         {
              areaContextual.showPanelPositionMargins(panelAdd, barControls, Sk.TopLeft,
-                                                     st.dp2, st.dp2);
+                                                     st.border_size, st.border_size);
         }
         else areaContextual.showPanel(panelAdd, barControls, Sk.TopLeft,
                                       barControls.borderB.x + barControls.borderB.width, -1,
-                                      0, st.dp2, false);
+                                      0, st.border_size, false);
 
         startActionCue(st.duration_faster);
     }
@@ -1139,9 +1142,9 @@ Item
         {
             if (sk.osWin) window.setWindowSnap(false);
 
-            window.fullScreen = true;
-
             st.animate = false;
+
+            window.fullScreen = true;
 
             pExpandFullScreen();
 
@@ -1297,7 +1300,7 @@ Item
 
         var width = st.dp480 + window.borderSizeWidth;
 
-        var height = barWindow.height + barTop.height + barControls.height - st.dp2
+        var height = barWindow.height + barTop.height + barControls.height - st.border_size
                      +
                      window.borderSizeHeight;
 
@@ -1313,11 +1316,13 @@ Item
 
             barWindow.updateTab();
         }
-        else window.height = height + st.dp2 + st.dp270;
+        else window.height = height + st.border_size + st.dp270;
 
         if (x == -1)
         {
-             window.x = geometry.x + geometry.width - width - st.buttonPianoIcon_width - st.dp2;
+             window.x = geometry.x + geometry.width - width - st.buttonPianoIcon_width
+                        -
+                        st.border_size;
         }
         else window.x = x;
 
@@ -1416,7 +1421,7 @@ Item
 
         isMicro = false;
 
-        window.resizeHeight(window.minimumHeight + st.dp2 + st.dp270, true);
+        window.resizeHeight(window.minimumHeight + st.border_size + st.dp270, true);
 
         barWindow.updateTab();
 
@@ -3104,13 +3109,18 @@ Item
         wall.restore();
 
         panelRelated.collapse();
+
+        if (player.isPlaying)
+        {
+            expandBars();
+        }
     }
 
     function pRestoreFullScreen()
     {
-        window.fullScreen = false;
-
         st.animate = false;
+
+        window.fullScreen = false;
 
         pRestoreExpand();
 

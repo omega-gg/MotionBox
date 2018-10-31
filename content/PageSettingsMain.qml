@@ -31,11 +31,7 @@ Item
 
     function pSetStyle(index)
     {
-        if (index == 0)
-        {
-             st.applyFlat();
-        }
-        else st.applyClassic();
+        st.applyStyle(index);
 
         local.style = index;
     }
@@ -224,13 +220,13 @@ Item
     {
         id: buttonsStyle
 
-        anchors.left: parent.left
-        anchors.top : barNetwork.bottom
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : barNetwork.bottom
 
-        anchors.leftMargin: st.dp3
-        anchors.topMargin : st.dp3
-
-        width: st.dp192
+        anchors.leftMargin : st.dp3
+        anchors.rightMargin: st.dp3
+        anchors.topMargin  : st.dp3
 
         model: ListModel {}
 
@@ -238,7 +234,8 @@ Item
 
         Component.onCompleted:
         {
-            model.append({ "title": qsTr("Flat")    });
+            model.append({ "title": qsTr("Night")   });
+            model.append({ "title": qsTr("Light")   });
             model.append({ "title": qsTr("Classic") });
         }
 

@@ -1003,7 +1003,7 @@ PanelContextual
 
             visible: (indexCurrent == 1 || indexCurrent == 2)
 
-            type: (indexCurrent == 2) ? 1 : 0
+            mode: (indexCurrent == 2) ? 2 : 1
 
             onIsFocusedChanged:
             {
@@ -1328,6 +1328,8 @@ PanelContextual
             anchors.fill: itemListB
 
             visible: (indexCurrent == 3)
+
+            mode: 2
 
             colorA: st.itemList_colorSelectFocusA
             colorB: st.itemList_colorSelectFocusB

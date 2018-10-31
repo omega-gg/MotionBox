@@ -1093,14 +1093,9 @@ MouseArea
 
             text: pText
 
-            textDefault: (text) ? text
-                                : qsTr("What are you looking for ?")
+            textDefault: qsTr("What are you looking for ?")
 
             font.pixelSize: st.dp14
-
-            textInput.visible: isFocused
-
-            itemTextDefault.visible: (isFocused == false)
 
             onTextChanged:
             {
@@ -1237,8 +1232,8 @@ MouseArea
         {
             panelContextual.loadPageBrowse();
 
-            areaContextual.showPanelPositionMargins(panelContextual,
-                                                    buttonHome, Sk.BottomRight, -st.dp2, 0);
+            areaContextual.showPanelPositionMargins(panelContextual, buttonHome,
+                                                    Sk.BottomRight, -st.border_size, 0);
         }
     }
 
@@ -1463,7 +1458,7 @@ MouseArea
             panelContextual.loadPageFolder(list, index);
 
             areaContextual.showPanelPositionMargins(panelContextual, buttonPlaylist,
-                                                    Sk.BottomRight, -st.dp2, 0);
+                                                    Sk.BottomRight, -st.border_size, 0);
         }
     }
 
@@ -1808,15 +1803,6 @@ MouseArea
                     buttonAddItem.returnReleased();
                 }
             }
-        }
-
-        Rectangle
-        {
-            anchors.fill: scrollPlaylists
-
-            visible: borderPlaylists.visible
-
-            color: st.panelBrowse_colorBackground
         }
 
         ScrollFolder

@@ -27,6 +27,8 @@ ButtonImage
     {
         anchors.fill: parent
 
+        size: st.border_sizeFocus
+
         visible: (isHovered && isPressed == false)
 
         color: st.border_colorFocus

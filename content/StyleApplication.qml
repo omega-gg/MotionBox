@@ -269,7 +269,8 @@ Style
 
     icon: "pictures/icons/icon.svg"
 
-    logo: "pictures/logoBackground.svg"
+    logo: (local.style == 1) ? "pictures/logoBackgroundB.svg"
+                             : "pictures/logoBackgroundA.svg"
 
     logo_colorA: (local.style == 1) ? "#c8c8c8"
                                     : "#484848"

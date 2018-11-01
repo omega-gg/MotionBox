@@ -125,9 +125,9 @@ cd dist
 
 if [ "$3" = "deploy" ]; then
 
-    sh qrc.sh $QT_SELECT deploy
+    sh qrc.sh $QT_SELECT $2 deploy
 else
-    sh qrc.sh $QT_SELECT
+    sh qrc.sh $QT_SELECT $2
 fi
 
 echo ""

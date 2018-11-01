@@ -46,24 +46,6 @@ Item
     anchors.fill: parent
 
     //---------------------------------------------------------------------------------------------
-    // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function applyColor()
-    {
-        panelApplication.pAnimate = true;
-
-        panelApplication.color = st.pageAboutText_color;
-    }
-
-    function restoreColor()
-    {
-        panelApplication.pAnimate = false;
-
-        panelApplication.color = st.panel_color;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 

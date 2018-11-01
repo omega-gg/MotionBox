@@ -103,11 +103,6 @@ Style
     property int sliderStream_intervalB: 30000
 
     //---------------------------------------------------------------------------------------------
-    // PageAboutText
-
-    property color pageAboutText_color: "#323232"
-
-    //---------------------------------------------------------------------------------------------
     // ComponentDiscover
 
     property int componentDiscover_height: dp48 + border_size

@@ -17,13 +17,15 @@ content="../content"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 -a $# != 2 ] \
+if [ $# != 2 -a $# != 3 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $# = 2 -a "$2" != "deploy" ]; then
+   [ $2 != "win32" -a $2 != "osx" -a $2 != "linux" ] \
+   || \
+   [ $# = 3 -a "$3" != "deploy" ]; then
 
-    echo "Usage: qrc <qt4 | qt5 | clean> [deploy]"
+    echo "Usage: qrc <qt4 | qt5 | clean> <win32 | osx | linux> [deploy]"
 
     exit 1
 fi
@@ -32,7 +34,7 @@ fi
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "clean" ] || [ "$2" = "deploy" ]; then
+if [ $1 = "clean" ] || [ "$3" = "deploy" ]; then
 
     echo "CLEANING"
 
@@ -63,7 +65,7 @@ cp "$content"/*.qml qrc
 # Content
 #--------------------------------------------------------------------------------------------------
 
-if [ "$2" = "deploy" ]; then
+if [ "$3" = "deploy" ]; then
 
     echo "COPYING pictures"
 
@@ -82,9 +84,16 @@ echo ""
 # Deployer
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "qt4" ]; then
+if [ $1 = "qt5" ]; then
 
-    "$Sky"/deploy/deployer qrc 1.1 MotionBox.qrc
+    if [ $2 = "win32" ]; then
+
+        version=2.11
+    else
+        version=2.7
+    fi
 else
-    "$Sky"/deploy/deployer qrc 2.7 MotionBox.qrc
+    version=1.1
 fi
+
+"$Sky"/deploy/deployer qrc $version MotionBox.qrc

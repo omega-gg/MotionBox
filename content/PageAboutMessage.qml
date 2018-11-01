@@ -34,17 +34,10 @@ PageAboutText
 
     Component.onCompleted:
     {
-        applyColor();
-
         scrollArea.value = panelApplication.pMessageValue;
 
         online.loadMessage();
     }
 
-    Component.onDestruction:
-    {
-        restoreColor();
-
-        panelApplication.pMessageValue = scrollArea.value;
-    }
+    Component.onDestruction: panelApplication.pMessageValue = scrollArea.value
 }

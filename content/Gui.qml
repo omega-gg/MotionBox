@@ -2166,6 +2166,17 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function updateColor()
+    {
+        if (wall.isActive)
+        {
+             window.color = st.window_color;
+        }
+        else window.color = "black";
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function updateScreenDim()
     {
         if (window.isActive && panelTracks.isExpanded == false && player.isPlaying)

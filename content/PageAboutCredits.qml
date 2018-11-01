@@ -32,17 +32,7 @@ PageAboutText
     // Events
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted:
-    {
-        applyColor();
+    Component.onCompleted: scrollArea.value = panelApplication.pCreditsValue
 
-        scrollArea.value = panelApplication.pCreditsValue;
-    }
-
-    Component.onDestruction:
-    {
-        restoreColor();
-
-        panelApplication.pCreditsValue = scrollArea.value;
-    }
+    Component.onDestruction: panelApplication.pCreditsValue = scrollArea.value
 }

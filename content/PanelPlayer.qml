@@ -245,14 +245,7 @@ Item
             // Events
             //-------------------------------------------------------------------------------------
 
-            onIsActiveChanged:
-            {
-                if (isActive)
-                {
-                     window.color = st.window_color;
-                }
-                else window.color = "black";
-            }
+            onIsActiveChanged: gui.updateColor()
 
             onIsExposedChanged: local.macro = isExposed
 

@@ -781,6 +781,8 @@ ScrollFolder
                 AnchorAnimation
                 {
                     duration: (pAnimate) ? st.duration_faster : 0
+
+                    easing.type: st.easing
                 }
 
                 ScriptAction

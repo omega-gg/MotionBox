@@ -135,7 +135,12 @@ MouseArea
     {
         SequentialAnimation
         {
-            AnchorAnimation { duration: st.duration_normal }
+            AnchorAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
 
             ScriptAction
             {
@@ -1079,7 +1084,12 @@ MouseArea
 
         Behavior on anchors.topMargin
         {
-            PropertyAnimation { duration: st.duration_fast }
+            PropertyAnimation
+            {
+                duration: st.duration_fast
+
+                easing.type: st.easing
+            }
         }
 
         LineEditBox
@@ -1741,6 +1751,8 @@ MouseArea
                     property: "width"
 
                     duration: st.duration_normal
+
+                    easing.type: st.easing
                 }
 
                 ScriptAction

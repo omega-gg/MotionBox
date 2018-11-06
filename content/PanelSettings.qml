@@ -75,7 +75,12 @@ Panel
     {
         SequentialAnimation
         {
-            AnchorAnimation { duration: st.duration_faster }
+            AnchorAnimation
+            {
+                duration: st.duration_faster
+
+                easing.type: st.easing
+            }
 
             ScriptAction
             {

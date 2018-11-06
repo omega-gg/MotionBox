@@ -544,7 +544,12 @@ Item
             {
                 enabled: isAnimated
 
-                PropertyAnimation { duration: pDurationAnimation }
+                PropertyAnimation
+                {
+                    duration: pDurationAnimation
+
+                    easing.type: st.easing
+                }
             }
 
             //-------------------------------------------------------------------------------------

@@ -79,6 +79,8 @@ ItemList
                 property: "height"
 
                 duration: st.duration_normal
+
+                easing.type: st.easing
             }
 
             ScriptAction

@@ -58,7 +58,12 @@ MouseArea
         {
             PauseAnimation { duration: st.ms1000 }
 
-            AnchorAnimation { duration: st.duration_slower }
+            AnchorAnimation
+            {
+                duration: st.duration_slower
+
+                easing.type: st.easing
+            }
 
             ScriptAction { script: pClearSpash() }
         }
@@ -173,6 +178,8 @@ MouseArea
                     property: "opacity"
 
                     duration: st.duration_slower
+
+                    easing.type: st.easing
                 }
 
                 ScriptAction { script: pClearSpash() }

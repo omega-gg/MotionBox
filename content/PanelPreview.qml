@@ -176,6 +176,8 @@ PanelImage
         {
             duration: pAnimationDuration
 
+            easing.type: st.easing
+
             onRunningChanged:
             {
                 if (running || pAnimate == false) return;
@@ -189,7 +191,12 @@ PanelImage
 
     Behavior on y
     {
-        PropertyAnimation { duration: pAnimationDuration }
+        PropertyAnimation
+        {
+            duration: pAnimationDuration
+
+            easing.type: st.easing
+        }
     }
 
     //---------------------------------------------------------------------------------------------

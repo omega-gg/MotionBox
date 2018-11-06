@@ -1316,7 +1316,12 @@ List
         {
             enabled: overlay.background.visible
 
-            PropertyAnimation { duration: st.duration_faster }
+            PropertyAnimation
+            {
+                duration: st.duration_faster
+
+                easing.type: st.easing
+            }
         }
     }
 

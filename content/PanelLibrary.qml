@@ -88,7 +88,12 @@ Panel
     {
         SequentialAnimation
         {
-            AnchorAnimation { duration: st.duration_normal }
+            AnchorAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
 
             ScriptAction
             {
@@ -203,7 +208,12 @@ Panel
 
             Behavior on opacity
             {
-                PropertyAnimation { duration: st.duration_faster }
+                PropertyAnimation
+                {
+                    duration: st.duration_faster
+
+                    easing.type: st.easing
+                }
             }
         }
 

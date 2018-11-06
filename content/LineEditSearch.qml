@@ -42,11 +42,11 @@ LineEditBox
         {
             text = currentTab.source;
 
-            panelSearch.isActive = false;
+            panelSearch.visible = false;
         }
         else if (text == "")
         {
-            panelSearch.isActive = true;
+            panelSearch.visible = true;
         }
     }
 
@@ -112,7 +112,7 @@ LineEditBox
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat == false && (panelSearch.isActive == false || text == ""))
+            if (event.isAutoRepeat == false && (panelSearch.visible == false || text == ""))
             {
                 if (panelBrowse.lineEdit.visible)
                 {

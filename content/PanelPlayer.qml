@@ -114,6 +114,8 @@ Item
                 properties: "y, height"
 
                 duration: st.duration_normal
+
+                easing.type: st.easing
             }
 
             ScriptAction

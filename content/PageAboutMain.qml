@@ -114,7 +114,12 @@ Item
 
         Behavior on x
         {
-            PropertyAnimation { duration: st.duration_normal }
+            PropertyAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
         }
     }
 
@@ -135,7 +140,12 @@ Item
 
         Behavior on x
         {
-            PropertyAnimation { duration: st.duration_normal }
+            PropertyAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
         }
     }
 

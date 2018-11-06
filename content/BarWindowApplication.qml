@@ -102,7 +102,12 @@ Item
     {
         SequentialAnimation
         {
-            AnchorAnimation { duration: st.duration_normal }
+            AnchorAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
         }
     }
 
@@ -487,7 +492,12 @@ Item
         {
             SequentialAnimation
             {
-                AnchorAnimation { duration: st.duration_normal }
+                AnchorAnimation
+                {
+                    duration: st.duration_normal
+
+                    easing.type: st.easing
+                }
 
                 ScriptAction
                 {
@@ -546,7 +556,12 @@ Item
         {
             SequentialAnimation
             {
-                AnchorAnimation { duration: st.duration_faster }
+                AnchorAnimation
+                {
+                    duration: st.duration_faster
+
+                    easing.type: st.easing
+                }
 
                 ScriptAction
                 {
@@ -644,7 +659,12 @@ Item
         {
             SequentialAnimation
             {
-                AnchorAnimation { duration: st.duration_normal }
+                AnchorAnimation
+                {
+                    duration: st.duration_normal
+
+                    easing.type: st.easing
+                }
 
                 ScriptAction
                 {
@@ -904,7 +924,12 @@ Item
         {
             enabled: itemTabs.isAnimated
 
-            PropertyAnimation { duration: itemTabs.durationAnimation }
+            PropertyAnimation
+            {
+                duration: itemTabs.durationAnimation
+
+                easing.type: st.easing
+            }
         }
 
         onClicked:

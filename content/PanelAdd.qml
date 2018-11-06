@@ -323,12 +323,22 @@ PanelContextual
 
     Behavior on x
     {
-        PropertyAnimation { duration: pAnimationDuration }
+        PropertyAnimation
+        {
+            duration: pAnimationDuration
+
+            easing.type: st.easing
+        }
     }
 
     Behavior on width
     {
-        PropertyAnimation { duration: pAnimationDuration }
+        PropertyAnimation
+        {
+            duration: pAnimationDuration
+
+            easing.type: st.easing
+        }
     }
 
     //---------------------------------------------------------------------------------------------

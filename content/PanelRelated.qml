@@ -108,7 +108,12 @@ Panel
     {
         SequentialAnimation
         {
-            AnchorAnimation { duration: st.duration_normal }
+            AnchorAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
 
             ScriptAction { script: pCompleteTransition() }
         }
@@ -120,6 +125,8 @@ Panel
                 property: "width"
 
                 duration: st.duration_normal
+
+                easing.type: st.easing
             }
 
             ScriptAction { script: pCompleteTransition() }

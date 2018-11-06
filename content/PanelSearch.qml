@@ -25,8 +25,6 @@ Panel
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool isActive: false
-
     /* read */ property int hub: -1
 
     /* read */ property int action: 0
@@ -56,45 +54,10 @@ Panel
     z: 1
 
     visible: false
-    opacity: 0.0
 
     enableFocus: false
 
     backgroundOpacity: st.panelContextual_backgroundOpacity
-
-    //---------------------------------------------------------------------------------------------
-    // States
-    //---------------------------------------------------------------------------------------------
-
-    states: State
-    {
-        name: "active"; when: isActive
-
-        PropertyChanges
-        {
-            target: panelSearch
-
-            opacity: 1.0
-        }
-    }
-
-    transitions: Transition
-    {
-        SequentialAnimation
-        {
-            NumberAnimation
-            {
-                property: "opacity"
-
-                duration: st.duration_faster
-            }
-
-            ScriptAction
-            {
-                script: if (isActive == false) visible = false
-            }
-        }
-    }
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -102,7 +65,7 @@ Panel
 
     onIsActiveChanged:
     {
-        if (isActive == false) return;
+        if (visible == false) return;
 
         gui.restoreMicro();
 
@@ -147,7 +110,7 @@ Panel
 
             if (lineEditSearch.isFocused)
             {
-                isActive = true;
+                visible = true;
             }
         }
     }
@@ -278,7 +241,7 @@ Panel
 
     function setText(text)
     {
-        if (isActive == false)
+        if (visible == false)
         {
             pTextEvents = false;
 

@@ -450,7 +450,11 @@ Item
                 pScale(2.0);
             }
 
+//#QT_4
             window.clearFocus();
+//#ELSE
+            Qt.callLater(window.clearFocus);
+//#END
         }
     }
 

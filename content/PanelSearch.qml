@@ -63,7 +63,7 @@ Panel
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onIsActiveChanged:
+    onVisibleChanged:
     {
         if (visible == false) return;
 

@@ -1794,8 +1794,6 @@ MouseArea
             itemRight: (pStateActive) ? scrollPlaylists
                                       : scrollPlaylist
 
-            list.onActiveFocusChanged: if (list.activeFocus) pState = false
-
             Keys.onPressed:
             {
                 if (event.key == Qt.Key_Plus && buttonAddItem.visible)
@@ -1843,6 +1841,13 @@ MouseArea
             itemRight: scrollPlaylist
 
             list.onActiveFocusChanged: pState = list.activeFocus
+
+            list.onIndexContextualChanged:
+            {
+                if (list.indexContextual != -1 || mouseArea.containsMouse) return;
+
+                pState = false;
+            }
         }
 
         BorderVertical
@@ -1882,7 +1887,7 @@ MouseArea
 
         onExited:
         {
-            if (buttonAddItem.checked) return;
+            if (buttonAddItem.checked || scrollPlaylists.list.indexContextual != -1) return;
 
             if (scrollPlaylists.list.activeFocus)
             {

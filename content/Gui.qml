@@ -314,7 +314,7 @@ Item
 
     Component.onCompleted:
     {
-        if (local.style != 1)
+        if (local.style)
         {
             st.applyStyle(local.style);
         }

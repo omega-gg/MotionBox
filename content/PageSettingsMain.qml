@@ -238,8 +238,8 @@ Item
 
         Component.onCompleted:
         {
-            model.append({ "title": qsTr("Night")   });
             model.append({ "title": qsTr("Light")   });
+            model.append({ "title": qsTr("Night")   });
             model.append({ "title": qsTr("Classic") });
         }
 

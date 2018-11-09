@@ -264,22 +264,22 @@ Style
 
     icon: "pictures/icons/icon.svg"
 
-    logo: (local.style == 1) ? "pictures/logoBackgroundB.svg"
-                             : "pictures/logoBackgroundA.svg"
+    logo: (local.style) ? "pictures/logoBackgroundA.svg"
+                        : "pictures/logoBackgroundB.svg"
 
-    logo_colorA: (local.style == 1) ? "#c8c8c8"
-                                    : "#404040"
+    logo_colorA: (local.style) ? "#404040"
+                               : "#c8c8c8"
 
     //---------------------------------------------------------------------------------------------
     // Border
 
-    border_size: (local.style == 1) ? st.dp1
-                                    : st.dp2
+    border_size: (local.style) ? st.dp2
+                               : st.dp1
 
     border_sizeFocus: st.dp2
 
-    border_color: (local.style == 1) ? "#969696"
-                                     : "#161616"
+    border_color: (local.style) ? "#161616"
+                                : "#969696"
 
     //---------------------------------------------------------------------------------------------
     // Animation
@@ -294,11 +294,11 @@ Style
     {
         if (index == 0)
         {
-            applyNight();
+            applyLight();
         }
         else if (index == 1)
         {
-            applyLight();
+            applyNight();
         }
         else // if (index == 2)
         {

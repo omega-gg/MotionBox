@@ -314,7 +314,10 @@ Item
 
     Component.onCompleted:
     {
-        st.applyStyle(local.style);
+        if (local.style != 1)
+        {
+            st.applyStyle(local.style);
+        }
 
         loadTabItems(currentTab);
 

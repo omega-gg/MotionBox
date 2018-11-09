@@ -28,6 +28,8 @@ Panel
     /* read */ property bool isExposed : false
     /* read */ property bool isAnimated: false
 
+    /* read */ property int indexCurrent: -1
+
     /* read */ property string sourceSettings: "PageSettingsMain.qml"
     /* read */ property string sourceAbout   : "PageAboutMain.qml"
 
@@ -36,12 +38,6 @@ Panel
 
     property int pMessageValue: 0
     property int pCreditsValue: 0
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias itemTabs: itemTabs
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -144,9 +140,11 @@ Panel
 
         gui.restoreMicro();
 
-        if (itemTabs.indexCurrent == -1)
+        if (indexCurrent == -1)
         {
-            itemTabs.pSelectTab(0);
+            indexCurrent = 0;
+
+            loader.load(Qt.resolvedUrl("PageSettings.qml"));
         }
 
         visible = true;
@@ -179,21 +177,11 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function updateTabs()
-    {
-        var model = itemTabs.model;
-
-        model.setProperty(0, "sourceDefault", Qt.resolvedUrl(st.icon32x32_setting));
-        model.setProperty(1, "sourceDefault", Qt.resolvedUrl(st.icon32x32_about));
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function setAboutPage(page)
     {
-        if (itemTabs.indexCurrent != 1)
+        if (indexCurrent != 1)
         {
-            itemTabs.indexCurrent = 1;
+            indexCurrent = 1;
 
             sourceAbout = page;
 
@@ -217,6 +205,31 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pSelectTab(index)
+    {
+        if (loader.isAnimated || indexCurrent == index) return;
+
+        indexCurrent = index;
+
+        if (indexCurrent == 0)
+        {
+            sourceSettings = "PageSettingsMain.qml";
+
+            loader.loadRight(Qt.resolvedUrl("PageSettings.qml"));
+        }
+        else
+        {
+            sourceAbout = "PageAboutMain.qml";
+
+            loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
+        }
+
+        loader.item.forceActiveFocus();
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
@@ -231,64 +244,51 @@ Panel
 
         borderTop: 0
 
-        Tabs
+        ButtonPianoFull
         {
-            id: itemTabs
+            id: buttonSettings
 
-            anchors.fill: parent
+            width: Math.round(parent.width / 2)
 
-            anchors.leftMargin : -st.border_size
-            anchors.rightMargin: -st.border_size
+            checkable: true
+            checked  : (indexCurrent == 0)
 
-            delegate: ComponentTab { font.pixelSize: st.dp14 }
+            icon          : st.icon32x32_setting
+            iconSourceSize: st.size32x32
 
-            Component.onCompleted:
-            {
-                addTab("", qsTr("Settings"), st.icon32x32_setting);
-                addTab("", qsTr("About"),    st.icon32x32_about);
-            }
+            text: qsTr("Settings")
 
-            function selectTab(index)
-            {
+            font.pixelSize: st.dp14
+
 //#QT_4
-                pSelectTab(index);
+            onPressed: pSelectTab(0)
 //#ELSE
-                Qt.callLater(pSelectTab, index);
+            onPressed: Qt.callLater(pSelectTab, 0)
 //#END
-            }
+        }
 
-            function pSelectTab(index)
-            {
-                if (loader.isAnimated
-                    ||
-                    index < 0 || index >= count || indexCurrent == index) return;
+        ButtonPianoFull
+        {
+            anchors.left : buttonSettings.right
+            anchors.right: parent.right
 
-                if (indexCurrent == -1)
-                {
-                    indexCurrent = index;
+            borderRight: 0
 
-                    loader.load(Qt.resolvedUrl("PageSettings.qml"));
-                }
-                else
-                {
-                    indexCurrent = index;
+            checkable: true
+            checked  : (indexCurrent == 1)
 
-                    if (indexCurrent == 0)
-                    {
-                        sourceSettings = "PageSettingsMain.qml";
+            icon          : st.icon32x32_about
+            iconSourceSize: st.size32x32
 
-                        loader.loadRight(Qt.resolvedUrl("PageSettings.qml"));
-                    }
-                    else
-                    {
-                        sourceAbout = "PageAboutMain.qml";
+            text: qsTr("About")
 
-                        loader.loadLeft(Qt.resolvedUrl("PageAbout.qml"));
-                    }
-                }
+            font.pixelSize: st.dp14
 
-                loader.item.forceActiveFocus();
-            }
+//#QT_4
+            onPressed: pSelectTab(1)
+//#ELSE
+            onPressed: Qt.callLater(pSelectTab, 1)
+//#END
         }
     }
 

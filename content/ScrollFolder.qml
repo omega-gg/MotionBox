@@ -50,6 +50,10 @@ ScrollArea
 
     /* read */ property alias count: list.count
 
+//#QT_4
+    /* read */ property alias indexContextual: list.indexContextual
+//#END
+
     property alias enableLoad      : list.enableLoad
     property alias enablePreview   : list.enablePreview
     property alias enablePlay      : list.enablePlay

@@ -400,8 +400,6 @@ Item
 
         onRatioChanged:
         {
-            panelApplication.updateTabs();
-
             areaDrag   .updatePosition();
             bordersDrop.updatePosition();
         }

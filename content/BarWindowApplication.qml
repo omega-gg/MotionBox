@@ -618,7 +618,7 @@ Item
 
         visible: pMessage
 
-        checked: (panelApplication.isExposed && panelApplication.itemTabs.indexCurrent == 1
+        checked: (panelApplication.isExposed && panelApplication.indexCurrent == 1
                   &&
                   panelApplication.sourceAbout == Qt.resolvedUrl("PageAboutMessage.qml"))
 

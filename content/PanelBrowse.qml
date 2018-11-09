@@ -1842,7 +1842,11 @@ MouseArea
 
             list.onActiveFocusChanged: pState = list.activeFocus
 
+//#QT_4
+            onIndexContextualChanged:
+//#ELSE
             list.onIndexContextualChanged:
+//#END
             {
                 if (list.indexContextual != -1 || mouseArea.containsMouse) return;
 

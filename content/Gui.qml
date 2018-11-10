@@ -314,11 +314,6 @@ Item
 
     Component.onCompleted:
     {
-        if (local.style)
-        {
-            st.applyStyle(local.style);
-        }
-
         loadTabItems(currentTab);
 
         if (local.browserVisible)

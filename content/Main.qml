@@ -76,6 +76,11 @@ Application
         {
             core.load();
 
+            if (local.style)
+            {
+                st.applyStyle(local.style);
+            }
+
             loader.source = "Gui.qml";
         }
 

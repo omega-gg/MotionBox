@@ -23,14 +23,24 @@ ButtonImage
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    RectangleBorders
+    Rectangle
     {
+        id: borders
+
         anchors.fill: parent
 
-        size: st.border_sizeFocus
+        radius: Math.round(height / 16)
 
         visible: (isHovered && isPressed == false)
 
-        color: st.border_colorFocus
+        color: "transparent"
+
+//#QT_4
+        smooth: true
+//#END
+
+        border.width: Math.round(height / 32) + st.dp1
+
+        border.color: st.border_colorFocus
     }
 }

@@ -264,8 +264,8 @@ Style
 
     icon: "pictures/icons/icon.svg"
 
-    logo: (local.style) ? "pictures/logoBackgroundA.svg"
-                        : "pictures/logoBackgroundB.svg"
+    logo: (local.style) ? "pictures/logoBackgroundB.svg"
+                        : "pictures/logoBackgroundA.svg"
 
     logo_colorA: (local.style) ? "#404040"
                                : "#c8c8c8"

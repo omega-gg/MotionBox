@@ -3,17 +3,12 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="512px" height="512px" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve">
-<rect fill="#161616" width="512" height="512"/>
-<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="256" y1="496" x2="256" y2="16.0005">
-	<stop  offset="0" style="stop-color:#0064C8"/>
-	<stop  offset="1" style="stop-color:#00B4FF"/>
-</linearGradient>
-<rect x="16" y="16" fill="url(#SVGID_1_)" width="480" height="480"/>
-<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="256" y1="255.9995" x2="256" y2="16">
-	<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
-	<stop  offset="1" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
-</linearGradient>
-<rect x="16" y="16" fill="url(#SVGID_2_)" width="480" height="240"/>
+<g>
+	<path fill="#00B4FF" d="M36,504c-15.439,0-28-12.561-28-28V36C8,20.561,20.561,8,36,8h440c15.439,0,28,12.561,28,28v440
+		c0,15.439-12.561,28-28,28H36z"/>
+	<path fill="#161616" d="M476,16c11,0,20,9,20,20v440c0,11-9,20-20,20H36c-11,0-20-9-20-20V36c0-11,9-20,20-20H476 M476,0H36
+		C16.149,0,0,16.149,0,36v440c0,19.851,16.149,36,36,36h440c19.851,0,36-16.149,36-36V36C512,16.149,495.851,0,476,0L476,0z"/>
+</g>
 <g>
 	<g>
 		<g>
@@ -47,7 +42,7 @@
 				c-1.08-4.266-2.742-4.241-3.693,0.055l-38.639,174.371c-0.952,4.296-5.331,7.811-9.73,7.811H84c-4.4,0-7.144-3.497-6.097-7.771
 				l62.806-256.459c1.046-4.274,5.503-7.771,9.903-7.771h42.753c4.4,0,8.934,3.477,10.076,7.726l50.484,187.899
 				c1.142,4.249,3.006,4.248,4.145-0.002l50.311-187.896c1.139-4.25,5.669-7.728,10.069-7.728H362.512z"/>
-			<path fill="none" stroke="#161616" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" d="M362.512,120
+			<path fill="none" stroke="#161616" stroke-width="2" stroke-linejoin="round" stroke-miterlimit="10" d="M362.512,120
 				c4.4,0,8.843,3.5,9.873,7.778l61.742,256.445C435.157,388.5,432.4,392,428,392h-40.694c-4.4,0-8.778-3.515-9.729-7.811
 				l-37.895-171.216c-0.95-4.296-2.662-4.334-3.802-0.084l-45.998,171.385c-1.141,4.25-5.674,7.727-10.074,7.727h-49.862
 				c-4.4,0-8.883-3.49-9.963-7.756l-44.162-174.481c-1.08-4.266-2.742-4.241-3.693,0.055l-38.639,174.371

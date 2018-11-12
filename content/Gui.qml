@@ -1712,10 +1712,6 @@ Item
 
             actionCue.tryPush(actionSearchExpose);
         }
-        else if (isMini)
-        {
-            lineEditSearch.showAndFocus();
-        }
         else lineEditSearch.focus();
     }
 

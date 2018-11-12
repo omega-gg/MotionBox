@@ -23,7 +23,16 @@ LineEditBox
     // Settings
     //---------------------------------------------------------------------------------------------
 
+//#QT_4
     textDefault: qsTr("What do you want to watch ?")
+//#ELSE
+    textDefault: (text) ? text
+                        : qsTr("What do you want to watch ?")
+
+    textInput.visible: isFocused
+
+    itemTextDefault.visible: (isFocused == false)
+//#END
 
     //---------------------------------------------------------------------------------------------
     // Style
@@ -51,18 +60,8 @@ LineEditBox
     }
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Functions events
     //---------------------------------------------------------------------------------------------
-
-    function showAndFocus()
-    {
-        visible = true;
-
-        focus();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Events
 
     function onKeyPressed(event)
     {

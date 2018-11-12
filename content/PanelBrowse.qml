@@ -1103,9 +1103,20 @@ MouseArea
 
             text: pText
 
+//#QT_4
             textDefault: qsTr("What are you looking for ?")
+//#ELSE
+            textDefault: (text) ? text
+                                : qsTr("What are you looking for ?")
+//#END
 
             font.pixelSize: st.dp14
+
+//#QT_5
+            textInput.visible: isFocused
+
+            itemTextDefault.visible: (isFocused == false)
+//#END
 
             onTextChanged:
             {

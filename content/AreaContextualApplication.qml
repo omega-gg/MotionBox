@@ -159,22 +159,36 @@ AreaContextual
 
                     pCheckPlay(folder, index);
 
-                    pageFolder.setItemVisible(5, true);
-
                     if (folder.itemIsLocal(index))
                     {
-                        pageFolder.set(6, { "title": qsTr("Delete Playlist") });
+                        pageFolder.set(7, { "title": qsTr("Delete Playlist") });
 
+                        pageFolder.setItemVisible(2, false);
                         pageFolder.setItemVisible(3, false);
                         pageFolder.setItemVisible(4, true);
+                        pageFolder.setItemVisible(5, true);
+                        pageFolder.setItemVisible(6, false);
                     }
                     else
                     {
-                        pageFolder.set(6, { "title": qsTr("Remove Playlist") });
                         pageFolder.set(3, { "title": qsTr("Webpage")         });
+                        pageFolder.set(7, { "title": qsTr("Remove Playlist") });
 
                         pageFolder.setItemVisible(3, true);
                         pageFolder.setItemVisible(4, false);
+
+                        if (folder == feeds)
+                        {
+                            pageFolder.setItemVisible(2, true);
+                            pageFolder.setItemVisible(5, false);
+                            pageFolder.setItemVisible(6, true);
+                        }
+                        else
+                        {
+                            pageFolder.setItemVisible(2, false);
+                            pageFolder.setItemVisible(5, true);
+                            pageFolder.setItemVisible(6, false);
+                        }
                     }
                 }
                 else if (type == LibraryItem.PlaylistFeed)
@@ -183,37 +197,52 @@ AreaContextual
 
                     pCheckPlay(folder, index);
 
-                    pageFolder.setItemVisible(5, true);
-
                     if (folder.itemIsLocal(index))
                     {
-                        pageFolder.set(6, { "title": qsTr("Delete Feed") });
+                        pageFolder.set(7, { "title": qsTr("Delete Feed") });
 
+                        pageFolder.setItemVisible(2, false);
                         pageFolder.setItemVisible(3, false);
                         pageFolder.setItemVisible(4, true);
+                        pageFolder.setItemVisible(5, true);
+                        pageFolder.setItemVisible(6, false);
                     }
                     else
                     {
-                        pageFolder.set(6, { "title": qsTr("Remove Feed") });
                         pageFolder.set(3, { "title": qsTr("Webpage")     });
+                        pageFolder.set(7, { "title": qsTr("Remove Feed") });
 
                         pageFolder.setItemVisible(3, true);
                         pageFolder.setItemVisible(4, false);
+
+                        if (folder == feeds)
+                        {
+                            pageFolder.setItemVisible(2, true);
+                            pageFolder.setItemVisible(5, false);
+                            pageFolder.setItemVisible(6, true);
+                        }
+                        else
+                        {
+                            pageFolder.setItemVisible(2, false);
+                            pageFolder.setItemVisible(5, true);
+                            pageFolder.setItemVisible(6, false);
+                        }
                     }
                 }
                 else
                 {
                     pageFolder.set(0, { "title": qsTr("Folder")        });
-                    pageFolder.set(6, { "title": qsTr("Delete Folder") });
+                    pageFolder.set(7, { "title": qsTr("Delete Folder") });
 
                     pageFolder.setItemVisible(1, false);
+                    pageFolder.setItemVisible(2, false);
                     pageFolder.setItemVisible(3, false);
                     pageFolder.setItemVisible(4, true);
                     pageFolder.setItemVisible(5, false);
+                    pageFolder.setItemVisible(6, false);
                 }
 
-                pageFolder.setItemVisible(2, false);
-                pageFolder.setItemVisible(6, true);
+                pageFolder.setItemVisible(7, true);
             }
             else
             {
@@ -429,7 +458,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 5) // Remove
+            else if (id == 5) // Clear
+            {
+                pItem.folder.clearItems();
+            }
+            else if (id == 6) // Remove
             {
                 pItem.removeItem(pIndex, true);
             }
@@ -654,7 +687,10 @@ AreaContextual
                     { "id": 3, "title": qsTr("Rename")      },
                     { "id": 4, "title": qsTr("Move to ...") },
 
-                    { "id": 5, "type": ContextualPage.ItemConfirm }
+                    { "id": 5, "type": ContextualPage.ItemConfirm,
+                              "title": qsTr("Clear all Feeds") },
+
+                    { "id": 6, "type": ContextualPage.ItemConfirm }
                 ]
             }
 

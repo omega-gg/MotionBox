@@ -772,7 +772,7 @@ PanelContextual
 
             library.setItemTitle(index, text);
         }
-        else list.insertItem(index, type, text, true);
+        else pInsert(index, type, text);
     }
 
     //---------------------------------------------------------------------------------------------

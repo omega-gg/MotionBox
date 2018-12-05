@@ -1800,7 +1800,7 @@ Item
 
     function getListFolder(folder)
     {
-        if (listLibrary.library == folder)
+        if (listLibrary.folder == folder)
         {
             return listLibrary;
         }

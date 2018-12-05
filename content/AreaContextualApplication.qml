@@ -688,7 +688,7 @@ AreaContextual
                     { "id": 4, "title": qsTr("Move to ...") },
 
                     { "id": 5, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Clear all Feeds") },
+                               "title": qsTr("Clear all Feeds") },
 
                     { "id": 6, "type": ContextualPage.ItemConfirm }
                 ]

@@ -25,7 +25,7 @@ Panel
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property int translate: 0
+    /* read */ property int index: local.libraryIndex
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -115,6 +115,30 @@ Panel
     // Functions
     //---------------------------------------------------------------------------------------------
 
+    function select(index)
+    {
+        if (panelLibrary.index == index) return;
+
+        itemWipe.init();
+
+        if (panelLibrary.index < index)
+        {
+            panelLibrary.index = index;
+
+            itemWipe.startLeft();
+        }
+        else
+        {
+            panelLibrary.index = index;
+
+            itemWipe.startRight();
+        }
+
+        local.libraryIndex = index;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function saveScroll()
     {
         pValue = scrollLibrary.value;
@@ -128,6 +152,20 @@ Panel
 
             pValue = -1;
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pCreate()
+    {
+        select(1);
+
+        if (buttonAdd.checked)
+        {
+             scrollLibrary.clearItem();
+        }
+        else scrollLibrary.createItem(0);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -158,26 +196,57 @@ Panel
             icon          : st.icon24x24_addBold
             iconSourceSize: st.size24x24
 
-            onPressed:
-            {
-                if (checked)
-                {
-                     scrollLibrary.clearItem();
-                }
-                else scrollLibrary.createItem(0);
-            }
+//#QT_4
+            onPressed: pCreate()
+//#ELSE
+            onPressed: Qt.callLater(pCreate)
+//#END
         }
 
-        BarTitleText
+        ButtonPiano
         {
-            id: libraryTitle
+            id: buttonFeeds
 
             anchors.left  : buttonAdd.right
-            anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
+            width: Math.round((parent.width - buttonAdd.width) / 3)
+
+            checkable: true
+            checked  : (index == 0)
+
+            checkHover: false
+
+            text: qsTr("Feeds")
+
+//#QT_4
+            onPressed: select(0)
+//#ELSE
+            onPressed: Qt.callLater(select, 0)
+//#END
+        }
+
+        ButtonPiano
+        {
+            anchors.left  : buttonFeeds.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: buttonFeeds.width
+
+            checkable: true
+            checked  : (index)
+
+            checkHover: false
+
             text: qsTr("Library")
+
+//#QT_4
+            onPressed: select(1)
+//#ELSE
+            onPressed: Qt.callLater(select, 1)
+//#END
         }
 
         ButtonPianoFull
@@ -190,9 +259,7 @@ Panel
 
             width: Math.round((parent.width - buttonAdd.width) / 3)
 
-            visible: (opacity != 0.0)
-
-            opacity: (scrollLibrary.isCreating) ? 1.0 : 0.0
+            visible: scrollLibrary.isCreating
 
             enabled: (library.isFull == false)
 
@@ -205,16 +272,6 @@ Panel
             text: qsTr("Playlist")
 
             onPressed: scrollLibrary.createItem(0)
-
-            Behavior on opacity
-            {
-                PropertyAnimation
-                {
-                    duration: st.duration_faster
-
-                    easing.type: st.easing
-                }
-            }
         }
 
         ButtonPianoFull
@@ -228,7 +285,6 @@ Panel
             width: buttonPlaylist.width
 
             visible: buttonPlaylist.visible
-            opacity: buttonPlaylist.opacity
 
             enabled: (library.isFull == false)
 
@@ -253,7 +309,6 @@ Panel
             borderRight: 0
 
             visible: buttonPlaylist.visible
-            opacity: buttonPlaylist.opacity
 
             enabled: (library.isFull == false)
 
@@ -269,32 +324,61 @@ Panel
         }
     }
 
-    ScrollFolderCreate
+    ItemWipe
     {
-        id: scrollLibrary
+        id: itemWipe
 
         anchors.left  : parent.left
         anchors.right : parent.right
         anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
 
-        folder: library
+        onIsAnimatedChanged:
+        {
+            if (scrollLibrary.dragAccepted)
+            {
+                bordersDrop.updatePosition();
 
-        listFolder  : gui.listFolder
-        listPlaylist: gui.listPlaylist
+                bordersDrop.visible = true;
+            }
+        }
 
-        itemRight: (listFolder.visible) ? listFolder
-                                        : listPlaylist
+        ScrollFolderCreate
+        {
+            id: scrollLibrary
 
-        itemText.visible: false
-    }
+            anchors.fill: parent
 
-    ScrollerList
-    {
-        visible: scrollLibrary.dragAccepted
+            folder: (index == 0) ? feeds : library
 
-        opacity: (visible) ? bordersDrop.opacity : 1.0
+            listFolder  : gui.listFolder
+            listPlaylist: gui.listPlaylist
 
-        scrollArea: scrollLibrary
+            enableAnimation: (itemWipe.isAnimated == false)
+
+            textDefault: qsTr("Empty Library")
+
+            itemRight: (listFolder.visible) ? listFolder
+                                            : listPlaylist
+
+            itemText.visible: (index == 1 && isCreating == false && count == 0)
+
+            onDragAcceptedChanged:
+            {
+                if (itemWipe.isAnimated)
+                {
+                    bordersDrop.visible = false;
+                }
+            }
+        }
+
+        ScrollerList
+        {
+            visible: scrollLibrary.dragAccepted
+
+            opacity: (visible) ? bordersDrop.opacity : 1.0
+
+            scrollArea: scrollLibrary
+        }
     }
 }

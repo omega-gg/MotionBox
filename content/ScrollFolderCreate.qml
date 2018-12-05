@@ -26,13 +26,14 @@ ScrollFolder
     //---------------------------------------------------------------------------------------------
 
     /* read */ property bool isCreating: false
+    /* read */ property bool isDropping: false
+
+    property bool enableAnimation: true
 
     //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pAnimate: false
-
-    property bool pDropping: false
 
     property variant pDropItem : null
     property int     pDropIndex: -1
@@ -283,7 +284,7 @@ ScrollFolder
 
     function updateCurrentY()
     {
-        if (pDropping)
+        if (isDropping)
         {
             pSelectedY = -1;
 
@@ -356,9 +357,9 @@ ScrollFolder
 
     function pSetDropping(dropping)
     {
-        if (pDropping == dropping) return;
+        if (isDropping == dropping) return;
 
-        pDropping = dropping;
+        isDropping = dropping;
 
         updateCurrentY();
     }
@@ -695,6 +696,10 @@ ScrollFolder
                     {
                         folder.moveAt(index, pDropIndex);
                     }
+                    else if (item == feeds)
+                    {
+                        gui.copyPlaylist(item, index, folder, pDropIndex);
+                    }
                     else gui.movePlaylist(item, index, folder, pDropIndex);
                 }
                 else if (rectangleDrop.visible)
@@ -780,7 +785,7 @@ ScrollFolder
             {
                 AnchorAnimation
                 {
-                    duration: (pAnimate) ? st.duration_faster : 0
+                    duration: (enableAnimation && pAnimate) ? st.duration_faster : 0
 
                     easing.type: st.easing
                 }
@@ -811,6 +816,8 @@ ScrollFolder
         {
             if (isFocused)
             {
+                itemNew.visible = true;
+
                 pAnimate = true;
 
                 isCreating = true;

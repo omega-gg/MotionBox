@@ -245,9 +245,9 @@ Item
 
             if (indexA < indexB)
             {
-                 itemSlide.slideLeft();
+                 itemSlide.startLeft();
             }
-            else itemSlide.slideRight();
+            else itemSlide.startRight();
 
             pTab = playerTab;
         }
@@ -261,9 +261,9 @@ Item
 
             if (indexA < indexB)
             {
-                 itemSlide.slideLeft();
+                 itemSlide.startLeft();
             }
-            else itemSlide.slideRight();
+            else itemSlide.startRight();
 
             pTab = currentTab;
         }

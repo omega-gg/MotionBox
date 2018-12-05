@@ -20,10 +20,13 @@ import Sky     1.0
 ScrollPlaylist
 {
     //---------------------------------------------------------------------------------------------
-    // Properties private
+    // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool pDropping: false
+    /* read */ property bool isDropping: false
+
+    //---------------------------------------------------------------------------------------------
+    // Private
 
     property int pDropIndex: -1
 
@@ -150,8 +153,8 @@ ScrollPlaylist
 
     function updateCurrentY()
     {
-        if (pDropping) pSelectedY = -1;
-        else           pSelectedY = currentItemY();
+        if (isDropping) pSelectedY = -1;
+        else            pSelectedY = currentItemY();
 
         if (atTop) pAtBottom = false;
         else       pAtBottom = atBottom;
@@ -171,9 +174,9 @@ ScrollPlaylist
 
     function pSetDropping(dropping)
     {
-        if (pDropping == dropping) return;
+        if (isDropping == dropping) return;
 
-        pDropping = dropping;
+        isDropping = dropping;
 
         updateCurrentY();
     }

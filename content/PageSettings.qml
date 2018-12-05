@@ -17,7 +17,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-PageSlide
+PageWipe
 {
     id: pageSettings
 

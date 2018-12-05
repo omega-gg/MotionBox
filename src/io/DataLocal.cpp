@@ -85,6 +85,8 @@ public: // Variables
 
     bool browserVisible;
 
+    int libraryIndex;
+
     QString query;
 
     qreal speed;
@@ -176,6 +178,8 @@ public: // Variables
 
     stream.writeTextElement("browserVisible", QString::number(browserVisible));
 
+    stream.writeTextElement("libraryIndex", QString::number(libraryIndex));
+
     stream.writeTextElement("query", query);
 
     stream.writeTextElement("speed", QString::number(speed));
@@ -250,6 +254,8 @@ public: // Variables
     _tracksExpanded = false;
 
     _browserVisible = false;
+
+    _libraryIndex = 0;
 
     _speed = 1.0;
 
@@ -455,6 +461,13 @@ public: // Variables
     _browserVisible = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
+    // libraryIndex
+
+    if (WControllerXml::readNextStartElement(&stream, "libraryIndex") == false) return false;
+
+    _libraryIndex = WControllerXml::readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // query
 
     if (WControllerXml::readNextStartElement(&stream, "query") == false) return false;
@@ -641,6 +654,8 @@ public: // Variables
     action->tracksExpanded = _tracksExpanded;
 
     action->browserVisible = _browserVisible;
+
+    action->libraryIndex = _libraryIndex;
 
     action->query = _query;
 
@@ -896,6 +911,24 @@ void DataLocal::setBrowserVisible(bool visible)
     _browserVisible = visible;
 
     emit browserVisibleChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::libraryIndex() const
+{
+    return _libraryIndex;
+}
+
+void DataLocal::setLibraryIndex(int index)
+{
+    if (_libraryIndex == index) return;
+
+    _libraryIndex = index;
+
+    emit libraryIndexChanged();
 
     save();
 }

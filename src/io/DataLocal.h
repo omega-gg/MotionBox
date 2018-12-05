@@ -61,6 +61,8 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool browserVisible READ browserVisible WRITE setBrowserVisible
                NOTIFY browserVisibleChanged)
 
+    Q_PROPERTY(int libraryIndex READ libraryIndex WRITE setLibraryIndex NOTIFY libraryIndexChanged)
+
     Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
 
     Q_PROPERTY(qreal speed READ speed WRITE setSpeed NOTIFY speedChanged)
@@ -143,6 +145,8 @@ signals:
 
     void browserVisibleChanged();
 
+    void libraryIndexChanged();
+
     void queryChanged();
 
     void speedChanged();
@@ -217,6 +221,9 @@ public: // Properties
 
     bool browserVisible() const;
     void setBrowserVisible(bool visible);
+
+    int  libraryIndex() const;
+    void setLibraryIndex(int index);
 
     QString query() const;
     void    setQuery(const QString & query);
@@ -306,6 +313,8 @@ private: // Variables
     bool _tracksExpanded;
 
     bool _browserVisible;
+
+    int _libraryIndex;
 
     QString _query;
 

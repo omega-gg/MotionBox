@@ -1048,10 +1048,11 @@ List
         pDragX = -1;
         pDragY = -1;
 
-        gui.drag     = 0;
-        gui.dragList = list;
-        gui.dragItem = playlist;
-        gui.dragData = playlist.selectedTracks;
+        gui.drag      = 0;
+        gui.dragList  = list;
+        gui.dragItem  = playlist;
+        gui.dragIndex = panelLibrary.index;
+        gui.dragData  = playlist.selectedTracks;
 
         if (scrollArea && list != gui.listPlaylist)
         {
@@ -1084,6 +1085,8 @@ List
              window.startDrag(source, Qt.MoveAction | Qt.CopyAction);
         }
         else window.startDrag(source, Qt.CopyAction);
+
+        panelLibrary.select(1);
     }
 
     //---------------------------------------------------------------------------------------------

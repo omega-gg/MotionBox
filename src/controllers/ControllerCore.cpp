@@ -23,7 +23,7 @@
 #else
 #include <QQmlEngine>
 #endif
-#include <QNetworkDiskCache>
+//#include <QNetworkDiskCache>
 #include <QProcess>
 #include <QFileDialog>
 #ifdef SK_DEPLOY
@@ -114,11 +114,12 @@ ControllerCore::ControllerCore() : WController()
 {
     _cache = NULL;
 
-    _diskCache = NULL;
+    //_diskCache = NULL;
 
     _tabs = NULL;
 
     _library = NULL;
+    _feeds   = NULL;
     _hubs    = NULL;
     _related = NULL;
 
@@ -236,9 +237,9 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // DiskCache
 
-    _diskCache = new QNetworkDiskCache(this);
+    /*_diskCache = new QNetworkDiskCache(this);
 
-    _diskCache->setCacheDirectory(path + "/cache/web");
+    _diskCache->setCacheDirectory(path + "/cache/web");*/
 
     //---------------------------------------------------------------------------------------------
     // LoaderWeb
@@ -289,17 +290,18 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Library
 
-    _library = new WLibraryFolder;
-
-    _library->setParent(this);
-
-    _library->setId(1);
-
-    _library->setSaveEnabled(true);
-
-    _library->load();
+    _library = createLibrary(1);
 
     emit libraryChanged();
+
+    //---------------------------------------------------------------------------------------------
+    // Feeds
+
+    _feeds = createLibrary(2);
+
+    _feeds->setMaxCount(100);
+
+    emit feedsChanged();
 
     //---------------------------------------------------------------------------------------------
     // Hubs
@@ -308,7 +310,7 @@ ControllerCore::ControllerCore() : WController()
 
     _hubs->setParent(this);
 
-    _hubs->setId(2);
+    _hubs->setId(3);
 
     _hubs->setSaveEnabled(true);
 
@@ -332,7 +334,7 @@ ControllerCore::ControllerCore() : WController()
 
     _related->setParent(this);
 
-    _related->setId(3);
+    _related->setId(4);
 
     _related->setSaveEnabled(true);
 
@@ -539,7 +541,7 @@ ControllerCore::ControllerCore() : WController()
 
     _cache->clearFiles();
 
-    _diskCache->clear();
+    //_diskCache->clear();
 
     wControllerTorrent->clearTorrents();
 
@@ -747,6 +749,23 @@ ControllerCore::ControllerCore() : WController()
 // Private functions
 //-------------------------------------------------------------------------------------------------
 
+WLibraryFolder * ControllerCore::createLibrary(int id)
+{
+    WLibraryFolder * folder = new WLibraryFolder;
+
+    folder->setParent(this);
+
+    folder->setId(id);
+
+    folder->setSaveEnabled(true);
+
+    folder->load();
+
+    return folder;
+}
+
+//-------------------------------------------------------------------------------------------------
+
 void ControllerCore::createBrowse()
 {
     WLibraryFolderSearchable * browse = new WLibraryFolderSearchable;
@@ -779,7 +798,12 @@ void ControllerCore::deleteBrowse()
     QString path = pathStorage() + "/playlists/";
 
     WControllerFile::deleteFolder(path + "2");
-    WControllerFile::deleteFile  (path + "2.xml");
+    WControllerFile::deleteFolder(path + "3");
+    WControllerFile::deleteFolder(path + "4");
+
+    WControllerFile::deleteFile(path + "2.xml");
+    WControllerFile::deleteFile(path + "3.xml");
+    WControllerFile::deleteFile(path + "4.xml");
 
     _local->setBrowserVisible(false);
 
@@ -828,6 +852,11 @@ WTabsTrack * ControllerCore::tabs() const
 WLibraryFolder * ControllerCore::library() const
 {
     return _library;
+}
+
+WLibraryFolder * ControllerCore::feeds() const
+{
+    return _feeds;
 }
 
 WLibraryFolder * ControllerCore::hubs() const

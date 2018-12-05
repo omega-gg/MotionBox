@@ -42,6 +42,7 @@ Item
     /* read */ property TabTrack playerTab: player.tab
 
     /* read */ property LibraryFolder library: core.library
+    /* read */ property LibraryFolder feeds  : core.feeds
     /* read */ property LibraryFolder hubs   : core.hubs
     /* read */ property LibraryFolder related: core.related
 
@@ -52,11 +53,12 @@ Item
     //---------------------------------------------------------------------------------------------
     // Drag
 
-    property int     drag    : -1
-    property variant dragList: null
-    property variant dragItem: null
-    property int     dragId  : -1
-    property int     dragType: -1
+    property int     drag     : -1
+    property variant dragList : null
+    property variant dragItem : null
+    property int     dragId   : -1
+    property int     dragType : -1
+    property int     dragIndex: -1
     property variant dragData
 
     //---------------------------------------------------------------------------------------------
@@ -114,9 +116,11 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property bool pReady: (isLoaded && library.isLoading == false && hubs.isLoading == false
-                                       &&
-                                       related.isLoading == false)
+    property bool pReady: (isLoaded
+                           &&
+                           listLibrary.folder.isLoading == false && hubs.isLoading == false
+                           &&
+                           related.isLoading == false)
 
     //---------------------------------------------------------------------------------------------
 
@@ -596,17 +600,6 @@ Item
     {
         target: player
 
-        onHasStartedChanged: restoreBars()
-
-        onSpeedChanged: local.speed = player.speed
-
-        onVolumeChanged: local.volume = player.volume
-
-        onRepeatChanged: local.repeat = player.repeat
-
-        onOutputChanged : local.output  = player.output
-        onQualityChanged: local.quality = player.quality
-
         onIsPlayingChanged:
         {
             updateScreenDim();
@@ -629,6 +622,24 @@ Item
             }
             else sk.screenSaverEnabled = false;
         }
+
+        onHasStartedChanged:
+        {
+            restoreBars();
+
+            if (player.isPlaying) updateFeeds();
+        }
+
+        onSpeedChanged: local.speed = player.speed
+
+        onVolumeChanged: local.volume = player.volume
+
+        onRepeatChanged: local.repeat = player.repeat
+
+        onOutputChanged : local.output  = player.output
+        onQualityChanged: local.quality = player.quality
+
+        onCurrentTrackUpdated: if (player.isPlaying) updateFeeds()
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1483,9 +1494,21 @@ Item
 
             panelBrowse.collapse();
 
+            panelLibrary.select(0);
+
             library.setCurrentTabIds(tab);
         }
         else if (tab.idFolderRoot == 2)
+        {
+            restore();
+
+            panelBrowse.collapse();
+
+            panelLibrary.select(1);
+
+            feeds.setCurrentTabIds(tab);
+        }
+        else if (tab.idFolderRoot == 3)
         {
             restore();
 
@@ -1498,7 +1521,7 @@ Item
 
             hubs.setCurrentTabIds(tab);
         }
-        else if (tab.idFolderRoot == 3)
+        else if (tab.idFolderRoot == 4)
         {
             restoreMini();
 
@@ -1658,12 +1681,7 @@ Item
     {
         restore();
 
-        if (controllerNetwork.urlScheme(feed) == "")
-        {
-            var host = controllerNetwork.extractUrlHost(source);
-
-            feed = controllerNetwork.resolveUrl(feed, host);
-        }
+        feed = getFeed(source, feed);
 
         panelBrowse.browse(feed);
     }
@@ -1694,12 +1712,68 @@ Item
         }
         else if (tab.idFolderRoot == 2)
         {
-            hubs.loadTabItems(tab);
+            feeds.loadTabItems(tab);
         }
         else if (tab.idFolderRoot == 3)
         {
+            hubs.loadTabItems(tab);
+        }
+        else if (tab.idFolderRoot == 4)
+        {
             related.loadTabItems(tab);
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function updateFeeds()
+    {
+        var feed = playerTab.feed;
+
+        if (feed)
+        {
+            feed = getFeed(player.source, feed);
+
+            addRecent(LibraryItem.PlaylistFeed, feed);
+        }
+
+        var playlist = playerTab.playlist;
+
+        if (playlist && playlist.parentFolder != related && playlist.type == LibraryItem.Playlist)
+        {
+            addRecent(LibraryItem.Playlist, playlist.source);
+        }
+    }
+
+    function addRecent(type, source)
+    {
+        if (source == "") return;
+
+        var index = feeds.indexFromSource(source);
+
+        if (index == -1)
+        {
+            while (feeds.isFull || feeds.count > 10)
+            {
+                feeds.removeAt(feeds.count - 1);
+            }
+
+            copyPlaylistUrl(type, source, feeds, 0);
+        }
+        else feeds.moveAt(index, 0);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function getFeed(source, feed)
+    {
+        if (controllerNetwork.urlScheme(feed) == "")
+        {
+            var host = controllerNetwork.extractUrlHost(source);
+
+            return controllerNetwork.resolveUrl(feed, host);
+        }
+        else return feed;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1726,7 +1800,7 @@ Item
 
     function getListFolder(folder)
     {
-        if (library == folder)
+        if (listLibrary.library == folder)
         {
             return listLibrary;
         }
@@ -2106,10 +2180,14 @@ Item
 
     function movePlaylist(folderA, from, folderB, to)
     {
-        if (folderA != folderB && folderB.isFull)
+        if (folderA == folderB)
         {
-            return false;
+            folderA.moveAt(from, to);
+
+            return true;
         }
+
+        if (folderB.isFull) return false;
 
         folderA.move(folderA, from, folderB, to, false);
 
@@ -2125,12 +2203,19 @@ Item
 
                 folderB.currentIndex = to;
             }
+            else if (folderB.currentId == -1)
+            {
+                folderB.currentIndex = to;
+            }
         }
-        else folderA.removeAt(from);
-
-        if (folderB.currentId == -1)
+        else
         {
-            folderB.currentIndex = to;
+            folderA.removeAt(from);
+
+            if (folderB.currentId == -1)
+            {
+                folderB.currentIndex = to;
+            }
         }
 
         list = getListFolder(folderB);
@@ -2263,6 +2348,7 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
+    // Events
 
     function onMousePressed(event)
     {
@@ -2378,6 +2464,16 @@ Item
         dragList = null;
         dragId   = -1;
         dragType = -1;
+
+        if (dragIndex != -1)
+        {
+            if (scrollLibrary.isCreating == false && scrollLibrary.isDropping == false)
+            {
+                panelLibrary.select(dragIndex);
+            }
+
+            dragIndex = -1;
+        }
     }
 
     //---------------------------------------------------------------------------------------------

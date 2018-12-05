@@ -28,7 +28,7 @@
 #define core ControllerCore::instance()
 
 // Forward declarations
-class QNetworkDiskCache;
+//class QNetworkDiskCache;
 class WAbstractBackend;
 class WAbstractHook;
 class WWindow;
@@ -53,6 +53,7 @@ class ControllerCore : public WController
     Q_PROPERTY(QString versionName READ versionName CONSTANT)
 
     Q_PROPERTY(WLibraryFolder        * library READ library NOTIFY libraryChanged)
+    Q_PROPERTY(WLibraryFolder        * feeds   READ feeds   NOTIFY feedsChanged)
     Q_PROPERTY(WLibraryFolder        * hubs    READ hubs    NOTIFY hubsChanged)
     Q_PROPERTY(WLibraryFolderRelated * related READ related NOTIFY relatedChanged)
 
@@ -133,6 +134,8 @@ protected: // Events
     /* virtual */ void timerEvent(QTimerEvent * event);
 
 private: // Functions
+    WLibraryFolder * createLibrary(int id);
+
     void createBrowse ();
     void restoreBrowse();
 
@@ -142,6 +145,7 @@ signals:
     void cacheEmptyChanged();
 
     void libraryChanged();
+    void feedsChanged  ();
     void hubsChanged   ();
     void relatedChanged();
 
@@ -159,6 +163,7 @@ public: // Properties
     WTabsTrack * tabs() const;
 
     WLibraryFolder        * library() const;
+    WLibraryFolder        * feeds  () const;
     WLibraryFolder        * hubs   () const;
     WLibraryFolderRelated * related() const;
 
@@ -176,7 +181,7 @@ private: // Variables
 
     WCache * _cache;
 
-    QNetworkDiskCache * _diskCache;
+    //QNetworkDiskCache * _diskCache;
 
     DataLocal  * _local;
     DataOnline * _online;
@@ -184,6 +189,7 @@ private: // Variables
     WTabsTrack * _tabs;
 
     WLibraryFolder        * _library;
+    WLibraryFolder        * _feeds;
     WLibraryFolder        * _hubs;
     WLibraryFolderRelated * _related;
 

@@ -556,7 +556,7 @@ List
 
     function pSelectItem(index)
     {
-        if (folder == library)
+        if (folder == library || folder == feeds)
         {
             panelBrowse.collapse();
         }
@@ -648,6 +648,7 @@ List
         gui.dragItem  = folder;
         gui.dragId    = folder.idAt(index);
         gui.dragType  = pDragType;
+        gui.dragIndex = panelLibrary.index;
 
         if (scrollArea && list != gui.listLibrary && list != gui.listFolder)
         {
@@ -716,6 +717,8 @@ List
              window.startDrag(source, Qt.MoveAction | Qt.CopyAction);
         }
         else window.startDrag(source, Qt.CopyAction);
+
+        panelLibrary.select(1);
     }
 
     //---------------------------------------------------------------------------------------------

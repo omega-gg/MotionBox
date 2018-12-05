@@ -678,7 +678,7 @@ PanelContextual
 
         if (indexCurrent == 1)
         {
-            gui.listLibrary.insertItem(0, LibraryItem.Playlist, itemNewA.text, true);
+            pInsert(0, LibraryItem.Playlist, itemNewA.text);
 
             listLibrary.currentId = modelLibrary.idAt(0);
         }
@@ -692,7 +692,7 @@ PanelContextual
 
                 target.setItemTitle(0, itemNewB.text);
             }
-            else list.insertItem(0, LibraryItem.Playlist, itemNewB.text, true);
+            else pInsert(0, LibraryItem.Playlist, itemNewB.text);
 
             listFolder.currentId = modelFolder.idAt(0);
         }
@@ -714,7 +714,7 @@ PanelContextual
     {
         if (indexCurrent == 2)
         {
-            gui.listLibrary.insertItem(0, LibraryItem.Folder, itemNewA.text, true);
+            pInsert(0, LibraryItem.Folder, itemNewA.text);
 
             listLibrary.currentId = modelLibrary.idAt(0);
         }
@@ -734,9 +734,14 @@ PanelContextual
     {
         if (indexCurrent == 2)
         {
-            gui.listLibrary.insertItem(sourceIndex, LibraryItem.Folder, itemNewA.text, true);
+            pInsert(sourceIndex, LibraryItem.Folder, itemNewA.text);
 
-            listLibrary.currentId = modelLibrary.idAt(sourceIndex);
+            library.currentIndex = sourceIndex;
+
+            // NOTE: We need to ensure that the folder gets created.
+            library.currentItem.save(true);
+
+            listLibrary.currentId = library.currentId;
 
             if (sourceIndex != -1 && source == library)
             {
@@ -753,6 +758,21 @@ PanelContextual
         else index = sourceIndex;
 
         gui.movePlaylist(source, index, target, 0);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pInsert(index, type, text)
+    {
+        var list = gui.listLibrary;
+
+        if (library != list.folder)
+        {
+            library.insertNewItem(index, type);
+
+            library.setItemTitle(index, text);
+        }
+        else list.insertItem(index, type, text, true);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1117,7 +1137,7 @@ PanelContextual
             {
                 id: modelLibrary
 
-                model: gui.listLibrary.model
+                model: ModelLibraryFolder { folder: library }
 
                 filter: (type == 0) ? undefined : (LibraryItem.Folder)
 

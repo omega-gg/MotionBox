@@ -82,8 +82,7 @@ MouseArea
 
         if (item)
         {
-            x = parent.mapFromItem(item, 0, 0).x - pMargin;
-            y = parent.mapFromItem(item, 0, 0).y - pMargin;
+            pApplyPosition();
 
             visible = true;
         }
@@ -114,9 +113,17 @@ MouseArea
 
     function updatePosition()
     {
-        if (pItem == null) return;
+        if (pItem == null) pApplyPosition();
+    }
 
-        x = parent.mapFromItem(pItem, 0, 0).x - pMargin;
-        y = parent.mapFromItem(pItem, 0, 0).y - pMargin;
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pApplyPosition()
+    {
+        var position = parent.mapFromItem(pItem, 0, 0);
+
+        x = position.x - pMargin;
+        y = position.y - pMargin;
     }
 }

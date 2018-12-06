@@ -667,7 +667,7 @@ MouseArea
 
         pBrowseIndex = pUpdateButtons();
 
-        pBackendsEvents = true;
+        pEventBackend = true;
     }
 
     function pSetBrowseIndex(index)

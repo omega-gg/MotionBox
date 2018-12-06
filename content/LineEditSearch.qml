@@ -77,7 +77,7 @@ LineEditBox
             {
                 event.accepted = true;
 
-                panelSearch.selectPreviousHub();
+                panelSearch.selectPreviousBackend();
             }
         }
         else if (event.key == Qt.Key_Down)
@@ -92,7 +92,7 @@ LineEditBox
             {
                 event.accepted = true;
 
-                panelSearch.selectNextHub();
+                panelSearch.selectNextBackend();
             }
         }
         else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)

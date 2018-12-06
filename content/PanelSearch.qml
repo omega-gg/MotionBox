@@ -25,7 +25,7 @@ Panel
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property int hub: -1
+    /* read */ property int backend: -1
 
     /* read */ property int action: 0
 
@@ -123,7 +123,7 @@ Panel
     {
         lineEditSearch.focus();
 
-        hub = 1;
+        backend = 1;
     }
 
     function search()
@@ -139,7 +139,7 @@ Panel
     {
         if (pIndexFocus == 1)
         {
-             selectPreviousHub();
+             selectPreviousBackend();
         }
         else selectPreviousCompletion();
     }
@@ -148,7 +148,7 @@ Panel
     {
         if (pIndexFocus == 1)
         {
-             selectNextHub();
+             selectNextBackend();
         }
         else selectNextCompletion();
     }
@@ -186,39 +186,39 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function hubAt(index)
+    function backendAt(index)
     {
-        return hubs.idAt(index);
+        return backends.idAt(index);
     }
 
-    function getHubIndex()
+    function getBackendIndex()
     {
-        return hubs.indexFromId(hub);
+        return backends.indexFromId(backend);
     }
 
     //---------------------------------------------------------------------------------------------
 
     function selectBackend(index)
     {
-        var id = hubs.idAt(index);
+        var id = backends.idAt(index);
 
         if (id == -1) return;
 
-        hub = id;
+        backend = id;
 
-        scrollHubs.scrollToItem(index);
+        scrollBackends.scrollToItem(index);
     }
 
-    function selectPreviousHub()
+    function selectPreviousBackend()
     {
-        var index = getHubIndex() - 1;
+        var index = getBackendIndex() - 1;
 
         selectBackend(index);
     }
 
-    function selectNextHub()
+    function selectNextBackend()
     {
-        var index = getHubIndex() + 1;
+        var index = getBackendIndex() + 1;
 
         selectBackend(index);
     }
@@ -264,9 +264,9 @@ Panel
     {
         if (action == 0)
         {
-             panelBrowse.search(hub, lineEditSearch.text, true, false);
+             panelBrowse.search(backend, lineEditSearch.text, true, false);
         }
-        else panelBrowse.search(hub, lineEditSearch.text, true, true);
+        else panelBrowse.search(backend, lineEditSearch.text, true, true);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -343,7 +343,7 @@ Panel
 
     ScrollView
     {
-        id: scrollHubs
+        id: scrollBackends
 
         property variant itemHovered: null
 
@@ -357,11 +357,11 @@ Panel
 
         anchors.bottomMargin: -st.border_size
 
-        model: ModelLibraryFolder { folder: hubs }
+        model: ModelLibraryFolder { folder: backends }
 
         delegate: ComponentLibraryItem
         {
-            isSelected: (id == hub)
+            isSelected: (id == backend)
 
             isFocused: (pIndexFocus == 1)
 
@@ -372,7 +372,7 @@ Panel
 
             text: title
 
-            onPressed: hub = id
+            onPressed: backend = id
 
             onClicked: if (isFocused == false) search()
 

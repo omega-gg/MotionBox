@@ -134,9 +134,9 @@ Escape: Effacer le texte.
 
 #
 
-Alt + Haut: Hub précédent.
+Alt + Haut: Backend précédent.
 
-Alt + Bas: Hub suivant.
+Alt + Bas: Backend suivant.
 
 
 # Dossier

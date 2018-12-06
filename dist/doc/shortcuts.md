@@ -134,9 +134,9 @@ Escape: Clear the text.
 
 #
 
-Alt + Up: Previous hub.
+Alt + Up: Previous backend.
 
-Alt + Down: Next hub.
+Alt + Down: Next backend.
 
 
 # Folder

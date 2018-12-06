@@ -52,10 +52,10 @@ class ControllerCore : public WController
     Q_PROPERTY(QString version     READ version     CONSTANT)
     Q_PROPERTY(QString versionName READ versionName CONSTANT)
 
-    Q_PROPERTY(WLibraryFolder        * library READ library NOTIFY libraryChanged)
-    Q_PROPERTY(WLibraryFolder        * feeds   READ feeds   NOTIFY feedsChanged)
-    Q_PROPERTY(WLibraryFolder        * hubs    READ hubs    NOTIFY hubsChanged)
-    Q_PROPERTY(WLibraryFolderRelated * related READ related NOTIFY relatedChanged)
+    Q_PROPERTY(WLibraryFolder        * library  READ library  NOTIFY libraryChanged)
+    Q_PROPERTY(WLibraryFolder        * feeds    READ feeds    NOTIFY feedsChanged)
+    Q_PROPERTY(WLibraryFolder        * backends READ backends NOTIFY backendsChanged)
+    Q_PROPERTY(WLibraryFolderRelated * related  READ related  NOTIFY relatedChanged)
 
     Q_PROPERTY(WTabsTrack * tabs READ tabs CONSTANT)
 
@@ -144,10 +144,10 @@ private: // Functions
 signals:
     void cacheEmptyChanged();
 
-    void libraryChanged();
-    void feedsChanged  ();
-    void hubsChanged   ();
-    void relatedChanged();
+    void libraryChanged ();
+    void feedsChanged   ();
+    void backendsChanged();
+    void relatedChanged ();
 
     void dateCoverChanged  ();
     void datePreviewChanged();
@@ -162,10 +162,10 @@ public: // Properties
 
     WTabsTrack * tabs() const;
 
-    WLibraryFolder        * library() const;
-    WLibraryFolder        * feeds  () const;
-    WLibraryFolder        * hubs   () const;
-    WLibraryFolderRelated * related() const;
+    WLibraryFolder        * library () const;
+    WLibraryFolder        * feeds   () const;
+    WLibraryFolder        * backends() const;
+    WLibraryFolderRelated * related () const;
 
     QDateTime dateCover() const;
     void      setDateCover(const QDateTime & date);
@@ -190,7 +190,7 @@ private: // Variables
 
     WLibraryFolder        * _library;
     WLibraryFolder        * _feeds;
-    WLibraryFolder        * _hubs;
+    WLibraryFolder        * _backends;
     WLibraryFolderRelated * _related;
 
     WLoaderNetwork * _loaderMedia;

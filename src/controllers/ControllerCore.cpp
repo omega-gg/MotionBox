@@ -118,10 +118,10 @@ ControllerCore::ControllerCore() : WController()
 
     _tabs = NULL;
 
-    _library = NULL;
-    _feeds   = NULL;
-    _hubs    = NULL;
-    _related = NULL;
+    _library  = NULL;
+    _feeds    = NULL;
+    _backends = NULL;
+    _related  = NULL;
 
     _loaderMedia = NULL;
     //_loaderWeb   = NULL;
@@ -304,28 +304,28 @@ ControllerCore::ControllerCore() : WController()
     emit feedsChanged();
 
     //---------------------------------------------------------------------------------------------
-    // Hubs
+    // Backends
 
-    _hubs = new WLibraryFolder;
+    _backends = new WLibraryFolder;
 
-    _hubs->setParent(this);
+    _backends->setParent(this);
 
-    _hubs->setId(3);
+    _backends->setId(3);
 
-    _hubs->setSaveEnabled(true);
+    _backends->setSaveEnabled(true);
 
-    wControllerPlaylist->setPathCover("pictures/icons/hub");
+    wControllerPlaylist->setPathCover("pictures/icons/backend");
 
-    if (_hubs->load() == false)
+    if (_backends->load() == false)
     {
         createBrowse();
 
-        wControllerPlaylist->createBackendItems(_hubs);
+        wControllerPlaylist->createBackendItems(_backends);
 
-        _hubs->setCurrentIndex(0);
+        _backends->setCurrentIndex(0);
     }
 
-    emit hubsChanged();
+    emit backendsChanged();
 
     //---------------------------------------------------------------------------------------------
     // Related
@@ -535,9 +535,9 @@ ControllerCore::ControllerCore() : WController()
 
     restoreBrowse();
 
-    wControllerPlaylist->restoreBackendItems(_hubs);
+    wControllerPlaylist->restoreBackendItems(_backends);
 
-    _hubs->setCurrentIndex(0);
+    _backends->setCurrentIndex(0);
 
     _cache->clearFiles();
 
@@ -776,14 +776,14 @@ void ControllerCore::createBrowse()
 
     browse->setLabel("Video Network");
 
-    _hubs->addLibraryItem(browse);
+    _backends->addLibraryItem(browse);
 
     browse->tryDelete();
 }
 
 void ControllerCore::restoreBrowse()
 {
-    WLibraryFolder * browse = _hubs->createLibraryItemFromId(1)->toFolder();
+    WLibraryFolder * browse = _backends->createLibraryItemFromId(1)->toFolder();
 
     browse->clearItems ();
     browse->clearSource();
@@ -859,9 +859,9 @@ WLibraryFolder * ControllerCore::feeds() const
     return _feeds;
 }
 
-WLibraryFolder * ControllerCore::hubs() const
+WLibraryFolder * ControllerCore::backends() const
 {
-    return _hubs;
+    return _backends;
 }
 
 WLibraryFolderRelated * ControllerCore::related() const

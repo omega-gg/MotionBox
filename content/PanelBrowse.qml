@@ -43,14 +43,14 @@ MouseArea
 
     property url pSearchCover: pGetSearchCover()
 
-    property bool pBrowsing: (pFolderHubs.currentId == 1)
+    property bool pBrowsing: (pFolderBackends.currentId == 1)
     property bool pLoading : false
 
     property bool pSelect: false
     property bool pPlay  : false
 
-    property bool pHubsEvents  : true
-    property bool pBrowseEvents: true
+    property bool pEventBackend: true
+    property bool pEventBrowse : true
 
     property int pIndexButton: -2
 
@@ -92,7 +92,7 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    property alias pFolderHubs     : scrollHubs     .folder
+    property alias pFolderBackends : scrollBackends     .folder
     property alias pFolderBrowse   : scrollBrowse   .folder
     property alias pFolder         : scrollFolder   .folder
     property alias pFolderPlaylists: scrollPlaylists.folder
@@ -182,7 +182,8 @@ MouseArea
 
     Connections
     {
-        target: (pFolderHubs && pFolderHubs.isLoaded && pHubsEvents) ? pFolderHubs : null
+        target: (pFolderBackends && pFolderBackends.isLoaded && pEventBackend) ? pFolderBackends
+                                                                               : null
 
         onLoaded:
         {
@@ -197,7 +198,7 @@ MouseArea
         {
             if (pIndexButton == -2)
             {
-                pLoadHub();
+                pLoadBackend();
 
                 pBrowseIndex = pUpdateButtons();
             }
@@ -212,7 +213,7 @@ MouseArea
 
     Connections
     {
-        target: (pFolderBrowse && pBrowseEvents) ? pFolderBrowse : null
+        target: (pFolderBrowse && pEventBrowse) ? pFolderBrowse : null
 
         onLoaded: if (pLoading) pSearchBrowse()
 
@@ -388,7 +389,7 @@ MouseArea
 
         expose();
 
-        pSetHubId(id);
+        pSetBackendId(id);
 
         if (pFolderBrowse == null) return;
 
@@ -644,7 +645,7 @@ MouseArea
     {
         clearEdit();
 
-        pFolderHubs.loadCurrentId(1, true);
+        pFolderBackends.loadCurrentId(1, true);
 
         pClearSource();
     }
@@ -658,26 +659,26 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pSetHubId(id)
+    function pSetBackendId(id)
     {
-        pHubsEvents = false;
+        pEventBackend = false;
 
-        pFolderHubs.loadCurrentId(id, true);
+        pFolderBackends.loadCurrentId(id, true);
 
         pBrowseIndex = pUpdateButtons();
 
-        pHubsEvents = true;
+        pBackendsEvents = true;
     }
 
     function pSetBrowseIndex(index)
     {
-        pBrowseEvents = false;
+        pEventBrowse = false;
 
         pFolderBrowse.loadCurrentIndex(index, true);
 
         if (pBrowsing) pUpdateButtonsBrowsing();
 
-        pBrowseEvents = true;
+        pEventBrowse = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -695,7 +696,7 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pLoadHub()
+    function pLoadBackend()
     {
         if (pBrowsing)
         {
@@ -716,11 +717,11 @@ MouseArea
         }
         else if (pItemBrowse)
         {
-            pBrowseHub();
+            pBrowseBackend();
         }
     }
 
-    function pBrowseHub()
+    function pBrowseBackend()
     {
         if (query == "") return;
 
@@ -899,17 +900,17 @@ MouseArea
 
             var title = buttonsBrowse.model.get(1).title;
 
-            var id = core.idFromTitle(hubs, title);
+            var id = core.idFromTitle(backends, title);
 
-            pFolderHubs.currentId = id;
+            pFolderBackends.currentId = id;
 
             focus();
         }
-        else if (pFolderHubs.currentId != 1)
+        else if (pFolderBackends.currentId != 1)
         {
             pIndexButton = index;
 
-            pFolderHubs.currentId = 1;
+            pFolderBackends.currentId = 1;
 
             focus();
         }
@@ -967,7 +968,7 @@ MouseArea
         }
         else // if (index == 1)
         {
-            pBrowseHub();
+            pBrowseBackend();
         }
 
         pUpdateButtons();
@@ -1225,8 +1226,8 @@ MouseArea
 
     BarTitleText
     {
-        anchors.left  : scrollHubs.left
-        anchors.right : scrollHubs.right
+        anchors.left  : scrollBackends.left
+        anchors.right : scrollBackends.right
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
@@ -1558,7 +1559,7 @@ MouseArea
 
     ScrollFolder
     {
-        id: scrollHubs
+        id: scrollBackends
 
         anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
@@ -1567,7 +1568,7 @@ MouseArea
 
         width: widthColum
 
-        folder: hubs
+        folder: backends
 
         delegate: ComponentFolder
         {
@@ -1606,7 +1607,7 @@ MouseArea
             {
                 event.accepted = true;
 
-                search(pFolderHubs.currentId, query, true, false);
+                search(pFolderBackends.currentId, query, true, false);
             }
         }
     }
@@ -1615,7 +1616,7 @@ MouseArea
     {
         id: scrollBrowse
 
-        anchors.left  : borderHubs.right
+        anchors.left  : borderBackends.right
         anchors.top   : itemEdit.bottom
         anchors.bottom: parent.bottom
 
@@ -1654,7 +1655,7 @@ MouseArea
 
         textDefault: (pBrowsing) ? "" : qsTr("Empty Folder")
 
-        itemLeft: scrollHubs
+        itemLeft: scrollBackends
 
         itemRight: (scrollFolder.visible) ? scrollFolder
                                           : scrollPlaylist
@@ -2033,9 +2034,9 @@ MouseArea
 
     BorderVertical
     {
-        id: borderHubs
+        id: borderBackends
 
-        anchors.left  : scrollHubs.right
+        anchors.left  : scrollBackends.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
     }

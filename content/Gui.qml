@@ -41,10 +41,10 @@ Item
 
     /* read */ property TabTrack playerTab: player.tab
 
-    /* read */ property LibraryFolder library: core.library
-    /* read */ property LibraryFolder feeds  : core.feeds
-    /* read */ property LibraryFolder hubs   : core.hubs
-    /* read */ property LibraryFolder related: core.related
+    /* read */ property LibraryFolder library : core.library
+    /* read */ property LibraryFolder feeds   : core.feeds
+    /* read */ property LibraryFolder backends: core.backends
+    /* read */ property LibraryFolder related : core.related
 
     /* read */ property variant currentPlaylist: pGetCurrentPlaylist()
 
@@ -118,7 +118,7 @@ Item
 
     property bool pReady: (isLoaded
                            &&
-                           listLibrary.folder.isLoading == false && hubs.isLoading == false
+                           listLibrary.folder.isLoading == false && backends.isLoading == false
                            &&
                            related.isLoading == false)
 
@@ -1519,7 +1519,7 @@ Item
 
             panelBrowse.expose();
 
-            hubs.setCurrentTabIds(tab);
+            backends.setCurrentTabIds(tab);
         }
         else if (tab.idFolderRoot == 4)
         {
@@ -1656,9 +1656,9 @@ Item
 
         if (controllerPlaylist.urlIsTrack(url) && player.isPlaying && highlightedTab == null)
         {
-             panelBrowse.search(panelSearch.hubAt(0), url, true, true);
+             panelBrowse.search(panelSearch.backendAt(0), url, true, true);
         }
-        else panelBrowse.search(panelSearch.hubAt(0), url, true, false);
+        else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1716,7 +1716,7 @@ Item
         }
         else if (tab.idFolderRoot == 3)
         {
-            hubs.loadTabItems(tab);
+            backends.loadTabItems(tab);
         }
         else if (tab.idFolderRoot == 4)
         {
@@ -2438,9 +2438,9 @@ Item
 
         if (dragType)
         {
-             panelBrowse.search(panelSearch.hubAt(0), url, true, true);
+             panelBrowse.search(panelSearch.backendAt(0), url, true, true);
         }
-        else panelBrowse.search(panelSearch.hubAt(0), url, true, false);
+        else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
     }
 
     //---------------------------------------------------------------------------------------------

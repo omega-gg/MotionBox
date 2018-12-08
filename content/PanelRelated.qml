@@ -240,7 +240,7 @@ Panel
 
         related.loadTracks(data);
 
-        itemSlide.slideLeft();
+        itemSlide.startLeft();
 
         local.cache = true;
     }
@@ -279,7 +279,7 @@ Panel
 
         related.setPreviousPlaylist();
 
-        itemSlide.slideRight();
+        itemSlide.startRight();
     }
 
     function setNextPlaylist()
@@ -290,7 +290,7 @@ Panel
 
         related.setNextPlaylist();
 
-        itemSlide.slideLeft();
+        itemSlide.startLeft();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -567,13 +567,8 @@ Panel
                             }
                             else if (isContextual)
                             {
-                                if (index == 0)
-                                {
-                                    if (isHovered) return st.itemTab_colorContextualHoverA;
-                                    else           return st.itemTab_colorHoverA;
-                                }
-                                else if (isHovered) return st.itemList_colorContextualHoverA;
-                                else                return st.itemList_colorHoverA;
+                                if (isHovered) return st.itemList_colorContextualHoverA;
+                                else           return st.itemList_colorHoverA;
                             }
                             else if (isPressed)
                             {
@@ -581,12 +576,11 @@ Panel
                             }
                             else if (isHovered)
                             {
-                                if (index == 0) return st.itemTab_colorHoverA;
-                                else            return st.itemList_colorHoverA;
+                                return st.itemList_colorHoverA;
                             }
                             else if (index == 0)
                             {
-                                return st.itemTab_colorA;
+                                return st.buttonPush_colorA;
                             }
                             else if (isDefault)
                             {
@@ -618,13 +612,8 @@ Panel
                             }
                             else if (isContextual)
                             {
-                                if (index == 0)
-                                {
-                                    if (isHovered) return st.itemTab_colorContextualHoverB;
-                                    else           return st.itemTab_colorHoverB;
-                                }
-                                else if (isHovered) return st.itemList_colorContextualHoverB;
-                                else                return st.itemList_colorHoverB;
+                                if (isHovered) return st.itemList_colorContextualHoverB;
+                                else           return st.itemList_colorHoverB;
                             }
                             else if (isPressed)
                             {
@@ -632,12 +621,11 @@ Panel
                             }
                             else if (isHovered)
                             {
-                                if (index == 0) return st.itemTab_colorHoverB;
-                                else            return st.itemList_colorHoverB;
+                                return st.itemList_colorHoverB;
                             }
                             else if (index == 0)
                             {
-                                return st.itemTab_colorB;
+                                return st.buttonPush_colorB;
                             }
                             else if (isDefault)
                             {
@@ -646,6 +634,23 @@ Panel
                             else return st.itemList_colorB;
                         }
                     }
+                }
+
+                itemText.color:
+                {
+                    if (isSelected)
+                    {
+                        return st.itemList_colorTextSelected;
+                    }
+                    else if (isCurrent)
+                    {
+                        return st.itemList_colorTextCurrent;
+                    }
+                    else if (isHovered || isContextual || index == 0)
+                    {
+                        return st.itemList_colorTextHover;
+                    }
+                    else return st.itemList_colorText;
                 }
             }
 
@@ -657,7 +662,7 @@ Panel
 
                 related.loadTracks(playlist.trackData(index));
 
-                itemSlide.slideLeft();
+                itemSlide.startLeft();
             }
 
             BorderHorizontal

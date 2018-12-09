@@ -1494,7 +1494,7 @@ Item
 
             panelBrowse.collapse();
 
-            panelLibrary.select(0);
+            panelLibrary.select(1);
 
             library.setCurrentTabIds(tab);
         }
@@ -1504,7 +1504,7 @@ Item
 
             panelBrowse.collapse();
 
-            panelLibrary.select(1);
+            panelLibrary.select(0);
 
             feeds.setCurrentTabIds(tab);
         }

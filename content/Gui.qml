@@ -1730,26 +1730,9 @@ Item
     {
         var feed = playerTab.feed;
 
-        if (feed)
-        {
-            feed = getFeed(player.source, feed);
+        if (feed == "") return;
 
-            addRecent(LibraryItem.PlaylistFeed, feed);
-        }
-
-        var playlist = playerTab.playlist;
-
-        if (playlist && playlist.parentFolder != related && playlist.type == LibraryItem.Playlist)
-        {
-            addRecent(LibraryItem.Playlist, playlist.source);
-        }
-    }
-
-    function addRecent(type, source)
-    {
-        if (source == "") return;
-
-        var index = feeds.indexFromSource(source);
+        var index = feeds.indexFromSource(feed);
 
         if (index == -1)
         {
@@ -1758,7 +1741,7 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            copyPlaylistUrl(type, source, feeds, 0);
+            copyPlaylistUrl(LibraryItem.PlaylistFeed, feed, feeds, 0);
         }
         else feeds.moveAt(index, 0);
     }

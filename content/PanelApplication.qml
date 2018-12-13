@@ -253,6 +253,8 @@ Panel
             checkable: true
             checked  : (indexCurrent == 0)
 
+            checkHover: false
+
             icon          : st.icon32x32_setting
             iconSourceSize: st.size32x32
 
@@ -276,6 +278,8 @@ Panel
 
             checkable: true
             checked  : (indexCurrent == 1)
+
+            checkHover: false
 
             icon          : st.icon32x32_about
             iconSourceSize: st.size32x32

@@ -48,7 +48,8 @@ Item
 
     /* read */ property variant currentPlaylist: pGetCurrentPlaylist()
 
-    /* read */ property Playlist playlistTemp: core.createPlaylist()
+    /* read */ property Playlist playlistTracks: null
+    /* read */ property Playlist playlistTemp  : core.createPlaylist()
 
     //---------------------------------------------------------------------------------------------
     // Drag
@@ -121,6 +122,8 @@ Item
                            listLibrary.folder.isLoading == false && backends.isLoading == false
                            &&
                            related.isLoading == false)
+
+    property bool pUpdate: false
 
     //---------------------------------------------------------------------------------------------
 
@@ -600,21 +603,13 @@ Item
     {
         target: player
 
+        onSourceChanged: pUpdateFeeds()
+
         onIsPlayingChanged:
         {
             updateScreenDim();
 
-            if (player.isStopped)
-            {
-                var playlist = pGetCurrentPlaylist();
-
-                if (playlist) setCurrentTrack(playlist, playlist.lastSelected);
-
-                restoreBars();
-
-                sk.screenSaverEnabled = true;
-            }
-            else if (player.isPlaying == false)
+            if (player.isPlaying == false)
             {
                 restoreBars();
 
@@ -627,7 +622,7 @@ Item
         {
             restoreBars();
 
-            if (player.isPlaying) updateFeeds();
+            pUpdateFeeds();
         }
 
         onSpeedChanged: local.speed = player.speed
@@ -639,7 +634,17 @@ Item
         onOutputChanged : local.output  = player.output
         onQualityChanged: local.quality = player.quality
 
-        onCurrentTrackUpdated: if (player.isPlaying) updateFeeds()
+        onCurrentTrackUpdated:
+        {
+            if (pUpdate && player.trackIsLoaded)
+            {
+                pUpdate = false;
+
+                updateFeeds();
+            }
+        }
+
+        onTabChanged: pUpdateFeeds()
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1728,22 +1733,93 @@ Item
 
     function updateFeeds()
     {
+        if (player.hasStarted == false) return;
+
+        var source = playerTab.source;
+
+        if (source == "") return;
+
+        if (feeds.isEmpty)
+        {
+            if (playlistTracks) playlistTracks.tryDelete();
+
+            pCreatePlaylistTracks();
+
+            insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+
+            feeds.currentIndex = 0;
+        }
+        else if (playlistTracks == null)
+        {
+            if (feeds.itemLabel(0) != "tracks")
+            {
+                pCreatePlaylistTracks();
+
+                insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+            }
+            else playlistTracks = feeds.createLibraryItemAt(0);
+        }
+
+        addFeedTrack(source);
+
         var feed = playerTab.feed;
 
         if (feed == "") return;
 
-        var index = feeds.indexFromSource(feed);
+        addFeed(getFeed(source, feed));
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function addFeed(source)
+    {
+        var index = feeds.indexFromSource(source);
 
         if (index == -1)
         {
-            while (feeds.isFull || feeds.count > 10)
+            while (feeds.isFull)
             {
                 feeds.removeAt(feeds.count - 1);
             }
 
-            copyPlaylistUrl(LibraryItem.PlaylistFeed, feed, feeds, 0);
+            var playlist = core.createPlaylist(LibraryItem.PlaylistFeed);
+
+            insertLibraryItem(1, playlist, listLibrary, feeds);
+
+            playlist.loadSource(source);
         }
-        else feeds.moveAt(index, 0);
+        else feeds.moveAt(index, 1);
+    }
+
+    function addFeedTrack(source)
+    {
+        var index = playlistTracks.indexFromSource(source);
+
+        if (index == 0) return;
+
+        if (index == -1)
+        {
+            while (playlistTracks.isFull)
+            {
+                playlistTracks.removeTrack(playlistTracks.count - 1);
+            }
+
+            if (listPlaylist.playlist == playlistTracks)
+            {
+                listPlaylist.copyTrackFrom(playerTab.playlist, playerTab.trackIndex, 0, true);
+            }
+            else playerTab.playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
+        }
+        else if (player.playlist != playlistTracks)
+        {
+            playlistTracks.moveTrack(index, 0);
+        }
+
+        var cover = playlistTracks.trackCover(0);
+
+        if (cover == "") return;
+
+        playlistTracks.cover = cover;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1984,6 +2060,17 @@ Item
         }
 
         return item;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function insertLibraryItem(index, item, list, folder)
+    {
+        if (list.folder == folder)
+        {
+            list.insertLibraryItem(index, item, true);
+        }
+        else folder.insertLibraryItem(index, item);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3353,6 +3440,29 @@ Item
             else return null;
         }
         else return null;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pCreatePlaylistTracks()
+    {
+        playlistTracks = core.createPlaylist(LibraryItem.PlaylistFeed);
+
+        playlistTracks.title = qsTr("Tracks");
+        playlistTracks.label = "tracks";
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pUpdateFeeds()
+    {
+        if (player.trackIsLoaded)
+        {
+            pUpdate = false;
+
+            updateFeeds();
+        }
+        else pUpdate = true;
     }
 
     //---------------------------------------------------------------------------------------------

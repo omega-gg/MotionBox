@@ -165,19 +165,9 @@ AreaContextual
 
                         pageFolder.setItemVisible(2, false);
                         pageFolder.setItemVisible(3, false);
-
-                        if (folder == feeds)
-                        {
-                            pageFolder.setItemVisible(4, false);
-                            pageFolder.setItemVisible(5, false);
-                            pageFolder.setItemVisible(6, true);
-                        }
-                        else
-                        {
-                            pageFolder.setItemVisible(4, true);
-                            pageFolder.setItemVisible(5, true);
-                            pageFolder.setItemVisible(6, false);
-                        }
+                        pageFolder.setItemVisible(4, true);
+                        pageFolder.setItemVisible(5, true);
+                        pageFolder.setItemVisible(6, false);
                     }
                     else
                     {
@@ -213,9 +203,19 @@ AreaContextual
 
                         pageFolder.setItemVisible(2, false);
                         pageFolder.setItemVisible(3, false);
-                        pageFolder.setItemVisible(4, true);
-                        pageFolder.setItemVisible(5, true);
-                        pageFolder.setItemVisible(6, false);
+
+                        if (folder == feeds)
+                        {
+                            pageFolder.setItemVisible(4, false);
+                            pageFolder.setItemVisible(5, false);
+                            pageFolder.setItemVisible(6, true);
+                        }
+                        else
+                        {
+                            pageFolder.setItemVisible(4, true);
+                            pageFolder.setItemVisible(5, true);
+                            pageFolder.setItemVisible(6, false);
+                        }
                     }
                     else
                     {

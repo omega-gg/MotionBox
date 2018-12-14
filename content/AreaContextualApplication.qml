@@ -303,6 +303,7 @@ AreaContextual
                 pageFolder.setItemVisible(4, false);
                 pageFolder.setItemVisible(5, false);
                 pageFolder.setItemVisible(6, false);
+                pageFolder.setItemVisible(7, false);
             }
 
             listContextual.currentPage = pageFolder;

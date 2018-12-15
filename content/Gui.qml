@@ -609,13 +609,23 @@ Item
         {
             updateScreenDim();
 
-            if (player.isPlaying == false)
+            if (player.isPlaying)
             {
-                restoreBars();
+                sk.screenSaverEnabled = false;
 
-                sk.screenSaverEnabled = true;
+                return;
             }
-            else sk.screenSaverEnabled = false;
+
+            if (player.isStopped && playerBrowser.visible)
+            {
+                var playlist = pGetCurrentPlaylist();
+
+                if (playlist) setCurrentTrack(playlist, playlist.lastSelected);
+            }
+
+            restoreBars();
+
+            sk.screenSaverEnabled = true;
         }
 
         onHasStartedChanged:

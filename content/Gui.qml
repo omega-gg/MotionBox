@@ -620,7 +620,12 @@ Item
             {
                 var playlist = pGetCurrentPlaylist();
 
-                if (playlist) setCurrentTrack(playlist, playlist.lastSelected);
+                var index = playlist.lastSelected;
+
+                if (index != -1 && (playlist != currentTab.playlist || index != currentTab.trackIndex))
+                {
+                    playlist.unselectTracks();
+                }
             }
 
             restoreBars();

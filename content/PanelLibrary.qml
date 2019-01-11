@@ -30,7 +30,7 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pValue: -1
+    property int pIndex: -1
 
     //---------------------------------------------------------------------------------------------
     // Aliases
@@ -159,13 +159,17 @@ Panel
 
     function pCreate()
     {
-        select(1);
-
-        if (buttonAdd.checked)
+        if (buttonAdd.checked == false)
         {
-             scrollLibrary.clearItem();
+            pIndex = index;
+
+            if (index == 0)
+            {
+                select(1);
+            }
+            else scrollLibrary.createItem(0);
         }
-        else scrollLibrary.createItem(0);
+        else scrollLibrary.clearItem();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -191,7 +195,8 @@ Panel
             width: st.dp32 + borderSizeWidth
 
             checkable: true
-            checked  : scrollLibrary.isCreating
+
+            checked: (scrollLibrary.isCreating || pIndex == 0)
 
             icon          : st.icon24x24_addBold
             iconSourceSize: st.size24x24
@@ -341,6 +346,15 @@ Panel
 
                 bordersDrop.visible = true;
             }
+
+            if (isAnimated == false && pIndex == 0)
+            {
+//#QT_4
+                scrollLibrary.createItem(0);
+//#ELSE
+                Qt.callLater(scrollLibrary.createItem, 0);
+//#END
+            }
         }
 
         ScrollFolderCreate
@@ -363,12 +377,13 @@ Panel
 
             itemText.visible: (index == 1 && isCreating == false && count == 0)
 
-            onDragAcceptedChanged:
+            onClear:
             {
-                if (itemWipe.isAnimated)
-                {
-                    bordersDrop.visible = false;
-                }
+                if (pIndex != 0) return;
+
+                pIndex = -1;
+
+                select(0);
             }
         }
 

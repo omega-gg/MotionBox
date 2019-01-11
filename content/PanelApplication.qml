@@ -43,10 +43,8 @@ Panel
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    anchors.right: parent.left
-
-    anchors.bottom: (window.fullScreen) ? barWindow.bottom
-                                        : barTop   .bottom
+    anchors.right : parent.left
+    anchors.bottom: barWindow.bottom
 
     width: st.dp320 + borderRight
 
@@ -76,9 +74,7 @@ Panel
             anchors.left : parent.left
             anchors.right: undefined
 
-            anchors.top: (window.fullScreen) ? barTop   .bottom
-                                             : barWindow.bottom
-
+            anchors.top   : barWindow.bottom
             anchors.bottom: undefined
         }
     }

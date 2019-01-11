@@ -61,6 +61,12 @@ ScrollFolder
     property alias text: itemNew.text
 
     //---------------------------------------------------------------------------------------------
+    // Signals
+    //---------------------------------------------------------------------------------------------
+
+    signal clear
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -157,14 +163,7 @@ ScrollFolder
         }
     }
 
-    onDragExited:
-    {
-        timerSelect.stop();
-
-        bordersDrop.clearItem(container);
-
-        pClearDrop();
-    }
+    onDragExited: pClearDrag()
 
     onDragMove:
     {
@@ -185,6 +184,8 @@ ScrollFolder
 
         timerAdd.restart();
     }
+
+    onFolderChanged: pClearDrag()
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -277,6 +278,8 @@ ScrollFolder
         pClearAddItem();
 
         pAdd = -1;
+
+        clear();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -375,6 +378,15 @@ ScrollFolder
         clearItem();
 
         bordersDrop.setItem(container);
+    }
+
+    function pClearDrag()
+    {
+        timerSelect.stop();
+
+        bordersDrop.clearItem(container);
+
+        pClearDrop();
     }
 
     function pClearDrop()

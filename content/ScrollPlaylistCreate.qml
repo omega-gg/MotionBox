@@ -74,12 +74,7 @@ ScrollPlaylist
         }
     }
 
-    onDragExited:
-    {
-        bordersDrop.clearItem(container);
-
-        pClearDrop();
-    }
+    onDragExited: pClearDrag()
 
     onDragMove:
     {
@@ -146,6 +141,8 @@ ScrollPlaylist
         timerAdd.restart();
     }
 
+    onPlaylistChanged: pClearDrag()
+
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
@@ -162,6 +159,13 @@ ScrollPlaylist
 
     //---------------------------------------------------------------------------------------------
     // Private
+
+    function pClearDrag()
+    {
+        bordersDrop.clearItem(container);
+
+        pClearDrop();
+    }
 
     function pClearDrop()
     {

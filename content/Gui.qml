@@ -1772,7 +1772,7 @@ Item
 
                 insertLibraryItem(0, playlistTracks, listLibrary, feeds);
             }
-            else playlistTracks = feeds.createLibraryItemAt(0);
+            else playlistTracks = createItemAt(feeds, 0);
         }
 
         addFeedTrack(source);
@@ -1800,6 +1800,11 @@ Item
             var playlist = core.createPlaylist(LibraryItem.PlaylistFeed);
 
             insertLibraryItem(1, playlist, listLibrary, feeds);
+
+            if (controllerPlaylist.urlIsMedia(player.trackTitle))
+            {
+                playlist.cover = player.trackCover;
+            }
 
             playlist.loadSource(source);
         }

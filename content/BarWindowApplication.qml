@@ -1058,8 +1058,8 @@ Item
         colorPressA: st.button_colorConfirmPressA
         colorPressB: st.button_colorConfirmPressB
 
-        filterIcon: (isHovered) ? st.button_filterIconB
-                                : st.button_filterIconA
+        filterIcon: (isHovered || isPressed) ? st.button_filterIconB
+                                             : st.button_filterIconA
 
         onClicked: window.close()
     }

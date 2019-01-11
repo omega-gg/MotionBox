@@ -31,6 +31,7 @@ Panel
     // Private
 
     property int pIndex: -1
+    property int pValue: -1
 
     //---------------------------------------------------------------------------------------------
     // Aliases

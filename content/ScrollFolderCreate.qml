@@ -185,7 +185,7 @@ ScrollFolder
         timerAdd.restart();
     }
 
-    onFolderChanged: pClearDrag()
+    onFolderChanged: if (folder == null) pClearDrag()
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -267,19 +267,6 @@ ScrollFolder
 
         pAddType   = type;
         pAddSource = source;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function clearAdd()
-    {
-        if (pAdd == -1) return;
-
-        pClearAddItem();
-
-        pAdd = -1;
-
-        clear();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -818,7 +805,14 @@ ScrollFolder
 
                         updateVisible();
 
-                        clearAdd();
+                        if (pAdd != -1)
+                        {
+                            pAdd = -1;
+
+                            pClearAddItem();
+                        }
+
+                        clear();
                     }
                 }
             }

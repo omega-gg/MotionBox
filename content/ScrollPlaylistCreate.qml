@@ -141,7 +141,7 @@ ScrollPlaylist
         timerAdd.restart();
     }
 
-    onPlaylistChanged: pClearDrag()
+    onPlaylistChanged: if (playlist == null) pClearDrag()
 
     //---------------------------------------------------------------------------------------------
     // Functions

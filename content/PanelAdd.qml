@@ -146,7 +146,7 @@ PanelContextual
 
             if (listLibrary.currentId != -1)
             {
-                if (target.isFolder == false || target.isLoading == false)
+                if (target && (target.isFolder == false || target.isLoading == false))
                 {
                     if (listFolder.currentId != -1)
                     {

@@ -17,11 +17,21 @@ bin5="latest"
 #--------------------------------------------------------------------------------------------------
 
 if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
+                                                                       $2 != "win64" -a \
                                                                        $2 != "linux" ]; then
 
-    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | osx | linux>"
+    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | win64 | osx | linux>"
 
     exit 1
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Configuration
+#--------------------------------------------------------------------------------------------------
+
+if [ $2 = "win32" ] || [ $2 = "win64" ]; then
+
+    windows=true
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -69,13 +79,13 @@ if [ $1 = "qt5" ]; then
     fi
 fi
 
-if [ $2 = "win32" ]; then
+if [ $windows = true ]; then
 
     cp -r "$deploy"/plugins deploy
 
     cp "$deploy"/*.dll deploy
 
-elif [ $2 = "osx" ]; then
+elif [ $2 = "macOS" ]; then
 
     cp -r "$deploy"/vlc deploy
 

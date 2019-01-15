@@ -604,8 +604,7 @@ Panel
 
         visible: false
 
-        enabled     : buttonTrack.enabled
-        hoverEnabled: buttonTrack.enabled
+        enabled: buttonTrack.enabled
 
         cursor: Qt.PointingHandCursor
 

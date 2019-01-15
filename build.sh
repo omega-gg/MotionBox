@@ -38,7 +38,7 @@ if [ $# != 2 -a $# != 3 ] \
    || \
    [ $# = 3 -a "$3" != "deploy" ]; then
 
-    echo "Usage: build <qt4 | qt5 | clean> <win32 | win64 | osx | linux> [deploy]"
+    echo "Usage: build <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]"
 
     exit 1
 fi

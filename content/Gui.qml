@@ -637,7 +637,7 @@ Item
         {
             restoreBars();
 
-            pUpdateFeeds();
+            timerFeed.restart();
         }
 
         onSpeedChanged: local.speed = player.speed
@@ -651,7 +651,7 @@ Item
 
         onCurrentTrackUpdated:
         {
-            if (pUpdate && player.trackIsLoaded)
+            if (pUpdate && playerTab.isLoaded)
             {
                 pUpdate = false;
 
@@ -1824,11 +1824,22 @@ Item
                 playlistTracks.removeTrack(playlistTracks.count - 1);
             }
 
-            if (listPlaylist.playlist == playlistTracks)
+            var playlist = playerTab.playlist;
+
+            if (playlist)
             {
-                listPlaylist.copyTrackFrom(playerTab.playlist, playerTab.trackIndex, 0, true);
+                if (listPlaylist.playlist == playlistTracks)
+                {
+                    listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
+                }
+                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
             }
-            else playerTab.playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
+            else
+            {
+                playlistTracks.insertSource(0, source);
+
+                playlistTracks.loadTrack(0);
+            }
         }
         else if (player.playlist != playlistTracks)
         {
@@ -3476,7 +3487,7 @@ Item
 
     function pUpdateFeeds()
     {
-        if (player.trackIsLoaded)
+        if (playerTab.isLoaded)
         {
             pUpdate = false;
 
@@ -3606,6 +3617,15 @@ Item
                 pLoadPlaylist.loadTracks(pLoadIndex, 10);
             }
         }
+    }
+
+    Timer
+    {
+        id: timerFeed
+
+        interval: 1000
+
+        onTriggered: if (player.hasStarted) pUpdateFeeds()
     }
 
     Item

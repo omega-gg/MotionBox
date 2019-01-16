@@ -9,6 +9,9 @@ external="../3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
+MinGW_version_32="5.3.0"
+MinGW_version_64="7.3.0"
+
 VLC_version="3.0.5"
 
 #--------------------------------------------------------------------------------------------------
@@ -34,14 +37,22 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "win32" ] || [ $2 = "win64" ]; then
+if [ $2 = "win32" ]; then
 
     windows=true
 
     external="$external/$2"
-fi
 
-#--------------------------------------------------------------------------------------------------
+    MinGW="$external/MinGW/$MinGW_version_32/bin"
+
+elif [ $2 = "win64" ]; then
+
+    windows=true
+
+    external="$external/$2"
+
+    MinGW="$external/MinGW/$MinGW_version_64/bin"
+fi
 
 SSL="$external/OpenSSL"
 
@@ -71,15 +82,37 @@ if [ $1 = "clean" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# SSL
+# Qt
 #--------------------------------------------------------------------------------------------------
 
 if [ $1 = "qt4" ]; then
 
+    echo "COPYING Qt4"
+
     bin="$bin4"
+
+    if [ $windows = true ]; then
+
+        cp "$MinGW"/libgcc_s_dw2-1.dll  "$bin"
+        cp "$MinGW"/libstdc++-6.dll     "$bin"
+        cp "$MinGW"/libwinpthread-1.dll "$bin"
+    fi
 else
+    echo "COPYING Qt5"
+
     bin="$bin5"
+
+    if [ $windows = true ]; then
+
+        cp "$MinGW"/libgcc_s_seh-1.dll  "$bin"
+        cp "$MinGW"/libstdc++-6.dll     "$bin"
+        cp "$MinGW"/libwinpthread-1.dll "$bin"
+    fi
 fi
+
+#--------------------------------------------------------------------------------------------------
+# SSL
+#--------------------------------------------------------------------------------------------------
 
 if [ $windows = true ]; then
 

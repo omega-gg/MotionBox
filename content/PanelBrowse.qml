@@ -2027,7 +2027,7 @@ MouseArea
 
         text: (buttonPlaylist.visible
                &&
-               scrollPlaylist.itemText.visible) ? getOpenTitle(playlist.source) : ""
+               scrollPlaylist.textVisible) ? getOpenTitle(playlist.source) : ""
 
         onClicked: gui.openSource(playlist.source)
     }

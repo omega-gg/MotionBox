@@ -177,6 +177,17 @@ Panel
     // Childs
     //---------------------------------------------------------------------------------------------
 
+//#QT_4
+    Timer
+    {
+        id: timer
+
+        interval: 1
+
+        onTriggered: scrollLibrary.createItem(0)
+    }
+//#END
+
     BarTitle
     {
         id: bar
@@ -351,7 +362,7 @@ Panel
             if (isAnimated == false && pIndex == 0)
             {
 //#QT_4
-                scrollLibrary.createItem(0);
+                timer.restart();
 //#ELSE
                 Qt.callLater(scrollLibrary.createItem, 0);
 //#END
@@ -373,10 +384,10 @@ Panel
 
             textDefault: qsTr("Empty Library")
 
+            textVisible: (index == 1 && isCreating == false && count == 0)
+
             itemRight: (listFolder.visible) ? listFolder
                                             : listPlaylist
-
-            itemText.visible: (index == 1 && isCreating == false && count == 0)
 
             onClear:
             {

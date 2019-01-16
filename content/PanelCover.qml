@@ -593,7 +593,7 @@ Panel
         anchors.top  : background.bottom
     }
 
-    MouseArea
+    Item
     {
         id: itemCover
 
@@ -603,12 +603,6 @@ Panel
         anchors.bottom: details.top
 
         visible: false
-
-        enabled: buttonTrack.enabled
-
-        cursor: Qt.PointingHandCursor
-
-        onPressed: pSelectTrack()
 
         RectangleLogo
         {

@@ -530,6 +530,8 @@ MouseArea
             {
                 if (panelBrowse.query == "")
                 {
+                    source = controllerPlaylist.generateSource(source);
+
                     pFolderBrowse.loadSource(source, false);
 
                     pFolderBrowse.clearItems();
@@ -549,6 +551,8 @@ MouseArea
                     pFolder.cover = controllerPlaylist.backendCoverFromUrl(source);
 
                     pUpdateButtonsBrowsing();
+
+                    pBrowseIndex = 0;
                 }
                 else
                 {
@@ -648,6 +652,8 @@ MouseArea
         pFolderBackends.loadCurrentId(1, true);
 
         pClearSource();
+
+        pBrowseIndex = -1;
     }
 
     function pClearSource()
@@ -802,7 +808,11 @@ MouseArea
         {
             pUpdateButtonsBrowsing();
 
-            return -1;
+            if (buttonsBrowse.count)
+            {
+                 return 0;
+            }
+            else return -1;
         }
 
         buttonsBrowse.clearItems();

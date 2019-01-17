@@ -591,7 +591,11 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE static */ bool ControllerCore::checkUrl(const QString & text)
 {
+#ifdef Q_OS_WIN
+    if (WControllerNetwork::textIsUrl(text) || text.startsWith('/') || text.startsWith('\\'))
+#else
     if (WControllerNetwork::textIsUrl(text) || text.startsWith('/'))
+#endif
     {
         return true;
     }

@@ -3187,18 +3187,10 @@ Item
         {
             stop();
         }
-        else if (event.key == Qt.Key_Tab)
+        else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab)
         {
             areaContextual.hidePanels();
 
-            if (panelBrowse.lineEdit.visible && panelDiscover.isExposed == false)
-            {
-                panelBrowse.lineEdit.focus();
-            }
-            else focusSearch();
-        }
-        else if (event.key == Qt.Key_Backtab)
-        {
             focusSearch();
         }
         else if (event.key == Qt.Key_Plus && event.isAutoRepeat == false)

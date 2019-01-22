@@ -43,8 +43,15 @@ Panel
     // Settings
     //---------------------------------------------------------------------------------------------
 
+//#QT_4
     anchors.right : parent.left
     anchors.bottom: barWindow.bottom
+//#ELSE
+    // FIXME Qt5.12: Panel size changes for no reason when hidden.
+    x: -width
+
+    y: barWindow.y + barWindow.height - height
+//#END
 
     width: st.dp320 + borderRight
 
@@ -67,6 +74,7 @@ Panel
     {
         name: "visible"; when: isExposed
 
+//#QT_4
         AnchorChanges
         {
             target: panelApplication
@@ -77,18 +85,38 @@ Panel
             anchors.top   : barWindow.bottom
             anchors.bottom: undefined
         }
+//#ELSE
+        PropertyChanges
+        {
+            target: panelApplication
+
+            x: 0
+            y: barWindow.y + barWindow.height
+        }
+//#END
     }
 
     transitions: Transition
     {
         SequentialAnimation
         {
+//#QT_4
             AnchorAnimation
             {
                 duration: st.duration_fast
 
                 easing.type: st.easing
             }
+//#ELSE
+            NumberAnimation
+            {
+                properties: "x, y"
+
+                duration: st.duration_fast
+
+                easing.type: st.easing
+            }
+//#END
 
             ScriptAction
             {

@@ -104,7 +104,7 @@ public: // Static functions
 
     Q_INVOKABLE static bool checkUrl(const QString & text);
 
-    Q_INVOKABLE static int urlType(const QUrl & url);
+    Q_INVOKABLE static int urlType(const QString & url);
 
     //---------------------------------------------------------------------------------------------
 
@@ -113,7 +113,7 @@ public: // Static functions
     Q_INVOKABLE static int itemState     (WLibraryFolder * folder, int index);
     Q_INVOKABLE static int itemStateQuery(WLibraryFolder * folder, int index);
 
-    Q_INVOKABLE static int getPlaylistType(WBackendNet * backend, const QUrl & url);
+    Q_INVOKABLE static int getPlaylistType(WBackendNet * backend, const QString & url);
 
     Q_INVOKABLE static WLibraryFolder * createFolder  (int type = WLibraryItem::Folder);
     Q_INVOKABLE static WPlaylist      * createPlaylist(int type = WLibraryItem::Playlist);

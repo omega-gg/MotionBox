@@ -618,7 +618,7 @@ ControllerCore::ControllerCore() : WController()
     else return false;
 }
 
-/* Q_INVOKABLE static */ int ControllerCore::urlType(const QUrl & url)
+/* Q_INVOKABLE static */ int ControllerCore::urlType(const QString & url)
 {
     return wControllerPlaylist->urlType(url);
 }
@@ -644,8 +644,8 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ int ControllerCore::getPlaylistType(WBackendNet * backend,
-                                                             const QUrl  & url)
+/* Q_INVOKABLE static */ int ControllerCore::getPlaylistType(WBackendNet   * backend,
+                                                             const QString & url)
 {
     return backend->getPlaylistType(url);
 }
@@ -709,7 +709,7 @@ ControllerCore::ControllerCore() : WController()
 {
     if (playlist == NULL || index == -1) return;
 
-    QList<QUrl> urls;
+    QStringList urls;
 
     int count = 3;
 

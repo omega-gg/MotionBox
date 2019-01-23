@@ -27,7 +27,6 @@ Panel
 
     /* read */ property bool isExposed : false
     /* read */ property bool isExpanded: false
-    /* read */ property bool isPreview : false
 
     /* read */ property bool hasItem: false
 
@@ -78,6 +77,8 @@ Panel
 
     borderLeft  : 0
     borderBottom: 0
+
+    visible: false
 
     color: st.panelImage_color
 
@@ -191,8 +192,6 @@ Panel
                 {
                     pAnimating = false;
 
-                    isPreview = isExpanded;
-
                     if (isExposed) return;
 
                     if (pClearLater) pClearSource();
@@ -213,11 +212,10 @@ Panel
 
     onStateChanged:
     {
-        if (isPreview || player.source)
+        if (isExpanded || player.source)
         {
-             visible = true;
+            visible = true;
         }
-        else visible = false;
 
         if (width != panelLibrary.width)
         {
@@ -287,7 +285,6 @@ Panel
         hasItem = true;
 
         isExpanded = true;
-        isPreview  = true;
 
         pClearLater = false;
 
@@ -314,7 +311,7 @@ Panel
 
     function getHeight()
     {
-        if (isPreview)
+        if (isExpanded)
         {
              return Math.min(height, st.dp30);
         }
@@ -323,7 +320,7 @@ Panel
 
     function getY()
     {
-        if (isPreview)
+        if (isExpanded)
         {
              return Math.max(parent.height - st.dp30, y);
         }
@@ -484,7 +481,6 @@ Panel
                     panelPreview.clearInstant();
 
                     isExpanded = true;
-                    isPreview  = true;
 
                     expose();
                 }

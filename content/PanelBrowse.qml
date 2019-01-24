@@ -92,7 +92,7 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    property alias pFolderBackends : scrollBackends     .folder
+    property alias pFolderBackends : scrollBackends .folder
     property alias pFolderBrowse   : scrollBrowse   .folder
     property alias pFolder         : scrollFolder   .folder
     property alias pFolderPlaylists: scrollPlaylists.folder
@@ -552,7 +552,7 @@ MouseArea
 
                     pUpdateButtonsBrowsing();
 
-                    pBrowseIndex = 0;
+                    if (pSearchHidden) pBrowseIndex = 0;
                 }
                 else
                 {
@@ -809,7 +809,7 @@ MouseArea
         {
             pUpdateButtonsBrowsing();
 
-            if (buttonsBrowse.count)
+            if (buttonsBrowse.count && pSearchHidden)
             {
                  return 0;
             }
@@ -1157,7 +1157,11 @@ MouseArea
 
                 pHideCompletion();
 
-                isSelecting = false;
+                // NOTE: Avoid unselecting when loading a local file
+                if (pSearchHidden == false)
+                {
+                    isSelecting = false;
+                }
 
                 if (text) text = local.query;
             }

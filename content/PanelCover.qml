@@ -57,6 +57,8 @@ Panel
 
     property bool pClearLater: false
 
+    property int pHeight: buttonTrack.height - buttonTrack.borderBottom
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -311,20 +313,12 @@ Panel
 
     function getHeight()
     {
-        if (isExpanded)
-        {
-             return Math.min(height, st.dp30);
-        }
-        else return parent.height - y;
+        return Math.min(height, pHeight);
     }
 
     function getY()
     {
-        if (isExpanded)
-        {
-             return Math.max(parent.height - st.dp30, y);
-        }
-        else return y;
+        return Math.max(parent.height - pHeight, y);
     }
 
     //---------------------------------------------------------------------------------------------

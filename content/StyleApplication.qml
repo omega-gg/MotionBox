@@ -273,8 +273,8 @@ Style
     //---------------------------------------------------------------------------------------------
     // Border
 
-    border_size: (local.style) ? st.dp2
-                               : st.dp1
+    border_size: (local.style == 2) ? st.dp2
+                                    : st.dp1
 
     border_sizeFocus: st.dp2
 

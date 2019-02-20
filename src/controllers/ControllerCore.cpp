@@ -776,9 +776,9 @@ void ControllerCore::createBrowse()
 
     browse->setId(1);
 
-    browse->setTitle(tr("Video Network"));
+    browse->setTitle(tr("Browser"));
 
-    browse->setLabel("Video Network");
+    browse->setLabel("Browser");
 
     _backends->addLibraryItem(browse);
 

@@ -6,10 +6,6 @@
 
 [MotionBox] est un [Navigateur Vidéo] pour la [Liberté Médiatique].
 
-#
-
-Une application logicielle pour la navigation vidéo.
-
 Conçue pour accéder et traverser des sources vidéo décentralisées.
 
 Conçue pour charger et lire une multitude de ressources vidéo.
@@ -20,13 +16,7 @@ Mon nom est Benjamin Arnaud alias [bunjee].
 
 Je développe MotionBox au service de l'utilisateur:
 
-Ton [soutien][Soutenir MotionBox] peut faire la différence.
-
 Ensemble, construisons un Navigateur Vidéo.
-
-#
-
-Singulier en Unité.
 
 
 ## Historique
@@ -139,9 +129,3 @@ libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
 [VLC]: http://fr.wikipedia.org/wiki/VLC_media_player
 
 [libtorrent]: http://en.wikipedia.org/wiki/libtorrent
-
----
-
-Soutenir MotionBox: [http://omega.gg/MotionBox/support/fr][Soutenir MotionBox]
-
-[Soutenir MotionBox]: http://omega.gg/MotionBox/support/fr

@@ -6,10 +6,6 @@
 
 [MotionBox] is a [Video Browser] for [Motion Freedom].
 
-#
-
-A software application for video browsing.
-
 Built to access and traverse decentralized video sources.
 
 Built to load and play multiple video resources.
@@ -20,13 +16,7 @@ My name is Benjamin Arnaud aka [bunjee].
 
 I'm building MotionBox to empower you:
 
-Your [support][Support MotionBox] can make a difference.
-
 Let's build a Video Browser together.
-
-#
-
-Stand United.
 
 
 ## Changelog
@@ -139,9 +129,3 @@ libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
 [VLC]: http://en.wikipedia.org/wiki/VLC_media_player
 
 [libtorrent]: http://en.wikipedia.org/wiki/libtorrent
-
----
-
-Support MotionBox: [http://omega.gg/MotionBox/support][Support MotionBox]
-
-[Support MotionBox]: http://omega.gg/MotionBox/support

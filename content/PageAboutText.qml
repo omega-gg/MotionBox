@@ -123,7 +123,7 @@ Item
 
             anchors.top: logoW.bottom
 
-            text: qsTr("Stand United")
+            text: qsTr("The omega Movement")
         }
     }
 

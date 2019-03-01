@@ -220,7 +220,7 @@ Item
 
             leftMargin: st.dp6
 
-            text: qsTr("Stand United")
+            text: qsTr("The omega Movement")
         }
 
         BarTitleText

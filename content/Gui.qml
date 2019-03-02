@@ -888,12 +888,6 @@ Item
 
             return;
         }
-        else if (window.fullScreen == false && isMini == false)
-        {
-            restore();
-
-            return;
-        }
 
         if (barTop.isExpanded || actionCue.tryPush(actionBarsExpand)) return;
 

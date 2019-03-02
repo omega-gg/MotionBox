@@ -3361,7 +3361,13 @@ Item
 
             barWindow.updateTab();
         }
-        else pMiniMicro = false;
+        else
+        {
+            pMiniMicro = false;
+
+            // FIXME Qt5: We have to restore bars here to get the proper 'barControls' height.
+            restoreBars();
+        }
 
         isMini = false;
 
@@ -3374,7 +3380,8 @@ Item
     {
         window.visible = pMiniVisible;
 
-        restoreBars();
+        // FIXME Qt5: We have to restore bars before to get the proper 'barControls' height.
+        //restoreBars();
 
         if (pMiniExpanded == false)
         {

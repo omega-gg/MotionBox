@@ -52,6 +52,8 @@ elif [ $2 = "win64" ]; then
     external="$external/$2"
 
     MinGW="$external/MinGW/$MinGW_version_64/bin"
+else
+    windows=false
 fi
 
 SSL="$external/OpenSSL"

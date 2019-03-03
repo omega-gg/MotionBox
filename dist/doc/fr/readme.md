@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.4.0
+# [MotionBox] - alpha 1.5.0
 
 ### [english](../../Readme.html) / français
 
@@ -20,6 +20,8 @@ Ensemble, construisons un Navigateur Vidéo.
 
 
 ## Historique
+
+- 1.5.0: [Thèmes légers, 64 bit, historique de lecture](../changes/1.5.0.html).
 
 - 1.4.0: [Recherche torrent, Qt 5, VLC 3.0](../changes/1.4.0.html).
 

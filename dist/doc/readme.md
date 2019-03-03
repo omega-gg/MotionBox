@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.4.0
+# [MotionBox] - alpha 1.5.0
 
 ### english / [français](documents/fr/Readme.html)
 
@@ -20,6 +20,8 @@ Let's build a Video Browser together.
 
 
 ## Changelog
+
+- 1.5.0: [Light themes, 64 bit, playback history](documents/changes/1.5.0.html).
 
 - 1.4.0: [Torrent search, Qt 5, VLC 3.0](documents/changes/1.4.0.html).
 

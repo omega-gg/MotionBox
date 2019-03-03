@@ -133,8 +133,9 @@ OTHER_FILES += configure.sh \
                dist/changes/1.2.0.md \
                dist/changes/1.3.0.md \
                dist/changes/1.4.0.md \
-               dist/changes/1.4.1.md \
+               dist/changes/1.5.0.md \
                dist/installer/config/config-win32.xml \
+               dist/installer/config/config-win64.xml \
                dist/installer/config/controller.qs \
                dist/installer/packages/setup/meta/package.xml \
                dist/installer/packages/setup/meta/component.qs \

@@ -313,7 +313,11 @@ Panel
 
     function getHeight()
     {
-        return Math.min(height, pHeight);
+        if (player.source == "")
+        {
+             return 0;
+        }
+        else return Math.min(parent.height - y, pHeight);
     }
 
     function getY()

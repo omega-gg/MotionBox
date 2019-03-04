@@ -314,7 +314,7 @@ ControllerCore::ControllerCore() : WController()
 
     _backends->setSaveEnabled(true);
 
-    wControllerPlaylist->setPathCover("pictures/icons/backend");
+    wControllerPlaylist->setPathCover("qrc:/qrc/pictures/icons/backend");
 
     if (_backends->load() == false)
     {

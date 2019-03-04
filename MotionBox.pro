@@ -134,6 +134,7 @@ OTHER_FILES += configure.sh \
                dist/changes/1.3.0.md \
                dist/changes/1.4.0.md \
                dist/changes/1.5.0.md \
+               dist/changes/1.5.1.md \
                dist/installer/config/config-win32.xml \
                dist/installer/config/config-win64.xml \
                dist/installer/config/controller.qs \

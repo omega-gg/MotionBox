@@ -50,12 +50,7 @@ Application
 
         areaContextual: if (gui) gui.areaContextual
 
-        st: StyleApplication
-        {
-            id: st
-
-            zoom: window.zoom
-        }
+        st: StyleApplication { id: st }
 
         color: "black"
 

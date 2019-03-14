@@ -262,6 +262,10 @@ Style
     // FIXME: Workaround for the rounding issue.
     scale: local.scale.toFixed(3)
 
+    zoom: window.zoom
+
+    ratio: scale * zoom * window.ratio
+
     icon: "pictures/icons/icon.svg"
 
     logo: (local.style) ? "pictures/logoBackgroundB.svg"

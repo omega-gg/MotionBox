@@ -240,6 +240,7 @@ Item
         {
             model.append({ "title": qsTr("Light")   });
             model.append({ "title": qsTr("Night")   });
+            model.append({ "title": qsTr("Bold")    });
             model.append({ "title": qsTr("Classic") });
         }
 

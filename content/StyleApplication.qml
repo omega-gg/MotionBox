@@ -277,8 +277,8 @@ Style
     //---------------------------------------------------------------------------------------------
     // Border
 
-    border_size: (local.style == 2) ? st.dp2
-                                    : st.dp1
+    border_size: (local.style < 2) ? st.dp1
+                                   : st.dp2
 
     border_sizeFocus: st.dp2
 
@@ -303,6 +303,12 @@ Style
         else if (index == 1)
         {
             applyNight();
+        }
+        else if (index == 2)
+        {
+            applyNight();
+
+            border_color = "#161616";
         }
         else // if (index == 2)
         {

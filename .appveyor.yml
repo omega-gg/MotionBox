@@ -1,4 +1,4 @@
-clone_folder: c:\dev\workspace\MotionBox
+clone_folder: C:\dev\workspace\MotionBox
 
 environment:
   matrix:

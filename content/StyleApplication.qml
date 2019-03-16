@@ -300,15 +300,9 @@ Style
         {
             applyLight();
         }
-        else if (index == 1)
+        else if (index == 1 || index == 2)
         {
             applyNight();
-        }
-        else if (index == 2)
-        {
-            applyNight();
-
-            border_color = "#161616";
         }
         else // if (index == 2)
         {

@@ -282,7 +282,7 @@ public: // Variables
     _torrentUploadActive   = false;
     _torrentDownloadActive = false;
 
-    _torrentCache = 1000;
+    _torrentCache = 2000;
 }
 
 //-------------------------------------------------------------------------------------------------

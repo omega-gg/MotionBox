@@ -69,7 +69,7 @@ Item
 
         anchors.top: logo.bottom
 
-        text: qsTr("The Video Browser")
+        text: qsTr("Video Browser")
     }
 
     ButtonPushCenterIcon

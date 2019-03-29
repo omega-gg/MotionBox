@@ -9,7 +9,7 @@ Built to access and traverse decentralized video sources.<br>
 Built to load and play multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower you.<br>
 
-## Video Browser
+## MotionBox Video Browser
 <a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="Video Browser" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](http://en.wikipedia.org/wiki/DuckDuckGo).<br>

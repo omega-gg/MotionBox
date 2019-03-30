@@ -9,7 +9,7 @@ external="../3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
-MinGW_version_32="5.3.0"
+MinGW_version_32="7.3.0"
 MinGW_version_64="7.3.0"
 
 VLC_version="3.0.6"
@@ -92,24 +92,23 @@ if [ $1 = "qt4" ]; then
     echo "COPYING Qt4"
 
     bin="$bin4"
-
-    if [ $windows = true ]; then
-
-        cp "$MinGW"/libgcc_s_dw2-1.dll  "$bin"
-        cp "$MinGW"/libstdc++-6.dll     "$bin"
-        cp "$MinGW"/libwinpthread-1.dll "$bin"
-    fi
 else
     echo "COPYING Qt5"
 
     bin="$bin5"
+fi
 
-    if [ $windows = true ]; then
+if [ $windows = true ]; then
 
-        cp "$MinGW"/libgcc_s_seh-1.dll  "$bin"
-        cp "$MinGW"/libstdc++-6.dll     "$bin"
-        cp "$MinGW"/libwinpthread-1.dll "$bin"
+    if [ $2 = "win32" ]; then
+
+        cp "$MinGW"/libgcc_s_dw2-1.dll "$bin"
+    else
+        cp "$MinGW"/libgcc_s_seh-1.dll "$bin"
     fi
+
+    cp "$MinGW"/libstdc++-6.dll     "$bin"
+    cp "$MinGW"/libwinpthread-1.dll "$bin"
 fi
 
 #--------------------------------------------------------------------------------------------------

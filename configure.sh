@@ -100,13 +100,7 @@ fi
 
 if [ $windows = true ]; then
 
-    if [ $2 = "win32" ]; then
-
-        cp "$MinGW"/libgcc_s_dw2-1.dll "$bin"
-    else
-        cp "$MinGW"/libgcc_s_seh-1.dll "$bin"
-    fi
-
+    cp "$MinGW"/libgcc_s_*-1.dll    "$bin"
     cp "$MinGW"/libstdc++-6.dll     "$bin"
     cp "$MinGW"/libwinpthread-1.dll "$bin"
 fi

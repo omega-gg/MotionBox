@@ -801,11 +801,9 @@ void ControllerCore::deleteBrowse()
 {
     QString path = pathStorage() + "/playlists/";
 
-    WControllerFile::deleteFolder(path + "2");
     WControllerFile::deleteFolder(path + "3");
     WControllerFile::deleteFolder(path + "4");
 
-    WControllerFile::deleteFile(path + "2.xml");
     WControllerFile::deleteFile(path + "3.xml");
     WControllerFile::deleteFile(path + "4.xml");
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
     <DisplayName>MotionBox</DisplayName>
-    <Version>1.5.0</Version>
+    <Version>1.5.0-1</Version>
     <Dependencies>Sky, VLC</Dependencies>
     <ReleaseDate>2015-10-07</ReleaseDate>
     <SortingPriority>4</SortingPriority>

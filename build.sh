@@ -14,8 +14,7 @@ external="/c/dev/workspace/3rdparty"
 Qt4_version="4.8.7"
 Qt5_version="5.12.2"
 
-MinGW_version_32="7.3.0"
-MinGW_version_64="7.3.0"
+MinGW_version="7.3.0"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -47,21 +46,13 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "win32" ]; then
+if [ $windows = true ]; then
 
     windows=true
 
     external="$external/$2"
 
-    MinGW="$external/MinGW/$MinGW_version_32/bin"
-
-elif [ $2 = "win64" ]; then
-
-    windows=true
-
-    external="$external/$2"
-
-    MinGW="$external/MinGW/$MinGW_version_64/bin"
+    MinGW="$external/MinGW/$MinGW_version/bin"
 else
     windows=false
 fi

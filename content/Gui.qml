@@ -2405,12 +2405,8 @@ Item
 
         if (player.isPlaying)
         {
-            player.keepState = true;
-
             player.stop();
             player.play();
-
-            player.keepState = false;
         }
         else player.stop();
     }

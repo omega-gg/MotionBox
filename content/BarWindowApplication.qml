@@ -958,7 +958,12 @@ Item
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        onPressed: window.clearFocus()
+        onPressed:
+        {
+            window.clearFocus();
+
+            if (window.isTouching) window.showTouch();
+        }
 
         onDoubleClicked:
         {

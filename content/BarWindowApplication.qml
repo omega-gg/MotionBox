@@ -962,7 +962,10 @@ Item
         {
             window.clearFocus();
 
-            if (window.isTouching) window.toggleTouch();
+            if (window.resizer.visible && window.isTouching)
+            {
+                window.toggleTouch();
+            }
         }
 
         onDoubleClicked:

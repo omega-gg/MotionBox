@@ -962,7 +962,7 @@ Item
         {
             window.clearFocus();
 
-            if (window.isTouching) window.showTouch();
+            if (window.isTouching) window.toggleTouch();
         }
 
         onDoubleClicked:

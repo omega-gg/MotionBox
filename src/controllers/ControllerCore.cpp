@@ -403,16 +403,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ QString ControllerCore::openFile(const QString & title)
 {
-    QString path = QFileDialog::getOpenFileName(NULL, title, _pathOpen,
-                                                WControllerPlaylist::getFileFilter());
-
-    if (path.isEmpty()) return QString();
-
-    QFileInfo info(path);
-
-    _pathOpen = info.absolutePath();
-
-    return WControllerFile::fileUrl(info.absoluteFilePath());
+    return getFile(title, WControllerPlaylist::getFilterFile());
 }
 
 /* Q_INVOKABLE */ QString ControllerCore::openFolder(const QString & title)
@@ -426,6 +417,11 @@ ControllerCore::ControllerCore() : WController()
     _pathOpen = info.absoluteFilePath();
 
     return WControllerFile::fileUrl(_pathOpen);
+}
+
+/* Q_INVOKABLE */ QString ControllerCore::openSubtitle(const QString & title)
+{
+    return getFile(title, WControllerPlaylist::getFilterSubtitle());
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -812,6 +808,21 @@ void ControllerCore::deleteBrowse()
     _local->setQuery(QString());
 
     _local->setCache(false);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+QString ControllerCore::getFile(const QString & title, const QString & filter)
+{
+    QString path = QFileDialog::getOpenFileName(NULL, title, _pathOpen, filter);
+
+    if (path.isEmpty()) return QString();
+
+    QFileInfo info(path);
+
+    _pathOpen = info.absoluteFilePath();
+
+    return WControllerFile::fileUrl(info.absoluteFilePath());
 }
 
 //-------------------------------------------------------------------------------------------------

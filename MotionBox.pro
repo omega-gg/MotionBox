@@ -87,7 +87,7 @@ OTHER_FILES += configure.sh \
                content/PanelRelated.qml \
                content/PanelCover.qml \
                content/PanelSettings.qml \
-               content/PanelShare.qml \
+               content/PanelGet.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \
                content/BarWindowApplication.qml \
@@ -117,6 +117,8 @@ OTHER_FILES += configure.sh \
                content/PageAboutText.qml \
                content/PageAboutMessage.qml \
                content/PageAboutCredits.qml \
+               content/PageSubtitles.qml \
+               content/PageSubtitlesSearch.qml \
                dist/MotionBox.rc \
                dist/qrc.sh \
                dist/doc/readme.md \

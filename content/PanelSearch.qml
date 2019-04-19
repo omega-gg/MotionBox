@@ -318,8 +318,6 @@ Panel
             {
                 pIndexFocus = -1;
 
-                scrollToItem(currentIndex);
-
                 pTextEvents = false;
 
                 lineEditSearch.text = completion;

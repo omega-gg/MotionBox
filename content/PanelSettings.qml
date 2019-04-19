@@ -42,12 +42,14 @@ Panel
     anchors.right: parent.right
     anchors.top  : parent.bottom
 
-    anchors.rightMargin: (gui.isMini) ? -st.border_size : st.dp96
+    anchors.rightMargin: (gui.isMini) ? 0 : st.dp96
 
     width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
 
     height: barBottom.y + barBottom.height + st.dp50 + borderSizeHeight
 
+    borderLeft  : (gui.isMini) ? 0 : borderSize
+    borderRight : borderLeft
     borderBottom: 0
 
     visible: false
@@ -134,13 +136,13 @@ Panel
 
         gui.panelAddHide();
 
-        panelShare.collapse();
+        panelGet.collapse();
 
         isExposed = true;
 
         z = 1;
 
-        panelShare.z = 0;
+        panelGet.z = 0;
 
         visible = true;
 
@@ -207,7 +209,7 @@ Panel
     BarTitleText
     {
         anchors.left  : borderTop.right
-        anchors.right : buttonClose.left
+        anchors.right : parent.right
         anchors.top   : itemOutput.top
         anchors.bottom: itemOutput.bottom
 
@@ -217,24 +219,6 @@ Panel
         text: qsTr("Speed")
 
         font.pixelSize: st.dp12
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonClose
-
-        anchors.right: parent.right
-
-        width : st.barTitleSmall_height + borderSizeWidth
-        height: st.barTitleSmall_height
-
-        borderLeft : borderSize
-        borderRight: 0
-
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
-
-        onClicked: collapse()
     }
 
     ButtonPushLeft

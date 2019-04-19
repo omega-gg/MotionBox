@@ -1709,8 +1709,6 @@ MouseArea
         {
             if (currentIndex != -1)
             {
-                scrollToItem(currentIndex);
-
                 pTextEvents = false;
 
                 lineEdit.text = completion;

@@ -624,7 +624,7 @@ AreaContextual
             {
                 listContextual.setCurrentId(0);
 
-                var path = core.openFile("Select File");
+                var path = core.openFile(qsTr("Select File"));
 
                 panelBrowse.browse(path);
             }
@@ -632,7 +632,7 @@ AreaContextual
             {
                 listContextual.setCurrentId(1);
 
-                /* var */ path = core.openFolder("Select Folder");
+                /* var */ path = core.openFolder(qsTr("Select Folder"));
 
                 panelBrowse.browse(path);
             }

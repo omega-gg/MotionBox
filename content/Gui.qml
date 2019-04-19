@@ -882,9 +882,9 @@ Item
 
             return;
         }
-        else if (panelShare.isExposed)
+        else if (panelGet.isExposed)
         {
-            panelShare.collapse();
+            panelGet.collapse();
 
             return;
         }
@@ -1008,7 +1008,7 @@ Item
         if (buttonAdd.checked || actionCue.tryPush(actionAddShow)) return;
 
         panelSettings.collapse();
-        panelShare   .collapse();
+        panelGet     .collapse();
 
         playlistTemp.clearTracks();
 
@@ -1470,7 +1470,7 @@ Item
         panelApplication.collapse();
 
         panelSettings.collapse();
-        panelShare   .collapse();
+        panelGet     .collapse();
 
         panelDiscover.collapse();
 
@@ -3145,9 +3145,9 @@ Item
             {
                 panelSettings.collapse();
             }
-            else if (panelShare.isExposed)
+            else if (panelGet.isExposed)
             {
-                panelShare.collapse();
+                panelGet.collapse();
             }
             else if (panelDiscover.isExposed)
             {
@@ -3554,8 +3554,8 @@ Item
             else if (id == actionSettingsExpose)   panelSettings.expose  ();
             else if (id == actionSettingsCollapse) panelSettings.collapse();
 
-            else if (id == actionShareExpose)   panelShare.expose  ();
-            else if (id == actionShareCollapse) panelShare.collapse();
+            else if (id == actionShareExpose)   panelGet.expose  ();
+            else if (id == actionShareCollapse) panelGet.collapse();
 
             else if (id == actionSearchExpose) lineEditSearch.focus();
 
@@ -3645,7 +3645,7 @@ Item
 
         PanelDiscover { id: panelDiscover }
 
-        PanelShare { id: panelShare }
+        PanelGet { id: panelGet }
 
         PanelSettings { id: panelSettings }
 

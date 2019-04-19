@@ -99,6 +99,8 @@ public: // Variables
     WAbstractBackend::Output  output;
     WAbstractBackend::Quality quality;
 
+    int subtitleIndex;
+
     bool cache;
 
     QString proxyHost;
@@ -192,6 +194,8 @@ public: // Variables
     stream.writeTextElement("output",  QString::number(output));
     stream.writeTextElement("quality", QString::number(quality));
 
+    stream.writeTextElement("subtitleIndex", QString::number(subtitleIndex));
+
     stream.writeTextElement("cache", QString::number(cache));
 
     stream.writeTextElement("proxyHost",     proxyHost);
@@ -266,6 +270,8 @@ public: // Variables
 
     _output  = WAbstractBackend::OutputMedia;
     _quality = WAbstractBackend::QualityHigh;
+
+    _subtitleIndex = 20; // English
 
     _cache = false;
 
@@ -517,6 +523,13 @@ public: // Variables
     _quality = static_cast<WAbstractBackend::Quality> (WControllerXml::readNextInt(&stream));
 
     //---------------------------------------------------------------------------------------------
+    // subtitleIndex
+
+    if (WControllerXml::readNextStartElement(&stream, "subtitleIndex") == false) return false;
+
+    _subtitleIndex = WControllerXml::readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // cache
 
     if (WControllerXml::readNextStartElement(&stream, "cache") == false) return false;
@@ -668,6 +681,8 @@ public: // Variables
 
     action->output  = _output;
     action->quality = _quality;
+
+    action->subtitleIndex = _subtitleIndex;
 
     action->cache = _cache;
 
@@ -1049,6 +1064,24 @@ void DataLocal::setQuality(WAbstractBackend::Quality quality)
     _quality = quality;
 
     emit qualityChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::subtitleIndex() const
+{
+    return _subtitleIndex;
+}
+
+void DataLocal::setSubtitleIndex(int index)
+{
+    if (_subtitleIndex == index) return;
+
+    _subtitleIndex = index;
+
+    emit subtitleIndexChanged();
 
     save();
 }

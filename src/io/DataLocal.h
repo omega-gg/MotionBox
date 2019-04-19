@@ -80,6 +80,9 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(WAbstractBackend::Quality quality READ quality WRITE setQuality
                NOTIFY qualityChanged)
 
+    Q_PROPERTY(int subtitleIndex READ subtitleIndex WRITE setSubtitleIndex
+               NOTIFY subtitleIndexChanged)
+
     Q_PROPERTY(bool cache READ cache WRITE setCache NOTIFY cacheChanged)
 
     Q_PROPERTY(QString proxyHost READ proxyHost WRITE setProxyHost NOTIFY proxyHostChanged)
@@ -158,6 +161,8 @@ signals:
 
     void outputChanged ();
     void qualityChanged();
+
+    void subtitleIndexChanged();
 
     void cacheChanged();
 
@@ -246,6 +251,9 @@ public: // Properties
     WAbstractBackend::Quality quality() const;
     void                      setQuality(WAbstractBackend::Quality quality);
 
+    int  subtitleIndex() const;
+    void setSubtitleIndex(int index);
+
     bool cache() const;
     void setCache(bool cache);
 
@@ -327,6 +335,8 @@ private: // Variables
 
     WAbstractBackend::Output  _output;
     WAbstractBackend::Quality _quality;
+
+    int _subtitleIndex;
 
     bool _cache;
 

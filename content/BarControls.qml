@@ -403,12 +403,12 @@ MouseArea
             width: st.dp44
 
             checkable: true
-            checked  : panelShare.isExposed
+            checked  : panelGet.isExposed
 
             icon          : st.icon24x24_share
             iconSourceSize: st.size24x24
 
-            onPressed: panelShare.toggleExpose()
+            onPressed: panelGet.toggleExpose()
         }
 
         ButtonPushIcon

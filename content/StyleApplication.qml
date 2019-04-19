@@ -50,8 +50,8 @@ Style
 
     //---------------------------------------------------------------------------------------------
 
-    property int minimumWidth : 800 * scale
-    property int minimumHeight: 540 * scale
+    property int minimumWidth : 800 * ratio
+    property int minimumHeight: 540 * ratio
 
     property url logoApplication: "pictures/logo.svg"
 

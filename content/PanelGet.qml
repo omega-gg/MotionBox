@@ -19,13 +19,15 @@ import Sky     1.0
 
 Panel
 {
-    id: panelShare
+    id: panelGet
 
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
 
     /* read */ property bool isExposed: false
+
+    /* read */ property int indexCurrent: -1
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -34,12 +36,14 @@ Panel
     anchors.right: parent.right
     anchors.top  : parent.bottom
 
-    anchors.rightMargin: (gui.isMini) ? -st.border_size : st.dp52
+    anchors.rightMargin: (gui.isMini) ? 0 : st.dp52
 
-    width: buttonWebpage.x + buttonWebpage.width + st.dp7 + borderRight
+    width: st.dp480 + borderSizeWidth
 
-    height: bar.height + st.dp50 + borderSizeHeight
+    height: bar.height + loader.height + borderSizeHeight
 
+    borderLeft  : (gui.isMini) ? 0 : borderSize
+    borderRight : borderLeft
     borderBottom: 0
 
     visible: false
@@ -56,7 +60,7 @@ Panel
 
         AnchorChanges
         {
-            target: panelShare
+            target: panelGet
 
             anchors.top   : undefined
             anchors.bottom: parent.bottom
@@ -114,6 +118,13 @@ Panel
 
         panelSettings.collapse();
 
+        if (indexCurrent == -1)
+        {
+            indexCurrent = 0;
+
+            loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
+        }
+
         isExposed = true;
 
         z = 1;
@@ -144,143 +155,40 @@ Panel
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarTitleSmall
+    BarTitle
     {
         id: bar
 
         anchors.left : parent.left
         anchors.right: parent.right
 
+        height: st.dp32 + borderSizeHeight
+
         borderTop: 0
-    }
 
-    BarTitleText
-    {
-        id: itemShare
-
-        anchors.top   : bar.top
-        anchors.bottom: bar.bottom
-
-        anchors.bottomMargin: bar.borderBottom
-
-        width: lineEdit.x + lineEdit.width + st.dp6
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Share Track")
-
-        font.pixelSize: st.dp12
-    }
-
-    BorderVertical
-    {
-        id: border
-
-        anchors.left: itemShare.right
-    }
-
-    BarTitleText
-    {
-        anchors.left  : border.right
-        anchors.right : parent.right
-        anchors.top   : itemShare.top
-        anchors.bottom: itemShare.bottom
-
-        leftMargin: st.dp8
-
-        verticalAlignment: Text.AlignVCenter
-
-        text: qsTr("Go to")
-
-        font.pixelSize: st.dp12
-    }
-
-    ButtonPianoIcon
-    {
-        anchors.right: parent.right
-
-        width : st.barTitleSmall_height + borderSizeWidth
-        height: st.barTitleSmall_height
-
-        borderLeft : borderSize
-        borderRight: 0
-
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
-
-        onClicked: collapse()
-    }
-
-    Image
-    {
-        id: image
-
-        anchors.top   : bar.bottom
-        anchors.bottom: parent.bottom
-
-        width: st.dp50
-
-        sourceSize: Qt.size(width, height)
-
-        visible: (source != "")
-    }
-
-    BorderVertical
-    {
-        id: borderImage
-
-        anchors.left: image.right
-        anchors.top : bar.bottom
-
-        visible: image.visible
-    }
-
-    LineEditCopy
-    {
-        id: lineEdit
-
-        anchors.left: (borderImage.visible) ? borderImage.right
-                                            : parent.left
-
-        anchors.top: bar.bottom
-
-        anchors.leftMargin: st.dp6
-        anchors.topMargin : st.dp6
-
-        width: st.dp180
-
-        text: currentTab.source
-
-        textDefault: qsTr("No track selected")
-
-        onTextChanged:
+        ButtonPiano
         {
-            if (text == "")
-            {
-                 image.source = "";
-            }
-            else image.source = controllerPlaylist.backendCoverFromUrl(currentTab.source);
+            width: st.dp128
+
+            checkable: true
+            checked  : (indexCurrent == 0)
+
+            checkHover: false
+
+            text: qsTr("Subtitles")
+
+            font.pixelSize: st.dp14
         }
     }
 
-    ButtonPushFull
+    LoaderSlide
     {
-        id: buttonWebpage
+        id: loader
 
-        anchors.left: lineEdit.right
-        anchors.top : bar.bottom
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : bar.bottom
 
-        anchors.leftMargin: st.dp13
-        anchors.topMargin : st.dp5
-
-        enabled: (currentTab.source != "")
-
-        icon          : st.icon16x16_external
-        iconSourceSize: st.size16x16
-
-        text: gui.getOpenTitle(currentTab.source)
-
-        onClicked: gui.openSource(currentTab.source)
+        height: (item) ? item.height : 0
     }
 }

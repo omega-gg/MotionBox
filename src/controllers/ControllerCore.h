@@ -74,8 +74,9 @@ public: // Interface
 
     Q_INVOKABLE bool updateVersion();
 
-    Q_INVOKABLE QString openFile  (const QString & title);
-    Q_INVOKABLE QString openFolder(const QString & title);
+    Q_INVOKABLE QString openFile    (const QString & title);
+    Q_INVOKABLE QString openFolder  (const QString & title);
+    Q_INVOKABLE QString openSubtitle(const QString & title);
 
     Q_INVOKABLE void saveShot  (WWindow * window)             const;
     Q_INVOKABLE void saveSplash(WWindow * window, int border) const;
@@ -140,6 +141,8 @@ private: // Functions
     void restoreBrowse();
 
     void deleteBrowse();
+
+    QString getFile(const QString & title, const QString & filter);
 
 signals:
     void cacheEmptyChanged();

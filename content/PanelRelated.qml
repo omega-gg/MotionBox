@@ -529,13 +529,13 @@ Panel
 
             anchors.fill: parent
 
-            textDefault: qsTr("No related tracks")
-
-            textVisible: (count == 1 && playlist != null && playlist.queryIsLoading == false)
-
             playlist: (related) ? related.currentItem : null
 
             enableLoad: false
+
+            textDefault: qsTr("No related tracks")
+
+            textVisible: (count == 1 && playlist != null && playlist.queryIsLoading == false)
 
             buttonLink.anchors.rightMargin: 0
 

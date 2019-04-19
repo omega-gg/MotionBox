@@ -62,6 +62,7 @@
 #include <WBackendDailymotion>
 #include <WBackendVimeo>
 #include <WBackendSoundCloud>
+#include <WBackendOpenSubtitles>
 
 // Application includes
 #include "DataLocal.h"
@@ -224,6 +225,8 @@ ControllerCore::ControllerCore() : WController()
     new WBackendDailymotion;
     new WBackendVimeo;
     new WBackendSoundCloud;
+
+    new WBackendOpenSubtitles;
 
     //---------------------------------------------------------------------------------------------
     // Cache

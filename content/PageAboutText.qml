@@ -123,7 +123,7 @@ Item
 
             anchors.top: logoW.bottom
 
-            text: qsTr("The omega Movement")
+            text: qsTr("omega Movement")
         }
     }
 

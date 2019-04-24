@@ -1700,11 +1700,6 @@ MouseArea
 
         visible: false
 
-        delegate: ComponentCompletion
-        {
-            itemText.font.pixelSize: st.dp14
-        }
-
         onCompletionChanged:
         {
             if (currentIndex != -1)

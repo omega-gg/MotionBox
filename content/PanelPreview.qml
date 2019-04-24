@@ -25,8 +25,8 @@ PanelImage
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property List    list
-    /* read */ property variant item: null
+    /* read */ property BaseList list
+    /* read */ property variant  item: null
 
     /* read */ property int type: 0
 

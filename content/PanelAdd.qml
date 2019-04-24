@@ -1114,7 +1114,7 @@ PanelContextual
             }
         }
 
-        List
+        BaseList
         {
             id: listLibrary
 
@@ -1435,7 +1435,7 @@ PanelContextual
             }
         }
 
-        List
+        BaseList
         {
             id: listFolder
 

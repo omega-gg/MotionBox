@@ -303,11 +303,6 @@ Panel
 
         width: Math.max(st.dp256, parent.width - st.dp256)
 
-        delegate: ComponentCompletion
-        {
-            itemText.font.pixelSize: st.dp14
-        }
-
         textDefault: qsTr("Type something to watch")
 
         onQueryCompleted: pUpdateFocus()
@@ -339,7 +334,7 @@ Panel
         anchors.left: scrollCompletion.right
     }
 
-    ScrollView
+    ScrollList
     {
         id: scrollBackends
 

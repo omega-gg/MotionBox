@@ -45,14 +45,7 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted:
-    {
-        pFolder = core.createFolder();
-
-        scrollLanguages.scrollToItemTop(scrollLanguages.currentIndex);
-    }
-
-    Component.onDestruction: pFolder.tryDelete()
+    Component.onCompleted: scrollLanguages.scrollToItemTop(scrollLanguages.currentIndex)
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -71,6 +64,11 @@ Item
         else language = modelLanguage.titleAt(index).toLowerCase();
 
         var source = controllerPlaylist.createSource(pSearchEngine, "subtitles", language, query);
+
+        if (pFolder == null)
+        {
+            model.folder = core.createFolder();
+        }
 
         pFolder.loadSource(source);
     }
@@ -128,7 +126,7 @@ Item
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    ScrollCompletion
+    ScrollList
     {
         id: scrollLanguages
 
@@ -147,6 +145,8 @@ Item
 
             titles: controllerPlaylist.getLanguages()
         }
+
+        delegate: ComponentList {}
 
         onCurrentIndexChanged:
         {
@@ -167,7 +167,7 @@ Item
         visible: pVisible
     }
 
-    ScrollCompletion
+    ScrollListDefault
     {
         id: scrollFolder
 
@@ -178,7 +178,14 @@ Item
 
         visible: pVisible
 
-        model: ModelLibraryFolder { id: model }
+        model: ModelLibraryFolder
+        {
+            id: model
+
+            Component.onDestruction: if (folder) folder.tryDelete()
+        }
+
+        delegate: ComponentList {}
 
         textDefault: (labelLoading.visible) ? "" : qsTr("Type a subtitle query")
     }
@@ -207,11 +214,6 @@ Item
         anchors.fill: parent
 
         visible: false
-
-        delegate: ComponentCompletion
-        {
-            itemText.font.pixelSize: st.dp14
-        }
 
         textDefault: qsTr("Type a subtitle query")
 

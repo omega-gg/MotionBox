@@ -1797,7 +1797,7 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            var playlist = core.createPlaylist(LibraryItem.PlaylistFeed);
+            var playlist = core.createPlaylist(core.urlType(source));
 
             insertLibraryItem(1, playlist, listLibrary, feeds);
 

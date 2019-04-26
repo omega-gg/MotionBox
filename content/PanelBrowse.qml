@@ -998,6 +998,8 @@ MouseArea
 
     function pHideCompletion()
     {
+        if (scrollCompletion.visible == false) return;
+
         scrollCompletion.visible = false;
 
         scrollCompletion.currentIndex = -1;
@@ -1157,7 +1159,7 @@ MouseArea
 
                 pHideCompletion();
 
-                // NOTE: Avoid unselecting when loading a local file
+                // NOTE: Avoid unselecting when loading a local file.
                 if (pSearchHidden == false)
                 {
                     isSelecting = false;

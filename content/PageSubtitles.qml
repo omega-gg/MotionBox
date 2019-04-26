@@ -103,9 +103,11 @@ Item
         }
         else
         {
-            showSearch();
-
-            pItem.search(query);
+            if (pSearch)
+            {
+                pItem.hideCompletion();
+            }
+            else pSearchShow();
 
             pQuery = query;
         }

@@ -23,7 +23,7 @@ Item
     // Properties private
     //---------------------------------------------------------------------------------------------
 
-    property bool pEnable: (playerTab && playerTab.currentIndex != -1)
+    property bool pEnable: (playerTab.currentIndex != -1)
 
     property bool pSearch: false
 
@@ -32,6 +32,10 @@ Item
     property int pHeight: st.list_itemSize * 6
 
     property variant pItem: loader.item
+
+    property string pQuery
+
+    property bool pEvents: true
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -43,14 +47,7 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onVisibleChanged:
-    {
-        if (visible || pSearch == false) return;
-
-        pSearchHide();
-    }
-
-    onPEnableChanged: if (pSearch) pSearchHide()
+    onPEnableChanged: hideSearch()
 
     //---------------------------------------------------------------------------------------------
     // Connections
@@ -60,35 +57,58 @@ Item
     {
         target: player
 
-        onTabChanged: pUpdateText()
+        onTabChanged: pUpdateSearch()
     }
 
     Connections
     {
         target: playerTab
 
-        onSubtitleChanged: pUpdateText()
+        onCurrentBookmarkChanged: pUpdateSearch()
+
+        onSubtitleChanged:
+        {
+            if (pEvents == false || pSearch) return;
+
+            pSetText(playerTab.subtitle);
+        }
     }
 
     //---------------------------------------------------------------------------------------------
-    // Functions private
+    // Functions
     //---------------------------------------------------------------------------------------------
+
+    function showSearch()
+    {
+        if (pSearch == false) pSearchShow();
+    }
+
+    function hideSearch()
+    {
+        if (pSearch) pSearchHide();
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Private
 
     function pStartSearch(query)
     {
         if (query == "") return;
 
-        if (core.checkUrl(query) == false)
+        if (controllerPlaylist.urlIsSubtitle(query))
         {
-            if (pSearch)
-            {
-                pItem.hideCompletion();
-            }
-            else pSearchShow();
+            hideSearch();
+
+            playerTab.subtitle = query;
+        }
+        else
+        {
+            showSearch();
 
             pItem.search(query);
+
+            pQuery = query;
         }
-        else pSearchHide();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -99,10 +119,26 @@ Item
         loader.visible = true;
 
         pSearch = true;
+
+        var title = playerTab.title;
+
+        if (controllerPlaylist.urlIsVideo(title) == false) return;
+
+        title = controllerNetwork.removeFileExtension(title);
+
+        pSetText(title);
+
+        pItem.search(title);
+
+        pQuery = title;
+
+        lineEdit.selectAll();
     }
 
     function pSearchHide()
     {
+        pQuery = "";
+
         if (lineEdit.isFocused)
         {
             window.clearFocus();
@@ -110,27 +146,33 @@ Item
 
         pSearch = false;
 
-        lineEdit.text = playerTab.subtitle;
+        pSetText(playerTab.subtitle);
     }
 
     function pSearchToogle()
     {
         if (pSearch == false)
         {
-            lineEdit.text = "";
+            pSetText("");
 
             lineEdit.focus();
+
+            pSearchShow();
         }
         else pSearchHide();
     }
 
     //---------------------------------------------------------------------------------------------
 
-    function pUpdateText()
+    function pUpdateSearch()
     {
-        if (pSearch) return;
+        if (pEvents == false) return;
 
-        lineEdit.text = playerTab.subtitle;
+        if (pSearch)
+        {
+            pSearchHide();
+        }
+        else pSetText(playerTab.subtitle);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -144,6 +186,15 @@ Item
         else return qsTr("No track selected");
     }
 
+    function pSetText(text)
+    {
+        pEvents = false;
+
+        lineEdit.text = text;
+
+        pEvents = true;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
@@ -155,7 +206,7 @@ Item
         anchors.left : parent.left
         anchors.right: buttonAdd.left
 
-        enabled: (pEnable && (pSearch || text == ""))
+        enabled: pEnable
 
         text: playerTab.subtitle
 
@@ -174,9 +225,32 @@ Item
 
         itemTextDefault.elide: Text.ElideLeft
 
-        onIsFocusedChanged: if (isFocused && pSearch == false) pSearchShow()
+        onIsFocusedChanged:
+        {
+            if (isFocused)
+            {
+                if (pSearch || text != "") return;
 
-        onTextChanged: if (pSearch) pItem.applyText(text)
+                pSearchShow();
+            }
+            else if (pSearch)
+            {
+                pSetText(pQuery);
+
+                pItem.hideCompletion();
+            }
+        }
+
+        onTextChanged:
+        {
+            if (isFocused == false || pEvents == false) return;
+
+            if (pSearch)
+            {
+                pItem.applyText(text);
+            }
+            else pSearchShow();
+        }
 
         function onKeyPressed(event)
         {
@@ -242,9 +316,11 @@ Item
 
                 if (path == "") return;
 
+                playerTab.subtitle = path;
+
                 pSearch = false;
 
-                playerTab.subtitle = path;
+                pSetText(path);
             }
             else playerTab.subtitle = "";
         }
@@ -315,7 +391,7 @@ Item
                 {
                     property: "height"
 
-                    duration: st.duration_faster
+                    duration: st.duration_fast
 
                     easing.type: st.easing
                 }

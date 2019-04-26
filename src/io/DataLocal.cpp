@@ -271,7 +271,7 @@ public: // Variables
     _output  = WAbstractBackend::OutputMedia;
     _quality = WAbstractBackend::QualityHigh;
 
-    _subtitleIndex = 20; // English
+    _subtitleIndex = 19; // English
 
     _cache = false;
 

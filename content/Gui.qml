@@ -2483,13 +2483,30 @@ Item
 
         var text = event.text;
 
+        if (controllerPlaylist.urlIsSubtitle(text))
+        {
+            if (playerTab.currentIndex == -1) return;
+
+            event.accepted = true;
+
+            bordersDrop.setItem(gui);
+
+            toolTip.show(qsTr("Open Subtitle"), st.icon32x32_track, 32, 32);
+
+            dragType = 2;
+
+            panelGet.selectTab(0);
+
+            panelGet.expose();
+
+            return;
+        }
+
         event.accepted = true;
 
         bordersDrop.setItem(gui);
 
-        var isTrack = controllerPlaylist.urlIsTrack(text);
-
-        if (isTrack)
+        if (controllerPlaylist.urlIsTrack(text))
         {
             if (player.isPlaying && highlightedTab == null)
             {
@@ -2533,9 +2550,15 @@ Item
     {
         var url = event.text;
 
-        if (dragType)
+        if (dragType == 1)
         {
-             panelBrowse.search(panelSearch.backendAt(0), url, true, true);
+            panelBrowse.search(panelSearch.backendAt(0), url, true, true);
+        }
+        else if (dragType == 2)
+        {
+            panelGet.page.hideSearch();
+
+            playerTab.subtitle = url;
         }
         else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
     }

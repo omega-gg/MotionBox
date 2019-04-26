@@ -23,11 +23,11 @@ Item
     // Properties private
     //---------------------------------------------------------------------------------------------
 
+    property bool pLoaded: false
+
     property string pSearchEngine: "opensubtitles"
 
     property bool pVisible: (scrollCompletion.visible == false)
-
-    property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
     // Aliases private
@@ -45,7 +45,12 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted: scrollLanguages.scrollToItemTop(scrollLanguages.currentIndex)
+    Component.onCompleted:
+    {
+        pLoaded = true;
+
+        scrollLanguages.scrollToItemTop(scrollLanguages.currentIndex);
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -53,6 +58,8 @@ Item
 
     function search(query)
     {
+        hideCompletion();
+
         var language;
 
         var index = scrollLanguages.currentIndex;
@@ -70,13 +77,13 @@ Item
             model.folder = core.createFolder();
         }
 
-        pFolder.loadSource(source);
+        scrollFolder.currentIndex = -1;
+
+        pFolder.reloadSource(source);
     }
 
     function applyText(text)
     {
-        if (pTextEvents == false) return;
-
         scrollCompletion.currentIndex = -1;
 
         scrollCompletion.query = text;
@@ -98,6 +105,7 @@ Item
         {
             scrollCompletion.selectPrevious();
         }
+        else scrollFolder.selectPrevious();
     }
 
     function selectNext()
@@ -106,6 +114,7 @@ Item
         {
             scrollCompletion.selectNext();
         }
+        else scrollFolder.selectNext();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -117,6 +126,8 @@ Item
 
     function hideCompletion()
     {
+        if (scrollCompletion.visible == false) return;
+
         scrollCompletion.visible = false;
 
         scrollCompletion.currentIndex = -1;
@@ -152,7 +163,10 @@ Item
         {
             var text = lineEdit.text;
 
-            if (text) search(text);
+            if (pLoaded && text)
+            {
+                search(text);
+            }
 
             local.subtitleIndex = currentIndex;
         }
@@ -185,9 +199,23 @@ Item
             Component.onDestruction: if (folder) folder.tryDelete()
         }
 
-        delegate: ComponentList {}
+        delegate: ComponentList
+        {
+            itemText.elide: Text.ElideLeft
+        }
 
         textDefault: (labelLoading.visible) ? "" : qsTr("Type a subtitle query")
+
+        onItemPressed:
+        {
+            pEvents = false;
+
+            playerTab.subtitle = pFolder.itemSource(index);
+
+            pEvents = true;
+        }
+
+        onItemDoubleClicked: pSearchHide()
     }
 
     LabelLoadingButton
@@ -221,11 +249,7 @@ Item
         {
             if (currentIndex != -1)
             {
-                pTextEvents = false;
-
-                lineEdit.text = completion;
-
-                pTextEvents = true;
+                pSetText(completion);
 
                 lineEdit.moveCursorAtEnd();
             }

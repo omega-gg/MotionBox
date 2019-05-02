@@ -2587,7 +2587,9 @@ Item
 
         if (dragIndex != -1)
         {
-            if (scrollLibrary.isCreating == false && scrollLibrary.isDropping == false)
+            if (scrollLibrary.isCreating == false && scrollLibrary.isDropping == false
+                &&
+                scrollFolder.isDropping == false && scrollPlaylist.isDropping == false)
             {
                 panelLibrary.select(dragIndex);
             }

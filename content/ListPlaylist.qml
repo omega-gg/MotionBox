@@ -1224,7 +1224,7 @@ BaseList
 
         if (playlist.scrollValue)
         {
-             scrollArea.value = playlist.scrollValue * itemSize;
+             scrollArea.value = Math.round(playlist.scrollValue * itemSize);
         }
         else scrollArea.scrollToTop();
     }

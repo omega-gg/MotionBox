@@ -835,7 +835,7 @@ BaseList
 
         if (folder.scrollValue)
         {
-             scrollArea.value = folder.scrollValue * itemSize;
+             scrollArea.value = Math.round(folder.scrollValue * itemSize);
         }
         else scrollArea.scrollToTop();
     }

@@ -1106,7 +1106,7 @@ MouseArea
             }
         }
 
-        LineEditBox
+        LineEditBoxClear
         {
             id: lineEdit
 

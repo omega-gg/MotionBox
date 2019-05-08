@@ -648,7 +648,11 @@ BaseList
         gui.dragItem  = folder;
         gui.dragId    = folder.idAt(index);
         gui.dragType  = pDragType;
-        gui.dragIndex = panelLibrary.index;
+
+        if (gui.dragIndex == -1)
+        {
+            gui.dragIndex = panelLibrary.index;
+        }
 
         if (scrollArea && list != gui.listLibrary && list != gui.listFolder)
         {

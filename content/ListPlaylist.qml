@@ -1048,11 +1048,15 @@ BaseList
         pDragX = -1;
         pDragY = -1;
 
-        gui.drag      = 0;
-        gui.dragList  = list;
-        gui.dragItem  = playlist;
-        gui.dragIndex = panelLibrary.index;
-        gui.dragData  = playlist.selectedTracks;
+        gui.drag     = 0;
+        gui.dragList = list;
+        gui.dragItem = playlist;
+        gui.dragData = playlist.selectedTracks;
+
+        if (gui.dragIndex == -1)
+        {
+            gui.dragIndex = panelLibrary.index;
+        }
 
         if (scrollArea && list != gui.listPlaylist)
         {

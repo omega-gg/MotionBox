@@ -27,8 +27,6 @@ Item
 
     property bool pSearch: false
 
-    property bool pAdd: (pSearch || playerTab.subtitle == "")
-
     property int pHeight: st.list_itemSize * 6
 
     property variant pItem: loader.item
@@ -78,14 +76,9 @@ Item
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function showSearch()
-    {
-        if (pSearch == false) pSearchShow();
-    }
-
     function hideSearch()
     {
-        if (pSearch) pSearchHide();
+        if (pSearch) pHideSearch();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -107,7 +100,9 @@ Item
             {
                 pItem.hideCompletion();
             }
-            else pSearchShow();
+            else pShowSearch();
+
+            pItem.search(query);
 
             pQuery = query;
         }
@@ -115,13 +110,47 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function pSearchShow()
+    function pShowSearch()
     {
         loader.source  = Qt.resolvedUrl("PageSubtitlesSearch.qml");
         loader.visible = true;
 
         pSearch = true;
+    }
 
+    function pHideSearch()
+    {
+        pQuery = "";
+
+        if (lineEdit.isFocused)
+        {
+            window.clearFocus();
+        }
+
+        pSearch = false;
+
+        pSetText(playerTab.subtitle);
+    }
+
+    function pToogleSearch()
+    {
+        if (pSearch == false)
+        {
+            pSetText("");
+
+            lineEdit.focus();
+
+            pShowSearch();
+
+            pApplyQuery();
+        }
+        else pHideSearch();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pApplyQuery()
+    {
         var title = playerTab.title;
 
         if (controllerPlaylist.urlIsVideo(title) == false) return;
@@ -137,33 +166,6 @@ Item
         lineEdit.selectAll();
     }
 
-    function pSearchHide()
-    {
-        pQuery = "";
-
-        if (lineEdit.isFocused)
-        {
-            window.clearFocus();
-        }
-
-        pSearch = false;
-
-        pSetText(playerTab.subtitle);
-    }
-
-    function pSearchToogle()
-    {
-        if (pSearch == false)
-        {
-            pSetText("");
-
-            lineEdit.focus();
-
-            pSearchShow();
-        }
-        else pSearchHide();
-    }
-
     //---------------------------------------------------------------------------------------------
 
     function pUpdateSearch()
@@ -172,7 +174,7 @@ Item
 
         if (pSearch)
         {
-            pSearchHide();
+            pHideSearch();
         }
         else pSetText(playerTab.subtitle);
     }
@@ -201,7 +203,7 @@ Item
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    LineEditBox
+    LineEditBoxClear
     {
         id: lineEdit
 
@@ -233,7 +235,9 @@ Item
             {
                 if (pSearch || text != "") return;
 
-                pSearchShow();
+                pShowSearch();
+
+                pApplyQuery();
             }
             else if (pSearch)
             {
@@ -251,7 +255,7 @@ Item
             {
                 pItem.applyText(text);
             }
-            else pSearchShow();
+            else pShowSearch();
         }
 
         function onKeyPressed(event)
@@ -283,6 +287,13 @@ Item
                 window.clearFocus();
             }
         }
+
+        function onClear()
+        {
+            text = "";
+
+            playerTab.subtitle = "";
+        }
     }
 
     ButtonPianoIcon
@@ -300,31 +311,22 @@ Item
 
         enabled: pEnable
 
-        highlighted: (pAdd) ? false : player.isPlaying
-
-        icon: (pAdd) ? st.icon24x24_addIn
-                     : st.icon16x16_close
-
-        iconSourceSize: (pAdd) ? st.size24x24
-                               : st.size16x16
+        icon          : st.icon24x24_addIn
+        iconSourceSize: st.size24x24
 
         onClicked:
         {
-            if (pAdd)
-            {
-                if (lineEdit.isFocused) window.clearFocus();
+            if (lineEdit.isFocused) window.clearFocus();
 
-                var path = core.openSubtitle(qsTr("Select Subtitle"));
+            var path = core.openSubtitle(qsTr("Select Subtitle"));
 
-                if (path == "") return;
+            if (path == "") return;
 
-                playerTab.subtitle = path;
+            playerTab.subtitle = path;
 
-                pSearch = false;
+            pSearch = false;
 
-                pSetText(path);
-            }
-            else playerTab.subtitle = "";
+            pSetText(path);
         }
     }
 
@@ -349,7 +351,7 @@ Item
         icon          : st.icon32x32_search
         iconSourceSize: st.size32x32
 
-        onPressed: pSearchToogle()
+        onPressed: pToogleSearch()
     }
 
     BorderHorizontal

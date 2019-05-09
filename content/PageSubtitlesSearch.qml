@@ -215,7 +215,7 @@ Item
             pEvents = true;
         }
 
-        onItemDoubleClicked: pSearchHide()
+        onItemDoubleClicked: pHideSearch()
     }
 
     LabelLoadingButton

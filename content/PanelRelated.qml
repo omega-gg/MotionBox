@@ -421,36 +421,9 @@ Panel
 
         ButtonPianoIcon
         {
-            id: buttonRefresh
-
-            anchors.left  : buttonLeft.right
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            width: st.dp36 + borderSizeWidth
-
-            enabled: (isAnimated == false && currentTab.isValid)
-
-            icon: (pLoading) ? st.icon24x24_abort
-                             : st.icon24x24_refresh
-
-            iconSourceSize: st.size24x24
-
-            onClicked:
-            {
-                if (playlist && playlist.queryIsLoading)
-                {
-                    playlist.abortQuery();
-                }
-                else refresh();
-            }
-        }
-
-        ButtonPianoIcon
-        {
             id: buttonBackward
 
-            anchors.left  : buttonRefresh.right
+            anchors.left  : buttonLeft.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
@@ -488,12 +461,33 @@ Panel
 
         //-----------------------------------------------------------------------------------------
 
-        BarTitleText
+        BaseButtonPiano
         {
+            id: buttonRefresh
+
             anchors.left  : buttonForward.right
-            anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
+
+            width: sk.textWidth(itemText.font, itemText.text) + st.buttonPiano_padding * 2
+                   +
+                   borderSizeWidth
+
+            visible: enabled
+
+            enabled: (isAnimated == false && currentTab.isValid)
+
+            onClicked: refresh()
+        }
+
+        BarTitleText
+        {
+            id: itemText
+
+            anchors.fill: buttonRefresh
+
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment  : Text.AlignVCenter
 
             text: qsTr("Related")
         }

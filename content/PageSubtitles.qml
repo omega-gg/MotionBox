@@ -55,14 +55,37 @@ Item
     {
         target: player
 
-        onTabChanged: pUpdateSearch()
+        onTabChanged:
+        {
+            if (pSearch)
+            {
+                pHideSearch();
+            }
+            else pSetText(playerTab.subtitle);
+        }
     }
 
     Connections
     {
         target: playerTab
 
-        onCurrentBookmarkChanged: pUpdateSearch()
+        onCurrentBookmarkChanged:
+        {
+            var subtitle = playerTab.subtitle;
+
+            if (subtitle)
+            {
+                if (pSearch)
+                {
+                    pHideSearch();
+                }
+                else pSetText(subtitle);
+            }
+            else if (pSearch)
+            {
+                pApplyQuery();
+            }
+        }
 
         onSubtitleChanged:
         {
@@ -164,19 +187,6 @@ Item
         pQuery = title;
 
         lineEdit.selectAll();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pUpdateSearch()
-    {
-        if (pEvents == false) return;
-
-        if (pSearch)
-        {
-            pHideSearch();
-        }
-        else pSetText(playerTab.subtitle);
     }
 
     //---------------------------------------------------------------------------------------------

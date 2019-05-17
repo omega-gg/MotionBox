@@ -45,6 +45,7 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
+    onVisibleChanged: hideSearch()
     onPEnableChanged: hideSearch()
 
     //---------------------------------------------------------------------------------------------
@@ -161,11 +162,11 @@ Item
         {
             pSetText("");
 
-            lineEdit.focus();
-
             pShowSearch();
 
             pApplyQuery();
+
+            lineEdit.focus();
         }
         else pHideSearch();
     }
@@ -176,17 +177,24 @@ Item
     {
         var title = playerTab.title;
 
-        if (controllerPlaylist.urlIsVideo(title) == false) return;
+        if (controllerPlaylist.urlIsVideo(title))
+        {
+            title = controllerNetwork.removeFileExtension(title);
 
-        title = controllerNetwork.removeFileExtension(title);
+            pSetText(title);
 
-        pSetText(title);
+            pItem.search(title);
 
-        pItem.search(title);
+            pQuery = title;
+        }
+        else
+        {
+            pSetText("");
 
-        pQuery = title;
+            pItem.clear();
 
-        lineEdit.selectAll();
+            pQuery = "";
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -361,7 +369,7 @@ Item
         icon          : st.icon32x32_search
         iconSourceSize: st.size32x32
 
-        onPressed: pToogleSearch()
+        onClicked: pToogleSearch()
     }
 
     BorderHorizontal

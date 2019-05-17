@@ -82,6 +82,17 @@ Item
         pFolder.reloadSource(source);
     }
 
+    function clear()
+    {
+        if (pFolder == null) return;
+
+        scrollFolder.currentIndex = -1;
+
+        pFolder.loadSource("");
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function applyText(text)
     {
         scrollCompletion.currentIndex = -1;
@@ -131,6 +142,18 @@ Item
         scrollCompletion.visible = false;
 
         scrollCompletion.currentIndex = -1;
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pApplyItem(index)
+    {
+        pEvents = false;
+
+        playerTab.subtitle = pFolder.itemSource(index);
+
+        pEvents = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -206,16 +229,16 @@ Item
 
         textDefault: (labelLoading.visible) ? "" : qsTr("Type a subtitle query")
 
-        onItemPressed:
+        onItemDoubleClicked: pHideSearch()
+
+        onCountChanged:
         {
-            pEvents = false;
+            if (count == 0 || currentIndex != -1) return;
 
-            playerTab.subtitle = pFolder.itemSource(index);
-
-            pEvents = true;
+            currentIndex = 0;
         }
 
-        onItemDoubleClicked: pHideSearch()
+        onCurrentIndexChanged: pApplyItem(currentIndex)
     }
 
     LabelLoadingButton
@@ -224,7 +247,7 @@ Item
 
         anchors.top: parent.top
 
-        anchors.topMargin: st.dp8
+        anchors.topMargin: scrollFolder.list.height + st.dp8
 
         anchors.horizontalCenter: scrollFolder.horizontalCenter
 

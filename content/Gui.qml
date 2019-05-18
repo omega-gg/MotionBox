@@ -623,11 +623,16 @@ Item
             {
                 var playlist = pGetCurrentPlaylist();
 
-                var index = playlist.lastSelected;
-
-                if (index != -1 && (playlist != currentTab.playlist || index != currentTab.trackIndex))
+                if (playlist)
                 {
-                    playlist.unselectTracks();
+                    var index = playlist.lastSelected;
+
+                    if (index != -1
+                        &&
+                        (playlist != currentTab.playlist || index != currentTab.trackIndex))
+                    {
+                        playlist.unselectTracks();
+                    }
                 }
             }
 

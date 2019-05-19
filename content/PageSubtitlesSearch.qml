@@ -25,15 +25,11 @@ Item
 
     property bool pLoaded: false
 
+    property LibraryFolder pFolder: null
+
     property string pSearchEngine: "opensubtitles"
 
     property bool pVisible: (scrollCompletion.visible == false)
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases private
-    //---------------------------------------------------------------------------------------------
-
-    property alias pFolder: model.folder
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -51,6 +47,8 @@ Item
 
         scrollLanguages.scrollToItemTop(scrollLanguages.currentIndex);
     }
+
+    Component.onDestruction: if (pFolder) pFolder.tryDelete()
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -74,7 +72,7 @@ Item
 
         if (pFolder == null)
         {
-            model.folder = core.createFolder();
+            pFolder = core.createFolder();
         }
 
         scrollFolder.currentIndex = -1;
@@ -215,21 +213,23 @@ Item
 
         visible: pVisible
 
-        model: ModelLibraryFolder
-        {
-            id: model
-
-            Component.onDestruction: if (folder) folder.tryDelete()
-        }
+        model: ModelLibraryFolder { folder: pFolder }
 
         delegate: ComponentList
         {
             itemText.elide: Text.ElideLeft
+
+            function onPress()
+            {
+                if (currentIndex == index)
+                {
+                     currentIndex = -1;
+                }
+                else currentIndex = index;
+            }
         }
 
         textDefault: (labelLoading.visible) ? "" : qsTr("Type a subtitle query")
-
-        onItemDoubleClicked: pHideSearch()
 
         onCountChanged:
         {

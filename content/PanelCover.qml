@@ -350,11 +350,11 @@ Panel
 
         quality = data.quality;
 
-        if (data.state == LocalObject.Loaded)
+        if (data.state < LocalObject.Loaded)
         {
-             detail = true;
+             detail = false;
         }
-        else detail = false;
+        else detail = true;
     }
 
     //---------------------------------------------------------------------------------------------

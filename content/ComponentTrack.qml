@@ -39,7 +39,7 @@ ComponentLibraryItem
 
     isHovered: (index == indexHover)
 
-    isDefault: (loadState == LocalObject.Default)
+    isDefault: (loadState == LocalObject.Default || loadState > LocalObject.Loaded)
 
     isSelected: (selected)
 

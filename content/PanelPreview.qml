@@ -407,11 +407,11 @@ PanelImage
 
         quality = data.quality;
 
-        if (data.state == LocalObject.Loaded)
+        if (data.state < LocalObject.Loaded)
         {
-             return true;
+             return false;
         }
-        else return false;
+        else return true;
     }
 
     //---------------------------------------------------------------------------------------------

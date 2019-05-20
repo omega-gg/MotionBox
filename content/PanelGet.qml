@@ -129,6 +129,12 @@ Panel
             indexCurrent = 0;
 
             loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
+
+            page.onShow();
+        }
+        else if (indexCurrent == 0)
+        {
+            page.onShow();
         }
 
         isExposed = true;
@@ -161,11 +167,15 @@ Panel
 
     function selectTab(index)
     {
+        if (indexCurrent == index) return;
+
         indexCurrent = index;
 
-        if (indexCurrent == 0)
+        if (index == 0)
         {
             loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
+
+            page.onShow();
         }
     }
 

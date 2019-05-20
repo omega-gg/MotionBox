@@ -129,9 +129,11 @@ ScrollFolder
         {
             if (folder.isFull) return;
 
-            pAcceptDrop(event);
-
             var url = event.text;
+
+            if (controllerPlaylist.urlIsSubtitle(url)) return;
+
+            pAcceptDrop(event);
 
             if (controllerPlaylist.urlIsTrack(url))
             {

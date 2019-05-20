@@ -23,6 +23,8 @@ Item
     // Properties private
     //---------------------------------------------------------------------------------------------
 
+    property bool pAnimate: true
+
     property bool pEnable: (playerTab.currentIndex != -1)
 
     property bool pSearch: false
@@ -45,7 +47,8 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onVisibleChanged: hideSearch()
+    onVisibleChanged: if (visible == false) hideSearch()
+
     onPEnableChanged: hideSearch()
 
     //---------------------------------------------------------------------------------------------
@@ -103,6 +106,26 @@ Item
     function hideSearch()
     {
         if (pSearch) pHideSearch();
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+
+    function onShow()
+    {
+        if (gui.dragType == -2 || pSearch || playerTab.subtitle) return;
+
+        var title = playerTab.title;
+
+        if (controllerPlaylist.urlIsVideo(title) == false) return;
+
+        pAnimate = false;
+
+        pShowSearch();
+
+        pAnimate = true;
+
+        pApplyUrl(title);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -175,17 +198,7 @@ Item
     {
         var title = playerTab.title;
 
-        if (controllerPlaylist.urlIsVideo(title))
-        {
-            title = controllerNetwork.removeFileExtension(title);
-
-            pSetText(title);
-
-            pItem.search(title);
-
-            pQuery = title;
-        }
-        else
+        if (controllerPlaylist.urlIsVideo(title) == false)
         {
             pSetText("");
 
@@ -193,6 +206,18 @@ Item
 
             pQuery = "";
         }
+        else pApplyUrl(title);
+    }
+
+    function pApplyUrl(title)
+    {
+        title = controllerNetwork.removeFileExtension(title);
+
+        pSetText(title);
+
+        pItem.search(title);
+
+        pQuery = title;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -253,7 +278,12 @@ Item
 
                 pShowSearch();
 
-                pApplyQuery();
+                var title = playerTab.title;
+
+                if (controllerPlaylist.urlIsVideo(title))
+                {
+                    pApplyUrl(title);
+                }
             }
             else if (pSearch)
             {
@@ -309,6 +339,8 @@ Item
             text = "";
 
             playerTab.subtitle = "";
+
+            if (pSearch) pItem.clearIndex();
         }
     }
 
@@ -411,7 +443,7 @@ Item
                 {
                     property: "height"
 
-                    duration: st.duration_fast
+                    duration: (pAnimate) ? st.duration_fast : 0
 
                     easing.type: st.easing
                 }

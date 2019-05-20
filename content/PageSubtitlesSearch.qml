@@ -80,6 +80,8 @@ Item
         pFolder.reloadSource(source);
     }
 
+    //---------------------------------------------------------------------------------------------
+
     function clear()
     {
         if (pFolder == null) return;
@@ -87,6 +89,11 @@ Item
         scrollFolder.currentIndex = -1;
 
         pFolder.loadSource("");
+    }
+
+    function clearIndex()
+    {
+        scrollFolder.currentIndex = -1;
     }
 
     //---------------------------------------------------------------------------------------------

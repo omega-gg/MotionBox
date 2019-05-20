@@ -2501,7 +2501,7 @@ Item
 
             toolTip.show(qsTr("Open Subtitle"), st.icon32x32_track, 32, 32);
 
-            dragType = 2;
+            dragType = -2;
 
             panelGet.selectTab(0);
 
@@ -2558,17 +2558,17 @@ Item
     {
         var url = event.text;
 
-        if (dragType == 1)
-        {
-            panelBrowse.search(panelSearch.backendAt(0), url, true, true);
-        }
-        else if (dragType == 2)
+        if (dragType == -2)
         {
             panelGet.page.hideSearch();
 
             playerTab.subtitle = url;
         }
-        else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
+        else if (dragType == 0)
+        {
+             panelBrowse.search(panelSearch.backendAt(0), url, true, false);
+        }
+        else panelBrowse.search(panelSearch.backendAt(0), url, true, true);
     }
 
     //---------------------------------------------------------------------------------------------

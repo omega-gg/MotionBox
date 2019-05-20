@@ -175,7 +175,7 @@ Panel
         {
             loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
 
-            page.onShow();
+            if (isExposed) page.onShow();
         }
     }
 

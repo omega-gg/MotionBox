@@ -152,6 +152,15 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
+    function pReload()
+    {
+        if (pFolder == null) return;
+
+        pFolder.reloadQuery()
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function pApplyItem(index)
     {
         pEvents = false;
@@ -186,6 +195,8 @@ Item
         }
 
         delegate: ComponentList {}
+
+        onItemDoubleClicked: if (currentIndex == index) pReload()
 
         onCurrentIndexChanged:
         {

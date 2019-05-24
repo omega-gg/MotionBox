@@ -249,13 +249,6 @@ Item
 
         textDefault: (labelLoading.visible) ? "" : qsTr("Type a subtitle query")
 
-        onCountChanged:
-        {
-            if (count == 0 || currentIndex != -1) return;
-
-            currentIndex = 0;
-        }
-
         onCurrentIndexChanged: pApplyItem(currentIndex)
     }
 

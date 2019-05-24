@@ -2384,6 +2384,11 @@ Item
         Qt.openUrlExternally(controllerFile.fileUrl(url));
     }
 
+    function openFolder(url)
+    {
+        Qt.openUrlExternally(url);
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function openSource(url)

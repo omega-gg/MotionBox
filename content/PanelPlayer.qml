@@ -243,6 +243,9 @@ Item
 
             playerBackground.visible: (isActive && player.visible)
 
+            itemText.pixelSize: (gui.isMini && wall.isExposed == false) ? st.dp18
+                                                                        : player.width / 32
+
             //-------------------------------------------------------------------------------------
             // Events
             //-------------------------------------------------------------------------------------

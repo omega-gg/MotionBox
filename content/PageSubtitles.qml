@@ -47,7 +47,16 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onVisibleChanged: if (visible == false) hideSearch()
+    onVisibleChanged:
+    {
+        if (visible) return;
+
+        pAnimate = false;
+
+        hideSearch();
+
+        pAnimate = true;
+    }
 
     onPEnableChanged: hideSearch()
 

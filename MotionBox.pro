@@ -105,7 +105,8 @@ win32:LIBS += -L$$PWD/lib -lz \
               -L$$PWD/lib -lboost_chrono \
               -lmswsock -lws2_32 \
 
-unix:LIBS += -lvlc \
+unix:LIBS += -lz \
+             -lvlc \
              -ltorrent-rasterbar \
              -lboost_system -lboost_random -lboost_chrono \
 

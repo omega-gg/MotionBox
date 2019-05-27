@@ -87,6 +87,12 @@ contains(QT_MAJOR_VERSION, 5) {
                    include/Qt5/QtQuick
 }
 
+unix:contains(QT_MAJOR_VERSION, 4) {
+    INCLUDEPATH += include/Qt4/QtCore \
+                   include/Qt4/QtGui \
+                   include/Qt4/QtDeclarative
+}
+
 contains(QT_MAJOR_VERSION, 5):win32 {
     LIBS += -lopengl32
 }

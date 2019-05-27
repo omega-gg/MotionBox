@@ -68,9 +68,7 @@ include(src/torrent/torrent.pri)
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
 include(src/3rdparty/quazip/quazip.pri)
 
-INCLUDEPATH += $$SK_CORE/../3rdparty/qtsingleapplication \
-               $$SK_CORE/../3rdparty/quazip \
-               $$SK/include/SkCore \
+INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
                $$SK/include/SkMedia \
                $$SK/include/SkTorrent \

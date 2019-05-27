@@ -93,7 +93,7 @@ unix:contains(QT_MAJOR_VERSION, 4) {
                    include/Qt4/QtDeclarative
 }
 
-contains(QT_MAJOR_VERSION, 5):win32 {
+win32:contains(QT_MAJOR_VERSION, 5) {
     LIBS += -lopengl32
 }
 
@@ -109,6 +109,10 @@ unix:LIBS += -lz \
              -lvlc \
              -ltorrent-rasterbar \
              -lboost_system -lboost_random -lboost_chrono \
+
+unix:contains(QT_MAJOR_VERSION, 4) {
+    LIBS += -lX11
+}
 
 RC_FILE = dist/MotionBox.rc
 

@@ -1,5 +1,11 @@
 SK = $$_PRO_FILE_PWD_/../Sky
 
+SK_CORE    = $$SK/src/SkCore/src
+SK_GUI     = $$SK/src/SkGui/src
+SK_MEDIA   = $$SK/src/SkMedia/src
+SK_TORRENT = $$SK/src/SkTorrent/src
+SK_BACKEND = $$SK/src/SkBackend/src
+
 TARGET = MotionBox
 
 contains(QT_MAJOR_VERSION, 4) {
@@ -9,50 +15,93 @@ contains(QT_MAJOR_VERSION, 4) {
 }
 
 contains(QT_MAJOR_VERSION, 4) {
-    QT += declarative network xml
+    QT += opengl declarative network script xml xmlpatterns svg
 } else {
-    QT += widgets quick network xml
+    QT += opengl quick widgets network xml xmlpatterns svg
+}
+
+contains(QT_MAJOR_VERSION, 5) {
+    win32:QT += winextras
+
+    unix:QT += x11extras
 }
 
 macx: CONFIG -= app_bundle
 
+DEFINES += CAN_COMPILE_SSE2 QUAZIP_BUILD \
+           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY
+
 contains(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_4
+
+    CONFIG(release, debug|release) {
+
+        win32:DEFINES += SK_WIN_NATIVE
+    }
 } else {
-    DEFINES += QT_LATEST
+    DEFINES += QT_LATEST #SK_SOFTWARE
+
+    win32:DEFINES += SK_WIN_NATIVE
+
+    greaterThan(QT_MINOR_VERSION, 9): DEFINES += QT_5_LATEST
 }
+
+QMAKE_CXXFLAGS += -std=c++11 -msse
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
 include(src/global/global.pri)
 include(src/controllers/controllers.pri)
+include(src/kernel/kernel.pri)
 include(src/io/io.pri)
+include(src/thread/thread.pri)
+include(src/network/network.pri)
+include(src/plugin/plugin.pri)
+include(src/image/image.pri)
+include(src/graphicsview/graphicsview.pri)
+include(src/declarative/declarative.pri)
+include(src/models/models.pri)
+include(src/media/media.pri)
+include(src/vlc/vlc.pri)
+include(src/torrent/torrent.pri)
 
-INCLUDEPATH += $$SK/include/SkCore \
+include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
+include(src/3rdparty/quazip/quazip.pri)
+
+INCLUDEPATH += $$SK_CORE/../3rdparty/qtsingleapplication \
+               $$SK_CORE/../3rdparty/quazip \
+               $$SK/include/SkCore \
                $$SK/include/SkGui \
                $$SK/include/SkMedia \
-               #$$SK/include/SkWeb \
                $$SK/include/SkTorrent \
                $$SK/include/SkBackend \
+               $$SK/include \
                src/controllers \
                src/io \
 
-CONFIG(debug, debug|release) {
-
-    LIBS += -L$$SK/lib -lSkCoreD \
-            -L$$SK/lib -lSkGuiD \
-            -L$$SK/lib -lSkMediaD \
-            #-L$$SK/lib -lSkWebD \
-            -L$$SK/lib -lSkTorrentD \
-            -L$$SK/lib -lSkBackendD
-} else {
-    LIBS += -L$$SK/lib -lSkCore \
-            -L$$SK/lib -lSkGui \
-            -L$$SK/lib -lSkMedia \
-            #-L$$SK/lib -lSkWeb \
-            -L$$SK/lib -lSkTorrent \
-            -L$$SK/lib -lSkBackend
+contains(QT_MAJOR_VERSION, 5) {
+    INCLUDEPATH += include/Qt5 \
+                   include/Qt5/QtCore \
+                   include/Qt5/QtGui \
+                   include/Qt5/QtQml \
+                   include/Qt5/QtQuick
 }
+
+contains(QT_MAJOR_VERSION, 5):win32 {
+    LIBS += -lopengl32
+}
+
+win32:LIBS += -L$$PWD/lib -lz \
+              -L$$PWD/lib -llibvlc \
+              -L$$PWD/lib -ltorrent \
+              -L$$PWD/lib -lboost_system \
+              -L$$PWD/lib -lboost_random \
+              -L$$PWD/lib -lboost_chrono \
+              -lmswsock -lws2_32 \
+
+unix:LIBS += -lvlc \
+             -ltorrent-rasterbar \
+             -lboost_system -lboost_random -lboost_chrono \
 
 RC_FILE = dist/MotionBox.rc
 
@@ -148,37 +197,3 @@ OTHER_FILES += configure.sh \
                dist/installer/packages/Sky/meta/package.xml \
                dist/installer/packages/Qt/meta/package.xml \
                dist/installer/packages/VLC/meta/package.xml \
-
-macx {
-CONFIG(debug, debug|release) {
-    QMAKE_POST_LINK  = install_name_tool -change libSkCoreD.dylib \
-                       @executable_path/libSkCoreD.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkGuiD.dylib \
-                       @executable_path/libSkGuiD.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkMediaD.dylib \
-                       @executable_path/libSkMediaD.dylib $${DESTDIR}/$${TARGET} ;
-
-    #QMAKE_POST_LINK += install_name_tool -change libSkWebD.dylib \
-    #                   @executable_path/libSkWebD.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkBackendD.dylib \
-                       @executable_path/libSkBackendD.dylib $${DESTDIR}/$${TARGET} ;
-} else {
-    QMAKE_POST_LINK  = install_name_tool -change libSkCore.dylib \
-                       @executable_path/libSkCore.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkGui.dylib \
-                       @executable_path/libSkGui.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkMedia.dylib \
-                       @executable_path/libSkMedia.dylib $${DESTDIR}/$${TARGET} ;
-
-    #QMAKE_POST_LINK += install_name_tool -change libSkWeb.dylib \
-    #                   @executable_path/libSkWeb.dylib $${DESTDIR}/$${TARGET} ;
-
-    QMAKE_POST_LINK += install_name_tool -change libSkBackend.dylib \
-                       @executable_path/libSkBackend.dylib $${DESTDIR}/$${TARGET} ;
-}
-}

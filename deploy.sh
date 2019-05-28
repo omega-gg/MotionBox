@@ -88,7 +88,7 @@ if [ $windows = true ]; then
 
     cp "$deploy"/*.dll deploy
 
-    rm deploy/Sk*.dll
+    rm -f deploy/Sk*.dll
 
 elif [ $2 = "macOS" ]; then
 
@@ -96,7 +96,7 @@ elif [ $2 = "macOS" ]; then
 
     cp "$deploy"/*.dylib deploy
 
-    rm deploy/Sk*.dylib
+    rm -f deploy/Sk*.dylib
 
 elif [ $2 = "linux" ]; then
 
@@ -104,7 +104,7 @@ elif [ $2 = "linux" ]; then
 
     cp "$deploy"/*.so* deploy
 
-    rm deploy/Sk*.so*
+    rm -f deploy/Sk*.so*
 fi
 
 echo "------------"

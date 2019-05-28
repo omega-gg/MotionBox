@@ -33,6 +33,6 @@ install:
 
 script:
   - docker exec -t ubuntu bash -c "cd /travis/../Sky;
-                                   sh build.sh ${QT} linux deploy;
+                                   sh build.sh ${QT} linux tools;
                                    cd ../travis;
                                    sh build.sh ${QT} linux deploy"

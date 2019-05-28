@@ -18,6 +18,6 @@ install:
 
 build_script:
   - cd ../Sky
-  - sh build.sh %qt% %platform% deploy
+  - sh build.sh %qt% %platform% tools
   - cd ../MotionBox
   - sh build.sh %qt% %platform% deploy

@@ -78,29 +78,29 @@ INCLUDEPATH += $$SK/include/SkCore \
                src/io \
 
 contains(QT_MAJOR_VERSION, 5) {
-    INCLUDEPATH += include/Qt5 \
-                   include/Qt5/QtCore \
-                   include/Qt5/QtGui \
-                   include/Qt5/QtQml \
-                   include/Qt5/QtQuick
+    INCLUDEPATH += $$SK/include/Qt5 \
+                   $$SK/include/Qt5/QtCore \
+                   $$SK/include/Qt5/QtGui \
+                   $$SK/include/Qt5/QtQml \
+                   $$SK/include/Qt5/QtQuick
 }
 
 unix:contains(QT_MAJOR_VERSION, 4) {
-    INCLUDEPATH += include/Qt4/QtCore \
-                   include/Qt4/QtGui \
-                   include/Qt4/QtDeclarative
+    INCLUDEPATH += $$SK/include/Qt4/QtCore \
+                   $$SK/include/Qt4/QtGui \
+                   $$SK/include/Qt4/QtDeclarative
 }
 
 win32:contains(QT_MAJOR_VERSION, 5) {
     LIBS += -lopengl32
 }
 
-win32:LIBS += -L$$PWD/lib -lz \
-              -L$$PWD/lib -llibvlc \
-              -L$$PWD/lib -ltorrent \
-              -L$$PWD/lib -lboost_system \
-              -L$$PWD/lib -lboost_random \
-              -L$$PWD/lib -lboost_chrono \
+win32:LIBS += -L$$SK/lib -lz \
+              -L$$SK/lib -llibvlc \
+              -L$$SK/lib -ltorrent \
+              -L$$SK/lib -lboost_system \
+              -L$$SK/lib -lboost_random \
+              -L$$SK/lib -lboost_chrono \
               -lmswsock -lws2_32 \
 
 unix:LIBS += -lz \

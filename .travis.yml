@@ -28,7 +28,6 @@ install:
                                    git clone https://github.com/omega-gg/Sky;
                                    cd Sky;
                                    sh 3rdparty.sh all ${QT} ubuntu;
-                                   sh configure.sh ${QT} linux;
                                    cd ../travis;
                                    sh configure.sh ${QT} linux"
 

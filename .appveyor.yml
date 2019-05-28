@@ -13,13 +13,8 @@ install:
   - appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
   - 7z x 3rdparty.zip
   - git clone https://github.com/omega-gg/Sky
-  - cd Sky
-  - sh configure.sh %qt% %platform%
-  - cd ../MotionBox
+  - cd MotionBox
   - sh configure.sh %qt% %platform%
 
 build_script:
-  - cd ../Sky
-  - sh build.sh %qt% %platform% deploy
-  - cd ../MotionBox
   - sh build.sh %qt% %platform% deploy

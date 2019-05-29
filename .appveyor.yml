@@ -6,6 +6,9 @@ environment:
       platform: win32
 
     - qt: qt5
+      platform: win32
+
+    - qt: qt5
       platform: win64
 
 install:

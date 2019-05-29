@@ -2,18 +2,10 @@ clone_folder: C:\dev\workspace\MotionBox
 
 environment:
   matrix:
-    - qt: qt4
-      platform: win32
-
-    - qt: qt5
-      platform: win32
-
-    - qt: qt5
-      platform: win64
-
     - qt: qt5
       platform: linux
-      image: ubuntu1804
+
+image: ubuntu1804
 
 install:
   - cd ..

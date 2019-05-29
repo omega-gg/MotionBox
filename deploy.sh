@@ -63,7 +63,7 @@ echo "-------------"
 
 cd "$Sky"
 
-sh deploy.sh $1 $2
+sh deploy.sh $1 $2 tools
 
 cd -
 

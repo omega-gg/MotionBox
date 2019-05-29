@@ -1,20 +1,21 @@
-clone_folder: /dev/workspace/MotionBox
+clone_folder: C:\dev\workspace\MotionBox
 
 environment:
   matrix:
-    - qt: qt5
-      platform: linux
+    - qt: qt4
+      platform: win32
 
-image: ubuntu1804
+    - qt: qt5
+      platform: win32
+
+    - qt: qt5
+      platform: win64
 
 install:
   - cd ..
-  - cmd: appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
-  - cmd: 7z x 3rdparty.zip
+  - appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
+  - 7z x 3rdparty.zip
   - git clone https://github.com/omega-gg/Sky
-  - sh: cd Sky
-  - sh: sh 3rdparty.sh all %qt% ubuntu
-  - sh: cd ..
   - cd MotionBox
   - sh configure.sh %qt% %platform%
 

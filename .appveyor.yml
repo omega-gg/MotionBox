@@ -11,11 +11,18 @@ environment:
     - qt: qt5
       platform: win64
 
+    - qt: qt5
+      platform: linux
+      image: ubuntu1804
+
 install:
   - cd ..
-  - appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
-  - 7z x 3rdparty.zip
+  - cmd: appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
+  - cmd: 7z x 3rdparty.zip
   - git clone https://github.com/omega-gg/Sky
+  - sh: cd Sky
+  - sh: sh 3rdparty.sh all %qt% ubuntu
+  - sh: cd ..
   - cd MotionBox
   - sh configure.sh %qt% %platform%
 

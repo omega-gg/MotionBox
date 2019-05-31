@@ -18,7 +18,7 @@ HEADERS += $$SK_CORE/declarative/WDeclarativeCoreApplication_p.h \
            $$SK_GUI/declarative/WDeclarativeImageSvg_p.h \
            $$SK_GUI/declarative/WDeclarativeBorderImage.h \
            $$SK_GUI/declarative/WDeclarativeBorderImage_p.h \
-           $$SK_GUI/declarative/WDeclarativeText.h \
+           #$$SK_GUI/declarative/WDeclarativeText.h \
            $$SK_GUI/declarative/WDeclarativeTextSvg.h \
            $$SK_GUI/declarative/WDeclarativeTextSvg_p.h \
            $$SK_GUI/declarative/WDeclarativeAnimated.h \
@@ -44,7 +44,7 @@ SOURCES += $$SK_CORE/declarative/WDeclarativeCoreApplication.cpp \
            $$SK_GUI/declarative/WDeclarativeImage.cpp \
            $$SK_GUI/declarative/WDeclarativeImageSvg.cpp \
            $$SK_GUI/declarative/WDeclarativeBorderImage.cpp \
-           $$SK_GUI/declarative/WDeclarativeText.cpp \
+           #$$SK_GUI/declarative/WDeclarativeText.cpp \
            $$SK_GUI/declarative/WDeclarativeTextSvg.cpp \
            $$SK_GUI/declarative/WDeclarativeAnimated.cpp \
            $$SK_GUI/declarative/WDeclarativePlayer.cpp \

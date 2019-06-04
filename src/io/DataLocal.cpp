@@ -93,6 +93,8 @@ public: // Variables
 
     qreal volume;
 
+    bool autoPlay;
+
     bool                       shuffle;
     WDeclarativePlayer::Repeat repeat;
 
@@ -188,6 +190,8 @@ public: // Variables
 
     stream.writeTextElement("volume", QString::number(volume));
 
+    stream.writeTextElement("autoPlay", QString::number(autoPlay));
+
     stream.writeTextElement("shuffle", QString::number(shuffle));
     stream.writeTextElement("repeat",  QString::number(repeat));
 
@@ -265,11 +269,13 @@ public: // Variables
 
     _volume = 1.0;
 
+    _autoPlay = true;
+
     _shuffle = false;
     _repeat  = WDeclarativePlayer::RepeatNone;
 
     _output  = WAbstractBackend::OutputMedia;
-    _quality = WAbstractBackend::QualityHigh;
+    _quality = WAbstractBackend::Quality720;
 
     _subtitleIndex = 19; // English
 
@@ -495,6 +501,13 @@ public: // Variables
     _volume = WControllerXml::readNextFloat(&stream);
 
     //---------------------------------------------------------------------------------------------
+    // autoPlay
+
+    if (WControllerXml::readNextStartElement(&stream, "autoPlay") == false) return false;
+
+    _autoPlay = WControllerXml::readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // shuffle
 
     if (WControllerXml::readNextStartElement(&stream, "shuffle") == false) return false;
@@ -675,6 +688,8 @@ public: // Variables
     action->speed = _speed;
 
     action->volume = _volume;
+
+    action->autoPlay = _autoPlay;
 
     action->shuffle = _shuffle;
     action->repeat  = _repeat;
@@ -998,6 +1013,24 @@ void DataLocal::setVolume(qreal volume)
     _volume = volume;
 
     emit volumeChanged();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool DataLocal::autoPlay() const
+{
+    return _autoPlay;
+}
+
+void DataLocal::setAutoPlay(bool autoPlay)
+{
+    if (_autoPlay == autoPlay) return;
+
+    _autoPlay = autoPlay;
+
+    emit autoPlayChanged();
+
+    save();
 }
 
 //-------------------------------------------------------------------------------------------------

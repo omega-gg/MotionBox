@@ -69,6 +69,8 @@ class DataLocal : public WLocalObject
 
     Q_PROPERTY(qreal volume READ volume WRITE setVolume NOTIFY volumeChanged)
 
+    Q_PROPERTY(bool autoPlay READ autoPlay WRITE setAutoPlay NOTIFY autoPlayChanged)
+
     Q_PROPERTY(bool shuffle READ shuffle WRITE setShuffle NOTIFY shuffleChanged)
 
     Q_PROPERTY(WDeclarativePlayer::Repeat repeat READ repeat WRITE setRepeat
@@ -156,6 +158,8 @@ signals:
 
     void volumeChanged();
 
+    void autoPlayChanged();
+
     void shuffleChanged();
     void repeatChanged ();
 
@@ -232,6 +236,9 @@ public: // Properties
 
     QString query() const;
     void    setQuery(const QString & query);
+
+    bool autoPlay() const;
+    void setAutoPlay(bool autoPlay);
 
     bool shuffle() const;
     void setShuffle(bool shuffle);
@@ -329,6 +336,8 @@ private: // Variables
     qreal _speed;
 
     qreal _volume;
+
+    bool _autoPlay;
 
     bool                       _shuffle;
     WDeclarativePlayer::Repeat _repeat;

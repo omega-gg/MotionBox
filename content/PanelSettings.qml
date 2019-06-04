@@ -44,12 +44,11 @@ Panel
 
     anchors.rightMargin: (gui.isMini) ? 0 : st.dp96
 
-    width: buttonMaximum.x + buttonMaximum.width + st.dp7 + borderRight
+    width: buttonRepeat.x + buttonRepeat.width + st.dp6 + borderRight
 
     height: barBottom.y + barBottom.height + st.dp50 + borderSizeHeight
 
-    borderLeft  : (gui.isMini) ? 0 : borderSize
-    borderRight : borderLeft
+    borderRight : (gui.isMini) ? 0 : borderSize
     borderBottom: 0
 
     visible: false
@@ -102,12 +101,13 @@ Panel
 
     onPQualityChanged:
     {
-        if      (pQuality == 1) player.quality = AbstractBackend.QualityMinimum;
-        else if (pQuality == 2) player.quality = AbstractBackend.QualityLow;
-        else if (pQuality == 3) player.quality = AbstractBackend.QualityMedium;
-        else if (pQuality == 4) player.quality = AbstractBackend.QualityHigh;
-        else if (pQuality == 5) player.quality = AbstractBackend.QualityUltra;
-        else                    player.quality = AbstractBackend.QualityMaximum;
+        if      (pQuality == 1) player.quality = AbstractBackend.Quality240;
+        else if (pQuality == 2) player.quality = AbstractBackend.Quality360;
+        else if (pQuality == 3) player.quality = AbstractBackend.Quality480;
+        else if (pQuality == 4) player.quality = AbstractBackend.Quality720;
+        else if (pQuality == 5) player.quality = AbstractBackend.Quality1080;
+        else if (pQuality == 6) player.quality = AbstractBackend.Quality1440;
+        else                    player.quality = AbstractBackend.Quality2160;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -216,7 +216,7 @@ Panel
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment  : Text.AlignVCenter
 
-        text: qsTr("Speed")
+        text: qsTr("Playback")
 
         font.pixelSize: st.dp12
     }
@@ -262,124 +262,28 @@ Panel
         onClicked: player.output = AbstractBackend.OutputMedia
     }
 
-    Slider
-    {
-        id: slider
-
-        anchors.left: borderTop.right
-        anchors.top : barTop.bottom
-
-        anchors.leftMargin: st.dp5
-        anchors.topMargin : st.dp12
-
-        minimum: 0.0
-        maximum: 2.0
-
-        Component.onCompleted: value = local.speed
-
-        onValueChanged:
-        {
-            var speed = value.toFixed(1);
-
-            if (speed != 1.0)
-            {
-                buttonCheck.checked = true;
-
-                if (speed < 1.0)
-                {
-                    speed = 0.5 + speed * 0.5;
-                }
-            }
-            else buttonCheck.checked = false;
-
-            player.speed = speed;
-        }
-    }
-
     ButtonCheckLabel
     {
         id: buttonCheck
 
-        anchors.left: slider.right
-        anchors.top : barTop.bottom
+        anchors.left: borderTop.right
+        anchors.top : buttonAudio.top
 
-        anchors.topMargin: st.dp5
+        anchors.leftMargin: st.dp5
 
-        checkable: (player.outputActive != AbstractBackend.OutputInvalid)
+        checked: local.autoPlay
 
-        text: player.speed.toFixed(1)
+        text: qsTr("Autoplay")
 
-        button.enabled: (player.speed != 1.0)
-
-        onCheckClicked:
-        {
-            if (checked == false)
-            {
-                slider.value = 1.0;
-            }
-        }
-    }
-
-    BarTitleSmall
-    {
-        id: barBottom
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : barTop.bottom
-
-        anchors.topMargin: st.dp50
-    }
-
-    BarTitleText
-    {
-        id: itemPlayback
-
-        anchors.top   : barBottom.top
-        anchors.bottom: barBottom.bottom
-
-        width: buttonRepeat.x + buttonRepeat.width + st.dp5
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Playback")
-
-        font.pixelSize: st.dp12
-    }
-
-    BorderVertical
-    {
-        id: borderBottom
-
-        anchors.left: itemPlayback.right
-        anchors.top : barBottom.top
-    }
-
-    BarTitleText
-    {
-        anchors.left  : borderBottom.right
-        anchors.right : parent.right
-        anchors.top   : itemPlayback.top
-        anchors.bottom: itemPlayback.bottom
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Quality")
-
-        font.pixelSize: st.dp12
+        onCheckClicked: local.autoPlay = checked
     }
 
     ButtonPushIcon
     {
         id: buttonShuffle
 
-        anchors.left: parent.left
-        anchors.top : barBottom.bottom
-
-        anchors.leftMargin: st.dp5
-        anchors.topMargin : st.dp5
+        anchors.left: buttonCheck.right
+        anchors.top : buttonCheck.top
 
         width: st.dp44
 
@@ -402,151 +306,90 @@ Panel
 
         width: st.dp44
 
-        highlighted: (player.isPlaying && checked)
+        highlighted: buttonShuffle.highlighted
 
         checked: (pRepeat > 0)
 
-        icon:
-        {
-            if (pRepeat == 2)
-            {
-                return st.icon24x24_repeatOne;
-            }
-            else if (pRepeat == 3)
-            {
-                return st.icon24x24_pause;
-            }
-            else return st.icon24x24_repeat;
-        }
+        icon: (pRepeat == 2) ? st.icon24x24_repeatOne
+                             : st.icon24x24_repeat
 
         iconSourceSize: st.size24x24
 
         onClicked:
         {
-            pRepeat = (pRepeat + 1) % 4;
-
-            if (pRepeat == 0) checked = false;
-            else              checked = true;
+            pRepeat = (pRepeat + 1) % 3;
 
             player.repeat = pRepeat;
         }
     }
 
-    ButtonPushLeftIcon
+    BarTitleSmall
     {
-        id: buttonMinimum
+        id: barBottom
 
-        anchors.left: buttonRepeat.right
-        anchors.top : buttonRepeat.top
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : barTop.bottom
 
-        anchors.leftMargin: st.dp12
-
-        width: st.dp38
-
-        highlighted: (pQualityActive == 1)
-
-        checked   : (pQuality == 1)
-        checkHover: false
-
-        icon          : st.icon16x16_point
-        iconSourceSize: st.size16x16
-
-        onPressed: pQuality = 1
+        anchors.topMargin: st.dp50
     }
 
-    ButtonPushCenter
+    BarTitleText
     {
-        id: buttonLow
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : barBottom.top
+        anchors.bottom: barBottom.bottom
 
-        anchors.left: buttonMinimum.right
-        anchors.top : buttonMinimum.top
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-        width: st.dp52
+        text: qsTr("Quality")
 
-        highlighted: (pQualityActive == 2)
-
-        checked   : (pQuality == 2)
-        checkHover: false
-
-        text: qsTr("Low")
-
-        onPressed: pQuality = 2
+        font.pixelSize: st.dp12
     }
 
-    ButtonPushCenter
+    BarTitleText
     {
-        id: buttonMedium
+        anchors.left  : borderBottom.right
+        anchors.right : parent.right
+        anchors.top   : barBottom.top
+        anchors.bottom: barBottom.bottom
 
-        anchors.left: buttonLow.right
-        anchors.top : buttonLow.top
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment  : Text.AlignVCenter
 
-        width: st.dp52
+        text: qsTr("Quality")
 
-        highlighted: (pQualityActive == 3)
-
-        checked   : (pQuality == 3)
-        checkHover: false
-
-        text: qsTr("Med")
-
-        onPressed: pQuality = 3
+        font.pixelSize: st.dp12
     }
 
-    ButtonPushCenter
+    ButtonsCheck
     {
-        id: buttonHigh
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : barBottom.bottom
 
-        anchors.left: buttonMedium.right
-        anchors.top : buttonMedium.top
+        anchors.leftMargin : st.dp5
+        anchors.rightMargin: st.dp5
+        anchors.topMargin  : st.dp5
 
-        width: st.dp52
+        model: ListModel {}
 
-        highlighted: (pQualityActive == 4)
+        currentIndex : pQuality       - 1
+        currentActive: pQualityActive - 1
 
-        checked   : (pQuality == 4)
-        checkHover: false
+        Component.onCompleted:
+        {
+            model.append({ "title": qsTr("240p")  });
+            model.append({ "title": qsTr("360p")  });
+            model.append({ "title": qsTr("480p")  });
+            model.append({ "title": qsTr("720p")  });
+            model.append({ "title": qsTr("1080p") });
+            model.append({ "title": qsTr("1440p") });
+            model.append({ "title": qsTr("2160p") });
+        }
 
-        text: qsTr("High")
-
-        onPressed: pQuality = 4
-    }
-
-    ButtonPushCenter
-    {
-        id: buttonUltra
-
-        anchors.left: buttonHigh.right
-        anchors.top : buttonHigh.top
-
-        width: st.dp52
-
-        highlighted: (pQualityActive == 5)
-
-        checked   : (pQuality == 5)
-        checkHover: false
-
-        text: qsTr("Ultra")
-
-        onPressed: pQuality = 5
-    }
-
-    ButtonPushRightIcon
-    {
-        id: buttonMaximum
-
-        anchors.left: buttonUltra.right
-        anchors.top : buttonUltra.top
-
-        width: st.dp38
-
-        highlighted: (pQualityActive == 6)
-
-        checked   : (pQuality == 6)
-        checkHover: false
-
-        icon          : st.icon16x16_point
-        iconSourceSize: st.size16x16
-
-        onPressed: pQuality = 6
+        onPressed: pQuality = currentIndex + 1
     }
 }

@@ -197,6 +197,8 @@ Item
             pShowSearch();
 
             pApplyQuery();
+
+            lineEdit.focus();
         }
         else pHideSearch();
     }
@@ -292,6 +294,8 @@ Item
                 if (controllerPlaylist.urlIsVideo(title))
                 {
                     pApplyUrl(title);
+
+                    lineEdit.selectAll();
                 }
             }
             else if (pSearch)

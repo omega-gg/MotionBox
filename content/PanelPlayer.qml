@@ -231,6 +231,8 @@ Item
 
             player.hook: core.createHook(player.backend)
 
+            player.autoPlay: local.autoPlay
+
             player.shuffle: (player.isPlaying) ? local.shuffle : false
 
             playerMouseArea.anchors.leftMargin: (gui.isExpanded) ? st.dp16 : 0

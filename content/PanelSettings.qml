@@ -349,21 +349,6 @@ Panel
         font.pixelSize: st.dp12
     }
 
-    BarTitleText
-    {
-        anchors.left  : borderBottom.right
-        anchors.right : parent.right
-        anchors.top   : barBottom.top
-        anchors.bottom: barBottom.bottom
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Quality")
-
-        font.pixelSize: st.dp12
-    }
-
     ButtonsCheck
     {
         anchors.left : parent.left

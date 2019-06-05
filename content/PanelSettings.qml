@@ -44,7 +44,7 @@ Panel
 
     anchors.rightMargin: (gui.isMini) ? 0 : st.dp96
 
-    width: buttonRepeat.x + buttonRepeat.width + st.dp6 + borderRight
+    width: st.dp400 + borderSizeWidth
 
     height: barBottom.y + barBottom.height + st.dp50 + borderSizeHeight
 
@@ -266,8 +266,9 @@ Panel
     {
         id: buttonCheck
 
-        anchors.left: borderTop.right
-        anchors.top : buttonAudio.top
+        anchors.left : borderTop.right
+        anchors.right: buttonShuffle.left
+        anchors.top  : buttonAudio.top
 
         anchors.leftMargin: st.dp5
 
@@ -282,8 +283,8 @@ Panel
     {
         id: buttonShuffle
 
-        anchors.left: buttonCheck.right
-        anchors.top : buttonCheck.top
+        anchors.right: buttonRepeat.left
+        anchors.top  : buttonCheck.top
 
         width: st.dp44
 
@@ -301,8 +302,8 @@ Panel
     {
         id: buttonRepeat
 
-        anchors.left: buttonShuffle.right
-        anchors.top : buttonShuffle.top
+        anchors.right: parent.right
+        anchors.top  : buttonCheck.top
 
         width: st.dp44
 

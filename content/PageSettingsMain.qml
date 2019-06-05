@@ -118,9 +118,9 @@ Item
         local.torrentUploadActive   = false;
         local.torrentDownloadActive = false;
 
-        local.torrentCache = 1000;
+        local.torrentCache = 2000;
 
-        core.applyTorrentOptions(500, 0, 0, 1000);
+        core.applyTorrentOptions(500, 0, 0, 2000);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -316,7 +316,7 @@ Item
                   ||
                   local.torrentUploadActive != false || local.torrentDownloadActive != false
                   ||
-                  local.torrentCache != 1000)
+                  local.torrentCache != 2000)
 
         onClicked: pResetTorrent()
     }

@@ -44,6 +44,7 @@ Style
 
     property int dp320: 320 * ratio
 
+    property int dp400: 400 * ratio
     property int dp480: 480 * ratio
 
     property variant size56x32: size(56, 32)

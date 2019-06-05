@@ -305,6 +305,8 @@ Panel
         anchors.right: parent.right
         anchors.top  : buttonCheck.top
 
+        anchors.rightMargin: st.dp5
+
         width: st.dp44
 
         highlighted: buttonShuffle.highlighted

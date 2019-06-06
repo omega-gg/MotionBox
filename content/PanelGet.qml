@@ -39,10 +39,18 @@ Panel
     // Settings
     //---------------------------------------------------------------------------------------------
 
+//#QT_4
     anchors.right: parent.right
     anchors.top  : parent.bottom
 
     anchors.rightMargin: (gui.isMini) ? 0 : st.dp52
+//#ELSE
+    // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
+    x: (gui.isMini) ? parent.width - width
+                    : parent.width - width - st.dp52
+
+    y: parent.height + height
+//#END
 
     width: st.dp480 + borderSizeWidth
 
@@ -64,6 +72,7 @@ Panel
     {
         name: "visible"; when: isExposed
 
+//#QT_4
         AnchorChanges
         {
             target: panelGet
@@ -71,18 +80,37 @@ Panel
             anchors.top   : undefined
             anchors.bottom: parent.bottom
         }
+//#ELSE
+        PropertyChanges
+        {
+            target: panelGet
+
+            y: parent.height - panelGet.height
+        }
+//#END
     }
 
     transitions: Transition
     {
         SequentialAnimation
         {
+//#QT_4
             AnchorAnimation
             {
                 duration: st.duration_faster
 
                 easing.type: st.easing
             }
+//#ELSE
+            NumberAnimation
+            {
+                property: "y"
+
+                duration: st.duration_faster
+
+                easing.type: st.easing
+            }
+//#END
 
             ScriptAction
             {

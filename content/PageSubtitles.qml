@@ -117,6 +117,11 @@ Item
         if (pSearch) pHideSearch();
     }
 
+    function clearSubtitle()
+    {
+        if (pSearch) pItem.clearIndex();
+    }
+
     //---------------------------------------------------------------------------------------------
     // Events
 

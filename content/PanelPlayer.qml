@@ -308,6 +308,8 @@ Item
 
             onContextualBrowser: pContextualTab(currentTab)
 
+            onSubtitleLoaded: if (ok == false) panelGet.clearSubtitle()
+
             //-------------------------------------------------------------------------------------
             // Functions events
             //-------------------------------------------------------------------------------------

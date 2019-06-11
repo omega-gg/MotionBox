@@ -483,15 +483,7 @@ Item
                 icon          : st.icon24x24_addBold
                 iconSourceSize: st.size24x24
 
-                onClicked:
-                {
-                    if (playlist && playlist.isLocal)
-                    {
-                        panelAdd.setTarget(playlist);
-                    }
-
-                    panelBrowse.expose();
-                }
+                onClicked: panelBrowse.expose()
             }
         }
 

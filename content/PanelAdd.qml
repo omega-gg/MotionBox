@@ -396,29 +396,6 @@ PanelContextual
 
     //---------------------------------------------------------------------------------------------
 
-    function setTarget(item)
-    {
-        if (target == item) return;
-
-        var folder = item.parentFolder;
-
-        if (item == null || folder == null)
-        {
-            listLibrary.currentId = -1;
-            listFolder .currentId = -1;
-        }
-        else if (item.parentFolder == library)
-        {
-            listLibrary.currentId = item.id;
-            listFolder .currentId = -1;
-        }
-        else
-        {
-            listLibrary.currentId = folder.id;
-            listFolder .currentId = item  .id;
-        }
-    }
-
     function setTargetDefault()
     {
         var item = library.currentItem;

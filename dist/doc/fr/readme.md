@@ -6,7 +6,7 @@
 
 [MotionBox] est un [Lecteur Universel] pour la [Liberté Médiatique].
 
-Conçue pour accéder et traverser des sources vidéo décentralisées.
+Conçue pour accéder et parcourir des sources vidéo décentralisées.
 
 Conçue pour charger et lire une multitude de ressources vidéo.
 

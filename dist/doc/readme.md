@@ -6,7 +6,7 @@
 
 [MotionBox] is a [Universal Player] for [Motion Freedom].
 
-Built to access and traverse decentralized video sources.
+Built to access and browse decentralized video sources.
 
 Built to load and play multiple video resources.
 

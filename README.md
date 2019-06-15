@@ -6,7 +6,7 @@
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 [MotionBox](http://omega.gg/MotionBox) is a Universal Player for Motion Freedom.<br>
-Built to access and traverse decentralized video sources.<br>
+Built to access and browse decentralized video sources.<br>
 Built to load and play multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 

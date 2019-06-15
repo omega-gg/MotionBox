@@ -5,13 +5,13 @@
 [![appveyor](http://ci.appveyor.com/api/projects/status/ct0kbo659jviskec?svg=true)](http://ci.appveyor.com/project/3unjee/motionbox)
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
-[MotionBox](http://omega.gg/MotionBox) is a Video Browser for Motion Freedom.<br>
+[MotionBox](http://omega.gg/MotionBox) is a Universal Player for Motion Freedom.<br>
 Built to access and traverse decentralized video sources.<br>
 Built to load and play multiple video resources.<br>
-[omega](http://omega.gg/about) is building MotionBox to empower you.<br>
+[omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 
-## MotionBox Video Browser
-<a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="Video Browser" width="512px"></a>
+## MotionBox Universal Player
+<a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="Universal Player" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](http://en.wikipedia.org/wiki/DuckDuckGo).<br>
 It streams [Torrents](http://en.wikipedia.org/wiki/BitTorrent), [Youtube](http://en.wikipedia.org/wiki/Youtube), [Dailymotion](http://en.wikipedia.org/wiki/Dailymotion), [Vimeo](http://en.wikipedia.org/wiki/Vimeo) and [SoundCloud](http://en.wikipedia.org/wiki/SoundCloud).<br>

@@ -6,7 +6,7 @@
 
 F1: Basculer le panneau d'application.
 
-F2: Basculer le Lecteur Navigateur.
+F2: Basculer le Navigateur Vidéo.
 
 F3: Basculer le Mur Vidéo.
 

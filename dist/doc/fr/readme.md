@@ -4,7 +4,7 @@
 
 #
 
-[MotionBox] est un [Navigateur Vidéo] pour la [Liberté Médiatique].
+[MotionBox] est un [Lecteur Universel] pour la [Liberté Médiatique].
 
 Conçue pour accéder et traverser des sources vidéo décentralisées.
 
@@ -16,7 +16,7 @@ Mon nom est Benjamin Arnaud alias [bunjee].
 
 Je développe MotionBox au service de l'utilisateur:
 
-Ensemble, construisons un Navigateur Vidéo.
+Ensemble, construisons un Lecteur Universel.
 
 
 ## Historique
@@ -90,13 +90,13 @@ Cette page: [http://omega.gg/MotionBox/get/fr][page]
 
 MotionBox: [http://omega.gg/MotionBox/fr][MotionBox]
 
-Navigateur Vidéo: [http://omega.gg/about/VideoBrowser/fr][Navigateur Vidéo]
+Lecteur Universel: [http://omega.gg/about/UniversalPlayer/fr][Lecteur Universel]
 
 Liberté Médiatique: [http://omega.gg/about/MotionFreedom/fr][Liberté Médiatique]
 
 [MotionBox]: http://omega.gg/MotionBox/fr
 
-[Navigateur Vidéo]: http://omega.gg/about/VideoBrowser/fr
+[Lecteur Universel]: http://omega.gg/about/UniversalPlayer/fr
 
 [Liberté Médiatique]: http://omega.gg/about/MotionFreedom/fr
 

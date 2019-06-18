@@ -3,6 +3,7 @@
 HEADERS += $$SK_CORE/3rdparty/yaml-cpp/collectionstack.h \
            $$SK_CORE/3rdparty/yaml-cpp/directives.h \
            $$SK_CORE/3rdparty/yaml-cpp/emitterstate.h \
+           $$SK_CORE/3rdparty/yaml-cpp/emitterutils.h \
            $$SK_CORE/3rdparty/yaml-cpp/exp.h \
            $$SK_CORE/3rdparty/yaml-cpp/indentation.h \
            $$SK_CORE/3rdparty/yaml-cpp/nodebuilder.h \

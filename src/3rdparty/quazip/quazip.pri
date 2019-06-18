@@ -1,4 +1,4 @@
-# Qt QuaZIP module
+# QuaZIP module
 
 HEADERS += $$SK_CORE/3rdparty/quazip/minizip_crypt.h \
            $$SK_CORE/3rdparty/quazip/ioapi.h \

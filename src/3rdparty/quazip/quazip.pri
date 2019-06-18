@@ -30,3 +30,5 @@ SOURCES += $$SK_CORE/3rdparty/quazip/qioapi.cpp \
            $$SK_CORE/3rdparty/quazip/quazipnewinfo.cpp \
            $$SK_CORE/3rdparty/quazip/unzip.c \
            $$SK_CORE/3rdparty/quazip/zip.c \
+
+INCLUDEPATH += $$SK_CORE/3rdparty/quazip \

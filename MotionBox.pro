@@ -66,6 +66,8 @@ include(src/torrent/torrent.pri)
 
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
 include(src/3rdparty/quazip/quazip.pri)
+include(src/3rdparty/yaml-cpp/yaml-cpp.pri)
+include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 
 INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \

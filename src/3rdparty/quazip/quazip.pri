@@ -15,7 +15,7 @@ HEADERS += $$SK_CORE/3rdparty/quazip/minizip_crypt.h \
            $$SK_CORE/3rdparty/quazip/quazip.h \
            $$SK_CORE/3rdparty/quazip/quazipnewinfo.h \
            $$SK_CORE/3rdparty/quazip/unzip.h \
-           $$SK_CORE/3rdparty/quazip/zip.h
+           $$SK_CORE/3rdparty/quazip/zip.h \
 
 SOURCES += $$SK_CORE/3rdparty/quazip/qioapi.cpp \
            $$SK_CORE/3rdparty/quazip/JlCompress.cpp \
@@ -29,4 +29,4 @@ SOURCES += $$SK_CORE/3rdparty/quazip/qioapi.cpp \
            $$SK_CORE/3rdparty/quazip/quazipfileinfo.cpp \
            $$SK_CORE/3rdparty/quazip/quazipnewinfo.cpp \
            $$SK_CORE/3rdparty/quazip/unzip.c \
-           $$SK_CORE/3rdparty/quazip/zip.c
+           $$SK_CORE/3rdparty/quazip/zip.c \

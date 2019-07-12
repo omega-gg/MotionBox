@@ -942,6 +942,8 @@ Item
 
     ViewDrag
     {
+        id: viewDrag
+
         anchors.left : buttonAdd.right
         anchors.right: parent.right
 
@@ -962,7 +964,9 @@ Item
         {
             window.clearFocus();
 
-            if (window.resizer.visible && window.isTouching)
+            if (window.resizer.visible && window.isTouching
+                &&
+                (viewDrag.x + mouse.x) < buttonMini.x)
             {
                 window.toggleTouch();
             }

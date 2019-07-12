@@ -869,7 +869,7 @@ PanelContextual
             borderLeft : borderSize
             borderRight: 0
 
-            visible: (posX != -1 || posY != -1)
+            visible: (item != barControls && (posX != -1 || posY != -1))
 
             enabled: (areaContextual.currentPanel != null)
 

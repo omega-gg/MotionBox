@@ -29,7 +29,8 @@ contains(QT_MAJOR_VERSION, 5) {
 macx: CONFIG -= app_bundle
 
 DEFINES += CAN_COMPILE_SSE2 QUAZIP_BUILD \
-           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY
+           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
+           SK_BACKEND_LOG
 
 contains(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_4
@@ -66,7 +67,6 @@ include(src/torrent/torrent.pri)
 
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
 include(src/3rdparty/quazip/quazip.pri)
-include(src/3rdparty/yaml-cpp/yaml-cpp.pri)
 include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 
 INCLUDEPATH += $$SK/include/SkCore \

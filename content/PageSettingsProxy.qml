@@ -234,10 +234,9 @@ BasePageSettings
 
     ButtonPushLeft
     {
+        anchors.left : editHost.left
         anchors.right: buttonStream.left
         anchors.top  : buttonStream.top
-
-        width: st.dp92
 
         paddingLeft: st.dp15
 
@@ -256,7 +255,7 @@ BasePageSettings
         anchors.right: buttonActive.left
         anchors.top  : buttonActive.top
 
-        width: st.dp92
+        width: st.dp100
 
         checked   : pStream
         checkHover: false

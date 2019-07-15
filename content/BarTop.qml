@@ -139,6 +139,13 @@ Item
     // Childs
     //---------------------------------------------------------------------------------------------
 
+    Timer
+    {
+        id: timer
+
+        interval: st.duration_normal
+    }
+
     Rectangle
     {
         id: bar
@@ -201,7 +208,7 @@ Item
 
             checkable: true
 
-            checked: (gui.isExpanded == false && panelBrowse.isExposed)
+            checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
 
             icon          : st.icon32x32_search
             iconSourceSize: st.size32x32
@@ -214,6 +221,8 @@ Item
             {
                 if (gui.isExpanded)
                 {
+                    timer.start();
+
                     gui.restore();
 
                     panelBrowse.expose();

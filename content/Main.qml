@@ -46,7 +46,7 @@ Application
 
         resizable: false
 
-        idleCheck: (gui != null && gui.barTop.isExpanded)
+        idleCheck: (gui != null)
 
         areaContextual: if (gui) gui.areaContextual
 

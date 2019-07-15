@@ -100,7 +100,7 @@ Style
     //---------------------------------------------------------------------------------------------
     // SliderStream
 
-    property int sliderStream_intervalA: 10000
+    property int sliderStream_intervalA: wallVideo_interval
     property int sliderStream_intervalB: 30000
 
     //---------------------------------------------------------------------------------------------

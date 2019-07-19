@@ -557,7 +557,7 @@ ControllerCore::ControllerCore() : WController()
 {
     wControllerTorrent->setOptions(connections, upload * 1024, download * 1024);
 
-    wControllerTorrent->setSizeMax(cache * 1048576);
+    wControllerTorrent->setSizeMax(qint64(cache) * 1048576);
 }
 
 //-------------------------------------------------------------------------------------------------

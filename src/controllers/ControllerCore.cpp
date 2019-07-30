@@ -437,7 +437,7 @@ ControllerCore::ControllerCore() : WController()
 
     WControllerFile::createFolder(path);
 
-    path.append("/MotionBox_" + Sk::currentDateString("yyyy-MM-dd_hhmmsszzz") + ".png");
+    path.append("/MotionBox_" + Sk::currentDateString("yyyy-MM-dd_hh-mm-ss-zzz") + ".png");
 
     ShotWrite * action = new ShotWrite(image, path);
 

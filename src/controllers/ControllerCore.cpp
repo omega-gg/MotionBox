@@ -54,6 +54,7 @@
 #include <WLibraryFolderRelated>
 #include <WTabsTrack>
 #include <WTabTrack>
+#include <WBackendUniversal>
 #include <WBackendTorrent>
 #include <WBackendDuckDuckGo>
 #include <WBackendTmdb>
@@ -225,6 +226,8 @@ ControllerCore::ControllerCore() : WController()
     new WBackendDailymotion;
     new WBackendVimeo;
     new WBackendSoundCloud;
+
+    //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
 
     new WBackendOpenSubtitles;
 

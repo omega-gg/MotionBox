@@ -337,7 +337,7 @@ Panel
 
         width: st.dp44
 
-        highlighted: buttonShuffle.highlighted
+        highlighted: (player.isPlaying && checked)
 
         checked: (pRepeat > 0)
 

@@ -566,7 +566,11 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::addLog(const QString & message)
 {
-    _log.append("<br>" + message);
+    if (_log.isEmpty())
+    {
+         _log.append(message);
+    }
+    else _log.append("<br>" + message);
 
     int length = _log.length();
 

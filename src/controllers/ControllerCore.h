@@ -71,6 +71,8 @@ class ControllerCore : public WController
 private:
     ControllerCore();
 
+    /* virtual */ ~ControllerCore();
+
 public: // Interface
     Q_INVOKABLE void load();
 

@@ -217,6 +217,15 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("local", _local);
 }
 
+/* virtual */ ControllerCore::~ControllerCore()
+{
+#ifdef QT_4
+    qInstallMsgHandler(NULL);
+#else
+    qInstallMessageHandler(NULL);
+#endif
+}
+
 //-------------------------------------------------------------------------------------------------
 // Interface
 //-------------------------------------------------------------------------------------------------

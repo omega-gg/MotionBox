@@ -16,6 +16,9 @@
 
 #include "ControllerCore.h"
 
+// C++ includes
+#include <iostream>
+
 // Qt includes
 #ifdef QT_4
 #include <QCoreApplication>
@@ -76,7 +79,28 @@ W_INIT_CONTROLLER(ControllerCore)
 
 static const QString CORE_VERSION = "1.5.0-5";
 
+static const int LOG_LENGTH = 4000;
+
 static const QString PATH_SK = "../../Sky/src";
+
+//-------------------------------------------------------------------------------------------------
+// Functions
+//-------------------------------------------------------------------------------------------------
+
+#ifdef QT_4
+void messageOutput(QtMsgType, const char * message)
+#else
+void messageOutput(QtMsgType, const QMessageLogContext &, const QString & message)
+#endif
+{
+    core->addLog(message);
+
+#ifdef QT_4
+    std::cout << message << std::endl;
+#else
+    std::cout << message.toLatin1().constData() << std::endl;
+#endif
+}
 
 //=================================================================================================
 // ShotWrite
@@ -368,6 +392,15 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("online", _online);
 
     //---------------------------------------------------------------------------------------------
+    // Message handler
+
+#ifdef QT_4
+    qInstallMsgHandler(messageOutput);
+#else
+    qInstallMessageHandler(messageOutput);
+#endif
+
+    //---------------------------------------------------------------------------------------------
 
     startTimer(60000); // 1 minute
 
@@ -527,6 +560,22 @@ ControllerCore::ControllerCore() : WController()
     if (argc < 2) return;
 
     _argument = QString(argv[1]);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+/* Q_INVOKABLE */ void ControllerCore::addLog(const QString & message)
+{
+    _log.append("<br>" + message);
+
+    int length = _log.length();
+
+    if (length > LOG_LENGTH)
+    {
+        _log.remove(0, length - LOG_LENGTH);
+    }
+
+    emit logChanged();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -838,6 +887,13 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
 QString ControllerCore::argument() const
 {
     return _argument;
+}
+
+//-------------------------------------------------------------------------------------------------
+
+QString ControllerCore::log() const
+{
+    return _log;
 }
 
 //-------------------------------------------------------------------------------------------------

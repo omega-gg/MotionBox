@@ -27,13 +27,18 @@ Panel
 
     /* read */ property bool isExposed: false
 
+    /* read */ property int indexCurrent: -1
+
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pRepeat: local.repeat
+    property bool pAnimate: false
 
-    property int pQuality      : local.quality
-    property int pQualityActive: player.qualityActive
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias page: loader.item
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -54,7 +59,7 @@ Panel
 
     width: st.dp400 + borderSizeWidth
 
-    height: barBottom.y + barBottom.height + st.dp50 + borderSizeHeight
+    height: bar.height + loader.height + borderSizeHeight
 
     borderRight : (gui.isMini) ? 0 : borderSize
     borderBottom: 0
@@ -124,21 +129,6 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
-    // Events private
-    //---------------------------------------------------------------------------------------------
-
-    onPQualityChanged:
-    {
-        if      (pQuality == 1) player.quality = AbstractBackend.Quality240;
-        else if (pQuality == 2) player.quality = AbstractBackend.Quality360;
-        else if (pQuality == 3) player.quality = AbstractBackend.Quality480;
-        else if (pQuality == 4) player.quality = AbstractBackend.Quality720;
-        else if (pQuality == 5) player.quality = AbstractBackend.Quality1080;
-        else if (pQuality == 6) player.quality = AbstractBackend.Quality1440;
-        else                    player.quality = AbstractBackend.Quality2160;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Keys
     //---------------------------------------------------------------------------------------------
 
@@ -149,6 +139,22 @@ Panel
             event.accepted = true;
 
             collapse();
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Animations
+    //---------------------------------------------------------------------------------------------
+
+    Behavior on height
+    {
+        enabled: pAnimate
+
+        PropertyAnimation
+        {
+            duration: st.duration_fast
+
+            easing.type: st.easing
         }
     }
 
@@ -165,6 +171,19 @@ Panel
         gui.panelAddHide();
 
         panelGet.collapse();
+
+        if (indexCurrent == -1)
+        {
+            indexCurrent = 0;
+
+            loader.load(Qt.resolvedUrl("PageSettingsVideo.qml"));
+
+            //page.onShow();
+        }
+        /*else if (indexCurrent == 0)
+        {
+            page.onShow();
+        }*/
 
         isExposed = true;
 
@@ -193,219 +212,95 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pSelectTab(index)
+    {
+        if (loader.isAnimated || indexCurrent == index) return;
+
+        indexCurrent = index;
+
+        pAnimate = true;
+
+        if (indexCurrent == 0)
+        {
+             loader.loadRight(Qt.resolvedUrl("PageSettingsVideo.qml"));
+        }
+        else loader.loadLeft(Qt.resolvedUrl("PageConsole.qml"));
+
+        pAnimate = false;
+
+        loader.item.forceActiveFocus();
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    BarTitleSmall
+    BarTitle
     {
-        id: barTop
+        id: bar
 
         anchors.left : parent.left
         anchors.right: parent.right
+
+        height: st.dp32 + borderSizeHeight
 
         borderTop: 0
-    }
 
-    BarTitleText
-    {
-        id: itemOutput
-
-        anchors.top   : barTop.top
-        anchors.bottom: barTop.bottom
-
-        anchors.bottomMargin: barTop.borderBottom
-
-        width: buttonVideo.x + buttonVideo.width + st.dp5
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Output")
-
-        font.pixelSize: st.dp12
-    }
-
-    BorderVertical
-    {
-        id: borderTop
-
-        anchors.left  : itemOutput.right
-        anchors.top   : barTop.top
-        anchors.bottom: barBottom.top
-    }
-
-    BarTitleText
-    {
-        anchors.left  : borderTop.right
-        anchors.right : parent.right
-        anchors.top   : itemOutput.top
-        anchors.bottom: itemOutput.bottom
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Playback")
-
-        font.pixelSize: st.dp12
-    }
-
-    ButtonPushLeft
-    {
-        id: buttonAudio
-
-        anchors.left: parent.left
-        anchors.top : barTop.bottom
-
-        anchors.leftMargin: st.dp5
-        anchors.topMargin : st.dp5
-
-        width: st.dp70
-
-        highlighted: (player.outputActive == AbstractBackend.OutputAudio)
-        checked    : (player.output       == AbstractBackend.OutputAudio)
-
-        checkHover: false
-
-        text: qsTr("Audio")
-
-        onClicked: player.output = AbstractBackend.OutputAudio
-    }
-
-    ButtonPushRight
-    {
-        id: buttonVideo
-
-        anchors.left: buttonAudio.right
-        anchors.top : buttonAudio.top
-
-        width: st.dp70
-
-        highlighted: (player.outputActive == AbstractBackend.OutputMedia)
-        checked    : (player.output       == AbstractBackend.OutputMedia)
-
-        checkHover: false
-
-        text: qsTr("Video")
-
-        onClicked: player.output = AbstractBackend.OutputMedia
-    }
-
-    ButtonCheckLabel
-    {
-        id: buttonCheck
-
-        anchors.left : borderTop.right
-        anchors.right: buttonShuffle.left
-        anchors.top  : buttonAudio.top
-
-        anchors.leftMargin: st.dp5
-
-        checked: local.autoPlay
-
-        text: qsTr("Autoplay")
-
-        onCheckClicked: local.autoPlay = checked
-    }
-
-    ButtonPushIcon
-    {
-        id: buttonShuffle
-
-        anchors.right: buttonRepeat.left
-        anchors.top  : buttonCheck.top
-
-        width: st.dp44
-
-        highlighted: (player.isPlaying && checked)
-
-        checked: local.shuffle
-
-        icon          : st.icon24x24_shuffle
-        iconSourceSize: st.size24x24
-
-        onClicked: local.shuffle = !(checked)
-    }
-
-    ButtonPushIcon
-    {
-        id: buttonRepeat
-
-        anchors.right: parent.right
-        anchors.top  : buttonCheck.top
-
-        anchors.rightMargin: st.dp5
-
-        width: st.dp44
-
-        highlighted: (player.isPlaying && checked)
-
-        checked: (pRepeat > 0)
-
-        icon: (pRepeat == 2) ? st.icon24x24_repeatOne
-                             : st.icon24x24_repeat
-
-        iconSourceSize: st.size24x24
-
-        onClicked:
+        ButtonPiano
         {
-            pRepeat = (pRepeat + 1) % 3;
+            id: buttonVideo
 
-            player.repeat = pRepeat;
+            width: st.dp128
+
+            checkable: true
+            checked  : (indexCurrent == 0)
+
+            checkHover: false
+
+            text: qsTr("Video")
+
+            font.pixelSize: st.dp14
+
+//#QT_4
+            onPressed: pSelectTab(0)
+//#ELSE
+            onPressed: Qt.callLater(pSelectTab, 0)
+//#END
+        }
+
+        ButtonPiano
+        {
+            anchors.left: buttonVideo.right
+
+            width: st.dp128
+
+            checkable: true
+            checked  : (indexCurrent == 1)
+
+            checkHover: false
+
+            text: qsTr("Console")
+
+            font.pixelSize: st.dp14
+
+//#QT_4
+            onPressed: pSelectTab(1)
+//#ELSE
+            onPressed: Qt.callLater(pSelectTab, 1)
+//#END
         }
     }
 
-    BarTitleSmall
+    LoaderSlide
     {
-        id: barBottom
+        id: loader
 
         anchors.left : parent.left
         anchors.right: parent.right
-        anchors.top  : barTop.bottom
+        anchors.top  : bar.bottom
 
-        anchors.topMargin: st.dp50
-    }
-
-    BarTitleText
-    {
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.top   : barBottom.top
-        anchors.bottom: barBottom.bottom
-
-        horizontalAlignment: Text.AlignHCenter
-        verticalAlignment  : Text.AlignVCenter
-
-        text: qsTr("Quality")
-
-        font.pixelSize: st.dp12
-    }
-
-    ButtonsCheck
-    {
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : barBottom.bottom
-
-        anchors.leftMargin : st.dp5
-        anchors.rightMargin: st.dp5
-        anchors.topMargin  : st.dp5
-
-        model: ListModel {}
-
-        currentIndex : pQuality       - 1
-        currentActive: pQualityActive - 1
-
-        Component.onCompleted:
-        {
-            model.append({ "title": qsTr("240p")  });
-            model.append({ "title": qsTr("360p")  });
-            model.append({ "title": qsTr("480p")  });
-            model.append({ "title": qsTr("720p")  });
-            model.append({ "title": qsTr("1080p") });
-            model.append({ "title": qsTr("1440p") });
-            model.append({ "title": qsTr("2160p") });
-        }
-
-        onPressed: pQuality = currentIndex + 1
+        height: (item) ? item.height : 0
     }
 }

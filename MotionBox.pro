@@ -171,6 +171,8 @@ OTHER_FILES += configure.sh \
                content/PageSettingsMain.qml \
                content/PageSettingsProxy.qml \
                content/PageSettingsTorrent.qml \
+               content/PageSettingsVideo.qml \
+               content/PageConsole.qml \
                content/PageAbout.qml \
                content/PageAboutMain.qml \
                content/PageAboutText.qml \

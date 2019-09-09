@@ -1651,7 +1651,7 @@ MouseArea
                 }
             }
 
-            function pDoubleClicked(mouse)
+            /*function pDoubleClicked(mouse)
             {
                 if (mouse.button & Qt.LeftButton
                     &&
@@ -1659,7 +1659,7 @@ MouseArea
                 {
                     pSearch();
                 }
-            }
+            }*/
         }
 
         listPlaylist: scrollPlaylist.list
@@ -1680,7 +1680,7 @@ MouseArea
         itemTop: (pSearchHidden) ? buttonBrowse
                                  : lineEdit
 
-        Keys.onPressed:
+        /*Keys.onPressed:
         {
             if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
             {
@@ -1691,7 +1691,7 @@ MouseArea
                     pSearch();
                 }
             }
-        }
+        }*/
     }
 
     ScrollCompletion

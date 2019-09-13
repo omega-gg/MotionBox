@@ -260,9 +260,9 @@ ControllerCore::ControllerCore() : WController()
     new WBackendVimeo;
     new WBackendSoundCloud;
 
-    //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
-
     new WBackendOpenSubtitles;
+
+    //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
 
     //---------------------------------------------------------------------------------------------
     // Cache

@@ -69,8 +69,6 @@ Item
 
             text: core.log
 
-            textFormat: Text.RichText
-
             wrapMode: Text.Wrap
 
             color      : st.text_color

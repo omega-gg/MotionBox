@@ -514,7 +514,7 @@ Panel
 
             visible: (scrollPlaylist.playlist == null)
 
-            text: qsTr("No track selected")
+            text: qsTr("No Track selected")
         }
 
         ScrollPlaylist
@@ -527,7 +527,7 @@ Panel
 
             enableLoad: false
 
-            textDefault: qsTr("No related tracks")
+            textDefault: qsTr("No related Tracks")
 
             textVisible: (count == 1 && playlist != null && playlist.queryIsLoading == false)
 

@@ -244,7 +244,7 @@ Item
         {
              return qsTr("What subtitle are you looking for ?");
         }
-        else return qsTr("No track selected");
+        else return qsTr("No Track selected");
     }
 
     function pSetText(text)

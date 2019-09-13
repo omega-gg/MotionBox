@@ -1651,15 +1651,15 @@ MouseArea
                 }
             }
 
-            /*function pDoubleClicked(mouse)
+            function pDoubleClicked(mouse)
             {
-                if (mouse.button & Qt.LeftButton
+                if (mouse.button & Qt.LeftButton && pBrowsing == false
                     &&
                     (type == LibraryItem.FolderSearch || type == LibraryItem.PlaylistSearch))
                 {
                     pSearch();
                 }
-            }*/
+            }
         }
 
         listPlaylist: scrollPlaylist.list
@@ -1680,18 +1680,20 @@ MouseArea
         itemTop: (pSearchHidden) ? buttonBrowse
                                  : lineEdit
 
-        /*Keys.onPressed:
+        Keys.onPressed:
         {
             if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
             {
                 event.accepted = true;
 
-                if (pItemBrowse.isFolderSearch || pItemBrowse.isPlaylistSearch)
+                if (pBrowsing == false
+                    &&
+                    (pItemBrowse.isFolderSearch || pItemBrowse.isPlaylistSearch))
                 {
                     pSearch();
                 }
             }
-        }*/
+        }
     }
 
     ScrollCompletion
@@ -1808,8 +1810,7 @@ MouseArea
             enableContextual: enablePreview
             enableAdd       : false
 
-            textDefault: (folder == null || folder.source == "") ? qsTr("Type a query")
-                                                                 : qsTr("No results")
+            textDefault: (folder == null || folder.source == "") ? "" : qsTr("No results")
 
             itemLeft: scrollBrowse
 
@@ -1857,7 +1858,7 @@ MouseArea
             enableContextual: enablePreview
             enableAdd       : false
 
-            textDefault: qsTr("No playlists")
+            textDefault: qsTr("No Playlists")
 
             itemLeft : scrollFolder
             itemRight: scrollPlaylist
@@ -1949,7 +1950,7 @@ MouseArea
             }
             else if (playlist.source == "")
             {
-                 return qsTr("Type a Track query");
+                 return "";
             }
             else return qsTr("No Track results");
         }

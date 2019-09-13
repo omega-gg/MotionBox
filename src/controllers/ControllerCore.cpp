@@ -579,7 +579,7 @@ ControllerCore::ControllerCore() : WController()
     {
          _log.append(message);
     }
-    else _log.append("<br>" + message);
+    else _log.append('\n' + message);
 
     int length = _log.length();
 

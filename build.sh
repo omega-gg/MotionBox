@@ -7,7 +7,7 @@ set -e
 
 MotionBox="../.."
 
-external="/c/dev/workspace/3rdparty"
+external="$PWD/../3rdparty"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -57,6 +57,13 @@ if [ $1 = "qt4" ]; then
     Qt="$external/Qt/$Qt4_version"
 else
     Qt="$external/Qt/$Qt5_version"
+fi
+
+if [ $windows = true ]; then
+
+    qmake="$Qt/bin/qmake"
+else
+    qmake="qmake"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -122,7 +129,7 @@ elif [ $2 = "linux" ]; then
     fi
 fi
 
-qmake --version
+$qmake --version
 echo ""
 
 cd dist
@@ -140,9 +147,9 @@ cd ../$build
 
 if [ "$3" = "deploy" ]; then
 
-    qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
+    $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
 else
-    qmake -r -spec $spec "$config" $MotionBox
+    $qmake -r -spec $spec "$config" $MotionBox
 fi
 
 if [ $windows = true ]; then

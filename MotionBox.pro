@@ -123,6 +123,7 @@ OTHER_FILES += configure.sh \
                README.md \
                LICENSE.md \
                AUTHORS.md \
+               .azure-pipelines.yml \
                .travis.yml \
                .appveyor.yml \
                content/text/credits.txt \

@@ -26,7 +26,7 @@ build_script:
   - sh build.sh %qt% %platform% deploy
   - cd deploy
   - rm .gitignore
-  - 7z a ../MotionBox-%qt%-%platform%.zip *
+  - 7z a ../MotionBox-%platform%-%qt%.zip *
 
 artifacts:
-  - path: MotionBox-%qt%-%platform%.zip
+  - path: MotionBox-%platform%-%qt%.zip

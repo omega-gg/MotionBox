@@ -14,6 +14,9 @@ jobs:
       git clone https://github.com/omega-gg/Sky
       cd s
       sh configure.sh qt4 win32
+      cd ../Sky
+      sh build.sh qt4 win32 tools
+      cd ../s
       sh build.sh qt4 win32 deploy
   - publish: $(System.DefaultWorkingDirectory)/deploy
     artifact: MotionBox-win32-qt4

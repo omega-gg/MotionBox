@@ -17,20 +17,20 @@ matrix:
       env: QT=qt5 OS=ubuntu TARGET=amd64
 
 before_install:
-  - docker run -d --name ubuntu -v $PWD:/host ${TARGET}/ubuntu:18.04 tail -f /dev/null
+  - docker run -d --name ubuntu -v $PWD:/MotionBox ${TARGET}/ubuntu:18.04 tail -f /dev/null
 
 install:
-  - docker exec -t ubuntu bash -c "cd /host/..;
+  - docker exec -t ubuntu bash -c "cd /MotionBox/..;
                                    apt-get update;
                                    apt-get -y install sudo wget git;
                                    git clone https://github.com/omega-gg/Sky;
                                    cd Sky;
                                    sh 3rdparty.sh all ${QT} ubuntu;
-                                   cd ../host;
+                                   cd ../MotionBox;
                                    sh configure.sh ${QT} linux"
 
 script:
-  - docker exec -t ubuntu bash -c "cd /host/../Sky;
+  - docker exec -t ubuntu bash -c "cd /MotionBox/../Sky;
                                    sh build.sh ${QT} linux tools;
-                                   cd ../host;
+                                   cd ../MotionBox;
                                    sh build.sh ${QT} linux deploy"

@@ -41,24 +41,6 @@ jobs:
 
 #--------------------------------------------------------------------------------------------------
 
-- job: win64_qt4
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      cd ..
-      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win64
-      unzip 3rdparty.zip
-      git clone https://github.com/omega-gg/Sky
-      cd s
-      sh configure.sh qt4 win64
-      cd ../Sky
-      sh build.sh qt4 win64 tools
-      cd ../s
-      sh build.sh qt4 win64 deploy
-  - publish: $(System.DefaultWorkingDirectory)/deploy
-    artifact: MotionBox-win64-qt4
-
 - job: win64_qt5
   pool:
     vmImage: "windows-latest"
@@ -101,3 +83,68 @@ jobs:
                                      sh build.sh qt4 linux deploy"
   - publish: $(System.DefaultWorkingDirectory)/deploy
     artifact: MotionBox-linux32-qt4
+
+- job: linux32_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+                                     apt-get update;
+                                     apt-get -y install sudo wget git;
+                                     git clone https://github.com/omega-gg/Sky;
+                                     cd Sky;
+                                     sh 3rdparty.sh all qt5 ubuntu;
+                                     cd ../MotionBox;
+                                     sh configure.sh qt5 linux;
+                                     cd ../Sky;
+                                     sh build.sh qt5 linux tools;
+                                     cd ../MotionBox;
+                                     sh build.sh qt5 linux deploy"
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-linux32-qt5
+
+#--------------------------------------------------------------------------------------------------
+
+- job: linux64_qt4
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+                                     apt-get update;
+                                     apt-get -y install sudo wget git;
+                                     git clone https://github.com/omega-gg/Sky;
+                                     cd Sky;
+                                     sh 3rdparty.sh all qt4 ubuntu;
+                                     cd ../MotionBox;
+                                     sh configure.sh qt4 linux;
+                                     cd ../Sky;
+                                     sh build.sh qt4 linux tools;
+                                     cd ../MotionBox;
+                                     sh build.sh qt4 linux deploy"
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-linux64-qt4
+
+- job: linux64_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+                                     apt-get update;
+                                     apt-get -y install sudo wget git;
+                                     git clone https://github.com/omega-gg/Sky;
+                                     cd Sky;
+                                     sh 3rdparty.sh all qt5 ubuntu;
+                                     cd ../MotionBox;
+                                     sh configure.sh qt5 linux;
+                                     cd ../Sky;
+                                     sh build.sh qt5 linux tools;
+                                     cd ../MotionBox;
+                                     sh build.sh qt5 linux deploy"
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-linux64-qt5

@@ -20,10 +20,9 @@ before_install:
   - docker run -d --name ubuntu -v $PWD:/host ${TARGET}/ubuntu:18.04 tail -f /dev/null
 
 install:
-  - docker exec -t ubuntu bash -c "cd /host;
+  - docker exec -t ubuntu bash -c "cd /host/..;
                                    apt-get update;
                                    apt-get -y install sudo wget git;
-                                   cd ..;
                                    git clone https://github.com/omega-gg/Sky;
                                    cd Sky;
                                    sh 3rdparty.sh all ${QT} ubuntu;

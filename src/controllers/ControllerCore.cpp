@@ -262,7 +262,11 @@ ControllerCore::ControllerCore() : WController()
 
     new WBackendOpenSubtitles;
 
+    //new WBackendUniversal("tmdb", WControllerFile::fileUrl("backend/tmdb.yml"));
+
     //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
+    //new WBackendUniversal("vimeo",       WControllerFile::fileUrl("backend/vimeo.yml"));
+    //new WBackendUniversal("soundcloud",  WControllerFile::fileUrl("backend/soundcloud.yml"));
 
     //---------------------------------------------------------------------------------------------
     // Cache

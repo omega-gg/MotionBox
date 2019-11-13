@@ -439,7 +439,7 @@ AreaContextual
 
         function loadPageBrowse()
         {
-            pageBrowse.setItemEnabled(3, local.cache);
+            pageBrowse.setItemEnabled(4, local.cache);
 
             listContextual.currentPage = pageBrowse;
         }
@@ -636,7 +636,11 @@ AreaContextual
 
                 panelBrowse.browse(path);
             }
-            else if (id == 2) // Clear cache
+            else if (id == 2) // Reload backends
+            {
+                core.reloadBackends();
+            }
+            else if (id == 3) // Clear cache
             {
                 panelBrowse.clearEdit();
 
@@ -799,7 +803,10 @@ AreaContextual
                     { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Open Folder") },
 
-                    { "id": 2, "title": qsTr("Clear cache") }
+                    { "id": 2, "icon"    : st.icon24x24_refresh,
+                               "iconSize": st.size24x24, "title": qsTr("Reload Backends") },
+
+                    { "id": 3, "title": qsTr("Clear cache") }
                 ]
             }
         }

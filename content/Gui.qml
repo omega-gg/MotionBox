@@ -2690,16 +2690,7 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            if (panelRelated.isExposed == false)
-            {
-                restoreBars();
-                restoreMini();
-
-                panelTracks.restore();
-
-                panelRelated.expose();
-            }
-            else panelRelated.buttonRefresh.returnPressed();
+            core.reloadBackends();
         }
         else if (event.key == Qt.Key_P && event.modifiers == Qt.ControlModifier)
         {

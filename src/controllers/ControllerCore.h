@@ -78,6 +78,8 @@ public: // Interface
 
     Q_INVOKABLE bool updateVersion();
 
+    Q_INVOKABLE void reloadBackends() const;
+
     Q_INVOKABLE QString openFile    (const QString & title);
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);

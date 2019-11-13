@@ -1421,9 +1421,13 @@ MouseArea
     {
         id: buttonUp
 
-        anchors.right : buttonClose.left
-        anchors.top   : buttonClose.top
-        anchors.bottom: buttonClose.bottom
+        anchors.right : parent.right
+        anchors.top   : bar.top
+        anchors.bottom: bar.bottom
+
+        anchors.rightMargin : st.dp16
+        anchors.topMargin   : bar.borderTop
+        anchors.bottomMargin: bar.borderBottom
 
         width: height + borderSizeWidth
 
@@ -1436,28 +1440,6 @@ MouseArea
         iconSourceSize: st.size24x24
 
         onClicked: panelTracks.toggleExpand()
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonClose
-
-        anchors.right : parent.right
-        anchors.top   : bar.top
-        anchors.bottom: bar.bottom
-
-        anchors.rightMargin : st.dp16
-        anchors.topMargin   : bar.borderTop
-        anchors.bottomMargin: bar.borderBottom
-
-        width: height + borderSizeWidth
-
-        highlighted: isExposed
-
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
-
-        onClicked: collapse()
     }
 
     ButtonPianoIcon

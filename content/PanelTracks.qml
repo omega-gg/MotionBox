@@ -448,9 +448,11 @@ Item
             {
                 id: buttonUp
 
-                anchors.right : buttonBrowse.left
+                anchors.right : parent.right
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
+
+                anchors.rightMargin: st.dp16
 
                 width: height + borderSizeWidth
 
@@ -463,27 +465,6 @@ Item
                 iconSourceSize: st.size24x24
 
                 onClicked: toggleExpand()
-            }
-
-            ButtonPianoIcon
-            {
-                id: buttonBrowse
-
-                anchors.right : parent.right
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                anchors.rightMargin: st.dp16
-
-                width: height + borderSizeWidth
-
-                checkable: true
-                checked  : panelBrowse.isExposed
-
-                icon          : st.icon24x24_addBold
-                iconSourceSize: st.size24x24
-
-                onClicked: panelBrowse.expose()
             }
         }
 

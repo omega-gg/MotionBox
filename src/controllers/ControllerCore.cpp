@@ -264,18 +264,18 @@ ControllerCore::ControllerCore() : WController()
 
     //---------------------------------------------------------------------------------------------
 
-    new WBackendUniversal("bittorrent", WControllerFile::fileUrl("backend/bittorrent.yml"));
+    //new WBackendUniversal("bittorrent", WControllerFile::fileUrl("backend/bittorrent.yml"));
 
-    new WBackendUniversal("duckduckgo", WControllerFile::fileUrl("backend/duckduckgo.yml"));
-    new WBackendUniversal("tmdb",       WControllerFile::fileUrl("backend/tmdb.yml"));
-    new WBackendUniversal("lastfm",     WControllerFile::fileUrl("backend/lastfm.yml"));
+    //new WBackendUniversal("duckduckgo", WControllerFile::fileUrl("backend/duckduckgo.yml"));
+    //new WBackendUniversal("tmdb",       WControllerFile::fileUrl("backend/tmdb.yml"));
+    //new WBackendUniversal("lastfm",     WControllerFile::fileUrl("backend/lastfm.yml"));
 
-    new WBackendUniversal("youtube",     WControllerFile::fileUrl("backend/youtube.yml"));
-    new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
-    new WBackendUniversal("vimeo",       WControllerFile::fileUrl("backend/vimeo.yml"));
-    new WBackendUniversal("soundcloud",  WControllerFile::fileUrl("backend/soundcloud.yml"));
+    //new WBackendUniversal("youtube",     WControllerFile::fileUrl("backend/youtube.yml"));
+    //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
+    //new WBackendUniversal("vimeo",       WControllerFile::fileUrl("backend/vimeo.yml"));
+    //new WBackendUniversal("soundcloud",  WControllerFile::fileUrl("backend/soundcloud.yml"));
 
-    new WBackendUniversal("opensubtitles", WControllerFile::fileUrl("backend/opensubtitles.yml"));
+    //new WBackendUniversal("opensubtitles", WControllerFile::fileUrl("backend/opensubtitles.yml"));
 
     //---------------------------------------------------------------------------------------------
     // Cache

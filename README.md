@@ -20,9 +20,9 @@ All of this inside multiple tabs and without ever showing an ad.<br>
 
 ## For Motion Freedom
 
-Freedom to access video resources on the Internet.
-Freedom to browse decentralized video sources.
-Freedom to share video content with the world.
+Freedom to access video resources on the Internet.<br>
+Freedom to browse decentralized video sources.<br>
+Freedom to share video content with the world.<br>
 
 ## Technology
 

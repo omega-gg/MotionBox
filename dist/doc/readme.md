@@ -4,7 +4,7 @@
 
 #
 
-[MotionBox] is a [Universal Player] for [Motion Freedom].
+[MotionBox] is a [Video Browser] for [Motion Freedom].
 
 Built to access and browse decentralized video sources.
 
@@ -16,7 +16,7 @@ My name is Benjamin Arnaud aka [bunjee].
 
 I'm building MotionBox to empower people:
 
-Let's build a Universal Player together.
+Let's build a Video Browser together.
 
 
 ## Changelog
@@ -90,13 +90,13 @@ This page: [http://omega.gg/MotionBox/get][page]
 
 MotionBox: [http://omega.gg/MotionBox][MotionBox]
 
-Universal Player: [http://omega.gg/about/UniversalPlayer][Universal Player]
+Video Browser: [http://omega.gg/about/VideoBrowser][Video Browser]
 
 Motion Freedom: [http://omega.gg/about/MotionFreedom][Motion Freedom]
 
 [MotionBox]: http://omega.gg/MotionBox
 
-[Universal Player]: http://omega.gg/about/UniversalPlayer
+[Video Browser]: http://omega.gg/about/VideoBrowser
 
 [Motion Freedom]: http://omega.gg/about/MotionFreedom
 

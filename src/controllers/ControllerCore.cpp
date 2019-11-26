@@ -933,6 +933,8 @@ void ControllerCore::onLoaded()
 
 void ControllerCore::onIndexLoaded()
 {
+    disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+
     _index->createFolderItems(_backends);
 }
 

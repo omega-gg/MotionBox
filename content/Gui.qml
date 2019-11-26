@@ -199,9 +199,6 @@ Item
 
     property alias buttonApplication: barWindow.buttonApplication
 
-    property alias buttonBackward: barWindow.buttonBackward
-    property alias buttonForward : barWindow.buttonForward
-
     property alias itemTabs: barWindow.itemTabs
 
     property alias buttonMini    : barWindow.buttonMini
@@ -210,6 +207,8 @@ Item
     //---------------------------------------------------------------------------------------------
     // BarTop
 
+    property alias buttonBackward: barTop.buttonBackward
+    property alias buttonForward : barTop.buttonForward
     property alias buttonDiscover: barTop.buttonDiscover
     property alias buttonBrowse  : barTop.buttonBrowse
 

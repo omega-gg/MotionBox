@@ -804,7 +804,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Open Folder") },
 
                     { "id": 2, "icon"    : st.icon24x24_refresh,
-                               "iconSize": st.size24x24, "title": qsTr("Reload Backends") },
+                               "iconSize": st.size24x24, "title": qsTr("Update Backends") },
 
                     { "id": 3, "title": qsTr("Clear cache") }
                 ]

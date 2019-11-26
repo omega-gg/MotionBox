@@ -361,7 +361,7 @@ Panel
             icon: cover
 
             iconDefault: (id == 1) ? st.icon32x32_url
-                                   : st.icon32x32_folder
+                                   : st.icon32x32_feed
 
             text: title
 

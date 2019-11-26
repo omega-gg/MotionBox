@@ -35,6 +35,7 @@ class WWindow;
 class WCache;
 class WLoaderNetwork;
 class WLoaderWeb;
+class WBackendIndex;
 class WBackendNet;
 class WLibraryFolderRelated;
 class WTabsTrack;
@@ -141,12 +142,18 @@ protected: // Events
 private: // Functions
     WLibraryFolder * createLibrary(int id);
 
-    void createBrowse ();
-    void restoreBrowse();
+    void createBrowse();
 
     void deleteBrowse();
 
+    void copyBackends(const QString & path) const;
+
     QString getFile(const QString & title, const QString & filter);
+
+private slots:
+    void onLoaded();
+
+    void onIndexLoaded();
 
 signals:
     void logChanged();
@@ -208,6 +215,8 @@ private: // Variables
 
     WLoaderNetwork * _loaderMedia;
     //WLoaderWeb     * _loaderWeb;
+
+    WBackendIndex * _index;
 
     QDateTime _dateCover;
     QDateTime _datePreview;

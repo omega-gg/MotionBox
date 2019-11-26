@@ -228,14 +228,16 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: Math.round((parent.width - buttonAdd.width) / 3)
+            width: Math.round((parent.width - buttonAdd.width) / 2)
 
             checkable: true
             checked  : (index == 0)
 
             checkHover: false
 
-            text: qsTr("Feeds")
+            text: qsTr("Feed")
+
+            font.pixelSize: st.dp14
 
 //#QT_4
             onPressed: select(0)
@@ -258,6 +260,8 @@ Panel
             checkHover: false
 
             text: qsTr("Library")
+
+            font.pixelSize: st.dp14
 
 //#QT_4
             onPressed: select(1)

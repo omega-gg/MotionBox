@@ -57,16 +57,17 @@
 #include <WLibraryFolderRelated>
 #include <WTabsTrack>
 #include <WTabTrack>
+#include <WBackendIndex>
 #include <WBackendUniversal>
-#include <WBackendTorrent>
-#include <WBackendDuckDuckGo>
-#include <WBackendTmdb>
-#include <WBackendLastFm>
-#include <WBackendYoutube>
-#include <WBackendDailymotion>
-#include <WBackendVimeo>
-#include <WBackendSoundCloud>
-#include <WBackendOpenSubtitles>
+//#include <WBackendTorrent>
+//#include <WBackendDuckDuckGo>
+//#include <WBackendTmdb>
+//#include <WBackendLastFm>
+//#include <WBackendYoutube>
+//#include <WBackendDailymotion>
+//#include <WBackendVimeo>
+//#include <WBackendSoundCloud>
+//#include <WBackendOpenSubtitles>
 
 // Application includes
 #include "DataLocal.h"
@@ -81,7 +82,9 @@ static const QString CORE_VERSION = "1.5.0-5";
 
 static const int LOG_LENGTH = 4000;
 
-static const QString PATH_SK = "../../Sky/src";
+#ifndef SK_DEPLOY
+static const QString PATH_BACKEND = "../../backend";
+#endif
 
 //-------------------------------------------------------------------------------------------------
 // Functions
@@ -151,6 +154,8 @@ ControllerCore::ControllerCore() : WController()
 
     _loaderMedia = NULL;
     //_loaderWeb   = NULL;
+
+    _index = NULL;
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -249,33 +254,18 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Backends
 
-    new WBackendTorrent;
+    //new WBackendTorrent;
 
-    new WBackendDuckDuckGo;
-    new WBackendTmdb;
-    new WBackendLastFm;
+    //new WBackendDuckDuckGo;
+    //new WBackendTmdb;
+    //new WBackendLastFm;
 
-    new WBackendYoutube;
-    new WBackendDailymotion;
-    new WBackendVimeo;
-    new WBackendSoundCloud;
+    //new WBackendYoutube;
+    //new WBackendDailymotion;
+    //new WBackendVimeo;
+    //new WBackendSoundCloud;
 
-    new WBackendOpenSubtitles;
-
-    //---------------------------------------------------------------------------------------------
-
-    //new WBackendUniversal("bittorrent", WControllerFile::fileUrl("backend/bittorrent.yml"));
-
-    //new WBackendUniversal("duckduckgo", WControllerFile::fileUrl("backend/duckduckgo.yml"));
-    //new WBackendUniversal("tmdb",       WControllerFile::fileUrl("backend/tmdb.yml"));
-    //new WBackendUniversal("lastfm",     WControllerFile::fileUrl("backend/lastfm.yml"));
-
-    //new WBackendUniversal("youtube",     WControllerFile::fileUrl("backend/youtube.yml"));
-    //new WBackendUniversal("dailymotion", WControllerFile::fileUrl("backend/dailymotion.yml"));
-    //new WBackendUniversal("vimeo",       WControllerFile::fileUrl("backend/vimeo.yml"));
-    //new WBackendUniversal("soundcloud",  WControllerFile::fileUrl("backend/soundcloud.yml"));
-
-    //new WBackendUniversal("opensubtitles", WControllerFile::fileUrl("backend/opensubtitles.yml"));
+    //new WBackendOpenSubtitles;
 
     //---------------------------------------------------------------------------------------------
     // Cache
@@ -328,7 +318,7 @@ ControllerCore::ControllerCore() : WController()
 
     _tabs->setId(1);
 
-    _tabs->setMaxCount(8);
+    _tabs->setMaxCount(32);
 
     _tabs->addTab();
 
@@ -366,16 +356,13 @@ ControllerCore::ControllerCore() : WController()
 
     _backends->setSaveEnabled(true);
 
-    wControllerPlaylist->setPathCover("qrc:/qrc/pictures/icons/backend");
-
     if (_backends->load() == false)
     {
         createBrowse();
 
-        wControllerPlaylist->createBackendItems(_backends);
-
-        _backends->setCurrentIndex(0);
+        copyBackends(path + "/backend/");
     }
+    else _index = new WBackendIndex(WControllerFile::fileUrl(path + "/backend"));
 
     emit backendsChanged();
 
@@ -464,7 +451,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::reloadBackends() const
 {
-    wControllerPlaylist->reloadBackends();
+    WBackendLoader::reloadBackends();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -617,11 +604,11 @@ ControllerCore::ControllerCore() : WController()
 {
     _related->clearItems();
 
-    restoreBrowse();
+    _backends->clearItems();
 
-    wControllerPlaylist->restoreBackendItems(_backends);
+    createBrowse();
 
-    _backends->setCurrentIndex(0);
+    if (_index) _index->createFolderItems(_backends);
 
     _cache->clearFiles();
 
@@ -856,27 +843,17 @@ WLibraryFolder * ControllerCore::createLibrary(int id)
 
 void ControllerCore::createBrowse()
 {
-    WLibraryFolderSearchable * browse = new WLibraryFolderSearchable;
+    WLibraryFolderItem browse(WLibraryItem::FolderSearchable);
 
-    browse->setId(1);
+    browse.id = 1;
 
-    browse->setTitle(tr("Browser"));
+    browse.title = tr("Browser");
 
-    browse->setLabel("Browser");
+    browse.label = "Browser";
 
-    _backends->addLibraryItem(browse);
+    _backends->addItem(browse);
 
-    browse->tryDelete();
-}
-
-void ControllerCore::restoreBrowse()
-{
-    WLibraryFolder * browse = _backends->createLibraryItemFromId(1)->toFolder();
-
-    browse->clearItems ();
-    browse->clearSource();
-
-    browse->tryDelete();
+    _backends->setCurrentIndex(0);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -900,6 +877,40 @@ void ControllerCore::deleteBrowse()
 
 //-------------------------------------------------------------------------------------------------
 
+void ControllerCore::copyBackends(const QString & path) const
+{
+#ifdef SK_DEPLOY
+    QDir dir(WControllerFile::applicationPath("backend"));
+#else
+    QDir dir(WControllerFile::applicationPath(PATH_BACKEND));
+#endif
+
+    QStringList fileNames;
+    QStringList newNames;
+
+    QFileInfoList list = dir.entryInfoList(QDir::Files);
+
+    foreach (QFileInfo info, list)
+    {
+        if (info.suffix().toLower() != "vbml") continue;
+
+        const QString & fileName = info.filePath();
+
+        fileNames.append(fileName);
+
+        newNames.append(path + info.fileName());
+    }
+
+    wControllerFile->startDeleteFolder(path);
+    wControllerFile->startCreateFolder(path);
+
+    WControllerFileReply * reply = wControllerFile->startCopyFiles(fileNames, newNames);
+
+    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
+}
+
+//-------------------------------------------------------------------------------------------------
+
 QString ControllerCore::getFile(const QString & title, const QString & filter)
 {
     QString path = QFileDialog::getOpenFileName(NULL, title, _pathOpen, filter);
@@ -911,6 +922,22 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
     _pathOpen = info.absoluteFilePath();
 
     return WControllerFile::fileUrl(info.absoluteFilePath());
+}
+
+//-------------------------------------------------------------------------------------------------
+// Private slots
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onLoaded()
+{
+    _index = new WBackendIndex(WControllerFile::fileUrl(pathStorage() + "/backend"));
+
+    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+}
+
+void ControllerCore::onIndexLoaded()
+{
+    _index->createFolderItems(_backends);
 }
 
 //-------------------------------------------------------------------------------------------------

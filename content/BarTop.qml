@@ -31,6 +31,8 @@ Item
     // Aliases
     //---------------------------------------------------------------------------------------------
 
+    property alias buttonBackward: buttonBackward
+    property alias buttonForward : buttonForward
     property alias buttonDiscover: buttonDiscover
     property alias buttonBrowse  : buttonBrowse
 
@@ -168,13 +170,53 @@ Item
             color: st.barTitle_colorBorderLine
         }
 
-        ButtonPianoFull
+        ButtonPianoIcon
+        {
+            id: buttonBackward
+
+            enabled: (currentTab != null && currentTab.hasPreviousBookmark)
+
+            highlighted: enabled
+
+            icon          : st.icon32x32_goBackward
+            iconSourceSize: st.size32x32
+
+            onClicked:
+            {
+                panelDiscover.collapse();
+
+                currentTab.setPreviousBookmark();
+            }
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonForward
+
+            anchors.left: buttonBackward.right
+
+            enabled: (currentTab != null && currentTab.hasNextBookmark)
+
+            highlighted: enabled
+
+            icon          : st.icon32x32_goForward
+            iconSourceSize: st.size32x32
+
+            onClicked:
+            {
+                panelDiscover.collapse();
+
+                currentTab.setNextBookmark();
+            }
+        }
+
+        ButtonPianoIcon
         {
             id: buttonDiscover
 
-            width: Math.round((panelLibrary.width - panelLibrary.borderRight) / 2)
+            anchors.left: buttonForward.right
 
-            visible: (gui.isMini == false)
+            visible: false//(gui.isMini == false)
 
             enabled: false
 
@@ -184,10 +226,6 @@ Item
             icon          : st.icon32x32_url
             iconSourceSize: st.size32x32
 
-            text: qsTr("Discovery")
-
-            font.pixelSize: st.dp14
-
             onPressed:
             {
                 gui.restoreBars();
@@ -196,48 +234,11 @@ Item
             }
         }
 
-        ButtonPianoFull
-        {
-            id: buttonBrowse
-
-            anchors.left: buttonDiscover.right
-
-            width: panelLibrary.width - buttonDiscover.width
-
-            visible: (gui.isMini == false)
-
-            checkable: true
-
-            checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
-
-            icon          : st.icon32x32_search
-            iconSourceSize: st.size32x32
-
-            text: qsTr("Browse")
-
-            font.pixelSize: st.dp14
-
-            onPressed:
-            {
-                if (gui.isExpanded)
-                {
-                    timer.start();
-
-                    gui.restore();
-
-                    panelBrowse.expose();
-                }
-                else panelBrowse.toggleExpose();
-            }
-        }
-
         LineEditSearch
         {
             id: lineEditSearch
 
-            anchors.left: (gui.isMini) ? parent.left
-                                       : buttonBrowse.right
-
+            anchors.left : buttonForward.right
             anchors.right: buttons.left
         }
 
@@ -252,7 +253,9 @@ Item
             anchors.rightMargin: st.dp16
 
             width: (gui.isMini) ? buttonExpand.width + buttonWall.width
-                                : buttonExpand.width + buttonWall.width + buttonRelated.width
+                                : buttonBrowse.width + buttonExpand.width + buttonWall.width
+                                  +
+                                  buttonRelated.width
 
             states: State
             {
@@ -279,11 +282,42 @@ Item
 
             ButtonPianoIcon
             {
+                id: buttonBrowse
+
+                anchors.right: buttonExpand.left
+
+                borderLeft: borderSize
+
+                visible: (gui.isMini == false)
+
+                checkable: true
+
+                checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
+
+                icon          : st.icon32x32_search
+                iconSourceSize: st.size32x32
+
+                onPressed:
+                {
+                    if (gui.isExpanded)
+                    {
+                        timer.start();
+
+                        gui.restore();
+
+                        panelBrowse.expose();
+                    }
+                    else panelBrowse.toggleExpose();
+                }
+            }
+
+            ButtonPianoIcon
+            {
                 id: buttonExpand
 
                 anchors.right: buttonWall.left
 
-                borderLeft: borderSize
+                borderLeft: (gui.isMini) ? borderSize : 0
 
                 checkable: true
 
@@ -295,7 +329,7 @@ Item
 
                 iconSourceSize: st.size24x24
 
-                onClicked:
+                onPressed:
                 {
                     if (gui.isMini) gui.toggleMicro ();
                     else            gui.toggleExpand();
@@ -315,7 +349,7 @@ Item
                 icon          : st.icon24x24_wall
                 iconSourceSize: st.size24x24
 
-                onClicked: gui.toggleWall()
+                onPressed: gui.toggleWall()
             }
 
             ButtonPianoIcon
@@ -332,7 +366,7 @@ Item
                 icon          : st.icon24x24_related
                 iconSourceSize: st.size24x24
 
-                onClicked: panelRelated.toggleExpose()
+                onPressed: panelRelated.toggleExpose()
             }
         }
     }

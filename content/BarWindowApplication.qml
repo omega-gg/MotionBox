@@ -30,7 +30,7 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pMargin: buttonAdd.width - buttonForward.borderRight
+    property int pMargin: buttonAdd.width - buttonApplication.borderRight
 
     property bool pVersion: (gui.isMini == false && online.version && online.version != sk.version)
 
@@ -53,9 +53,6 @@ Item
 
     property alias buttonVersion: buttonVersion
     property alias buttonMessage: buttonMessage
-
-    property alias buttonBackward: buttonBackward
-    property alias buttonForward : buttonForward
 
     property alias itemTabs: itemTabs
 
@@ -681,49 +678,6 @@ Item
         }
     }
 
-    ButtonPianoIcon
-    {
-        id: buttonBackward
-
-        anchors.left: (buttonMessage.visible) ? buttonMessage.right
-                                              : buttonMessage.left
-
-        enabled: (currentTab != null && currentTab.hasPreviousBookmark)
-
-        highlighted: enabled
-
-        icon          : st.icon32x32_goBackward
-        iconSourceSize: st.size32x32
-
-        onClicked:
-        {
-            panelDiscover.collapse();
-
-            currentTab.setPreviousBookmark();
-        }
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonForward
-
-        anchors.left: buttonBackward.right
-
-        enabled: (currentTab != null && currentTab.hasNextBookmark)
-
-        highlighted: enabled
-
-        icon          : st.icon32x32_goForward
-        iconSourceSize: st.size32x32
-
-        onClicked:
-        {
-            panelDiscover.collapse();
-
-            currentTab.setNextBookmark();
-        }
-    }
-
     TabsPlayer
     {
         id: itemTabs
@@ -732,10 +686,10 @@ Item
         // Settings
         //-------------------------------------------------------------------------------------
 
-        anchors.left : buttonForward.right
+        anchors.left : buttonApplication.right
         anchors.right: buttonMini.left
 
-        anchors.leftMargin: -(buttonForward.borderRight)
+        anchors.leftMargin: -(buttonApplication.borderRight)
 
         anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
                                                  : pMargin + st.dp32
@@ -817,7 +771,7 @@ Item
     {
         id: itemSlide
 
-        anchors.left  : buttonForward.right
+        anchors.left  : buttonApplication.right
         anchors.right : buttonMini.left
         anchors.top   : parent.top
         anchors.bottom: border.top

@@ -1168,6 +1168,12 @@ MouseArea
                 if (text) text = local.query;
             }
 
+            function onClear()
+            {
+                text  = "";
+                pText = "";
+            }
+
             function onKeyPressed(event)
             {
                 if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)

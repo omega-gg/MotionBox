@@ -254,6 +254,8 @@ Panel
 
             width: buttonFeeds.width
 
+            borderRight: 0
+
             checkable: true
             checked  : (index)
 

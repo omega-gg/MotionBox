@@ -142,9 +142,8 @@ protected: // Events
 private: // Functions
     WLibraryFolder * createLibrary(int id);
 
-    void createBrowse();
-
-    void deleteBrowse();
+    void createBrowse() const;
+    void deleteBrowse() const;
 
     void copyBackends(const QString & path) const;
 

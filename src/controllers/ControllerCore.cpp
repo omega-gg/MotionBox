@@ -841,7 +841,7 @@ WLibraryFolder * ControllerCore::createLibrary(int id)
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::createBrowse()
+void ControllerCore::createBrowse() const
 {
     WLibraryFolderItem browse(WLibraryItem::FolderSearchable);
 
@@ -856,9 +856,7 @@ void ControllerCore::createBrowse()
     _backends->setCurrentIndex(0);
 }
 
-//-------------------------------------------------------------------------------------------------
-
-void ControllerCore::deleteBrowse()
+void ControllerCore::deleteBrowse() const
 {
     QString path = pathStorage() + "/playlists/";
 
@@ -894,9 +892,7 @@ void ControllerCore::copyBackends(const QString & path) const
     {
         if (info.suffix().toLower() != "vbml") continue;
 
-        const QString & fileName = info.filePath();
-
-        fileNames.append(fileName);
+        fileNames.append(info.filePath());
 
         newNames.append(path + info.fileName());
     }

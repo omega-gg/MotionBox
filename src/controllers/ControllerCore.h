@@ -29,6 +29,7 @@
 
 // Forward declarations
 //class QNetworkDiskCache;
+class WControllerFileReply;
 class WAbstractBackend;
 class WAbstractHook;
 class WWindow;
@@ -79,7 +80,7 @@ public: // Interface
 
     Q_INVOKABLE bool updateVersion();
 
-    Q_INVOKABLE void reloadBackends() const;
+    Q_INVOKABLE void resetBackends() const;
 
     Q_INVOKABLE QString openFile    (const QString & title);
     Q_INVOKABLE QString openFolder  (const QString & title);
@@ -145,7 +146,7 @@ private: // Functions
     void createBrowse() const;
     void deleteBrowse() const;
 
-    void copyBackends(const QString & path) const;
+    WControllerFileReply * copyBackends(const QString & path) const;
 
     QString getFile(const QString & title, const QString & filter);
 
@@ -153,6 +154,8 @@ private slots:
     void onLoaded();
 
     void onIndexLoaded();
+
+    void onReload();
 
 signals:
     void logChanged();

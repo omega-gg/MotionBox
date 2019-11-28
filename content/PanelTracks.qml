@@ -180,6 +180,8 @@ Item
 
                         if (backend == null) return;
 
+                        backend.tryDelete();
+
                         event.accepted = true;
 
                         bordersDrop.setItem(buttonAdd);

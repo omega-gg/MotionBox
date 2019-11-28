@@ -150,6 +150,8 @@ ScrollFolder
             {
                 pDropType = core.getPlaylistType(backend, url);
 
+                backend.tryDelete();
+
                 if (pDropType == LibraryItem.PlaylistFeed)
                 {
                      toolTip.show(qsTr("Add Feed"), st.icon32x32_addList, 32, 32);

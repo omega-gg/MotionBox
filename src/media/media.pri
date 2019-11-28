@@ -31,15 +31,6 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_TORRENT/media/WHookTorrent_p.h \
            $$SK_BACKEND/media/WBackendUniversal.h \
            $$SK_BACKEND/media/WBackendUniversal_p.h \
-           $$SK_BACKEND/media/WBackendDuckDuckGo.h \
-           $$SK_BACKEND/media/WBackendBing.h \
-           $$SK_BACKEND/media/WBackendTmdb.h \
-           $$SK_BACKEND/media/WBackendLastFm.h \
-           $$SK_BACKEND/media/WBackendYoutube.h \
-           $$SK_BACKEND/media/WBackendDailymotion.h \
-           $$SK_BACKEND/media/WBackendVimeo.h \
-           $$SK_BACKEND/media/WBackendSoundCloud.h \
-           $$SK_BACKEND/media/WBackendOpenSubtitles.h \
 
 SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
@@ -57,12 +48,3 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_TORRENT/media/WBackendTorrent.cpp \
            $$SK_TORRENT/media/WHookTorrent.cpp \
            $$SK_BACKEND/media/WBackendUniversal.cpp \
-           $$SK_BACKEND/media/WBackendDuckDuckGo.cpp \
-           $$SK_BACKEND/media/WBackendBing.cpp \
-           $$SK_BACKEND/media/WBackendTmdb.cpp \
-           $$SK_BACKEND/media/WBackendLastFm.cpp \
-           $$SK_BACKEND/media/WBackendYoutube.cpp \
-           $$SK_BACKEND/media/WBackendDailymotion.cpp \
-           $$SK_BACKEND/media/WBackendVimeo.cpp \
-           $$SK_BACKEND/media/WBackendSoundCloud.cpp \
-           $$SK_BACKEND/media/WBackendOpenSubtitles.cpp \

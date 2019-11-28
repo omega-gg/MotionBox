@@ -59,15 +59,6 @@
 #include <WTabTrack>
 #include <WBackendIndex>
 #include <WBackendUniversal>
-//#include <WBackendTorrent>
-//#include <WBackendDuckDuckGo>
-//#include <WBackendTmdb>
-//#include <WBackendLastFm>
-//#include <WBackendYoutube>
-//#include <WBackendDailymotion>
-//#include <WBackendVimeo>
-//#include <WBackendSoundCloud>
-//#include <WBackendOpenSubtitles>
 
 // Application includes
 #include "DataLocal.h"
@@ -252,22 +243,6 @@ ControllerCore::ControllerCore() : WController()
     W_CREATE_CONTROLLER_1(WControllerTorrent, path + "/torrents");
 
     //---------------------------------------------------------------------------------------------
-    // Backends
-
-    //new WBackendTorrent;
-
-    //new WBackendDuckDuckGo;
-    //new WBackendTmdb;
-    //new WBackendLastFm;
-
-    //new WBackendYoutube;
-    //new WBackendDailymotion;
-    //new WBackendVimeo;
-    //new WBackendSoundCloud;
-
-    //new WBackendOpenSubtitles;
-
-    //---------------------------------------------------------------------------------------------
     // Cache
 
     _cache = new WCache(path + "/cache", 1048576 * 100); // 100 megabytes
@@ -360,7 +335,9 @@ ControllerCore::ControllerCore() : WController()
     {
         createBrowse();
 
-        copyBackends(path + "/backend/");
+        WControllerFileReply * reply = copyBackends(path + "/backend/");
+
+        connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
     }
     else _index = new WBackendIndex(WControllerFile::fileUrl(path + "/backend"));
 
@@ -449,9 +426,11 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::reloadBackends() const
+/* Q_INVOKABLE */ void ControllerCore::resetBackends() const
 {
-    WBackendLoader::reloadBackends();
+    WControllerFileReply * reply = copyBackends(pathStorage() + "/backend/");
+
+    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -608,7 +587,12 @@ ControllerCore::ControllerCore() : WController()
 
     createBrowse();
 
-    if (_index) _index->createFolderItems(_backends);
+    if (_index)
+    {
+        _index->createFolderItems(_backends);
+
+        _index->clearCache();
+    }
 
     _cache->clearFiles();
 
@@ -875,7 +859,7 @@ void ControllerCore::deleteBrowse() const
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::copyBackends(const QString & path) const
+WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 {
 #ifdef SK_DEPLOY
     QDir dir(WControllerFile::applicationPath("backend"));
@@ -900,9 +884,7 @@ void ControllerCore::copyBackends(const QString & path) const
     wControllerFile->startDeleteFolder(path);
     wControllerFile->startCreateFolder(path);
 
-    WControllerFileReply * reply = wControllerFile->startCopyFiles(fileNames, newNames);
-
-    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
+    return wControllerFile->startCopyFiles(fileNames, newNames);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -931,11 +913,24 @@ void ControllerCore::onLoaded()
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 }
 
+//-------------------------------------------------------------------------------------------------
+
 void ControllerCore::onIndexLoaded()
 {
     disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 
     _index->createFolderItems(_backends);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onReload()
+{
+    WBackendLoader::clearCache();
+
+    if (_index) _index->reload();
+
+    WBackendLoader::reloadBackends();
 }
 
 //-------------------------------------------------------------------------------------------------

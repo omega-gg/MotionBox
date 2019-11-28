@@ -636,15 +636,12 @@ AreaContextual
 
                 panelBrowse.browse(path);
             }
-            else if (id == 2) // Reload backends
+            else if (id == 2) // Update Backends
             {
-                core.reloadBackends();
             }
-            else if (id == 3) // Clear cache
+            else if (id == 3) // Reset Backends
             {
-                panelBrowse.clearEdit();
-
-                core.clearCache();
+                core.resetBackends();
             }
 
             return true;
@@ -806,7 +803,7 @@ AreaContextual
                     { "id": 2, "icon"    : st.icon24x24_refresh,
                                "iconSize": st.size24x24, "title": qsTr("Update Backends") },
 
-                    { "id": 3, "title": qsTr("Clear cache") }
+                    { "id": 3, "title": qsTr("Reset Backends") }
                 ]
             }
         }

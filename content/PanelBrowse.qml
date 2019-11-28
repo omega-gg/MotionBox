@@ -40,8 +40,7 @@ MouseArea
     property bool pStateActive: (scrollPlaylists.count > 1)
 
     property string pSearchEngine: "duckduckgo"
-
-    property url pSearchCover: pGetSearchCover()
+    property string pSearchCover
 
     property bool pBrowsing: (pFolderBackends.currentId == 1)
     property bool pLoading : false
@@ -828,15 +827,19 @@ MouseArea
 
             if (host)
             {
-                buttonsBrowse.pushItem(host, pSearchCover);
+                buttonsBrowse.pushItem(host, pGetSearchCover());
 
                 buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
+
+                backend.tryDelete();
 
                 return 1;
             }
             else
             {
                 buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
+
+                backend.tryDelete();
 
                 return 0;
             }
@@ -856,13 +859,18 @@ MouseArea
         {
              buttonsBrowse.pushItem(title);
         }
-        else buttonsBrowse.pushItem(title, pSearchCover);
+        else buttonsBrowse.pushItem(title, pGetSearchCover());
 
         var backend = controllerPlaylist.backendFromUrl(title);
 
-        if (backend && backend.hasSearch())
+        if (backend)
         {
-            buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
+            if (backend.hasSearch())
+            {
+                buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
+            }
+
+            backend.tryDelete();
         }
     }
 
@@ -1036,11 +1044,14 @@ MouseArea
 
     function pGetSearchCover()
     {
+        if (pSearchCover) return pSearchCover;
+
         if (gui.isLoaded)
         {
-             return controllerPlaylist.backendCoverFromId(pSearchEngine);
+            pSearchCover = controllerPlaylist.backendCoverFromId(pSearchEngine);
         }
-        else return "";
+
+        return pSearchCover;
     }
 
     //---------------------------------------------------------------------------------------------

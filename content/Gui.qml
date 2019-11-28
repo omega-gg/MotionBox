@@ -2689,7 +2689,7 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            core.reloadBackends();
+            core.resetBackends();
         }
         else if (event.key == Qt.Key_P && event.modifiers == Qt.ControlModifier)
         {

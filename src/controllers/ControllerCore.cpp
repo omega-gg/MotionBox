@@ -339,7 +339,14 @@ ControllerCore::ControllerCore() : WController()
 
         connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
     }
-    else _index = new WBackendIndex(WControllerFile::fileUrl(path + "/backend"));
+    else
+    {
+        _index = new WBackendIndex(WControllerFile::fileUrl(path + "/backend"));
+
+#ifndef SK_DEPLOY
+        applyWatcher();
+#endif
+    }
 
     emit backendsChanged();
 
@@ -881,11 +888,32 @@ WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
         newNames.append(path + info.fileName());
     }
 
-    wControllerFile->startDeleteFolder(path);
-    wControllerFile->startCreateFolder(path);
+    if (QFile::exists(path))
+    {
+         wControllerFile->startDeleteFolderContent(path);
+    }
+    else wControllerFile->startCreateFolder(path);
 
     return wControllerFile->startCopyFiles(fileNames, newNames);
 }
+
+//-------------------------------------------------------------------------------------------------
+
+#ifndef SK_DEPLOY
+
+void ControllerCore::applyWatcher()
+{
+    // NOTE: This makes sure that we have the latest local vbml loaded.
+    resetBackends();
+
+    // NOTE: We want to reload backends when the folder changes.
+    _watcher.addFolder(WControllerFile::applicationPath(PATH_BACKEND));
+
+    connect(&_watcher, SIGNAL(foldersModified(const QString &, const QStringList &)),
+            this,      SLOT(resetBackends()));
+}
+
+#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -917,9 +945,13 @@ void ControllerCore::onLoaded()
 
 void ControllerCore::onIndexLoaded()
 {
-    disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+    disconnect(_index, 0, this, 0);
 
     _index->createFolderItems(_backends);
+
+#ifndef SK_DEPLOY
+    applyWatcher();
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

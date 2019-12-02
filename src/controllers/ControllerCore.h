@@ -23,6 +23,9 @@
 // Sk includes
 #include <WController>
 #include <WLibraryItem>
+#ifndef SK_DEPLOY
+#include <WFileWatcher>
+#endif
 
 // Defines
 #define core ControllerCore::instance()
@@ -148,6 +151,10 @@ private: // Functions
 
     WControllerFileReply * copyBackends(const QString & path) const;
 
+#ifndef SK_DEPLOY
+    void applyWatcher();
+#endif
+
     QString getFile(const QString & title, const QString & filter);
 
 private slots:
@@ -225,6 +232,10 @@ private: // Variables
 
     QString _pathSplash;
     QString _pathOpen;
+
+#ifndef SK_DEPLOY
+    WFileWatcher _watcher;
+#endif
 
 private:
     Q_DISABLE_COPY      (ControllerCore)

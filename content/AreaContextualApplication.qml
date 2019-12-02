@@ -181,7 +181,6 @@ AreaContextual
                     }
                     else
                     {
-                        pageFolder.set(3, { "title": qsTr("Webpage")         });
                         pageFolder.set(7, { "title": qsTr("Remove Playlist") });
 
                         pageFolder.setItemVisible(3, true);
@@ -229,7 +228,6 @@ AreaContextual
                     }
                     else
                     {
-                        pageFolder.set(3, { "title": qsTr("Webpage")     });
                         pageFolder.set(7, { "title": qsTr("Remove Feed") });
 
                         pageFolder.setItemVisible(3, true);
@@ -292,11 +290,7 @@ AreaContextual
 
                 if (folder.itemIsLocal(index) == false)
                 {
-                    var source = folder.itemSource(index);
-
-                    pageFolder.set(3, { "title": gui.getOpenTitle(source) });
-
-                    pageFolder.setItemVisible(3, true);
+                     pageFolder.setItemVisible(3, true);
                 }
                 else pageFolder.setItemVisible(3, false);
 
@@ -353,9 +347,7 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTrack.set(3, { "title": gui.getOpenTitle(pSource) });
-
-                    pageTrack.setItemVisible(3, true);
+                     pageTrack.setItemVisible(3, true);
                 }
                 else pageTrack.setItemVisible(3, false);
 
@@ -415,9 +407,7 @@ AreaContextual
 
                 if (pSource)
                 {
-                    pageTab.set(3, { "title": gui.getOpenTitle(pSource) });
-
-                    pageTab.setItemVisible(3, true);
+                     pageTab.setItemVisible(3, true);
                 }
                 else pageTab.setItemVisible(3, false);
             }
@@ -428,7 +418,6 @@ AreaContextual
                 pFeed   = "";
 
                 pageTab.setItemEnabled(1, false);
-
                 pageTab.setItemVisible(3, false);
             }
 
@@ -461,11 +450,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Webpage
+            else if (id == 2) // Copy link
             {
                 var source = pItem.folder.itemSource(pIndex);
 
-                gui.openSource(source);
+                sk.setClipboardText(source);
             }
             else if (id == 3) // Rename
             {
@@ -522,11 +511,11 @@ AreaContextual
 
                 pBrowse(core.getQuery(title));
             }
-            else if (id == 2) // Webpage
+            else if (id == 2) // Copy link
             {
                 var source = pItem.playlist.trackSource(pIndex);
 
-                gui.openSource(source);
+                sk.setClipboardText(source);
             }
             else if (id == 3) // Set as Cover
             {
@@ -592,9 +581,9 @@ AreaContextual
             {
                 pBrowse(core.getQuery(pItem.title));
             }
-            else if (id == 2) // Webpage
+            else if (id == 2) // Copy link
             {
-                gui.openSource(pItem.source);
+                sk.setClipboardText(pItem.source);
             }
             else if (id == 3) // Close other tabs
             {
@@ -711,7 +700,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16 },
+                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
 
                     { "id": 3, "title": qsTr("Rename")      },
                     { "id": 4, "title": qsTr("Move to ...") },
@@ -740,7 +729,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16 },
+                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
 
                     { "id": 3, "title": qsTr("Set as Cover") },
                     { "id": 4, "title": qsTr("Remove Track") }
@@ -779,7 +768,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Browse") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16 },
+                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
 
                     { "id": 3, "title": qsTr("Close other Tabs") },
                     { "id": 4, "title": qsTr("Close all Tabs")   }

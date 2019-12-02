@@ -939,6 +939,10 @@ void ControllerCore::onLoaded()
     _index = new WBackendIndex(WControllerFile::fileUrl(pathStorage() + "/backend"));
 
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+
+#ifndef SK_DEPLOY
+    applyWatcher();
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -948,10 +952,6 @@ void ControllerCore::onIndexLoaded()
     disconnect(_index, 0, this, 0);
 
     _index->createFolderItems(_backends);
-
-#ifndef SK_DEPLOY
-    applyWatcher();
-#endif
 }
 
 //-------------------------------------------------------------------------------------------------

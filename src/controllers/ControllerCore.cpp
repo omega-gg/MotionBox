@@ -339,14 +339,7 @@ ControllerCore::ControllerCore() : WController()
 
         connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
     }
-    else
-    {
-        _index = new WBackendIndex(WControllerFile::fileUrl(path + "/backend"));
-
-#ifndef SK_DEPLOY
-        applyWatcher();
-#endif
-    }
+    else createIndex(path + "/backend");
 
     emit backendsChanged();
 
@@ -433,11 +426,20 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::resetBackends() const
+/* Q_INVOKABLE */ void ControllerCore::reloadBackends() const
 {
     WControllerFileReply * reply = copyBackends(pathStorage() + "/backend/");
 
     connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
+}
+
+/* Q_INVOKABLE */ void ControllerCore::resetBackends() const
+{
+    if (_index == NULL) return;
+
+    updateBackends();
+
+    _index->update();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -598,7 +600,7 @@ ControllerCore::ControllerCore() : WController()
     {
         _index->createFolderItems(_backends);
 
-        _index->clearCache();
+        WBackendLoader::clearCache();
     }
 
     _cache->clearFiles();
@@ -866,6 +868,15 @@ void ControllerCore::deleteBrowse() const
 
 //-------------------------------------------------------------------------------------------------
 
+void ControllerCore::createIndex(const QString & path)
+{
+    _index = new WBackendIndex(WControllerFile::fileUrl(path));
+
+    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+}
+
+//-------------------------------------------------------------------------------------------------
+
 WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 {
 #ifdef SK_DEPLOY
@@ -899,21 +910,24 @@ WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 
 //-------------------------------------------------------------------------------------------------
 
-#ifndef SK_DEPLOY
-
-void ControllerCore::applyWatcher()
+void ControllerCore::updateBackends() const
 {
-    // NOTE: This makes sure that we have the latest local vbml loaded.
-    resetBackends();
+    QString label = _backends->itemLabel(_backends->currentIndex());
 
-    // NOTE: We want to reload backends when the folder changes.
-    _watcher.addFolder(WControllerFile::applicationPath(PATH_BACKEND));
+    _backends->clearItems();
 
-    connect(&_watcher, SIGNAL(foldersModified(const QString &, const QStringList &)),
-            this,      SLOT(resetBackends()));
+    createBrowse();
+
+    _index->createFolderItems(_backends);
+
+    int index = _backends->indexFromLabel(label);
+
+    if (index == -1)
+    {
+         _backends->setCurrentIndex(0);
+    }
+    else _backends->setCurrentIndex(index);
 }
-
-#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -936,22 +950,41 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
 
 void ControllerCore::onLoaded()
 {
-    _index = new WBackendIndex(WControllerFile::fileUrl(pathStorage() + "/backend"));
+    createIndex(pathStorage() + "/backend");
+}
 
-    connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+void ControllerCore::onIndexLoaded()
+{
+    disconnect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 
-#ifndef SK_DEPLOY
-    applyWatcher();
+    connect(_index, SIGNAL(updated()), this, SLOT(onUpdated()));
+
+    connect(_index, SIGNAL(backendUpdated(QString)), this, SLOT(onBackendUpdated(QString)));
+
+    if (_backends->count() == 1)
+    {
+        _index->createFolderItems(_backends);
+    }
+
+#if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
+    // NOTE: This makes sure that we have the latest local vbml loaded.
+    reloadBackends();
+
+    // NOTE: We want to reload backends when the folder changes.
+    _watcher.addFolder(WControllerFile::applicationPath(PATH_BACKEND));
+
+    connect(&_watcher, SIGNAL(foldersModified(const QString &, const QStringList &)),
+            this,      SLOT(reloadBackends()));
+#else
+    _index->update();
 #endif
 }
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::onIndexLoaded()
+void ControllerCore::onUpdated()
 {
-    disconnect(_index, 0, this, 0);
-
-    _index->createFolderItems(_backends);
+    updateBackends();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -963,6 +996,19 @@ void ControllerCore::onReload()
     if (_index) _index->reload();
 
     WBackendLoader::reloadBackends();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onBackendUpdated(const QString & id)
+{
+    int index = _backends->indexFromLabel(id);
+
+    if (index == -1) return;
+
+    WLibraryItem * item = _backends->createLibraryItemAt(index);
+
+    item->reloadQuery();
 }
 
 //-------------------------------------------------------------------------------------------------

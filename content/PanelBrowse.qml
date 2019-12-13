@@ -815,11 +815,17 @@ MouseArea
             else return -1;
         }
 
-        buttonsBrowse.clearItems();
+        if (pFolderBrowse == null)
+        {
+            buttonsBrowse.clearItems();
 
-        if (pFolderBrowse == null) return -1;
+            return -1;
+        }
 
         var backend = controllerPlaylist.backendFromId(pFolderBrowse.label);
+
+        // NOTE: We need to clear items after creating the backend because of processEvents.
+        buttonsBrowse.clearItems();
 
         if (backend)
         {
@@ -849,9 +855,12 @@ MouseArea
 
     function pUpdateButtonsBrowsing()
     {
-        buttonsBrowse.clearItems();
+        if (pItemBrowse == null)
+        {
+            buttonsBrowse.clearItems();
 
-        if (pItemBrowse == null) return;
+            return;
+        }
 
         var title = pItemBrowse.title;
 
@@ -862,6 +871,9 @@ MouseArea
         else buttonsBrowse.pushItem(title, pGetSearchCover());
 
         var backend = controllerPlaylist.backendFromUrl(title);
+
+        // NOTE: We need to clear items after creating the backend because of processEvents.
+        buttonsBrowse.clearItems();
 
         if (backend)
         {

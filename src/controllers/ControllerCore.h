@@ -83,7 +83,8 @@ public: // Interface
 
     Q_INVOKABLE bool updateVersion();
 
-    Q_INVOKABLE void resetBackends() const;
+    Q_INVOKABLE void reloadBackends() const;
+    Q_INVOKABLE void resetBackends () const;
 
     Q_INVOKABLE QString openFile    (const QString & title);
     Q_INVOKABLE QString openFolder  (const QString & title);
@@ -149,20 +150,23 @@ private: // Functions
     void createBrowse() const;
     void deleteBrowse() const;
 
+    void createIndex(const QString & path);
+
     WControllerFileReply * copyBackends(const QString & path) const;
 
-#ifndef SK_DEPLOY
-    void applyWatcher();
-#endif
+    void updateBackends() const;
 
     QString getFile(const QString & title, const QString & filter);
 
 private slots:
-    void onLoaded();
-
+    void onLoaded     ();
     void onIndexLoaded();
 
+    void onUpdated();
+
     void onReload();
+
+    void onBackendUpdated(const QString & id);
 
 signals:
     void logChanged();

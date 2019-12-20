@@ -23,7 +23,7 @@ contains(QT_MAJOR_VERSION, 4) {
 contains(QT_MAJOR_VERSION, 5) {
     win32:QT += winextras
 
-    unix:QT += x11extras
+    unix:!macx:QT += x11extras
 }
 
 macx: CONFIG -= app_bundle
@@ -102,13 +102,26 @@ win32:LIBS += -L$$SK/lib -lz \
               -L$$SK/lib -lboost_system \
               -lmswsock -lws2_32 \
 
-unix:LIBS += -lz \
-             -lvlc \
-             -ltorrent-rasterbar \
-             -lboost_system -lboost_random -lboost_chrono \
+macx:LIBS += -lz \
+             -L$$SK/lib -lvlc \
+             -L$$SK/lib -ltorrent \
+             -L$$SK/lib -lboost_system \
 
-unix:contains(QT_MAJOR_VERSION, 4) {
+unix:!macx:LIBS += -lz \
+                   -lvlc \
+                   -ltorrent-rasterbar \
+                   -lboost_system -lboost_random -lboost_chrono \
+
+unix:!macx:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11
+}
+
+macx {
+    QMAKE_POST_LINK = install_name_tool -change libtorrent.dylib.1.2.2 \
+                      @loader_path/libtorrent.dylib $${DESTDIR}/$${TARGET};
+
+    QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \
+                       @loader_path/libboost_system.dylib $${DESTDIR}/$${TARGET};
 }
 
 RC_FILE = dist/MotionBox.rc

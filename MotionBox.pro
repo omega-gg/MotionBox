@@ -100,8 +100,6 @@ win32:LIBS += -L$$SK/lib -lz \
               -L$$SK/lib -llibvlc \
               -L$$SK/lib -ltorrent \
               -L$$SK/lib -lboost_system \
-              -L$$SK/lib -lboost_random \
-              -L$$SK/lib -lboost_chrono \
               -lmswsock -lws2_32 \
 
 unix:LIBS += -lz \

@@ -117,8 +117,14 @@ unix:!macx:contains(QT_MAJOR_VERSION, 4) {
 }
 
 macx {
-    QMAKE_POST_LINK = install_name_tool -change libtorrent.dylib.1.2.2 \
-                      @loader_path/libtorrent.dylib $${DESTDIR}/$${TARGET};
+    QMAKE_POST_LINK = install_name_tool -change @rpath/libvlccore.dylib \
+                      @loader_path/libvlccore.dylib $${DESTDIR}/libvlc.dylib;
+
+    QMAKE_POST_LINK += install_name_tool -change @rpath/libvlc.dylib \
+                       @loader_path/libvlc.dylib $${DESTDIR}/$${TARGET};
+
+    QMAKE_POST_LINK += install_name_tool -change libtorrent.dylib.1.2.2 \
+                       @loader_path/libtorrent.dylib $${DESTDIR}/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \
                        @loader_path/libboost_system.dylib $${DESTDIR}/$${TARGET};

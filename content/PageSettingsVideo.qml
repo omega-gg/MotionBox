@@ -252,6 +252,8 @@ Item
         currentIndex : pQuality       - 1
         currentActive: pQualityActive - 1
 
+        elide: Text.ElideNone
+
         Component.onCompleted:
         {
             model.append({ "title": qsTr("240p")  });

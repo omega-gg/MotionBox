@@ -70,7 +70,7 @@ ScrollPlaylist
 
             bordersDrop.setItem(container);
 
-            toolTip.show(qsTr("Add Track"), st.icon32x32_addList, 32, 32);
+            toolTip.show(qsTr("Add Track"), st.icon32x32_addList, st.dp32, st.dp32);
         }
     }
 

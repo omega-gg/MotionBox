@@ -2503,7 +2503,7 @@ Item
 
             bordersDrop.setItem(gui);
 
-            toolTip.show(qsTr("Open Subtitle"), st.icon32x32_track, 32, 32);
+            toolTip.show(qsTr("Open Subtitle"), st.icon32x32_track, st.dp32, st.dp32);
 
             dragType = -2;
 
@@ -2522,13 +2522,13 @@ Item
         {
             if (player.isPlaying && highlightedTab == null)
             {
-                toolTip.show(qsTr("Play Track"), st.icon24x24_play, 24, 24);
+                toolTip.show(qsTr("Play Track"), st.icon24x24_play, st.dp24, st.dp24);
 
                 dragType = 1;
             }
             else
             {
-                toolTip.show(qsTr("Browse Track"), st.icon32x32_track, 32, 32);
+                toolTip.show(qsTr("Browse Track"), st.icon32x32_track, st.dp32, st.dp32);
 
                 dragType = 0;
             }
@@ -2539,13 +2539,13 @@ Item
 
             if (type == LibraryItem.Playlist)
             {
-                toolTip.show(qsTr("Browse Playlist"), st.icon32x32_playlist, 32, 32);
+                toolTip.show(qsTr("Browse Playlist"), st.icon32x32_playlist, st.dp32, st.dp32);
             }
             else if (type == LibraryItem.PlaylistFeed)
             {
-                toolTip.show(qsTr("Browse Feed"), st.icon32x32_feed, 32, 32);
+                toolTip.show(qsTr("Browse Feed"), st.icon32x32_feed, st.dp32, st.dp32);
             }
-            else toolTip.show(qsTr("Browse URL"), st.icon32x32_search, 32, 32);
+            else toolTip.show(qsTr("Browse URL"), st.icon32x32_search, st.dp32, st.dp32);
 
             dragType = 0;
         }

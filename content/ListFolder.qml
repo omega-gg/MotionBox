@@ -710,7 +710,7 @@ BaseList
             cover = st.icon32x32_folder;
         }
 
-        toolTip.showIcon(title, cover, folder.itemCover(index), 32, 32);
+        toolTip.showIcon(title, cover, folder.itemCover(index), st.dp32, st.dp32);
 
         if (enableDragMove)
         {

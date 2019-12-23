@@ -139,7 +139,7 @@ ScrollFolder
             {
                 pDropType = 0;
 
-                toolTip.show(qsTr("Add Track"), st.icon32x32_addList, 32, 32);
+                toolTip.show(qsTr("Add Track"), st.icon32x32_addList, st.dp32, st.dp32);
 
                 return;
             }
@@ -154,15 +154,15 @@ ScrollFolder
 
                 if (pDropType == LibraryItem.PlaylistFeed)
                 {
-                     toolTip.show(qsTr("Add Feed"), st.icon32x32_addList, 32, 32);
+                     toolTip.show(qsTr("Add Feed"), st.icon32x32_addList, st.dp32, st.dp32);
                 }
-                else toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, 32, 32);
+                else toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, st.dp32, st.dp32);
             }
             else
             {
                 pDropType = LibraryItem.Playlist;
 
-                toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, 32, 32);
+                toolTip.show(qsTr("Add Playlist"), st.icon32x32_addList, st.dp32, st.dp32);
             }
         }
     }

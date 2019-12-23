@@ -60,7 +60,7 @@ BasePageSettings
 
         bordersDrop.setItem(pageSettingsProxy);
 
-        toolTip.show(qsTr("Paste proxy"), st.icon32x32_paste, 32, 32);
+        toolTip.show(qsTr("Paste proxy"), st.icon32x32_paste, st.dp32, st.dp32);
     }
 
     onDragExited:

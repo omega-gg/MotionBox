@@ -1071,13 +1071,13 @@ BaseList
 
             source = data.source;
 
-            toolTip.showIcon(data.title, st.icon56x32_track, data.cover, 42, 32);
+            toolTip.showIcon(data.title, st.icon56x32_track, data.cover, st.dp56, st.dp32);
         }
         else
         {
             source = playlist.selectedSources;
 
-            toolTip.show(count + " " + qsTr("Tracks"), st.icon32x32_track, 32, 32);
+            toolTip.show(count + " " + qsTr("Tracks"), st.icon32x32_track, st.dp32, st.dp32);
         }
 
         if (enableDragMove)

@@ -281,8 +281,6 @@ BasePageSettings
 
         width: labelWidth + st.dp32
 
-        labelWidth: st.dp180
-
         text: qsTr("Maximum connections")
 
         editText: local.torrentConnections

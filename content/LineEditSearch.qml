@@ -67,7 +67,7 @@ LineEditBox
     {
         if (event.key == Qt.Key_Up)
         {
-            if (event.modifiers == Qt.NoModifier)
+            if (sk.keypadModifier(event.modifiers))
             {
                 event.accepted = true;
 
@@ -82,7 +82,7 @@ LineEditBox
         }
         else if (event.key == Qt.Key_Down)
         {
-            if (event.modifiers == Qt.NoModifier)
+            if (sk.keypadModifier(event.modifiers))
             {
                 event.accepted = true;
 

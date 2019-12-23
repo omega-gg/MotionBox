@@ -1199,7 +1199,7 @@ MouseArea
 
             function onKeyPressed(event)
             {
-                if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1214,7 +1214,7 @@ MouseArea
                     }
                     else buttonBrowse.focus();
                 }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 

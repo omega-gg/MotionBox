@@ -3020,7 +3020,7 @@ Item
             }
             else if (playerBrowser.visible)
             {
-                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
+                if (sk.keypadModifier(event.modifiers) && event.isAutoRepeat == false)
                 {
                     playerBrowser.buttonPrevious.returnPressed();
                 }
@@ -3042,7 +3042,7 @@ Item
             }
             else if (playerBrowser.visible)
             {
-                if (event.modifiers == Qt.NoModifier && event.isAutoRepeat == false)
+                if (sk.keypadModifier(event.modifiers) && event.isAutoRepeat == false)
                 {
                     playerBrowser.buttonNext.returnPressed();
                 }

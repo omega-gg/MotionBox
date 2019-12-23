@@ -241,7 +241,7 @@ PanelContextual
         }
         else if ((event.key == Qt.Key_Up || event.key == Qt.Key_Down)
                  &&
-                 event.modifiers == Qt.NoModifier)
+                 sk.keypadModifier(event.modifiers))
         {
             event.accepted = true;
 
@@ -984,11 +984,11 @@ PanelContextual
 
                 Keys.onPressed:
                 {
-                    if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                    if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
                     {
                         event.accepted = true;
                     }
-                    else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                    else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                     {
                         event.accepted = true;
 
@@ -1026,7 +1026,7 @@ PanelContextual
 
             function onKeyPressed(event)
             {
-                if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1035,7 +1035,7 @@ PanelContextual
                         itemLibrary.selectIndex();
                     }
                 }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1184,7 +1184,7 @@ PanelContextual
             {
                 var index;
 
-                if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Left && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1195,7 +1195,7 @@ PanelContextual
                         pOnCollapse();
                     }
                 }
-                else if (event.key == Qt.Key_Right && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Right && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1217,7 +1217,7 @@ PanelContextual
                         }
                     }
                 }
-                else if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1236,7 +1236,7 @@ PanelContextual
                         itemLibrary.selectIndex();
                     }
                 }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1361,7 +1361,7 @@ PanelContextual
 
                     listLibrary.focus();
                 }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1473,17 +1473,17 @@ PanelContextual
             {
                 var index;
 
-                if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
+                if (event.key == Qt.Key_Left && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
                     listLibrary.focus();
                 }
-                else if (event.key == Qt.Key_Right && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Right && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
                 }
-                else if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 
@@ -1500,7 +1500,7 @@ PanelContextual
                         itemListB.selectIndex();
                     }
                 }
-                else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+                else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
                 {
                     event.accepted = true;
 

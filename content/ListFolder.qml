@@ -138,19 +138,19 @@ BaseList
     {
         if (folder == null) return;
 
-        if (event.key == Qt.Key_Left && event.modifiers == Qt.NoModifier)
+        if (event.key == Qt.Key_Left && sk.keypadModifier(event.modifiers))
         {
             event.accepted = true;
 
             if (itemLeft) itemLeft.focus();
         }
-        else if (event.key == Qt.Key_Right && event.modifiers == Qt.NoModifier)
+        else if (event.key == Qt.Key_Right && sk.keypadModifier(event.modifiers))
         {
             event.accepted = true;
 
             if (itemRight) itemRight.focus();
         }
-        else if (event.key == Qt.Key_Up && event.modifiers == Qt.NoModifier)
+        else if (event.key == Qt.Key_Up && sk.keypadModifier(event.modifiers))
         {
             event.accepted = true;
 
@@ -165,7 +165,7 @@ BaseList
 
             areaContextual.hidePanels();
         }
-        else if (event.key == Qt.Key_Down && event.modifiers == Qt.NoModifier)
+        else if (event.key == Qt.Key_Down && sk.keypadModifier(event.modifiers))
         {
             event.accepted = true;
 
@@ -991,7 +991,7 @@ BaseList
         {
             if ((event.key == Qt.Key_Up || event.key == Qt.Key_Down)
                 &&
-                event.modifiers == Qt.NoModifier)
+                sk.keypadModifier(event.modifiers))
             {
                 event.accepted = true;
 

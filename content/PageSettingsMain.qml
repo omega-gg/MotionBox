@@ -71,6 +71,15 @@ Item
 //#END
     }
 
+    function pApplyScale()
+    {
+        pSetScale(editScale.text);
+
+        editScale.selectAll();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function pSetScale(percent)
     {
         if (percent < 80)
@@ -491,9 +500,11 @@ Item
             {
                 event.accepted = true;
 
-                pSetScale(text);
-
-                editScale.selectAll();
+//#QT_4
+                pApplyScale();
+//#ELSE
+                Qt.callLater(pApplyScale);
+//#END
             }
             else if (event.key == Qt.Key_Escape)
             {

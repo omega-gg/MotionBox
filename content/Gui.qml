@@ -2617,7 +2617,7 @@ Item
     {
         if (event.key == Qt.Key_Left)
         {
-            if (event.modifiers == (Qt.AltModifier))
+            if (event.modifiers == sk.keypad(Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -2629,7 +2629,7 @@ Item
                 }
                 else itemTabs.selectPrevious();
             }
-            else if (event.modifiers == (Qt.ControlModifier | Qt.AltModifier))
+            else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -2638,7 +2638,7 @@ Item
         }
         else if (event.key == Qt.Key_Right)
         {
-            if (event.modifiers == (Qt.AltModifier))
+            if (event.modifiers == sk.keypad(Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -2650,7 +2650,7 @@ Item
                 }
                 else itemTabs.selectNext();
             }
-            else if (event.modifiers == (Qt.ControlModifier | Qt.AltModifier))
+            else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -3014,20 +3014,20 @@ Item
     {
         if (event.key == Qt.Key_Left)
         {
-            if (event.modifiers == Qt.ControlModifier)
+            if (event.modifiers == sk.keypad(Qt.ControlModifier))
             {
                 barControls.buttonPrevious.returnPressed();
             }
             else if (playerBrowser.visible)
             {
-                if (sk.keypadModifier(event.modifiers) && event.isAutoRepeat == false)
+                if (event.modifiers == sk.keypad(Qt.NoModifier) && event.isAutoRepeat == false)
                 {
                     playerBrowser.buttonPrevious.returnPressed();
                 }
             }
             else if (player.isPlaying)
             {
-                if (event.modifiers == Qt.ShiftModifier)
+                if (event.modifiers == sk.keypad(Qt.ShiftModifier))
                 {
                      sliderStream.moveTo(sliderStream.value - st.sliderStream_intervalB);
                 }
@@ -3036,20 +3036,20 @@ Item
         }
         else if (event.key == Qt.Key_Right)
         {
-            if (event.modifiers == Qt.ControlModifier)
+            if (event.modifiers == sk.keypad(Qt.ControlModifier))
             {
                 barControls.buttonNext.returnPressed();
             }
             else if (playerBrowser.visible)
             {
-                if (sk.keypadModifier(event.modifiers) && event.isAutoRepeat == false)
+                if (event.modifiers == sk.keypad(Qt.NoModifier) && event.isAutoRepeat == false)
                 {
                     playerBrowser.buttonNext.returnPressed();
                 }
             }
             else if (player.isPlaying)
             {
-                if (event.modifiers == Qt.ShiftModifier)
+                if (event.modifiers == sk.keypad(Qt.ShiftModifier))
                 {
                      sliderStream.moveTo(sliderStream.value + st.sliderStream_intervalB);
                 }
@@ -3058,7 +3058,7 @@ Item
         }
         else if (event.key == Qt.Key_Up)
         {
-            if (event.modifiers == Qt.ControlModifier)
+            if (event.modifiers == sk.keyPad(Qt.ControlModifier))
             {
                 restoreBars();
 
@@ -3090,7 +3090,7 @@ Item
         }
         else if (event.key == Qt.Key_Down)
         {
-            if (event.modifiers == Qt.ControlModifier)
+            if (event.modifiers == sk.keypad(Qt.ControlModifier))
             {
                 restoreBars();
 

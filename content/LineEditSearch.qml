@@ -67,13 +67,13 @@ LineEditBox
     {
         if (event.key == Qt.Key_Up)
         {
-            if (sk.keypadModifier(event.modifiers))
+            if (event.modifiers == sk.keypad(Qt.NoModifier))
             {
                 event.accepted = true;
 
                 panelSearch.selectPrevious();
             }
-            else if (event.modifiers == Qt.AltModifier)
+            else if (event.modifiers == sk.keypad(Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -82,13 +82,13 @@ LineEditBox
         }
         else if (event.key == Qt.Key_Down)
         {
-            if (sk.keypadModifier(event.modifiers))
+            if (event.modifiers == sk.keypad(Qt.NoModifier))
             {
                 event.accepted = true;
 
                 panelSearch.selectNext();
             }
-            else if (event.modifiers == Qt.AltModifier)
+            else if (event.modifiers == sk.keypad(Qt.AltModifier))
             {
                 event.accepted = true;
 

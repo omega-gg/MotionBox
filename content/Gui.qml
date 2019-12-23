@@ -3058,7 +3058,7 @@ Item
         }
         else if (event.key == Qt.Key_Up)
         {
-            if (event.modifiers == sk.keyPad(Qt.ControlModifier))
+            if (event.modifiers == sk.keypad(Qt.ControlModifier))
             {
                 restoreBars();
 

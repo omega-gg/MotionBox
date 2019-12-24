@@ -326,7 +326,9 @@ Item
             }
             else if (playlist.currentIndex != -1)
             {
-                if (playlist.isFeed)
+                playlistIndex = playlist.currentIndex;
+
+                /*if (playlist.isFeed)
                 {
                     if (playlist.currentIndex > 0)
                     {
@@ -341,7 +343,7 @@ Item
                          playlistIndex = playlist.currentIndex + 1;
                     }
                     else playlistIndex = playlist.currentIndex;
-                }
+                }*/
             }
             else playlistIndex = 0;
         }

@@ -1427,7 +1427,7 @@ BaseList
 
         width: height + borderSizeWidth
 
-        height: st.list_itemBase
+        height: st.list_itemHeight
 
         y: itemWatcher.y
 

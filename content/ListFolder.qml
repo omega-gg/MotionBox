@@ -871,7 +871,7 @@ BaseList
     {
         id: overlay
 
-        width : st.list_itemBase + borderSizeWidth
+        width : st.list_itemHeight + borderSizeWidth
         height: itemSize
 
         y: indexHover * itemSize
@@ -965,7 +965,7 @@ BaseList
         anchors.top   : lineEdit.top
         anchors.bottom: lineEdit.bottom
 
-        x: st.list_itemBase
+        x: st.list_itemHeight
 
         visible: lineEdit.visible
     }
@@ -977,7 +977,7 @@ BaseList
         anchors.left : border.right
         anchors.right: parent.right
 
-        height: st.list_itemBase
+        height: st.list_itemHeight
 
         y: indexEdit * itemSize
 

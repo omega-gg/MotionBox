@@ -117,7 +117,7 @@ AreaContextual
         //-----------------------------------------------------------------------------------------
 
         minimumWidth : st.dp160
-        minimumHeight: st.dp32
+        minimumHeight: st.list_itemBase
 
         preferredWidth : st.dp160
         preferredHeight: pGetPreferredHeight()

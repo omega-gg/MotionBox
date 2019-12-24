@@ -106,7 +106,7 @@ Style
     //---------------------------------------------------------------------------------------------
     // ComponentDiscover
 
-    property int componentDiscover_height: dp48 + border_size
+    //property int componentDiscover_height: dp48 + border_size
 
     //---------------------------------------------------------------------------------------------
     // Icons

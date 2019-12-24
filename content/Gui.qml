@@ -209,11 +209,10 @@ Item
 
     property alias buttonBackward: barTop.buttonBackward
     property alias buttonForward : barTop.buttonForward
-    property alias buttonDiscover: barTop.buttonDiscover
-    property alias buttonBrowse  : barTop.buttonBrowse
 
     property alias lineEditSearch: barTop.lineEditSearch
 
+    property alias buttonBrowse : barTop.buttonBrowse
     property alias buttonExpand : barTop.buttonExpand
     property alias buttonWall   : barTop.buttonWall
     property alias buttonRelated: barTop.buttonRelated
@@ -268,7 +267,7 @@ Item
     property alias buttonAdd: barControls.buttonAdd
 
     property alias buttonSettings  : barControls.buttonSettings
-    property alias buttonShare     : barControls.buttonShare
+    property alias buttonGet       : barControls.buttonGet
     property alias buttonFullScreen: barControls.buttonFullScreen
 
     property alias sliderVolume: barControls.sliderVolume
@@ -780,7 +779,7 @@ Item
 
         areaContextual.hidePanels();
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         panelLibrary.saveScroll();
 
@@ -805,7 +804,7 @@ Item
 
         if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         if (panelBrowse.isExposed)
         {
@@ -980,7 +979,7 @@ Item
 
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         wall.expose();
 
@@ -993,7 +992,7 @@ Item
     {
         if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         wall.restore();
 
@@ -1479,7 +1478,7 @@ Item
         panelSettings.collapse();
         panelGet     .collapse();
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         panelCover.clearItem();
     }
@@ -2716,13 +2715,13 @@ Item
 
             barWindow.buttonClose.returnPressed();
         }
-        else if (event.key == Qt.Key_F1)
+        else if (event.key == Qt.Key_F1) // Application
         {
             event.accepted = true;
 
             buttonApplication.returnPressed();
         }
-        else if (event.key == Qt.Key_F2)
+        else if (event.key == Qt.Key_F2) // Expand
         {
             event.accepted = true;
 
@@ -2730,7 +2729,7 @@ Item
 
             buttonExpand.returnPressed();
         }
-        else if (event.key == Qt.Key_F3)
+        else if (event.key == Qt.Key_F3) // Wall
         {
             event.accepted = true;
 
@@ -2742,7 +2741,7 @@ Item
             }
             else panelTracks.restore();
         }
-        else if (event.key == Qt.Key_F4)
+        else if (event.key == Qt.Key_F4) // Related
         {
             event.accepted = true;
 
@@ -2766,16 +2765,7 @@ Item
                 buttonRelated.returnPressed();
             }
         }
-        else if (event.key == Qt.Key_F5)
-        {
-            event.accepted = true;
-
-            restoreBars();
-            restoreMini();
-
-            buttonDiscover.returnPressed();
-        }
-        else if (event.key == Qt.Key_F6)
+        else if (event.key == Qt.Key_F5) // Browse
         {
             event.accepted = true;
 
@@ -2788,25 +2778,19 @@ Item
             }
             else buttonBrowse.returnPressed();
         }
-        else if (event.key == Qt.Key_F7)
+        else if (event.key == Qt.Key_F6) // Settings
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat) return;
-
-            panelApplication.collapse();
-
-            restoreBars();
-            restore    ();
-
-            if (panelBrowse.isExposed)
-            {
-                panelTracks.restore();
-            }
-
-            panelLibrary.buttonAdd.returnPressed();
+            buttonSettings.returnPressed();
         }
-        else if (event.key == Qt.Key_F8)
+        else if (event.key == Qt.Key_F7) // Get
+        {
+            event.accepted = true;
+
+            buttonGet.returnPressed();
+        }
+        else if (event.key == Qt.Key_F8) // Select
         {
             event.accepted = true;
 
@@ -2817,7 +2801,7 @@ Item
 
             panelCover.buttonTrack.returnPressed();
         }
-        else if (event.key == Qt.Key_F9)
+        else if (event.key == Qt.Key_F9) // Mini
         {
             event.accepted = true;
 
@@ -2829,7 +2813,7 @@ Item
             }
             else toggleMini();
         }
-        else if (event.key == Qt.Key_F10)
+        else if (event.key == Qt.Key_F10) // Maximize
         {
             event.accepted = true;
 
@@ -2841,7 +2825,7 @@ Item
             }
             else toggleMaximize();
         }
-        else if (event.key == Qt.Key_F11)
+        else if (event.key == Qt.Key_F11) // FullScreen
         {
             event.accepted = true;
 
@@ -2849,7 +2833,7 @@ Item
 
             buttonFullScreen.returnPressed();
         }
-        else if (event.key == Qt.Key_F12)
+        else if (event.key == Qt.Key_F12) // Expand
         {
             event.accepted = true;
 
@@ -2934,10 +2918,6 @@ Item
         {
             barWindow.buttonAdd.returnReleased();
         }
-        else if (buttonDiscover.isReturnPressed)
-        {
-            buttonDiscover.returnReleased();
-        }
         else if (buttonBrowse.isReturnPressed)
         {
             buttonBrowse.returnReleased();
@@ -2990,9 +2970,9 @@ Item
         {
             buttonSettings.returnReleased();
         }
-        else if (buttonShare.isReturnPressed)
+        else if (buttonGet.isReturnPressed)
         {
-            buttonShare.returnReleased();
+            buttonGet.returnReleased();
         }
         else if (buttonMini.isReturnPressed)
         {
@@ -3177,10 +3157,10 @@ Item
             {
                 panelGet.collapse();
             }
-            else if (panelDiscover.isExposed)
+            /*else if (panelDiscover.isExposed)
             {
                 panelDiscover.collapse();
-            }
+            }*/
             else if (panelTracks.isExpanded)
             {
                 panelTracks.restore();
@@ -3671,7 +3651,7 @@ Item
 
         PanelCover { id: panelCover }
 
-        PanelDiscover { id: panelDiscover }
+        //PanelDiscover { id: panelDiscover }
 
         PanelGet { id: panelGet }
 

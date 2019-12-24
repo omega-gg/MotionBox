@@ -565,7 +565,7 @@ Panel
 
         onPressed:
         {
-            panelDiscover.collapse();
+            //panelDiscover.collapse();
 
             pSelectTrack();
         }

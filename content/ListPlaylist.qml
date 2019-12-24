@@ -1425,8 +1425,9 @@ BaseList
 
         anchors.rightMargin: (scrollArea && scrollArea.isScrollable) ? 0 : st.dp16
 
-        width : st.dp30 + borderSizeWidth
-        height: st.dp32
+        width: height + borderSizeWidth
+
+        height: st.list_itemBase
 
         y: itemWatcher.y
 

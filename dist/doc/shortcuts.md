@@ -14,11 +14,11 @@ F4: Toggle the Related Browser.
 
 #
 
-F5: Toggle the Discovery Mode.
+F5: Toggle the Track Browser.
 
-F6: Toggle the Track Browser.
+F6: Toggle the settings panel.
 
-F7: Create a new playlist.
+F7: Toggle the download panel.
 
 F8: Go to the current track.
 

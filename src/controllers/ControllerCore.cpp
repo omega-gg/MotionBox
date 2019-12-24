@@ -335,6 +335,8 @@ ControllerCore::ControllerCore() : WController()
     {
         createBrowse();
 
+        _backends->setCurrentIndex(0);
+
         WControllerFileReply * reply = copyBackends(path + "/backend/");
 
         connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
@@ -438,6 +440,8 @@ ControllerCore::ControllerCore() : WController()
     if (_index == NULL) return;
 
     updateBackends();
+
+    WBackendLoader::clearCache();
 
     _index->update();
 }
@@ -595,6 +599,8 @@ ControllerCore::ControllerCore() : WController()
     _backends->clearItems();
 
     createBrowse();
+
+    _backends->setCurrentIndex(0);
 
     if (_index)
     {
@@ -842,11 +848,9 @@ void ControllerCore::createBrowse() const
 
     browse.title = tr("Browser");
 
-    browse.label = "Browser";
+    browse.label = "browser";
 
     _backends->addItem(browse);
-
-    _backends->setCurrentIndex(0);
 }
 
 void ControllerCore::deleteBrowse() const

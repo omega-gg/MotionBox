@@ -38,7 +38,7 @@ ItemList
     background.anchors.top   : undefined
     background.anchors.bottom: undefined
 
-    background.height: st.dp32
+    background.height: st.list_itemBase
 
     //---------------------------------------------------------------------------------------------
     // States

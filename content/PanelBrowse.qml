@@ -337,7 +337,7 @@ MouseArea
     {
         if (isExposed || actionCue.tryPush(gui.actionBrowseExpose)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         gui.scrollFolder.clearItem();
 
@@ -362,7 +362,7 @@ MouseArea
     {
         if (isExposed == false || actionCue.tryPush(gui.actionBrowseCollapse)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         isExposed = false;
 
@@ -864,16 +864,16 @@ MouseArea
 
         var title = pItemBrowse.title;
 
+        var backend = controllerPlaylist.backendFromUrl(title);
+
+        // NOTE: We need to clear items after creating the backend because of processEvents.
+        buttonsBrowse.clearItems();
+
         if (pSearchHidden)
         {
              buttonsBrowse.pushItem(title);
         }
         else buttonsBrowse.pushItem(title, pGetSearchCover());
-
-        var backend = controllerPlaylist.backendFromUrl(title);
-
-        // NOTE: We need to clear items after creating the backend because of processEvents.
-        buttonsBrowse.clearItems();
 
         if (backend)
         {

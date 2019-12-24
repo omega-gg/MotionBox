@@ -39,7 +39,7 @@ MouseArea
     property alias buttonAdd: buttonAdd
 
     property alias buttonSettings  : buttonSettings
-    property alias buttonShare     : buttonShare
+    property alias buttonGet       : buttonGet
     property alias buttonFullScreen: buttonFullScreen
 
     property alias sliderVolume: sliderVolume
@@ -377,8 +377,8 @@ MouseArea
         {
             id: buttonSettings
 
-            anchors.right: buttonShare.left
-            anchors.top  : buttonShare.top
+            anchors.right: buttonGet.left
+            anchors.top  : buttonGet.top
 
             width: st.dp44
 
@@ -395,7 +395,7 @@ MouseArea
 
         ButtonPushIcon
         {
-            id: buttonShare
+            id: buttonGet
 
             anchors.right: buttonFullScreen.left
             anchors.top  : buttonFullScreen.top

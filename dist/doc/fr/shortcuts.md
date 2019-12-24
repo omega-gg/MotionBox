@@ -14,11 +14,11 @@ F4: Basculer le Navigateur Relatif.
 
 #
 
-F5: Basculer le Mode Découverte.
+F5: Basculer le Navigateur de Tracks.
 
-F6: Basculer le Navigateur de Tracks.
+F6: Basculer le panneau de paramètres.
 
-F7: Créer une nouvelle playlist.
+F7: Basculer le panneau de téléchargements.
 
 F8: Aller au track courant.
 

@@ -70,7 +70,7 @@ Panel
         gui.restoreMicro();
 
         panelApplication.collapse();
-        panelDiscover   .collapse();
+        //panelDiscover   .collapse();
 
         pIndexFocus = 1;
 

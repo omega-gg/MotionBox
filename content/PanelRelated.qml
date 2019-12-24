@@ -141,7 +141,7 @@ Panel
     {
         if (isExposed || actionCue.tryPush(gui.actionRelatedExpose)) return;
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         visible = true;
 
@@ -164,7 +164,7 @@ Panel
 
         pClearRefresh();
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         panelPlayer.wallExpand(parent.width, wall.height);
 
@@ -466,12 +466,11 @@ Panel
             id: buttonRefresh
 
             anchors.left  : buttonForward.right
+            anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: sk.textWidth(itemText.font, itemText.text) + st.buttonPiano_padding * 2
-                   +
-                   borderSizeWidth
+            anchors.rightMargin: st.dp16
 
             visible: enabled
 
@@ -486,8 +485,7 @@ Panel
 
             anchors.fill: buttonRefresh
 
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment  : Text.AlignVCenter
+            verticalAlignment: Text.AlignVCenter
 
             text: qsTr("Related")
         }

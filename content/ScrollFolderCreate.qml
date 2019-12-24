@@ -64,7 +64,10 @@ ScrollFolder
     // Signals
     //---------------------------------------------------------------------------------------------
 
+    signal create
     signal clear
+
+    signal finished
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -816,7 +819,7 @@ ScrollFolder
                             pClearAddItem();
                         }
 
-                        clear();
+                        finished();
                     }
                 }
             }
@@ -838,6 +841,8 @@ ScrollFolder
             if (window.isActive == false || visible == false)
             {
                 text = "";
+
+                clear();
             }
             else if (text != "")
             {
@@ -846,7 +851,10 @@ ScrollFolder
                 text = "";
 
                 pAnimate = false;
+
+                create();
             }
+            else clear();
 
             isCreating = false;
         }

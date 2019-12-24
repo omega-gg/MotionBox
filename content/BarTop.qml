@@ -33,11 +33,10 @@ Item
 
     property alias buttonBackward: buttonBackward
     property alias buttonForward : buttonForward
-    property alias buttonDiscover: buttonDiscover
-    property alias buttonBrowse  : buttonBrowse
 
     property alias lineEditSearch: lineEditSearch
 
+    property alias buttonBrowse : buttonBrowse
     property alias buttonExpand : buttonExpand
     property alias buttonWall   : buttonWall
     property alias buttonRelated: buttonRelated
@@ -183,7 +182,7 @@ Item
 
             onClicked:
             {
-                panelDiscover.collapse();
+                //panelDiscover.collapse();
 
                 currentTab.setPreviousBookmark();
             }
@@ -204,33 +203,9 @@ Item
 
             onClicked:
             {
-                panelDiscover.collapse();
+                //panelDiscover.collapse();
 
                 currentTab.setNextBookmark();
-            }
-        }
-
-        ButtonPianoIcon
-        {
-            id: buttonDiscover
-
-            anchors.left: buttonForward.right
-
-            visible: false//(gui.isMini == false)
-
-            enabled: false
-
-            checkable: true
-            checked  : panelDiscover.isExposed
-
-            icon          : st.icon32x32_url
-            iconSourceSize: st.size32x32
-
-            onPressed:
-            {
-                gui.restoreBars();
-
-                panelDiscover.toggleExpose();
             }
         }
 

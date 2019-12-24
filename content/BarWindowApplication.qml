@@ -283,7 +283,7 @@ Item
             return;
         }
 
-        panelDiscover.collapse();
+        //panelDiscover.collapse();
 
         var index;
 
@@ -720,7 +720,7 @@ Item
                 gui.restoreBars();
             }
 
-            panelDiscover.collapse();
+            //panelDiscover.collapse();
 
             wall.updateCurrentPage();
         }

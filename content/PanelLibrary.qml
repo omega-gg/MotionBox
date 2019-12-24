@@ -197,47 +197,27 @@ Panel
 
         borderTop: 0
 
-        ButtonPianoIcon
-        {
-            id: buttonAdd
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            width: st.dp32 + borderSizeWidth
-
-            checkable: true
-
-            checked: (scrollLibrary.isCreating || pIndex == 0)
-
-            icon          : st.icon24x24_addBold
-            iconSourceSize: st.size24x24
-
-//#QT_4
-            onPressed: pCreate()
-//#ELSE
-            onPressed: Qt.callLater(pCreate)
-//#END
-        }
-
         ButtonPiano
         {
             id: buttonFeeds
 
-            anchors.left  : buttonAdd.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
             width: Math.round((parent.width - buttonAdd.width) / 2)
 
             checkable: true
-            checked  : (index == 0)
+
+            // NOTE: We want to keep the "feed" button selected during the "clear" animation.
+            checked: (index == 0 || pIndex == -2)
 
             checkHover: false
 
             text: qsTr("Feed")
 
             font.pixelSize: st.dp14
+
+            itemText.horizontalAlignment: Text.AlignLeft
 
 //#QT_4
             onPressed: select(0)
@@ -249,21 +229,20 @@ Panel
         ButtonPiano
         {
             anchors.left  : buttonFeeds.right
+            anchors.right : buttonAdd.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: buttonFeeds.width
-
-            borderRight: 0
-
             checkable: true
-            checked  : (index)
+            checked  : (buttonFeeds.checked == false)
 
             checkHover: false
 
             text: qsTr("Library")
 
             font.pixelSize: st.dp14
+
+            itemText.horizontalAlignment: Text.AlignLeft
 
 //#QT_4
             onPressed: select(1)
@@ -272,22 +251,49 @@ Panel
 //#END
         }
 
+        ButtonPianoIcon
+        {
+            id: buttonAdd
+
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: st.dp32 + borderSizeWidth
+
+            borderRight: 0
+
+            checkable: true
+
+            // NOTE: We want to keep the "add" button selected during the "clear" animation.
+            checked: (scrollLibrary.isCreating || pIndex > -1)
+
+            icon          : st.icon24x24_addBold
+            iconSourceSize: st.size24x24
+
+//#QT_4
+            onPressed: pCreate()
+//#ELSE
+            onPressed: Qt.callLater(pCreate)
+//#END
+        }
+
         ButtonPianoFull
         {
             id: buttonPlaylist
 
-            anchors.left  : buttonAdd.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
             width: Math.round((parent.width - buttonAdd.width) / 3)
 
-            visible: scrollLibrary.isCreating
+            // NOTE: This makes sure that the "create" buttons are visible during the animation.
+            visible: (pIndex > -1)
 
             enabled: (library.isFull == false)
 
             checkable: true
-            checked  : (scrollLibrary.type == 0)
+            checked  : (scrollLibrary.type < 1)
 
             checkHover: false
 
@@ -325,11 +331,9 @@ Panel
         ButtonPianoFull
         {
             anchors.left  : buttonFeed.right
-            anchors.right : parent.right
+            anchors.right : buttonAdd.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
-
-            borderRight: 0
 
             visible: buttonPlaylist.visible
 
@@ -397,12 +401,17 @@ Panel
 
             onClear:
             {
-                if (pIndex != 0) return;
+                if (list.activeFocus == false && pIndex == 0)
+                {
+                    // NOTE: We want to keep the "feed" button selected during the "clear"
+                    //       animation.
+                    pIndex = -2;
 
-                pIndex = -1;
-
-                select(0);
+                    select(0);
+                }
             }
+
+            onFinished: pIndex = -1
         }
 
         ScrollerList

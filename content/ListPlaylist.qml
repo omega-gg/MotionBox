@@ -1148,23 +1148,29 @@ BaseList
 
         indexPreview = indexHover;
 
-        if (panelCover.isExpanded)
+        panelPreview.activatePlaylist(list);
+
+        /*if (panelCover.isExpanded)
         {
             panelCover.setItem(list);
         }
-        else panelPreview.activatePlaylist(list);
+        else panelPreview.activatePlaylist(list);*/
     }
 
     function pClearPreview()
     {
-        if (panelPreview.list == list)
+        if (panelPreview.list != list) return;
+
+        panelPreview.clearInstant();
+
+        /*if (panelPreview.list == list)
         {
             panelPreview.clearInstant();
         }
         else if (panelCover.list == list)
         {
             panelCover.clearItem();
-        }
+        }*/
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1255,13 +1261,13 @@ BaseList
 
         visible: (enablePreview && itemHovered != null && playlist.trackIsValid(indexHover))
 
-        isHovered: true
-        isPressed: (pressedButtons & Qt.LeftButton)
+        isHovered: false
+        isPressed: false
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
         highlighted: true
-        checked    : panelCover.isExpanded
+        checked    : true
 
         borderColor:
         {
@@ -1279,12 +1285,7 @@ BaseList
 
         onEntered: pUpdatePreview()
 
-        onExited:
-        {
-            panelPreview.clear();
-
-            panelCover.clearItemLater();
-        }
+        onExited: panelPreview.clear()
 
         onPressed:
         {
@@ -1298,21 +1299,6 @@ BaseList
             }
 
             indexPreview = indexHover;
-
-            if (panelCover.isExpanded)
-            {
-                panelCover.clearItem();
-
-                panelPreview.activatePlaylist(list);
-
-                panelPreview.showInstant();
-            }
-            else
-            {
-                panelCover.setItem(list);
-
-                panelPreview.clearInstant();
-            }
         }
 
         Behavior on background.visible

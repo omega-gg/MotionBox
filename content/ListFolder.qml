@@ -881,7 +881,7 @@ BaseList
         visible: (enablePreview && itemHovered != null && itemHovered.getCover() != "")
 
         isHovered: false
-        isPressed: (pressedButtons & Qt.LeftButton)
+        isPressed: false
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 

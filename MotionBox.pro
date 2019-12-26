@@ -162,7 +162,7 @@ OTHER_FILES += configure.sh \
                content/PanelPlayer.qml \
                content/PanelBrowse.qml \
                content/PanelRelated.qml \
-               content/PanelCover.qml \
+               #content/PanelCover.qml \
                content/PanelSettings.qml \
                content/PanelGet.qml \
                content/PanelAdd.qml \

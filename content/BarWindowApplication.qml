@@ -717,6 +717,13 @@ Item
 
         onTabPressed:
         {
+            if (tabs.currentIndex == index)
+            {
+                gui.selectCurrentTrack();
+
+                return;
+            }
+
             if (player.tabIndex == index)
             {
                 gui.restoreBars();

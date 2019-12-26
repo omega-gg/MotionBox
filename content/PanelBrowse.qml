@@ -1592,7 +1592,7 @@ MouseArea
         anchors.top   : bar.bottom
         anchors.bottom: parent.bottom
 
-        anchors.bottomMargin: panelCover.getHeight()
+        //anchors.bottomMargin: panelCover.getHeight()
 
         width: widthColum
 

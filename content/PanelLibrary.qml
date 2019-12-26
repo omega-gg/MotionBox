@@ -54,7 +54,10 @@ Panel
         return Math.min(size, st.dp320 + borderRight);
     }
 
-    height:
+    height: (panelTracks.isExpanded) ? parent.height
+                                     : Math.max(panelPlayer.height, panelBrowse.y)
+
+    /*height:
     {
         if (panelTracks.isExpanded == false)
         {
@@ -63,7 +66,7 @@ Panel
             return Math.min(height, panelCover.getY());
         }
         else return panelCover.getY();
-    }
+    }*/
 
     borderLeft  : 0
     borderTop   : 0

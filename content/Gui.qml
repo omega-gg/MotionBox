@@ -1480,7 +1480,7 @@ Item
 
         //panelDiscover.collapse();
 
-        panelCover.clearItem();
+        //panelCover.clearItem();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2799,7 +2799,9 @@ Item
             restoreBars();
             restore    ();
 
-            panelCover.buttonTrack.returnPressed();
+            gui.selectTrack(playerTab);
+
+            //panelCover.buttonTrack.returnPressed();
         }
         else if (event.key == Qt.Key_F9) // Mini
         {
@@ -2950,10 +2952,10 @@ Item
         {
             panelRelated.buttonRefresh.returnReleased();
         }
-        else if (panelCover.buttonTrack.isReturnPressed)
+        /*else if (panelCover.buttonTrack.isReturnPressed)
         {
             panelCover.buttonTrack.returnReleased();
-        }
+        }*/
         else if (buttonPrevious.isReturnPressed)
         {
             buttonPrevious.returnReleased();
@@ -3649,7 +3651,7 @@ Item
 
         PanelBrowse { id: panelBrowse }
 
-        PanelCover { id: panelCover }
+        //PanelCover { id: panelCover }
 
         //PanelDiscover { id: panelDiscover }
 

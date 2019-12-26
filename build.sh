@@ -119,7 +119,7 @@ if [ $windows = true ]; then
 
 elif [ $2 = "macOS" ]; then
 
-    spec=macx-g++
+    spec=macx-clang
 
     export PATH=$Qt/bin:$PATH
 

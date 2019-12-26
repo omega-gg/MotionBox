@@ -48,6 +48,12 @@ if [ $2 = "win32" -o $2 = "win64" ]; then
     external="$external/$2"
 
     MinGW="$external/MinGW/$MinGW_version/bin"
+
+elif [ $2 = "macOS" ]; then
+
+    windows=false
+
+    external="$external/$2"
 else
     windows=false
 fi
@@ -59,7 +65,7 @@ else
     Qt="$external/Qt/$Qt5_version"
 fi
 
-if [ $windows = true ]; then
+if [ $windows = true -o $2 = "macOS" ]; then
 
     qmake="$Qt/bin/qmake"
 else
@@ -115,9 +121,7 @@ elif [ $2 = "macOS" ]; then
 
     spec=macx-g++
 
-    export PATH=/usr/local/opt/qt\@5.5/bin/:$PATH
-
-    export LIBRARY_PATH=/usr/local/lib:/usr/local/opt/openssl/lib
+    export PATH=$Qt/bin:$PATH
 
 elif [ $2 = "linux" ]; then
 

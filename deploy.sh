@@ -131,6 +131,9 @@ if [ $2 = "macOS" ]; then
 
     cd deploy
 
+    #----------------------------------------------------------------------------------------------
+    # Qt
+
     install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
                               @loader_path/QtCore MotionBox
 
@@ -160,6 +163,11 @@ if [ $2 = "macOS" ]; then
 
     install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
                               @loader_path/QtXmlPatterns MotionBox
+
+    #----------------------------------------------------------------------------------------------
+    # VLC
+
+    install_name_tool -change @rpath/libvlccore.dylib @loader_path/libvlccore.dylib MotionBox
 
 elif [ $2 = "linux" ]; then
 

@@ -98,8 +98,6 @@ elif [ $2 = "macOS" ]; then
 
     rm -f deploy/Sk*.dylib
 
-    cp -r "$deploy"/Qt* deploy
-
 elif [ $2 = "linux" ]; then
 
     #cp -r "$deploy"/vlc deploy

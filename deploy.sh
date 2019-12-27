@@ -125,7 +125,41 @@ fi
 
 cp "$bin"/MotionBox* deploy
 
-if [ $2 = "linux" ]; then
+if [ $2 = "macOS" ]; then
+
+    cd deploy
+
+    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+                              @loader_path/QtCore MotionBox
+
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+                              @loader_path/QtGui MotionBox
+
+    install_name_tool -change @rpath/QtNetwork.framework/Versions/5/QtNetwork \
+                              @loader_path/QtNetwork MotionBox
+
+    install_name_tool -change @rpath/QtOpenGL.framework/Versions/5/QtOpenGL \
+                              @loader_path/QtOpenGL MotionBox
+
+    install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
+                              @loader_path/QtQml MotionBox
+
+    install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
+                              @loader_path/QtQuick MotionBox
+
+    install_name_tool -change @rpath/QtSvg.framework/Versions/5/QtSvg \
+                              @loader_path/QtSvg MotionBox
+
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
+                              @loader_path/QtWidgets MotionBox
+
+    install_name_tool -change @rpath/QtXml.framework/Versions/5/QtXml \
+                              @loader_path/QtXml MotionBox
+
+    install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
+                              @loader_path/QtXmlPatterns MotionBox
+
+elif [ $2 = "linux" ]; then
 
     cp dist/scripts/start.sh deploy
 fi

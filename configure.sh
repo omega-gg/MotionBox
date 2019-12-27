@@ -45,6 +45,12 @@ if [ $2 = "win32" -o $2 = "win64" ]; then
     external="$external/$2"
 
     MinGW="$external/MinGW/$MinGW_version/bin"
+
+elif [ $2 = "macOS" ]; then
+
+    windows=false
+
+    external="$external/$2"
 else
     windows=false
 fi
@@ -158,6 +164,16 @@ if [ $windows = true ]; then
     cp -r "$VLC"/plugins/video_output  "$bin"/plugins
 
     cp "$VLC"/libvlc*.dll "$bin"
+
+if [ $2 = "macOS" ]; then
+
+    rm -rf "$bin"/plugins
+    mkdir  "$bin"/plugins
+
+    cp -r "$VLC"/plugins/*.dylib "$bin"/plugins
+
+    cp "$VLC"/lib/libvlc.dylib     "$bin"
+    cp "$VLC"/lib/libvlccore.dylib "$bin"
 fi
 
 echo "---------------------"

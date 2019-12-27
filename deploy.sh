@@ -98,7 +98,7 @@ elif [ $2 = "macOS" ]; then
 
     rm -f deploy/Sk*.dylib
 
-    cp "$deploy"/Qt* deploy
+    cp -r "$deploy"/Qt* deploy
 
 elif [ $2 = "linux" ]; then
 
@@ -167,7 +167,7 @@ if [ $2 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # VLC
 
-    install_name_tool -change @rpath/libvlccore.dylib @loader_path/libvlccore.dylib MotionBox
+    install_name_tool -change @rpath/libvlccore.dylib @loader_path/libvlccore.dylib libvlc.dylib
 
 elif [ $2 = "linux" ]; then
 

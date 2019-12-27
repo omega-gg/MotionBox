@@ -92,11 +92,13 @@ if [ $windows = true ]; then
 
 elif [ $2 = "macOS" ]; then
 
-    cp -r "$deploy"/vlc deploy
+    cp -r "$deploy"/plugins deploy
 
     cp "$deploy"/*.dylib deploy
 
     rm -f deploy/Sk*.dylib
+
+    cp "$deploy"/Qt* deploy
 
 elif [ $2 = "linux" ]; then
 

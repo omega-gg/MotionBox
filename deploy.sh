@@ -133,34 +133,34 @@ if [ $2 = "macOS" ]; then
     # Qt
 
     install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
-                              @loader_path/QtCore MotionBox
+                              @loader_path/QtCore.dylib MotionBox
 
     install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/QtGui MotionBox
+                              @loader_path/QtGui.dylib MotionBox
 
     install_name_tool -change @rpath/QtNetwork.framework/Versions/5/QtNetwork \
-                              @loader_path/QtNetwork MotionBox
+                              @loader_path/QtNetwork.dylib MotionBox
 
     install_name_tool -change @rpath/QtOpenGL.framework/Versions/5/QtOpenGL \
-                              @loader_path/QtOpenGL MotionBox
+                              @loader_path/QtOpenGL.dylib MotionBox
 
     install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
-                              @loader_path/QtQml MotionBox
+                              @loader_path/QtQml.dylib MotionBox
 
     install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
-                              @loader_path/QtQuick MotionBox
+                              @loader_path/QtQuick.dylib MotionBox
 
     install_name_tool -change @rpath/QtSvg.framework/Versions/5/QtSvg \
-                              @loader_path/QtSvg MotionBox
+                              @loader_path/QtSvg.dylib MotionBox
 
     install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
-                              @loader_path/QtWidgets MotionBox
+                              @loader_path/QtWidgets.dylib MotionBox
 
     install_name_tool -change @rpath/QtXml.framework/Versions/5/QtXml \
-                              @loader_path/QtXml MotionBox
+                              @loader_path/QtXml.dylib MotionBox
 
     install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
-                              @loader_path/QtXmlPatterns MotionBox
+                              @loader_path/QtXmlPatterns.dylib MotionBox
 
     #----------------------------------------------------------------------------------------------
     # VLC

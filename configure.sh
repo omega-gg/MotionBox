@@ -165,7 +165,7 @@ if [ $windows = true ]; then
 
     cp "$VLC"/libvlc*.dll "$bin"
 
-if [ $2 = "macOS" ]; then
+elif [ $2 = "macOS" ]; then
 
     rm -rf "$bin"/plugins
     mkdir  "$bin"/plugins

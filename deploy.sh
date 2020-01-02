@@ -169,6 +169,8 @@ if [ $2 = "macOS" ]; then
 
     install_name_tool -change @rpath/libvlccore.dylib @loader_path/libvlccore.dylib libvlc.dylib
 
+    cd -
+
 elif [ $2 = "linux" ]; then
 
     cp dist/scripts/start.sh deploy

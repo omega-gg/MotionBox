@@ -60,6 +60,28 @@ jobs:
     artifact: MotionBox-win64-qt5
 
 #--------------------------------------------------------------------------------------------------
+# macOS
+#--------------------------------------------------------------------------------------------------
+
+- job: macOS_qt5
+  pool:
+    vmImage: "macOS-latest"
+  steps:
+  - bash: |
+      cd ..
+      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/macOS
+      unzip 3rdparty.zip
+      git clone https://github.com/omega-gg/Sky
+      cd s
+      sh configure.sh qt5 macOS
+      cd ../Sky
+      sh build.sh qt5 macOS tools
+      cd ../s
+      sh build.sh qt5 macOS deploy
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-macOS-qt5
+
+#--------------------------------------------------------------------------------------------------
 # Linux
 #--------------------------------------------------------------------------------------------------
 

@@ -172,8 +172,8 @@ elif [ $2 = "macOS" ]; then
 
     cp -r "$VLC"/plugins/*.dylib "$bin"/plugins
 
-    cp "$VLC"/lib/libvlc.dylib     "$bin"
-    cp "$VLC"/lib/libvlccore.dylib "$bin"
+    cp "$VLC"/lib/libvlc.5.dylib     "$bin"/libvlc.dylib
+    cp "$VLC"/lib/libvlccore.9.dylib "$bin"/libvlccore.dylib
 fi
 
 echo "---------------------"

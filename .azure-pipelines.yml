@@ -12,6 +12,7 @@ jobs:
       curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win32
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
+      git clone https://github.com/omega-gg/backend
       cd s
       sh configure.sh qt4 win32
       cd ../Sky
@@ -30,6 +31,7 @@ jobs:
       curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win32
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
+      git clone https://github.com/omega-gg/backend
       cd s
       sh configure.sh qt5 win32
       cd ../Sky
@@ -50,6 +52,7 @@ jobs:
       curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win64
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
+      git clone https://github.com/omega-gg/backend
       cd s
       sh configure.sh qt5 win64
       cd ../Sky
@@ -72,6 +75,7 @@ jobs:
       curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/macOS
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
+      git clone https://github.com/omega-gg/backend
       cd s
       sh configure.sh qt5 macOS
       cd ../Sky
@@ -95,6 +99,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo wget git;
                                      git clone https://github.com/omega-gg/Sky;
+                                     git clone https://github.com/omega-gg/backend;
                                      cd Sky;
                                      sh 3rdparty.sh all qt4 ubuntu;
                                      cd ../MotionBox;
@@ -116,6 +121,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo wget git;
                                      git clone https://github.com/omega-gg/Sky;
+                                     git clone https://github.com/omega-gg/backend;
                                      cd Sky;
                                      sh 3rdparty.sh all qt5 ubuntu;
                                      cd ../MotionBox;
@@ -139,6 +145,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo wget git;
                                      git clone https://github.com/omega-gg/Sky;
+                                     git clone https://github.com/omega-gg/backend;
                                      cd Sky;
                                      sh 3rdparty.sh all qt4 ubuntu;
                                      cd ../MotionBox;
@@ -160,6 +167,7 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo wget git;
                                      git clone https://github.com/omega-gg/Sky;
+                                     git clone https://github.com/omega-gg/backend;
                                      cd Sky;
                                      sh 3rdparty.sh all qt5 ubuntu;
                                      cd ../MotionBox;

@@ -16,6 +16,7 @@ install:
   - appveyor DownloadFile http://omega.gg/get/Sky/3rdparty/%platform% -FileName 3rdparty.zip
   - 7z x 3rdparty.zip
   - git clone https://github.com/omega-gg/Sky
+  - git clone https://github.com/omega-gg/backend
   - cd MotionBox
   - sh configure.sh %qt% %platform%
 

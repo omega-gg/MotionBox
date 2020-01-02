@@ -24,6 +24,7 @@ install:
                                    apt-get update;
                                    apt-get -y install sudo wget git;
                                    git clone https://github.com/omega-gg/Sky;
+                                   git clone https://github.com/omega-gg/backend;
                                    cd Sky;
                                    sh 3rdparty.sh all ${QT} ubuntu;
                                    cd ../MotionBox;

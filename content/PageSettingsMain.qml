@@ -154,7 +154,7 @@ Item
 
             text: qsTr("Content")
 
-            onClicked: gui.openFolder(core.pathStorage)
+            onClicked: gui.openFile(core.pathStorage)
         }
     }
 

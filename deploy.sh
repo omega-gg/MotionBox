@@ -7,6 +7,8 @@ set -e
 
 Sky="../Sky"
 
+backend="../backend"
+
 #--------------------------------------------------------------------------------------------------
 
 bin4="bin"
@@ -171,3 +173,15 @@ elif [ $2 = "linux" ]; then
 
     cp dist/scripts/start.sh deploy
 fi
+
+#--------------------------------------------------------------------------------------------------
+# backend
+#--------------------------------------------------------------------------------------------------
+
+echo "COPYING backend"
+
+mkdir -p deploy/backend/cover
+
+cp "$backend"/cover/* deploy/backend/cover
+
+cp "$backend"/*.vbml deploy/backend

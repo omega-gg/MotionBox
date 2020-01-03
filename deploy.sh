@@ -182,7 +182,14 @@ if [ $2 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # VLC
 
-    install_name_tool -change @rpath/libvlccore.dylib @loader_path/libvlccore.dylib libvlc.dylib
+    install_name_tool -change @rpath/libvlccore.dylib \
+                              @loader_path/libvlccore.dylib libvlc.dylib
+
+    #----------------------------------------------------------------------------------------------
+    # libtorrent
+
+    install_name_tool -change libboost_system.dylib \
+                              @loader_path/libboost_system.dylib libtorrent.dylib
 
     cd -
 

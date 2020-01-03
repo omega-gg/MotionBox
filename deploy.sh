@@ -179,6 +179,9 @@ if [ $2 = "macOS" ]; then
     install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
                               @loader_path/QtXmlPatterns.dylib MotionBox
 
+    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
+                              @loader_path/QtDBus.dylib MotionBox
+
     #----------------------------------------------------------------------------------------------
     # VLC
 

@@ -179,11 +179,46 @@ if [ $2 = "macOS" ]; then
     install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
                               @loader_path/QtXmlPatterns.dylib MotionBox
 
-    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
-                              @loader_path/QtDBus.dylib MotionBox
+    #----------------------------------------------------------------------------------------------
+    # platforms
 
-    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtPrintSupport \
-                              @loader_path/QtPrintSupport.dylib MotionBox
+    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+                              @loader_path/../QtCore.dylib platforms/libqcocoa.dylib
+
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+                              @loader_path/../QtGui.dylib platforms/libqcocoa.dylib
+
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
+                              @loader_path/../QtWidgets.dylib platforms/libqcocoa.dylib
+
+    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
+                              @loader_path/../QtDBus.dylib platforms/libqcocoa.dylib
+
+    install_name_tool -change @rpath/QtPrintSupport.framework/Versions/5/QtPrintSupport \
+                              @loader_path/../QtPrintSupport.dylib platforms/libqcocoa.dylib
+
+    #----------------------------------------------------------------------------------------------
+    # imageformats
+
+    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+                              @loader_path/../QtCore.dylib imageformats/libqjpeg.dylib
+
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+                              @loader_path/../QtGui.dylib imageformats/libqjpeg.dylib
+
+    #----------------------------------------------------------------------------------------------
+
+    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+                              @loader_path/../QtCore.dylib imageformats/libqsvg.dylib
+
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+                              @loader_path/../QtGui.dylib imageformats/libqsvg.dylib
+
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
+                              @loader_path/../QtWidgets.dylib imageformats/libqsvg.dylib
+
+    install_name_tool -change @rpath/QtSvg.framework/Versions/5/QtSvg \
+                              @loader_path/../QtSvg.dylib imageformats/libqsvg.dylib
 
     #----------------------------------------------------------------------------------------------
     # VLC

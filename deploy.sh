@@ -69,7 +69,7 @@ fi
 
 if [ $2 = "macOS" ]; then
 
-    cp -r "$bin"/MotionBox deploy
+    cp -r "$bin"/MotionBox.app deploy
 
     deploy="deploy/MotionBox.app/Contents/MacOS"
 else

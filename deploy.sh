@@ -57,6 +57,19 @@ fi
 echo ""
 
 #--------------------------------------------------------------------------------------------------
+# Package
+#--------------------------------------------------------------------------------------------------
+
+if [ $2 = "macOS" ]; then
+
+    cp -r "$bin"/MotionBox deploy
+
+    deploy="deploy/MotionBox.app/Contents/MacOS"
+else
+    deploy="deploy"
+fi
+
+#--------------------------------------------------------------------------------------------------
 # Sky
 #--------------------------------------------------------------------------------------------------
 
@@ -69,44 +82,44 @@ sh deploy.sh $1 $2 tools
 
 cd -
 
-deploy="$Sky/deploy"
+path="$Sky/deploy"
 
-cp -r "$deploy"/imageformats deploy
+cp -r "$path"/imageformats $deploy
 
 if [ $1 = "qt5" ]; then
 
-    cp -r "$deploy"/platforms deploy
-    cp -r "$deploy"/QtQuick.2 deploy
+    cp -r "$path"/platforms $deploy
+    cp -r "$path"/QtQuick.2 $deploy
 
     if [ $2 = "linux" ]; then
 
-        cp -r "$deploy"/xcbglintegrations deploy
+        cp -r "$path"/xcbglintegrations $deploy
     fi
 fi
 
 if [ $windows = true ]; then
 
-    cp -r "$deploy"/plugins deploy
+    cp -r "$path"/plugins $deploy
 
-    cp "$deploy"/*.dll deploy
+    cp "$path"/*.dll $deploy
 
-    rm -f deploy/Sk*.dll
+    rm -f $deploy/Sk*.dll
 
 elif [ $2 = "macOS" ]; then
 
-    cp -r "$deploy"/plugins deploy
+    cp -r "$path"/plugins $deploy
 
-    cp "$deploy"/*.dylib deploy
+    cp "$path"/*.dylib $deploy
 
-    rm -f deploy/Sk*.dylib
+    rm -f $deploy/Sk*.dylib
 
 elif [ $2 = "linux" ]; then
 
-    #cp -r "$deploy"/vlc deploy
+    #cp -r "$path"/vlc $deploy
 
-    cp "$deploy"/*.so* deploy
+    cp "$path"/*.so* $deploy
 
-    rm -f deploy/Sk*.so*
+    rm -f $deploy/Sk*.so*
 fi
 
 echo "------------"
@@ -125,11 +138,9 @@ else
     bin="$bin5"
 fi
 
-cp "$bin"/MotionBox* deploy
-
 if [ $2 = "macOS" ]; then
 
-    cd deploy
+    cd $deploy
 
     #----------------------------------------------------------------------------------------------
     # Qt
@@ -171,9 +182,13 @@ if [ $2 = "macOS" ]; then
 
     cd -
 
-elif [ $2 = "linux" ]; then
+else
+    cp "$bin"/MotionBox* $deploy
 
-    cp dist/scripts/start.sh deploy
+    if [ $2 = "linux" ]; then
+
+        cp dist/scripts/start.sh $deploy
+    fi
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -182,8 +197,8 @@ fi
 
 echo "COPYING backend"
 
-mkdir -p deploy/backend/cover
+mkdir -p $deploy/backend/cover
 
-cp "$backend"/cover/* deploy/backend/cover
+cp "$backend"/cover/* $deploy/backend/cover
 
-cp "$backend"/*.vbml deploy/backend
+cp "$backend"/*.vbml $deploy/backend

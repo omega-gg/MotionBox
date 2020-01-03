@@ -72,6 +72,10 @@ if [ $2 = "macOS" ]; then
     cp -r "$bin"/MotionBox.app deploy
 
     deploy="deploy/MotionBox.app/Contents/MacOS"
+
+    rm -rf $deploy/plugins
+
+    rm $deploy/*.dylib
 else
     deploy="deploy"
 fi

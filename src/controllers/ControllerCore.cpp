@@ -74,7 +74,13 @@ static const QString CORE_VERSION = "1.5.0-5";
 static const int LOG_LENGTH = 4000;
 
 #ifndef SK_DEPLOY
+#ifdef Q_OS_MAC
+static const QString PATH_STORAGE = "/../../../storage";
+static const QString PATH_BACKEND = "../../../../../backend";
+#else
+static const QString PATH_STORAGE = "/storage";
 static const QString PATH_BACKEND = "../../backend";
+#endif
 #endif
 
 //-------------------------------------------------------------------------------------------------
@@ -166,7 +172,7 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else
-    QString path = QDir::currentPath() + "/storage";
+    QString path = QDir::currentPath() + PATH_STORAGE;
 
     wControllerFile->setPathStorage(path);
 #endif

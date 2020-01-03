@@ -26,8 +26,6 @@ contains(QT_MAJOR_VERSION, 5) {
     unix:!macx:QT += x11extras
 }
 
-macx: CONFIG -= app_bundle
-
 DEFINES += CAN_COMPILE_SSE2 QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
            SK_BACKEND_LOCAL #SK_BACKEND_LOG
@@ -117,17 +115,24 @@ unix:!macx:contains(QT_MAJOR_VERSION, 4) {
 }
 
 macx {
+    PATH=$${DESTDIR}/$${TARGET}.app/Contents/MacOS
+
     QMAKE_POST_LINK = install_name_tool -change @rpath/libvlccore.dylib \
                       @loader_path/libvlccore.dylib $${DESTDIR}/libvlc.dylib;
 
     QMAKE_POST_LINK += install_name_tool -change @rpath/libvlc.dylib \
-                       @loader_path/libvlc.dylib $${DESTDIR}/$${TARGET};
+                       @loader_path/libvlc.dylib $$PATH/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libtorrent.dylib.1.2.2 \
-                       @loader_path/libtorrent.dylib $${DESTDIR}/$${TARGET};
+                       @loader_path/libtorrent.dylib $$PATH/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \
-                       @loader_path/libboost_system.dylib $${DESTDIR}/$${TARGET};
+                       @loader_path/libboost_system.dylib $$PATH/$${TARGET};
+
+    QMAKE_POST_LINK += $${QMAKE_COPY} -r $${DESTDIR}/plugins $$PATH
+
+    QMAKE_POST_LINK += $${QMAKE_COPY} $${DESTDIR}/libvlc.dylib     $$PATH
+    QMAKE_POST_LINK += $${QMAKE_COPY} $${DESTDIR}/libvlccore.dylib $$PATH
 }
 
 RC_FILE = dist/MotionBox.rc

@@ -182,6 +182,9 @@ if [ $2 = "macOS" ]; then
     install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
                               @loader_path/QtDBus.dylib MotionBox
 
+    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtPrintSupport \
+                              @loader_path/QtPrintSupport.dylib MotionBox
+
     #----------------------------------------------------------------------------------------------
     # VLC
 

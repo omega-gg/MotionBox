@@ -9,7 +9,7 @@ jobs:
   steps:
   - bash: |
       cd ..
-      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win32
+      curl -L -o 3rdparty.zip --retry 3 http://omega.gg/get/Sky/3rdparty/win32
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
@@ -28,7 +28,7 @@ jobs:
   steps:
   - bash: |
       cd ..
-      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win32
+      curl -L -o 3rdparty.zip --retry 3 http://omega.gg/get/Sky/3rdparty/win32
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
@@ -49,7 +49,7 @@ jobs:
   steps:
   - bash: |
       cd ..
-      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/win64
+      curl -L -o 3rdparty.zip --retry 3 http://omega.gg/get/Sky/3rdparty/win64
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
@@ -72,7 +72,7 @@ jobs:
   steps:
   - bash: |
       cd ..
-      curl -L -o 3rdparty.zip http://omega.gg/get/Sky/3rdparty/macOS
+      curl -L -o 3rdparty.zip --retry 3 http://omega.gg/get/Sky/3rdparty/macOS
       unzip 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend

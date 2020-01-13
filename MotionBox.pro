@@ -135,6 +135,8 @@ macx {
     QMAKE_POST_LINK += $${QMAKE_COPY} $${DESTDIR}/libvlccore.dylib $$PATH;
 }
 
+macx:ICON = dist/icon.icns
+
 RC_FILE = dist/MotionBox.rc
 
 RESOURCES = dist/MotionBox.qrc

@@ -215,6 +215,30 @@ fi
 echo ""
 
 #--------------------------------------------------------------------------------------------------
+# Icon
+#--------------------------------------------------------------------------------------------------
+
+if [ $2 = "macOS" ]; then
+
+    mkdir icon.iconset
+
+    cp pictures/icon/16.png  icon.iconset/icon_16x16.png
+    cp pictures/icon/24.png  icon.iconset/icon_24x24.png
+    cp pictures/icon/32.png  icon.iconset/icon_32x32.png
+    cp pictures/icon/48.png  icon.iconset/icon_48x48.png
+    cp pictures/icon/64.png  icon.iconset/icon_64x64.png
+    cp pictures/icon/128.png icon.iconset/icon_128x128.png
+    cp pictures/icon/256.png icon.iconset/icon_256x256.png
+    cp pictures/icon/512.png icon.iconset/icon_512x512.png
+
+    iconutil -c icns icon.iconset
+
+    rm -rf icon.iconset
+
+    echo ""
+fi
+
+#--------------------------------------------------------------------------------------------------
 # Deployer
 #--------------------------------------------------------------------------------------------------
 

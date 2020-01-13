@@ -233,7 +233,6 @@ if [ $2 = "macOS" ]; then
                               @loader_path/libboost_system.dylib libtorrent.dylib
 
     cd -
-
 else
     cp "$bin"/MotionBox* $deploy
 

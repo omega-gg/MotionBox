@@ -220,6 +220,8 @@ echo ""
 
 if [ $2 = "macOS" ]; then
 
+    echo "GENERATING icon"
+
     mkdir icon.iconset
 
     cp pictures/icon/16.png  icon.iconset/icon_16x16.png

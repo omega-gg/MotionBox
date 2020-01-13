@@ -146,6 +146,8 @@ if [ $2 = "macOS" ]; then
 
     cd $deploy
 
+    chmod 775 MotionBox
+
     #----------------------------------------------------------------------------------------------
     # Qt
 
@@ -239,6 +241,8 @@ else
     if [ $2 = "linux" ]; then
 
         cp dist/scripts/start.sh $deploy
+
+        chmod 775 $deploy/start.sh
     fi
 fi
 

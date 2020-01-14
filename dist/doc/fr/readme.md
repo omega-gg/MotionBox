@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.5.0
+# [MotionBox] - alpha 1.6.0
 
 ### [english](../../Readme.html) / français
 
@@ -20,6 +20,8 @@ Ensemble, construisons un Navigateur Vidéo.
 
 
 ## Historique
+
+- 1.6.0: [Backends universels, support macOS, onglets améliorés](../changes/1.6.0.html).
 
 - 1.5.0: [Thèmes légers, 64 bit, historique de lecture](../changes/1.5.0.html).
 

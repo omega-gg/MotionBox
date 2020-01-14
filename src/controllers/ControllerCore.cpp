@@ -434,22 +434,18 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::reloadBackends() const
+/* Q_INVOKABLE */ void ControllerCore::updateBackends() const
 {
-    WControllerFileReply * reply = copyBackends(pathStorage() + "/backend/");
+    if (_index == NULL) return;
 
-    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
+    _index->update();
 }
 
 /* Q_INVOKABLE */ void ControllerCore::resetBackends() const
 {
-    if (_index == NULL) return;
+    WControllerFileReply * reply = copyBackends(pathStorage() + "/backend/");
 
-    updateBackends();
-
-    WBackendLoader::clearCache();
-
-    _index->update();
+    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -920,7 +916,7 @@ WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::updateBackends() const
+void ControllerCore::resetBrowse() const
 {
     QString label = _backends->itemLabel(_backends->currentIndex());
 
@@ -978,13 +974,13 @@ void ControllerCore::onIndexLoaded()
 
 #if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
     // NOTE: This makes sure that we have the latest local vbml loaded.
-    reloadBackends();
+    resetBackends();
 
     // NOTE: We want to reload backends when the folder changes.
     _watcher.addFolder(WControllerFile::applicationPath(PATH_BACKEND));
 
     connect(&_watcher, SIGNAL(foldersModified(const QString &, const QStringList &)),
-            this,      SLOT(reloadBackends()));
+            this,      SLOT(resetBackends()));
 #else
     _index->update();
 #endif
@@ -994,7 +990,7 @@ void ControllerCore::onIndexLoaded()
 
 void ControllerCore::onUpdated()
 {
-    updateBackends();
+    resetBrowse();
 }
 
 //-------------------------------------------------------------------------------------------------

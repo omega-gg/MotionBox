@@ -627,6 +627,7 @@ AreaContextual
             }
             else if (id == 2) // Update Backends
             {
+                core.updateBackends();
             }
             else if (id == 3) // Reset Backends
             {

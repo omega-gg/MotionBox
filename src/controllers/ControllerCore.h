@@ -83,7 +83,7 @@ public: // Interface
 
     Q_INVOKABLE bool updateVersion();
 
-    Q_INVOKABLE void reloadBackends() const;
+    Q_INVOKABLE void updateBackends() const;
     Q_INVOKABLE void resetBackends () const;
 
     Q_INVOKABLE QString openFile    (const QString & title);
@@ -154,7 +154,7 @@ private: // Functions
 
     WControllerFileReply * copyBackends(const QString & path) const;
 
-    void updateBackends() const;
+    void resetBrowse() const;
 
     QString getFile(const QString & title, const QString & filter);
 

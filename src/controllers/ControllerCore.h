@@ -169,7 +169,7 @@ private slots:
     void onBackendUpdated(const QString & id);
 
 signals:
-    void logChanged();
+    void logChanged(const QString & message);
 
     void cacheEmptyChanged();
 

@@ -35,6 +35,17 @@ Item
     height: st.dp220
 
     //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onVisibleChanged:
+    {
+        if (visible == false) return;
+
+        itemText.text = core.log;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Connections
     //---------------------------------------------------------------------------------------------
 
@@ -42,7 +53,23 @@ Item
     {
         target: core
 
-        onLogChanged: itemText.text = core.log
+        onLogChanged:
+        {
+            if (visible == false) return;
+
+//#QT_4
+            itemText.text = core.log;
+//#ELSE
+            var length = itemText.length;
+
+            itemText.insert(length, message);
+
+            if (length > 4000)
+            {
+                itemText.remove(0, length - 4000);
+            }
+//#END
+        }
     }
 
     //---------------------------------------------------------------------------------------------

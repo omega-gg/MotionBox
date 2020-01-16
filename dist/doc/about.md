@@ -2,7 +2,7 @@
 
 [MotionBox] by [omega] for Motion Freedom.
 
-License: [GPLv3](documents/license.html).
+License: [GPLv3](license.html).
 
 [MotionBox]: http://omega.gg/MotionBox
 

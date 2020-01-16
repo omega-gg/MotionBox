@@ -21,7 +21,7 @@ Let's build a Video Browser together.
 
 ## Changelog
 
-- 1.6.0: [Universal backends, macOS support, improved tabs](documents/changes/1.6.0.html).
+- 1.6.0: [Universal backends, macOS support, subtitles implementation](documents/changes/1.6.0.html).
 
 - 1.5.0: [Light themes, 64 bit, playback history](documents/changes/1.5.0.html).
 

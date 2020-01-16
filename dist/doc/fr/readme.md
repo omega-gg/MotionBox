@@ -21,7 +21,7 @@ Ensemble, construisons un Navigateur Vidéo.
 
 ## Historique
 
-- 1.6.0: [Backends universels, support macOS, onglets améliorés](../changes/1.6.0.html).
+- 1.6.0: [Backends universels, support macOS, gestion des sous-titres](../changes/1.6.0.html).
 
 - 1.5.0: [Thèmes légers, 64 bit, historique de lecture](../changes/1.5.0.html).
 

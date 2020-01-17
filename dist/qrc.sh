@@ -152,6 +152,7 @@ cp "$SkyComponents"/Style.qml \
    "$SkyComponents"/LineEditBox.qml \
    "$SkyComponents"/LineEditBoxClear.qml \
    "$SkyComponents"/BaseTextEdit.qml \
+   "$SkyComponents"/Console.qml \
    "$SkyComponents"/BaseList.qml \
    "$SkyComponents"/List.qml \
    "$SkyComponents"/ListCompletion.qml \

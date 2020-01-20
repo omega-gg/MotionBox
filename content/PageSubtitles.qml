@@ -202,8 +202,6 @@ Item
             pShowSearch();
 
             pApplyQuery();
-
-            lineEdit.focus();
         }
         else pHideSearch();
     }

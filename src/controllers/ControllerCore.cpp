@@ -16,9 +16,6 @@
 
 #include "ControllerCore.h"
 
-// C++ includes
-#include <iostream>
-
 // Qt includes
 #ifdef QT_4
 #include <QCoreApplication>
@@ -82,25 +79,6 @@ static const QString PATH_STORAGE = "/storage";
 static const QString PATH_BACKEND = "../../backend";
 #endif
 #endif
-
-//-------------------------------------------------------------------------------------------------
-// Functions
-//-------------------------------------------------------------------------------------------------
-
-#ifdef QT_4
-void messageOutput(QtMsgType, const char * message)
-#else
-void messageOutput(QtMsgType, const QMessageLogContext &, const QString & message)
-#endif
-{
-    core->addLog(message);
-
-#ifdef QT_4
-    std::cout << message << std::endl;
-#else
-    std::cout << message.toLatin1().constData() << std::endl;
-#endif
-}
 
 //=================================================================================================
 // ShotWrite
@@ -217,15 +195,6 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("core", this);
 
     wControllerDeclarative->setContextProperty("local", _local);
-}
-
-/* virtual */ ControllerCore::~ControllerCore()
-{
-#ifdef QT_4
-    qInstallMsgHandler(NULL);
-#else
-    qInstallMessageHandler(NULL);
-#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -384,15 +353,6 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("controllerPlaylist", wControllerPlaylist);
 
     wControllerDeclarative->setContextProperty("online", _online);
-
-    //---------------------------------------------------------------------------------------------
-    // Message handler
-
-#ifdef QT_4
-    qInstallMsgHandler(messageOutput);
-#else
-    qInstallMessageHandler(messageOutput);
-#endif
 
     //---------------------------------------------------------------------------------------------
 
@@ -570,29 +530,6 @@ ControllerCore::ControllerCore() : WController()
     if (argc < 2) return;
 
     _argument = QString(argv[1]);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ void ControllerCore::addLog(const QString & message)
-{
-    QString string = message;
-
-    if (_log.isEmpty() == false)
-    {
-        string.prepend('\n');
-    }
-
-    _log.append(string);
-
-    int length = _log.length();
-
-    if (length > LOG_LENGTH)
-    {
-        _log.remove(0, length - LOG_LENGTH);
-    }
-
-    emit logChanged(string);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1027,13 +964,6 @@ void ControllerCore::onBackendUpdated(const QString & id)
 QString ControllerCore::argument() const
 {
     return _argument;
-}
-
-//-------------------------------------------------------------------------------------------------
-
-QString ControllerCore::log() const
-{
-    return _log;
 }
 
 //-------------------------------------------------------------------------------------------------

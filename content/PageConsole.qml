@@ -34,7 +34,7 @@ Item
 
     Connections
     {
-        target: core
+        target: controllerFile
 
         onLogChanged: console.append(message)
     }
@@ -49,6 +49,6 @@ Item
 
         anchors.fill: parent
 
-        text: core.log
+        text: controllerFile.log
     }
 }

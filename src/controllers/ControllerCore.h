@@ -52,8 +52,6 @@ class ControllerCore : public WController
 
     Q_PROPERTY(QString argument READ argument CONSTANT)
 
-    Q_PROPERTY(QString log READ log NOTIFY logChanged)
-
     Q_PROPERTY(bool cacheIsEmpty READ cacheIsEmpty NOTIFY cacheEmptyChanged)
 
     Q_PROPERTY(QString version     READ version     CONSTANT)
@@ -76,8 +74,6 @@ class ControllerCore : public WController
 private:
     ControllerCore();
 
-    /* virtual */ ~ControllerCore();
-
 public: // Interface
     Q_INVOKABLE void load();
 
@@ -96,8 +92,6 @@ public: // Interface
     Q_INVOKABLE void applyProxy(bool active);
 
     Q_INVOKABLE void applyArguments(int & argc, char ** argv);
-
-    Q_INVOKABLE void addLog(const QString & message);
 
     Q_INVOKABLE void clearCache();
 
@@ -169,8 +163,6 @@ private slots:
     void onBackendUpdated(const QString & id);
 
 signals:
-    void logChanged(const QString & message);
-
     void cacheEmptyChanged();
 
     void libraryChanged ();
@@ -209,8 +201,6 @@ public: // Properties
 
 private: // Variables
     QString _argument;
-
-    QString _log;
 
     WCache * _cache;
 

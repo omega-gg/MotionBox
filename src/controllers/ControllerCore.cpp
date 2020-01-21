@@ -208,6 +208,11 @@ ControllerCore::ControllerCore() : WController()
     _pathOpen = QDir::rootPath();
 
     //---------------------------------------------------------------------------------------------
+    // Message handler
+
+    wControllerFile->initMessageHandler();
+
+    //---------------------------------------------------------------------------------------------
     // Controllers
 
     QString path = pathStorage();

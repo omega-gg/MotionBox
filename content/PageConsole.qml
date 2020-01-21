@@ -36,7 +36,7 @@ Item
     {
         target: controllerFile
 
-        onLogChanged: console.append(message)
+        onLogChanged: itemConsole.append(message)
     }
 
     //---------------------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ Item
 
     Console
     {
-        id: console
+        id: itemConsole
 
         anchors.fill: parent
 

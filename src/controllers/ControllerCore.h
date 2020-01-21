@@ -176,8 +176,6 @@ signals:
 public: // Properties
     QString argument() const;
 
-    QString log() const;
-
     bool cacheIsEmpty() const;
 
     QString version    () const;

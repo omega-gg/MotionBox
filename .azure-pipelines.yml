@@ -13,7 +13,7 @@ jobs:
       unzip -q 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
-      cd s
+      cd -
       sh configure.sh qt4 win32
       cd ../Sky
       sh build.sh qt4 win32 tools
@@ -32,7 +32,7 @@ jobs:
       unzip -q 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
-      cd s
+      cd -
       sh configure.sh qt5 win32
       cd ../Sky
       sh build.sh qt5 win32 tools
@@ -53,7 +53,7 @@ jobs:
       unzip -q 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
-      cd s
+      cd -
       sh configure.sh qt5 win64
       cd ../Sky
       sh build.sh qt5 win64 tools
@@ -76,7 +76,7 @@ jobs:
       unzip -q 3rdparty.zip
       git clone https://github.com/omega-gg/Sky
       git clone https://github.com/omega-gg/backend
-      cd s
+      cd -
       sh configure.sh qt5 macOS
       cd ../Sky
       sh build.sh qt5 macOS tools
@@ -97,7 +97,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox/..;
                                      apt-get update;
-                                     apt-get -y install sudo wget git;
+                                     apt-get -y install sudo curl git;
                                      git clone https://github.com/omega-gg/Sky;
                                      git clone https://github.com/omega-gg/backend;
                                      cd Sky;
@@ -119,7 +119,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox/..;
                                      apt-get update;
-                                     apt-get -y install sudo wget git;
+                                     apt-get -y install sudo curl git;
                                      git clone https://github.com/omega-gg/Sky;
                                      git clone https://github.com/omega-gg/backend;
                                      cd Sky;
@@ -143,7 +143,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox/..;
                                      apt-get update;
-                                     apt-get -y install sudo wget git;
+                                     apt-get -y install sudo curl git;
                                      git clone https://github.com/omega-gg/Sky;
                                      git clone https://github.com/omega-gg/backend;
                                      cd Sky;
@@ -165,7 +165,7 @@ jobs:
       docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox/..;
                                      apt-get update;
-                                     apt-get -y install sudo wget git;
+                                     apt-get -y install sudo curl git;
                                      git clone https://github.com/omega-gg/Sky;
                                      git clone https://github.com/omega-gg/backend;
                                      cd Sky;

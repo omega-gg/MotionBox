@@ -255,4 +255,15 @@ else
     version=1.1
 fi
 
-"$Sky"/deploy/deployer qrc $version MotionBox.qrc
+if [ $windows = true ]; then
+
+    defines="WINDOWS"
+
+elif [ $2 = "macOS" ]; then
+
+    defines="MAC"
+else
+    defines="LINUX"
+fi
+
+"$Sky"/deploy/deployer qrc $version MotionBox.qrc $defines

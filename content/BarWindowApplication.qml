@@ -370,6 +370,12 @@ Item
         {
             gui.restoreFullScreen();
 
+//#MAC
+            // FIXME macOS: It seems we can't go from full screen to normal window right away.
+            //              This could be related to the animation.
+            sk.wait(1000);
+//#END
+
             gui.restoreMaximize();
         }
         else gui.toggleMaximize();

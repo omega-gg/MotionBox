@@ -38,19 +38,13 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
+external="$external/$2"
+
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
     windows=true
 
-    external="$external/$2"
-
     MinGW="$external/MinGW/$MinGW_version/bin"
-
-elif [ $2 = "macOS" ]; then
-
-    windows=false
-
-    external="$external/$2"
 else
     windows=false
 fi

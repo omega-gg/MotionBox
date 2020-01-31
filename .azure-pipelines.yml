@@ -75,7 +75,7 @@ jobs:
   steps:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+      docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl git;
                                      sh 3rdparty.sh linux;
@@ -93,7 +93,7 @@ jobs:
   steps:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+      docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl git;
                                      sh 3rdparty.sh linux;
@@ -113,7 +113,7 @@ jobs:
   steps:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+      docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl git;
                                      sh 3rdparty.sh linux;
@@ -131,7 +131,7 @@ jobs:
   steps:
   - bash: |
       docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox/..;
+      docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl git;
                                      sh 3rdparty.sh linux;

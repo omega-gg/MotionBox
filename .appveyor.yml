@@ -12,7 +12,6 @@ environment:
       platform: win64
 
 install:
-  - cd MotionBox
   - sh 3rdparty.sh %platform%
   - sh configure.sh %qt% %platform%
 

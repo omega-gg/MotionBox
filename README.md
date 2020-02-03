@@ -1,6 +1,5 @@
 <a href="http://omega.gg/MotionBox"><img src="dist/icon.png" alt="MotionBox" width="128px"></a>
 ---
-
 [![azure](https://dev.azure.com/bunjee/MotionBox/_apis/build/status/omega-gg.MotionBox)](https://dev.azure.com/bunjee/MotionBox/_build)
 [![travis](http://api.travis-ci.org/omega-gg/MotionBox.svg)](http://travis-ci.org/omega-gg/MotionBox)
 [![appveyor](http://ci.appveyor.com/api/projects/status/ct0kbo659jviskec?svg=true)](http://ci.appveyor.com/project/3unjee/motionbox)
@@ -51,13 +50,17 @@ On Windows:
 Recommended:
 - [Qt Creator](http://download.qt.io/official_releases/qtcreator) 3.6.0 or later.
 
+## Install
+
+You can install third party libraries with:
+
+    sh 3rdparty.sh <win32 | win64 | macOS | linux | android32 | android64>
+
 ## Configure
 
 You can configure MotionBox with:
 
     sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux>
-
-- Edit [configure.sh](configure.sh) to check your dependencies.
 
 ## Build
 
@@ -74,8 +77,6 @@ Or the console:
     qmake -r
     make (mingw32-make on Windows)
 
-- Edit [build.sh](build.sh) to check your dependencies.
-
 ## Deploy
 
 1\. Generate the qrc file:
@@ -91,8 +92,6 @@ Or the console:
 3\. Deploy MotionBox:
 
     sh deploy.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux>
-
-- Edit [dist/qrc.sh](dist/qrc.sh) and [deploy.sh](deploy.sh) to check your dependencies.
 
 ## License
 

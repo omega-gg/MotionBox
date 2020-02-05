@@ -180,7 +180,7 @@ ControllerCore::ControllerCore() : WController()
 
     if (_local->_version != CORE_VERSION)
     {
-        deleteBrowse();
+        clearStorage();
     }
     else if (_local->_splashWidth != -1)
     {
@@ -800,23 +800,6 @@ void ControllerCore::createBrowse() const
     _backends->addItem(browse);
 }
 
-void ControllerCore::deleteBrowse() const
-{
-    QString path = pathStorage() + "/playlists/";
-
-    WControllerFile::deleteFolder(path + "3");
-    WControllerFile::deleteFolder(path + "4");
-
-    WControllerFile::deleteFile(path + "3.xml");
-    WControllerFile::deleteFile(path + "4.xml");
-
-    _local->setBrowserVisible(false);
-
-    _local->setQuery(QString());
-
-    _local->setCache(false);
-}
-
 //-------------------------------------------------------------------------------------------------
 
 void ControllerCore::createIndex(const QString & path)
@@ -878,6 +861,31 @@ void ControllerCore::resetBrowse() const
          _backends->setCurrentIndex(0);
     }
     else _backends->setCurrentIndex(index);
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::clearStorage() const
+{
+    QString path = pathStorage();
+
+    WControllerFile::deleteFolder(path + "/backend");
+    WControllerFile::deleteFolder(path + "/cache");
+    WControllerFile::deleteFolder(path + "/torrents");
+
+    path.append("/playlists/");
+
+    WControllerFile::deleteFolder(path + "3");
+    WControllerFile::deleteFolder(path + "4");
+
+    WControllerFile::deleteFile(path + "3.xml");
+    WControllerFile::deleteFile(path + "4.xml");
+
+    _local->setBrowserVisible(false);
+
+    _local->setQuery(QString());
+
+    _local->setCache(false);
 }
 
 //-------------------------------------------------------------------------------------------------

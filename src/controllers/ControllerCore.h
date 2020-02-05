@@ -142,13 +142,14 @@ private: // Functions
     WLibraryFolder * createLibrary(int id);
 
     void createBrowse() const;
-    void deleteBrowse() const;
 
     void createIndex(const QString & path);
 
     WControllerFileReply * copyBackends(const QString & path) const;
 
     void resetBrowse() const;
+
+    void clearStorage() const;
 
     QString getFile(const QString & title, const QString & filter);
 

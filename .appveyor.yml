@@ -12,7 +12,6 @@ environment:
       platform: win64
 
 install:
-  - export LANG=en_US.UTF-8
   - sh 3rdparty.sh %platform%
   - sh configure.sh %qt% %platform%
 

@@ -8,7 +8,6 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      export LANG=en_US.UTF-8
       sh 3rdparty.sh win32
       sh configure.sh qt4 win32
       cd ../Sky
@@ -23,7 +22,6 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      export LANG=en_US.UTF-8
       sh 3rdparty.sh win32
       sh configure.sh qt5 win32
       cd ../Sky
@@ -40,7 +38,6 @@ jobs:
     vmImage: "windows-latest"
   steps:
   - bash: |
-      export LANG=en_US.UTF-8
       sh 3rdparty.sh win64
       sh configure.sh qt5 win64
       cd ../Sky
@@ -59,7 +56,6 @@ jobs:
     vmImage: "macOS-latest"
   steps:
   - bash: |
-      export LANG=en_US.UTF-8
       sh 3rdparty.sh macOS
       sh configure.sh qt5 macOS
       cd ../Sky

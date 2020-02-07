@@ -693,7 +693,9 @@ Item
         // Settings
         //-------------------------------------------------------------------------------------
 
-        anchors.left : buttonApplication.right
+        anchors.left: (buttonMessage.visible) ? buttonMessage.right
+                                              : buttonMessage.left
+
         anchors.right: buttonMini.left
 
         anchors.leftMargin: -(buttonApplication.borderRight)

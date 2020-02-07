@@ -631,7 +631,7 @@ BaseList
 
     function pDragCheck(x, y, index)
     {
-        if (window.testDrag(Qt.point(pDragX, pDragY), Qt.point(x, y), 8) == false)
+        if (window.testDrag(Qt.point(pDragX, pDragY), Qt.point(x, y), 10) == false)
         {
             return;
         }

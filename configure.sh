@@ -42,11 +42,11 @@ external="$external/$2"
 
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
-    windows=true
+    os="windows"
 
     MinGW="$external/MinGW/$MinGW_version/bin"
 else
-    windows=false
+    os="default"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -112,7 +112,7 @@ else
     bin="$bin5"
 fi
 
-if [ $windows = true ]; then
+if [ $os = "windows" ]; then
 
     cp "$MinGW"/libgcc_s_*-1.dll    "$bin"
     cp "$MinGW"/libstdc++-6.dll     "$bin"
@@ -123,7 +123,7 @@ fi
 # SSL
 #--------------------------------------------------------------------------------------------------
 
-if [ $windows = true ]; then
+if [ $os = "windows" ]; then
 
     echo "COPYING SSL"
 
@@ -135,7 +135,7 @@ fi
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-if [ $windows = true ]; then
+if [ $os = "windows" ]; then
 
     echo "COPYING VLC"
 

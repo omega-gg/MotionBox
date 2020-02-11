@@ -36,9 +36,9 @@ fi
 
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
-    windows=true
+    os="windows"
 else
-    windows=false
+    os="default"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -245,7 +245,7 @@ echo ""
 
 if [ $1 = "qt5" ]; then
 
-    if [ $windows = true ]; then
+    if [ $os = "windows" ]; then
 
         version=2.11
     else
@@ -255,7 +255,7 @@ else
     version=1.1
 fi
 
-if [ $windows = true ]; then
+if [ $os = "windows" ]; then
 
     defines="WINDOWS"
 

@@ -34,9 +34,9 @@ fi
 
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
-    windows=true
+    os="windows"
 else
-    windows=false
+    os="default"
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -108,7 +108,7 @@ if [ $1 = "qt5" ]; then
     fi
 fi
 
-if [ $windows = true ]; then
+if [ $os = "windows" ]; then
 
     cp -r "$path"/plugins $deploy
 

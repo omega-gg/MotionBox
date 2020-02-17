@@ -13,6 +13,9 @@ external="../3rdparty"
 
 MinGW_version="7.3.0"
 
+SSL_versionA="1.0.2p"
+SSL_versionB="1.1.1d"
+
 VLC_version="3.0.6"
 
 #--------------------------------------------------------------------------------------------------
@@ -51,7 +54,12 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-SSL="$external/OpenSSL"
+if [ $1 = "qt4" ]; then
+
+    SSL="$external/OpenSSL/$SSL_versionA"
+else
+    SSL="$external/OpenSSL/$SSL_versionB"
+fi
 
 VLC="$external/VLC/$VLC_version"
 
@@ -127,8 +135,7 @@ if [ $os = "windows" ]; then
 
     echo "COPYING SSL"
 
-    cp "$SSL"/libeay32.dll "$bin"
-    cp "$SSL"/ssleay32.dll "$bin"
+    cp "$SSL"/*.dll "$bin"
 fi
 
 #--------------------------------------------------------------------------------------------------

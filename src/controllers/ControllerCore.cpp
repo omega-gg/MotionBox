@@ -990,7 +990,7 @@ bool ControllerCore::cacheIsEmpty() const
 
 QString ControllerCore::version() const
 {
-    return sk->getVersionLite(CORE_VERSION);
+    return CORE_VERSION;
 }
 
 QString ControllerCore::versionName() const

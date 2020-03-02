@@ -61,9 +61,6 @@ public: // Variables
     int width;
     int height;
 
-    int miniX;
-    int miniY;
-
     int splashWidth;
     int splashHeight;
 
@@ -72,8 +69,6 @@ public: // Variables
     qreal scale;
 
     bool maximized;
-
-    bool micro;
 
     bool expanded;
     bool macro;
@@ -158,9 +153,6 @@ public: // Variables
     stream.writeTextElement("width",  QString::number(width));
     stream.writeTextElement("height", QString::number(height));
 
-    stream.writeTextElement("miniX", QString::number(miniX));
-    stream.writeTextElement("miniY", QString::number(miniY));
-
     stream.writeTextElement("splashWidth",  QString::number(splashWidth));
     stream.writeTextElement("splashHeight", QString::number(splashHeight));
 
@@ -169,8 +161,6 @@ public: // Variables
     stream.writeTextElement("scale", QString::number(scale));
 
     stream.writeTextElement("maximized", QString::number(maximized));
-
-    stream.writeTextElement("micro", QString::number(micro));
 
     stream.writeTextElement("expanded", QString::number(expanded));
     stream.writeTextElement("macro",    QString::number(macro));
@@ -239,9 +229,6 @@ public: // Variables
     _width  = -1;
     _height = -1;
 
-    _miniX = -1;
-    _miniY = -1;
-
     _splashWidth  = -1;
     _splashHeight = -1;
 
@@ -250,8 +237,6 @@ public: // Variables
     _scale = 1.0;
 
     _maximized = false;
-
-    _micro = false;
 
     _expanded = false;
     _macro    = false;
@@ -307,14 +292,6 @@ public: // Variables
 
     _width  = width;
     _height = height;
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ void DataLocal::setMiniPos(int x, int y)
-{
-    _miniX = x;
-    _miniY = y;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -375,20 +352,6 @@ public: // Variables
     _height = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
-    // miniX
-
-    if (WControllerXml::readNextStartElement(&stream, "miniX") == false) return false;
-
-    _miniX = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // miniY
-
-    if (WControllerXml::readNextStartElement(&stream, "miniY") == false) return false;
-
-    _miniY = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
     // splashWidth
 
     if (WControllerXml::readNextStartElement(&stream, "splashWidth") == false) return false;
@@ -422,13 +385,6 @@ public: // Variables
     if (WControllerXml::readNextStartElement(&stream, "maximized") == false) return false;
 
     _maximized = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // micro
-
-    if (WControllerXml::readNextStartElement(&stream, "micro") == false) return false;
-
-    _micro = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // expanded
@@ -657,9 +613,6 @@ public: // Variables
     action->width  = _width;
     action->height = _height;
 
-    action->miniX = _miniX;
-    action->miniY = _miniY;
-
     action->splashWidth  = _splashWidth;
     action->splashHeight = _splashHeight;
 
@@ -668,8 +621,6 @@ public: // Variables
     action->scale = _scale;
 
     action->maximized = _maximized;
-
-    action->micro = _micro;
 
     action->expanded = _expanded;
     action->macro    = _macro;
@@ -751,18 +702,6 @@ int DataLocal::height() const
 
 //-------------------------------------------------------------------------------------------------
 
-int DataLocal::miniX() const
-{
-    return _miniX;
-}
-
-int DataLocal::miniY() const
-{
-    return _miniY;
-}
-
-//-------------------------------------------------------------------------------------------------
-
 int DataLocal::splashWidth() const
 {
     return _splashWidth;
@@ -819,24 +758,6 @@ void DataLocal::setMaximized(bool maximized)
     _maximized = maximized;
 
     emit maximizedChanged();
-
-    save();
-}
-
-//-------------------------------------------------------------------------------------------------
-
-bool DataLocal::micro() const
-{
-    return _micro;
-}
-
-void DataLocal::setMicro(bool micro)
-{
-    if (_micro == micro) return;
-
-    _micro = micro;
-
-    emit microChanged();
 
     save();
 }

@@ -32,11 +32,11 @@ Item
 
     property int pMargin: buttonAdd.width - buttonApplication.borderRight
 
-    property bool pVersion: (gui.isMini == false && online.version && online.version != sk.version)
+    property bool pVersion: (online.version && online.version != sk.version)
 
     property bool pUpdate: false
 
-    property bool pMessage: (gui.isMini == false && online.messageUrl != "")
+    property bool pMessage: (online.messageUrl != "")
 
     property TabTrack pContextualTab : null
     property variant  pContextualItem: null
@@ -58,15 +58,9 @@ Item
 
     property alias buttonAdd: buttonAdd
 
-    property alias buttonMini    : buttonMini
     property alias buttonIconify : buttonIconify
     property alias buttonMaximize: buttonMaximize
     property alias buttonClose   : buttonClose
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    property alias pTab: itemTab.tab
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -167,21 +161,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function closeCurrentTab()
-    {
-        if (gui.isMini)
-        {
-            var index = tabs.indexOf(itemTab.tab);
-
-            itemTabs.closeTab(index);
-
-            updateTab();
-        }
-        else itemTabs.closeCurrentTab();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function showTabMenu(tab, item, x, y, isCursorChild)
     {
         panelContextual.loadPageTab(tab);
@@ -200,19 +179,7 @@ Item
 
     function showCurrentTabMenu()
     {
-        if (gui.isMini)
-        {
-            gui.restoreMicro();
-
-            if (actionCue.tryPush(actionTabMenu)) return;
-
-            panelContextual.loadPageTab(itemTab.tab);
-
-            areaContextual.showPanelFrom(panelContextual, itemTab);
-
-            startActionCue(st.duration_faster);
-        }
-        else if (pContextualTab)
+        if (pContextualTab)
         {
             showTabMenu(pContextualTab, pContextualItem, -1, -1, false);
 
@@ -232,41 +199,7 @@ Item
 
     function updateTab()
     {
-        if (gui.isMicro)
-        {
-            var indexA = tabs.indexOf(pTab);
-
-            var indexB = player.tabIndex;
-
-            if (indexA == indexB) return;
-
-            if (indexA < indexB)
-            {
-                 itemSlide.startLeft();
-            }
-            else itemSlide.startRight();
-
-            pTab = playerTab;
-        }
-        else if (gui.isMini)
-        {
-            /* var */ indexA = tabs.indexOf(pTab);
-
-            /* var */ indexB = tabs.currentIndex;
-
-            if (indexA == indexB) return;
-
-            if (indexA < indexB)
-            {
-                 itemSlide.startLeft();
-            }
-            else itemSlide.startRight();
-
-            pTab = currentTab;
-        }
-        else pTab = currentTab;
-
-        panelSearch.setText(pTab.source);
+        panelSearch.setText(currentTab.source);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -274,8 +207,6 @@ Item
 
     function pOpenTabPlaylist(playlist)
     {
-        gui.restoreMicro();
-
         if (actionCue.tryPush(actionTabOpen))
         {
             barWindow.playlist = playlist;
@@ -369,7 +300,7 @@ Item
         if (window.fullScreen)
         {
 //#MAC
-            // FIXME macOS: It seems we can't go from full screen to normal window right away.
+            // FIXME macOS: We can't go from full screen to normal window right away.
             //              This could be related to the animation.
             gui.restoreFullScreen();
 //#ELSE
@@ -379,27 +310,6 @@ Item
         }
         else gui.toggleMaximize();
     }
-
-    //---------------------------------------------------------------------------------------------
-
-//#QT_5
-    function pUpdateMini(index)
-    {
-        if (gui.isMini)
-        {
-            var indexA = tabs.indexOf(pTab);
-
-            var indexB = index;
-
-            if (indexA != indexB)
-            {
-                itemSlide.init();
-            }
-        }
-
-        return true;
-    }
-//#END
 
     //---------------------------------------------------------------------------------------------
     // Childs
@@ -616,7 +526,7 @@ Item
 
         height: buttonVersion.height
 
-        maximumWidth: buttonMini.x - x + borderRight
+        maximumWidth: buttonIconify.x - x + borderRight
 
         borderTop: borderSize
 
@@ -696,14 +606,12 @@ Item
         anchors.left: (buttonMessage.visible) ? buttonMessage.right
                                               : buttonMessage.left
 
-        anchors.right: buttonMini.left
+        anchors.right: buttonIconify.left
 
         anchors.leftMargin: -(buttonApplication.borderRight)
 
         anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
                                                  : pMargin + st.dp32
-
-        visible: (gui.isMini == false)
 
         tabs: core.tabs
 
@@ -769,119 +677,13 @@ Item
         {
             return gui.onBeforeTabClose(index);
         }
-
-//#QT_5
-        function onBeforeTabOpen(index)
-        {
-            return pUpdateMini(index);
-        }
-
-        function onBeforeTabSelect(index)
-        {
-            return pUpdateMini(index);
-        }
-//#END
-    }
-
-    ItemSlide
-    {
-        id: itemSlide
-
-        anchors.left  : buttonApplication.right
-        anchors.right : buttonMini.left
-        anchors.top   : parent.top
-        anchors.bottom: border.top
-
-        anchors.rightMargin: pMargin + st.dp16
-
-        visible: gui.isMini
-
-        ItemTabMini
-        {
-            id: itemTab
-
-            anchors.fill: parent
-
-            textMargin: (buttonsItem.visible) ? st.dp60 : st.dp8
-
-            onPressed:
-            {
-                gui.restoreBars();
-
-                if (mouse.button & Qt.LeftButton)
-                {
-                    window.clearFocus();
-                }
-                else if (mouse.button & Qt.RightButton)
-                {
-                    showCurrentTabMenu();
-                }
-            }
-
-            onClicked:
-            {
-                if (mouse.button & Qt.LeftButton)
-                {
-                    if (isHighlighted)
-                    {
-                        gui.restoreMicro();
-                    }
-                }
-                else if (mouse.button & Qt.MiddleButton)
-                {
-                    itemTabs.closeTab(tabs.currentIndex);
-                }
-            }
-
-            onDoubleClicked:
-            {
-                if ((mouse.button & Qt.LeftButton) == false) return;
-
-                if (gui.isMicro)
-                {
-                     gui.restoreMicro();
-                }
-                else gui.playTab();
-            }
-        }
-
-        ButtonsItem
-        {
-            id: buttonsItem
-
-            anchors.right: parent.right
-
-            anchors.rightMargin: st.dp4
-
-            anchors.verticalCenter: parent.verticalCenter
-
-            visible: (itemTab.isHovered || checked)
-
-            checked: (panelContextual.item == itemTab || panelAdd.item == barTop)
-
-            buttonClose.enabled: (itemTabs.count > 1 || pTab.isValid)
-
-            onContextual: showCurrentTabMenu()
-
-            onClose: closeCurrentTab()
-        }
-    }
-
-    BorderVertical
-    {
-        id: borderItem
-
-        anchors.right: itemSlide.right
-
-        visible: ((gui.isMini && lineEditSearch.visible) || itemSlide.isAnimated)
     }
 
     ButtonPianoIcon
     {
         id: buttonAdd
 
-        x: (gui.isMini) ? itemSlide.x + itemSlide.width    - borderLeft
-                        : itemTabs .x + itemTabs.tabsWidth - borderLeft
+        x: itemTabs .x + itemTabs.tabsWidth - borderLeft
 
         borderLeft: borderSize
 
@@ -902,12 +704,7 @@ Item
             }
         }
 
-        onClicked:
-        {
-            if (gui.isMini) window.clearFocus();
-
-            pOpenTabPlaylist(currentPlaylist);
-        }
+        onClicked: pOpenTabPlaylist(currentPlaylist)
     }
 
     ViewDrag
@@ -936,7 +733,7 @@ Item
 
             if (window.resizer.visible && window.isTouching
                 &&
-                (viewDrag.x + mouse.x) < buttonMini.x)
+                (viewDrag.x + mouse.x) < buttonIconify.x)
             {
                 window.toggleTouch();
             }
@@ -948,33 +745,7 @@ Item
             {
                 pRestoreMaximize();
             }
-            else gui.toggleMini();
         }
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonMini
-
-        anchors.right : buttonIconify.left
-        anchors.top   : buttonClose.top
-        anchors.bottom: buttonClose.bottom
-
-        borderLeft  : borderSize
-        borderRight : 0
-        borderBottom: borderSize
-
-        highlighted: gui.pMini
-
-        checkable: true
-        checked  : gui.isMini
-
-        icon: (gui.isMini) ? st.icon16x16_maxi
-                           : st.icon16x16_mini
-
-        iconSourceSize: st.size16x16
-
-        onClicked: gui.toggleMini();
     }
 
     ButtonPianoIcon
@@ -1005,8 +776,6 @@ Item
         anchors.bottom: buttonClose.bottom
 
         borderBottom: borderSize
-
-        visible: (gui.isMini == false)
 
         highlighted: (window.maximized || window.fullScreen)
 

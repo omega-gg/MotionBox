@@ -85,8 +85,6 @@ ScrollArea
     contentHeight: (labelLoading.visible) ? list.height + labelLoading.height + st.dp16
                                           : list.height
 
-    enableUpdateRange: (gui.isMinified == false)
-
     singleStep     : list.itemSize
     wheelMultiplier: 1
 

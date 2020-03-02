@@ -64,10 +64,7 @@ PanelContextual
 
     minimumHeight: pGetMinimumHeight()
 
-    maximumHeight: (gui.isMini) ? -1
-                                : bar.height + st.itemList_height * 16 + barButtons.height
-                                  +
-                                  borderSizeHeight
+    maximumHeight: bar.height + st.itemList_height * 16 + barButtons.height + borderSizeHeight
 
     preferredWidth: (isExpanded) ? st.dp256 * 2 + borderVertical.size + borderSizeWidth
                                  : minimumWidth

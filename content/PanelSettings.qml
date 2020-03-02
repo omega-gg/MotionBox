@@ -48,11 +48,10 @@ Panel
     anchors.right: parent.right
     anchors.top  : parent.bottom
 
-    anchors.rightMargin: (gui.isMini) ? 0 : st.dp96
+    anchors.rightMargin: st.dp96
 //#ELSE
     // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
-    x: (gui.isMini) ? parent.width - width
-                    : parent.width - width - st.dp96
+    x: parent.width - width - st.dp96
 
     y: parent.height + height
 //#END
@@ -61,7 +60,7 @@ Panel
 
     height: bar.height + loader.height + borderSizeHeight
 
-    borderRight : (gui.isMini) ? 0 : borderSize
+    borderRight : borderSize
     borderBottom: 0
 
     visible: false
@@ -164,8 +163,6 @@ Panel
 
     function expose()
     {
-        gui.restoreMicro();
-
         if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
 
         gui.panelAddHide();

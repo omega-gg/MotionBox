@@ -24,7 +24,7 @@ F8: Go to the current track.
 
 #
 
-F9: Toggle the Mini Mode.
+F9: Toggle normal window.
 
 F10: Toggle maximize window.
 

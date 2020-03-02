@@ -162,8 +162,6 @@ Panel
     {
         if (isExposed || isAnimated) return;
 
-        gui.restoreMicro();
-
         if (indexCurrent == -1)
         {
             indexCurrent = 0;

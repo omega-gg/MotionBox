@@ -24,7 +24,7 @@ F8: Aller au track courant.
 
 #
 
-F9: Basculer le Mode Mini.
+F9: Basculer la fenêtre normale.
 
 F10: Basculer la fenêtre maximisée.
 

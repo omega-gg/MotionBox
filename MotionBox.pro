@@ -160,7 +160,6 @@ OTHER_FILES += 3rdparty.sh \
                content/AreaContextualApplication.qml \
                content/AreaDrag.qml \
                content/ItemNew.qml \
-               content/ItemTabMini.qml \
                content/TextLogo.qml \
                content/PanelApplication.qml \
                #content/PanelDiscover.qml \

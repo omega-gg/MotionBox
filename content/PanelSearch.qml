@@ -42,8 +42,7 @@ Panel
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: (gui.isMini) ? parent.width         + borderSizeWidth
-                        : lineEditSearch.width + borderSizeWidth
+    width: lineEditSearch.width + borderSizeWidth
 
     height: st.list_itemSize * 6 + borderSizeHeight
 
@@ -66,8 +65,6 @@ Panel
     onVisibleChanged:
     {
         if (visible == false) return;
-
-        gui.restoreMicro();
 
         panelApplication.collapse();
         //panelDiscover   .collapse();

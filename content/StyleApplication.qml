@@ -126,9 +126,6 @@ Style
 
     property url icon_point: "pictures/icons/scale/point.svg"
 
-    property url icon_mini: "pictures/icons/scale/mini.svg"
-    property url icon_maxi: "pictures/icons/scale/maxi.svg"
-
     property url icon_goBackward: "pictures/icons/scale/goBackward.svg"
     property url icon_goForward : "pictures/icons/scale/goForward.svg"
 
@@ -185,9 +182,6 @@ Style
     // 16x16
 
     property url icon16x16_point: vector("pictures/icons/16x16/point.png", icon_point)
-
-    property url icon16x16_mini: vector("pictures/icons/16x16/mini.png", icon_mini)
-    property url icon16x16_maxi: vector("pictures/icons/16x16/maxi.png", icon_maxi)
 
     property url icon16x16_searchSmall: vector("pictures/icons/16x16/searchSmall.png",
                                                icon_searchSmall)

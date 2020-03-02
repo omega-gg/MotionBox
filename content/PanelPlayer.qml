@@ -77,23 +77,6 @@ Item
         },
         State
         {
-            name: "mini"; when: gui.isMini
-
-            AnchorChanges
-            {
-                target: panelPlayer
-
-                anchors.bottom: parent.bottom
-            }
-            PropertyChanges
-            {
-                target: panelPlayer
-
-                height: Math.max(st.dp270, parent.height)
-            }
-        },
-        State
-        {
             name: "expanded"; when: gui.isExpanded
 
             PropertyChanges
@@ -181,12 +164,7 @@ Item
 
     function pContextualTab(tab)
     {
-        if (gui.isMini)
-        {
-             barWindow.showCurrentTabMenu();
-        }
-        else barWindow.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(),
-                                   true);
+        barWindow.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(), true);
     }
 
     //---------------------------------------------------------------------------------------------

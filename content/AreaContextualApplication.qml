@@ -61,18 +61,13 @@ AreaContextual
 
     function pShowPanelAdd()
     {
-        if (gui.isMini)
-        {
-             areaContextual.showPanelMargins(panelAdd, barTop, st.border_size, -st.border_size);
-        }
-        else areaContextual.showPanel(panelAdd,
-                                      panelContextual.item,
-                                      panelContextual.position,
-                                      panelContextual.posX,
-                                      panelContextual.posY,
-                                      panelContextual.marginX,
-                                      panelContextual.marginY,
-                                      panelContextual.isCursorChild);
+        areaContextual.showPanel(panelAdd, panelContextual.item,
+                                           panelContextual.position,
+                                           panelContextual.posX,
+                                           panelContextual.posY,
+                                           panelContextual.marginX,
+                                           panelContextual.marginY,
+                                           panelContextual.isCursorChild);
     }
 
     //---------------------------------------------------------------------------------------------

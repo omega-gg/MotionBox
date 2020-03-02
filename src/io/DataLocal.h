@@ -33,9 +33,6 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(int width  READ width  CONSTANT)
     Q_PROPERTY(int height READ height CONSTANT)
 
-    Q_PROPERTY(int miniX READ miniX CONSTANT)
-    Q_PROPERTY(int miniY READ miniY CONSTANT)
-
     Q_PROPERTY(int splashWidth  READ splashWidth  CONSTANT)
     Q_PROPERTY(int splashHeight READ splashHeight CONSTANT)
 
@@ -44,8 +41,6 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(qreal scale READ scale WRITE setScale NOTIFY scaleChanged)
 
     Q_PROPERTY(bool maximized READ maximized WRITE setMaximized NOTIFY maximizedChanged)
-
-    Q_PROPERTY(bool micro READ micro WRITE setMicro NOTIFY microChanged)
 
     Q_PROPERTY(bool expanded READ expanded WRITE setExpanded NOTIFY expandedChanged)
     Q_PROPERTY(bool macro    READ macro    WRITE setMacro    NOTIFY macroChanged)
@@ -119,8 +114,6 @@ public:
 public: // Interface
     Q_INVOKABLE void setSize(int screen, int width, int height);
 
-    Q_INVOKABLE void setMiniPos(int x, int y);
-
     Q_INVOKABLE void setSplashSize(int width, int height);
 
 public: // WLocalObject reimplementation
@@ -137,8 +130,6 @@ signals:
     void scaleChanged();
 
     void maximizedChanged();
-
-    void microChanged();
 
     void expandedChanged();
     void macroChanged   ();
@@ -195,9 +186,6 @@ public: // Properties
     int width () const;
     int height() const;
 
-    int miniX() const;
-    int miniY() const;
-
     int splashWidth () const;
     int splashHeight() const;
 
@@ -209,9 +197,6 @@ public: // Properties
 
     bool maximized() const;
     void setMaximized(bool maximized);
-
-    bool micro() const;
-    void setMicro(bool micro);
 
     bool expanded() const;
     void setExpanded(bool expanded);
@@ -305,9 +290,6 @@ private: // Variables
     int _width;
     int _height;
 
-    int _miniX;
-    int _miniY;
-
     int _splashWidth;
     int _splashHeight;
 
@@ -316,8 +298,6 @@ private: // Variables
     qreal _scale;
 
     bool _maximized;
-
-    bool _micro;
 
     bool _expanded;
     bool _macro;

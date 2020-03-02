@@ -59,8 +59,7 @@ MouseArea
 
     anchors.bottom: parent.bottom
 
-    height: (gui.isMini) ? st.dp80 + border.size
-                         : st.dp48 + border.size
+    height: st.dp48 + border.size
 
     acceptedButtons: Qt.NoButton
 
@@ -152,8 +151,7 @@ MouseArea
             anchors.left: parent.left
             anchors.top : parent.top
 
-            anchors.leftMargin: (gui.isMini) ? st.dp3  : st.dp6
-            anchors.topMargin : (gui.isMini) ? st.dp32 : 0
+            anchors.leftMargin: st.dp6
 
             width : st.dp48
             height: width
@@ -255,8 +253,8 @@ MouseArea
             anchors.left: buttonNext.right
             anchors.top : parent.top
 
-            anchors.leftMargin: (gui.isMini) ? st.dp5  : st.dp8
-            anchors.topMargin : (gui.isMini) ? st.dp40 : st.dp8
+            anchors.leftMargin: st.dp8
+            anchors.topMargin : st.dp8
 
             width: st.sliderVolume_width
 
@@ -270,14 +268,11 @@ MouseArea
             id: borderA
 
             x: st.dp320
-
-            visible: (gui.isMini == false)
         }
 
         LabelStream
         {
-            height: (gui.isMini) ? st.dp12
-                                 : st.labelStream_height
+            height: st.labelStream_height
 
             borderTop   : 0
             borderBottom: 0
@@ -289,20 +284,15 @@ MouseArea
         {
             id: sliderStream
 
-            anchors.left: (gui.isMini) ? parent.left
-                                       : borderA.right
+            anchors.left : borderA.right
+            anchors.right: buttonAdd.left
+            anchors.top  : parent.top
 
-            anchors.right: (gui.isMini) ? parent.right
-                                        : buttonAdd.left
+            anchors.leftMargin : st.dp7
+            anchors.rightMargin: st.dp2
+            anchors.topMargin  : st.dp8
 
-            anchors.top: parent.top
-
-            anchors.leftMargin : (gui.isMini) ? st.dp4 : st.dp7
-            anchors.rightMargin: (gui.isMini) ? st.dp4 : st.dp2
-            anchors.topMargin  : (gui.isMini) ? st.dp4 : st.dp8
-
-            height: (gui.isMini) ? st.sliderStream_height
-                                 : st.sliderStream_height
+            height: st.sliderStream_height
 
             enabled: (player.hasStarted && duration > 0)
 
@@ -338,13 +328,12 @@ MouseArea
         {
             id: buttonAdd
 
-            anchors.right: (gui.isMini) ? buttonSettings.left
-                                        : borderB.left
+            anchors.right: borderB.left
 
             anchors.top: parent.top
 
-            anchors.rightMargin: (gui.isMini) ? st.dp2  : st.dp7
-            anchors.topMargin  : (gui.isMini) ? st.dp37 : st.dp5
+            anchors.rightMargin: st.dp7
+            anchors.topMargin  : st.dp5
 
             width : st.dp38
             height: width
@@ -369,8 +358,6 @@ MouseArea
             anchors.right: buttonSettings.left
 
             anchors.rightMargin: st.dp7
-
-            visible: (gui.isMini == false)
         }
 
         ButtonPushIcon
@@ -418,8 +405,8 @@ MouseArea
             anchors.right: parent.right
             anchors.top  : parent.top
 
-            anchors.rightMargin: (gui.isMini) ? st.dp4  : st.dp11
-            anchors.topMargin  : (gui.isMini) ? st.dp36 : st.dp4
+            anchors.rightMargin: st.dp11
+            anchors.topMargin  : st.dp4
 
             width: st.dp44
 

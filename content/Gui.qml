@@ -27,11 +27,6 @@ Item
 
     /* read */ property bool isLoaded: false
 
-    /* read */ property bool isMini : false
-    /* read */ property bool isMicro: false
-
-    /* read */ property bool isMinified: false
-
     /* read */ property bool isExpanded: local.expanded
 
     property bool itemAsynchronous: true
@@ -46,7 +41,7 @@ Item
     /* read */ property LibraryFolder backends: core.backends
     /* read */ property LibraryFolder related : core.related
 
-    /* read */ property variant currentPlaylist: pGetCurrentPlaylist()
+    /* read */ property variant currentPlaylist: currentTab.playlist
 
     /* read */ property Playlist playlistTracks: null
     /* read */ property Playlist playlistTemp  : core.createPlaylist()
@@ -103,16 +98,10 @@ Item
     /* read */ property int actionFullScreenExpose : 23
     /* read */ property int actionFullScreenRestore: 24
 
-    /* read */ property int actionMiniExpose : 25
-    /* read */ property int actionMiniRestore: 26
+    /* read */ property int actionTabOpen: 25
+    /* read */ property int actionTabMenu: 26
 
-    /* read */ property int actionMicroExpose : 27
-    /* read */ property int actionMicroRestore: 28
-
-    /* read */ property int actionTabOpen: 29
-    /* read */ property int actionTabMenu: 30
-
-    /* read */ property int actionZoom: 31
+    /* read */ property int actionZoom: 27
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -133,23 +122,6 @@ Item
 
     property bool pRelated        : false
     property bool pRelatedExpanded: false
-
-    //---------------------------------------------------------------------------------------------
-
-    property bool pMini     : false
-    property bool pMiniMicro: local.micro
-
-    property bool pMiniSize: true
-
-    property bool pMiniVisible: false
-
-    property bool pMiniExpanded: false
-    property bool pMiniTracks  : false
-
-    property bool pMiniWall: false
-
-    property bool pMiniRelated        : false
-    property bool pMiniRelatedExpanded: false
 
     //---------------------------------------------------------------------------------------------
 
@@ -201,7 +173,6 @@ Item
 
     property alias itemTabs: barWindow.itemTabs
 
-    property alias buttonMini    : barWindow.buttonMini
     property alias buttonMaximize: barWindow.buttonMaximize
 
     //---------------------------------------------------------------------------------------------
@@ -293,25 +264,6 @@ Item
     //---------------------------------------------------------------------------------------------
 
     anchors.fill: parent
-
-    //---------------------------------------------------------------------------------------------
-    // States
-    //---------------------------------------------------------------------------------------------
-
-    states: State { name: "micro"; when: isMicro }
-
-    transitions: Transition
-    {
-        SequentialAnimation
-        {
-            PauseAnimation { duration: st.duration_fast }
-
-            ScriptAction
-            {
-                script: if (isMicro) panelPlayer.visible = false
-            }
-        }
-    }
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -412,17 +364,6 @@ Item
     {
         target: window
 
-        onStateChanged:
-        {
-            if (state != Qt.WindowNoState || pMini == false) return;
-
-            pMiniSize = false;
-
-            exposeMini();
-
-            pMiniSize = true;
-        }
-
         onActiveChanged: updateScreenDim()
 
         onIdleChanged:
@@ -481,20 +422,9 @@ Item
         {
             window.minimized = false;
 
-            if (isMini)
-            {
-                local.maximized = false;
+            local.maximized = window.maximized;
 
-                restoreMini();
-            }
-            else
-            {
-                local.maximized = window.maximized;
-
-                restoreFullScreen();
-            }
-
-            local.setMiniPos(-1, -1);
+            restoreFullScreen();
 
             st.animate = false;
 
@@ -619,7 +549,7 @@ Item
 
             if (player.isStopped && playerBrowser.visible)
             {
-                var playlist = pGetCurrentPlaylist();
+                var playlist = player.playlist;
 
                 if (playlist)
                 {
@@ -676,8 +606,6 @@ Item
     {
         if (st.scale == scale) return;
 
-        restoreMini();
-
         st.animate = false;
 
         wall.enableAnimation = false;
@@ -692,8 +620,6 @@ Item
 
         sk.defaultWidth  = -1;
         sk.defaultHeight = -1;
-
-        local.setMiniPos(-1, -1);
 
         window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
@@ -800,8 +726,6 @@ Item
 
     function restore()
     {
-        restoreMini();
-
         if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
 
         //panelDiscover.collapse();
@@ -919,15 +843,7 @@ Item
 
     function toggleBars()
     {
-        if (isMini)
-        {
-            if (barTop.isExpanded)
-            {
-                 restoreBars();
-            }
-            else expandBars();
-        }
-        else if (barTop.isExpanded)
+        if (barTop.isExpanded)
         {
             if (timer.running)
             {
@@ -973,8 +889,6 @@ Item
 
     function exposeWall()
     {
-        restoreMicro();
-
         panelTracks.restore();
 
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
@@ -1009,8 +923,6 @@ Item
 
     function panelAddShow()
     {
-        restoreMicro();
-
         if (buttonAdd.checked || actionCue.tryPush(actionAddShow)) return;
 
         panelSettings.collapse();
@@ -1022,14 +934,9 @@ Item
 
         panelAdd.setSource(0, playlistTemp, 0);
 
-        if (isMini)
-        {
-             areaContextual.showPanelPositionMargins(panelAdd, barControls, Sk.TopLeft,
-                                                     st.border_size, st.border_size);
-        }
-        else areaContextual.showPanel(panelAdd, barControls, Sk.TopLeft,
-                                      barControls.borderB.x + barControls.borderB.width, -1,
-                                      0, st.border_size, false);
+        areaContextual.showPanel(panelAdd, barControls, Sk.TopLeft,
+                                 barControls.borderB.x + barControls.borderB.width, -1, 0,
+                                 st.border_size, false);
 
         startActionCue(st.duration_faster);
     }
@@ -1053,32 +960,11 @@ Item
 
         wall.enableAnimation = false;
 
-        if (isMini)
-        {
-            pMini = true;
-
-            st.animate = false;
-
-            pRestoreMiniA();
-
-            if (sk.osWin) window.setWindowMaximize(true);
-
-            window.maximized = true;
-
-            pRestoreMiniB();
-
-            st.animate = true;
-        }
         // FIXME Windows: Hiding the window to avoid the animation.
-        else if (sk.osWin)
+        if (sk.osWin)
         {
             if (window.fullScreen)
             {
-                if (pMini == false)
-                {
-                    window.setWindowSnap(true);
-                }
-
                 window.setWindowMaximize(true);
 
                 window.visible = false;
@@ -1109,13 +995,6 @@ Item
     function restoreMaximize()
     {
         if (window.maximized == false || actionCue.tryPush(actionMaximizeRestore)) return;
-
-        if (pMini)
-        {
-            exposeMini();
-
-            return;
-        }
 
         wall.clearDrag();
 
@@ -1155,34 +1034,15 @@ Item
 
         wall.enableAnimation = false;
 
-        if (isMini)
-        {
-            pMini = true;
+        if (sk.osWin) window.setWindowSnap(false);
 
-            st.animate = false;
+        st.animate = false;
 
-            pRestoreMiniA();
+        window.fullScreen = true;
 
-            window.fullScreen = true;
+        pExpandFullScreen();
 
-            pRestoreMiniB();
-
-            pExpandFullScreen();
-
-            st.animate = true;
-        }
-        else
-        {
-            if (sk.osWin) window.setWindowSnap(false);
-
-            st.animate = false;
-
-            window.fullScreen = true;
-
-            pExpandFullScreen();
-
-            st.animate = true;
-        }
+        st.animate = true;
 
         pRestoreWall();
 
@@ -1193,16 +1053,7 @@ Item
     {
         if (window.fullScreen == false || actionCue.tryPush(actionFullScreenRestore)) return;
 
-        if (pMini)
-        {
-            if (window.maximized == false)
-            {
-                exposeMini();
-
-                return;
-            }
-        }
-        else if (sk.osWin) window.setWindowSnap(true);
+        if (sk.osWin) window.setWindowSnap(true);
 
         wall.clearDrag();
 
@@ -1219,254 +1070,6 @@ Item
     {
         if (window.fullScreen) restoreFullScreen();
         else                   exposeFullScreen ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function exposeMini()
-    {
-        if (isMini || actionCue.tryPush(actionMiniExpose)) return;
-
-        pMini = false;
-
-        isMinified = true;
-
-        st.animate = false;
-
-        wall.clearDrag();
-
-        wall.enableAnimation = false;
-
-        saveEdit();
-
-        if (window.maximized)
-        {
-            // FIXME Windows: Hiding the window to avoid the animation.
-            if (sk.osWin)
-            {
-                window.visible = false;
-
-                window.setWindowSnap    (false);
-                window.setWindowMaximize(false);
-            }
-
-            if (window.fullScreen)
-            {
-                window.fullScreen = false;
-
-                pRestoreExpand();
-            }
-
-            window.maximized = false;
-        }
-        else if (window.fullScreen)
-        {
-            window.fullScreen = false;
-
-            pRestoreExpand();
-        }
-        else
-        {
-            if (sk.osWin)
-            {
-                window.view.showNormal();
-
-                window.setWindowSnap    (false);
-                window.setWindowMaximize(false);
-            }
-
-            if (pMiniSize)
-            {
-                window.saveGeometry();
-            }
-        }
-
-        collapsePanels();
-
-        if (isExpanded)
-        {
-            pMiniExpanded = true;
-
-            restoreBars();
-        }
-        else
-        {
-            pMiniExpanded = false;
-            pMiniTracks   = panelTracks.isExpanded;
-
-            expand();
-        }
-
-        if (panelRelated.isExposed)
-        {
-            pMiniRelated         = true;
-            pMiniRelatedExpanded = panelRelated.isExpanded;
-
-            panelRelated.collapse();
-        }
-        else
-        {
-            pMiniRelated         = false;
-            pMiniRelatedExpanded = false;
-        }
-
-        if (wall.isExposed)
-        {
-            pMiniWall = true;
-
-            wall.restore();
-        }
-        else pMiniWall = false;
-
-        isMini = true;
-
-        window.locked = true;
-
-        window.resizable = false;
-
-        var x = local.miniX;
-        var y = local.miniY;
-
-        var geometry = window.geometryNormal;
-
-        local.setMiniPos(geometry.x, geometry.y);
-
-        var width = st.dp480 + window.borderSizeWidth;
-
-        var height = barWindow.height + barTop.height + barControls.height - st.border_size
-                     +
-                     window.borderSizeHeight;
-
-        window.setMinimumSize(width, height);
-
-        window.width = width;
-
-        if (pMiniMicro)
-        {
-            isMicro = true;
-
-            window.height = height;
-
-            barWindow.updateTab();
-        }
-        else window.height = height + st.border_size + st.dp270;
-
-        if (x == -1)
-        {
-             window.x = geometry.x + geometry.width - width - st.buttonPianoIcon_width
-                        -
-                        st.border_size;
-        }
-        else window.x = x;
-
-        if (y == -1)
-        {
-             window.y = geometry.y;
-        }
-        else window.y = y;
-
-        window.checkPosition();
-
-        restoreEdit();
-
-        window.visible = true;
-
-        pRestoreWall();
-
-        st.animate = true;
-
-        startActionCue(st.duration_faster);
-    }
-
-    function restoreMini()
-    {
-        if (isMini == false || pMini || actionCue.tryPush(actionMiniRestore)) return;
-
-        st.animate = false;
-
-        wall.enableAnimation = false;
-
-        pRestoreMiniA();
-
-        if (sk.osWin)
-        {
-            window.setWindowSnap    (true);
-            window.setWindowMaximize(true);
-        }
-
-        window.setMinimumSize(st.minimumWidth, st.minimumHeight);
-
-        var geometry = window.geometryNormal;
-
-        window.width  = geometry.width;
-        window.height = geometry.height;
-
-        window.x = geometry.x;
-        window.y = geometry.y;
-
-        window.checkPosition();
-
-        window.resizable = true;
-
-        pRestoreMiniB();
-
-        pRestoreWall();
-
-        st.animate = true;
-
-        startActionCue(st.duration_faster);
-    }
-
-    function toggleMini()
-    {
-        if (isMini) restoreMini();
-        else        exposeMini ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function exposeMicro()
-    {
-        restoreWall();
-
-        if (isMicro || actionCue.tryPush(actionMicroExpose)) return;
-
-        window.clearFocus();
-
-        collapsePanels();
-
-        isMicro = true;
-
-        window.resizeHeight(window.minimumHeight, true);
-
-        barWindow.updateTab();
-
-        startActionCue(st.duration_normal);
-
-        local.micro = true;
-    }
-
-    function restoreMicro()
-    {
-        if (isMicro == false || actionCue.tryPush(actionMicroRestore)) return;
-
-        panelPlayer.visible = true;
-
-        isMicro = false;
-
-        window.resizeHeight(window.minimumHeight + st.border_size + st.dp270, true);
-
-        barWindow.updateTab();
-
-        startActionCue(st.duration_normal);
-
-        local.micro = false;
-    }
-
-    function toggleMicro()
-    {
-        if (isMicro) restoreMicro();
-        else         exposeMicro ();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1549,15 +1152,12 @@ Item
         }
         else if (tab.idFolderRoot == 4)
         {
-            restoreMini();
-
             panelTracks.restore();
 
             panelRelated.expose();
 
             related.setCurrentTabIds(tab);
         }
-        else restoreMini();
 
         focusListPlaylist(tab.playlist);
     }
@@ -1717,7 +1317,6 @@ Item
     function browseRelated(data)
     {
         restoreBars();
-        restoreMini();
 
         panelTracks.restore();
 
@@ -2617,11 +2216,7 @@ Item
 
                 restoreBars();
 
-                if (isMicro)
-                {
-                    restoreMicro();
-                }
-                else itemTabs.selectPrevious();
+                itemTabs.selectPrevious();
             }
             else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
@@ -2638,11 +2233,7 @@ Item
 
                 restoreBars();
 
-                if (isMicro)
-                {
-                    restoreMicro();
-                }
-                else itemTabs.selectNext();
+                itemTabs.selectNext();
             }
             else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
@@ -2675,7 +2266,7 @@ Item
 
             restoreBars();
 
-            barWindow.closeCurrentTab();
+            barWindow.itemTabs.closeCurrentTab();
         }
         else if (event.key == Qt.Key_R && event.modifiers == Qt.ControlModifier)
         {
@@ -2740,14 +2331,7 @@ Item
         {
             event.accepted = true;
 
-            if (isMini)
-            {
-                restoreBars();
-                restoreMini();
-
-                panelRelated.expose();
-            }
-            else if (panelTracks.isExpanded)
+            if (panelTracks.isExpanded)
             {
                 panelTracks.restore();
 
@@ -2764,7 +2348,7 @@ Item
         {
             event.accepted = true;
 
-            if (isMini || isExpanded)
+            if (isExpanded)
             {
                 restoreBars();
                 restore    ();
@@ -2798,17 +2382,31 @@ Item
 
             //panelCover.buttonTrack.returnPressed();
         }
-        else if (event.key == Qt.Key_F9) // Mini
+        else if (event.key == Qt.Key_F9) // Normal
         {
             event.accepted = true;
 
             if (event.isAutoRepeat) return;
 
-            if (buttonMini.visible)
+            if (window.maximized)
             {
-                buttonMini.returnPressed();
+                if (window.fullScreen)
+                {
+//#MAC
+                    // FIXME macOS: We can't go from full screen to normal window right away.
+                    //              This could be related to the animation.
+                    buttonFullScreen.returnPressed();
+//#ELSE
+                    gui.restoreFullScreen();
+                    gui.restoreMaximize  ();
+//#END
+                }
+                else buttonMaximize.returnPressed();
             }
-            else toggleMini();
+            else if (window.fullScreen)
+            {
+                 buttonFullScreen.returnPressed();
+            }
         }
         else if (event.key == Qt.Key_F10) // Maximize
         {
@@ -2845,7 +2443,6 @@ Item
             else
             {
                 restoreBars();
-                restoreMini();
 
                 panelTracks.expand();
             }
@@ -2971,10 +2568,6 @@ Item
         {
             buttonGet.returnReleased();
         }
-        else if (buttonMini.isReturnPressed)
-        {
-            buttonMini.returnReleased();
-        }
         else if (buttonMaximize.isReturnPressed)
         {
             buttonMaximize.returnReleased();
@@ -3045,13 +2638,6 @@ Item
             {
                 restoreBars();
             }
-            else if (isMini)
-            {
-                if (isMicro == false)
-                {
-                    buttonExpand.returnPressed();
-                }
-            }
             else if (isExpanded)
             {
                 buttonExpand.returnPressed();
@@ -3072,21 +2658,6 @@ Item
                 restoreBars();
 
                 sliderVolume.volumeDown();
-            }
-            else if (isMini)
-            {
-                if (isMicro)
-                {
-                    buttonExpand.returnPressed();
-                }
-                else if (player.isPlaying)
-                {
-                    if (wall.isExposed)
-                    {
-                        restoreWall();
-                    }
-                    else expandBars();
-                }
             }
             else if (isExpanded == false)
             {
@@ -3132,10 +2703,6 @@ Item
                 if (wall.isExposed)
                 {
                     restoreWall();
-                }
-                else if (isMicro)
-                {
-                    restoreMicro();
                 }
                 else toggleBars();
             }
@@ -3340,67 +2907,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function pRestoreMiniA()
-    {
-        saveEdit();
-
-        local.setMiniPos(window.x, window.y);
-
-        if (isMicro)
-        {
-            pMiniMicro = true;
-
-            panelPlayer.visible = true;
-
-            isMicro = false;
-
-            barWindow.updateTab();
-        }
-        else
-        {
-            pMiniMicro = false;
-
-            // FIXME Qt5: We have to restore bars here to get the proper 'barControls' height.
-            restoreBars();
-        }
-
-        isMini = false;
-
-        pMiniVisible = window.visible;
-
-        window.locked = false;
-    }
-
-    function pRestoreMiniB()
-    {
-        window.visible = pMiniVisible;
-
-        // FIXME Qt5: We have to restore bars before to get the proper 'barControls' height.
-        //restoreBars();
-
-        if (pMiniExpanded == false)
-        {
-            restore();
-
-            if (pMiniTracks) panelTracks.expand();
-        }
-
-        if (pMiniRelated)
-        {
-            panelRelated.expose();
-
-            if (pMiniRelatedExpanded) panelRelated.expand();
-        }
-
-        if (pMiniWall) wall.expose();
-
-        restoreEdit();
-
-        isMinified = false;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function pRestoreWall()
     {
 //#QT_5
@@ -3411,66 +2917,6 @@ Item
         wall.updateView();
 
         wall.enableAnimation = true;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pGetCurrentList()
-    {
-        if (listPlaylist.visible && listPlaylist.activeFocus)
-        {
-            return listPlaylist;
-        }
-
-        var list = panelBrowse.listPlaylist;
-
-        if (list.visible && list.activeFocus)
-        {
-            return list;
-        }
-
-        list = panelRelated.list;
-
-        if (list.visible && list.activeFocus)
-        {
-             return list;
-        }
-        else return null;
-    }
-
-    function pGetCurrentPlaylist()
-    {
-        var list = pGetCurrentList();
-
-        if (list && list.count)
-        {
-            return list.playlist;
-        }
-        else if (currentTab.playlist)
-        {
-            return currentTab.playlist;
-        }
-        else if (panelRelated.isExposed && playlistRelated && playlistRelated.count)
-        {
-            return playlistRelated;
-        }
-        else if (isExpanded == false)
-        {
-            if (panelBrowse.isExposed)
-            {
-                if (playlistBrowse && playlistBrowse.count)
-                {
-                     return playlistBrowse;
-                }
-                else return null;
-            }
-            else if (playlist && playlist.count)
-            {
-                 return playlist;
-            }
-            else return null;
-        }
-        else return null;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3569,12 +3015,6 @@ Item
 
             else if (id == actionFullScreenExpose)  exposeFullScreen ();
             else if (id == actionFullScreenRestore) restoreFullScreen();
-
-            else if (id == actionMiniExpose)  exposeMini ();
-            else if (id == actionMiniRestore) restoreMini();
-
-            else if (id == actionMicroExpose)  exposeMicro ();
-            else if (id == actionMicroRestore) restoreMicro();
 
             else if (id == actionTabOpen) barWindow.openTabPlaylist(barWindow.playlist);
 

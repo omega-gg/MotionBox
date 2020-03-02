@@ -227,10 +227,7 @@ Item
 
             anchors.rightMargin: st.dp16
 
-            width: (gui.isMini) ? buttonExpand.width + buttonWall.width
-                                : buttonBrowse.width + buttonExpand.width + buttonWall.width
-                                  +
-                                  buttonRelated.width
+            width: buttonBrowse.width + buttonExpand.width + buttonWall.width + buttonRelated.width
 
             states: State
             {
@@ -263,8 +260,6 @@ Item
 
                 borderLeft: borderSize
 
-                visible: (gui.isMini == false)
-
                 checkable: true
 
                 checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
@@ -292,31 +287,22 @@ Item
 
                 anchors.right: buttonWall.left
 
-                borderLeft: (gui.isMini) ? borderSize : 0
-
                 checkable: true
 
-                checked: (gui.isMini) ? gui.isMicro
-                                      : gui.isExpanded
+                checked: gui.isExpanded
 
-                icon: (gui.isMini) ? st.icon24x24_goUp
-                                   : st.icon24x24_expand
+                icon: st.icon24x24_expand
 
                 iconSourceSize: st.size24x24
 
-                onPressed:
-                {
-                    if (gui.isMini) gui.toggleMicro ();
-                    else            gui.toggleExpand();
-                }
+                onPressed: gui.toggleExpand()
             }
 
             ButtonPianoIcon
             {
                 id: buttonWall
 
-                anchors.right: (gui.isMini) ? parent.right
-                                            : buttonRelated.left
+                anchors.right: buttonRelated.left
 
                 checkable: true
                 checked  : wall.isExposed
@@ -332,8 +318,6 @@ Item
                 id: buttonRelated
 
                 anchors.right: parent.right
-
-                visible: (gui.isMini == false)
 
                 checkable: true
                 checked  : panelRelated.isExposed

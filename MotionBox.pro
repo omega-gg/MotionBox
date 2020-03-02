@@ -42,8 +42,9 @@ contains(QT_MAJOR_VERSION, 4) {
 
     win32:DEFINES += SK_WIN_NATIVE
 
-    greaterThan(QT_MINOR_VERSION,  9): DEFINES += QT_5_9_GREATER
-    greaterThan(QT_MINOR_VERSION, 12): DEFINES += QT_5_12_GREATER
+    greaterThan(QT_MINOR_VERSION,  9): DEFINES += QT_5_10
+    greaterThan(QT_MINOR_VERSION, 10): DEFINES += QT_5_11
+    greaterThan(QT_MINOR_VERSION, 11): DEFINES += QT_5_12
 }
 
 QMAKE_CXXFLAGS += -std=c++11 -msse

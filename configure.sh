@@ -73,13 +73,17 @@ rm -rf lib
 mkdir  lib
 touch  lib/.gitignore
 
-rm -rf "$bin4"
-mkdir  "$bin4"
-touch  "$bin4"/.gitignore
+rm -rf "$bin4"/*
+rm -rf "$bin5"/*
 
-rm -rf "$bin5"
-mkdir  "$bin5"
-touch  "$bin5"/.gitignore
+touch "$bin4"/.gitignore
+touch "$bin5"/.gitignore
+
+rm -rf build/qt4/*
+rm -rf build/qt5/*
+
+touch build/qt4/.gitignore
+touch build/qt5/.gitignore
 
 if [ $1 = "clean" ]; then
 

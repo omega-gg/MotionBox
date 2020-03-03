@@ -126,7 +126,7 @@ elif [ $2 = "macOS" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    #cp -r "$path"/vlc $deploy
+    cp -r "$path"/vlc $deploy
 
     cp "$path"/*.so* $deploy
 

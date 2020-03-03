@@ -67,21 +67,21 @@ VLC="$external/VLC/$VLC_version"
 # Clean
 #--------------------------------------------------------------------------------------------------
 
+echo "CLEANING"
+
+rm -rf lib
+mkdir  lib
+touch  lib/.gitignore
+
+rm -rf "$bin4"
+mkdir  "$bin4"
+touch  "$bin4"/.gitignore
+
+rm -rf "$bin5"
+mkdir  "$bin5"
+touch  "$bin5"/.gitignore
+
 if [ $1 = "clean" ]; then
-
-    echo "CLEANING"
-
-    rm -rf lib
-    mkdir  lib
-    touch  lib/.gitignore
-
-    rm -rf "$bin4"
-    mkdir  "$bin4"
-    touch  "$bin4"/.gitignore
-
-    rm -rf "$bin5"
-    mkdir  "$bin5"
-    touch  "$bin5"/.gitignore
 
     exit 0
 fi

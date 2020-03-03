@@ -3,19 +3,19 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32_qt4
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh 3rdparty.sh win32
-      sh configure.sh qt4 win32
-      cd ../Sky
-      sh build.sh qt4 win32 tools
-      cd ../s
-      sh build.sh qt4 win32 deploy
-  - publish: $(System.DefaultWorkingDirectory)/deploy
-    artifact: MotionBox-win32-qt4
+#- job: win32_qt4
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh 3rdparty.sh win32
+#      sh configure.sh qt4 win32
+#      cd ../Sky
+#      sh build.sh qt4 win32 tools
+#      cd ../s
+#      sh build.sh qt4 win32 deploy
+#  - publish: $(System.DefaultWorkingDirectory)/deploy
+#    artifact: MotionBox-win32-qt4
 
 - job: win32_qt5
   pool:
@@ -69,23 +69,23 @@ jobs:
 # Linux
 #--------------------------------------------------------------------------------------------------
 
-- job: linux32_qt4
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox;
-                                     apt-get update;
-                                     apt-get -y install sudo curl git;
-                                     sh 3rdparty.sh linux;
-                                     sh configure.sh qt4 linux;
-                                     cd ../Sky;
-                                     sh build.sh qt4 linux tools;
-                                     cd ../MotionBox;
-                                     sh build.sh qt4 linux deploy"
-  - publish: $(System.DefaultWorkingDirectory)/deploy
-    artifact: MotionBox-linux32-qt4
+#- job: linux32_qt4
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /MotionBox;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl git;
+#                                     sh 3rdparty.sh linux;
+#                                     sh configure.sh qt4 linux;
+#                                     cd ../Sky;
+#                                     sh build.sh qt4 linux tools;
+#                                     cd ../MotionBox;
+#                                     sh build.sh qt4 linux deploy"
+#  - publish: $(System.DefaultWorkingDirectory)/deploy
+#    artifact: MotionBox-linux32-qt4
 
 - job: linux32_qt5
   pool:
@@ -107,23 +107,23 @@ jobs:
 
 #--------------------------------------------------------------------------------------------------
 
-- job: linux64_qt4
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox;
-                                     apt-get update;
-                                     apt-get -y install sudo curl git;
-                                     sh 3rdparty.sh linux;
-                                     sh configure.sh qt4 linux;
-                                     cd ../Sky;
-                                     sh build.sh qt4 linux tools;
-                                     cd ../MotionBox;
-                                     sh build.sh qt4 linux deploy"
-  - publish: $(System.DefaultWorkingDirectory)/deploy
-    artifact: MotionBox-linux64-qt4
+#- job: linux64_qt4
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /MotionBox;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl git;
+#                                     sh 3rdparty.sh linux;
+#                                     sh configure.sh qt4 linux;
+#                                     cd ../Sky;
+#                                     sh build.sh qt4 linux tools;
+#                                     cd ../MotionBox;
+#                                     sh build.sh qt4 linux deploy"
+#  - publish: $(System.DefaultWorkingDirectory)/deploy
+#    artifact: MotionBox-linux64-qt4
 
 - job: linux64_qt5
   pool:

@@ -238,7 +238,7 @@ else
 
     if [ $2 = "linux" ]; then
 
-        cp dist/scripts/start.sh $deploy
+        cp dist/script/start.sh $deploy
     fi
 fi
 

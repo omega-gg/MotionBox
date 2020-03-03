@@ -209,6 +209,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PageSubtitlesSearch.qml \
                dist/MotionBox.rc \
                dist/qrc.sh \
+               dist/script/start.sh \
                dist/doc/readme.md \
                dist/doc/shortcuts.md \
                dist/doc/about.md \

@@ -34,6 +34,7 @@ The GUI uses QML. The player uses [VLC](http://github.com/videolan/vlc) and [lib
 - Windows XP and later.
 - macOS 64 bit.
 - Linux 32 bit and 64 bit.
+- Android 32 bit and 64 bit (experimental).
 
 ## Requirements
 
@@ -60,7 +61,7 @@ You can install third party libraries with:
 
 You can configure MotionBox with:
 
-    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux>
+    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android32 | android64>
 
 ## Build
 

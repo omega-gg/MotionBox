@@ -1,6 +1,6 @@
 //=================================================================================================
 /*
-    Copyright (C) 2015-2017 MotionBox authors united with omega. <http://omega.gg/about>
+    Copyright (C) 2015-2020 MotionBox authors united with omega. <http://omega.gg/about>
 
     Author: Benjamin Arnaud. <http://bunjee.me> <bunjee@omega.gg>
 
@@ -66,7 +66,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-static const QString CORE_VERSION = "1.6.0-2";
+static const QString CORE_VERSION = "1.6.0-3";
 
 static const int LOG_LENGTH = 4000;
 

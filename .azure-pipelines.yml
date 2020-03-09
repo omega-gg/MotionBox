@@ -159,7 +159,7 @@ jobs:
                                      sh 3rdparty.sh android32;
                                      sh configure.sh qt5 android32;
                                      cd ../Sky;
-                                     sh build.sh qt5 linux64 tools;
+                                     sh build.sh qt5 linux tools;
                                      cd ../MotionBox;
                                      sh build.sh qt5 android32 deploy"
   - publish: $(System.DefaultWorkingDirectory)/deploy

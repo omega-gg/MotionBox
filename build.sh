@@ -28,11 +28,14 @@ if [ $# != 2 -a $# != 3 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" ] \
+   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android32" -a \
+                                                                         $2 != "android64" ]  \
    || \
    [ $# = 3 -a "$3" != "deploy" ]; then
 
-    echo "Usage: build <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]"
+    echo "Usage: build <qt4 | qt5 | clean>"
+    echo "             <win32 | win64 | macOS | linux | android32 | android64>"
+    echo "             [deploy]"
 
     exit 1
 fi
@@ -48,6 +51,24 @@ if [ $2 = "win32" -o $2 = "win64" ]; then
     os="windows"
 
     MinGW="$external/MinGW/$MinGW_version/bin"
+
+elif [ $2 = "android32" -o $2 = "android64" ]; then
+
+    if [ $host != "linux" ]; then
+
+        echo "You have to cross-compile $2 from Linux (preferably Ubuntu)."
+
+        exit 1
+    fi
+
+    os="android"
+
+    if [ $2 = "android32" ]; then
+
+        abi=armeabi-v7a
+    else
+        abi=arm64-v8a
+    fi
 else
     os="default"
 fi
@@ -59,7 +80,7 @@ else
     Qt="$external/Qt/$Qt5_version"
 fi
 
-if [ $os = "windows" -o $2 = "macOS" ]; then
+if [ $os = "windows" -o $2 = "macOS" -o $os = "android" ]; then
 
     qmake="$Qt/bin/qmake"
 else
@@ -125,6 +146,12 @@ elif [ $2 = "linux" ]; then
     else
         spec=linux-g++-32
     fi
+
+elif [ $os = "android" ]; then
+
+    spec=android-clang
+
+    export ANDROID_NDK_ROOT="$external/NDK/$NDK_version"
 fi
 
 $qmake --version
@@ -145,9 +172,20 @@ cd ../$build
 
 if [ "$3" = "deploy" ]; then
 
-    $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
+    if [ $os = "android" ]; then
+
+        $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" "ANDROID_ABIS = $abi" $MotionBox
+    else
+        $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
+    fi
 else
-    $qmake -r -spec $spec "$config" $MotionBox
+
+    if [ $os = "android" ]; then
+
+        $qmake -r -spec $spec "$config" "ANDROID_ABIS = $abi" $MotionBox
+    else
+        $qmake -r -spec $spec "$config" $MotionBox
+    fi
 fi
 
 if [ $os = "windows" ]; then

@@ -23,10 +23,10 @@ contains(QT_MAJOR_VERSION, 4) {
 contains(QT_MAJOR_VERSION, 5) {
     win32:QT += winextras
 
-    unix:!macx:QT += x11extras
+    unix:!macx:!android:QT += x11extras
 }
 
-DEFINES += CAN_COMPILE_SSE2 QUAZIP_BUILD \
+DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
            SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
@@ -43,7 +43,9 @@ contains(QT_MAJOR_VERSION, 4) {
     win32:DEFINES += SK_WIN_NATIVE
 }
 
-QMAKE_CXXFLAGS += -std=c++11 -msse
+QMAKE_CXXFLAGS += -std=c++11
+
+!android:QMAKE_CXXFLAGS += -msse
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
@@ -103,12 +105,15 @@ macx:LIBS += -lz \
              -L$$SK/lib -ltorrent \
              -L$$SK/lib -lboost_system \
 
-unix:!macx:LIBS += -lz \
-                   -lvlc \
-                   -ltorrent-rasterbar \
-                   -lboost_system -lboost_random -lboost_chrono \
+unix:!macx:LIBS += -lz
 
-unix:!macx:contains(QT_MAJOR_VERSION, 4) {
+unix:!macx:!android:LIBS += -ltorrent-rasterbar \
+                            -lboost_system -lboost_random -lboost_chrono \
+
+android:LIBS += -L$$SK/lib -lvlc \
+                -L$$SK/lib -ltorrent \
+
+unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11
 }
 

@@ -243,7 +243,7 @@ if [ $2 = "macOS" ]; then
 
 elif [ $os = "android" ]; then
 
-    cp "$bin"/* $deploy
+    cp "$bin"/libMotionBox* $deploy
 else
     cp "$bin"/MotionBox* $deploy
 

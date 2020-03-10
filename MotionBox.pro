@@ -109,7 +109,8 @@ macx:LIBS += -lz \
 
 unix:!macx:LIBS += -lz
 
-unix:!macx:!android:LIBS += -ltorrent-rasterbar \
+unix:!macx:!android:LIBS += -lvlc \
+                            -ltorrent-rasterbar \
                             -lboost_system -lboost_random -lboost_chrono \
 
 android:LIBS += -L$$SK/lib -lvlc \

@@ -38,6 +38,10 @@ fi
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
     os="windows"
+
+elif [ $2 = "android32" -o $2 = "android64" ]; then
+
+    os="android"
 else
     os="default"
 fi
@@ -236,6 +240,10 @@ if [ $2 = "macOS" ]; then
                               @loader_path/libboost_system.dylib libtorrent.dylib
 
     cd -
+
+elif [ $os = "android" ]; then
+
+    cp "$bin"/* $deploy
 else
     cp "$bin"/MotionBox* $deploy
 

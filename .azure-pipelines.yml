@@ -17,53 +17,53 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/deploy
 #    artifact: MotionBox-win32-qt4
 
-#- job: win32_qt5
-#  pool:
-#    vmImage: "windows-latest"
-#  steps:
-#  - bash: |
-#      sh 3rdparty.sh win32
-#      sh configure.sh qt5 win32
-#      cd ../Sky
-#      sh build.sh qt5 win32 tools
-#      cd ../s
-#      sh build.sh qt5 win32 deploy
-#  - publish: $(System.DefaultWorkingDirectory)/deploy
-#    artifact: MotionBox-win32-qt5
+- job: win32_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh 3rdparty.sh win32
+      sh configure.sh qt5 win32
+      cd ../Sky
+      sh build.sh qt5 win32 tools
+      cd ../s
+      sh build.sh qt5 win32 deploy
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-win32-qt5
 
 #--------------------------------------------------------------------------------------------------
 
-#- job: win64_qt5
-#  pool:
-#    vmImage: "windows-latest"
-#  steps:
-#  - bash: |
-#      sh 3rdparty.sh win64
-#      sh configure.sh qt5 win64
-#      cd ../Sky
-#      sh build.sh qt5 win64 tools
-#      cd ../s
-#      sh build.sh qt5 win64 deploy
-#  - publish: $(System.DefaultWorkingDirectory)/deploy
-#    artifact: MotionBox-win64-qt5
+- job: win64_qt5
+  pool:
+    vmImage: "windows-latest"
+  steps:
+  - bash: |
+      sh 3rdparty.sh win64
+      sh configure.sh qt5 win64
+      cd ../Sky
+      sh build.sh qt5 win64 tools
+      cd ../s
+      sh build.sh qt5 win64 deploy
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-win64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # macOS
 #--------------------------------------------------------------------------------------------------
 
-#- job: macOS_qt5
-#  pool:
-#    vmImage: "macOS-latest"
-#  steps:
-#  - bash: |
-#      sh 3rdparty.sh macOS
-#      sh configure.sh qt5 macOS
-#      cd ../Sky
-#      sh build.sh qt5 macOS tools
-#      cd ../s
-#      sh build.sh qt5 macOS deploy
-#  - publish: $(System.DefaultWorkingDirectory)/deploy
-#    artifact: MotionBox-macOS-qt5
+- job: macOS_qt5
+  pool:
+    vmImage: "macOS-latest"
+  steps:
+  - bash: |
+      sh 3rdparty.sh macOS
+      sh configure.sh qt5 macOS
+      cd ../Sky
+      sh build.sh qt5 macOS tools
+      cd ../s
+      sh build.sh qt5 macOS deploy
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Linux
@@ -87,23 +87,23 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/deploy
 #    artifact: MotionBox-linux32-qt4
 
-#- job: linux32_qt5
-#  pool:
-#    vmImage: "ubuntu-latest"
-#  steps:
-#  - bash: |
-#      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
-#      docker exec -t ubuntu bash -c "cd /MotionBox;
-#                                     apt-get update;
-#                                     apt-get -y install sudo curl git;
-#                                     sh 3rdparty.sh linux;
-#                                     sh configure.sh qt5 linux;
-#                                     cd ../Sky;
-#                                     sh build.sh qt5 linux tools;
-#                                     cd ../MotionBox;
-#                                     sh build.sh qt5 linux deploy"
-#  - publish: $(System.DefaultWorkingDirectory)/deploy
-#    artifact: MotionBox-linux32-qt5
+- job: linux32_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox;
+                                     apt-get update;
+                                     apt-get -y install sudo curl git;
+                                     sh 3rdparty.sh linux;
+                                     sh configure.sh qt5 linux;
+                                     cd ../Sky;
+                                     sh build.sh qt5 linux tools;
+                                     cd ../MotionBox;
+                                     sh build.sh qt5 linux deploy"
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-linux32-qt5
 
 #--------------------------------------------------------------------------------------------------
 
@@ -125,23 +125,23 @@ jobs:
 #  - publish: $(System.DefaultWorkingDirectory)/deploy
 #    artifact: MotionBox-linux64-qt4
 
-#- job: linux64_qt5
-#  pool:
-#    vmImage: "ubuntu-latest"
-#  steps:
-#  - bash: |
-#      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-#      docker exec -t ubuntu bash -c "cd /MotionBox;
-#                                     apt-get update;
-#                                     apt-get -y install sudo curl git;
-#                                     sh 3rdparty.sh linux;
-#                                     sh configure.sh qt5 linux;
-#                                     cd ../Sky;
-#                                     sh build.sh qt5 linux tools;
-#                                     cd ../MotionBox;
-#                                     sh build.sh qt5 linux deploy"
-#  - publish: $(System.DefaultWorkingDirectory)/deploy
-#    artifact: MotionBox-linux64-qt5
+- job: linux64_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox;
+                                     apt-get update;
+                                     apt-get -y install sudo curl git;
+                                     sh 3rdparty.sh linux;
+                                     sh configure.sh qt5 linux;
+                                     cd ../Sky;
+                                     sh build.sh qt5 linux tools;
+                                     cd ../MotionBox;
+                                     sh build.sh qt5 linux deploy"
+  - publish: $(System.DefaultWorkingDirectory)/deploy
+    artifact: MotionBox-linux64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Android

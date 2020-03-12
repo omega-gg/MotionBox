@@ -11,11 +11,10 @@ source="https://github.com/omega-gg"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] || [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux"     -a \
-                                                                       $1 != "android32" -a \
-                                                                       $1 != "android64" ]; then
+if [ $# != 1 ] || [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a \
+                                                                       $1 != "android" ]; then
 
-    echo "Usage: 3rdparty <win32 | win64 | macOS | linux | android32 | android64>"
+    echo "Usage: 3rdparty <win32 | win64 | macOS | linux | android>"
 
     exit 1
 fi

@@ -55,13 +55,13 @@ Recommended:
 
 You can install third party libraries with:
 
-    sh 3rdparty.sh <win32 | win64 | macOS | linux | android32 | android64>
+    sh 3rdparty.sh <win32 | win64 | macOS | linux | android>
 
 ## Configure
 
 You can configure MotionBox with:
 
-    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android32 | android64>
+    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>
 
 ## Build
 

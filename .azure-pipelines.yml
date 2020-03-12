@@ -147,7 +147,7 @@ jobs:
 # Android
 #--------------------------------------------------------------------------------------------------
 
-- job: android32_qt5
+- job: android_qt5
   pool:
     vmImage: "ubuntu-latest"
   steps:
@@ -157,11 +157,11 @@ jobs:
                                      apt-get update;
                                      apt-get -y install sudo curl unzip git;
                                      sh 3rdparty.sh linux;
-                                     sh 3rdparty.sh android32;
-                                     sh configure.sh qt5 android32;
+                                     sh 3rdparty.sh android;
+                                     sh configure.sh qt5 android;
                                      cd ../Sky;
                                      sh build.sh qt5 linux tools;
                                      cd ../MotionBox;
-                                     sh build.sh qt5 android32 deploy"
+                                     sh build.sh qt5 android deploy"
   - publish: $(System.DefaultWorkingDirectory)/deploy
-    artifact: MotionBox-android32-qt5
+    artifact: MotionBox-android-qt5

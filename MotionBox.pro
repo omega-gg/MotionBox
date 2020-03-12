@@ -113,8 +113,8 @@ unix:!macx:!android:LIBS += -lvlc \
                             -ltorrent-rasterbar \
                             -lboost_system -lboost_random -lboost_chrono \
 
-android:LIBS += -L$$SK/lib -lvlc \
-                -L$$SK/lib -ltorrent \
+android:LIBS += -L$$SK/lib -lvlc_$$ANDROID_TARGET_ARCH \
+                -L$$SK/lib -ltorrent_$$ANDROID_TARGET_ARCH \
 
 unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11

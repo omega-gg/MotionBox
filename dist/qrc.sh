@@ -21,13 +21,12 @@ if [ $# != 2 -a $# != 3 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android32" -a \
-                                                                         $2 != "android64" ] \
+   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
    || \
    [ $# = 3 -a "$3" != "deploy" ]; then
 
     echo "Usage: qrc <qt4 | qt5 | clean>"
-    echo "           <win32 | win64 | macOS | linux | android32 | android64>"
+    echo "           <win32 | win64 | macOS | linux | android>"
     echo "           [deploy]"
 
     exit 1

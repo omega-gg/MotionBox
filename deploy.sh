@@ -18,15 +18,13 @@ bin5="latest"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32"     -a \
-                                                                       $2 != "win64"     -a \
-                                                                       $2 != "macOS"     -a \
-                                                                       $2 != "linux"     -a \
-                                                                       $2 != "android32" -a \
-                                                                       $2 != "android64" ]; then
+if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
+                                                                       $2 != "win64" -a \
+                                                                       $2 != "macOS" -a \
+                                                                       $2 != "linux" -a \
+                                                                       $2 != "android" ]; then
 
-    echo \
-    "Usage: deploy <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android32 | android64>"
+    echo "Usage: deploy <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>"
 
     exit 1
 fi
@@ -38,10 +36,6 @@ fi
 if [ $2 = "win32" -o $2 = "win64" ]; then
 
     os="windows"
-
-elif [ $2 = "android32" -o $2 = "android64" ]; then
-
-    os="android"
 else
     os="default"
 fi
@@ -241,7 +235,7 @@ if [ $2 = "macOS" ]; then
 
     cd -
 
-elif [ $os = "android" ]; then
+elif [ $2 = "android" ]; then
 
     cp "$bin"/libMotionBox* $deploy
 else

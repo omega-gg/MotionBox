@@ -363,6 +363,8 @@ Item
                 icon: (playlist != null && playlist.isFeed) ? st.icon28x28_feed
                                                             : st.icon28x28_playlist
 
+                iconSourceSize: st.size28x28
+
                 onPressed:
                 {
                     var list;

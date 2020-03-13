@@ -461,7 +461,7 @@ Panel
 
         //-----------------------------------------------------------------------------------------
 
-        BaseButtonPiano
+        ButtonPiano
         {
             id: buttonRefresh
 
@@ -476,18 +476,13 @@ Panel
 
             enabled: (isAnimated == false && currentTab.isValid)
 
-            onClicked: refresh()
-        }
-
-        BarTitleText
-        {
-            id: itemText
-
-            anchors.fill: buttonRefresh
-
-            verticalAlignment: Text.AlignVCenter
-
             text: qsTr("Related")
+
+            font.pixelSize: st.dp14
+
+            itemText.horizontalAlignment: Text.AlignLeft
+
+            onClicked: refresh()
         }
     }
 

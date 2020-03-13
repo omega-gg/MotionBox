@@ -144,12 +144,42 @@ MouseArea
             color: st.barTitle_colorBorderLine
         }
 
-        ButtonPushIcon
+        ButtonPianoIcon
+        {
+            id: buttonPlay
+
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            width: height + borderSizeWidth
+
+            enabled: (player.source != "")
+
+            highlighted: (enabled && player.isPlaying)
+
+            icon: (player.isPlaying) ? st.icon24x24_pause
+                                     : st.icon24x24_play
+
+            iconSourceSize: st.size24x24
+
+            hoverRetain: true
+
+            onClicked:
+            {
+                if (player.isPlaying)
+                {
+                    gui.pause();
+                }
+                else player.play();
+            }
+        }
+
+        ButtonPushLeftIcon
         {
             id: buttonPrevious
 
-            anchors.left: parent.left
-            anchors.top : parent.top
+            anchors.left: buttonPlay.right
+            anchors.top : buttonPlay.top
 
             anchors.leftMargin: st.dp6
 
@@ -170,14 +200,12 @@ MouseArea
             onClicked: player.setPreviousTrack()
         }
 
-        ButtonPushIcon
+        ButtonPushRightIcon
         {
             id: buttonNext
 
-            anchors.left: buttonPlay.right
-            anchors.top : buttonPlay.top
-
-            anchors.leftMargin: -st.border_size
+            anchors.left: buttonPrevious.right
+            anchors.top : buttonPrevious.top
 
             width : st.dp48
             height: width
@@ -211,41 +239,6 @@ MouseArea
             }
         }
 
-        ButtonPushIcon
-        {
-            id: buttonPlay
-
-            anchors.left: buttonPrevious.right
-            anchors.top : buttonPrevious.top
-
-            anchors.leftMargin: -st.border_size
-
-            width : st.dp48
-            height: width
-
-            margins: st.dp6
-
-            enabled: (player.source != "")
-
-            highlighted: (enabled && player.isPlaying)
-
-            icon: (player.isPlaying) ? st.icon24x24_pause
-                                     : st.icon24x24_play
-
-            iconSourceSize: st.size24x24
-
-            hoverRetain: true
-
-            onClicked:
-            {
-                if (player.isPlaying)
-                {
-                    gui.pause();
-                }
-                else player.play();
-            }
-        }
-
         SliderVolume
         {
             id: sliderVolume
@@ -253,7 +246,7 @@ MouseArea
             anchors.left: buttonNext.right
             anchors.top : parent.top
 
-            anchors.leftMargin: st.dp8
+            anchors.leftMargin: st.dp6
             anchors.topMargin : st.dp8
 
             width: st.sliderVolume_width

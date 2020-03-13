@@ -485,7 +485,7 @@ Item
                     checked  : (index == currentIndex)
 
                     icon          : cover
-                    iconSourceSize: st.size28x28
+                    iconSourceSize: st.size32x32
 
                     enableFilter: false
 

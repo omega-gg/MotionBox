@@ -219,7 +219,8 @@ Item
                 checkable: true
                 checked  : (panelContextual.item == buttonAdd)
 
-                icon: st.icon28x28_folder
+                icon          : st.icon28x28_folder
+                iconSourceSize: st.size28x28
 
                 onPressed:
                 {

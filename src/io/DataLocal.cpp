@@ -254,7 +254,7 @@ public: // Variables
 
     _volume = 1.0;
 
-    _autoPlay = true;
+    _autoPlay = false;
 
     _shuffle = false;
     _repeat  = WDeclarativePlayer::RepeatNone;

@@ -96,7 +96,7 @@ Or the console:
 
 ## License
 
-Copyright (C) 2015 - 2017 MotionBox authors united with [omega](http://omega.gg/about).
+Copyright (C) 2015 - 2020 MotionBox authors united with [omega](http://omega.gg/about).
 
 ### Authors
 

@@ -76,7 +76,6 @@ cp "$SkyComponents"/Style.qml \
    "$SkyComponents"/ItemWipe.qml \
    "$SkyComponents"/LoaderSlide.qml \
    "$SkyComponents"/LoaderWipe.qml \
-   "$SkyComponents"/PageSlide.qml \
    "$SkyComponents"/PageWipe.qml \
    "$SkyComponents"/LineHorizontal.qml \
    "$SkyComponents"/LineHorizontalDrop.qml \
@@ -105,7 +104,6 @@ cp "$SkyComponents"/Style.qml \
    "$SkyComponents"/PanelImage.qml \
    "$SkyComponents"/BaseToolTip.qml \
    "$SkyComponents"/ToolTip.qml \
-   "$SkyComponents"/BarWindow.qml \
    "$SkyComponents"/BarTitle.qml \
    "$SkyComponents"/BarTitleSmall.qml \
    "$SkyComponents"/BarTitleText.qml \
@@ -163,7 +161,6 @@ cp "$SkyComponents"/Style.qml \
    "$SkyComponents"/ScrollBar.qml \
    "$SkyComponents"/ScrollList.qml \
    "$SkyComponents"/ScrollListDefault.qml \
-   "$SkyComponents"/ScrollContextual.qml \
    "$SkyComponents"/ScrollCompletion.qml \
    "$SkyComponents"/ScrollerVertical.qml \
    "$SkyComponents"/ScrollerList.qml \
@@ -259,17 +256,17 @@ fi
 
 if [ $os = "windows" ]; then
 
-    defines="WINDOWS"
+    defines="$defines WINDOWS"
 
 elif [ $2 = "macOS" ]; then
 
-    defines="MAC"
+    defines="$defines MAC"
 
 elif [ $1 = "linux" ]; then
 
-    defines="LINUX"
+    defines="$defines LINUX"
 else
-    defines="ANDROID"
+    defines="$defines ANDROID"
 fi
 
 "$Sky"/deploy/deployer qrc $version MotionBox.qrc $defines

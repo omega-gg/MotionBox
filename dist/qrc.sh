@@ -70,137 +70,136 @@ fi
 
 echo "COPYING QML"
 
-array=("Style"
-       "AreaContextual"
-       "ItemSlide"
-       "ItemWipe"
-       "LoaderSlide"
-       "LoaderWipe"
-       "PageWipe"
-       "LineHorizontal"
-       "LineHorizontalDrop"
-       "LineVertical"
-       "BorderHorizontal"
-       "BorderVertical"
-       "BorderButton"
-       "Window"
-       "WindowScale"
-       "RectangleBorders"
-       "RectangleBordersDrop"
-       "RectangleShadow"
-       "RectangleLogo"
-       "Icon"
-       "IconOverlay"
-       "IconLoading"
-       "TextBase"
-       "TextRich"
-       "TextClick"
-       "TextLink"
-       "TextDate"
-       "TextListDefault"
-       "TextSubtitle"
-       "Panel"
-       "PanelContextual"
-       "PanelImage"
-       "BaseToolTip"
-       "ToolTip"
-       "BarTitle"
-       "BarTitleSmall"
-       "BarTitleText"
-       "BarSetting"
-       "BarSettingReset"
-       "BaseButton"
-       "BaseButtonPush"
-       "BaseButtonPiano"
-       "ButtonPush"
-       "ButtonPushIcon"
-       "ButtonPushFull"
-       "ButtonPushLeft"
-       "ButtonPushLeftIcon"
-       "ButtonPushLeftFull"
-       "ButtonPushCenter"
-       "ButtonPushCenterIcon"
-       "ButtonPushRight"
-       "ButtonPushRightIcon"
-       "ButtonPushOverlay"
-       "ButtonPiano"
-       "ButtonPianoIcon"
-       "ButtonPianoFull"
-       "ButtonPianoReset"
-       "ButtonRound"
-       "ButtonCheck"
-       "ButtonCheckLabel"
-       "ButtonImage"
-       "ButtonImageBorders"
-       "ButtonMask"
-       "ButtonStream"
-       "ButtonsCheck"
-       "ButtonsItem"
-       "BaseLabelRound"
-       "LabelRound"
-       "LabelRoundAnimated"
-       "LabelRoundInfo"
-       "LabelLoading"
-       "LabelLoadingText"
-       "LabelLoadingButton"
-       "LabelStream"
-       "CheckBox"
-       "BaseLineEdit"
-       "LineEdit"
-       "LineEditLabel"
-       "LineEditValue"
-       "LineEditBox"
-       "LineEditBoxClear"
-       "BaseTextEdit"
-       "Console"
-       "BaseList"
-       "List"
-       "ListCompletion"
-       "ListContextual"
-       "ScrollArea"
-       "ScrollBar"
-       "ScrollList"
-       "ScrollListDefault"
-       "ScrollCompletion"
-       "ScrollerVertical"
-       "ScrollerList"
-       "Slider"
-       "SliderVolume"
-       "SliderStream"
-       "BaseTabs"
-       "TabsBrowser"
-       "TabsTrack"
-       "TabsPlayer"
-       "TabBarProgress"
-       "BaseWall"
-       "Wall"
-       "WallBookmarkTrack"
-       "WallVideo"
-       "PlayerBrowser"
-       "ItemList"
-       "ItemTab"
-       "ItemWall"
-       "ComponentList"
-       "ComponentContextual"
-       "ComponentCompletion"
-       "ComponentTab"
-       "ComponentTabBrowser"
-       "ComponentTabTrack"
-       "ComponentWall"
-       "ComponentWallBookmarkTrack"
-       "ContextualCategory"
-       "ContextualItem"
-       "ContextualItemCover"
-       "ContextualItemConfirm")
-
-for name in "${array[@]}"
-do
-    fileNames="$paths $SkyComponents/$name.qml"
-done
-
-cp $fileNames qrc
+cp "$SkyComponents"/Style.qml \
+   "$SkyComponents"/AreaContextual.qml \
+   "$SkyComponents"/ItemSlide.qml \
+   "$SkyComponents"/ItemWipe.qml \
+   "$SkyComponents"/LoaderSlide.qml \
+   "$SkyComponents"/LoaderWipe.qml \
+   "$SkyComponents"/PageWipe.qml \
+   "$SkyComponents"/LineHorizontal.qml \
+   "$SkyComponents"/LineHorizontalDrop.qml \
+   "$SkyComponents"/LineVertical.qml \
+   "$SkyComponents"/BorderHorizontal.qml \
+   "$SkyComponents"/BorderVertical.qml \
+   "$SkyComponents"/BorderButton.qml \
+   "$SkyComponents"/Window.qml \
+   "$SkyComponents"/WindowScale.qml \
+   "$SkyComponents"/RectangleBorders.qml \
+   "$SkyComponents"/RectangleBordersDrop.qml \
+   "$SkyComponents"/RectangleShadow.qml \
+   "$SkyComponents"/RectangleLogo.qml \
+   "$SkyComponents"/Icon.qml \
+   "$SkyComponents"/IconOverlay.qml \
+   "$SkyComponents"/IconLoading.qml \
+   "$SkyComponents"/TextBase.qml \
+   "$SkyComponents"/TextRich.qml \
+   "$SkyComponents"/TextClick.qml \
+   "$SkyComponents"/TextLink.qml \
+   "$SkyComponents"/TextDate.qml \
+   "$SkyComponents"/TextListDefault.qml \
+   "$SkyComponents"/TextSubtitle.qml \
+   "$SkyComponents"/Panel.qml \
+   "$SkyComponents"/PanelContextual.qml \
+   "$SkyComponents"/PanelImage.qml \
+   "$SkyComponents"/BaseToolTip.qml \
+   "$SkyComponents"/ToolTip.qml \
+   "$SkyComponents"/BarTitle.qml \
+   "$SkyComponents"/BarTitleSmall.qml \
+   "$SkyComponents"/BarTitleText.qml \
+   "$SkyComponents"/BarSetting.qml \
+   "$SkyComponents"/BarSettingReset.qml \
+   "$SkyComponents"/BaseButton.qml \
+   "$SkyComponents"/BaseButtonPush.qml \
+   "$SkyComponents"/BaseButtonPiano.qml \
+   "$SkyComponents"/ButtonPush.qml \
+   "$SkyComponents"/ButtonPushIcon.qml \
+   "$SkyComponents"/ButtonPushFull.qml \
+   "$SkyComponents"/ButtonPushLeft.qml \
+   "$SkyComponents"/ButtonPushLeftIcon.qml \
+   "$SkyComponents"/ButtonPushLeftFull.qml \
+   "$SkyComponents"/ButtonPushCenter.qml \
+   "$SkyComponents"/ButtonPushCenterIcon.qml \
+   "$SkyComponents"/ButtonPushRight.qml \
+   "$SkyComponents"/ButtonPushRightIcon.qml \
+   "$SkyComponents"/ButtonPushOverlay.qml \
+   "$SkyComponents"/ButtonPiano.qml \
+   "$SkyComponents"/ButtonPianoIcon.qml \
+   "$SkyComponents"/ButtonPianoFull.qml \
+   "$SkyComponents"/ButtonPianoReset.qml \
+   "$SkyComponents"/ButtonRound.qml \
+   "$SkyComponents"/ButtonCheck.qml \
+   "$SkyComponents"/ButtonCheckLabel.qml \
+   "$SkyComponents"/ButtonImage.qml \
+   "$SkyComponents"/ButtonImageBorders.qml \
+   "$SkyComponents"/ButtonMask.qml \
+   "$SkyComponents"/ButtonStream.qml \
+   "$SkyComponents"/ButtonsCheck.qml \
+   "$SkyComponents"/ButtonsItem.qml \
+   "$SkyComponents"/BaseLabelRound.qml \
+   "$SkyComponents"/LabelRound.qml \
+   "$SkyComponents"/LabelRoundAnimated.qml \
+   "$SkyComponents"/LabelRoundInfo.qml \
+   "$SkyComponents"/LabelLoading.qml \
+   "$SkyComponents"/LabelLoadingText.qml \
+   "$SkyComponents"/LabelLoadingButton.qml \
+   "$SkyComponents"/LabelStream.qml \
+   "$SkyComponents"/CheckBox.qml \
+   "$SkyComponents"/BaseLineEdit.qml \
+   "$SkyComponents"/LineEdit.qml \
+   "$SkyComponents"/LineEditLabel.qml \
+   "$SkyComponents"/LineEditValue.qml \
+   "$SkyComponents"/LineEditBox.qml \
+   "$SkyComponents"/LineEditBoxClear.qml \
+   "$SkyComponents"/BaseTextEdit.qml \
+   "$SkyComponents"/Console.qml \
+   "$SkyComponents"/BaseList.qml \
+   "$SkyComponents"/List.qml \
+   "$SkyComponents"/ListCompletion.qml \
+   "$SkyComponents"/ListContextual.qml \
+   "$SkyComponents"/ScrollArea.qml \
+   "$SkyComponents"/ScrollBar.qml \
+   "$SkyComponents"/ScrollList.qml \
+   "$SkyComponents"/ScrollListDefault.qml \
+   "$SkyComponents"/ScrollCompletion.qml \
+   "$SkyComponents"/ScrollerVertical.qml \
+   "$SkyComponents"/ScrollerList.qml \
+   "$SkyComponents"/Slider.qml \
+   "$SkyComponents"/SliderVolume.qml \
+   "$SkyComponents"/SliderStream.qml \
+   "$SkyComponents"/BaseTabs.qml \
+   "$SkyComponents"/TabsBrowser.qml \
+   "$SkyComponents"/TabsTrack.qml \
+   "$SkyComponents"/TabsPlayer.qml \
+   "$SkyComponents"/TabBarProgress.qml \
+   "$SkyComponents"/BaseWall.qml \
+   "$SkyComponents"/Wall.qml \
+   "$SkyComponents"/WallBookmarkTrack.qml \
+   "$SkyComponents"/WallVideo.qml \
+   "$SkyComponents"/PlayerBrowser.qml \
+   "$SkyComponents"/ItemList.qml \
+   "$SkyComponents"/ItemTab.qml \
+   "$SkyComponents"/ItemWall.qml \
+   "$SkyComponents"/ComponentList.qml \
+   "$SkyComponents"/ComponentContextual.qml \
+   "$SkyComponents"/ComponentCompletion.qml \
+   "$SkyComponents"/ComponentTab.qml \
+   "$SkyComponents"/ComponentTabBrowser.qml \
+   "$SkyComponents"/ComponentTabTrack.qml \
+   "$SkyComponents"/ComponentWall.qml \
+   "$SkyComponents"/ComponentWallBookmarkTrack.qml \
+   "$SkyComponents"/ContextualCategory.qml \
+   "$SkyComponents"/ContextualItem.qml \
+   "$SkyComponents"/ContextualItemCover.qml \
+   "$SkyComponents"/ContextualItemConfirm.qml qrc
 
 cp "$content"/*.qml qrc
+
+#--------------------------------------------------------------------------------------------------
+# Style
+#--------------------------------------------------------------------------------------------------
+
+style="BarWindow"
 
 #--------------------------------------------------------------------------------------------------
 # Content
@@ -263,17 +262,17 @@ fi
 
 if [ $os = "windows" ]; then
 
-    defines="$defines WINDOWS"
+    platform="WINDOWS"
 
 elif [ $2 = "macOS" ]; then
 
-    defines="$defines MAC"
+    platform="MAC"
 
 elif [ $1 = "linux" ]; then
 
-    defines="$defines LINUX"
+    platform="LINUX"
 else
-    defines="$defines ANDROID"
+    platform="ANDROID"
 fi
 
-"$Sky"/deploy/deployer qrc $version MotionBox.qrc $defines
+"$Sky"/deploy/deployer qrc $version MotionBox.qrc $platform $style

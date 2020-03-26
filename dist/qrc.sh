@@ -199,7 +199,7 @@ cp "$content"/*.qml qrc
 # Style
 #--------------------------------------------------------------------------------------------------
 
-style="BarWindow"
+style="BarWindow icons_slide icons_scale icons_add icons_external icons_playback"
 
 #--------------------------------------------------------------------------------------------------
 # Content

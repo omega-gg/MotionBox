@@ -80,8 +80,6 @@ if [ "$3" = "deploy" ]; then
 
     echo "COPYING pictures"
 
-    cp -r "$SkyComponents"/pictures qrc
-
     cp -r "$content"/pictures qrc
 
     echo "COPYING text"

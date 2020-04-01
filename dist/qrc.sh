@@ -7,6 +7,8 @@ set -e
 
 Sky="../../Sky"
 
+SkyBase="$Sky/src/SkyBase"
+
 SkyComponents="$Sky/src/SkyComponents"
 
 #--------------------------------------------------------------------------------------------------
@@ -147,7 +149,10 @@ fi
 defines="$defines BarWindow icons_slide icons_scale icons_add icons_external icons_playback"
 
 "$Sky"/deploy/deployer qrc $version MotionBox.qrc "$defines" \
-"$SkyComponents"/Style.qml \
+"$SkyBase"/Style.qml \
+"$SkyBase"/Window.qml \
+"$SkyBase"/RectangleBorders.qml \
+"$SkyComponents"/StyleComponents.qml \
 "$SkyComponents"/AreaContextual.qml \
 "$SkyComponents"/ItemSlide.qml \
 "$SkyComponents"/ItemWipe.qml \
@@ -160,9 +165,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/BorderHorizontal.qml \
 "$SkyComponents"/BorderVertical.qml \
 "$SkyComponents"/BorderButton.qml \
-"$SkyComponents"/Window.qml \
 "$SkyComponents"/WindowScale.qml \
-"$SkyComponents"/RectangleBorders.qml \
 "$SkyComponents"/RectangleBordersDrop.qml \
 "$SkyComponents"/RectangleShadow.qml \
 "$SkyComponents"/RectangleLogo.qml \

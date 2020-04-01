@@ -24,34 +24,6 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // Global
 
-    property int dp36: 36 * ratio
-    property int dp37: 37 * ratio
-    property int dp44: 44 * ratio
-    property int dp50: 50 * ratio
-    property int dp52: 52 * ratio
-    property int dp92: 92 * ratio
-
-    property int dp100: 100 * ratio
-    property int dp108: 108 * ratio
-    property int dp110: 110 * ratio
-    property int dp160: 160 * ratio
-    property int dp192: 192 * ratio
-
-    property int dp220: 220 * ratio
-    property int dp256: 256 * ratio
-    property int dp258: 258 * ratio
-    property int dp270: 270 * ratio
-
-    property int dp320: 320 * ratio
-
-    property int dp400: 400 * ratio
-    property int dp480: 480 * ratio
-
-    property variant size28x28: size(28, 28)
-    property variant size56x32: size(56, 32)
-
-    //---------------------------------------------------------------------------------------------
-
     property int minimumWidth : 800 * ratio
     property int minimumHeight: 540 * ratio
 

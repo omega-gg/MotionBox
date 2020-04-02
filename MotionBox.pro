@@ -28,7 +28,7 @@ contains(QT_MAJOR_VERSION, 5) {
 
 DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
-           SK_BACKEND_LOCAL #SK_BACKEND_LOG
+           SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 !android:DEFINES += CAN_COMPILE_SSE2
 
@@ -56,7 +56,7 @@ include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)
 include(src/io/io.pri)
 include(src/thread/thread.pri)
-include(src/plugin/plugin.pri)
+#include(src/plugin/plugin.pri)
 include(src/image/image.pri)
 include(src/graphicsview/graphicsview.pri)
 include(src/declarative/declarative.pri)

@@ -26,9 +26,9 @@ install:
                                    git clone https://github.com/omega-gg/Sky;
                                    git clone https://github.com/omega-gg/backend;
                                    cd Sky;
-                                   sh 3rdparty.sh linux sky;
+                                   sh 3rdparty.sh linux;
                                    cd ../MotionBox;
-                                   sh configure.sh ${QT} linux"
+                                   sh configure.sh ${QT} linux sky"
 
 script:
   - docker exec -t ubuntu bash -c "cd /MotionBox/../Sky;

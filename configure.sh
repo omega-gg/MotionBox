@@ -27,14 +27,17 @@ bin5="latest"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] || [ $2 != "win32" -a \
-                                                                       $2 != "win64" -a \
-                                                                       $2 != "macOS" -a \
-                                                                       $2 != "linux" -a \
-                                                                       $2 != "android" ]; then
+if [ $# != 2 -a $# != 3 ] \
+   || \
+   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+   || \
+   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
+   || \
+   [ $# = 3 -a "$3" != "sky" ]; then
 
-    echo \
-    "Usage: configure <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>"
+    echo "Usage: configure <qt4 | qt5 | clean>"
+    echo "                 <win32 | win64 | macOS | linux | android>"
+    echo "                 [sky]"
 
     exit 1
 fi
@@ -96,20 +99,23 @@ fi
 # Sky
 #--------------------------------------------------------------------------------------------------
 
-echo "CONFIGURING Sky"
-echo "---------------"
+if [ "$3" = "sky" ]; then
 
-cd "$Sky"
+    echo "CONFIGURING Sky"
+    echo "---------------"
 
-sh configure.sh $1 $2
+    cd "$Sky"
 
-cd -
+    sh configure.sh $1 $2
 
-echo "--------------"
-echo ""
+    cd -
+
+    echo "---------------"
+    echo ""
+fi
 
 #--------------------------------------------------------------------------------------------------
-# Qt
+# MinGW
 #--------------------------------------------------------------------------------------------------
 
 echo "CONFIGURING MotionBox"

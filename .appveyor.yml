@@ -13,7 +13,7 @@ environment:
 
 install:
   - sh 3rdparty.sh %platform%
-  - sh configure.sh %qt% %platform%
+  - sh configure.sh %qt% %platform% sky
 
 build_script:
   - cd ../Sky

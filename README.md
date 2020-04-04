@@ -61,7 +61,7 @@ You can install third party libraries with:
 
 You can configure MotionBox with:
 
-    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>
+    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [sky]
 
 ## Build
 

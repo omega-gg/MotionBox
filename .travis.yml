@@ -26,7 +26,7 @@ install:
                                    git clone https://github.com/omega-gg/Sky;
                                    git clone https://github.com/omega-gg/backend;
                                    cd Sky;
-                                   sh 3rdparty.sh linux;
+                                   sh 3rdparty.sh linux sky;
                                    cd ../MotionBox;
                                    sh configure.sh ${QT} linux"
 

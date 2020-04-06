@@ -165,6 +165,15 @@ if [ $2 = "macOS" ]; then
     install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
                               @loader_path/QtQml.dylib MotionBox
 
+    if [ -f QtQmlModels.dylib ]; then
+
+        install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
+                                  @loader_path/QtQmlModels.dylib MotionBox
+
+        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
+                                  @loader_path/QtQmlWorkerScript.dylib MotionBox
+    fi
+
     install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
                               @loader_path/QtQuick.dylib MotionBox
 

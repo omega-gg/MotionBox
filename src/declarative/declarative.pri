@@ -1,8 +1,6 @@
 # Declarative module
 
-HEADERS += $$SK_CORE/declarative/WDeclarativeCoreApplication_p.h \
-           $$SK_CORE/declarative/WDeclarativeCoreApplication.h \
-           $$SK_GUI/declarative/WDeclarativeApplication.h \
+HEADERS += $$SK_GUI/declarative/WDeclarativeApplication.h \
            $$SK_GUI/declarative/WDeclarativeItem.h \
            $$SK_GUI/declarative/WDeclarativeItem_p.h \
            $$SK_GUI/declarative/WDeclarativeMouseArea.h \
@@ -34,8 +32,7 @@ contains(QT_MAJOR_VERSION, 5): HEADERS += $$SK_GUI/declarative/WDeclarativeTextu
                                           $$SK_GUI/declarative/WDeclarativeItemPaint.h \
                                           $$SK_GUI/declarative/WDeclarativeItemPaint_p.h \
 
-SOURCES += $$SK_CORE/declarative/WDeclarativeCoreApplication.cpp \
-           $$SK_GUI/declarative/WDeclarativeApplication.cpp \
+SOURCES += $$SK_GUI/declarative/WDeclarativeApplication.cpp \
            $$SK_GUI/declarative/WDeclarativeItem.cpp \
            $$SK_GUI/declarative/WDeclarativeMouseArea.cpp \
            $$SK_GUI/declarative/WDeclarativeMouseWatcher.cpp \

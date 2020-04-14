@@ -92,9 +92,9 @@ unix:contains(QT_MAJOR_VERSION, 4) {
                    $$SK/include/Qt4/QtDeclarative
 }
 
-win32:contains(QT_MAJOR_VERSION, 5) {
-    LIBS += -lopengl32
-}
+#win32:contains(QT_MAJOR_VERSION, 5) {
+#    LIBS += -lopengl32
+#}
 
 win32:LIBS += -L$$SK/lib -lz \
               -L$$SK/lib -llibvlc \

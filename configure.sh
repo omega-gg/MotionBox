@@ -19,11 +19,6 @@ SSL_versionB="1.1.1d"
 VLC_version="3.0.8"
 
 #--------------------------------------------------------------------------------------------------
-
-bin4="bin"
-bin5="latest"
-
-#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -78,11 +73,8 @@ rm -rf lib
 mkdir  lib
 touch  lib/.gitignore
 
-rm -rf "$bin4"/*
-rm -rf "$bin5"/*
-
-touch "$bin4"/.gitignore
-touch "$bin5"/.gitignore
+rm -rf bin/*
+touch  bin/.gitignore
 
 rm -rf build/qt4/*
 rm -rf build/qt5/*
@@ -121,22 +113,11 @@ fi
 echo "CONFIGURING MotionBox"
 echo "---------------------"
 
-if [ $1 = "qt4" ]; then
-
-    echo "COPYING Qt4"
-
-    bin="$bin4"
-else
-    echo "COPYING Qt5"
-
-    bin="$bin5"
-fi
-
 if [ $os = "windows" ]; then
 
-    cp "$MinGW"/libgcc_s_*-1.dll    "$bin"
-    cp "$MinGW"/libstdc++-6.dll     "$bin"
-    cp "$MinGW"/libwinpthread-1.dll "$bin"
+    cp "$MinGW"/libgcc_s_*-1.dll    bin
+    cp "$MinGW"/libstdc++-6.dll     bin
+    cp "$MinGW"/libwinpthread-1.dll bin
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -147,7 +128,7 @@ if [ $os = "windows" ]; then
 
     echo "COPYING SSL"
 
-    cp "$SSL"/*.dll "$bin"
+    cp "$SSL"/*.dll bin
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -158,35 +139,35 @@ if [ $os = "windows" ]; then
 
     echo "COPYING VLC"
 
-    rm -rf "$bin"/plugins
-    mkdir  "$bin"/plugins
+    rm -rf bin/plugins
+    mkdir  bin/plugins
 
-    cp -r "$VLC"/plugins/access        "$bin"/plugins
-    cp -r "$VLC"/plugins/audio_filter  "$bin"/plugins
-    cp -r "$VLC"/plugins/audio_mixer   "$bin"/plugins
-    cp -r "$VLC"/plugins/audio_output  "$bin"/plugins
-    cp -r "$VLC"/plugins/codec         "$bin"/plugins
-    cp -r "$VLC"/plugins/control       "$bin"/plugins
-    cp -r "$VLC"/plugins/demux         "$bin"/plugins
-    cp -r "$VLC"/plugins/misc          "$bin"/plugins
-    cp -r "$VLC"/plugins/packetizer    "$bin"/plugins
-    cp -r "$VLC"/plugins/stream_filter "$bin"/plugins
-    cp -r "$VLC"/plugins/stream_out    "$bin"/plugins
-    cp -r "$VLC"/plugins/video_chroma  "$bin"/plugins
-    cp -r "$VLC"/plugins/video_filter  "$bin"/plugins
-    cp -r "$VLC"/plugins/video_output  "$bin"/plugins
+    cp -r "$VLC"/plugins/access        bin/plugins
+    cp -r "$VLC"/plugins/audio_filter  bin/plugins
+    cp -r "$VLC"/plugins/audio_mixer   bin/plugins
+    cp -r "$VLC"/plugins/audio_output  bin/plugins
+    cp -r "$VLC"/plugins/codec         bin/plugins
+    cp -r "$VLC"/plugins/control       bin/plugins
+    cp -r "$VLC"/plugins/demux         bin/plugins
+    cp -r "$VLC"/plugins/misc          bin/plugins
+    cp -r "$VLC"/plugins/packetizer    bin/plugins
+    cp -r "$VLC"/plugins/stream_filter bin/plugins
+    cp -r "$VLC"/plugins/stream_out    bin/plugins
+    cp -r "$VLC"/plugins/video_chroma  bin/plugins
+    cp -r "$VLC"/plugins/video_filter  bin/plugins
+    cp -r "$VLC"/plugins/video_output  bin/plugins
 
-    cp "$VLC"/libvlc*.dll "$bin"
+    cp "$VLC"/libvlc*.dll bin
 
 elif [ $2 = "macOS" ]; then
 
-    rm -rf "$bin"/plugins
-    mkdir  "$bin"/plugins
+    rm -rf bin/plugins
+    mkdir  bin/plugins
 
-    cp -r "$VLC"/plugins/*.dylib "$bin"/plugins
+    cp -r "$VLC"/plugins/*.dylib bin/plugins
 
-    cp "$VLC"/lib/libvlc.5.dylib     "$bin"/libvlc.dylib
-    cp "$VLC"/lib/libvlccore.9.dylib "$bin"/libvlccore.dylib
+    cp "$VLC"/lib/libvlc.5.dylib     bin/libvlc.dylib
+    cp "$VLC"/lib/libvlccore.9.dylib bin/libvlccore.dylib
 fi
 
 echo "---------------------"

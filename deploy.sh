@@ -10,11 +10,6 @@ Sky="../Sky"
 backend="../backend"
 
 #--------------------------------------------------------------------------------------------------
-
-bin4="bin"
-bin5="latest"
-
-#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -61,16 +56,9 @@ echo ""
 # Bundle
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "qt4" ]; then
-
-    bin="$bin4"
-else
-    bin="$bin5"
-fi
-
 if [ $2 = "macOS" ]; then
 
-    cp -r "$bin"/MotionBox.app deploy
+    cp -r bin/MotionBox.app deploy
 
     deploy="deploy/MotionBox.app/Contents/MacOS"
 
@@ -246,9 +234,9 @@ if [ $2 = "macOS" ]; then
 
 elif [ $2 = "android" ]; then
 
-    cp "$bin"/libMotionBox* $deploy
+    cp bin/libMotionBox* $deploy
 else
-    cp "$bin"/MotionBox* $deploy
+    cp bin/MotionBox* $deploy
 
     if [ $2 = "linux" ]; then
 

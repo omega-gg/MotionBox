@@ -8,11 +8,7 @@ SK_BACKEND = $$SK/src/SkBackend/src
 
 TARGET = MotionBox
 
-contains(QT_MAJOR_VERSION, 4) {
-    DESTDIR = $$_PRO_FILE_PWD_/bin
-} else {
-    DESTDIR = $$_PRO_FILE_PWD_/latest
-}
+DESTDIR = $$_PRO_FILE_PWD_/bin
 
 contains(QT_MAJOR_VERSION, 4) {
     QT += opengl declarative network script xml xmlpatterns svg

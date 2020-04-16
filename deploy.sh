@@ -131,7 +131,11 @@ echo ""
 
 echo "COPYING MotionBox"
 
-if [ $2 = "macOS" ]; then
+if [ $os = "windows" ]; then
+
+    cp bin/MotionBox.exe deploy
+
+elif [ $2 = "macOS" ]; then
 
     cd $deploy
 
@@ -232,16 +236,15 @@ if [ $2 = "macOS" ]; then
 
     cd -
 
+elif [ $2 = "linux" ]; then
+
+    cp bin/MotionBox $deploy
+
+    cp dist/script/start.sh $deploy
+
 elif [ $2 = "android" ]; then
 
     cp bin/libMotionBox* $deploy
-else
-    cp bin/MotionBox* $deploy
-
-    if [ $2 = "linux" ]; then
-
-        cp dist/script/start.sh $deploy
-    fi
 fi
 
 #--------------------------------------------------------------------------------------------------

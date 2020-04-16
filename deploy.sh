@@ -139,6 +139,9 @@ elif [ $2 = "macOS" ]; then
 
     cd $deploy
 
+    # FIXME Qt 5.14: We have to create qt.conf to avoid a segfault.
+    touch qt.conf
+
     #----------------------------------------------------------------------------------------------
     # Qt
 
@@ -161,9 +164,6 @@ elif [ $2 = "macOS" ]; then
 
         install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
                                   @loader_path/QtQmlModels.dylib MotionBox
-
-        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
-                                  @loader_path/QtQmlWorkerScript.dylib MotionBox
     fi
 
     install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \

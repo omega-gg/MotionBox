@@ -44,7 +44,7 @@ contains(QT_MAJOR_VERSION, 4) {
 deploy {
     DEFINES += SK_DEPLOY
 
-    RESOURCES = dist/HelloSky.qrc
+    RESOURCES = dist/MotionBox.qrc
 }
 
 QMAKE_CXXFLAGS += -std=c++11

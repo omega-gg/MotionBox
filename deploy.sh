@@ -265,6 +265,8 @@ elif [ $2 = "linux" ]; then
 
     cp dist/script/start.sh $deploy
 
+    chmod 755 $deploy/start.sh
+
 elif [ $2 = "android" ]; then
 
     cp bin/libMotionBox* $deploy

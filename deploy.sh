@@ -107,6 +107,9 @@ if [ $os = "windows" ]; then
 
 elif [ $2 = "macOS" ]; then
 
+    # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
+    cp "$path"/qt.conf $deploy
+
     cp -r "$path"/plugins $deploy
 
     cp "$path"/*.dylib $deploy
@@ -138,9 +141,6 @@ if [ $os = "windows" ]; then
 elif [ $2 = "macOS" ]; then
 
     cd $deploy
-
-    # FIXME Qt 5.14: We have to create qt.conf to avoid a segfault.
-    touch qt.conf
 
     #----------------------------------------------------------------------------------------------
     # Qt

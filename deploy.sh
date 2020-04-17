@@ -223,6 +223,29 @@ elif [ $2 = "macOS" ]; then
                               @loader_path/../QtSvg.dylib imageformats/libqsvg.dylib
 
     #----------------------------------------------------------------------------------------------
+    # QtQuick.2
+
+    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+                              @loader_path/../QtGui.dylib QtQuick.2/libqtquick2plugin.dylib
+
+    install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
+                              @loader_path/../QtQml.dylib QtQuick.2/libqtquick2plugin.dylib
+
+    install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
+                              @loader_path/../QtQuick.dylib QtQuick.2/libqtquick2plugin.dylib
+
+    if [ -f QtQmlModels.dylib ]; then
+
+        install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
+                                  @loader_path/../QtQmlModels.dylib \
+                                  QtQuick.2/libqtquick2plugin.dylib
+
+        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
+                                  @loader_path/../QtQmlWorkerScript.dylib \
+                                  QtQuick.2/libqtquick2plugin.dylib
+    fi
+
+    #----------------------------------------------------------------------------------------------
     # VLC
 
     install_name_tool -change @rpath/libvlccore.dylib \

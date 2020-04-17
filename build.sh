@@ -207,20 +207,14 @@ cd ../$build
 
 if [ "$3" = "deploy" ]; then
 
-    if [ $2 = "android" ]; then
+    config="$config deploy"
+fi
 
-        $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" "ANDROID_ABIS = $abi" $MotionBox
-    else
-        $qmake -r -spec $spec "$config" "DEFINES += SK_DEPLOY" $MotionBox
-    fi
+if [ $2 = "android" ]; then
+
+    $qmake -r -spec $spec "$config" "ANDROID_ABIS = $abi" $MotionBox
 else
-
-    if [ $2 = "android" ]; then
-
-        $qmake -r -spec $spec "$config" "ANDROID_ABIS = $abi" $MotionBox
-    else
-        $qmake -r -spec $spec "$config" $MotionBox
-    fi
+    $qmake -r -spec $spec "$config" $MotionBox
 fi
 
 if [ $os = "windows" ]; then

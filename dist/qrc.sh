@@ -13,6 +13,8 @@ SkyComponents="$Sky/src/SkyComponents"
 
 #--------------------------------------------------------------------------------------------------
 
+bin="../bin"
+
 content="../content"
 
 #--------------------------------------------------------------------------------------------------
@@ -25,11 +27,11 @@ if [ $# != 2 -a $# != 3 ] \
    || \
    [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
    || \
-   [ $# = 3 -a "$3" != "deploy" ]; then
+   [ $# = 3 -a "$3" != "all" -a "$3" != "deploy" ]; then
 
     echo "Usage: qrc <qt4 | qt5 | clean>"
     echo "           <win32 | win64 | macOS | linux | android>"
-    echo "           [deploy]"
+    echo "           [all | deploy]"
 
     exit 1
 fi
@@ -45,11 +47,18 @@ else
     os="default"
 fi
 
+if [ "$3" = "deploy" ]; then
+
+    path="qrc"
+else
+    path="$bin"
+fi
+
 #--------------------------------------------------------------------------------------------------
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "clean" -o "$3" = "deploy" ]; then
+if [ $1 = "clean" ]; then
 
     echo "CLEANING"
 
@@ -58,12 +67,12 @@ if [ $1 = "clean" -o "$3" = "deploy" ]; then
     rm -rf qrc/pictures
     rm -rf qrc/text
 
-    if [ $1 = "clean" ]; then
+    rm -f $bin/*.qml
 
-        exit 0
-    fi
+    rm -rf $bin/pictures
+    rm -rf $bin/text
 
-    echo ""
+    exit 0
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -72,7 +81,7 @@ fi
 
 echo "COPYING QML"
 
-cp "$content"/*.qml qrc
+cp "$content"/*.qml $path
 
 #--------------------------------------------------------------------------------------------------
 # Content
@@ -82,11 +91,11 @@ if [ "$3" = "deploy" ]; then
 
     echo "COPYING pictures"
 
-    cp -r "$content"/pictures qrc
+    cp -r "$content"/pictures $path
 
     echo "COPYING text"
 
-    cp -r "$content"/text qrc
+    cp -r "$content"/text $path
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -148,7 +157,7 @@ fi
 
 defines="$defines BarWindow icons_slide icons_scale icons_add icons_external icons_playback"
 
-"$Sky"/deploy/deployer qrc $version MotionBox.qrc "$defines" \
+"$Sky"/deploy/deployer $path $version MotionBox.qrc "$defines" \
 "$SkyBase"/Style.qml \
 "$SkyBase"/Window.qml \
 "$SkyBase"/RectangleBorders.qml \
@@ -272,4 +281,3 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/ContextualItem.qml \
 "$SkyComponents"/ContextualItemCover.qml \
 "$SkyComponents"/ContextualItemConfirm.qml \
-

@@ -31,13 +31,6 @@ int main(int argc, char * argv[])
     if (application == NULL) return 0;
 
     //---------------------------------------------------------------------------------------------
-    // Settings
-
-#ifndef SK_DEPLOY
-    Sk::setCurrentPath("../content");
-#endif
-
-    //---------------------------------------------------------------------------------------------
     // Controllers
 
     W_CREATE_CONTROLLER(ControllerCore);
@@ -45,6 +38,10 @@ int main(int argc, char * argv[])
     core->applyArguments(argc, argv);
 
     //---------------------------------------------------------------------------------------------
+
+#ifndef SK_DEPLOY
+    sk->setQrc(false);
+#endif
 
     sk->startScript();
 

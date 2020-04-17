@@ -41,6 +41,12 @@ contains(QT_MAJOR_VERSION, 4) {
     win32:DEFINES += SK_WIN_NATIVE
 }
 
+deploy {
+    DEFINES += SK_DEPLOY
+
+    RESOURCES = dist/HelloSky.qrc
+}
+
 QMAKE_CXXFLAGS += -std=c++11
 
 !android:QMAKE_CXXFLAGS += -msse
@@ -140,8 +146,6 @@ macx {
 macx:ICON = dist/icon.icns
 
 RC_FILE = dist/MotionBox.rc
-
-RESOURCES = dist/MotionBox.qrc
 
 OTHER_FILES += 3rdparty.sh \
                configure.sh \

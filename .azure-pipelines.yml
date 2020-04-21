@@ -52,9 +52,7 @@ jobs:
       sh build.sh qt5 macOS tools
       cd ../s
       sh build.sh qt5 macOS deploy
-      cd deploy
-      zip -rq ../MotionBox.zip *
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+  - publish: $(System.DefaultWorkingDirectory)/deploy
     artifact: MotionBox-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------

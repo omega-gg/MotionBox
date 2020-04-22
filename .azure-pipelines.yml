@@ -40,7 +40,6 @@ jobs:
 #--------------------------------------------------------------------------------------------------
 # macOS
 #--------------------------------------------------------------------------------------------------
-# FIXME macOS: It seems we can't zip the app folder otherwise codesign fails.
 
 - job: macOS_qt5
   pool:
@@ -53,7 +52,9 @@ jobs:
       sh build.sh qt5 macOS tools
       cd ../s
       sh build.sh qt5 macOS deploy
-  - publish: $(System.DefaultWorkingDirectory)/deploy
+      cd deploy
+      zip -rq ../MotionBox.zip *
+  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------

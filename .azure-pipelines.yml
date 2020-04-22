@@ -53,9 +53,7 @@ jobs:
       cd ../s
       sh build.sh qt5 macOS deploy
       cd deploy
-      # FIXME: We need to use 7z on macOS or we can't sign the app
-      brew install p7zip
-      7z a ../MotionBox.zip *
+      zip -rq ../MotionBox.zip MotionBox.app
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-macOS-qt5
 

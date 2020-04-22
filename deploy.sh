@@ -108,7 +108,7 @@ if [ $os = "windows" ]; then
 elif [ $2 = "macOS" ]; then
 
     # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
-    cp "$path"/qt.conf $deploy
+    cp "$path"/qt.conf $deploy/../Resources
 
     cp -r "$path"/plugins $deploy
 

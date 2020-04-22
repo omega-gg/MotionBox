@@ -227,24 +227,29 @@ elif [ $2 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # QtQuick.2
 
+    # NOTE: codesign does not like the '.' in the "QtQuick.2" folder name.
+
     install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../MacOS/QtGui.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtGui.dylib \
+                              ../Resources/QtQuick.2/libqtquick2plugin.dylib
 
     install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
-                              @loader_path/../MacOS/QtQml.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtQml.dylib \
+                              ../Resources/QtQuick.2/libqtquick2plugin.dylib
 
     install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
-                              @loader_path/../MacOS/QtQuick.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtQuick.dylib \
+                              ../Resources/QtQuick.2/libqtquick2plugin.dylib
 
     if [ -f QtQmlModels.dylib ]; then
 
         install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
                                   @loader_path/../MacOS/QtQmlModels.dylib \
-                                  QtQuick.2/libqtquick2plugin.dylib
+                                  ../Resources/QtQuick.2/libqtquick2plugin.dylib
 
         install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
                                   @loader_path/../MacOS/QtQmlWorkerScript.dylib \
-                                  QtQuick.2/libqtquick2plugin.dylib
+                                  ../Resources/QtQuick.2/libqtquick2plugin.dylib
     fi
 
     #----------------------------------------------------------------------------------------------

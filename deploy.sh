@@ -108,7 +108,7 @@ if [ $os = "windows" ]; then
 elif [ $2 = "macOS" ]; then
 
     # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
-    cp "$path"/qt.conf $deploy
+    cp "$path"/qt.conf $deploy/../Resources
 
     cp -r "$path"/plugins $deploy
 
@@ -141,6 +141,8 @@ if [ $os = "windows" ]; then
 elif [ $2 = "macOS" ]; then
 
     cd $deploy
+
+    mv QtQuick.2 ../Resources
 
     #----------------------------------------------------------------------------------------------
     # Qt
@@ -226,22 +228,22 @@ elif [ $2 = "macOS" ]; then
     # QtQuick.2
 
     install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../QtGui.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtGui.dylib QtQuick.2/libqtquick2plugin.dylib
 
     install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
-                              @loader_path/../QtQml.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtQml.dylib QtQuick.2/libqtquick2plugin.dylib
 
     install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
-                              @loader_path/../QtQuick.dylib QtQuick.2/libqtquick2plugin.dylib
+                              @loader_path/../MacOS/QtQuick.dylib QtQuick.2/libqtquick2plugin.dylib
 
     if [ -f QtQmlModels.dylib ]; then
 
         install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
-                                  @loader_path/../QtQmlModels.dylib \
+                                  @loader_path/../MacOS/QtQmlModels.dylib \
                                   QtQuick.2/libqtquick2plugin.dylib
 
         install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
-                                  @loader_path/../QtQmlWorkerScript.dylib \
+                                  @loader_path/../MacOS/QtQmlWorkerScript.dylib \
                                   QtQuick.2/libqtquick2plugin.dylib
     fi
 

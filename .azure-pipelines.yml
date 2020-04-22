@@ -3,44 +3,43 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32_qt5
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh 3rdparty.sh win32
-      sh configure.sh qt5 win32 sky
-      cd ../Sky
-      sh build.sh qt5 win32 tools
-      cd ../s
-      sh build.sh qt5 win32 deploy
-      cd deploy
-      7z a ../MotionBox.zip *
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-win32-qt5
+#- job: win32_qt5
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh 3rdparty.sh win32
+#      sh configure.sh qt5 win32 sky
+#      cd ../Sky
+#      sh build.sh qt5 win32 tools
+#      cd ../s
+#      sh build.sh qt5 win32 deploy
+#      cd deploy
+#      7z a ../MotionBox.zip *
+#  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+#    artifact: MotionBox-win32-qt5
 
 #--------------------------------------------------------------------------------------------------
 
-- job: win64_qt5
-  pool:
-    vmImage: "windows-latest"
-  steps:
-  - bash: |
-      sh 3rdparty.sh win64
-      sh configure.sh qt5 win64 sky
-      cd ../Sky
-      sh build.sh qt5 win64 tools
-      cd ../s
-      sh build.sh qt5 win64 deploy
-      cd deploy
-      7z a ../MotionBox.zip *
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-win64-qt5
+#- job: win64_qt5
+#  pool:
+#    vmImage: "windows-latest"
+#  steps:
+#  - bash: |
+#      sh 3rdparty.sh win64
+#      sh configure.sh qt5 win64 sky
+#      cd ../Sky
+#      sh build.sh qt5 win64 tools
+#      cd ../s
+#      sh build.sh qt5 win64 deploy
+#      cd deploy
+#      7z a ../MotionBox.zip *
+#  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+#    artifact: MotionBox-win64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # macOS
 #--------------------------------------------------------------------------------------------------
-# FIXME: We need to use 7z on macOS or we can't sign the app
 
 - job: macOS_qt5
   pool:
@@ -53,79 +52,76 @@ jobs:
       sh build.sh qt5 macOS tools
       cd ../s
       sh build.sh qt5 macOS deploy
-      cd deploy
-      brew install p7zip
-      7z a ../MotionBox.zip *
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+  - publish: $(System.DefaultWorkingDirectory)/deploy
     artifact: MotionBox-macOS-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Linux
 #--------------------------------------------------------------------------------------------------
 
-- job: linux32_qt5
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip git;
-                                     sh 3rdparty.sh linux;
-                                     sh configure.sh qt5 linux sky;
-                                     cd ../Sky;
-                                     sh build.sh qt5 linux tools;
-                                     cd ../MotionBox;
-                                     sh build.sh qt5 linux deploy;
-                                     cd deploy;
-                                     zip -rq ../MotionBox.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-linux32-qt5
+#- job: linux32_qt5
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:18.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /MotionBox;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl zip git;
+#                                     sh 3rdparty.sh linux;
+#                                     sh configure.sh qt5 linux sky;
+#                                     cd ../Sky;
+#                                     sh build.sh qt5 linux tools;
+#                                     cd ../MotionBox;
+#                                     sh build.sh qt5 linux deploy;
+#                                     cd deploy;
+#                                     zip -rq ../MotionBox.zip *"
+#  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+#    artifact: MotionBox-linux32-qt5
 
 #--------------------------------------------------------------------------------------------------
 
-- job: linux64_qt5
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip git;
-                                     sh 3rdparty.sh linux;
-                                     sh configure.sh qt5 linux sky;
-                                     cd ../Sky;
-                                     sh build.sh qt5 linux tools;
-                                     cd ../MotionBox;
-                                     sh build.sh qt5 linux deploy;
-                                     cd deploy;
-                                     zip -rq ../MotionBox.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-linux64-qt5
+#- job: linux64_qt5
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /MotionBox;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl zip git;
+#                                     sh 3rdparty.sh linux;
+#                                     sh configure.sh qt5 linux sky;
+#                                     cd ../Sky;
+#                                     sh build.sh qt5 linux tools;
+#                                     cd ../MotionBox;
+#                                     sh build.sh qt5 linux deploy;
+#                                     cd deploy;
+#                                     zip -rq ../MotionBox.zip *"
+#  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+#    artifact: MotionBox-linux64-qt5
 
 #--------------------------------------------------------------------------------------------------
 # Android
 #--------------------------------------------------------------------------------------------------
 
-- job: android_qt5
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
-      docker exec -t ubuntu bash -c "cd /MotionBox;
-                                     apt-get update;
-                                     apt-get -y install sudo curl zip unzip git;
-                                     sh 3rdparty.sh linux;
-                                     sh 3rdparty.sh android;
-                                     sh configure.sh qt5 android sky;
-                                     cd ../Sky;
-                                     sh build.sh qt5 linux tools;
-                                     cd ../MotionBox;
-                                     sh build.sh qt5 android deploy;
-                                     cd deploy;
-                                     zip -rq ../MotionBox.zip *"
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-android-qt5
+#- job: android_qt5
+#  pool:
+#    vmImage: "ubuntu-latest"
+#  steps:
+#  - bash: |
+#      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+#      docker exec -t ubuntu bash -c "cd /MotionBox;
+#                                     apt-get update;
+#                                     apt-get -y install sudo curl zip unzip git;
+#                                     sh 3rdparty.sh linux;
+#                                     sh 3rdparty.sh android;
+#                                     sh configure.sh qt5 android sky;
+#                                     cd ../Sky;
+#                                     sh build.sh qt5 linux tools;
+#                                     cd ../MotionBox;
+#                                     sh build.sh qt5 android deploy;
+#                                     cd deploy;
+#                                     zip -rq ../MotionBox.zip *"
+#  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+#    artifact: MotionBox-android-qt5

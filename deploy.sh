@@ -248,8 +248,13 @@ elif [ $2 = "macOS" ]; then
                                   QtQuick.2/libqtquick2plugin.dylib
     fi
 
+    #----------------------------------------------------------------------------------------------
     # NOTE: codesign does not like the '.' in the "QtQuick.2" folder name.
+    # So we move it in "Resources" and create a link.
+
     mv QtQuick.2 ../Resources
+
+    ln -s ../Resources/QtQuick.2 QtQuick.2
 
     #----------------------------------------------------------------------------------------------
     # VLC

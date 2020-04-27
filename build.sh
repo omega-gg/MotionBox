@@ -192,13 +192,13 @@ fi
 $qmake --version
 echo ""
 
-cd dist
+cd content
 
 if [ "$3" = "deploy" ]; then
 
-    sh qrc.sh $QT_SELECT $2 deploy
+    sh generate.sh $QT_SELECT $2 deploy
 else
-    sh qrc.sh $QT_SELECT $2
+    sh generate.sh $QT_SELECT $2
 fi
 
 echo ""

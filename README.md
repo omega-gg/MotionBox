@@ -83,7 +83,7 @@ Or the console:
 1\. Generate the qrc file:
 
     cd dist
-    sh qrc.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]
+    sh generate.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]
 
 2\. Build MotionBox:
 

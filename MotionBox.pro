@@ -158,6 +158,7 @@ OTHER_FILES += 3rdparty.sh \
                .travis.yml \
                .appveyor.yml \
                content/text/credits.txt \
+               content/generate.sh \
                content/Main.qml \
                content/StyleApplication.qml \
                content/Splash.qml \
@@ -212,7 +213,6 @@ OTHER_FILES += 3rdparty.sh \
                content/PageSubtitles.qml \
                content/PageSubtitlesSearch.qml \
                dist/MotionBox.rc \
-               dist/qrc.sh \
                dist/script/start.sh \
                dist/doc/readme.md \
                dist/doc/shortcuts.md \

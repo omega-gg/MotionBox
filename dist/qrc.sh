@@ -161,6 +161,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/Style.qml \
 "$SkyBase"/Window.qml \
 "$SkyBase"/RectangleBorders.qml \
+"$SkyBase"/BaseButton.qml \
 "$SkyComponents"/StyleComponents.qml \
 "$SkyComponents"/AreaContextual.qml \
 "$SkyComponents"/ItemSlide.qml \
@@ -198,7 +199,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/BarTitleText.qml \
 "$SkyComponents"/BarSetting.qml \
 "$SkyComponents"/BarSettingReset.qml \
-"$SkyComponents"/BaseButton.qml \
 "$SkyComponents"/BaseButtonPush.qml \
 "$SkyComponents"/BaseButtonPiano.qml \
 "$SkyComponents"/ButtonPush.qml \

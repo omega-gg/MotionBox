@@ -232,8 +232,6 @@ StyleComponents
 
     zoom: window.zoom
 
-    ratio: scale * zoom * window.ratio
-
     icon: "pictures/icons/icon.svg"
 
     logo: (local.style) ? "pictures/logoBackgroundB.svg"

@@ -144,15 +144,15 @@ fi
 
 if [ $os = "windows" ]; then
 
-    defines="WINDOWS"
+    defines="DESKTOP WINDOWS"
 
 elif [ $2 = "macOS" ]; then
 
-    defines="MAC"
+    defines="DESKTOP MAC"
 
 elif [ $1 = "linux" ]; then
 
-    defines="LINUX"
+    defines="DESKTOP LINUX"
 else
     defines="ANDROID"
 fi

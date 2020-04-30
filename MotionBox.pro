@@ -41,7 +41,7 @@ contains(QT_MAJOR_VERSION, 4) {
     win32:DEFINES += SK_WIN_NATIVE
 }
 
-deploy {
+deploy|android {
     DEFINES += SK_DEPLOY
 
     RESOURCES = dist/MotionBox.qrc

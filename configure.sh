@@ -76,11 +76,8 @@ touch  lib/.gitignore
 rm -rf bin/*
 touch  bin/.gitignore
 
-rm -rf build/qt4/*
-rm -rf build/qt5/*
-
-touch build/qt4/.gitignore
-touch build/qt5/.gitignore
+rm -rf build/*
+touch  build/.gitignore
 
 if [ $1 = "clean" ]; then
 

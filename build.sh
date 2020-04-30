@@ -130,11 +130,8 @@ if [ $1 = "clean" ]; then
 
     echo "CLEANING"
 
-    rm -rf build/qt4/*
-    rm -rf build/qt5/*
-
-    touch build/qt4/.gitignore
-    touch build/qt5/.gitignore
+    rm -rf build/*
+    touch  build/.gitignore
 
     exit 0
 fi
@@ -150,13 +147,9 @@ if [ $1 = "qt4" ]; then
 
     export QT_SELECT=qt4
 
-    build="build/qt4"
-
     config="CONFIG += release"
 else
     export QT_SELECT=qt5
-
-    build="build/qt5"
 
     config="CONFIG += release qtquickcompiler"
 fi
@@ -203,7 +196,7 @@ fi
 
 echo ""
 
-cd ../$build
+cd ../build
 
 if [ "$3" = "deploy" ]; then
 

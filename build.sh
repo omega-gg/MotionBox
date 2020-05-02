@@ -147,11 +147,11 @@ if [ $1 = "qt4" ]; then
 
     export QT_SELECT=qt4
 
-    config="CONFIG += release"
+    config="CONFIG+=release"
 else
     export QT_SELECT=qt5
 
-    config="CONFIG += release qtquickcompiler"
+    config="CONFIG+=release qtquickcompiler"
 fi
 
 if [ $os = "windows" ]; then
@@ -205,7 +205,7 @@ fi
 
 if [ $2 = "android" ]; then
 
-    $qmake -r -spec $spec "$config" "ANDROID_ABIS = $abi" ..
+    $qmake -r -spec $spec "$config" "ANDROID_ABIS=$abi" ..
 else
     $qmake -r -spec $spec "$config" ..
 fi

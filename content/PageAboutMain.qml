@@ -188,11 +188,11 @@ Item
     ButtonImage
     {
         anchors.left: logoVlc.right
-        anchors.top : logoVlc.top
+        anchors.top : logoQt.top
 
         anchors.leftMargin: st.dp16
 
-        sourceSize.height: st.dp42
+        sourceSize.height: st.dp40
 
         source: (isHovered) ? st.icon_sky
                             : st.icon_skyGray

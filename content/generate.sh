@@ -89,7 +89,7 @@ cp $content/*.qml $path
 # Content
 #--------------------------------------------------------------------------------------------------
 
-if [ "$3" = "deploy" ]; then
+if [ "$3" = "all" -o "$3" = "deploy" ]; then
 
     echo "COPYING pictures"
 

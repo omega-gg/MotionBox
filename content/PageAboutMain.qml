@@ -192,7 +192,7 @@ Item
 
         anchors.leftMargin: st.dp16
 
-        sourceSize.height: st.dp40
+        sourceSize.height: st.dp42
 
         source: (isHovered) ? st.icon_sky
                             : st.icon_skyGray

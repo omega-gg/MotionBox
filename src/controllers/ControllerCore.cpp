@@ -385,7 +385,10 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Message handler
 
+    // FIXME Qt4.8.7: qInstallMsgHandler breaks QML 'Keys' events.
+#ifndef QT_4
     wControllerFile->initMessageHandler();
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Controllers

@@ -34,7 +34,6 @@
 #include <QStandardPaths>
 #endif
 #endif
-#include <QAbstractItemModel>
 
 // Sk includes
 #include <WControllerApplication>

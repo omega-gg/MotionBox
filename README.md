@@ -71,7 +71,7 @@ You can build MotionBox with Qt Creator:
 
 Or the build script:
 
-    sh build.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]
+    sh build.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [deploy]
 
 Or the console:
 
@@ -83,7 +83,7 @@ Or the console:
 1\. Generate the qrc file:
 
     cd dist
-    sh generate.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux> [deploy]
+    sh generate.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [deploy]
 
 2\. Build MotionBox:
 
@@ -92,7 +92,7 @@ Or the console:
 
 3\. Deploy MotionBox:
 
-    sh deploy.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux>
+    sh deploy.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>
 
 ## License
 

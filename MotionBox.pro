@@ -41,7 +41,7 @@ contains(QT_MAJOR_VERSION, 4) {
 } else {
     DEFINES += QT_LATEST #SK_SOFTWARE
 
-    #win32:DEFINES += SK_WIN_NATIVE
+    win32:DEFINES += SK_WIN_NATIVE
 }
 
 deploy|android {

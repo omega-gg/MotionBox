@@ -34,7 +34,7 @@ getOs()
     os=`uname`
 
     case $os in
-    MINGW*)  os="win";;
+    MINGW*)  os="windows";;
     Darwin*) os="macOS";;
     Linux*)  os="linux";;
     *)       os="other";;
@@ -44,14 +44,14 @@ getOs()
 
     if [ $type = "x86_64" ]; then
 
-        if [ $os = "win" ]; then
+        if [ $os = "windows" ]; then
 
             echo win64
         else
             echo $os
         fi
 
-    elif [ $os = "win" ]; then
+    elif [ $os = "windows" ]; then
 
         echo win32
     else

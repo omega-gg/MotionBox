@@ -103,14 +103,14 @@ msvc:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 #    LIBS += -lopengl32
 #}
 
+win32::LIBS += -L$$SK/lib -llibvlc \
+               -lmswsock -lws2_32 \
+
 win32:!msvc:LIBS += -L$$SK/lib -lz \
-                    -L$$SK/lib -llibvlc \
                     -L$$SK/lib -ltorrent \
                     -L$$SK/lib -lboost_system \
-                    -lmswsock -lws2_32 \
 
 msvc:LIBS += $$SK/lib/libz.a \
-             $$SK/lib/libvlc.lib \
              $$SK/lib/libtorrent.a \
              $$SK/lib/libboost_system.a \
 

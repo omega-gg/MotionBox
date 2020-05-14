@@ -110,8 +110,7 @@ win32:!msvc:LIBS += -L$$SK/lib -lz \
                     -L$$SK/lib -ltorrent \
                     -L$$SK/lib -lboost_system \
 
-msvc:LIBS += $$SK/lib/libz.a \
-             $$SK/lib/libtorrent.a \
+msvc:LIBS += $$SK/lib/libtorrent.a \
              $$SK/lib/libboost_system.a \
 
 # Windows dependency for ShellExecuteA and SystemParametersInfo

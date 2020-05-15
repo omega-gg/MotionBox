@@ -27,9 +27,9 @@ DEFINES += QUAZIP_BUILD \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 # libtorrent: This fixes the winsock2 errors
-msvc:DEFINES += WIN32_LEAN_AND_MEAN
+win32-msvc*:DEFINES += WIN32_LEAN_AND_MEAN
 
-!msvc:!android:DEFINES += CAN_COMPILE_SSE2
+!win32-msvc*:!android:DEFINES += CAN_COMPILE_SSE2
 
 contains(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_4
@@ -50,9 +50,9 @@ deploy|android {
     RESOURCES = dist/MotionBox.qrc
 }
 
-!msvc:QMAKE_CXXFLAGS += -std=c++11
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++11
 
-!msvc:!android:QMAKE_CXXFLAGS += -msse
+!win32-msvc*:!android:QMAKE_CXXFLAGS += -msse
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
@@ -97,7 +97,7 @@ unix:contains(QT_MAJOR_VERSION, 4) {
                    $$SK/include/Qt4/QtDeclarative
 }
 
-msvc:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
+win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 
 #win32:contains(QT_MAJOR_VERSION, 5) {
 #    LIBS += -lopengl32
@@ -106,15 +106,15 @@ msvc:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 win32::LIBS += -L$$SK/lib -llibvlc \
                -lmswsock -lws2_32 \
 
-win32:!msvc:LIBS += -L$$SK/lib -lz \
-                    -L$$SK/lib -ltorrent \
-                    -L$$SK/lib -lboost_system \
+win32:!win32-msvc*:LIBS += -L$$SK/lib -lz \
+                           -L$$SK/lib -ltorrent \
+                           -L$$SK/lib -lboost_system \
 
-msvc:LIBS += $$SK/lib/libtorrent.a \
-             $$SK/lib/libboost_system.a \
+win32-msvc*:LIBS += $$SK/lib/libtorrent.a \
+                    $$SK/lib/libboost_system.a \
 
 # Windows dependency for ShellExecuteA and SystemParametersInfo
-msvc:LIBS += shell32.lib User32.lib
+win32-msvc*:LIBS += shell32.lib User32.lib
 
 macx:LIBS += -lz \
              -L$$SK/lib -lvlc \

@@ -133,7 +133,9 @@ if [ $1 = "clean" ]; then
 
     echo "CLEANING"
 
-    rm -rf build/*
+    # NOTE: We have to remove the folder to delete .qmake.stash.
+    rm -rf build
+    mkdir  build
     touch  build/.gitignore
 
     exit 0

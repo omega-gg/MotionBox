@@ -126,7 +126,7 @@ macx:LIBS += -L$$SK/lib -lvlc \
              -L$$SK/lib -ltorrent \
              -L$$SK/lib -lboost_system \
 
-unix:!macx:LIBS += -lz
+unix:LIBS += -lz
 
 unix:!macx:!android:LIBS += -lvlc \
                             -ltorrent-rasterbar \

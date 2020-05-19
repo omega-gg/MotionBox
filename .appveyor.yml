@@ -11,6 +11,12 @@ environment:
     - qt: qt5
       platform: win64
 
+    - qt: qt5
+      platform: win32-msvc
+
+    - qt: qt5
+      platform: win64-msvc
+
 install:
   - sh 3rdparty.sh %platform%
   - sh configure.sh %qt% %platform% sky

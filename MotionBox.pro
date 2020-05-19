@@ -26,8 +26,13 @@ DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
-# libtorrent: This fixes the winsock2 errors
-win32-msvc*:DEFINES += WIN32_LEAN_AND_MEAN
+win32-msvc* {
+    # libtorrent: This fixes the winsock2 errors
+    DEFINES += WIN32_LEAN_AND_MEAN
+
+    # Boost: This prevents an issue with linking
+    DEFINES += BOOST_ALL_NO_LIB
+}
 
 !win32-msvc*:!android:DEFINES += CAN_COMPILE_SSE2
 
@@ -103,21 +108,21 @@ win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 #    LIBS += -lopengl32
 #}
 
-win32::LIBS += -L$$SK/lib -llibvlc \
-               -lmswsock -lws2_32 \
+win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
 
-win32:!win32-msvc*:LIBS += -L$$SK/lib -lz \
-                           -L$$SK/lib -ltorrent \
-                           -L$$SK/lib -lboost_system \
+win32:LIBS += -L$$SK/lib -llibvlc \
+              -lmswsock -lws2_32 \
 
-win32-msvc*:LIBS += $$SK/lib/libtorrent.a \
-                    $$SK/lib/libboost_system.a \
+win32:LIBS += -L$$SK/lib -ltorrent \
+              -L$$SK/lib -lboost_system \
+
+# Boost dependencies
+win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
 
 # Windows dependency for ShellExecuteA and SystemParametersInfo
 win32-msvc*:LIBS += shell32.lib User32.lib
 
-macx:LIBS += -lz \
-             -L$$SK/lib -lvlc \
+macx:LIBS += -L$$SK/lib -lvlc \
              -L$$SK/lib -ltorrent \
              -L$$SK/lib -lboost_system \
 
@@ -143,7 +148,7 @@ macx {
     QMAKE_POST_LINK += install_name_tool -change @rpath/libvlc.dylib \
                        @loader_path/libvlc.dylib $$PATH/$${TARGET};
 
-    QMAKE_POST_LINK += install_name_tool -change libtorrent.dylib.1.2.2 \
+    QMAKE_POST_LINK += install_name_tool -change libtorrent.dylib.1.2.6 \
                        @loader_path/libtorrent.dylib $$PATH/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \

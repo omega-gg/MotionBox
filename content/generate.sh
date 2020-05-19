@@ -25,12 +25,13 @@ if [ $# != 2 -a $# != 3 ] \
    || \
    [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
+   [ $2 != "win32" -a $2 != "win64" -a $2 != "win32-msvc" -a $2 != "win64-msvc" -a \
+     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
    || \
    [ $# = 3 -a "$3" != "all" -a "$3" != "deploy" ]; then
 
     echo "Usage: generate <qt4 | qt5 | clean>"
-    echo "                <win32 | win64 | macOS | linux | android>"
+    echo "                <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
     echo "                [all | deploy]"
 
     exit 1
@@ -40,7 +41,7 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "win32" -o $2 = "win64" ]; then
+if [ $2 = "win32" -o $2 = "win64" -o $2 = "win32-msvc" -o $2 = "win64-msvc" ]; then
 
     os="windows"
 else

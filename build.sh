@@ -31,10 +31,9 @@ MinGW_version="7.3.0"
 
 jom_version="1.1.3"
 
-MSVC_version="14.25.28610"
+MSVC_version="14"
 
-WindowsKit_versionA="10"
-WindowsKit_versionB="10.0.18362.0"
+WindowsKit_version="10"
 
 #--------------------------------------------------------------------------------------------------
 # Android
@@ -73,6 +72,11 @@ getOs()
     else
         echo $os
     fi
+}
+
+getPath()
+{
+    echo $(ls "$1" | grep $2 | tail -1)
 }
 
 #--------------------------------------------------------------------------------------------------
@@ -117,9 +121,18 @@ if [ $2 = "win32" -o $2 = "win64" -o $2 = "win32-msvc" -o $2 = "win64-msvc" ]; t
 
         jom="$external/jom/$jom_version"
 
+        MSVC_version=$(getPath "$BuildTools/VC/Tools/MSVC" $MSVC_version)
+
         MSVC="$BuildTools/VC/Tools/MSVC/$MSVC_version"
 
-        WindowsKit="$ProgramFiles/Windows Kits/$WindowsKit_versionA"
+        WindowsKit="$ProgramFiles/Windows Kits/$WindowsKit_version"
+
+        WindowsKit_version=$(getPath "$WindowsKit/bin" $WindowsKit_version)
+
+        echo "MSVC version $MSVC_version"
+        echo ""
+        echo "WindowsKit version $WindowsKit_version"
+        echo ""
 
         if [ $2 = "win32-msvc" ]; then
 
@@ -213,17 +226,17 @@ elif [ $compiler = "msvc" ]; then
     fi
 
     PATH="$jom:$MSVC/bin/Host$target/$target:\
-$WindowsKit/bin/$WindowsKit_versionB/$target:\
+$WindowsKit/bin/$WindowsKit_version/$target:\
 $Qt/bin:$PATH"
 
     export INCLUDE="$MSVC/include:\
-$WindowsKit/Include/$WindowsKit_versionB/ucrt:\
-$WindowsKit/Include/$WindowsKit_versionB/um:\
-$WindowsKit/Include/$WindowsKit_versionB/shared"
+$WindowsKit/Include/$WindowsKit_version/ucrt:\
+$WindowsKit/Include/$WindowsKit_version/um:\
+$WindowsKit/Include/$WindowsKit_version/shared"
 
     export LIB="$MSVC/lib/$target:\
-$WindowsKit/Lib/$WindowsKit_versionB/ucrt/$target:\
-$WindowsKit/Lib/$WindowsKit_versionB/um/$target"
+$WindowsKit/Lib/$WindowsKit_version/ucrt/$target:\
+$WindowsKit/Lib/$WindowsKit_version/um/$target"
 
 elif [ $2 = "macOS" ]; then
 

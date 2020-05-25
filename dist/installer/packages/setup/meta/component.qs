@@ -63,7 +63,7 @@ Component.prototype.onCurrentPageChanged = function(page)
         buttonA.text    = "Standard";
         buttonA.checked = true;
 
-        buttonB.text = "Progam Files (requires administrator rights to update)";
+        buttonB.text = "Program Files (requires administrator rights to update)";
 
         buttonA.toggled.connect(this, Component.prototype.onButtonAClicked);
         buttonB.toggled.connect(this, Component.prototype.onButtonBClicked);

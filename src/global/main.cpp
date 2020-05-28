@@ -17,7 +17,7 @@
 // Sk includes
 #include <WApplication>
 
-// Core includes
+// Application includes
 #include "ControllerCore.h"
 
 //-------------------------------------------------------------------------------------------------

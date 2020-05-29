@@ -349,7 +349,6 @@ private: // Variables
 private:
     Q_DISABLE_COPY(DataLocal)
 
-    friend class DataLocalWriteReply;
     friend class DataLocalReadReply;
     friend class ControllerCore;
 };

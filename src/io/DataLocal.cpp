@@ -26,7 +26,7 @@
 #include <WAbstractThreadAction>
 
 //=================================================================================================
-// DataLocalWrite and DataLocalWriteReply
+// DataLocalWrite
 //=================================================================================================
 
 class DataLocalWrite : public WAbstractThreadAction

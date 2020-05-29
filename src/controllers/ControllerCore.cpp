@@ -27,7 +27,6 @@
 #include <QProcess>
 #include <QFileDialog>
 #ifdef SK_DEPLOY
-#include <QDir>
 #ifdef QT_4
 #include <QDesktopServices>
 #else

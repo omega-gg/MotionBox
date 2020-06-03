@@ -118,7 +118,8 @@ elif [ $2 = "macOS" ]; then
 
 elif [ $2 = "linux" ]; then
 
-    cp -r "$path"/vlc $deploy
+    # FIXME Linux: We can't seem to be able to enforce our VLC libraries on ArchLinux.
+    #cp -r "$path"/vlc $deploy
 
     cp "$path"/*.so* $deploy
 
@@ -256,6 +257,8 @@ elif [ $2 = "macOS" ]; then
 
     install_name_tool -change libboost_system.dylib \
                               @loader_path/libboost_system.dylib libtorrent.dylib
+
+    #----------------------------------------------------------------------------------------------
 
     cd -
 

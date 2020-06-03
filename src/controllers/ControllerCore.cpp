@@ -60,6 +60,8 @@
 #include <WAbstractTab>
 #include <WTabsTrack>
 #include <WTabTrack>
+#include <WBackendVlc>
+#include <WBackendSubtitle>
 #include <WBackendIndex>
 #include <WBackendUniversal>
 #include <WModelList>
@@ -332,6 +334,9 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WTabTrack> ("Sky", 1,0, "TabTrack");
     qmlRegisterType<WTabsTrack>("Sky", 1,0, "BaseTabsTrack");
+
+    qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");
+    qmlRegisterType<WBackendSubtitle>("Sky", 1,0, "BackendSubtitle");
 
     //---------------------------------------------------------------------------------------------
     // Image

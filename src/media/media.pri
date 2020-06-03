@@ -18,10 +18,10 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WAbstractHook_p.h \
            $$SK_GUI/media/WBookmarkTrack.h \
            $$SK_GUI/media/WBookmarkTrack_p.h \
-           $$SK_GUI/media/WTabTrack.h \
-           $$SK_GUI/media/WTabTrack_p.h \
            $$SK_GUI/media/WTabsTrack.h \
            $$SK_GUI/media/WTabsTrack_p.h \
+           $$SK_GUI/media/WTabTrack.h \
+           $$SK_GUI/media/WTabTrack_p.h \
            $$SK_MEDIA/media/WBackendVlc.h \
            $$SK_MEDIA/media/WBackendVlc_p.h \
            $$SK_MEDIA/media/WBackendSubtitle.h \

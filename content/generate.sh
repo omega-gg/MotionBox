@@ -155,7 +155,7 @@ elif [ $1 = "linux" ]; then
 
     defines="DESKTOP LINUX"
 else
-    defines="ANDROID"
+    defines="MOBILE ANDROID"
 fi
 
 defines="$defines BarWindow icons_slide icons_scale icons_add icons_external icons_playback"

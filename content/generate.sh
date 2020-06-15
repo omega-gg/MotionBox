@@ -133,11 +133,11 @@ echo ""
 
 if [ $1 = "qt5" ]; then
 
-    if [ $os = "windows" ]; then
+    if [ $1 = "linux" ]; then
 
-        version=2.11
-    else
         version=2.7
+    else
+        version=2.14
     fi
 else
     version=1.1

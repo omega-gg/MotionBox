@@ -26,13 +26,6 @@
 //#include <QNetworkDiskCache>
 #include <QProcess>
 #include <QFileDialog>
-#ifdef SK_DEPLOY
-#ifdef QT_4
-#include <QDesktopServices>
-#else
-#include <QStandardPaths>
-#endif
-#endif
 
 // Sk includes
 #include <WControllerApplication>
@@ -170,11 +163,7 @@ ControllerCore::ControllerCore() : WController()
 #endif
 
 #ifdef SK_DEPLOY
-#ifdef QT_4
-    QString path = QDesktopServices::storageLocation(QDesktopServices::DataLocation);
-#else
-    QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-#endif
+    QString path = WControllerFile::pathWritable();
 
     wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
 #else

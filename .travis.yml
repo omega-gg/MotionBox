@@ -20,18 +20,9 @@ before_install:
   - docker run -d --name ubuntu -v $PWD:/MotionBox ${TARGET}/ubuntu:18.04 tail -f /dev/null
 
 install:
-  - docker exec -t ubuntu bash -c "cd /MotionBox/..;
-                                   apt-get update;
+  - docker exec -t ubuntu bash -c "apt-get update;
                                    apt-get -y install sudo curl git;
-                                   git clone https://github.com/omega-gg/Sky;
-                                   git clone https://github.com/omega-gg/backend;
-                                   cd Sky;
-                                   sh 3rdparty.sh linux;
-                                   cd ../MotionBox;
-                                   sh configure.sh ${QT} linux sky"
+                                   sh environment.sh ${QT}
 
 script:
-  - docker exec -t ubuntu bash -c "cd /MotionBox/../Sky;
-                                   sh build.sh ${QT} linux tools;
-                                   cd ../MotionBox;
-                                   sh build.sh ${QT} linux deploy"
+  - docker exec -t ubuntu bash -c "sh build.sh linux all"

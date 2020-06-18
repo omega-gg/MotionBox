@@ -18,14 +18,10 @@ environment:
       platform: win64-msvc
 
 install:
-  - sh 3rdparty.sh %platform%
-  - sh configure.sh %qt% %platform% sky
+  - sh environment.sh %qt%
 
 build_script:
-  - cd ../Sky
-  - sh build.sh %qt% %platform% tools
-  - cd ../MotionBox
-  - sh build.sh %qt% %platform% deploy
+  - sh build.sh %platform% all
   - cd deploy
   - rm .gitignore
   - 7z a ../MotionBox-%platform%-%qt%.zip *

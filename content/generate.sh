@@ -18,21 +18,23 @@ content="../content"
 bin="../bin"
 
 #--------------------------------------------------------------------------------------------------
+# environment
+
+qt="qt5"
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 -a $# != 3 ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
+     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "win32-msvc" -a $2 != "win64-msvc" -a \
-     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
-   || \
-   [ $# = 3 -a "$3" != "all" -a "$3" != "deploy" ]; then
+   [ $# = 2 -a "$2" != "all" -a "$2" != "deploy" ]; then
 
-    echo "Usage: generate <qt4 | qt5 | clean>"
-    echo "                <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
-    echo "                [all | deploy]"
+    echo "Usage: generate <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "                [all | deploy | clean]"
 
     exit 1
 fi
@@ -41,14 +43,14 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "win32" -o $2 = "win64" -o $2 = "win32-msvc" -o $2 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     os="windows"
 else
     os="default"
 fi
 
-if [ "$3" = "deploy" ]; then
+if [ "$2" = "deploy" ]; then
 
     path="qrc"
 else
@@ -61,7 +63,7 @@ cd ../dist
 # Clean
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "clean" ]; then
+if [ "$2" = "clean" ]; then
 
     echo "CLEANING"
 
@@ -90,7 +92,7 @@ cp $content/*.qml $path
 # Content
 #--------------------------------------------------------------------------------------------------
 
-if [ "$3" = "all" -o "$3" = "deploy" ]; then
+if [ "$2" = "all" -o "$2" = "deploy" ]; then
 
     echo "COPYING pictures"
 
@@ -105,7 +107,7 @@ fi
 # Icon
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "macOS" ]; then
+if [ $1 = "macOS" ]; then
 
     echo "GENERATING icon"
 
@@ -131,7 +133,7 @@ echo ""
 # Deployer
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "qt5" ]; then
+if [ $qt = "qt5" ]; then
 
     if [ $1 = "linux" ]; then
 
@@ -147,7 +149,7 @@ if [ $os = "windows" ]; then
 
     defines="DESKTOP WINDOWS"
 
-elif [ $2 = "macOS" ]; then
+elif [ $1 = "macOS" ]; then
 
     defines="DESKTOP MAC"
 

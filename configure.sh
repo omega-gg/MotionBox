@@ -22,21 +22,23 @@ VLC_version="3.0.10"
 MinGW_version="7.3.0"
 
 #--------------------------------------------------------------------------------------------------
+# environment
+
+qt="qt5"
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 -a $# != 3 ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
+     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "win32-msvc" -a $2 != "win64-msvc" -a \
-     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
-   || \
-   [ $# = 3 -a "$3" != "sky" ]; then
+   [ $# = 2 -a "$2" != "sky" -a "$2" != "clean" ]; then
 
-    echo "Usage: configure <qt4 | qt5 | clean>"
-    echo "                 <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
-    echo "                 [sky]"
+    echo "Usage: configure <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "                 [sky | clean]"
 
     exit 1
 fi
@@ -45,13 +47,13 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-external="$external/$2"
+external="$external/$1"
 
-if [ $2 = "win32" -o $2 = "win64" -o $2 = "win32-msvc" -o $2 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     os="windows"
 
-    if [ $2 = "win32"  -o $2 = "win64" ]; then
+    if [ $1 = "win32" -o $1 = "win64" ]; then
 
         compiler="mingw"
 
@@ -67,7 +69,7 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-if [ $1 = "qt4" ]; then
+if [ $qt = "qt4" ]; then
 
     SSL="$external/OpenSSL/$SSL_versionA"
 else
@@ -94,7 +96,7 @@ rm -rf build
 mkdir  build
 touch  build/.gitignore
 
-if [ $1 = "clean" ]; then
+if [ "$2" = "clean" ]; then
 
     exit 0
 fi
@@ -103,14 +105,14 @@ fi
 # Sky
 #--------------------------------------------------------------------------------------------------
 
-if [ "$3" = "sky" ]; then
+if [ "$2" = "sky" ]; then
 
     echo "CONFIGURING Sky"
     echo "---------------"
 
     cd "$Sky"
 
-    sh configure.sh $1 $2
+    sh configure.sh $qt $1
 
     cd -
 
@@ -171,7 +173,7 @@ if [ $os = "windows" ]; then
 
     cp "$VLC"/libvlc*.dll bin
 
-elif [ $2 = "macOS" ]; then
+elif [ $1 = "macOS" ]; then
 
     rm -rf bin/plugins
     mkdir  bin/plugins

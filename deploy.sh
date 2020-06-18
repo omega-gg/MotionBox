@@ -10,16 +10,23 @@ Sky="../Sky"
 backend="../backend"
 
 #--------------------------------------------------------------------------------------------------
+# environment
+
+qt="qt5"
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 ] || [ $1 != "qt4" -a $1 != "qt5" -a $1 != "clean" ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
    [ $2 != "win32" -a $2 != "win64" -a $2 != "win32-msvc" -a $2 != "win64-msvc" -a \
-     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ]; then
+     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
+   || \
+   [ $# = 2 -a "$2" != "clean" ]; then
 
-    echo "Usage: deploy <qt4 | qt5 | clean>"
-    echo "              <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "Usage: deploy <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "              [clean]"
 
     exit 1
 fi
@@ -28,7 +35,7 @@ fi
 # Configuration
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "win32" -o $2 = "win64" -o $2 = "win32-msvc" -o $2 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
 
     os="windows"
 else
@@ -45,7 +52,7 @@ rm -rf deploy/*
 
 touch deploy/.gitignore
 
-if [ $1 = "clean" ]; then
+if [ "$2" = "clean" ]; then
 
     exit 0
 fi
@@ -56,7 +63,7 @@ echo ""
 # Bundle
 #--------------------------------------------------------------------------------------------------
 
-if [ $2 = "macOS" ]; then
+if [ $1 = "macOS" ]; then
 
     cp -r bin/MotionBox.app deploy
 
@@ -78,7 +85,7 @@ echo "-------------"
 
 cd "$Sky"
 
-sh deploy.sh $1 $2 tools
+sh deploy.sh $qt $1 tools
 
 cd -
 
@@ -86,12 +93,12 @@ path="$Sky/deploy"
 
 cp -r "$path"/imageformats $deploy
 
-if [ $1 = "qt5" ]; then
+if [ $qt = "qt5" ]; then
 
     cp -r "$path"/platforms $deploy
     cp -r "$path"/QtQuick.2 $deploy
 
-    if [ $2 = "linux" ]; then
+    if [ $1 = "linux" ]; then
 
         cp -r "$path"/xcbglintegrations $deploy
     fi
@@ -105,7 +112,7 @@ if [ $os = "windows" ]; then
 
     rm -f $deploy/Sk*.dll
 
-elif [ $2 = "macOS" ]; then
+elif [ $1 = "macOS" ]; then
 
     # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
     cp "$path"/qt.conf $deploy/../Resources
@@ -116,7 +123,7 @@ elif [ $2 = "macOS" ]; then
 
     rm -f $deploy/Sk*.dylib
 
-elif [ $2 = "linux" ]; then
+elif [ $1 = "linux" ]; then
 
     # FIXME Linux: We can't seem to be able to enforce our VLC libraries on ArchLinux.
     #cp -r "$path"/vlc $deploy
@@ -139,7 +146,7 @@ if [ $os = "windows" ]; then
 
     cp bin/MotionBox.exe deploy
 
-elif [ $2 = "macOS" ]; then
+elif [ $1 = "macOS" ]; then
 
     cd $deploy
 
@@ -262,7 +269,7 @@ elif [ $2 = "macOS" ]; then
 
     cd -
 
-elif [ $2 = "linux" ]; then
+elif [ $1 = "linux" ]; then
 
     cp bin/MotionBox $deploy
 
@@ -270,7 +277,7 @@ elif [ $2 = "linux" ]; then
 
     chmod 755 $deploy/start.sh
 
-elif [ $2 = "android" ]; then
+elif [ $1 = "android" ]; then
 
     cp bin/libMotionBox* $deploy
 fi

@@ -310,7 +310,7 @@ Panel
 
                 anchors.verticalCenter: parent.verticalCenter
 
-                width : st.dp16
+                width : st.dp12
                 height: width
 
                 radius: width

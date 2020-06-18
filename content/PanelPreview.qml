@@ -498,9 +498,9 @@ PanelImage
             anchors.right: parent.right
             anchors.top  : parent.top
 
-            leftMargin : st.dp6
-            rightMargin: st.dp6
-            topMargin  : (textDate.visible) ? st.dp1 : 0
+            anchors.leftMargin : st.dp6
+            anchors.rightMargin: st.dp6
+            anchors.topMargin  : (textDate.visible) ? st.dp1 : 0
 
             height: st.dp24
 
@@ -523,9 +523,9 @@ PanelImage
             anchors.right : parent.right
             anchors.bottom: parent.bottom
 
-            leftMargin  : st.dp6
-            rightMargin : st.dp6
-            bottomMargin: (itemDuration.visible) ? st.dp1 : 0
+            anchors.leftMargin  : st.dp6
+            anchors.rightMargin : st.dp6
+            anchors.bottomMargin: (itemDuration.visible) ? st.dp1 : 0
 
             height: st.dp24
 

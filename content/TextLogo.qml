@@ -25,7 +25,7 @@ TextBase
 
     anchors.horizontalCenter: parent.horizontalCenter
 
-    topMargin: st.dp8
+    anchors.topMargin: st.dp8
 
     color: st.text3_color
 

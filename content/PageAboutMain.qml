@@ -218,7 +218,7 @@ Item
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            leftMargin: st.dp6
+            anchors.leftMargin: st.dp6
 
             text: qsTr("omega Movement")
         }

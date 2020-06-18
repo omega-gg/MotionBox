@@ -87,7 +87,7 @@ Item
             anchors.top: (logo.isSourceDefault) ? parent.top
                                                 : logo.bottom
 
-            topMargin: st.dp16
+            anchors.topMargin: st.dp16
 
             horizontalAlignment: Text.AlignHCenter
 

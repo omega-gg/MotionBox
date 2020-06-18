@@ -215,17 +215,29 @@ Panel
     {
         if (loader.isAnimated || indexCurrent == index) return;
 
-        indexCurrent = index;
+        var source;
+
+        if (index == 0)
+        {
+            source = Qt.resolvedUrl("PageSettingsVideo.qml");
+        }
+        else if (index == 1)
+        {
+            source = Qt.resolvedUrl("PageSettingsAdvanced.qml");
+        }
+        else source = Qt.resolvedUrl("PageConsole.qml");
 
         pAnimate = true;
 
-        if (indexCurrent == 0)
+        if (indexCurrent < index)
         {
-             loader.loadRight(Qt.resolvedUrl("PageSettingsVideo.qml"));
+             loader.loadLeft(source);
         }
-        else loader.loadLeft(Qt.resolvedUrl("PageConsole.qml"));
+        else loader.loadRight(source);
 
         pAnimate = false;
+
+        indexCurrent = index;
 
         loader.item.forceActiveFocus();
     }
@@ -249,7 +261,7 @@ Panel
         {
             id: buttonVideo
 
-            width: st.dp128
+            width: Math.round(parent.width / 3)
 
             checkable: true
             checked  : (indexCurrent == 0)
@@ -269,12 +281,57 @@ Panel
 
         ButtonPiano
         {
+            id: buttonAdvanced
+
             anchors.left: buttonVideo.right
 
-            width: st.dp128
+            width: buttonVideo.width
 
             checkable: true
             checked  : (indexCurrent == 1)
+
+            checkHover: false
+
+            text: qsTr("Advanced")
+
+            font.pixelSize: st.dp14
+
+//#QT_4
+            onPressed: pSelectTab(1)
+//#ELSE
+            onPressed: Qt.callLater(pSelectTab, 1)
+//#END
+
+            Rectangle
+            {
+                anchors.left: parent.left
+
+                anchors.leftMargin: st.dp8
+
+                anchors.verticalCenter: parent.verticalCenter
+
+                width : st.dp16
+                height: width
+
+                radius: width
+
+                visible: (buttonAdvanced.checked == false
+                          &&
+                          player.isPlaying && player.speed != 1.0)
+
+                color: st.text_colorCurrent
+            }
+        }
+
+        ButtonPiano
+        {
+            anchors.left : buttonAdvanced.right
+            anchors.right: parent.right
+
+            borderRight: 0
+
+            checkable: true
+            checked  : (indexCurrent == 2)
 
             checkHover: false
 
@@ -283,9 +340,9 @@ Panel
             font.pixelSize: st.dp14
 
 //#QT_4
-            onPressed: pSelectTab(1)
+            onPressed: pSelectTab(2)
 //#ELSE
-            onPressed: Qt.callLater(pSelectTab, 1)
+            onPressed: Qt.callLater(pSelectTab, 2)
 //#END
         }
     }

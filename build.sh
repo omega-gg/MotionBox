@@ -290,9 +290,9 @@ cd content
 
 if [ "$2" = "deploy" ]; then
 
-    sh generate.sh $QT_SELECT $2 deploy
+    sh generate.sh $1 deploy
 else
-    sh generate.sh $QT_SELECT $2
+    sh generate.sh $1
 fi
 
 echo ""

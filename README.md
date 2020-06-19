@@ -51,48 +51,45 @@ On Windows:
 Recommended:
 - [Qt Creator](http://download.qt.io/official_releases/qtcreator) 3.6.0 or later.
 
-## 3rdparty
+## Quickstart
 
-You can install third party libraries with:
+You can configure and build MotionBox with a single line:
 
-    sh 3rdparty.sh <win32 | win64 | macOS | linux | android>
+    sh build.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android> all
 
-## Configure
+For instance you would do that for Windows 64 bit:
 
-You can configure MotionBox with:
+    * open Git Bash *
+    git clone https://github.com/omega-gg/MotionBox.git
+    cd MotionBox
+    sh build.sh win64 all
 
-    sh configure.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [sky]
+That's a convenient way to configure and build everything the first time.
 
-## Build
+Note: This will create the 3rdparty and Sky folder in the parent directory.
 
-You can build MotionBox with Qt Creator:
-- Open [MotionBox.pro](MotionBox.pro).
-- Click on "Build > Build all".
+## Building
 
-Or the build script:
+Alternatively, you can run each step of the build yourself by calling the following scripts:
 
-    sh build.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [deploy]
+Install the dependencies:
 
-Or the console:
+    sh 3rdparty.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
 
-    qmake -r
-    make (mingw32-make on Windows)
+Configure the build:
 
-## Deploy
+    sh configure.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
+                    [sky | clean]
 
-1\. Generate the qrc file:
+Build the application:
 
-    cd dist
-    sh generate.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android> [deploy]
+    sh build.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
+                [all | deploy | clean]
 
-2\. Build MotionBox:
+Deploy the application and its dependencies:
 
-    qmake -r "DEFINES += SK_DEPLOY" "RESOURCES = dist/MotionBox.qrc"
-    make (mingw32-make on Windows)
-
-3\. Deploy MotionBox:
-
-    sh deploy.sh <qt4 | qt5 | clean> <win32 | win64 | macOS | linux | android>
+    sh deploy.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
+                 [clean]
 
 ## License
 

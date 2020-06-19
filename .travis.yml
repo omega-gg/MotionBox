@@ -22,7 +22,7 @@ before_install:
 install:
   - docker exec -t ubuntu bash -c "apt-get update;
                                    apt-get -y install sudo curl git;
-                                   sh environment.sh ${QT}
+                                   sh environment.sh ${QT}"
 
 script:
   - docker exec -t ubuntu bash -c "sh build.sh linux all"

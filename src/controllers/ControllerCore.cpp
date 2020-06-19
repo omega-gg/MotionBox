@@ -87,7 +87,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-static const QString CORE_VERSION = "1.6.0-4";
+static const QString CORE_VERSION = "1.6.0-5";
 
 static const int LOG_LENGTH = 4000;
 

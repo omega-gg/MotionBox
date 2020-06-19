@@ -20,8 +20,8 @@ qt="qt5"
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $2 != "win32" -a $2 != "win64" -a $2 != "win32-msvc" -a $2 != "win64-msvc" -a \
-     $2 != "macOS" -a $2 != "linux" -a $2 != "android" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
+     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
    [ $# = 2 -a "$2" != "clean" ]; then
 

@@ -299,13 +299,12 @@ Item
     {
         if (window.fullScreen)
         {
-//#MAC
+            gui.restoreFullScreen();
+
+//#!MAC
             // FIXME macOS: We can't go from full screen to normal window right away.
             //              This could be related to the animation.
-            gui.restoreFullScreen();
-//#ELSE
-            gui.restoreFullScreen();
-            gui.restoreMaximize  ();
+            gui.restoreMaximize();
 //#END
         }
         else gui.toggleMaximize();

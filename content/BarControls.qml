@@ -287,7 +287,7 @@ MouseArea
 
             height: st.sliderStream_height
 
-            enabled: (player.hasStarted && duration > 0)
+            enabled: (duration > 0)
 
             active: player.isPlaying
 
@@ -299,7 +299,15 @@ MouseArea
 
             progress: player.progress
 
-            onHandleReleased: player.seek(slider.value)
+            onHandleReleased:
+            {
+                if (player.hasStarted == false)
+                {
+                    player.play();
+                }
+
+                player.seek(slider.value);
+            }
 
             onReset:
             {

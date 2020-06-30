@@ -51,9 +51,7 @@ qt="qt5"
 
 getOs()
 {
-    os=`uname`
-
-    case $os in
+    case `uname` in
     MINGW*)  os="windows";;
     Darwin*) os="macOS";;
     Linux*)  os="linux";;

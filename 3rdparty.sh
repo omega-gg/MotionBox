@@ -11,12 +11,13 @@ source="https://github.com/omega-gg"
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 1 ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
-     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ]; then
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
+   || \
+   [ $# = 2 -a "$2" != "all" ]; then
 
-    echo "Usage: 3rdparty <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
+    echo "Usage: 3rdparty <win32 | win64 | macOS | linux | android> [all]"
 
     exit 1
 fi
@@ -43,4 +44,11 @@ fi
 
 cd Sky
 
-sh 3rdparty.sh $1
+if [ "$2" = "all" ]; then
+
+    sh environment.sh $compiler_win $qt
+
+    sh 3rdparty.sh $1 all
+else
+    sh 3rdparty.sh $1
+fi

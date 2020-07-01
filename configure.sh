@@ -24,6 +24,8 @@ MinGW_version="7.3.0"
 #--------------------------------------------------------------------------------------------------
 # environment
 
+compiler_win="mingw"
+
 qt="qt5"
 
 #--------------------------------------------------------------------------------------------------
@@ -32,13 +34,11 @@ qt="qt5"
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
-     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
    [ $# = 2 -a "$2" != "sky" -a "$2" != "clean" ]; then
 
-    echo "Usage: configure <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
-    echo "                 [sky | clean]"
+    echo "Usage: configure <win32 | win64 | macOS | linux | android> [sky | clean]"
 
     exit 1
 fi
@@ -49,17 +49,15 @@ fi
 
 external="$external/$1"
 
-if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
 
-    if [ $1 = "win32" -o $1 = "win64" ]; then
+    compiler="$compiler_win"
 
-        compiler="mingw"
+    if [ $compiler = "mingw" ]; then
 
         MinGW="$external/MinGW/$MinGW_version/bin"
-    else
-        compiler="default"
     fi
 else
     os="default"

@@ -43,6 +43,8 @@ NDK_version="21"
 #--------------------------------------------------------------------------------------------------
 # environment
 
+compiler_win="mingw"
+
 qt="qt5"
 
 #--------------------------------------------------------------------------------------------------
@@ -88,13 +90,11 @@ getPath()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "win32" -a $1 != "win64" -a $1 != "win32-msvc" -a $1 != "win64-msvc" -a \
-     $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
+   [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
    [ $# = 2 -a "$2" != "all" -a "$2" != "deploy" -a "$2" != "clean" ]; then
 
-    echo "Usage: build <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>"
-    echo "             [all | deploy | clean]"
+    echo "Usage: build <win32 | win64 | macOS | linux | android> [all | deploy | clean]"
 
     exit 1
 fi
@@ -105,7 +105,7 @@ fi
 
 if [ "$2" = "all" ]; then
 
-    sh 3rdparty.sh $1
+    sh 3rdparty.sh $1 all
 
     sh configure.sh $1 sky
 
@@ -128,18 +128,16 @@ host=$(getOs)
 
 external="$external/$1"
 
-if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; then
+if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
 
-    if [ $1 = "win32" -o $1 = "win64" ]; then
+    compiler="$compiler_win"
 
-        compiler="mingw"
+    if [ $compiler = "mingw" ]; then
 
         MinGW="$external/MinGW/$MinGW_version/bin"
     else
-        compiler="msvc"
-
         jom="$external/jom/$jom_version"
 
         MSVC_version=$(getPath "$BuildTools/VC/Tools/MSVC" $MSVC_version)
@@ -155,7 +153,7 @@ if [ $1 = "win32" -o $1 = "win64" -o $1 = "win32-msvc" -o $1 = "win64-msvc" ]; t
         echo "WindowsKit version $WindowsKit_version"
         echo ""
 
-        if [ $1 = "win32-msvc" ]; then
+        if [ $1 = "win32" ]; then
 
             target="x86"
         else

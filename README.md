@@ -55,7 +55,7 @@ Recommended:
 
 You can configure and build MotionBox with a single line:
 
-    sh build.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android> all
+    sh build.sh <win32 | win64 | macOS | linux | android> all
 
 For instance you would do that for Windows 64 bit:
 
@@ -74,22 +74,19 @@ Alternatively, you can run each step of the build yourself by calling the follow
 
 Install the dependencies:
 
-    sh 3rdparty.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
+    sh 3rdparty.sh <win32 | win64 | macOS | linux | android> [all]
 
 Configure the build:
 
-    sh configure.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
-                    [sky | clean]
+    sh configure.sh <win32 | win64 | macOS | linux | android> [sky | clean]
 
 Build the application:
 
-    sh build.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
-                [all | deploy | clean]
+    sh build.sh <win32 | win64 | macOS | linux | android> [all | deploy | clean]
 
 Deploy the application and its dependencies:
 
-    sh deploy.sh <win32 | win64 | win32-msvc | win64-msvc | macOS | linux | android>
-                 [clean]
+    sh deploy.sh <win32 | win64 | macOS | linux | android> [clean]
 
 ## License
 

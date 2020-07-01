@@ -23,6 +23,7 @@ replace()
 
     apply $expression environment.sh
 
+    apply $expression 3rdparty.sh
     apply $expression configure.sh
     apply $expression build.sh
     apply $expression deploy.sh

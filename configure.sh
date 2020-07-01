@@ -110,7 +110,7 @@ if [ "$2" = "sky" ]; then
 
     cd "$Sky"
 
-    sh configure.sh $qt $1
+    sh configure.sh $1
 
     cd -
 

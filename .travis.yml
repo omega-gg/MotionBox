@@ -21,5 +21,5 @@ script:
   - docker exec -t ubuntu bash -c "cd /MotionBox;
                                    apt-get update;
                                    apt-get -y install sudo curl git;
-                                   sh environment.sh ${QT};
+                                   sh environment.sh mingw ${QT};
                                    sh build.sh linux all"

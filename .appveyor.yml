@@ -4,23 +4,26 @@ environment:
   matrix:
     - qt: qt4
       platform: win32
+      compiler: mingw
 
     - qt: qt5
       platform: win32
+      compiler: mingw
 
     - qt: qt5
       platform: win64
+      compiler: mingw
 
     - qt: qt5
-      platform: win32-msvc
+      platform: win32
+      compiler: msvc
 
     - qt: qt5
-      platform: win64-msvc
-
-install:
-  - sh environment.sh %qt%
+      platform: win64
+      compiler: msvc
 
 build_script:
+  - sh environment.sh %compiler% %qt%
   - sh build.sh %platform% all
   - cd deploy
   - rm .gitignore

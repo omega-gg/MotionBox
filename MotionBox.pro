@@ -51,6 +51,12 @@ contains(QT_MAJOR_VERSION, 4) {
     win32:DEFINES += SK_WIN_NATIVE
 }
 
+android {
+    DEFINES += SK_MOBILE
+} else {
+    DEFINES += SK_DESKTOP
+}
+
 deploy|android {
     DEFINES += SK_DEPLOY
 

@@ -166,6 +166,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/RectangleBorders.qml \
 "$SkyBase"/TextBase.qml \
 "$SkyBase"/BaseButton.qml \
+"$SkyBase"/BaseLineEdit.qml \
 "$SkyComponents"/StyleComponents.qml \
 "$SkyComponents"/AreaContextual.qml \
 "$SkyComponents"/ItemSlide.qml \
@@ -237,7 +238,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/LabelLoadingButton.qml \
 "$SkyComponents"/LabelStream.qml \
 "$SkyComponents"/CheckBox.qml \
-"$SkyComponents"/BaseLineEdit.qml \
 "$SkyComponents"/LineEdit.qml \
 "$SkyComponents"/LineEditLabel.qml \
 "$SkyComponents"/LineEditValue.qml \

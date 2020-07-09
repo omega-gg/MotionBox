@@ -297,8 +297,8 @@ MouseArea
 
             active: player.isPlaying
 
-            currentTime: (enabled) ? player.currentTime
-                                   : player.trackCurrentTime
+            currentTime: (player.hasStarted && enabled) ? player.currentTime
+                                                        : player.trackCurrentTime
 
             duration: (player.duration == -1) ? player.trackDuration
                                               : player.duration

@@ -224,7 +224,7 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterUncreatableType<WControllerDeclarative>("Sky", 1,0, "Sk", "Sk is not creatable");
 
     //---------------------------------------------------------------------------------------------
-    // Applications
+    // Application
 
     qmlRegisterType<WDeclarativeApplication>("Sky", 1,0, "Application");
 
@@ -249,6 +249,16 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WViewDrag>   ("Sky", 1,0, "ViewDrag");
 
     qmlRegisterType<WWindow>("Sky", 1,0, "BaseWindow");
+
+    //---------------------------------------------------------------------------------------------
+    // Image
+
+    qmlRegisterUncreatableType<WImageFilter>("Sky", 1,0, "ImageFilter", "ImageFilter is abstract");
+
+    qmlRegisterType<WImageColorFilter>("Sky", 1,0, "ImageColorFilter");
+
+    qmlRegisterType<WDeclarativeGradient>    ("Sky", 1,0, "ScaleGradient");
+    qmlRegisterType<WDeclarativeGradientStop>("Sky", 1,0, "ScaleGradientStop");
 
     //---------------------------------------------------------------------------------------------
     // Declarative
@@ -332,16 +342,6 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");
     qmlRegisterType<WBackendSubtitle>("Sky", 1,0, "BackendSubtitle");
-
-    //---------------------------------------------------------------------------------------------
-    // Image
-
-    qmlRegisterUncreatableType<WImageFilter>("Sky", 1,0, "ImageFilter", "ImageFilter is abstract");
-
-    qmlRegisterType<WImageColorFilter>("Sky", 1,0, "ImageColorFilter");
-
-    qmlRegisterType<WDeclarativeGradient>    ("Sky", 1,0, "ScaleGradient");
-    qmlRegisterType<WDeclarativeGradientStop>("Sky", 1,0, "ScaleGradientStop");
 
     //---------------------------------------------------------------------------------------------
     // Events

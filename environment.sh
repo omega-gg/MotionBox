@@ -84,7 +84,7 @@ if [ "$3" = "all" ]; then
 
     cd "$Sky"
 
-    sh environment.sh $1 $2
+    sh environment.sh $1 $2 all
 
     cd -
 

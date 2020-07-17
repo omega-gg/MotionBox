@@ -619,7 +619,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::saveShot(WWindow * window) const
 {
-    QImage image = window->takeShot(0, 0, window->width(), window->height()).toImage();
+    QImage image = window->takeShot(0, 0, window->width(), window->height());
 
     QString path = pathStorage() + "/screenshots";
 
@@ -641,9 +641,9 @@ ControllerCore::ControllerCore() : WController()
         int border2x = border * 2;
 
         image = window->takeShot(border, border, window->width () - border2x,
-                                                 window->height() - border2x).toImage();
+                                                 window->height() - border2x);
     }
-    else image = window->takeShot(0, 0, window->width(), window->height()).toImage();
+    else image = window->takeShot(0, 0, window->width(), window->height());
 
     image = WControllerView::desaturate(image);
 

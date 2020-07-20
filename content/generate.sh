@@ -165,6 +165,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/Window.qml \
 "$SkyBase"/RectangleBorders.qml \
 "$SkyBase"/TextBase.qml \
+"$SkyBase"/BasePanel.qml \
 "$SkyBase"/BaseButton.qml \
 "$SkyBase"/BaseLineEdit.qml \
 "$SkyBase"/BaseSlider.qml \

@@ -169,14 +169,12 @@ ControllerCore::ControllerCore() : WController()
 #endif
 
 #ifdef SK_DEPLOY
-    QString path = WControllerFile::pathWritable();
-
-    wControllerFile->setPathStorage(QDir::fromNativeSeparators(path));
+    _path = QDir::fromNativeSeparators(WControllerFile::pathWritable());
 #else
-    QString path = QDir::currentPath() + PATH_STORAGE;
-
-    wControllerFile->setPathStorage(path);
+    _path = QDir::currentPath() + PATH_STORAGE;
 #endif
+
+    wControllerFile->setPathStorage(_path);
 
     wControllerView->setLoadMode(WControllerView::LoadVisible);
 
@@ -207,7 +205,7 @@ ControllerCore::ControllerCore() : WController()
     }
     else if (_local->_splashWidth != -1)
     {
-        _pathSplash = WControllerFile::fileUrl(path + "/splash.png");
+        _pathSplash = WControllerFile::fileUrl(_path + "/splash.png");
     }
 
     //---------------------------------------------------------------------------------------------
@@ -392,17 +390,15 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Controllers
 
-    QString path = pathStorage();
-
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
 
-    W_CREATE_CONTROLLER_1(WControllerTorrent, path + "/torrents");
+    W_CREATE_CONTROLLER_1(WControllerTorrent, _path + "/torrents");
 
     //---------------------------------------------------------------------------------------------
     // Cache
 
-    _cache = new WCache(path + "/cache", 1048576 * 100); // 100 megabytes
+    _cache = new WCache(_path + "/cache", 1048576 * 100); // 100 megabytes
 
     wControllerFile->setCache(_cache);
 
@@ -413,7 +409,7 @@ ControllerCore::ControllerCore() : WController()
 
     /*_diskCache = new QNetworkDiskCache(this);
 
-    _diskCache->setCacheDirectory(path + "/cache/web");*/
+    _diskCache->setCacheDirectory(_path + "/cache/web");*/
 
     //---------------------------------------------------------------------------------------------
     // LoaderWeb
@@ -494,11 +490,11 @@ ControllerCore::ControllerCore() : WController()
 
         _backends->setCurrentIndex(0);
 
-        WControllerFileReply * reply = copyBackends(path + "/backend/");
+        WControllerFileReply * reply = copyBackends();
 
         connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
     }
-    else createIndex(path + "/backend");
+    else createIndex();
 
     emit backendsChanged();
 
@@ -585,7 +581,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::resetBackends() const
 {
-    WControllerFileReply * reply = copyBackends(pathStorage() + "/backend/");
+    WControllerFileReply * reply = copyBackends();
 
     connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
 }
@@ -621,7 +617,7 @@ ControllerCore::ControllerCore() : WController()
 {
     QImage image = window->takeShot(0, 0, window->width(), window->height());
 
-    QString path = pathStorage() + "/screenshots";
+    QString path = _path + "/screenshots";
 
     WControllerFile::createFolder(path);
 
@@ -647,7 +643,7 @@ ControllerCore::ControllerCore() : WController()
 
     image = WControllerView::desaturate(image);
 
-    image.save(pathStorage() + "/splash.png", "png");
+    image.save(_path + "/splash.png", "png");
 
     _local->setSplashSize(image.width(), image.height());
 }
@@ -746,9 +742,9 @@ ControllerCore::ControllerCore() : WController()
 // Static functions
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ void ControllerCore::applyTorrentOptions(int connections, int upload,
-                                                                                   int download,
-                                                                                   int cache)
+/* Q_INVOKABLE static */ void ControllerCore::applyTorrentOptions(int connections,
+                                                                  int upload, int download,
+                                                                  int cache)
 {
     wControllerTorrent->setOptions(connections, upload * 1024, download * 1024);
 
@@ -979,78 +975,33 @@ void ControllerCore::createBrowse() const
 
 //-------------------------------------------------------------------------------------------------
 
-void ControllerCore::createIndex(const QString & path)
+void ControllerCore::createIndex()
 {
-    _index = new WBackendIndex(WControllerFile::fileUrl(path));
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend"));
 
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 }
 
 //-------------------------------------------------------------------------------------------------
 
-WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
+WControllerFileReply * ControllerCore::copyBackends() const
 {
 #ifdef SK_DEPLOY
-    QDir dir(WControllerFile::applicationPath("backend"));
+    return WControllerPlaylist::copyBackends("backend", _path + "/backend/");
 #else
-    QDir dir(WControllerFile::applicationPath(PATH_BACKEND));
+    return WControllerPlaylist::copyBackends(PATH_BACKEND, _path + "/backend/");
 #endif
-
-    QStringList fileNames;
-    QStringList newNames;
-
-    QFileInfoList list = dir.entryInfoList(QDir::Files);
-
-    foreach (QFileInfo info, list)
-    {
-        if (info.suffix().toLower() != "vbml") continue;
-
-        fileNames.append(info.filePath());
-
-        newNames.append(path + info.fileName());
-    }
-
-    if (QFile::exists(path))
-    {
-         wControllerFile->startDeleteFolderContent(path);
-    }
-    else wControllerFile->startCreateFolder(path);
-
-    return wControllerFile->startCopyFiles(fileNames, newNames);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-void ControllerCore::resetBrowse() const
-{
-    QString label = _backends->itemLabel(_backends->currentIndex());
-
-    _backends->clearItems();
-
-    createBrowse();
-
-    _index->createFolderItems(_backends);
-
-    int index = _backends->indexFromLabel(label);
-
-    if (index == -1)
-    {
-         _backends->setCurrentIndex(0);
-    }
-    else _backends->setCurrentIndex(index);
 }
 
 //-------------------------------------------------------------------------------------------------
 
 void ControllerCore::clearStorage() const
 {
-    QString path = pathStorage();
+    WControllerFile::deleteFolder(_path + "/backend");
+    WControllerFile::deleteFolder(_path + "/cache");
+    WControllerFile::deleteFolder(_path + "/torrents");
 
-    WControllerFile::deleteFolder(path + "/backend");
-    WControllerFile::deleteFolder(path + "/cache");
-    WControllerFile::deleteFolder(path + "/torrents");
-
-    path.append("/playlists/");
+    QString path = _path + "/playlists/";
 
     WControllerFile::deleteFolder(path + "3");
     WControllerFile::deleteFolder(path + "4");
@@ -1086,7 +1037,7 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
 
 void ControllerCore::onLoaded()
 {
-    createIndex(pathStorage() + "/backend");
+    createIndex();
 }
 
 void ControllerCore::onIndexLoaded()
@@ -1120,7 +1071,22 @@ void ControllerCore::onIndexLoaded()
 
 void ControllerCore::onUpdated()
 {
-    resetBrowse();
+    QString label = _backends->itemLabel(_backends->currentIndex());
+
+    _backends->clearItems();
+
+    createBrowse();
+
+    _index->createFolderItems(_backends);
+
+    // NOTE: We restore the previous selection based on the label.
+    int index = _backends->indexFromLabel(label);
+
+    if (index == -1)
+    {
+         _backends->setCurrentIndex(0);
+    }
+    else _backends->setCurrentIndex(index);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1240,7 +1206,7 @@ void ControllerCore::setDatePreview(const QDateTime & date)
 
 QString ControllerCore::pathStorage() const
 {
-    return wControllerFile->pathStorage();
+    return _path;
 }
 
 QString ControllerCore::pathSplash() const

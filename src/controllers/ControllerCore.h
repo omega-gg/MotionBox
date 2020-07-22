@@ -102,8 +102,8 @@ public: // Interface
     Q_INVOKABLE void clearCache();
 
 public: // Static functions
-    Q_INVOKABLE static void applyTorrentOptions(int connections, int upload, int download,
-                                                                             int cache);
+    Q_INVOKABLE static void applyTorrentOptions(int connections,
+                                                int upload, int download, int cache);
 
     Q_INVOKABLE static WAbstractHook * createHook(WAbstractBackend * backend);
 
@@ -149,11 +149,9 @@ private: // Functions
 
     void createBrowse() const;
 
-    void createIndex(const QString & path);
+    void createIndex();
 
-    WControllerFileReply * copyBackends(const QString & path) const;
-
-    void resetBrowse() const;
+    WControllerFileReply * copyBackends() const;
 
     void clearStorage() const;
 
@@ -210,6 +208,8 @@ private: // Variables
     WCache * _cache;
 
     //QNetworkDiskCache * _diskCache;
+
+    QString _path;
 
     DataLocal  * _local;
     DataOnline * _online;

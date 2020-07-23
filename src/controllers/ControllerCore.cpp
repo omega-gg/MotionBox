@@ -63,10 +63,10 @@
 #include <WBackendSubtitle>
 #include <WBackendIndex>
 #include <WBackendUniversal>
+#include <WModelRange>
 #include <WModelList>
 #include <WModelLibraryFolder>
 #include <WModelPlaylist>
-#include <WModelRange>
 #include <WModelCompletionGoogle>
 #include <WModelContextual>
 #include <WModelTabs>
@@ -300,14 +300,14 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Models
 
+    qmlRegisterType<WModelRange>("Sky", 1,0, "ModelRange");
+
     qmlRegisterType<WModelList>("Sky", 1,0, "ModelList");
 
     qmlRegisterType<WModelLibraryFolder>        ("Sky", 1,0, "ModelLibraryFolder");
     qmlRegisterType<WModelLibraryFolderFiltered>("Sky", 1,0, "ModelLibraryFolderFiltered");
 
     qmlRegisterType<WModelPlaylist>("Sky", 1,0, "ModelPlaylist");
-
-    qmlRegisterType<WModelRange>("Sky", 1,0, "ModelRange");
 
     qmlRegisterType<WModelCompletionGoogle>("Sky", 1,0, "ModelCompletionGoogle");
 

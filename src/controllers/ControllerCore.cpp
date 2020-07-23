@@ -70,7 +70,7 @@
 #include <WModelCompletionGoogle>
 #include <WModelContextual>
 #include <WModelTabs>
-#include <WImageColorFilter>
+#include <WImageFilterColor>
 #include <WDeclarativeApplication>
 #include <WDeclarativeMouseArea>
 #include <WDeclarativeMouseWatcher>
@@ -253,7 +253,7 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterUncreatableType<WImageFilter>("Sky", 1,0, "ImageFilter", "ImageFilter is abstract");
 
-    qmlRegisterType<WImageColorFilter>("Sky", 1,0, "ImageColorFilter");
+    qmlRegisterType<WImageFilterColor>("Sky", 1,0, "ImageFilterColor");
 
     qmlRegisterType<WDeclarativeGradient>    ("Sky", 1,0, "ScaleGradient");
     qmlRegisterType<WDeclarativeGradientStop>("Sky", 1,0, "ScaleGradientStop");

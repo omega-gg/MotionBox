@@ -1123,7 +1123,7 @@ PanelContextual
 
                 model: ModelLibraryFolder { folder: library }
 
-                filter: (type == 0) ? undefined : (LibraryItem.Folder)
+                filter: (type == 0) ? undefined : LibraryItem.Folder
 
                 local: true
             }
@@ -1444,7 +1444,7 @@ PanelContextual
 
                 model: ModelLibraryFolder { folder: null }
 
-                filter: (LibraryItem.Playlist)
+                filter: LibraryItem.Playlist
 
                 local: true
             }

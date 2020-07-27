@@ -724,7 +724,7 @@ ControllerCore::ControllerCore() : WController()
 
     if (_index)
     {
-        _index->createFolderItems(_backends);
+        _index->createFolderItems(_backends, WLibraryItem::FolderSearchable);
 
         WBackendLoader::clearCache();
     }
@@ -1050,7 +1050,7 @@ void ControllerCore::onIndexLoaded()
 
     if (_backends->count() == 1)
     {
-        _index->createFolderItems(_backends);
+        _index->createFolderItems(_backends, WLibraryItem::FolderSearchable);
     }
 
 #if defined(SK_BACKEND_LOCAL) && defined(SK_DEPLOY) == false
@@ -1077,7 +1077,7 @@ void ControllerCore::onUpdated()
 
     createBrowse();
 
-    _index->createFolderItems(_backends);
+    _index->createFolderItems(_backends, WLibraryItem::FolderSearchable);
 
     // NOTE: We restore the previous selection based on the label.
     int index = _backends->indexFromLabel(label);

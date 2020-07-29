@@ -63,12 +63,12 @@ class ControllerCore : public WController
     Q_PROPERTY(QString version     READ version     CONSTANT)
     Q_PROPERTY(QString versionName READ versionName CONSTANT)
 
+    Q_PROPERTY(WTabsTrack * tabs READ tabs CONSTANT)
+
     Q_PROPERTY(WLibraryFolder        * library  READ library  NOTIFY libraryChanged)
     Q_PROPERTY(WLibraryFolder        * feeds    READ feeds    NOTIFY feedsChanged)
     Q_PROPERTY(WLibraryFolder        * backends READ backends NOTIFY backendsChanged)
     Q_PROPERTY(WLibraryFolderRelated * related  READ related  NOTIFY relatedChanged)
-
-    Q_PROPERTY(WTabsTrack * tabs READ tabs CONSTANT)
 
     Q_PROPERTY(QDateTime dateCover   READ dateCover   WRITE setDateCover NOTIFY dateCoverChanged)
     Q_PROPERTY(QDateTime datePreview READ datePreview WRITE setDatePreview

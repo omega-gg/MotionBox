@@ -312,19 +312,22 @@ Panel
 
         onCompletionChanged:
         {
-            if (currentIndex != -1)
+            if (currentIndex == -1)
             {
-                pIndexFocus = -1;
+                scrollTo(0);
 
-                pTextEvents = false;
-
-                lineEditSearch.text = completion;
-
-                pTextEvents = true;
-
-                lineEditSearch.moveCursorAtEnd();
+                return;
             }
-            else scrollTo(0);
+
+            pIndexFocus = -1;
+
+            pTextEvents = false;
+
+            lineEditSearch.text = completion;
+
+            pTextEvents = true;
+
+            lineEditSearch.moveCursorAtEnd();
         }
 
         onItemDoubleClicked: search()

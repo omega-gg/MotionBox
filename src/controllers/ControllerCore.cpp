@@ -335,7 +335,7 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WPlaylist>("Sky", 1,0, "Playlist");
 
-    qmlRegisterType<WTabsTrack>("Sky", 1,0, "TabsTrack");
+    qmlRegisterType<WTabsTrack>("Sky", 1,0, "BaseTabsTrack");
     qmlRegisterType<WTabTrack> ("Sky", 1,0, "TabTrack");
 
     qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");

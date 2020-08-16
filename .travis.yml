@@ -8,16 +8,17 @@ language: cpp
 matrix:
   include:
     - os: linux
-      env: QT=qt4 TARGET=i386
+      env: QT=qt4 TARGET=i386 VERSION=18.04
     - os: linux
-      env: QT=qt4 TARGET=amd64
+      env: QT=qt4 TARGET=amd64 VERSION=20.04
     - os: linux
-      env: QT=qt5 TARGET=i386
+      env: QT=qt5 TARGET=i386 VERSION=18.04
     - os: linux
-      env: QT=qt5 TARGET=amd64
+      env: QT=qt5 TARGET=amd64 VERSION=20.04
 
+# FIXME: Travis requires the --privileged option for Qt on Ubuntu 20.04.
 script:
-  - docker run -d --name ubuntu -v $PWD:/MotionBox ${TARGET}/ubuntu:18.04 tail -f /dev/null
+  - docker run --privileged -d --name ubuntu -v $PWD:/MotionBox ${TARGET}/ubuntu:${VERSION} tail -f /dev/null
   - docker exec -t ubuntu bash -c "cd /MotionBox;
                                    apt-get update;
                                    apt-get -y install sudo curl git;

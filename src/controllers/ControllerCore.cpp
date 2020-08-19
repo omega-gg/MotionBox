@@ -781,31 +781,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE static */ bool ControllerCore::checkUrl(const QString & text)
 {
-#ifdef Q_OS_WIN
-    if (WControllerNetwork::textIsUrl(text) || text.startsWith('/') || text.startsWith('\\'))
-#else
-    if (WControllerNetwork::textIsUrl(text) || text.startsWith('/'))
-#endif
-    {
-        return true;
-    }
-    else if (text.contains(':'))
-    {
-        if (text.length() > 1)
-        {
-            if (text.at(0).isLetter() || text.contains(' ') == false)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    else if (text.contains('.') && text.contains(' ') == false)
-    {
-        return true;
-    }
-    else return false;
+    return WControllerNetwork::textIsUri(text);
 }
 
 /* Q_INVOKABLE static */ int ControllerCore::urlType(const QString & url)

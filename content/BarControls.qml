@@ -293,8 +293,6 @@ MouseArea
 
             height: st.sliderStream_height
 
-            enabled: (duration > 0)
-
             active: player.isPlaying
 
             currentTime: (player.hasStarted && enabled) ? player.currentTime

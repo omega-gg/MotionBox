@@ -30,8 +30,8 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // Global
 
-    property int minimumWidth : 800 * ratio
-    property int minimumHeight: 540 * ratio
+    property int minimumWidth : dp800
+    property int minimumHeight: dp540
 
     property url logoApplication: "pictures/logo.svg"
 

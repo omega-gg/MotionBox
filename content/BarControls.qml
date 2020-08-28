@@ -312,21 +312,6 @@ MouseArea
 
                 player.seek(slider.value);
             }
-
-            onReset:
-            {
-                if (player.isPaused)
-                {
-                    player.stop();
-
-                    playerTab.currentTime = -1;
-                }
-                else if (player.isPlaying)
-                {
-                    player.seek(0);
-                }
-                else playerTab.currentTime = -1;
-            }
         }
 
         ButtonRound

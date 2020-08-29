@@ -39,7 +39,7 @@ ItemList
 
     isSelected: (index == indexCurrent)
 
-    iconAsynchronous: gui.itemAsynchronous
+    iconAsynchronous: gui.asynchronous
 
     background.anchors.top   : undefined
     background.anchors.bottom: undefined

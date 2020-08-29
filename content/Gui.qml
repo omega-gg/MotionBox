@@ -35,7 +35,7 @@ Item
 
     /* read */ property bool isExpanded: local.expanded
 
-    property bool itemAsynchronous: true
+    property bool asynchronous: true
 
     /* read */ property TabTrack currentTab    : tabs.currentTab
     /* read */ property TabTrack highlightedTab: tabs.highlightedTab
@@ -407,7 +407,7 @@ Item
 
                 scaleAfter();
 
-                itemAsynchronous = true;
+                asynchronous = true;
             }
         }
 
@@ -676,7 +676,7 @@ Item
 
         wall.enableAnimation = false;
 
-        itemAsynchronous = false;
+        asynchronous = false;
 
         scaleBefore();
 
@@ -686,7 +686,7 @@ Item
 
             scaleAfter();
 
-            itemAsynchronous = true;
+            asynchronous = true;
         }
         else window.zoomTo(scale, x, y, duration, easing, true);
 

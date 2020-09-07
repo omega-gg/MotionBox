@@ -169,6 +169,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/BaseButton.qml \
 "$SkyBase"/BaseLineEdit.qml \
 "$SkyBase"/BaseSlider.qml \
+"$SkyBase"/BasePlayerBrowser.qml \
 "$SkyComponents"/StyleComponents.qml \
 "$SkyComponents"/AreaContextual.qml \
 "$SkyComponents"/ItemSlide.qml \

@@ -165,6 +165,8 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/Window.qml \
 "$SkyBase"/RectangleBorders.qml \
 "$SkyBase"/TextBase.qml \
+"$SkyBase"/TextClick.qml \
+"$SkyBase"/TextLink.qml \
 "$SkyBase"/BasePanel.qml \
 "$SkyBase"/BaseButton.qml \
 "$SkyBase"/BaseLineEdit.qml \
@@ -191,8 +193,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/IconOverlay.qml \
 "$SkyComponents"/IconLoading.qml \
 "$SkyComponents"/TextRich.qml \
-"$SkyComponents"/TextClick.qml \
-"$SkyComponents"/TextLink.qml \
 "$SkyComponents"/TextDate.qml \
 "$SkyComponents"/TextListDefault.qml \
 "$SkyComponents"/TextSubtitle.qml \

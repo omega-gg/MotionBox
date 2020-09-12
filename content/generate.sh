@@ -164,6 +164,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/Style.qml \
 "$SkyBase"/Window.qml \
 "$SkyBase"/RectangleBorders.qml \
+"$SkyBase"/RectangleShadow.qml \
 "$SkyBase"/TextBase.qml \
 "$SkyBase"/TextClick.qml \
 "$SkyBase"/TextLink.qml \
@@ -187,7 +188,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/BorderButton.qml \
 "$SkyComponents"/WindowScale.qml \
 "$SkyComponents"/RectangleBordersDrop.qml \
-"$SkyComponents"/RectangleShadow.qml \
 "$SkyComponents"/RectangleLogo.qml \
 "$SkyComponents"/Icon.qml \
 "$SkyComponents"/IconOverlay.qml \

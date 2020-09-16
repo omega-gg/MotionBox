@@ -1456,9 +1456,7 @@ Item
 
         var cover = playlistTracks.trackCover(0);
 
-        if (cover == "") return;
-
-        playlistTracks.cover = cover;
+        if (cover) playlistTracks.cover = cover;
     }
 
     //---------------------------------------------------------------------------------------------

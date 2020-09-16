@@ -1452,10 +1452,7 @@ Item
                 playlistTracks.loadTrack(0);
             }
         }
-        else if (player.playlist != playlistTracks)
-        {
-            playlistTracks.moveTrack(index, 0);
-        }
+        else playlistTracks.moveTrack(index, 0);
 
         var cover = playlistTracks.trackCover(0);
 

@@ -12,11 +12,9 @@ Built to load and play multiple video resources.
 
 #
 
-My name is Benjamin Arnaud aka [bunjee].
+I am [bunjee] and started MotionBox in 2011.
 
-I'm building MotionBox to empower people:
-
-Let's build a Video Browser together.
+I'm building innovative software that empowers people.
 
 
 ## Changelog
@@ -49,11 +47,11 @@ Shortcuts: [documents/shortcuts.html](documents/shortcuts.html)
 
 # Technology
 
-MotionBox is built in [C++] with [Sky kit].
+MotionBox is built in [C++] with [Sky kit] on the [Qt framework].
 
-Sky is built on the [Qt framework].
+The GUI is powered by [QML] and rendered with OpenGL.
 
-The GUI uses [QML] and the player uses [VLC] and [libtorrent].
+The video player is based on [VLC] and [libtorrent].
 
 
 # Credits

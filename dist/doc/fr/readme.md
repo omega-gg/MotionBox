@@ -12,11 +12,9 @@ Conçu pour charger et lire une multitude de ressources vidéo.
 
 #
 
-Mon nom est Benjamin Arnaud alias [bunjee].
+Je suis [bunjee] et j'ai commencé MotionBox en 2011.
 
-Je développe MotionBox au service de l'utilisateur:
-
-Ensemble, construisons un Navigateur Vidéo.
+Je développe du logiciel innovant au service de l'homme.
 
 
 ## Historique
@@ -49,11 +47,11 @@ Raccourcis: [documents/fr/shortcuts.html](shortcuts.html)
 
 # Technologie
 
-MotionBox est développé en [C++] avec [Sky kit].
+MotionMonkey est développé en [C++] avec [Sky kit] et le [framework Qt].
 
-Sky est basé sur le [framework Qt].
+L'interface est écrite [QML] et rendue avec OpenGL.
 
-L'interface utilise [QML] et le lecteur utilise [VLC] et [libtorrent].
+Le lecteur vidéo est basé sur [VLC] et [libtorrent].
 
 
 # Crédits

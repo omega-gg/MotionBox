@@ -95,6 +95,9 @@ W_INIT_CONTROLLER(ControllerCore)
 
 static const QString CORE_VERSION = "1.6.0-7";
 
+// NOTE: Defaut streaming port for MotionBox.
+static const int CORE_PORT = 8100;
+
 static const int LOG_LENGTH = 4000;
 
 #ifndef SK_DEPLOY
@@ -393,7 +396,7 @@ ControllerCore::ControllerCore() : WController()
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
 
-    W_CREATE_CONTROLLER_1(WControllerTorrent, _path + "/torrents");
+    W_CREATE_CONTROLLER_2(WControllerTorrent, _path + "/torrents", CORE_PORT);
 
     //---------------------------------------------------------------------------------------------
     // Cache

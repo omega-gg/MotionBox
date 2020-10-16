@@ -97,6 +97,8 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool proxyStream READ proxyStream WRITE setProxyStream NOTIFY proxyStreamChanged)
     Q_PROPERTY(bool proxyActive READ proxyActive WRITE setProxyActive NOTIFY proxyActiveChanged)
 
+    Q_PROPERTY(int torrentPort READ torrentPort WRITE setTorrentPort NOTIFY torrentPortChanged)
+
     Q_PROPERTY(int torrentConnections READ torrentConnections WRITE setTorrentConnections
                NOTIFY torrentConnectionsChanged)
 
@@ -173,6 +175,8 @@ signals:
 
     void proxyStreamChanged();
     void proxyActiveChanged();
+
+    void torrentPortChanged();
 
     void torrentConnectionsChanged();
 
@@ -270,6 +274,9 @@ public: // Properties
     bool proxyActive() const;
     void setProxyActive(bool active);
 
+    int  torrentPort() const;
+    void setTorrentPort(int port);
+
     int  torrentConnections() const;
     void setTorrentConnections(int connections);
 
@@ -341,6 +348,8 @@ private: // Variables
 
     bool _proxyStream;
     bool _proxyActive;
+
+    int _torrentPort;
 
     int _torrentConnections;
 

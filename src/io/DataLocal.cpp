@@ -31,6 +31,12 @@
 #include <WControllerXml>
 #include <WAbstractThreadAction>
 
+//-------------------------------------------------------------------------------------------------
+// Static variables
+
+// NOTE: Defaut streaming port for MotionBox.
+static const int DATALOCAL_PORT = 8100;
+
 //=================================================================================================
 // DataLocalWrite
 //=================================================================================================
@@ -112,6 +118,8 @@ public: // Variables
 
     bool proxyStream;
     bool proxyActive;
+
+    int torrentPort;
 
     int torrentConnections;
 
@@ -205,6 +213,8 @@ public: // Variables
     stream.writeTextElement("proxyStream", QString::number(proxyStream));
     stream.writeTextElement("proxyActive", QString::number(proxyActive));
 
+    stream.writeTextElement("torrentPort", QString::number(torrentPort));
+
     stream.writeTextElement("torrentConnections", QString::number(torrentConnections));
 
     stream.writeTextElement("torrentUpload",   QString::number(torrentUpload));
@@ -276,6 +286,8 @@ public: // Variables
 
     _proxyStream = false;
     _proxyActive = false;
+
+    _torrentPort = DATALOCAL_PORT;
 
     _torrentConnections = 500;
 
@@ -547,6 +559,13 @@ public: // Variables
     _proxyActive = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
+    // torrentPort
+
+    if (WControllerXml::readNextStartElement(&stream, "torrentPort") == false) return false;
+
+    _torrentPort = WControllerXml::readNextInt(&stream);
+
+    //---------------------------------------------------------------------------------------------
     // torrentConnections
 
     if (WControllerXml::readNextStartElement(&stream, "torrentConnections") == false) return false;
@@ -664,6 +683,8 @@ public: // Variables
 
     action->proxyStream = _proxyStream;
     action->proxyActive = _proxyActive;
+
+    action->torrentPort = _torrentPort;
 
     action->torrentConnections = _torrentConnections;
 
@@ -1146,6 +1167,24 @@ void DataLocal::setProxyActive(bool active)
     _proxyActive = active;
 
     emit proxyActiveChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+int DataLocal::torrentPort() const
+{
+    return _torrentPort;
+}
+
+void DataLocal::setTorrentPort(int port)
+{
+    if (_torrentPort == port) return;
+
+    _torrentPort = port;
+
+    emit torrentPortChanged();
 
     save();
 }

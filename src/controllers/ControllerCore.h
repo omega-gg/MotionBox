@@ -203,6 +203,9 @@ public: // Properties
     QString pathSplash () const;
 
 private: // Variables
+    DataLocal  * _local;
+    DataOnline * _online;
+
     QString _argument;
 
     WCache * _cache;
@@ -210,9 +213,6 @@ private: // Variables
     //QNetworkDiskCache * _diskCache;
 
     QString _path;
-
-    DataLocal  * _local;
-    DataOnline * _online;
 
     WTabsTrack * _tabs;
 

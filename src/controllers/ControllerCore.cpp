@@ -30,7 +30,6 @@
 #include <QQmlEngine>
 #endif
 //#include <QNetworkDiskCache>
-#include <QProcess>
 #include <QFileDialog>
 
 // Sk includes
@@ -141,6 +140,8 @@ public: // Variables
 
 ControllerCore::ControllerCore() : WController()
 {
+    _online = NULL;
+
     _cache = NULL;
 
     //_diskCache = NULL;
@@ -545,27 +546,13 @@ ControllerCore::ControllerCore() : WController()
 {
     if (_online->_version.isEmpty() || _online->_version == CORE_VERSION) return false;
 
-#ifdef Q_OS_WIN
-    QString path = QCoreApplication::applicationDirPath() + "/setup.exe";
-#else
-    QString path = QCoreApplication::applicationDirPath() + "/setup";
-#endif
-
-    if (WControllerFile::tryAppend(WControllerFile::fileUrl(path)))
+    if (Sk::runUpdate())
     {
-        if (QProcess::startDetached(Sk::quote(path), QStringList("--updater")) == false)
-        {
-            return false;
-        }
-    }
-    else if (Sk::runAdmin(path, "--updater") == false)
-    {
-        return false;
-    }
+        _online->_version = QString();
 
-    _online->_version = QString();
-
-    return true;
+        return true;
+    }
+    else return false;
 }
 
 //-------------------------------------------------------------------------------------------------

@@ -257,14 +257,3 @@ OTHER_FILES += 3rdparty.sh \
                dist/changes/1.5.0.md \
                dist/changes/1.6.0.md \
                dist/changes/1.7.0.md \
-               dist/installer/config/config-win32.xml \
-               dist/installer/config/config-win64.xml \
-               dist/installer/config/controller.qs \
-               dist/installer/packages/setup/meta/package.xml \
-               dist/installer/packages/setup/meta/component.qs \
-               dist/installer/packages/setup/meta/form.ui \
-               dist/installer/packages/setup/data/setup.xml \
-               dist/installer/packages/MotionBox/meta/package.xml \
-               dist/installer/packages/Sky/meta/package.xml \
-               dist/installer/packages/Qt/meta/package.xml \
-               dist/installer/packages/VLC/meta/package.xml \

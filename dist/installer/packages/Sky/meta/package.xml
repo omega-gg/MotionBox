@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Package>
-    <DisplayName>Sky kit</DisplayName>
-    <Version>1.6.0-8</Version>
-    <Dependencies>Qt</Dependencies>
-    <ReleaseDate>2015-10-07</ReleaseDate>
-    <SortingPriority>3</SortingPriority>
-    <ForcedInstallation>true</ForcedInstallation>
-</Package>

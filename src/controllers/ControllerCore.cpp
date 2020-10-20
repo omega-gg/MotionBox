@@ -379,6 +379,12 @@ ControllerCore::ControllerCore() : WController()
     _pathOpen = QDir::rootPath();
 
     //---------------------------------------------------------------------------------------------
+    // DataLocal
+
+    // NOTE: We make sure the storage folder is created.
+    _local->createPath();
+
+    //---------------------------------------------------------------------------------------------
     // Message handler
 
     // FIXME Qt4.8.7: qInstallMsgHandler breaks QML 'Keys' events.

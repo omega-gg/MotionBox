@@ -954,9 +954,15 @@ void ControllerCore::createIndex()
 WControllerFileReply * ControllerCore::copyBackends() const
 {
 #ifdef SK_DEPLOY
-    return WControllerPlaylist::copyBackends("backend", _path + "/backend/");
+#ifdef Q_OS_ANDROID
+    return WControllerPlaylist::copyBackends("assets:/backend", _path + "/backend/");
 #else
-    return WControllerPlaylist::copyBackends(PATH_BACKEND, _path + "/backend/");
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath("backend"),
+                                             _path + "/backend/");
+#endif
+#else
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath(PATH_BACKEND),
+                                             _path + "/backend/");
 #endif
 }
 

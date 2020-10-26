@@ -208,7 +208,7 @@ Panel
 
         ButtonPiano
         {
-            id: buttonFeeds
+            id: buttonHistory
 
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
@@ -222,7 +222,7 @@ Panel
 
             checkHover: false
 
-            text: qsTr("Feed")
+            text: qsTr("History")
 
             font.pixelSize: st.dp14
 
@@ -237,13 +237,13 @@ Panel
 
         ButtonPiano
         {
-            anchors.left  : buttonFeeds.right
+            anchors.left  : buttonHistory.right
             anchors.right : buttonAdd.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
             checkable: true
-            checked  : (buttonFeeds.checked == false)
+            checked  : (buttonHistory.checked == false)
 
             checkHover: false
 

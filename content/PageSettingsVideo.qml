@@ -46,12 +46,13 @@ Item
 
     onPQualityChanged:
     {
-        if      (pQuality == 1) player.quality = AbstractBackend.Quality240;
-        else if (pQuality == 2) player.quality = AbstractBackend.Quality360;
-        else if (pQuality == 3) player.quality = AbstractBackend.Quality480;
-        else if (pQuality == 4) player.quality = AbstractBackend.Quality720;
-        else if (pQuality == 5) player.quality = AbstractBackend.Quality1080;
-        else if (pQuality == 6) player.quality = AbstractBackend.Quality1440;
+        if      (pQuality == 1) player.quality = AbstractBackend.Quality144;
+        else if (pQuality == 2) player.quality = AbstractBackend.Quality240;
+        else if (pQuality == 3) player.quality = AbstractBackend.Quality360;
+        else if (pQuality == 4) player.quality = AbstractBackend.Quality480;
+        else if (pQuality == 5) player.quality = AbstractBackend.Quality720;
+        else if (pQuality == 6) player.quality = AbstractBackend.Quality1080;
+        else if (pQuality == 7) player.quality = AbstractBackend.Quality1440;
         else                    player.quality = AbstractBackend.Quality2160;
     }
 
@@ -262,6 +263,7 @@ Item
 
         Component.onCompleted:
         {
+            model.append({ "title": qsTr("144p")  });
             model.append({ "title": qsTr("240p")  });
             model.append({ "title": qsTr("360p")  });
             model.append({ "title": qsTr("480p")  });

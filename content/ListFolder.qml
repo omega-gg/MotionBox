@@ -623,7 +623,7 @@ BaseList
 
     //---------------------------------------------------------------------------------------------
 
-    function pDragInit(type, x, y)
+    function pDragInit(type)
     {
         if (type != LibraryItem.Playlist && type != LibraryItem.PlaylistFeed
             &&
@@ -631,16 +631,14 @@ BaseList
 
         pDragType = type;
 
-        pDragX = x;
-        pDragY = y;
+        pDragX = window.mouseX;
+        pDragY = window.mouseY;
     }
 
-    function pDragCheck(x, y, index)
+    function pDragCheck(index)
     {
-        if (window.testDrag(Qt.point(pDragX, pDragY), Qt.point(x, y), 10) == false)
-        {
-            return;
-        }
+        if (window.testDrag(Qt.point(pDragX, pDragY),
+                            Qt.point(window.mouseX, window.mouseY), st.dp10) == false) return;
 
         folder.addDeleteLock();
 

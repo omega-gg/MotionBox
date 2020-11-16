@@ -104,7 +104,7 @@ ComponentLibraryItem
     {
         if (pDragX != -1)
         {
-            pDragCheck(mouse.x, mouse.y);
+            pDragCheck();
         }
     }
 
@@ -122,7 +122,7 @@ ComponentLibraryItem
 
                 pSelectTrack(index);
 
-                pDragInit(mouse.x, mouse.y);
+                pDragInit();
             }
             else if (isFocused == false)
             {
@@ -132,7 +132,7 @@ ComponentLibraryItem
 
                 pUpdateVisible();
 
-                pDragInit(mouse.x, mouse.y);
+                pDragInit();
             }
             else if (window.keyControlPressed)
             {
@@ -140,7 +140,7 @@ ComponentLibraryItem
 
                 pSelectTrack(index);
             }
-            else pDragInit(mouse.x, mouse.y);
+            else pDragInit();
         }
         else if (mouse.button & Qt.RightButton)
         {

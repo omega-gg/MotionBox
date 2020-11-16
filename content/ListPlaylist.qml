@@ -1032,20 +1032,18 @@ BaseList
 
     //---------------------------------------------------------------------------------------------
 
-    function pDragInit(x, y)
+    function pDragInit()
     {
         if (enableDrag == false) return;
 
-        pDragX = x;
-        pDragY = y;
+        pDragX = window.mouseX;
+        pDragY = window.mouseY;
     }
 
-    function pDragCheck(x, y)
+    function pDragCheck()
     {
-        if (window.testDrag(Qt.point(pDragX, pDragY), Qt.point(x, y), 10) == false)
-        {
-            return;
-        }
+        if (window.testDrag(Qt.point(pDragX, pDragY),
+                            Qt.point(window.mouseX, window.mouseY), st.dp10) == false) return;
 
         isSelecting = false;
 

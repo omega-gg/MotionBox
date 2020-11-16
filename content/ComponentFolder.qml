@@ -152,7 +152,7 @@ ComponentLibraryItem
     {
         if (pDragX != -1)
         {
-            pDragCheck(mouse.x, mouse.y, index);
+            pDragCheck(index);
         }
     }
 
@@ -164,7 +164,7 @@ ComponentLibraryItem
         {
             if (enableDrag)
             {
-                pDragInit(type, mouse.x, mouse.y);
+                pDragInit(type);
             }
             else pSelectItem(index);
         }

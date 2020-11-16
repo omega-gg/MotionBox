@@ -48,3 +48,4 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_TORRENT/media/WBackendTorrent.cpp \
            $$SK_TORRENT/media/WHookTorrent.cpp \
            $$SK_BACKEND/media/WBackendUniversal.cpp \
+           $$SK_BACKEND/media/WBackendUniversal_patch.cpp \

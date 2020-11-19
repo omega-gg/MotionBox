@@ -500,13 +500,16 @@ Item
 
         onClicked:
         {
-            if (core.updateVersion() == false)
+            if (core.updateVersion())
             {
-                gui.openUrl("http://omega.gg/MotionBox/get");
+                window.close();
 
-                window.clearFocus();
+                return;
             }
-            else window.close();
+
+            gui.openUrl("http://omega.gg/MotionBox/get");
+
+            window.clearFocus();
         }
 
         Keys.onPressed:

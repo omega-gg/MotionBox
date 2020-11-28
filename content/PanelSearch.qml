@@ -31,7 +31,7 @@ Panel
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property int backend: 1 // NOTE: Default to "browse" ID.
+    /* read */ property int backend: 1 // NOTE: Default to 'browse' ID.
 
     /* read */ property int action: 0
 

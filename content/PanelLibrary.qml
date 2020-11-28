@@ -217,7 +217,7 @@ Panel
 
             checkable: true
 
-            // NOTE: We want to keep the "feed" button selected during the "clear" animation.
+            // NOTE: We want to keep the 'feed' button selected during the 'clear' animation.
             checked: (index == 0 || pIndex == -2)
 
             checkHover: false
@@ -274,7 +274,7 @@ Panel
 
             checkable: true
 
-            // NOTE: We want to keep the "add" button selected during the "clear" animation.
+            // NOTE: We want to keep the 'add' button selected during the 'clear' animation.
             checked: (scrollLibrary.isCreating || pIndex > -1)
 
             icon          : st.icon24x24_addBold
@@ -296,7 +296,7 @@ Panel
 
             width: Math.round((parent.width - buttonAdd.width) / 3)
 
-            // NOTE: This makes sure that the "create" buttons are visible during the animation.
+            // NOTE: This makes sure that the 'create' buttons are visible during the animation.
             visible: (pIndex > -1)
 
             enabled: (library.isFull == false)
@@ -412,7 +412,7 @@ Panel
             {
                 if (list.activeFocus == false && pIndex == 0)
                 {
-                    // NOTE: We want to keep the "feed" button selected during the "clear"
+                    // NOTE: We want to keep the 'feed' button selected during the 'clear'
                     //       animation.
                     pIndex = -2;
 

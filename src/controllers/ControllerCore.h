@@ -153,8 +153,6 @@ private: // Functions
 
     WControllerFileReply * copyBackends() const;
 
-    void clearStorage() const;
-
     QString getFile(const QString & title, const QString & filter);
 
 private slots:

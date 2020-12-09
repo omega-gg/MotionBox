@@ -163,6 +163,8 @@ ControllerCore::ControllerCore() : WController()
 
     sk->setName("MotionBox");
 
+    sk->setVersion(CORE_VERSION);
+
 #ifdef Q_OS_LINUX
     sk->setIcon(":/qrc/pictures/icons/icon.svg");
 #endif
@@ -186,8 +188,6 @@ ControllerCore::ControllerCore() : WController()
 
     _local->load(true);
 
-    sk->setVersion(CORE_VERSION);
-
     if (_local->_maximized)
     {
         sk->setDefaultMode(Sk::Maximized);
@@ -198,11 +198,7 @@ ControllerCore::ControllerCore() : WController()
     sk->setDefaultWidth (_local->_width);
     sk->setDefaultHeight(_local->_height);
 
-    if (_local->_version != CORE_VERSION)
-    {
-        clearStorage();
-    }
-    else if (_local->_splashWidth != -1)
+    if (_local->_splashWidth != -1)
     {
         _pathSplash = WControllerFile::fileUrl(_path + "/splash.png");
     }
@@ -964,29 +960,6 @@ WControllerFileReply * ControllerCore::copyBackends() const
     return WControllerPlaylist::copyBackends(WControllerFile::applicationPath(PATH_BACKEND),
                                              _path + "/backend/");
 #endif
-}
-
-//-------------------------------------------------------------------------------------------------
-
-void ControllerCore::clearStorage() const
-{
-    WControllerFile::deleteFolder(_path + "/backend");
-    WControllerFile::deleteFolder(_path + "/cache");
-    WControllerFile::deleteFolder(_path + "/torrents");
-
-    QString path = _path + "/playlists/";
-
-    WControllerFile::deleteFolder(path + "3");
-    WControllerFile::deleteFolder(path + "4");
-
-    WControllerFile::deleteFile(path + "3.xml");
-    WControllerFile::deleteFile(path + "4.xml");
-
-    _local->setBrowserVisible(false);
-
-    _local->setQuery(QString());
-
-    _local->setCache(false);
 }
 
 //-------------------------------------------------------------------------------------------------

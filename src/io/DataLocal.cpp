@@ -32,6 +32,11 @@
 #include <WAbstractThreadAction>
 
 //-------------------------------------------------------------------------------------------------
+// Functions declarations
+
+void DataLocal_patch(QString & data, const QString & api);
+
+//-------------------------------------------------------------------------------------------------
 // Static variables
 
 // NOTE: Defaut streaming port for MotionBox.
@@ -339,7 +344,97 @@ public: // Variables
         return false;
     }
 
-    QXmlStreamReader stream(&file);
+    return extract(file.readAll());
+}
+
+/* Q_INVOKABLE virtual */ QString DataLocal::getFilePath() const
+{
+    return getParentPath() + "/data.xml";
+}
+
+//-------------------------------------------------------------------------------------------------
+// Protected WLocalObject reimplementation
+//-------------------------------------------------------------------------------------------------
+
+/* virtual */ WAbstractThreadAction * DataLocal::onSave(const QString & path)
+{
+    DataLocalWrite * action = new DataLocalWrite(this);
+
+    action->path = path;
+
+    action->screen = _screen;
+
+    action->width  = _width;
+    action->height = _height;
+
+    action->splashWidth  = _splashWidth;
+    action->splashHeight = _splashHeight;
+
+    action->style = _style;
+
+    action->scale = _scale;
+
+    action->maximized = _maximized;
+
+    action->expanded = _expanded;
+    action->macro    = _macro;
+
+    action->related         = _related;
+    action->relatedExpanded = _relatedExpanded;
+
+    action->tracksExpanded = _tracksExpanded;
+
+    action->browserVisible = _browserVisible;
+
+    action->libraryIndex = _libraryIndex;
+
+    action->query = _query;
+
+    action->speed = _speed;
+
+    action->volume = _volume;
+
+    action->autoPlay = _autoPlay;
+
+    action->shuffle = _shuffle;
+    action->repeat  = _repeat;
+
+    action->output  = _output;
+    action->quality = _quality;
+
+    action->subtitleIndex = _subtitleIndex;
+
+    action->cache = _cache;
+
+    action->proxyHost     = _proxyHost;
+    action->proxyPort     = _proxyPort;
+    action->proxyPassword = _proxyPassword;
+
+    action->proxyStream = _proxyStream;
+    action->proxyActive = _proxyActive;
+
+    action->torrentPort = _torrentPort;
+
+    action->torrentConnections = _torrentConnections;
+
+    action->torrentUpload   = _torrentUpload;
+    action->torrentDownload = _torrentDownload;
+
+    action->torrentUploadActive   = _torrentUploadActive;
+    action->torrentDownloadActive = _torrentDownloadActive;
+
+    action->torrentCache = _torrentCache;
+
+    return action;
+}
+
+//-------------------------------------------------------------------------------------------------
+// Private functions
+//-------------------------------------------------------------------------------------------------
+
+bool DataLocal::extract(const QByteArray & array)
+{
+    QXmlStreamReader stream(array);
 
     //---------------------------------------------------------------------------------------------
     // version
@@ -347,6 +442,23 @@ public: // Variables
     if (WControllerXml::readNextStartElement(&stream, "version") == false) return false;
 
     _version = WControllerXml::readNextString(&stream);
+
+    if (Sk::versionIsHigher(sk->version(), _version))
+    {
+        QString content = array;
+
+        DataLocal_patch(content, _version);
+
+        bool result = extract(content.toUtf8());
+
+        setBrowserVisible(false);
+
+        setQuery(QString());
+
+        setCache(false);
+
+        return result;
+    }
 
     //---------------------------------------------------------------------------------------------
     // screen
@@ -616,87 +728,6 @@ public: // Variables
     qDebug("DATA LOCAL LOADED");
 
     return true;
-}
-
-/* Q_INVOKABLE virtual */ QString DataLocal::getFilePath() const
-{
-    return getParentPath() + "/data.xml";
-}
-
-//-------------------------------------------------------------------------------------------------
-// Protected WLocalObject reimplementation
-//-------------------------------------------------------------------------------------------------
-
-/* virtual */ WAbstractThreadAction * DataLocal::onSave(const QString & path)
-{
-    DataLocalWrite * action = new DataLocalWrite(this);
-
-    action->path = path;
-
-    action->screen = _screen;
-
-    action->width  = _width;
-    action->height = _height;
-
-    action->splashWidth  = _splashWidth;
-    action->splashHeight = _splashHeight;
-
-    action->style = _style;
-
-    action->scale = _scale;
-
-    action->maximized = _maximized;
-
-    action->expanded = _expanded;
-    action->macro    = _macro;
-
-    action->related         = _related;
-    action->relatedExpanded = _relatedExpanded;
-
-    action->tracksExpanded = _tracksExpanded;
-
-    action->browserVisible = _browserVisible;
-
-    action->libraryIndex = _libraryIndex;
-
-    action->query = _query;
-
-    action->speed = _speed;
-
-    action->volume = _volume;
-
-    action->autoPlay = _autoPlay;
-
-    action->shuffle = _shuffle;
-    action->repeat  = _repeat;
-
-    action->output  = _output;
-    action->quality = _quality;
-
-    action->subtitleIndex = _subtitleIndex;
-
-    action->cache = _cache;
-
-    action->proxyHost     = _proxyHost;
-    action->proxyPort     = _proxyPort;
-    action->proxyPassword = _proxyPassword;
-
-    action->proxyStream = _proxyStream;
-    action->proxyActive = _proxyActive;
-
-    action->torrentPort = _torrentPort;
-
-    action->torrentConnections = _torrentConnections;
-
-    action->torrentUpload   = _torrentUpload;
-    action->torrentDownload = _torrentDownload;
-
-    action->torrentUploadActive   = _torrentUploadActive;
-    action->torrentDownloadActive = _torrentDownloadActive;
-
-    action->torrentCache = _torrentCache;
-
-    return action;
 }
 
 //-------------------------------------------------------------------------------------------------

@@ -132,6 +132,9 @@ public: // WLocalObject reimplementation
 protected: // WLocalObject reimplementation
     /* virtual */ WAbstractThreadAction * onSave(const QString & path);
 
+private: // Functions
+    bool extract(const QByteArray & array);
+
 signals:
     void styleChanged();
 

@@ -35,4 +35,5 @@ SOURCES += $$SK_CORE/io/WAbstractLoader.cpp \
            $$SK_BACKEND/io/WBackendIndex_patch.cpp \
            $$SK_BACKEND/io/WBackendCache.cpp \
            src/io/DataLocal.cpp \
+           src/io/DataLocal_patch.cpp \
            src/io/DataOnline.cpp \

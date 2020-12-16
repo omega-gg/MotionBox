@@ -136,6 +136,10 @@ BaseList
         pUpdateCurrentY();
     }
 
+    // NOTE: We apply the current item to the list.
+    onListFolderChanged  : if (listFolder)   pUpdateSelected()
+    onListPlaylistChanged: if (listPlaylist) pUpdateSelected()
+
     //---------------------------------------------------------------------------------------------
     // Keys
     //---------------------------------------------------------------------------------------------

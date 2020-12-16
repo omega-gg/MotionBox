@@ -118,8 +118,6 @@ Item
                            &&
                            related.isLoading == false)
 
-    property bool pUpdate: false
-
     //---------------------------------------------------------------------------------------------
 
     property bool pExpanded: true
@@ -540,7 +538,7 @@ Item
     {
         target: player
 
-        onSourceChanged: pUpdateFeeds()
+        onSourceChanged: timerHistory.restart()
 
         onIsPlayingChanged:
         {
@@ -579,7 +577,7 @@ Item
         {
             restoreBars();
 
-            timerFeed.restart();
+            timerHistory.restart();
         }
 
         onSpeedChanged: local.speed = player.speed
@@ -591,17 +589,9 @@ Item
         onOutputChanged : local.output  = player.output
         onQualityChanged: local.quality = player.quality
 
-        onCurrentTrackUpdated:
-        {
-            if (pUpdate && playerTab.isLoaded)
-            {
-                pUpdate = false;
+        onCurrentTrackUpdated: timerHistory.restart()
 
-                updateFeeds();
-            }
-        }
-
-        onTabChanged: pUpdateFeeds()
+        onTabChanged: timerHistory.restart()
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1353,110 +1343,6 @@ Item
         {
             related.loadTabItems(tab);
         }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function updateFeeds()
-    {
-        if (player.hasStarted == false) return;
-
-        var source = playerTab.source;
-
-        if (source == "") return;
-
-        if (feeds.isEmpty)
-        {
-            if (playlistTracks) playlistTracks.tryDelete();
-
-            pCreatePlaylistTracks();
-
-            insertLibraryItem(0, playlistTracks, listLibrary, feeds);
-
-            feeds.currentIndex = 0;
-        }
-        else if (playlistTracks == null)
-        {
-            if (feeds.itemLabel(0) != "tracks")
-            {
-                pCreatePlaylistTracks();
-
-                insertLibraryItem(0, playlistTracks, listLibrary, feeds);
-            }
-            else playlistTracks = createItemAt(feeds, 0);
-        }
-
-        addFeedTrack(source);
-
-        var feed = playerTab.feed;
-
-        if (feed == "") return;
-
-        addFeed(getFeed(source, feed));
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function addFeed(source)
-    {
-        var index = feeds.indexFromSource(source);
-
-        if (index == -1)
-        {
-            while (feeds.isFull)
-            {
-                feeds.removeAt(feeds.count - 1);
-            }
-
-            var playlist = core.createPlaylist(core.urlType(source));
-
-            insertLibraryItem(1, playlist, listLibrary, feeds);
-
-            if (controllerPlaylist.urlIsMedia(player.trackTitle))
-            {
-                playlist.cover = player.trackCover;
-            }
-
-            playlist.loadSource(source);
-        }
-        else feeds.moveAt(index, 1);
-    }
-
-    function addFeedTrack(source)
-    {
-        var index = playlistTracks.indexFromSource(source);
-
-        if (index == 0) return;
-
-        if (index == -1)
-        {
-            while (playlistTracks.isFull)
-            {
-                playlistTracks.removeTrack(playlistTracks.count - 1);
-            }
-
-            var playlist = playerTab.playlist;
-
-            if (playlist)
-            {
-                if (listPlaylist.playlist == playlistTracks)
-                {
-                    listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
-                }
-                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
-            }
-            else
-            {
-                playlistTracks.insertSource(0, source);
-
-                playlistTracks.loadTrack(0);
-            }
-        }
-        else playlistTracks.moveTrack(index, 0);
-
-        var cover = playlistTracks.trackCover(0);
-
-        if (cover) playlistTracks.cover = cover;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2932,15 +2818,114 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function pUpdateFeeds()
+    function pUpdateHistory()
     {
-        if (playerTab.isLoaded)
-        {
-            pUpdate = false;
+        if (player.hasStarted == false) return;
 
-            updateFeeds();
+        var source = playerTab.source;
+
+        if (source == "") return;
+
+        if (feeds.isEmpty)
+        {
+            if (playlistTracks) playlistTracks.tryDelete();
+
+            pCreatePlaylistTracks();
+
+            insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+
+            feeds.currentIndex = 0;
         }
-        else pUpdate = true;
+        else if (playlistTracks == null)
+        {
+            if (feeds.itemLabel(0) != "tracks")
+            {
+                pCreatePlaylistTracks();
+
+                insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+            }
+            else playlistTracks = createItemAt(feeds, 0);
+        }
+
+        pAddHistoryTrack(source);
+
+        var feed = playerTab.feed;
+
+        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return;
+
+        pAddHistoryFeed(getFeed(source, feed));
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pAddHistoryTrack(source)
+    {
+        var index = playlistTracks.indexFromSource(source);
+
+        if (index == 0)
+        {
+            // NOTE: Sometimes duration is updated after playback.
+            playlistTracks.setTrackDuration(0, playerTab.duration);
+
+            return;
+        }
+
+        if (index == -1)
+        {
+            while (playlistTracks.isFull)
+            {
+                playlistTracks.removeTrack(playlistTracks.count - 1);
+            }
+
+            var playlist = playerTab.playlist;
+
+            if (playlist)
+            {
+                if (listPlaylist.playlist == playlistTracks)
+                {
+                    listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
+                }
+                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
+            }
+            else
+            {
+                playlistTracks.insertSource(0, source);
+
+                playlistTracks.loadTrack(0);
+            }
+        }
+        else playlistTracks.moveTrack(index, 0);
+
+        var cover = playlistTracks.trackCover(0);
+
+        if (cover) playlistTracks.cover = cover;
+    }
+
+    function pAddHistoryFeed(source)
+    {
+        var index = feeds.indexFromSource(source);
+
+        if (index == -1)
+        {
+            while (feeds.isFull)
+            {
+                feeds.removeAt(feeds.count - 1);
+            }
+
+            var playlist = core.createPlaylist(core.urlType(source));
+
+            insertLibraryItem(1, playlist, listLibrary, feeds);
+
+            if (controllerPlaylist.urlIsMedia(player.trackTitle))
+            {
+                playlist.cover = player.trackCover;
+            }
+
+            playlist.loadSource(source);
+
+            playlist.tryDelete();
+        }
+        else feeds.moveAt(index, 1);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3062,11 +3047,11 @@ Item
 
     Timer
     {
-        id: timerFeed
+        id: timerHistory
 
         interval: 1000
 
-        onTriggered: if (player.hasStarted) pUpdateFeeds()
+        onTriggered: pUpdateHistory()
     }
 
     Item

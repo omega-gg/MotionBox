@@ -224,7 +224,18 @@ MouseArea
             }
         }
 
-        onQueryCompleted: if (pFolderBrowse.isEmpty) pSearchStop()
+        onQueryCompleted:
+        {
+            if (pFolderBrowse.isEmpty == false) return;
+
+            pSearchStop();
+
+            if (pBrowsing)
+            {
+                // NOTE: We need to clear the browse index when a query fails.
+                pBrowseIndex = -1;
+            }
+        }
 
         onCurrentIdChanged:
         {
@@ -707,8 +718,6 @@ MouseArea
 
     function pBrowseSource(url)
     {
-        pClearSource();
-
         if (query)
         {
             var source = pSiteQuery(url, query);
@@ -719,6 +728,8 @@ MouseArea
 
             return;
         }
+
+        pClearSource();
 
         var folder = core.createFolder(LibraryItem.FolderSearch);
 
@@ -738,8 +749,6 @@ MouseArea
 
     function pUpdateButtons()
     {
-        if (pFolderBrowse == null) return -1;
-
         if (pBrowsing)
         {
             pUpdateButtonsBrowsing();
@@ -753,6 +762,13 @@ MouseArea
                 return 0;
             }
             else return -1;
+        }
+
+        if (pFolderBrowse == null)
+        {
+            buttonsBrowse.clearItems();
+
+            return -1;
         }
 
         var backend = controllerPlaylist.backendFromId(pFolderBrowse.label);
@@ -1303,7 +1319,7 @@ MouseArea
 
         width: height + borderSizeWidth
 
-        enabled: (buttonsBrowse.count)
+        enabled: (buttonsBrowse.count || query != "")
 
         icon          : st.icon16x16_close
         iconSourceSize: st.size16x16

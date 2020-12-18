@@ -53,7 +53,7 @@ MouseArea
     property bool pEventBackend: true
     property bool pEventBrowse : true
 
-    property int pBrowseIndex: -2
+    property int pIndexBrowse: -2
 
     //---------------------------------------------------------------------------------------------
 
@@ -191,7 +191,7 @@ MouseArea
 
         onCurrentIdChanged:
         {
-            if (pBrowseIndex == -2)
+            if (pIndexBrowse == -2)
             {
                 pBrowse();
 
@@ -199,9 +199,9 @@ MouseArea
             }
             else
             {
-                pApplyButton(pBrowseIndex);
+                pApplyButton(pIndexBrowse);
 
-                pBrowseIndex = -2;
+                pIndexBrowse = -2;
             }
         }
     }
@@ -244,9 +244,10 @@ MouseArea
             pBrowseBackendItem();
 
             // NOTE: We want to set the first index as soon as possible.
-            if (pFolder && pFolder.currentIndex == -1)
+            //       We use pItemBrowse in case the pFolder alias has not been updated yet.
+            if (pItemBrowse && pItemBrowse.currentIndex == -1)
             {
-                pFolder.loadCurrentIndex(0, true);
+                pItemBrowse.loadCurrentIndex(0, true);
             }
 
             pUpdateButtons();
@@ -258,6 +259,15 @@ MouseArea
         target: (pItemBrowse) ? pItemBrowse : null
 
         onLoaded: if (pLoading) pSearchStart()
+
+        onQueryStarted:
+        {
+            // NOTE: We want to set the first index as soon as possible.
+            if (pItemBrowse.currentIndex == -1)
+            {
+                pItemBrowse.loadCurrentIndex(0, true);
+            }
+        }
     }
 
     Connections
@@ -810,7 +820,7 @@ MouseArea
         // NOTE: When this returns true it means we are on a backend.
         if (pUpdateButtons())
         {
-            if (buttonsBrowse.count == 2)
+            if (buttonsBrowse.getCount() == 2)
             {
                  pBrowseIndex = 1;
             }
@@ -818,7 +828,7 @@ MouseArea
         }
         else if (pBrowsing)
         {
-            if (buttonsBrowse.count
+            if (buttonsBrowse.getCount()
                 &&
                 (pSearchHidden
                  ||
@@ -872,7 +882,7 @@ MouseArea
 
         if (index == 1)
         {
-            pBrowseIndex = 1;
+            pIndexBrowse = 1;
 
             var title = buttonsBrowse.model.get(1).title;
 
@@ -884,7 +894,7 @@ MouseArea
         }
         else if (pFolderBackends.currentId != 1)
         {
-            pBrowseIndex = index;
+            pIndexBrowse = index;
 
             pFolderBackends.currentId = 1;
 

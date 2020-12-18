@@ -180,6 +180,12 @@ Item
         return item.x + item.width;
     }
 
+    // NOTE: Returns the immediate count base on the temporary model.
+    function getCount()
+    {
+        return pCount;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Private
 

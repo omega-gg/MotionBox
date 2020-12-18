@@ -53,7 +53,7 @@ MouseArea
     property bool pEventBackend: true
     property bool pEventBrowse : true
 
-    property int pIndexButton: -2
+    property int pBrowseIndex: -2
 
     //---------------------------------------------------------------------------------------------
 
@@ -184,24 +184,24 @@ MouseArea
         {
             buttonsBrowse.enableAnimation = false;
 
-            pBrowseIndex = pUpdateButtons();
+            pApplyBrowseIndex();
 
             buttonsBrowse.enableAnimation = true;
         }
 
         onCurrentIdChanged:
         {
-            if (pIndexButton == -2)
+            if (pBrowseIndex == -2)
             {
-                pLoadBackend();
+                pBrowse();
 
-                pBrowseIndex = pUpdateButtons();
+                pApplyBrowseIndex();
             }
             else
             {
-                pApplyButton(pIndexButton);
+                pApplyButton(pBrowseIndex);
 
-                pIndexButton = -2;
+                pBrowseIndex = -2;
             }
         }
     }
@@ -241,12 +241,15 @@ MouseArea
         {
             if (pLoading) return;
 
-            pLoadItem();
+            pBrowseBackendItem();
 
-            if (pBrowsing)
+            // NOTE: We want to set the first index as soon as possible.
+            if (pFolder && pFolder.currentIndex == -1)
             {
-                pUpdateButtonsBrowsing();
+                pFolder.loadCurrentIndex(0, true);
             }
+
+            pUpdateButtons();
         }
     }
 
@@ -464,8 +467,10 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pInitSearch(query)
+    function pStartSearch(query)
     {
+        pHideCompletion();
+
         local.query = panelBrowse.query;
 
         isSearching = true;
@@ -475,13 +480,6 @@ MouseArea
         {
             pOpenTab();
         }
-    }
-
-    function pStartSearch(query)
-    {
-        pHideCompletion();
-
-        pInitSearch(query);
 
         var source;
 
@@ -622,6 +620,8 @@ MouseArea
 
     function pClearSource()
     {
+        if (pFolderBrowse == null) return;
+
         pFolderBrowse.clearItems();
 
         pFolderBrowse.source = "";
@@ -635,7 +635,7 @@ MouseArea
 
         pFolderBackends.loadCurrentId(id, true);
 
-        pBrowseIndex = pUpdateButtons();
+        pApplyBrowseIndex();
 
         pEventBackend = true;
     }
@@ -646,7 +646,7 @@ MouseArea
 
         pFolderBrowse.loadCurrentIndex(index, true);
 
-        if (pBrowsing) pUpdateButtonsBrowsing();
+        pUpdateButtons();
 
         pEventBrowse = true;
     }
@@ -666,7 +666,7 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pLoadBackend()
+    function pBrowse()
     {
         if (pBrowsing)
         {
@@ -702,9 +702,7 @@ MouseArea
         pItemBrowse.loadSource(source);
     }
 
-    //---------------------------------------------------------------------------------------------
-
-    function pLoadItem()
+    function pBrowseBackendItem()
     {
         if (pBrowsing || pItemBrowse == null || query == "") return;
 
@@ -716,7 +714,7 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function pBrowseSource(url)
+    function pBrowseSite(url)
     {
         if (query)
         {
@@ -725,24 +723,9 @@ MouseArea
             source = controllerPlaylist.createSource(pSearchEngine, "search", "site", source);
 
             pFolderBrowse.loadSource(source);
-
-            return;
         }
-
-        pClearSource();
-
-        var folder = core.createFolder(LibraryItem.FolderSearch);
-
-        folder.source = url;
-
-        folder.title = url;
-        folder.cover = controllerPlaylist.backendCoverFromUrl(url);
-
-        pFolderBrowse.addLibraryItem(folder);
-
-        pFolderBrowse.currentIndex = 0;
-
-        folder.tryDelete();
+        // NOTE: If we have no query we browse the backend url by default.
+        else browse(url);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -753,22 +736,14 @@ MouseArea
         {
             pUpdateButtonsBrowsing();
 
-            if (buttonsBrowse.count
-                &&
-                (pSearchHidden
-                 ||
-                 controllerNetwork.extractUrlValue(pFolderBrowse.source, "label") == "site"))
-            {
-                return 0;
-            }
-            else return -1;
+            return false;
         }
 
         if (pFolderBrowse == null)
         {
             buttonsBrowse.clearItems();
 
-            return -1;
+            return false;
         }
 
         var backend = controllerPlaylist.backendFromId(pFolderBrowse.label);
@@ -783,23 +758,16 @@ MouseArea
             if (host)
             {
                 buttonsBrowse.pushItem(host, pGetSearchCover());
-
-                buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
-
-                backend.tryDelete();
-
-                return 1;
             }
-            else
-            {
-                buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
 
-                backend.tryDelete();
+            buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
 
-                return 0;
-            }
+            backend.tryDelete();
+
+            return true;
         }
-        else return -1;
+
+        return false;
     }
 
     function pUpdateButtonsBrowsing()
@@ -833,6 +801,34 @@ MouseArea
 
             backend.tryDelete();
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pApplyBrowseIndex()
+    {
+        // NOTE: When this returns true it means we are on a backend.
+        if (pUpdateButtons())
+        {
+            if (buttonsBrowse.count == 2)
+            {
+                 pBrowseIndex = 1;
+            }
+            else pBrowseIndex = 0;
+        }
+        else if (pBrowsing)
+        {
+            if (buttonsBrowse.count
+                &&
+                (pSearchHidden
+                 ||
+                 controllerNetwork.extractUrlValue(pFolderBrowse.source, "label") == "site"))
+            {
+                 pBrowseIndex = 0;
+            }
+            else pBrowseIndex = -1;
+        }
+        else pBrowseIndex = -1;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -876,7 +872,7 @@ MouseArea
 
         if (index == 1)
         {
-            pIndexButton = 1;
+            pBrowseIndex = 1;
 
             var title = buttonsBrowse.model.get(1).title;
 
@@ -888,7 +884,7 @@ MouseArea
         }
         else if (pFolderBackends.currentId != 1)
         {
-            pIndexButton = index;
+            pBrowseIndex = index;
 
             pFolderBackends.currentId = 1;
 
@@ -901,9 +897,7 @@ MouseArea
     {
         if (index == -1)
         {
-            if (pSearchHidden) pClearSource();
-
-            if (query)
+            if (pSearchHidden == false && query)
             {
                 var source;
 
@@ -922,29 +916,31 @@ MouseArea
         }
         else if (index == 0)
         {
-            if (pSearchHidden) pClearSource();
-
-            var title = buttonsBrowse.model.get(0).title;
-
-            if (pItemBrowse == null)
+            if (pSearchHidden == false)
             {
-                pBrowseSource(title);
+                var title = buttonsBrowse.model.get(0).title;
 
-                local.cache = true;
-            }
-            else if (pItemBrowse.title == title)
-            {
-                if (query)
+                if (pItemBrowse == null)
                 {
-                    /* var */ source = pSiteQuery(title, query);
+                    pBrowseSite(title);
 
-                    source = controllerPlaylist.createSource(pSearchEngine,
-                                                             "search", "site", source);
-
-                    pFolderBrowse.loadSource(source);
+                    local.cache = true;
                 }
+                else if (pItemBrowse.title == title)
+                {
+                    if (query)
+                    {
+                        /* var */ source = pSiteQuery(title, query);
+
+                        source = controllerPlaylist.createSource(pSearchEngine,
+                                                                 "search", "site", source);
+
+                        pFolderBrowse.loadSource(source);
+                    }
+                }
+                else pBrowseSite(title);
             }
-            else pBrowseSource(title);
+            else pClearSource();
         }
         else // if (index == 1)
         {

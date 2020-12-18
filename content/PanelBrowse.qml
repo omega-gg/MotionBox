@@ -245,7 +245,7 @@ MouseArea
 
             // NOTE: We want to set the first index as soon as possible.
             //       We use pItemBrowse in case the pFolder alias has not been updated yet.
-            if (pItemBrowse && pItemBrowse.currentIndex == -1)
+            if (pBrowsing && pItemBrowse && pItemBrowse.currentIndex == -1)
             {
                 pItemBrowse.loadCurrentIndex(0, true);
             }
@@ -263,7 +263,7 @@ MouseArea
         onQueryStarted:
         {
             // NOTE: We want to set the first index as soon as possible.
-            if (pItemBrowse.currentIndex == -1)
+            if (pBrowsing && pItemBrowse.currentIndex == -1)
             {
                 pItemBrowse.loadCurrentIndex(0, true);
             }

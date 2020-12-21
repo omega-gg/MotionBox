@@ -2860,7 +2860,8 @@ Item
 
     function pAddHistoryTrack(source)
     {
-        var index = playlistTracks.indexFromSource(source);
+        // NOTE: We match the source with the 'noFragment' option to avoid duplicates.
+        var index = playlistTracks.indexFromSource(source, true);
 
         if (index == 0)
         {
@@ -2894,7 +2895,13 @@ Item
                 playlistTracks.loadTrack(0);
             }
         }
-        else playlistTracks.moveTrack(index, 0);
+        else
+        {
+            playlistTracks.moveTrack(index, 0);
+
+            // NOTE: We make sure we have the right souce without the url fragment.
+            history.setTrackSource(0, source);
+        }
 
         var cover = playlistTracks.trackCover(0);
 

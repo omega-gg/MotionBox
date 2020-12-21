@@ -6,12 +6,12 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WTrack_p.h \
            $$SK_GUI/media/WLibraryItem.h \
            $$SK_GUI/media/WLibraryItem_p.h \
-           $$SK_GUI/media/WPlaylist.h \
-           $$SK_GUI/media/WPlaylist_p.h \
            $$SK_GUI/media/WLibraryFolder.h \
            $$SK_GUI/media/WLibraryFolder_p.h \
            $$SK_GUI/media/WLibraryFolderRelated.h \
            $$SK_GUI/media/WLibraryFolderRelated_p.h \
+           $$SK_GUI/media/WPlaylist.h \
+           $$SK_GUI/media/WPlaylist_p.h \
            $$SK_GUI/media/WAbstractBackend.h \
            $$SK_GUI/media/WAbstractBackend_p.h \
            $$SK_GUI/media/WAbstractHook.h \

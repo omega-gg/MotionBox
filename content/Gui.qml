@@ -2900,7 +2900,7 @@ Item
             playlistTracks.moveTrack(index, 0);
 
             // NOTE: We make sure we have the right souce without the url fragment.
-            history.setTrackSource(0, source);
+            playlistTracks.setTrackSource(0, source);
         }
 
         var cover = playlistTracks.trackCover(0);

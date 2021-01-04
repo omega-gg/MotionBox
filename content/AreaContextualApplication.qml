@@ -728,7 +728,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
                     { "id": 1, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("Browse") },
+                               "iconSize": st.size24x24, "title": qsTr("More like this") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Copy link") },
@@ -767,7 +767,7 @@ AreaContextual
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
 
                     { "id": 1, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("Browse") },
+                               "iconSize": st.size24x24, "title": qsTr("More like this") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Copy link") },

@@ -330,7 +330,7 @@ Panel
             lineEditSearch.moveCursorAtEnd();
         }
 
-        onItemDoubleClicked: search()
+        onItemClicked: search()
     }
 
     BorderVertical

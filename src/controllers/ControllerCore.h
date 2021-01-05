@@ -133,8 +133,6 @@ public: // Static functions
 
     Q_INVOKABLE static int idFromTitle(WLibraryFolder * folder, const QString & title);
 
-    Q_INVOKABLE static QString getQuery(const QString & title);
-
     //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE static void updateCache(WPlaylist * playlist, int index);

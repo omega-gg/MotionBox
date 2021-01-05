@@ -506,11 +506,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 1) // Browse
+            else if (id == 1) // More like this
             {
                 var title = pItem.playlist.trackTitle(pIndex);
 
-                pBrowse(core.getQuery(title));
+                pBrowse(controllerPlaylist.simpleQuery(title));
             }
             else if (id == 2) // Copy link
             {
@@ -578,9 +578,9 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 1) // Browse
+            else if (id == 1) // More like this
             {
-                pBrowse(core.getQuery(pItem.title));
+                pBrowse(controllerPlaylist.simpleQuery(pItem.title));
             }
             else if (id == 2) // Copy link
             {

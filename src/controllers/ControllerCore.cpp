@@ -847,17 +847,6 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ QString ControllerCore::getQuery(const QString & title)
-{
-    QString result = title;
-
-    result.replace(QRegExp("[.:]"), " ");
-
-    return result.simplified();
-}
-
-//-------------------------------------------------------------------------------------------------
-
 /* Q_INVOKABLE static */ void ControllerCore::updateCache(WPlaylist * playlist, int index)
 {
     if (playlist == NULL || index == -1) return;

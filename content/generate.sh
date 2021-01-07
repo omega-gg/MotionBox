@@ -163,6 +163,10 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$Sky"/deploy/deployer $path $version MotionBox.qrc "$defines" \
 "$SkyBase"/Style.qml \
 "$SkyBase"/Window.qml \
+"$SkyBase"/ItemSlide.qml \
+"$SkyBase"/ItemWipe.qml \
+"$SkyBase"/LoaderSlide.qml \
+"$SkyBase"/LoaderWipe.qml \
 "$SkyBase"/AreaContextual.qml \
 "$SkyBase"/RectangleBorders.qml \
 "$SkyBase"/RectangleShadow.qml \
@@ -177,10 +181,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/BaseSlider.qml \
 "$SkyBase"/BasePlayerBrowser.qml \
 "$SkyComponents"/StyleComponents.qml \
-"$SkyComponents"/ItemSlide.qml \
-"$SkyComponents"/ItemWipe.qml \
-"$SkyComponents"/LoaderSlide.qml \
-"$SkyComponents"/LoaderWipe.qml \
 "$SkyComponents"/PageWipe.qml \
 "$SkyComponents"/LineHorizontal.qml \
 "$SkyComponents"/LineHorizontalDrop.qml \

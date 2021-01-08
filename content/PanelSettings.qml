@@ -231,7 +231,10 @@ Panel
         {
             source = Qt.resolvedUrl("PageSettingsAdvanced.qml");
         }
-        else source = Qt.resolvedUrl("PageConsole.qml");
+        else // if (index == 2)
+        {
+            source = Qt.resolvedUrl("PageConsole.qml");
+        }
 
         pAnimate = true;
 

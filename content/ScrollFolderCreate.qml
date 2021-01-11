@@ -206,7 +206,7 @@ ScrollFolder
 
     onIsDroppableChanged:
     {
-        if (isDroppable == false) return;
+        if (isDroppable) return;
 
         pClearDrag();
     }

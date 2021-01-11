@@ -31,6 +31,8 @@ ScrollFolder
     // Properties
     //---------------------------------------------------------------------------------------------
 
+    /* read */ property bool isDroppable: (folder)
+
     /* read */ property bool isCreating: false
     /* read */ property bool isDropping: false
 
@@ -98,7 +100,7 @@ ScrollFolder
 
     onDragEntered:
     {
-        if (folder == null) return;
+        if (isDroppable == false) return;
 
         if (gui.drag == 0)
         {
@@ -180,12 +182,16 @@ ScrollFolder
 
     onDragMove:
     {
+        if (isDroppable == false) return;
+
         if (pDropType) pOnDragItem (event);
         else           pOnDragTrack(event);
     }
 
     onDrop:
     {
+        if (isDroppable == false) return;
+
         timerSelect.stop();
 
         pSetDropping(true);
@@ -198,7 +204,12 @@ ScrollFolder
         timerAdd.restart();
     }
 
-    onFolderChanged: if (folder == null) pClearDrag()
+    onIsDroppableChanged:
+    {
+        if (isDroppable == false) return;
+
+        pClearDrag();
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions

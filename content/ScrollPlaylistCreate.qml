@@ -29,6 +29,8 @@ ScrollPlaylist
     // Properties
     //---------------------------------------------------------------------------------------------
 
+    /* read */ property bool isDroppable: (playlist && playlist.isOnline == false)
+
     /* read */ property bool isDropping: false
 
     //---------------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ ScrollPlaylist
 
     onDragEntered:
     {
-        if (playlist == null || playlist.isOnline) return;
+        if (isDroppable == false) return;
 
         if (gui.drag == 0)
         {
@@ -84,6 +86,8 @@ ScrollPlaylist
 
     onDragMove:
     {
+        if (isDroppable == false) return;
+
         if (count == 0)
         {
             if (pDropIndex)
@@ -125,6 +129,8 @@ ScrollPlaylist
 
     onDrop:
     {
+        if (isDroppable == false) return;
+
         pSetDropping(true);
 
         if (gui.drag == 0)
@@ -147,7 +153,12 @@ ScrollPlaylist
         timerAdd.restart();
     }
 
-    onPlaylistChanged: if (playlist == null) pClearDrag()
+    onIsDroppableChanged:
+    {
+        if (isDroppable) return;
+
+        pClearDrag();
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions

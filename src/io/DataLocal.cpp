@@ -54,9 +54,6 @@ public:
     DataLocalWrite(DataLocal * data)
     {
         this->data = data;
-
-        name    = sk->name   ();
-        version = sk->version();
     }
 
 protected: // WAbstractThreadAction reimplementation
@@ -361,6 +358,9 @@ public: // Variables
     DataLocalWrite * action = new DataLocalWrite(this);
 
     action->path = path;
+
+    action->name    = sk->name   ();
+    action->version = sk->version();
 
     action->screen = _screen;
 

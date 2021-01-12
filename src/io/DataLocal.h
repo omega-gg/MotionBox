@@ -235,6 +235,12 @@ public: // Properties
     QString query() const;
     void    setQuery(const QString & query);
 
+    qreal speed() const;
+    void  setSpeed(qreal speed);
+
+    qreal volume() const;
+    void  setVolume(qreal volume);
+
     bool autoPlay() const;
     void setAutoPlay(bool autoPlay);
 
@@ -243,12 +249,6 @@ public: // Properties
 
     WDeclarativePlayer::Repeat repeat() const;
     void                       setRepeat(WDeclarativePlayer::Repeat repeat);
-
-    qreal speed() const;
-    void  setSpeed(qreal speed);
-
-    qreal volume() const;
-    void  setVolume(qreal volume);
 
     WAbstractBackend::Output output() const;
     void                     setOutput(WAbstractBackend::Output output);

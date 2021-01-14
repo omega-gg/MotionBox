@@ -356,9 +356,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Context
 
-    wControllerDeclarative->setContextProperty("sk",                sk);
-    wControllerDeclarative->setContextProperty("controllerFile",    wControllerFile);
-    wControllerDeclarative->setContextProperty("controllerNetwork", wControllerNetwork);
+    wControllerDeclarative->setContextProperty("sk", sk);
 
     wControllerDeclarative->setContextProperty("core",  this);
     wControllerDeclarative->setContextProperty("local", _local);
@@ -529,6 +527,8 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<DataOnline>("Sky", 1,0, "DataOnline");
 
+    wControllerDeclarative->setContextProperty("controllerFile",     wControllerFile);
+    wControllerDeclarative->setContextProperty("controllerNetwork",  wControllerNetwork);
     wControllerDeclarative->setContextProperty("controllerPlaylist", wControllerPlaylist);
 
     wControllerDeclarative->setContextProperty("online", _online);

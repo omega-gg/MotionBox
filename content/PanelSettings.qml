@@ -33,7 +33,7 @@ Panel
 
     /* read */ property bool isExposed: false
 
-    /* read */ property int indexCurrent: -1
+    /* read */ property int currentIndex: -1
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -175,15 +175,15 @@ Panel
 
         panelGet.collapse();
 
-        if (indexCurrent == -1)
+        if (currentIndex == -1)
         {
-            indexCurrent = 0;
+            currentIndex = 0;
 
             loader.load(Qt.resolvedUrl("PageSettingsVideo.qml"));
 
             //page.onShow();
         }
-        /*else if (indexCurrent == 0)
+        /*else if (currentIndex == 0)
         {
             page.onShow();
         }*/
@@ -219,7 +219,7 @@ Panel
 
     function pSelectTab(index)
     {
-        if (loader.isAnimated || indexCurrent == index) return;
+        if (loader.isAnimated || currentIndex == index) return;
 
         var source;
 
@@ -238,7 +238,7 @@ Panel
 
         pAnimate = true;
 
-        if (indexCurrent < index)
+        if (currentIndex < index)
         {
              loader.loadLeft(source);
         }
@@ -246,7 +246,8 @@ Panel
 
         pAnimate = false;
 
-        indexCurrent = index;
+        // NOTE: We apply the current index after the animation.
+        currentIndex = index;
 
         loader.item.forceActiveFocus();
     }
@@ -273,7 +274,7 @@ Panel
             width: Math.round(parent.width / 3)
 
             checkable: true
-            checked  : (indexCurrent == 0)
+            checked  : (currentIndex == 0)
 
             checkHover: false
 
@@ -297,7 +298,7 @@ Panel
             width: buttonVideo.width
 
             checkable: true
-            checked  : (indexCurrent == 1)
+            checked  : (currentIndex == 1)
 
             checkHover: false
 
@@ -340,7 +341,7 @@ Panel
             borderRight: 0
 
             checkable: true
-            checked  : (indexCurrent == 2)
+            checked  : (currentIndex == 2)
 
             checkHover: false
 

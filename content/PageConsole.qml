@@ -55,6 +55,6 @@ Item
 
         anchors.fill: parent
 
-        text: controllerFile.log
+        log: controllerFile.log
     }
 }

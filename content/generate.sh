@@ -178,6 +178,8 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyBase"/BasePanelContextual.qml \
 "$SkyBase"/BaseButton.qml \
 "$SkyBase"/BaseLineEdit.qml \
+"$SkyBase"/BaseTextEdit.qml \
+"$SkyBase"/BaseConsole.qml \
 "$SkyBase"/BaseSlider.qml \
 "$SkyBase"/BasePlayerBrowser.qml \
 "$SkyComponents"/StyleComponents.qml \
@@ -248,7 +250,6 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/LineEditValue.qml \
 "$SkyComponents"/LineEditBox.qml \
 "$SkyComponents"/LineEditBoxClear.qml \
-"$SkyComponents"/BaseTextEdit.qml \
 "$SkyComponents"/Console.qml \
 "$SkyComponents"/BaseList.qml \
 "$SkyComponents"/List.qml \

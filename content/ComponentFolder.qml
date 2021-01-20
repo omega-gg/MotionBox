@@ -31,9 +31,9 @@ ComponentLibraryItem
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    property bool isActive: (isCurrent && (pActiveType == LibraryItem.Playlist
-                                           ||
-                                           pActiveType == LibraryItem.PlaylistFeed))
+    /* read */ property bool isActive: (isCurrent && (pActiveType == LibraryItem.Playlist
+                                        ||
+                                        pActiveType == LibraryItem.PlaylistFeed))
 
     //---------------------------------------------------------------------------------------------
     // Settings

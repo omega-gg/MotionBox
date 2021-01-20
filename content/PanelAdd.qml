@@ -57,8 +57,9 @@ PanelContextual
     property string pName  : pGetName  ()
 
     //---------------------------------------------------------------------------------------------
-    // Aliases private
+    // Aliases
     //---------------------------------------------------------------------------------------------
+    // Private
 
     property alias pFolder: modelFolder.folder
 

@@ -58,7 +58,6 @@ MouseArea
     //---------------------------------------------------------------------------------------------
 
     property string pQuery
-    property string pText: local.query
 
     property bool pSearchHidden: (pFolderBrowse != null
                                   &&
@@ -995,7 +994,7 @@ MouseArea
     {
         pTextEvents = false;
 
-        query = pText;
+        query = scrollCompletion.query;
 
         pTextEvents = true;
     }
@@ -1093,7 +1092,7 @@ MouseArea
 
             enabled: (pSearchHidden == false)
 
-            text: pText
+            text: local.query
 
 //#QT_4
             textDefault: qsTr("What are you looking for ?")
@@ -1114,11 +1113,7 @@ MouseArea
             {
                 if (isFocused == false || pTextEvents == false) return;
 
-                scrollCompletion.currentIndex = -1;
-
-                scrollCompletion.query = text;
-
-                scrollCompletion.runQuery();
+                scrollCompletion.runCompletion(text);
 
                 if (scrollCompletion.query != "")
                 {
@@ -1127,8 +1122,6 @@ MouseArea
                     pShowCompletion();
                 }
                 else pHideCompletion();
-
-                pText = scrollCompletion.query;
             }
 
             onIsFocusedChanged:
@@ -1148,8 +1141,7 @@ MouseArea
 
             function onClear()
             {
-                text  = "";
-                pText = "";
+                text = "";
             }
 
             function onKeyPressed(event)

@@ -38,8 +38,6 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property string pText
-
     property int pIndexFocus: -1
 
     property bool pTextEvents: true
@@ -103,13 +101,7 @@ Panel
                 selectBackend(0);
             }
 
-            scrollCompletion.currentIndex = -1;
-
-            scrollCompletion.query = text;
-
-            scrollCompletion.runQuery();
-
-            pText = scrollCompletion.query;
+            scrollCompletion.runCompletion(text);
 
             if (lineEditSearch.isFocused)
             {
@@ -278,7 +270,7 @@ Panel
     {
         pTextEvents = false;
 
-        lineEditSearch.text = pText;
+        lineEditSearch.text = scrollCompletion.query;
 
         pTextEvents = true;
     }

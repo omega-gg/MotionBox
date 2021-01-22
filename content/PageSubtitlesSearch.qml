@@ -42,7 +42,7 @@ Item
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    height: pHeight
+    anchors.fill: parent
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -107,11 +107,7 @@ Item
 
     function applyText(text)
     {
-        scrollCompletion.currentIndex = -1;
-
-        scrollCompletion.query = text;
-
-        scrollCompletion.runQuery();
+        scrollCompletion.runCompletion(text);
 
         if (text)
         {
@@ -127,6 +123,11 @@ Item
         if (scrollCompletion.visible)
         {
             scrollCompletion.selectPrevious();
+
+            if (scrollCompletion.currentIndex == -1)
+            {
+                pSetText(scrollCompletion.query);
+            }
         }
         else scrollFolder.selectPrevious();
     }
@@ -136,16 +137,16 @@ Item
         if (scrollCompletion.visible)
         {
             scrollCompletion.selectNext();
+
+            if (scrollCompletion.currentIndex == -1)
+            {
+                pSetText(scrollCompletion.query);
+            }
         }
         else scrollFolder.selectNext();
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function showCompletion()
-    {
-        scrollCompletion.visible = true;
-    }
 
     function hideCompletion()
     {

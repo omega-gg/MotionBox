@@ -805,18 +805,6 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ WLibraryFolder * ControllerCore::createFolder(int type)
-{
-    return WLibraryFolder::create(static_cast<WLibraryItem::Type> (type));
-}
-
-/* Q_INVOKABLE static */ WPlaylist * ControllerCore::createPlaylist(int type)
-{
-    return WPlaylist::create(static_cast<WLibraryItem::Type> (type));
-}
-
-//-------------------------------------------------------------------------------------------------
-
 /* Q_INVOKABLE static */ void ControllerCore::addFolderSearch(WLibraryFolder * folder,
                                                               const QString  & title)
 {

@@ -73,7 +73,7 @@ Item
 
         if (pFolder == null)
         {
-            pFolder = core.createFolder();
+            pFolder = controllerPlaylist.createFolder();
         }
 
         scrollFolder.currentIndex = -1;
@@ -241,11 +241,11 @@ Item
 
             function onPress()
             {
-                if (currentIndex == index)
+                if (scrollFolder.currentIndex == index)
                 {
-                     currentIndex = -1;
+                     scrollFolder.currentIndex = -1;
                 }
-                else currentIndex = index;
+                else scrollFolder.currentIndex = index;
             }
         }
 

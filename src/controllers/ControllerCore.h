@@ -126,9 +126,6 @@ public: // Static functions
 
     Q_INVOKABLE static int getPlaylistType(WBackendNet * backend, const QString & url);
 
-    Q_INVOKABLE static WLibraryFolder * createFolder  (int type = WLibraryItem::Folder);
-    Q_INVOKABLE static WPlaylist      * createPlaylist(int type = WLibraryItem::Playlist);
-
     Q_INVOKABLE static void addFolderSearch(WLibraryFolder * folder, const QString & title);
 
     Q_INVOKABLE static int idFromTitle(WLibraryFolder * folder, const QString & title);

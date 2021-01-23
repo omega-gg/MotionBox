@@ -50,7 +50,7 @@ Item
     /* read */ property variant currentPlaylist: currentTab.playlist
 
     /* read */ property Playlist playlistTracks: null
-    /* read */ property Playlist playlistTemp  : core.createPlaylist()
+    /* read */ property Playlist playlistTemp  : controllerPlaylist.createPlaylist()
 
     //---------------------------------------------------------------------------------------------
     // Drag
@@ -1733,7 +1733,7 @@ Item
     {
         if (folder.isFull) return false;
 
-        var playlist = core.createPlaylist(type);
+        var playlist = controllerPlaylist.createPlaylist(type);
 
         var list = getListFolder(folder);
 
@@ -2810,7 +2810,7 @@ Item
 
     function pCreatePlaylistTracks()
     {
-        playlistTracks = core.createPlaylist(LibraryItem.PlaylistFeed);
+        playlistTracks = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
 
         playlistTracks.title = qsTr("Tracks");
         playlistTracks.label = "tracks";
@@ -2919,7 +2919,7 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            var playlist = core.createPlaylist(core.urlType(source));
+            var playlist = controllerPlaylist.createPlaylist(core.urlType(source));
 
             insertLibraryItem(1, playlist, listLibrary, feeds);
 

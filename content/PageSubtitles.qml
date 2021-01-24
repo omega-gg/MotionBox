@@ -146,7 +146,12 @@ Item
 
         pAnimate = true;
 
+//#QT_4
         pApplyUrl(title);
+//#ELSE
+        // FIXME: We have to call this later otherwise we get a 'nested sendEvent'.
+        Qt.callLater(pApplyUrl, title);
+//#END
     }
 
     //---------------------------------------------------------------------------------------------

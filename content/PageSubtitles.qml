@@ -54,17 +54,6 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onVisibleChanged:
-    {
-        if (visible) return;
-
-        pAnimate = false;
-
-        hideSearch();
-
-        pAnimate = true;
-    }
-
     onPEnableChanged: hideSearch()
 
     //---------------------------------------------------------------------------------------------
@@ -134,17 +123,32 @@ Item
 
     function onShow()
     {
-        if (gui.dragType == -2 || pSearch || playerTab.subtitle) return;
+        if (gui.dragType == -2) return;
+
+        if (playerTab.subtitle)
+        {
+            pHide();
+
+            return;
+        }
 
         var title = playerTab.title;
 
-        if (controllerPlaylist.urlIsVideo(title) == false) return;
+        if (controllerPlaylist.urlIsVideo(title) == false)
+        {
+            pHide();
 
-        pAnimate = false;
+            return;
+        }
 
-        pShowSearch();
+        if (pSearch == false)
+        {
+            pAnimate = false;
 
-        pAnimate = true;
+            pShowSearch();
+
+            pAnimate = true;
+        }
 
 //#QT_4
         pApplyUrl(title);
@@ -179,6 +183,19 @@ Item
 
             pQuery = query;
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pHide()
+    {
+        if (pSearch == false) return;
+
+        pAnimate = false;
+
+        pHideSearch();
+
+        pAnimate = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -238,6 +255,8 @@ Item
     function pApplyUrl(title)
     {
         title = controllerNetwork.removeFileExtension(title);
+
+        if (lineEdit.text == title) return;
 
         pSetText(title);
 

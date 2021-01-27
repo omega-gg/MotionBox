@@ -125,18 +125,18 @@ Item
     {
         if (gui.dragType == -2) return;
 
-        if (playerTab.subtitle)
-        {
-            pHide();
-
-            return;
-        }
-
         var title = playerTab.title;
 
         if (controllerPlaylist.urlIsVideo(title) == false)
         {
-            pHide();
+            if (pSearch)
+            {
+                pAnimate = false;
+
+                pHideSearch();
+
+                pAnimate = true;
+            }
 
             return;
         }
@@ -183,19 +183,6 @@ Item
 
             pQuery = query;
         }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pHide()
-    {
-        if (pSearch == false) return;
-
-        pAnimate = false;
-
-        pHideSearch();
-
-        pAnimate = true;
     }
 
     //---------------------------------------------------------------------------------------------

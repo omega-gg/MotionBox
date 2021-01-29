@@ -291,5 +291,7 @@ Item
             }
             else scrollTo(0);
         }
+
+        onItemClicked: pStartSearch(lineEdit.text)
     }
 }

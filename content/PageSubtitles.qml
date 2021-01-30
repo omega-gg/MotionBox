@@ -124,7 +124,7 @@ Item
 
     function onShow()
     {
-        if (gui.dragType == -2) return;
+        if (playerTab.subtitle || gui.dragType == -2) return;
 
         var title = playerTab.title;
 

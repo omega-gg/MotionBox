@@ -90,7 +90,8 @@ Item
                 }
                 else pSetText(subtitle);
             }
-            else if (pSearch)
+            // NOTE: We only want to search when the panel is visible.
+            else if (visible && pSearch)
             {
                 pApplyQuery();
             }

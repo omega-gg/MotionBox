@@ -92,7 +92,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-static const QString CORE_VERSION = "1.6.0-11";
+static const QString CORE_VERSION = "1.6.0-12";
 
 #ifndef SK_DEPLOY
 #ifdef Q_OS_MAC

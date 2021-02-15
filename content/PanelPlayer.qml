@@ -295,8 +295,9 @@ Item
             onSubtitleLoaded: if (ok == false) panelGet.clearSubtitle()
 
             //-------------------------------------------------------------------------------------
-            // Functions events
+            // Functions
             //-------------------------------------------------------------------------------------
+            // Events
 
             function onBeforeItemClose(index)
             {

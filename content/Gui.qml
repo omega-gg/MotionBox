@@ -2899,7 +2899,7 @@ Item
         {
             playlistTracks.moveTrack(index, 0);
 
-            // NOTE: We make sure we have the right souce with the right fragment.
+            // NOTE: We make sure we have the right source with the right fragment.
             playlistTracks.setTrackSource(0, source);
         }
 

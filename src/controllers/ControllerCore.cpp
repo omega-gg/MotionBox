@@ -366,6 +366,15 @@ ControllerCore::ControllerCore() : WController()
 // Interface
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
+{
+    if (argc < 2) return;
+
+    _argument = QString(argv[1]);
+}
+
+//-------------------------------------------------------------------------------------------------
+
 /* Q_INVOKABLE */ void ControllerCore::load()
 {
     if (_cache) return;
@@ -690,15 +699,6 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
-{
-    if (argc < 2) return;
-
-    _argument = QString(argv[1]);
-}
-
-//-------------------------------------------------------------------------------------------------
-
 /* Q_INVOKABLE */ void ControllerCore::clearCache()
 {
     _related->clearItems();
@@ -743,25 +743,6 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE static */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend)
 {
     return new WHookTorrent(backend);
-}
-
-//-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE static */ QString ControllerCore::extractArgument(const QString & message)
-{
-    int indexA = message.indexOf(' ');
-
-    if (indexA == -1) return QString();
-
-    indexA++;
-
-    int indexB = message.indexOf(' ', indexA);
-
-    if (indexB == -1)
-    {
-         return message.mid(indexA, indexB);
-    }
-    else return message.mid(indexA, indexB - indexA);
 }
 
 //-------------------------------------------------------------------------------------------------

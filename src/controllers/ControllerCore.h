@@ -81,6 +81,8 @@ private:
     ControllerCore();
 
 public: // Interface
+    Q_INVOKABLE void applyArguments(int & argc, char ** argv);
+
     Q_INVOKABLE void load();
 
     Q_INVOKABLE bool updateVersion();
@@ -97,8 +99,6 @@ public: // Interface
 
     Q_INVOKABLE void applyProxy(bool active);
 
-    Q_INVOKABLE void applyArguments(int & argc, char ** argv);
-
     Q_INVOKABLE void clearCache();
 
 public: // Static functions
@@ -106,10 +106,6 @@ public: // Static functions
                                                 int upload, int download, int cache);
 
     Q_INVOKABLE static WAbstractHook * createHook(WAbstractBackend * backend);
-
-    //---------------------------------------------------------------------------------------------
-
-    Q_INVOKABLE static QString extractArgument(const QString & message);
 
     //---------------------------------------------------------------------------------------------
 
@@ -196,10 +192,10 @@ public: // Properties
     QString pathSplash () const;
 
 private: // Variables
+    QString _argument;
+
     DataLocal  * _local;
     DataOnline * _online;
-
-    QString _argument;
 
     WCache * _cache;
 

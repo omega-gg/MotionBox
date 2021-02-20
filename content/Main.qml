@@ -68,9 +68,7 @@ Application
         {
             activate();
 
-            var argument = core.extractArgument(message);
-
-            gui.browse(argument);
+            gui.browse(sk.extractArgument(message));
         }
 
         onFadeIn:

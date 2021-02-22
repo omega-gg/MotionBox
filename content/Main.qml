@@ -68,7 +68,11 @@ Application
         {
             activate();
 
+//#DESKTOP
             gui.browse(sk.extractArgument(message));
+//#ELSE
+            gui.browse(message);
+//#END
         }
 
         onFadeIn:

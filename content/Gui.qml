@@ -112,11 +112,15 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
+    // NOTE: Are we ready to display the GUI ?
     property bool pReady: (isLoaded
                            &&
                            listLibrary.folder.isLoading == false && backends.isLoading == false
                            &&
                            related.isLoading == false)
+
+    // NOTE: Are ready to make a search request ?
+    property bool pReadyBrowse: (isLoaded && backends.isLoading == false && core.index.isLoaded)
 
     //---------------------------------------------------------------------------------------------
 
@@ -331,9 +335,20 @@ Item
 
         st.animate = true;
 
-        browse(core.argument);
-
         splash.hide();
+    }
+
+    onPReadyBrowseChanged:
+    {
+        if (pReadyBrowse == false) return;
+
+        pReadyBrowse = false;
+
+//#DESKTOP
+        browse(core.argument);
+//#ELSE
+        browse(sk.getMessage());
+//#END
     }
 
     //---------------------------------------------------------------------------------------------

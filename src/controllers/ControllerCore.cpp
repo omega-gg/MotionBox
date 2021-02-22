@@ -333,6 +333,9 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WTabsTrack>("Sky", 1,0, "BaseTabsTrack");
     qmlRegisterType<WTabTrack> ("Sky", 1,0, "TabTrack");
 
+    qmlRegisterUncreatableType<WBackendIndex>("Sky", 1,0, "BackendIndex",
+                                              "BackendIndex is not creatable");
+
     qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");
     qmlRegisterType<WBackendSubtitle>("Sky", 1,0, "BackendSubtitle");
 
@@ -366,12 +369,16 @@ ControllerCore::ControllerCore() : WController()
 // Interface
 //-------------------------------------------------------------------------------------------------
 
+#ifdef SK_DESKTOP
+
 /* Q_INVOKABLE */ void ControllerCore::applyArguments(int & argc, char ** argv)
 {
     if (argc < 2) return;
 
     _argument = QString(argv[1]);
 }
+
+#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -901,6 +908,8 @@ void ControllerCore::createIndex()
     _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend"));
 
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
+
+    emit indexChanged();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1021,10 +1030,14 @@ void ControllerCore::onBackendUpdated(const QString & id)
 // Properties
 //-------------------------------------------------------------------------------------------------
 
+#ifdef SK_DESKTOP
+
 QString ControllerCore::argument() const
 {
     return _argument;
 }
+
+#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -1072,6 +1085,13 @@ WLibraryFolder * ControllerCore::backends() const
 WLibraryFolderRelated * ControllerCore::related() const
 {
     return _related;
+}
+
+//-------------------------------------------------------------------------------------------------
+
+WBackendIndex * ControllerCore::index() const
+{
+    return _index;
 }
 
 //-------------------------------------------------------------------------------------------------

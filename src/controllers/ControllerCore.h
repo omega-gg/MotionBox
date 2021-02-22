@@ -56,7 +56,9 @@ class ControllerCore : public WController
 {
     Q_OBJECT
 
+#ifdef SK_DESKTOP
     Q_PROPERTY(QString argument READ argument CONSTANT)
+#endif
 
     Q_PROPERTY(bool cacheIsEmpty READ cacheIsEmpty NOTIFY cacheEmptyChanged)
 
@@ -70,6 +72,8 @@ class ControllerCore : public WController
     Q_PROPERTY(WLibraryFolder        * backends READ backends NOTIFY backendsChanged)
     Q_PROPERTY(WLibraryFolderRelated * related  READ related  NOTIFY relatedChanged)
 
+    Q_PROPERTY(WBackendIndex * index READ index NOTIFY indexChanged)
+
     Q_PROPERTY(QDateTime dateCover   READ dateCover   WRITE setDateCover NOTIFY dateCoverChanged)
     Q_PROPERTY(QDateTime datePreview READ datePreview WRITE setDatePreview
                NOTIFY datePreviewChanged)
@@ -81,7 +85,9 @@ private:
     ControllerCore();
 
 public: // Interface
+#ifdef SK_DESKTOP
     Q_INVOKABLE void applyArguments(int & argc, char ** argv);
+#endif
 
     Q_INVOKABLE void load();
 
@@ -164,11 +170,15 @@ signals:
     void backendsChanged();
     void relatedChanged ();
 
+    void indexChanged();
+
     void dateCoverChanged  ();
     void datePreviewChanged();
 
 public: // Properties
+#ifdef SK_DESKTOP
     QString argument() const;
+#endif
 
     bool cacheIsEmpty() const;
 
@@ -182,6 +192,8 @@ public: // Properties
     WLibraryFolder        * backends() const;
     WLibraryFolderRelated * related () const;
 
+    WBackendIndex * index() const;
+
     QDateTime dateCover() const;
     void      setDateCover(const QDateTime & date);
 
@@ -192,7 +204,9 @@ public: // Properties
     QString pathSplash () const;
 
 private: // Variables
+#ifdef SK_DESKTOP
     QString _argument;
+#endif
 
     DataLocal  * _local;
     DataOnline * _online;

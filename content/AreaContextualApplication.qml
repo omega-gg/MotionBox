@@ -845,7 +845,7 @@ AreaContextual
                 {
                      gui.browseFeed(pItem);
                 }
-                else gui.browseFeedTrack(pSource, pFeed);
+                else gui.browseFeedTrack(pFeed, pSource);
 
                 areaContextual.hidePanels();
             }

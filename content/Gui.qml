@@ -1304,21 +1304,21 @@ Item
     {
         if (tab == null) return;
 
-        browseFeedTrack(tab.source, tab.feed);
+        browseFeedTrack(tab.feed, tab.source);
     }
 
     function browseCurrentFeed()
     {
-        browseFeedTrack(currentTab.source, currentTab.feed);
+        browseFeedTrack(currentTab.feed, currentTab.source);
     }
 
     //---------------------------------------------------------------------------------------------
 
-    function browseFeedTrack(source, feed)
+    function browseFeedTrack(feed, source)
     {
         restore();
 
-        feed = getFeed(source, feed);
+        feed = controllerPlaylist.getFeed(feed, source);
 
         panelBrowse.browse(feed);
     }
@@ -1358,19 +1358,6 @@ Item
         {
             related.loadTabItems(tab);
         }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function getFeed(source, feed)
-    {
-        if (controllerNetwork.urlScheme(feed) == "")
-        {
-            var host = controllerNetwork.extractUrlHost(source);
-
-            return controllerNetwork.resolveUrl(feed, host);
-        }
-        else return feed;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2868,7 +2855,7 @@ Item
 
         if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return;
 
-        pAddHistoryFeed(getFeed(source, feed));
+        pAddHistoryFeed(controllerPlaylist.getFeed(feed, source));
     }
 
     //---------------------------------------------------------------------------------------------

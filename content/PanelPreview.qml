@@ -572,7 +572,7 @@ PanelImage
             {
                  gui.browseFeed(playerTab);
             }
-            else gui.browseFeedTrack(trackSource, feed);
+            else gui.browseFeedTrack(feed, trackSource);
 
             pClear();
         }

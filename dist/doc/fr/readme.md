@@ -47,7 +47,7 @@ Raccourcis: [documents/fr/shortcuts.html](shortcuts.html)
 
 # Technologie
 
-MotionMonkey est développé en [C++] avec [Sky kit] et le [framework Qt].
+MotionMonkey est développé en C++ avec [Sky kit] et le [framework Qt].
 
 L'interface est écrite [QML] et rendue avec OpenGL.
 
@@ -108,8 +108,6 @@ bunjee: [http://bunjee.me/fr][bunjee]
 
 ---
 
-C++: [http://fr.wikipedia.org/wiki/C%2B%2B][C++]
-
 Sky kit: [http://omega.gg/Sky/fr][Sky kit]
 
 Framework Qt: [http://fr.wikipedia.org/wiki/Qt][Framework Qt]
@@ -119,8 +117,6 @@ QML: [http://en.wikipedia.org/wiki/QML][QML]
 VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
 libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
-
-[C++]: http://fr.wikipedia.org/wiki/C%2B%2B
 
 [Sky kit]: http://omega.gg/Sky/fr
 

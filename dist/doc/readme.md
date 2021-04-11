@@ -47,7 +47,7 @@ Shortcuts: [documents/shortcuts.html](documents/shortcuts.html)
 
 # Technology
 
-MotionBox is built in [C++] with [Sky kit] on the [Qt framework].
+MotionBox is built in C++ with [Sky kit] on the [Qt framework].
 
 The GUI is powered by [QML] and rendered with OpenGL.
 
@@ -108,8 +108,6 @@ bunjee: [http://bunjee.me][bunjee]
 
 ---
 
-C++: [http://en.wikipedia.org/wiki/C%2B%2B][C++]
-
 Sky kit: [http://omega.gg/Sky][Sky kit]
 
 Qt framework: [http://en.wikipedia.org/wiki/Qt_%28software%29][Qt framework]
@@ -119,8 +117,6 @@ QML: [http://en.wikipedia.org/wiki/QML][QML]
 VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
 libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
-
-[C++]: http://en.wikipedia.org/wiki/C%2B%2B
 
 [Sky kit]: http://omega.gg/Sky
 

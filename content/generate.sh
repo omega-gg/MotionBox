@@ -226,6 +226,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 "$SkyComponents"/ButtonPiano.qml \
 "$SkyComponents"/ButtonPianoIcon.qml \
 "$SkyComponents"/ButtonPianoFull.qml \
+"$SkyComponents"/ButtonPianoWindow.qml \
 "$SkyComponents"/ButtonPianoReset.qml \
 "$SkyComponents"/ButtonRound.qml \
 "$SkyComponents"/ButtonCheck.qml \

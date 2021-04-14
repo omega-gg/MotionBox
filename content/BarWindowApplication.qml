@@ -757,7 +757,7 @@ Item
         }
     }
 
-    ButtonPianoIcon
+    ButtonPianoWindow
     {
         id: buttonIconify
 
@@ -776,7 +776,7 @@ Item
         onClicked: window.minimized = true
     }
 
-    ButtonPianoIcon
+    ButtonPianoWindow
     {
         id: buttonMaximize
 
@@ -796,17 +796,16 @@ Item
         onClicked: pRestoreMaximize()
     }
 
-    ButtonPianoIcon
+    ButtonPianoWindow
     {
         id: buttonClose
 
         anchors.right: parent.right
         anchors.top  : parent.top
 
-        anchors.rightMargin: st.dp16
-
         height: st.barWindow_height + borderSizeHeight
 
+        borderRight : 0
         borderBottom: borderSize
 
         icon          : st.icon16x16_close

@@ -472,8 +472,8 @@ Item
                 checkable: true
                 checked  : isExpanded
 
-                icon          : st.icon24x24_slideUp
-                iconSourceSize: st.size24x24
+                icon          : st.icon16x16_slideUp
+                iconSourceSize: st.size16x16
 
                 onClicked: toggleExpand()
             }

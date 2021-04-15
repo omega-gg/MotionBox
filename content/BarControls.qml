@@ -163,10 +163,10 @@ MouseArea
 
             highlighted: (enabled && player.isPlaying)
 
-            icon: (player.isPlaying) ? st.icon24x24_pause
-                                     : st.icon24x24_play
+            icon: (player.isPlaying) ? st.icon16x16_pause
+                                     : st.icon16x16_play
 
-            iconSourceSize: st.size24x24
+            iconSourceSize: st.size16x16
 
             hoverRetain: true
 
@@ -198,8 +198,8 @@ MouseArea
 
             highlighted: (enabled && player.isPlaying)
 
-            icon          : st.icon24x24_backward
-            iconSourceSize: st.size24x24
+            icon          : st.icon16x16_backward
+            iconSourceSize: st.size16x16
 
             hoverRetain: true
 
@@ -223,9 +223,9 @@ MouseArea
             highlighted: (enabled && player.isPlaying)
 
             icon: (player.shuffle) ? st.icon24x24_shuffle
-                                   : st.icon24x24_forward
+                                   : st.icon16x16_forward
 
-            iconSourceSize: st.size24x24
+            iconSourceSize: st.size16x16
 
             acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
                                                 : Qt.LeftButton
@@ -252,10 +252,10 @@ MouseArea
             anchors.left: buttonNext.right
             anchors.top : parent.top
 
-            anchors.leftMargin: st.dp6
+            anchors.leftMargin: st.dp4
             anchors.topMargin : st.dp8
 
-            width: st.sliderVolume_width
+            width: st.dp150
 
             value: local.volume
 
@@ -402,10 +402,10 @@ MouseArea
 
             highlighted: window.fullScreen
 
-            icon: (window.fullScreen) ? st.icon24x24_shrink
-                                      : st.icon24x24_extend
+            icon: (window.fullScreen) ? st.icon20x20_shrink
+                                      : st.icon20x20_extend
 
-            iconSourceSize: st.size24x24
+            iconSourceSize: st.size20x20
 
             onClicked: gui.toggleFullScreen()
         }

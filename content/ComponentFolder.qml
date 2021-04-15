@@ -41,7 +41,7 @@ ComponentLibraryItem
 
     height: itemSize
 
-    iconHeight: (isActive) ? st.dp24 : st.dp32
+    iconHeight: (isActive) ? st.dp16 : st.dp32
 
     iconSourceSize: (isActive) ? st.size24x24 : st.size32x32
 
@@ -69,9 +69,9 @@ ComponentLibraryItem
         {
             if (player.isPaused)
             {
-                 return st.icon24x24_pause;
+                 return st.icon16x16_pause;
             }
-            else return st.icon24x24_play;
+            else return st.icon16x16_play;
         }
         else if (type == LibraryItem.Playlist)
         {

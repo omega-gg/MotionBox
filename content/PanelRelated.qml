@@ -419,8 +419,8 @@ Panel
             checkable: true
             checked  : isExpanded
 
-            icon          : st.icon24x24_slideLeft
-            iconSourceSize: st.size24x24
+            icon          : st.icon12x12_slideLeft
+            iconSourceSize: st.size12x12
 
             onClicked: toggleExpand()
         }
@@ -439,8 +439,8 @@ Panel
                       &&
                       related.hasPreviousPlaylist)
 
-            icon          : st.icon16x16_previous
-            iconSourceSize: st.size16x16
+            icon          : st.icon8x8_previous
+            iconSourceSize: st.size8x8
 
             onClicked: setPreviousPlaylist()
         }
@@ -459,8 +459,8 @@ Panel
                       &&
                       related.hasNextPlaylist)
 
-            icon          : st.icon16x16_next
-            iconSourceSize: st.size16x16
+            icon          : st.icon8x8_next
+            iconSourceSize: st.size8x8
 
             onClicked: setNextPlaylist()
         }

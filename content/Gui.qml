@@ -2004,7 +2004,7 @@ Item
         {
             if (player.isPlaying && highlightedTab == null)
             {
-                toolTip.show(qsTr("Play Track"), st.icon24x24_play, st.dp24, st.dp24);
+                toolTip.show(qsTr("Play Track"), st.icon16x16_play, st.dp16, st.dp12);
 
                 dragType = 1;
             }

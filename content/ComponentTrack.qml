@@ -35,7 +35,7 @@ ComponentLibraryItem
 
     iconWidth: st.dp56
 
-    iconHeight: (isCurrent) ? st.dp24 : st.dp32
+    iconHeight: (isCurrent) ? st.dp16 : st.dp32
 
     iconSourceSize: (isCurrent) ? st.size24x24 : st.size56x32
 
@@ -65,9 +65,9 @@ ComponentLibraryItem
         {
             if (player.isPaused)
             {
-                 return st.icon24x24_pause;
+                 return st.icon16x16_pause;
             }
-            else return st.icon24x24_play;
+            else return st.icon16x16_play;
         }
         else return st.icon56x32_track;
     }

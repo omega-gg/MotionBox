@@ -770,8 +770,8 @@ Item
         borderLeft  : borderSize
         borderBottom: borderSize
 
-        icon          : st.icon16x16_iconify
-        iconSourceSize: st.size16x16
+        icon          : st.icon12x12_iconify
+        iconSourceSize: st.size12x12
 
         onClicked: window.minimized = true
     }
@@ -788,10 +788,10 @@ Item
 
         highlighted: (window.maximized || window.fullScreen)
 
-        icon: (highlighted) ? st.icon16x16_minimize
-                            : st.icon16x16_maximize
+        icon: (highlighted) ? st.icon12x12_minimize
+                            : st.icon12x12_maximize
 
-        iconSourceSize: st.size16x16
+        iconSourceSize: st.size12x12
 
         onClicked: pRestoreMaximize()
     }
@@ -808,8 +808,8 @@ Item
         borderRight : 0
         borderBottom: borderSize
 
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
 
         colorHoverA: st.button_colorConfirmHoverA
         colorHoverB: st.button_colorConfirmHoverB

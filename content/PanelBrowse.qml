@@ -1319,8 +1319,8 @@ MouseArea
 
         enabled: (buttonsBrowse.count || query != "")
 
-        icon          : st.icon16x16_close
-        iconSourceSize: st.size16x16
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
 
         onClicked: pClearSearch()
     }
@@ -1401,8 +1401,8 @@ MouseArea
         checkable: true
         checked  : panelTracks.isExpanded
 
-        icon          : st.icon24x24_slideUp
-        iconSourceSize: st.size24x24
+        icon          : st.icon16x16_slideUp
+        iconSourceSize: st.size16x16
 
         onClicked: panelTracks.toggleExpand()
     }

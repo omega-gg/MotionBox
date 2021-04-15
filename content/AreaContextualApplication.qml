@@ -697,8 +697,8 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category },
 
-                    { "id": 0, "icon"    : st.icon24x24_play,
-                               "iconSize": st.size24x24, "title": qsTr("Play") },
+                    { "id": 0, "icon"    : st.icon16x16_play,
+                               "iconSize": st.size16x16, "title": qsTr("Play") },
 
                     { "id": 1, "icon"    : st.icon24x24_addIn,
                                "iconSize": st.size24x24, "title": qsTr("Add to ...") },
@@ -815,8 +815,8 @@ AreaContextual
 
             enabled: (areaContextual.currentPanel != null)
 
-            icon          : st.icon16x16_close
-            iconSourceSize: st.size16x16
+            icon          : st.icon12x12_close
+            iconSourceSize: st.size12x12
 
             onClicked: areaContextual.hidePanels()
         }

@@ -877,8 +877,8 @@ PanelContextual
 
             enabled: (areaContextual.currentPanel != null)
 
-            icon          : st.icon16x16_close
-            iconSourceSize: st.size16x16
+            icon          : st.icon12x12_close
+            iconSourceSize: st.size12x12
 
             onClicked: areaContextual.hidePanels()
         }

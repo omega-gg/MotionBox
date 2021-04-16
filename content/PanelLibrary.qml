@@ -277,8 +277,8 @@ Panel
             // NOTE: We want to keep the 'add' button selected during the 'clear' animation.
             checked: (scrollLibrary.isCreating || pIndex > -1)
 
-            icon          : st.icon24x24_addBold
-            iconSourceSize: st.size24x24
+            icon          : st.icon16x16_addBold
+            iconSourceSize: st.size16x16
 
 //#QT_4
             onPressed: pCreate()
@@ -306,7 +306,9 @@ Panel
 
             checkHover: false
 
-            icon: st.icon28x28_playlist
+            icon          : st.icon16x16_playlist
+            iconSourceSize: st.size16x16
+
             text: qsTr("Playlist")
 
             onPressed: scrollLibrary.createItem(0)
@@ -331,7 +333,9 @@ Panel
 
             checkHover: false
 
-            icon: st.icon28x28_feed
+            icon          : st.icon16x16_feed
+            iconSourceSize: st.size16x16
+
             text: qsTr("Feed")
 
             onPressed: scrollLibrary.createItem(1)
@@ -353,7 +357,9 @@ Panel
 
             checkHover: false
 
-            icon: st.icon28x28_folder
+            icon          : st.icon16x16_folder
+            iconSourceSize: st.size16x16
+
             text: qsTr("Folder")
 
             onPressed: scrollLibrary.createItem(2)

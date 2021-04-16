@@ -93,8 +93,8 @@ Item
 
         icon: online.messageIcon
 
-        iconDefault   : st.icon24x24_love
-        iconSourceSize: st.size24x24
+        iconDefault   : st.icon20x20_love
+        iconSourceSize: st.size20x20
 
         enableFilter: isIconDefault
 

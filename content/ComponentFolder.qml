@@ -41,9 +41,7 @@ ComponentLibraryItem
 
     height: itemSize
 
-    iconHeight: (isActive) ? st.dp16 : st.dp32
-
-    iconSourceSize: (isActive) ? st.size24x24 : st.size32x32
+    iconDefaultSize: st.size16x16
 
     //---------------------------------------------------------------------------------------------
 
@@ -75,17 +73,17 @@ ComponentLibraryItem
         }
         else if (type == LibraryItem.Playlist)
         {
-            return st.icon32x32_playlist;
+            return st.icon16x16_playlist;
         }
         else if (type == LibraryItem.PlaylistFeed || type == LibraryItem.FolderSearch)
         {
-            return st.icon32x32_feed;
+            return st.icon16x16_feed;
         }
         else if (type == LibraryItem.PlaylistSearch)
         {
-            return st.icon32x32_track;
+            return st.icon16x16_track;
         }
-        else return st.icon32x32_folder;
+        else return st.icon16x16_folder;
     }
 
     text:

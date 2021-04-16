@@ -1985,7 +1985,7 @@ Item
 
             bordersDrop.setItem(gui);
 
-            toolTip.show(qsTr("Open Subtitle"), st.icon32x32_track, st.dp32, st.dp32);
+            toolTip.show(qsTr("Open Subtitle"), st.icon16x16_track, st.dp16, st.dp16);
 
             dragType = -2;
 
@@ -2010,7 +2010,7 @@ Item
             }
             else
             {
-                toolTip.show(qsTr("Browse Track"), st.icon32x32_track, st.dp32, st.dp32);
+                toolTip.show(qsTr("Browse Track"), st.icon16x16_track, st.dp16, st.dp16);
 
                 dragType = 0;
             }
@@ -2021,13 +2021,13 @@ Item
 
             if (type == LibraryItem.Playlist)
             {
-                toolTip.show(qsTr("Browse Playlist"), st.icon32x32_playlist, st.dp32, st.dp32);
+                toolTip.show(qsTr("Browse Playlist"), st.icon16x16_playlist, st.dp16, st.dp16);
             }
             else if (type == LibraryItem.PlaylistFeed)
             {
-                toolTip.show(qsTr("Browse Feed"), st.icon32x32_feed, st.dp32, st.dp32);
+                toolTip.show(qsTr("Browse Feed"), st.icon16x16_feed, st.dp16, st.dp16);
             }
-            else toolTip.show(qsTr("Browse URL"), st.icon32x32_search, st.dp32, st.dp32);
+            else toolTip.show(qsTr("Browse URL"), st.icon20x20_search, st.dp20, st.dp20);
 
             dragType = 0;
         }

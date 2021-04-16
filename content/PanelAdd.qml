@@ -794,14 +794,16 @@ PanelContextual
             {
                 if (type == LibraryItem.Playlist)
                 {
-                     return st.icon32x32_playlist;
+                     return st.icon16x16_playlist;
                 }
                 else if (type == LibraryItem.Folder)
                 {
-                     return st.icon32x32_folder;
+                     return st.icon16x16_folder;
                 }
-                else return st.icon32x32_feed;
+                else return st.icon16x16_feed;
             }
+
+            iconDefaultSize: st.size16x16
 
             text:
             {
@@ -1085,7 +1087,8 @@ PanelContextual
 
             isFocused: true
 
-            iconDefault: st.icon32x32_addList
+            iconDefault    : st.icon20x20_addList
+            iconDefaultSize: st.size20x20
 
             text: (type == 0) ? qsTr("New Playlist")
                               : qsTr("New Folder")
@@ -1408,7 +1411,8 @@ PanelContextual
 
             isFocused: true
 
-            iconDefault: st.icon32x32_addList
+            iconDefault    : st.icon20x20_addList
+            iconDefaultSize: st.size20x20
 
             text: qsTr("New Playlist")
 
@@ -1620,8 +1624,8 @@ PanelContextual
                 else return false;
             }
 
-            icon          : st.icon24x24_addBold
-            iconSourceSize: st.size24x24
+            icon          : st.icon16x16_addBold
+            iconSourceSize: st.size16x16
 
             text: (source) ? pAction + " " + pName : ""
 

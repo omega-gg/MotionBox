@@ -127,13 +127,13 @@ Item
     {
         if (type == 1)
         {
-            return st.icon32x32_feed;
+            return st.icon16x16_feed;
         }
         else if (type == 2)
         {
-            return st.icon32x32_folder;
+            return st.icon16x16_folder;
         }
-        else return st.icon32x32_playlist;
+        else return st.icon16x16_playlist;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -169,6 +169,8 @@ Item
             acceptedButtons: Qt.LeftButton | Qt.RightButton
 
             icon: pGetIcon()
+
+            iconSourceSize: st.size16x16
 
             itemIcon.opacity: 1.0
 

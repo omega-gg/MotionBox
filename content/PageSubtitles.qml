@@ -394,8 +394,8 @@ Item
 
         enabled: pEnable
 
-        icon          : st.icon24x24_addIn
-        iconSourceSize: st.size24x24
+        icon          : st.icon18x18_addIn
+        iconSourceSize: st.size18x18
 
         onClicked:
         {
@@ -431,8 +431,8 @@ Item
         checkable: true
         checked  : pSearch
 
-        icon          : st.icon32x32_search
-        iconSourceSize: st.size32x32
+        icon          : st.icon20x20_search
+        iconSourceSize: st.size20x20
 
         onClicked: pToogleSearch()
     }

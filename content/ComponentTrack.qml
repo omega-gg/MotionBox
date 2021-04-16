@@ -35,9 +35,7 @@ ComponentLibraryItem
 
     iconWidth: st.dp56
 
-    iconHeight: (isCurrent) ? st.dp16 : st.dp32
-
-    iconSourceSize: (isCurrent) ? st.size24x24 : st.size56x32
+    iconDefaultSize: st.size16x16
 
     //---------------------------------------------------------------------------------------------
 
@@ -69,7 +67,7 @@ ComponentLibraryItem
             }
             else return st.icon16x16_play;
         }
-        else return st.icon56x32_track;
+        else return st.icon16x16_track;
     }
 
     text: gui.getTrackTitle(title, loadState, source)

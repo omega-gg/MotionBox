@@ -222,10 +222,11 @@ MouseArea
 
             highlighted: (enabled && player.isPlaying)
 
-            icon: (player.shuffle) ? st.icon24x24_shuffle
+            icon: (player.shuffle) ? st.icon20x20_shuffle
                                    : st.icon16x16_forward
 
-            iconSourceSize: st.size16x16
+            iconSourceSize: (player.shuffle) ? st.size20x20
+                                             : st.size16x16
 
             acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
                                                 : Qt.LeftButton
@@ -335,8 +336,8 @@ MouseArea
             checkable: true
             checked  : (panelAdd.item == barControls)
 
-            icon          : st.icon24x24_addIn
-            iconSourceSize: st.size24x24
+            icon          : st.icon18x18_addIn
+            iconSourceSize: st.size18x18
 
             onPressed: gui.panelAddShow()
         }
@@ -364,8 +365,8 @@ MouseArea
             checkable: true
             checked  : panelSettings.isExposed
 
-            icon          : st.icon24x24_tuning
-            iconSourceSize: st.size24x24
+            icon          : st.icon20x20_tuning
+            iconSourceSize: st.size20x20
 
             onPressed: panelSettings.toggleExpose()
         }
@@ -382,8 +383,8 @@ MouseArea
             checkable: true
             checked  : panelGet.isExposed
 
-            icon          : st.icon24x24_share
-            iconSourceSize: st.size24x24
+            icon          : st.icon20x20_share
+            iconSourceSize: st.size20x20
 
             onPressed: panelGet.toggleExpose()
         }

@@ -103,130 +103,88 @@ StyleComponents
 
     //---------------------------------------------------------------------------------------------
 
-    property url icon_point: "pictures/icons/scale/point.svg"
+    property url icon_goBackward: "pictures/icons/arrow-left.svg"
+    property url icon_goForward : "pictures/icons/arrow-right.svg"
 
-    property url icon_goBackward: "pictures/icons/scale/goBackward.svg"
-    property url icon_goForward : "pictures/icons/scale/goForward.svg"
+    property url icon_goRelated: "pictures/icons/arrow-right.svg"
 
-    property url icon_expand : "pictures/icons/scale/expand.svg"
-    property url icon_wall   : "pictures/icons/scale/wall.svg"
-    property url icon_related: "pictures/icons/scale/related.svg"
+    property url icon_expand : "pictures/icons/expand-alt.svg"
+    property url icon_wall   : "pictures/icons/expand.svg"
+    property url icon_related: "pictures/icons/bars.svg"
 
-    property url icon_goUp     : "pictures/icons/scale/goUp.svg"
-    property url icon_goRelated: "pictures/icons/scale/goRelated.svg"
+    property url icon_refresh: "pictures/icons/redo.svg"
 
-    property url icon_refresh: "pictures/icons/scale/refresh.svg"
-    property url icon_abort  : "pictures/icons/scale/abort.svg"
+    property url icon_addBold: "pictures/icons/plus.svg"
+    property url icon_addList: "pictures/icons/plus-circle.svg"
+    property url icon_addIn  : "pictures/icons/plus-circle.svg"
 
-    property url icon_addBold: "pictures/icons/scale/addBold.svg"
-    property url icon_addList: "pictures/icons/scale/addList.svg"
-    property url icon_addIn  : "pictures/icons/scale/addIn.svg"
+    property url icon_search: "pictures/icons/search.svg"
 
-    property url icon_search     : "pictures/icons/scale/search.svg"
-    property url icon_searchSmall: "pictures/icons/scale/searchSmall.svg"
+    property url icon_tuning: "pictures/icons/cog.svg"
+    property url icon_share : "pictures/icons/share.svg"
 
-    property url icon_paste: "pictures/icons/scale/paste.svg"
+    property url icon_shuffle: "pictures/icons/random.svg"
 
-    property url icon_tuning: "pictures/icons/scale/tuning.svg"
-    property url icon_share : "pictures/icons/scale/share.svg"
+    property url icon_repeat   : "pictures/icons/redo.svg"
+    property url icon_repeatOne: "pictures/icons/redo.svg"
 
-    property url icon_playSmall: "pictures/icons/scale/playSmall.svg"
+    property url icon_setting: "pictures/icons/cog.svg"
+    property url icon_about  : "pictures/icons/info-circle.svg"
 
-    property url icon_shuffle: "pictures/icons/scale/shuffle.svg"
+    property url icon_url: "pictures/icons/globe-americas.svg"
 
-    property url icon_repeat   : "pictures/icons/scale/repeat.svg"
-    property url icon_repeatOne: "pictures/icons/scale/repeatOne.svg"
+    property url icon_playlist: "pictures/icons/tv.svg"
+    property url icon_folder  : "pictures/icons/folder.svg"
+    property url icon_feed    : "pictures/icons/rss.svg"
 
-    property url icon_setting: "pictures/icons/scale/setting.svg"
-    property url icon_about  : "pictures/icons/scale/about.svg"
+    property url icon_track: "pictures/icons/video.svg"
 
-    property url icon_url: "pictures/icons/scale/url.svg"
-
-    property url icon_playlist: "pictures/icons/scale/playlist.svg"
-    property url icon_folder  : "pictures/icons/scale/folder.svg"
-    property url icon_feed    : "pictures/icons/scale/feed.svg"
-
-    property url icon_track    : "pictures/icons/scale/track.svg"
-    property url icon_trackWide: "pictures/icons/scale/trackWide.svg"
-
-    property url icon_love: "pictures/icons/scale/love.svg"
-
-    //---------------------------------------------------------------------------------------------
-    // 42x32 and 36x28
-
-    property url icon56x32_track: vector("pictures/icons/track.png",      icon_trackWide)
-    property url icon50x28_track: vector("pictures/icons/trackSmall.png", icon_trackWide)
+    property url icon_love: "pictures/icons/heart.svg"
 
     //---------------------------------------------------------------------------------------------
     // 16x16
 
-    property url icon16x16_point: vector("pictures/icons/16x16/point.png", icon_point)
+    property url icon16x16_goBackward: icon_goBackward
+    property url icon16x16_goForward : icon_goForward
 
-    property url icon16x16_searchSmall: vector("pictures/icons/16x16/searchSmall.png",
-                                               icon_searchSmall)
+    property url icon16x16_goRelated: icon_goRelated
 
-    property url icon16x16_playSmall: vector("pictures/icons/16x16/playSmall.png", icon_playSmall)
+    property url icon16x16_refresh: icon_refresh
 
-    //---------------------------------------------------------------------------------------------
-    // 24x24
+    property url icon16x16_addBold: icon_addBold
 
-    property url icon24x24_expand : vector("pictures/icons/24x24/expand.png",  icon_expand)
-    property url icon24x24_wall   : vector("pictures/icons/24x24/wall.png",    icon_wall)
-    property url icon24x24_related: vector("pictures/icons/24x24/related.png", icon_related)
+    property url icon16x16_playlist: icon_playlist
+    property url icon16x16_folder  : icon_folder
+    property url icon16x16_feed    : icon_feed
 
-    property url icon24x24_goUp     : vector("pictures/icons/24x24/goUp.png",      icon_goUp)
-    property url icon24x24_goRelated: vector("pictures/icons/24x24/goRelated.png", icon_goRelated)
-
-    property url icon24x24_refresh: vector("pictures/icons/24x24/refresh.png", icon_refresh)
-    property url icon24x24_abort  : vector("pictures/icons/24x24/abort.png",   icon_abort)
-
-    property url icon24x24_addBold: vector("pictures/icons/24x24/addBold.png", icon_addBold)
-    property url icon24x24_addIn  : vector("pictures/icons/24x24/addIn.png",   icon_addIn)
-
-    property url icon24x24_tuning: vector("pictures/icons/24x24/tuning.png", icon_tuning)
-    property url icon24x24_share : vector("pictures/icons/24x24/share.png",  icon_share)
-
-    property url icon24x24_shuffle: vector("pictures/icons/24x24/shuffle.png", icon_shuffle)
-
-    property url icon24x24_repeat   : vector("pictures/icons/24x24/repeat.png",    icon_repeat)
-    property url icon24x24_repeatOne: vector("pictures/icons/24x24/repeatOne.png", icon_repeatOne)
-
-    property url icon24x24_love: vector("pictures/icons/24x24/love.png", icon_love)
+    property url icon16x16_track: icon_track
 
     //---------------------------------------------------------------------------------------------
-    // 28x28
+    // 20x20
 
-    property url icon28x28_playlist: vector("pictures/icons/28x28/playlist.png", icon_playlist)
-    property url icon28x28_folder  : vector("pictures/icons/28x28/folder.png",   icon_folder)
-    property url icon28x28_feed    : vector("pictures/icons/28x28/feed.png",     icon_feed)
+    property url icon20x20_expand : icon_expand
+    property url icon20x20_wall   : icon_wall
+    property url icon20x20_related: icon_related
 
-    property url icon28x28_url: vector("pictures/icons/28x28/url.png", icon_url)
+    property url icon18x18_addIn  : icon_addIn
+    property url icon20x20_addList: icon_addList
 
-    //---------------------------------------------------------------------------------------------
-    // 32x32
+    property url icon20x20_search: icon_search
 
-    property url icon32x32_goBackward: vector("pictures/icons/32x32/goBackward.png",
-                                              icon_goBackward)
+    property url icon20x20_tuning: icon_tuning
+    property url icon20x20_share : icon_share
 
-    property url icon32x32_goForward: vector("pictures/icons/32x32/goForward.png",
-                                             icon_goForward)
+    property url icon20x20_shuffle: icon_shuffle
 
-    property url icon32x32_addList: vector("pictures/icons/32x32/addList.png", icon_addList)
+    property url icon20x20_repeat   : icon_repeat
+    property url icon20x20_repeatOne: icon_repeatOne
 
-    property url icon32x32_search: vector("pictures/icons/32x32/search.png", icon_search)
+    property url icon20x20_setting: icon_setting
+    property url icon20x20_about  : icon_about
 
-    property url icon32x32_paste: vector("pictures/icons/32x32/paste.png", icon_paste)
+    property url icon20x20_url: icon_url
 
-    property url icon32x32_setting: vector("pictures/icons/32x32/setting.png", icon_setting)
-    property url icon32x32_about  : vector("pictures/icons/32x32/about.png",   icon_about)
-
-    property url icon32x32_url: vector("pictures/icons/32x32/url.png", icon_url)
-
-    property url icon32x32_playlist: vector("pictures/icons/32x32/playlist.png", icon_playlist)
-    property url icon32x32_folder  : vector("pictures/icons/32x32/folder.png",   icon_folder)
-    property url icon32x32_feed    : vector("pictures/icons/32x32/feed.png",     icon_feed)
-
-    property url icon32x32_track: vector("pictures/icons/32x32/track.png", icon_track)
+    property url icon20x20_love: icon_love
 
     //---------------------------------------------------------------------------------------------
     // Settings

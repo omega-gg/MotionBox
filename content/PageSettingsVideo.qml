@@ -186,8 +186,8 @@ Item
 
         checked: local.shuffle
 
-        icon          : st.icon24x24_shuffle
-        iconSourceSize: st.size24x24
+        icon          : st.icon20x20_shuffle
+        iconSourceSize: st.size20x20
 
         onClicked: local.shuffle = !(checked)
     }
@@ -207,10 +207,10 @@ Item
 
         checked: (pRepeat > 0)
 
-        icon: (pRepeat == 2) ? st.icon24x24_repeatOne
-                             : st.icon24x24_repeat
+        icon: (pRepeat == 2) ? st.icon20x20_repeatOne
+                             : st.icon20x20_repeat
 
-        iconSourceSize: st.size24x24
+        iconSourceSize: st.size20x20
 
         onClicked:
         {

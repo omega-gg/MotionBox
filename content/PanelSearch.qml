@@ -358,8 +358,8 @@ Panel
 
             icon: cover
 
-            iconDefault: (id == 1) ? st.icon32x32_url
-                                   : st.icon32x32_feed
+            iconDefault: (id == 1) ? st.icon20x20_url
+                                   : st.icon16x16_feed
 
             text: title
 

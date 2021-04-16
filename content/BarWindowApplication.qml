@@ -547,8 +547,8 @@ Item
 
         icon: online.messageIcon
 
-        iconDefault   : st.icon24x24_love
-        iconSourceSize: st.size24x24
+        iconDefault   : st.icon20x20_love
+        iconSourceSize: st.size20x20
 
         enableFilter: isIconDefault
 
@@ -631,7 +631,7 @@ Item
 
         player: gui.player
 
-        iconDefault: st.icon56x32_track
+        iconDefault: st.icon16x16_track
 
         asynchronous: true
 
@@ -698,8 +698,8 @@ Item
 
         enabled: (tabs.isFull == false)
 
-        icon          : st.icon24x24_addBold
-        iconSourceSize: st.size24x24
+        icon          : st.icon16x16_addBold
+        iconSourceSize: st.size16x16
 
         Behavior on x
         {

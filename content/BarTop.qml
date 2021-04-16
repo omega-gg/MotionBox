@@ -183,8 +183,8 @@ Item
 
             highlighted: (enabled && player.isPlaying)
 
-            icon          : st.icon32x32_goBackward
-            iconSourceSize: st.size32x32
+            icon          : st.icon16x16_goBackward
+            iconSourceSize: st.size16x16
 
             onClicked:
             {
@@ -204,8 +204,8 @@ Item
 
             highlighted: (enabled && player.isPlaying)
 
-            icon          : st.icon32x32_goForward
-            iconSourceSize: st.size32x32
+            icon          : st.icon16x16_goForward
+            iconSourceSize: st.size16x16
 
             onClicked:
             {
@@ -270,8 +270,8 @@ Item
 
                 checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
 
-                icon          : st.icon32x32_search
-                iconSourceSize: st.size32x32
+                icon          : st.icon20x20_search
+                iconSourceSize: st.size20x20
 
                 onPressed:
                 {
@@ -297,9 +297,8 @@ Item
 
                 checked: gui.isExpanded
 
-                icon: st.icon24x24_expand
-
-                iconSourceSize: st.size24x24
+                icon          : st.icon20x20_expand
+                iconSourceSize: st.size20x20
 
                 onPressed: gui.toggleExpand()
             }
@@ -313,8 +312,8 @@ Item
                 checkable: true
                 checked  : wall.isExposed
 
-                icon          : st.icon24x24_wall
-                iconSourceSize: st.size24x24
+                icon          : st.icon20x20_wall
+                iconSourceSize: st.size20x20
 
                 onPressed: gui.toggleWall()
             }
@@ -328,8 +327,8 @@ Item
                 checkable: true
                 checked  : panelRelated.isExposed
 
-                icon          : st.icon24x24_related
-                iconSourceSize: st.size24x24
+                icon          : st.icon20x20_related
+                iconSourceSize: st.size20x20
 
                 onPressed: panelRelated.toggleExpose()
             }

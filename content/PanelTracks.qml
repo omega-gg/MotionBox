@@ -158,8 +158,8 @@ Item
 
                 dropEnabled: true
 
-                icon          : st.icon24x24_addBold
-                iconSourceSize: st.size24x24
+                icon          : st.icon16x16_addBold
+                iconSourceSize: st.size16x16
 
                 onPressed:
                 {
@@ -192,7 +192,7 @@ Item
 
                         bordersDrop.setItem(buttonAdd);
 
-                        toolTip.show(qsTr("Add Track"), st.icon32x32_addList, st.dp32, st.dp32);
+                        toolTip.show(qsTr("Add Track"), st.icon20x20_addList, st.dp20, st.dp20);
                     }
                 }
 
@@ -225,8 +225,8 @@ Item
                 checkable: true
                 checked  : (panelContextual.item == buttonAdd)
 
-                icon          : st.icon28x28_folder
-                iconSourceSize: st.size28x28
+                icon          : st.icon16x16_folder
+                iconSourceSize: st.size16x16
 
                 onPressed:
                 {
@@ -270,7 +270,9 @@ Item
 
                 checkHover: false
 
-                icon: st.icon28x28_playlist
+                icon          : st.icon16x16_playlist
+                iconSourceSize: st.size16x16
+
                 text: qsTr("Playlist")
 
                 onPressed: scrollFolder.createItem(0)
@@ -294,7 +296,9 @@ Item
 
                 checkHover: false
 
-                icon: st.icon28x28_feed
+                icon          : st.icon16x16_feed
+                iconSourceSize: st.size16x16
+
                 text: qsTr("Feed")
 
                 onPressed: scrollFolder.createItem(1)
@@ -367,10 +371,10 @@ Item
                           ||
                           panelAdd.item == buttonPlaylist)
 
-                icon: (playlist != null && playlist.isFeed) ? st.icon28x28_feed
-                                                            : st.icon28x28_playlist
+                icon: (playlist != null && playlist.isFeed) ? st.icon16x16_feed
+                                                            : st.icon16x16_playlist
 
-                iconSourceSize: st.size28x28
+                iconSourceSize: st.size16x16
 
                 onPressed:
                 {
@@ -407,8 +411,8 @@ Item
 
                 visible: (playlist != null && playlist.isOnline)
 
-                icon          : st.icon24x24_refresh
-                iconSourceSize: st.size24x24
+                icon          : st.icon16x16_refresh
+                iconSourceSize: st.size16x16
 
                 onClicked: playlist.reloadQuery()
             }

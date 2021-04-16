@@ -283,8 +283,8 @@ Panel
 
             checkHover: false
 
-            icon          : st.icon32x32_setting
-            iconSourceSize: st.size32x32
+            icon          : st.icon20x20_setting
+            iconSourceSize: st.size20x20
 
             text: qsTr("Settings")
 
@@ -309,8 +309,8 @@ Panel
 
             checkHover: false
 
-            icon          : st.icon32x32_about
-            iconSourceSize: st.size32x32
+            icon          : st.icon20x20_about
+            iconSourceSize: st.size20x20
 
             text: qsTr("About")
 

@@ -683,7 +683,7 @@ BaseList
             }
             else title = qsTr("Loading Feed...");
 
-            cover = st.icon32x32_feed;
+            cover = st.icon16x16_feed;
         }
         else if (pDragType == LibraryItem.Playlist)
         {
@@ -700,7 +700,7 @@ BaseList
             }
             else title = qsTr("Loading Playlist...");
 
-            cover = st.icon32x32_playlist;
+            cover = st.icon16x16_playlist;
         }
         else
         {
@@ -715,10 +715,11 @@ BaseList
             }
             else title = qsTr("Loading Folder...");
 
-            cover = st.icon32x32_folder;
+            cover = st.icon16x16_folder;
         }
 
-        toolTip.showIcon(title, cover, folder.itemCover(index), st.dp32, st.dp32);
+        toolTip.showIcon(title, cover, st.dp16, st.dp16,
+                         folder.itemCover(index), st.dp32, st.dp32);
 
         if (enableDragMove)
         {
@@ -908,8 +909,6 @@ BaseList
         background.visible: containsMouse
         borders   .visible: background.visible
 
-        background.opacity: 0.8
-
         onEntered: pUpdatePreview()
 
         onExited: panelPreview.clearNow()
@@ -925,20 +924,18 @@ BaseList
                 easing.type: st.easing
             }
         }
-    }
 
-    Icon
-    {
-        anchors.top: overlay.top
+        Icon
+        {
+            anchors.centerIn: parent
 
-        visible: overlay.background.visible
+            source    : st.icon20x20_search
+            sourceSize: st.size20x20
 
-        source    : st.icon32x32_search
-        sourceSize: st.size32x32
+            style: st.icon_raised
 
-        style: st.icon_raised
-
-        filter: st.icon2_filter
+            filter: st.icon2_filter
+        }
     }
 
     ButtonPushIcon

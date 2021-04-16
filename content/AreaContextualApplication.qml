@@ -700,8 +700,8 @@ AreaContextual
                     { "id": 0, "icon"    : st.icon16x16_play,
                                "iconSize": st.size16x16, "title": qsTr("Play") },
 
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+                    { "id": 1, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Copy link") },
@@ -726,11 +726,11 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Track") },
 
-                    { "id": 0, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+                    { "id": 0, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
 
-                    { "id": 1, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("More like this") },
+                    { "id": 1, "icon"    : st.icon16x16_addBold,
+                               "iconSize": st.size16x16, "title": qsTr("More like this") },
 
                     { "id": 2, "icon"    : st.icon16x16_external,
                                "iconSize": st.size16x16, "title": qsTr("Copy link") },
@@ -748,8 +748,8 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category },
 
-                    { "id": 0, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+                    { "id": 0, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
 
                     { "id": 1, "type" : ContextualPage.ItemConfirm }
                 ]
@@ -765,8 +765,8 @@ AreaContextual
                 [
                     { "type": ContextualPage.Category, "title": qsTr("Tab") },
 
-                    { "id": 0, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Add to ...") },
+                    { "id": 0, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
 
                     { "id": 1, "icon"    : st.icon24x24_addBold,
                                "iconSize": st.size24x24, "title": qsTr("More like this") },
@@ -787,14 +787,14 @@ AreaContextual
 
                 values:
                 [
-                    { "id": 0, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Open File") },
+                    { "id": 0, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Open File") },
 
-                    { "id": 1, "icon"    : st.icon24x24_addIn,
-                               "iconSize": st.size24x24, "title": qsTr("Open Folder") },
+                    { "id": 1, "icon"    : st.icon18x18_addIn,
+                               "iconSize": st.size18x18, "title": qsTr("Open Folder") },
 
-                    { "id": 2, "icon"    : st.icon24x24_refresh,
-                               "iconSize": st.size24x24, "title": qsTr("Update Backends") },
+                    { "id": 2, "icon"    : st.icon16x16_refresh,
+                               "iconSize": st.size16x16, "title": qsTr("Update Backends") },
 
                     { "id": 3, "title": qsTr("Reset Backends") }
                 ]

@@ -1075,13 +1075,14 @@ BaseList
 
             source = data.source;
 
-            toolTip.showIcon(data.title, st.icon56x32_track, data.cover, st.dp56, st.dp32);
+            toolTip.showIcon(data.title, st.icon16x16_track, st.dp16, st.dp16,
+                             data.cover, st.dp56, st.dp32);
         }
         else
         {
             source = playlist.selectedSources;
 
-            toolTip.show(count + " " + qsTr("Tracks"), st.icon32x32_track, st.dp32, st.dp32);
+            toolTip.show(count + " " + qsTr("Tracks"), st.icon16x16_track, st.dp16, st.dp16);
         }
 
         if (enableDragMove)
@@ -1285,8 +1286,6 @@ BaseList
         background.visible: containsMouse
         borders   .visible: background.visible
 
-        background.opacity: 0.8
-
         onEntered: pUpdatePreview()
 
         onExited: panelPreview.clear()
@@ -1316,23 +1315,18 @@ BaseList
                 easing.type: st.easing
             }
         }
-    }
 
-    Icon
-    {
-        anchors.left: overlay.left
-        anchors.top : overlay.top
+        Icon
+        {
+            anchors.centerIn: parent
 
-        anchors.leftMargin: st.dp12
+            source    : st.icon20x20_search
+            sourceSize: st.size20x20
 
-        visible: overlay.background.visible
+            style: st.icon_raised
 
-        source    : st.icon32x32_search
-        sourceSize: st.size32x32
-
-        style: st.icon_raised
-
-        filter: st.icon2_filter
+            filter: st.icon2_filter
+        }
     }
 
     CheckBox
@@ -1427,8 +1421,8 @@ BaseList
 
         visible: (enableLink && checkBox.visible)
 
-        icon          : st.icon24x24_goRelated
-        iconSourceSize: st.size24x24
+        icon          : st.icon16x16_goRelated
+        iconSourceSize: st.size16x16
 
         borderColor: overlay.borderColor
 

@@ -1240,8 +1240,8 @@ MouseArea
         checkable: true
         checked  : (panelContextual.item == buttonHome)
 
-        icon          : st.icon28x28_url
-        iconSourceSize: st.size28x28
+        icon          : st.icon20x20_url
+        iconSourceSize: st.size20x20
 
         onPressed:
         {
@@ -1343,8 +1343,8 @@ MouseArea
         checkable: true
         checked  : (panelAdd.item == buttonAddItem)
 
-        icon          : st.icon24x24_addIn
-        iconSourceSize: st.size24x24
+        icon          : st.icon18x18_addIn
+        iconSourceSize: st.size18x18
 
         onPressed:
         {
@@ -1371,8 +1371,8 @@ MouseArea
         checkable: true
         checked  : (panelAdd.item == buttonAddTrack)
 
-        icon          : st.icon24x24_addIn
-        iconSourceSize: st.size24x24
+        icon          : st.icon18x18_addIn
+        iconSourceSize: st.size18x18
 
         onPressed:
         {
@@ -1424,10 +1424,10 @@ MouseArea
         checkable: true
         checked  : (panelContextual.item == buttonPlaylist || panelAdd.item == buttonPlaylist)
 
-        icon: (playlist != null && playlist.isFeed) ? st.icon28x28_feed
-                                                    : st.icon28x28_playlist
+        icon: (playlist != null && playlist.isFeed) ? st.icon16x16_feed
+                                                    : st.icon16x16_playlist
 
-        iconSourceSize: st.size28x28
+        iconSourceSize: st.size16x16
 
         onPressed:
         {
@@ -1464,8 +1464,8 @@ MouseArea
 
         visible: (playlist != null && playlist.isPlaylistSearch == false && playlist.isOnline)
 
-        icon          : st.icon24x24_refresh
-        iconSourceSize: st.size24x24
+        icon          : st.icon16x16_refresh
+        iconSourceSize: st.size16x16
 
         onClicked: playlist.reloadQuery()
     }
@@ -1538,8 +1538,11 @@ MouseArea
 
         delegate: ComponentFolder
         {
-            iconDefault: (index == 0) ? st.icon32x32_url
-                                      : st.icon32x32_feed
+            iconDefault: (index == 0) ? st.icon20x20_url
+                                      : st.icon16x16_feed
+
+            iconDefaultSize: (index == 0) ? st.size20x20
+                                          : st.size16x16
 
             function pPressed(mouse)
             {

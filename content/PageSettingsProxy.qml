@@ -40,8 +40,6 @@ BasePageSettings
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    dropEnabled: true
-
     itemBefore: editPassword
     itemAfter : editHost
 
@@ -54,39 +52,6 @@ BasePageSettings
     onCancel: pageSettings.loadMain()
 
     onOk: pApply()
-
-    //---------------------------------------------------------------------------------------------
-
-    onDragEntered:
-    {
-        pClipboard = sk.trim(event.text);
-
-        if (controllerNetwork.textIsIp(pClipboard) == false) return;
-
-        event.accepted = true;
-
-        bordersDrop.setItem(pageSettingsProxy);
-
-        toolTip.show(qsTr("Paste proxy"), st.icon32x32_paste, st.dp32, st.dp32);
-    }
-
-    onDragExited:
-    {
-        bordersDrop.clearItem(pageSettingsProxy);
-
-        pClearDrop();
-    }
-
-    onDrop:
-    {
-        editHost.editText = controllerNetwork.extractIpBase(pClipboard);
-
-        var port = controllerNetwork.extractIpPort(pClipboard);
-
-        if (port) editPort.editText = port;
-
-        pClearDrop();
-    }
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -151,13 +116,6 @@ BasePageSettings
         pStream = false;
 
         buttonActive.checked = false;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pClearDrop()
-    {
-        toolTip.hide();
     }
 
     //---------------------------------------------------------------------------------------------

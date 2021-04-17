@@ -361,6 +361,9 @@ Panel
             iconDefault: (id == 1) ? st.icon20x20_url
                                    : st.icon16x16_feed
 
+            iconDefaultSize: (id == 1) ? st.size20x20
+                                       : st.size16x16
+
             text: title
 
             onPressed: backend = id

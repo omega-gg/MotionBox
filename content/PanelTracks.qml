@@ -144,12 +144,44 @@ Item
 
             ButtonPianoIcon
             {
-                id: buttonAdd
+                id: buttonFolder
 
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
+                width: height + borderSizeWidth
+
+                visible: buttonAdd.visible
+
+                checkable: true
+                checked  : (panelContextual.item == buttonFolder)
+
+                icon          : st.icon16x16_folder
+                iconSourceSize: st.size16x16
+
+                onPressed:
+                {
+                    var index = folder.parentFolder.indexFromId(folder.id);
+
+                    panelContextual.loadPageFolder(gui.listLibrary, index);
+
+                    areaContextual.showPanelPositionMargins(panelContextual, buttonFolder,
+                                                            Sk.BottomRight, -st.border_size, 0);
+                }
+            }
+
+            ButtonPianoIcon
+            {
+                id: buttonAdd
+
+                anchors.right : parent.right
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
+
                 width: st.dp32 + borderSizeWidth
+
+                borderLeft : borderSize
+                borderRight: 0
 
                 visible: (folder != null)
 
@@ -210,35 +242,6 @@ Item
                 }
             }
 
-            ButtonPianoIcon
-            {
-                id: buttonFolder
-
-                anchors.left  : buttonAdd.right
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                width: height + borderSizeWidth
-
-                visible: buttonAdd.visible
-
-                checkable: true
-                checked  : (panelContextual.item == buttonAdd)
-
-                icon          : st.icon16x16_folder
-                iconSourceSize: st.size16x16
-
-                onPressed:
-                {
-                    var index = folder.parentFolder.indexFromId(folder.id);
-
-                    panelContextual.loadPageFolder(gui.listLibrary, index);
-
-                    areaContextual.showPanelPositionMargins(panelContextual, buttonAdd,
-                                                            Sk.BottomRight, -st.border_size, 0);
-                }
-            }
-
             BarTitleText
             {
                 id: folderTitle
@@ -255,11 +258,10 @@ Item
             {
                 id: buttonAddPlaylist
 
-                anchors.left  : buttonAdd.right
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                width: Math.round((parent.width - buttonAdd.x - buttonAdd.width) / 2)
+                width: Math.round((parent.width - buttonAdd.width) / 2)
 
                 visible: scrollFolder.isCreating
 
@@ -281,7 +283,7 @@ Item
             ButtonPianoFull
             {
                 anchors.left  : buttonAddPlaylist.right
-                anchors.right : parent.right
+                anchors.right : buttonAdd.left
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 

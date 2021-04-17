@@ -151,7 +151,7 @@ Item
 
                 width: height + borderSizeWidth
 
-                visible: buttonAdd.visible
+                visible: (folder != null)
 
                 checkable: true
                 checked  : (panelContextual.item == buttonFolder)
@@ -170,6 +170,18 @@ Item
                 }
             }
 
+            BarTitleText
+            {
+                id: folderTitle
+
+                anchors.left  : buttonFolder.right
+                anchors.right : parent.right
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
+
+                text: (folder) ? folder.title : ""
+            }
+
             ButtonPianoIcon
             {
                 id: buttonAdd
@@ -183,7 +195,7 @@ Item
                 borderLeft : borderSize
                 borderRight: 0
 
-                visible: (folder != null)
+                visible: buttonFolder.visible
 
                 checkable: true
                 checked  : scrollFolder.isCreating
@@ -240,18 +252,6 @@ Item
                     }
                     else scrollFolder.setAddTrackSource(event.text);
                 }
-            }
-
-            BarTitleText
-            {
-                id: folderTitle
-
-                anchors.left  : buttonFolder.right
-                anchors.right : parent.right
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                text: (folder) ? folder.title : ""
             }
 
             ButtonPianoFull

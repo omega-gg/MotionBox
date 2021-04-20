@@ -53,11 +53,9 @@ Panel
 //#QT_4
     anchors.right: parent.right
     anchors.top  : parent.bottom
-
-    anchors.rightMargin: st.dp96
 //#ELSE
     // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
-    x: parent.width - width - st.dp96
+    x: parent.width - width
 
     y: parent.height + height
 //#END
@@ -66,7 +64,7 @@ Panel
 
     height: bar.height + loader.height + borderSizeHeight
 
-    borderRight : borderSize
+    borderRight : 0
     borderBottom: 0
 
     visible: false

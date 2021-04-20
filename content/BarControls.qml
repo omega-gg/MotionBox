@@ -44,8 +44,8 @@ MouseArea
 
     property alias buttonAdd: buttonAdd
 
-    property alias buttonSettings  : buttonSettings
     property alias buttonGet       : buttonGet
+    property alias buttonSettings  : buttonSettings
     property alias buttonFullScreen: buttonFullScreen
 
     property alias sliderVolume: sliderVolume
@@ -346,17 +346,35 @@ MouseArea
         {
             id: borderB
 
-            anchors.right: buttonSettings.left
+            anchors.right: buttonGet.left
 
             anchors.rightMargin: st.dp7
         }
 
         ButtonPushIcon
         {
+            id: buttonGet
+
+            anchors.right: buttonSettings.left
+            anchors.top  : buttonSettings.top
+
+            width: st.dp44
+
+            checkable: true
+            checked  : panelGet.isExposed
+
+            icon          : st.icon20x20_subtitles
+            iconSourceSize: st.size20x20
+
+            onPressed: panelGet.toggleExpose()
+        }
+
+        ButtonPushIcon
+        {
             id: buttonSettings
 
-            anchors.right: buttonGet.left
-            anchors.top  : buttonGet.top
+            anchors.right: buttonFullScreen.left
+            anchors.top  : buttonFullScreen.top
 
             width: st.dp44
 
@@ -365,28 +383,10 @@ MouseArea
             checkable: true
             checked  : panelSettings.isExposed
 
-            icon          : st.icon20x20_tuning
+            icon          : st.icon20x20_settings
             iconSourceSize: st.size20x20
 
             onPressed: panelSettings.toggleExpose()
-        }
-
-        ButtonPushIcon
-        {
-            id: buttonGet
-
-            anchors.right: buttonFullScreen.left
-            anchors.top  : buttonFullScreen.top
-
-            width: st.dp44
-
-            checkable: true
-            checked  : panelGet.isExposed
-
-            icon          : st.icon20x20_share
-            iconSourceSize: st.size20x20
-
-            onPressed: panelGet.toggleExpose()
         }
 
         ButtonPushIcon

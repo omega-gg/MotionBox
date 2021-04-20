@@ -120,8 +120,8 @@ StyleComponents
 
     property url icon_search: "pictures/icons/search.svg"
 
-    property url icon_tuning: "pictures/icons/cog.svg"
-    property url icon_share : "pictures/icons/share.svg"
+    property url icon_subtitles: "pictures/icons/quote-right.svg"
+    property url icon_settings : "pictures/icons/cog.svg"
 
     property url icon_shuffle: "pictures/icons/random.svg"
 
@@ -171,8 +171,8 @@ StyleComponents
 
     property url icon20x20_search: icon_search
 
-    property url icon20x20_tuning: icon_tuning
-    property url icon20x20_share : icon_share
+    property url icon20x20_subtitles: icon_subtitles
+    property url icon20x20_settings : icon_settings
 
     property url icon20x20_shuffle: icon_shuffle
 

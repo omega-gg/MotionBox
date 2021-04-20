@@ -23,127 +23,29 @@
 import QtQuick 1.0
 import Sky     1.0
 
-Panel
+BasePanelSettings
 {
-    id: panelGet
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* read */ property bool isExposed: false
-
-    /* read */ property int indexCurrent: -1
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias page: loader.item
-
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-//#QT_4
-    anchors.right: parent.right
-    anchors.top  : parent.bottom
-//#ELSE
-    // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
-    x: parent.width - width
-
-    y: parent.height + height
-//#END
-
     width: st.dp480 + borderSizeWidth
 
-    height: bar.height + loader.height + borderSizeHeight
+    sources: [ Qt.resolvedUrl("PageSubtitles.qml") ]
 
-    borderLeft  : borderSize
-    borderRight : 0
-    borderBottom: 0
-
-    visible: false
-
-    backgroundOpacity: st.panelContextual_backgroundOpacity
-
-    //---------------------------------------------------------------------------------------------
-    // States
-    //---------------------------------------------------------------------------------------------
-
-    states: State
-    {
-        name: "visible"; when: isExposed
-
-//#QT_4
-        AnchorChanges
-        {
-            target: panelGet
-
-            anchors.top   : undefined
-            anchors.bottom: parent.bottom
-        }
-//#ELSE
-        PropertyChanges
-        {
-            target: panelGet
-
-            y: parent.height - panelGet.height
-        }
-//#END
-    }
-
-    transitions: Transition
-    {
-        SequentialAnimation
-        {
-//#QT_4
-            AnchorAnimation
-            {
-                duration: st.duration_faster
-
-                easing.type: st.easing
-            }
-//#ELSE
-            NumberAnimation
-            {
-                property: "y"
-
-                duration: st.duration_faster
-
-                easing.type: st.easing
-            }
-//#END
-
-            ScriptAction
-            {
-                script:
-                {
-                    if (isExposed == false) visible = false;
-
-                    z = 0;
-                }
-            }
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Keys
-    //---------------------------------------------------------------------------------------------
-
-    Keys.onPressed:
-    {
-        if (event.key == Qt.Key_Escape)
-        {
-            event.accepted = true;
-
-            collapse();
-        }
-    }
+    titles: [ qsTr("Subtitles") ]
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+
+    function clearSubtitle()
+    {
+        if (indexCurrent == 0) page.clearSubtitle();
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // BasePanelSettings reimplementation
 
     function expose()
     {
@@ -153,18 +55,7 @@ Panel
 
         panelSettings.collapse();
 
-        if (indexCurrent == -1)
-        {
-            indexCurrent = 0;
-
-            loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
-
-            page.onShow();
-        }
-        else if (indexCurrent == 0)
-        {
-            page.onShow();
-        }
+        loadPage();
 
         isExposed = true;
 
@@ -184,75 +75,5 @@ Panel
         isExposed = false;
 
         gui.startActionCue(st.duration_faster);
-    }
-
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function selectTab(index)
-    {
-        if (indexCurrent == index) return;
-
-        indexCurrent = index;
-
-        if (index == 0)
-        {
-            loader.load(Qt.resolvedUrl("PageSubtitles.qml"));
-
-            if (isExposed) page.onShow();
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function clearSubtitle()
-    {
-        if (indexCurrent == 0) page.clearSubtitle();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Childs
-    //---------------------------------------------------------------------------------------------
-
-    BarTitle
-    {
-        id: bar
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-
-        height: st.dp32 + borderSizeHeight
-
-        borderTop: 0
-
-        ButtonPiano
-        {
-            width: st.dp128
-
-            checkable: true
-            checked  : (indexCurrent == 0)
-
-            checkHover: false
-
-            text: qsTr("Subtitles")
-
-            font.pixelSize: st.dp14
-        }
-    }
-
-    LoaderSlide
-    {
-        id: loader
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : bar.bottom
-
-        height: (item) ? item.height : 0
     }
 }

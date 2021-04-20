@@ -23,143 +23,19 @@
 import QtQuick 1.0
 import Sky     1.0
 
-Panel
+BasePanelSettings
 {
-    id: panelSettings
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* read */ property bool isExposed: false
-
-    /* read */ property int currentIndex: -1
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    property bool pAnimate: false
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias page: loader.item
-
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-//#QT_4
-    anchors.right: parent.right
-    anchors.top  : parent.bottom
-//#ELSE
-    // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
-    x: parent.width - width
-
-    y: parent.height + height
-//#END
-
     width: st.dp400 + borderSizeWidth
 
-    height: bar.height + loader.height + borderSizeHeight
+    sources: [ Qt.resolvedUrl("PageSettingsVideo.qml"),
+               Qt.resolvedUrl("PageSettingsAdvanced.qml"),
+               Qt.resolvedUrl("PageConsole.qml") ]
 
-    borderRight : 0
-    borderBottom: 0
-
-    visible: false
-
-    backgroundOpacity: st.panelContextual_backgroundOpacity
-
-    //---------------------------------------------------------------------------------------------
-    // States
-    //---------------------------------------------------------------------------------------------
-
-    states: State
-    {
-        name: "visible"; when: isExposed
-
-//#QT_4
-        AnchorChanges
-        {
-            target: panelSettings
-
-            anchors.top   : undefined
-            anchors.bottom: parent.bottom
-        }
-//#ELSE
-        PropertyChanges
-        {
-            target: panelSettings
-
-            y: parent.height - panelSettings.height
-        }
-//#END
-    }
-
-    transitions: Transition
-    {
-        SequentialAnimation
-        {
-//#QT_4
-            AnchorAnimation
-            {
-                duration: st.duration_faster
-
-                easing.type: st.easing
-            }
-//#ELSE
-            NumberAnimation
-            {
-                property: "y"
-
-                duration: st.duration_faster
-
-                easing.type: st.easing
-            }
-//#END
-
-            ScriptAction
-            {
-                script:
-                {
-                    if (isExposed == false) visible = false;
-
-                    z = 0;
-                }
-            }
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Keys
-    //---------------------------------------------------------------------------------------------
-
-    Keys.onPressed:
-    {
-        if (event.key == Qt.Key_Escape)
-        {
-            event.accepted = true;
-
-            collapse();
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Animations
-    //---------------------------------------------------------------------------------------------
-
-    Behavior on height
-    {
-        enabled: pAnimate
-
-        PropertyAnimation
-        {
-            duration: st.duration_fast
-
-            easing.type: st.easing
-        }
-    }
+    titles: [ qsTr("Video"), qsTr("Advanced"), qsTr("Console") ]
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -173,18 +49,7 @@ Panel
 
         panelGet.collapse();
 
-        if (currentIndex == -1)
-        {
-            currentIndex = 0;
-
-            loader.load(Qt.resolvedUrl("PageSettingsVideo.qml"));
-
-            //page.onShow();
-        }
-        /*else if (currentIndex == 0)
-        {
-            page.onShow();
-        }*/
+        loadPage();
 
         isExposed = true;
 
@@ -210,159 +75,5 @@ Panel
     {
         if (isExposed) collapse();
         else           expose  ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    function pSelectTab(index)
-    {
-        if (loader.isAnimated || currentIndex == index) return;
-
-        var source;
-
-        if (index == 0)
-        {
-            source = Qt.resolvedUrl("PageSettingsVideo.qml");
-        }
-        else if (index == 1)
-        {
-            source = Qt.resolvedUrl("PageSettingsAdvanced.qml");
-        }
-        else // if (index == 2)
-        {
-            source = Qt.resolvedUrl("PageConsole.qml");
-        }
-
-        pAnimate = true;
-
-        if (currentIndex < index)
-        {
-             loader.loadLeft(source);
-        }
-        else loader.loadRight(source);
-
-        pAnimate = false;
-
-        // NOTE: We apply the current index after the animation.
-        currentIndex = index;
-
-        loader.item.forceActiveFocus();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Childs
-    //---------------------------------------------------------------------------------------------
-
-    BarTitle
-    {
-        id: bar
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-
-        height: st.dp32 + borderSizeHeight
-
-        borderTop: 0
-
-        ButtonPiano
-        {
-            id: buttonVideo
-
-            width: Math.round(parent.width / 3)
-
-            checkable: true
-            checked  : (currentIndex == 0)
-
-            checkHover: false
-
-            text: qsTr("Video")
-
-            font.pixelSize: st.dp14
-
-//#QT_4
-            onPressed: pSelectTab(0)
-//#ELSE
-            onPressed: Qt.callLater(pSelectTab, 0)
-//#END
-        }
-
-        ButtonPiano
-        {
-            id: buttonAdvanced
-
-            anchors.left: buttonVideo.right
-
-            width: buttonVideo.width
-
-            checkable: true
-            checked  : (currentIndex == 1)
-
-            checkHover: false
-
-            text: qsTr("Advanced")
-
-            font.pixelSize: st.dp14
-
-//#QT_4
-            onPressed: pSelectTab(1)
-//#ELSE
-            onPressed: Qt.callLater(pSelectTab, 1)
-//#END
-
-            Rectangle
-            {
-                anchors.left: parent.left
-
-                anchors.leftMargin: st.dp8
-
-                anchors.verticalCenter: parent.verticalCenter
-
-                width : st.dp12
-                height: width
-
-                radius: width
-
-                visible: (buttonAdvanced.checked == false
-                          &&
-                          player.isPlaying && player.speed != 1.0)
-
-                color: st.text_colorCurrent
-            }
-        }
-
-        ButtonPiano
-        {
-            anchors.left : buttonAdvanced.right
-            anchors.right: parent.right
-
-            borderRight: 0
-
-            checkable: true
-            checked  : (currentIndex == 2)
-
-            checkHover: false
-
-            text: qsTr("Console")
-
-            font.pixelSize: st.dp14
-
-//#QT_4
-            onPressed: pSelectTab(2)
-//#ELSE
-            onPressed: Qt.callLater(pSelectTab, 2)
-//#END
-        }
-    }
-
-    LoaderSlide
-    {
-        id: loader
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : bar.bottom
-
-        height: (item) ? item.height : 0
     }
 }

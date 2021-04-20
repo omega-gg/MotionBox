@@ -181,7 +181,6 @@ $SkyBase/BaseButton.qml \
 $SkyBase/BaseLineEdit.qml \
 $SkyBase/BaseTextEdit.qml \
 $SkyBase/BaseConsole.qml \
-$SkyBase/ColumnAuto.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
 $SkyComponents/StyleComponents.qml \

@@ -30,6 +30,15 @@ AreaContextual
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+
+    /* read */ property int currentId: -1
+    // 0: Folder
+    // 1: Track
+    // 2: Tracks
+    // 3: Tab
+    // 4: Browse
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     property variant pItem : null
@@ -41,7 +50,7 @@ AreaContextual
     property string pAuthor
     property string pFeed
 
-    property bool pButtonsVisible: (currentPage == pageTrack || currentPage == pageTab)
+    property bool pButtonsVisible: (currentId == 1 || currentId == 3) // Track or Tab
 
     //---------------------------------------------------------------------------------------------
     // Aliases
@@ -84,18 +93,12 @@ AreaContextual
     {
         if (folder.currentIndex != index)
         {
-            pageFolder.setItemVisible(1, false);
-
-            return;
+            return false;
         }
 
         var item = folder.currentItem;
 
-        if (item.isPlaylist && item.count)
-        {
-             pageFolder.setItemVisible(1, true);
-        }
-        else pageFolder.setItemVisible(1, false);
+        return (item.isPlaylist && item.count)
     }
 
     //---------------------------------------------------------------------------------------------
@@ -150,6 +153,8 @@ AreaContextual
             pItem  = list;
             pIndex = index;
 
+            var array = new Array;
+
             var folder = list.folder;
 
             var type = core.itemType(folder, index);
@@ -158,152 +163,164 @@ AreaContextual
             {
                 if (type == LibraryItem.Playlist)
                 {
-                    pageFolder.set(0, { "title": qsTr("Playlist") });
+                    array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
 
-                    pCheckPlay(folder, index);
+                    if (pCheckPlay(folder, index))
+                    {
+                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                                     "title": qsTr("Play") });
+                    }
 
                     if (folder.itemIsLocal(index))
                     {
-                        pageFolder.set(7, { "title": qsTr("Delete Playlist") });
-
-                        pageFolder.setItemVisible(2, false);
-                        pageFolder.setItemVisible(3, false);
-
-                        if (folder == feeds)
+                        if (folder != feeds)
                         {
-                            pageFolder.setItemVisible(4, false);
-                            pageFolder.setItemVisible(5, false);
-                            pageFolder.setItemVisible(6, true);
+                            array.push({ "id": 4, "title": qsTr("Rename")      });
+                            array.push({ "id": 5, "title": qsTr("Move to ...") });
                         }
-                        else
-                        {
-                            pageFolder.setItemVisible(4, true);
-                            pageFolder.setItemVisible(5, true);
-                            pageFolder.setItemVisible(6, false);
-                        }
+                        else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                                          "title": qsTr("Clear everything") });
+
+                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                                     "title": qsTr("Delete Playlist") });
                     }
                     else
                     {
-                        pageFolder.set(7, { "title": qsTr("Remove Playlist") });
-
-                        pageFolder.setItemVisible(3, true);
-                        pageFolder.setItemVisible(4, false);
-
                         if (folder == feeds)
                         {
-                            pageFolder.setItemVisible(2, true);
-                            pageFolder.setItemVisible(5, false);
-                            pageFolder.setItemVisible(6, true);
+                            array.push({ "id": 1, "icon": st.icon18x18_addIn,
+                                         "iconSize": st.size18x18, "title": qsTr("Add to ...") });
+
+                            array.push({ "id": 2, "icon": st.icon16x16_external,
+                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+
+                            array.push({ "id": 3, "icon": st.icon16x16_link,
+                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+
+                            array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                                         "title": qsTr("Clear everything") });
                         }
                         else
                         {
-                            pageFolder.setItemVisible(2, false);
-                            pageFolder.setItemVisible(5, true);
-                            pageFolder.setItemVisible(6, false);
+                            array.push({ "id": 2, "icon": st.icon16x16_external,
+                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+
+                            array.push({ "id": 3, "icon": st.icon16x16_link,
+                                          "iconSize": st.size16x16, "title": qsTr("Copy link") });
                         }
+
+                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                                     "title": qsTr("Remove Playlist") });
                     }
                 }
                 else if (type == LibraryItem.PlaylistFeed)
                 {
-                    pageFolder.set(0, { "title": qsTr("Feed") });
+                    array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
 
-                    pCheckPlay(folder, index);
+                    if (pCheckPlay(folder, index))
+                    {
+                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                                     "title": qsTr("Play") });
+                    }
 
                     if (folder.itemIsLocal(index))
                     {
-                        pageFolder.set(7, { "title": qsTr("Delete Feed") });
-
-                        pageFolder.setItemVisible(2, false);
-                        pageFolder.setItemVisible(3, false);
-
-                        if (folder == feeds)
+                        if (folder != feeds)
                         {
-                            pageFolder.setItemVisible(4, false);
-                            pageFolder.setItemVisible(5, false);
-                            pageFolder.setItemVisible(6, true);
+                            array.push({ "id": 4, "title": qsTr("Rename")      });
+                            array.push({ "id": 5, "title": qsTr("Move to ...") });
+
                         }
-                        else
-                        {
-                            pageFolder.setItemVisible(4, true);
-                            pageFolder.setItemVisible(5, true);
-                            pageFolder.setItemVisible(6, false);
-                        }
+                        else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                                          "title": qsTr("Clear everything") });
+
+                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                                     "title": qsTr("Delete Feed") });
                     }
                     else
                     {
-                        pageFolder.set(7, { "title": qsTr("Remove Feed") });
-
-                        pageFolder.setItemVisible(3, true);
-                        pageFolder.setItemVisible(4, false);
-
                         if (folder == feeds)
                         {
-                            pageFolder.setItemVisible(2, true);
-                            pageFolder.setItemVisible(5, false);
-                            pageFolder.setItemVisible(6, true);
+                            array.push({ "id": 1, "icon": st.icon18x18_addIn,
+                                         "iconSize": st.size18x18, "title": qsTr("Add to ...") });
+
+                            array.push({ "id": 2, "icon": st.icon16x16_external,
+                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+
+                            array.push({ "id": 3, "icon": st.icon16x16_link,
+                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+
+                            array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                                         "title": qsTr("Clear everything") });
                         }
                         else
                         {
-                            pageFolder.setItemVisible(2, false);
-                            pageFolder.setItemVisible(5, true);
-                            pageFolder.setItemVisible(6, false);
+                            array.push({ "id": 2, "icon": st.icon16x16_external,
+                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+
+                            array.push({ "id": 3, "icon": st.icon16x16_link,
+                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+
+                            array.push({ "id": 5, "title": qsTr("Move to ...") });
                         }
+
+                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                                     "title": qsTr("Remove Feed") });
                     }
                 }
                 else
                 {
-                    pageFolder.set(0, { "title": qsTr("Folder")        });
-                    pageFolder.set(7, { "title": qsTr("Delete Folder") });
+                    array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
 
-                    pageFolder.setItemVisible(1, false);
-                    pageFolder.setItemVisible(2, false);
-                    pageFolder.setItemVisible(3, false);
-                    pageFolder.setItemVisible(4, true);
-                    pageFolder.setItemVisible(5, false);
-                    pageFolder.setItemVisible(6, false);
+                    array.push({ "id": 4, "title": qsTr("Rename") });
+
+                    array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                                 "title": qsTr("Delete Folder") });
                 }
-
-                pageFolder.setItemVisible(7, true);
             }
             else
             {
                 if (type == LibraryItem.Playlist)
                 {
-                    pageFolder.set(0, { "title": qsTr("Playlist") });
+                    array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
 
-                    pCheckPlay(folder, index);
+                    if (pCheckPlay(folder, index))
+                    {
+                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                                     "title": qsTr("Play") });
+                    }
 
-                    pageFolder.setItemVisible(2, true);
+                    array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                                 "title": qsTr("Add to ...") });
                 }
                 else if (type == LibraryItem.PlaylistFeed)
                 {
-                    pageFolder.set(0, { "title": qsTr("Feed") });
+                    array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
 
-                    pCheckPlay(folder, index);
+                    if (pCheckPlay(folder, index))
+                    {
+                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                                     "title": qsTr("Play") });
+                    }
 
-                    pageFolder.setItemVisible(2, true);
+                    array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                                 "title": qsTr("Add to ...") });
                 }
-                else
+                else array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
+
+                if (folder.itemIsLocal(index))
                 {
-                    pageFolder.set(0, { "title": qsTr("Folder") });
+                    array.push({ "id": 2, "icon": st.icon16x16_external,
+                                 "iconSize": st.size16x16, "title": qsTr("Open link") });
 
-                    pageFolder.setItemVisible(1, false);
-                    pageFolder.setItemVisible(2, false);
+                    array.push({ "id": 3, "icon": st.icon16x16_link,
+                                 "iconSize": st.size16x16, "title": qsTr("Copy link") });
                 }
-
-                if (folder.itemIsLocal(index) == false)
-                {
-                     pageFolder.setItemVisible(3, true);
-                }
-                else pageFolder.setItemVisible(3, false);
-
-                pageFolder.setItemVisible(4, false);
-                pageFolder.setItemVisible(5, false);
-                pageFolder.setItemVisible(6, false);
-                pageFolder.setItemVisible(7, false);
             }
 
-            listContextual.currentPage = pageFolder;
+            page.values = array;
+
+            currentId = 0;
         }
 
         //-----------------------------------------------------------------------------------------
@@ -313,6 +330,8 @@ AreaContextual
             pItem  = list;
             pIndex = index;
 
+            var array = new Array;
+
             var playlist = list.playlist;
 
             var selectedCount = playlist.selectedCount;
@@ -321,17 +340,21 @@ AreaContextual
             {
                 var title = selectedCount + " " + qsTr("Tracks");
 
-                pageTracks.set(0, { "title": title });
+                array.push({ "type": ContextualPage.Category, "title": title });
+
+                array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                             "title": qsTr("Add to ...") });
 
                 if (gui.listPlaylist == list)
                 {
-                    pageTracks.set(2, { "title": qsTr("Remove") + " " + title });
+                    title = qsTr("Remove") + " " + title;
 
-                    pageTracks.setItemVisible(2, true);
+                    array.push({ "id": 1, "type" : ContextualPage.ItemConfirm, "title": title });
                 }
-                else pageTracks.setItemVisible(2, false);
 
-                listContextual.currentPage = pageTracks;
+                page.values = array;
+
+                currentId = 2;
             }
             else
             {
@@ -342,30 +365,40 @@ AreaContextual
 
                 pAuthor = gui.getTrackAuthor(pData.author, pFeed);
 
-                if (pData.title)
-                {
-                     pageTrack.setItemEnabled(2, true);
-                }
-                else pageTrack.setItemEnabled(2, false);
+                array.push({ "type": ContextualPage.Category, "title": qsTr("Track") });
 
-                if (pSource)
-                {
-                     pageTrack.setItemVisible(3, true);
-                }
-                else pageTrack.setItemVisible(3, false);
+                array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                             "title": qsTr("Add to ...") });
+
+                array.push({ "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                             "title": qsTr("More like this") });
+
+                array.push({ "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                             "title": qsTr("Open link") });
+
+                array.push({ "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                             "title": qsTr("Copy link") });
 
                 if (playlist.isLocal)
                 {
-                    pageTrack.setItemVisible(4, true);
-                    pageTrack.setItemVisible(5, true);
-                }
-                else
-                {
-                    pageTrack.setItemVisible(4, false);
-                    pageTrack.setItemVisible(5, false);
+                    array.push({ "id": 4, "title": qsTr("Set as Cover") });
+                    array.push({ "id": 5, "title": qsTr("Remove Track") });
                 }
 
-                listContextual.currentPage = pageTrack;
+                page.values = array;
+
+                if (pData.title == "")
+                {
+                    page.setItemEnabled(2, false);
+                }
+
+                if (pSource == "")
+                {
+                    page.setItemEnabled(3, false);
+                    page.setItemEnabled(4, false);
+                }
+
+                currentId = 1;
             }
         }
 
@@ -375,27 +408,26 @@ AreaContextual
         {
             pItem = tab;
 
-            if (tab.title)
-            {
-                 pageTab.setItemEnabled(2, true);
-            }
-            else pageTab.setItemEnabled(2, false);
+            var array = new Array;
 
-            if (tabs.count > 1)
-            {
-                pageTab.setItemEnabled(4, true);
-                pageTab.setItemEnabled(5, true);
-            }
-            else if (currentTab.isValid)
-            {
-                pageTab.setItemEnabled(4, false);
-                pageTab.setItemEnabled(5, true);
-            }
-            else
-            {
-                pageTab.setItemEnabled(4, false);
-                pageTab.setItemEnabled(5, false);
-            }
+            array.push({ "type": ContextualPage.Category, "title": qsTr("Tab") });
+
+            array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                         "title": qsTr("Add to ...") });
+
+            array.push({ "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                         "title": qsTr("More like this") });
+
+            array.push({ "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                         "title": qsTr("Open link") });
+
+            array.push({ "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                         "title": qsTr("Copy link") });
+
+            array.push({ "id": 4, "title": qsTr("Close other Tabs") });
+            array.push({ "id": 5, "title": qsTr("Close all Tabs")   });
+
+            page.values = array;
 
             if (tab.isValid)
             {
@@ -406,13 +438,16 @@ AreaContextual
 
                 pAuthor = gui.getTrackAuthor(pData.author, pFeed);
 
-                pageTab.setItemEnabled(1, true);
-
-                if (pSource)
+                if (tab.title == "")
                 {
-                     pageTab.setItemVisible(3, true);
+                    page.setItemEnabled(2, false);
                 }
-                else pageTab.setItemVisible(3, false);
+
+                if (pSource == "")
+                {
+                    page.setItemEnabled(3, false);
+                    page.setItemEnabled(4, false);
+                }
             }
             else
             {
@@ -420,20 +455,41 @@ AreaContextual
                 pAuthor = "";
                 pFeed   = "";
 
-                pageTab.setItemEnabled(1, false);
-                pageTab.setItemVisible(3, false);
+                page.setItemEnabled(1, false);
+                page.setItemEnabled(2, false);
+                page.setItemEnabled(3, false);
+                page.setItemEnabled(4, false);
+                page.setItemEnabled(5, false);
+
+                if (tabs.count == 1)
+                {
+                    page.setItemEnabled(6, false);
+                }
             }
 
-            listContextual.currentPage = pageTab;
+            currentId = 3;
         }
 
         //-----------------------------------------------------------------------------------------
 
         function loadPageBrowse()
         {
-            pageBrowse.setItemEnabled(4, local.cache);
+            var array = new Array;
 
-            listContextual.currentPage = pageBrowse;
+            array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                         "title": qsTr("Open File") });
+
+            array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                         "title": qsTr("Open Folder") });
+
+            array.push({ "id": 2, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                         "title": qsTr("Update Backends") });
+
+            array.push({ "id": 3, "title": qsTr("Reset Backends") });
+
+            page.values = array;
+
+            currentId = 4;
         }
 
         //-----------------------------------------------------------------------------------------
@@ -453,17 +509,23 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Copy link
+            else if (id == 2) // Open link
             {
                 var source = pItem.folder.itemSource(pIndex);
 
+                gui.openSource(source);
+            }
+            else if (id == 3) // Copy link
+            {
+                /* var */ source = pItem.folder.itemSource(pIndex);
+
                 sk.setClipboardText(source);
             }
-            else if (id == 3) // Rename
+            else if (id == 4) // Rename
             {
                 pItem.renameItem(pIndex);
             }
-            else if (id == 4) // Move to ...
+            else if (id == 5) // Move to ...
             {
                 panelAdd.setSource(2, pItem.folder, pIndex);
 
@@ -471,11 +533,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 5) // Clear
+            else if (id == 6) // Clear
             {
                 pItem.folder.clearItems();
             }
-            else if (id == 6) // Remove
+            else if (id == 7) // Remove
             {
                 pItem.removeItem(pIndex, true);
 
@@ -514,13 +576,19 @@ AreaContextual
 
                 pBrowse(controllerPlaylist.simpleQuery(title));
             }
-            else if (id == 2) // Copy link
+            else if (id == 2) // Open link
             {
                 var source = pItem.playlist.trackSource(pIndex);
 
+                gui.openSource(source);
+            }
+            else if (id == 3) // Copy link
+            {
+                /* var */ source = pItem.playlist.trackSource(pIndex);
+
                 sk.setClipboardText(source);
             }
-            else if (id == 3) // Set as Cover
+            else if (id == 4) // Set as Cover
             {
                 /* var */ playlist = pItem.playlist;
 
@@ -532,7 +600,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 4) // Remove
+            else if (id == 5) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -584,11 +652,15 @@ AreaContextual
             {
                 pBrowse(controllerPlaylist.simpleQuery(pItem.title));
             }
-            else if (id == 2) // Copy link
+            else if (id == 2) // Open link
+            {
+                gui.openSource(pItem.source);
+            }
+            else if (id == 3) // Copy link
             {
                 sk.setClipboardText(pItem.source);
             }
-            else if (id == 3) // Close other tabs
+            else if (id == 4) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -596,7 +668,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 4) // Close all tabs
+            else if (id == 5) // Close all tabs
             {
                 wall.enableAnimation = false;
 
@@ -667,6 +739,8 @@ AreaContextual
             anchors.left : parent.left
             anchors.right: parent.right
 
+            currentPage: ContextualPage { id: page }
+
             //-------------------------------------------------------------------------------------
             // Events
             //-------------------------------------------------------------------------------------
@@ -675,129 +749,17 @@ AreaContextual
             {
                 var clear;
 
-                if      (currentPage == pageFolder) clear = panelContextual.onFolderClicked(id);
-                else if (currentPage == pageTrack)  clear = panelContextual.onTrackClicked (id);
-                else if (currentPage == pageTracks) clear = panelContextual.onTracksClicked(id);
-                else if (currentPage == pageTab)    clear = panelContextual.onTabClicked   (id);
-                else if (currentPage == pageBrowse) clear = panelContextual.onBrowseClicked(id);
-                else                                clear = true;
+                // NOTE: We want the 'areaContextual' currentId.
+                var currentId = areaContextual.currentId;
+
+                if      (currentId == 0) clear = panelContextual.onFolderClicked(id);
+                else if (currentId == 1) clear = panelContextual.onTrackClicked (id);
+                else if (currentId == 2) clear = panelContextual.onTracksClicked(id);
+                else if (currentId == 3) clear = panelContextual.onTabClicked   (id);
+                else if (currentId == 4) clear = panelContextual.onBrowseClicked(id);
+                else                     clear = true;
 
                 if (clear) areaContextual.hidePanels();
-            }
-
-            //-------------------------------------------------------------------------------------
-            // Pages
-            //-------------------------------------------------------------------------------------
-
-            ContextualPage
-            {
-                id: pageFolder
-
-                values:
-                [
-                    { "type": ContextualPage.Category },
-
-                    { "id": 0, "icon"    : st.icon16x16_play,
-                               "iconSize": st.size16x16, "title": qsTr("Play") },
-
-                    { "id": 1, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
-
-                    { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
-
-                    { "id": 3, "title": qsTr("Rename")      },
-                    { "id": 4, "title": qsTr("Move to ...") },
-
-                    { "id": 5, "type": ContextualPage.ItemConfirm,
-                               "title": qsTr("Clear everything") },
-
-                    { "id": 6, "type": ContextualPage.ItemConfirm }
-                ]
-            }
-
-            //-------------------------------------------------------------------------------------
-
-            ContextualPage
-            {
-                id: pageTrack
-
-                values:
-                [
-                    { "type": ContextualPage.Category, "title": qsTr("Track") },
-
-                    { "id": 0, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
-
-                    { "id": 1, "icon"    : st.icon16x16_addBold,
-                               "iconSize": st.size16x16, "title": qsTr("More like this") },
-
-                    { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
-
-                    { "id": 3, "title": qsTr("Set as Cover") },
-                    { "id": 4, "title": qsTr("Remove Track") }
-                ]
-            }
-
-            ContextualPage
-            {
-                id: pageTracks
-
-                values:
-                [
-                    { "type": ContextualPage.Category },
-
-                    { "id": 0, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
-
-                    { "id": 1, "type" : ContextualPage.ItemConfirm }
-                ]
-            }
-
-            //-------------------------------------------------------------------------------------
-
-            ContextualPage
-            {
-                id: pageTab
-
-                values:
-                [
-                    { "type": ContextualPage.Category, "title": qsTr("Tab") },
-
-                    { "id": 0, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Add to ...") },
-
-                    { "id": 1, "icon"    : st.icon24x24_addBold,
-                               "iconSize": st.size24x24, "title": qsTr("More like this") },
-
-                    { "id": 2, "icon"    : st.icon16x16_external,
-                               "iconSize": st.size16x16, "title": qsTr("Copy link") },
-
-                    { "id": 3, "title": qsTr("Close other Tabs") },
-                    { "id": 4, "title": qsTr("Close all Tabs")   }
-                ]
-            }
-
-            //-------------------------------------------------------------------------------------
-
-            ContextualPage
-            {
-                id: pageBrowse
-
-                values:
-                [
-                    { "id": 0, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Open File") },
-
-                    { "id": 1, "icon"    : st.icon18x18_addIn,
-                               "iconSize": st.size18x18, "title": qsTr("Open Folder") },
-
-                    { "id": 2, "icon"    : st.icon16x16_refresh,
-                               "iconSize": st.size16x16, "title": qsTr("Update Backends") },
-
-                    { "id": 3, "title": qsTr("Reset Backends") }
-                ]
             }
         }
 
@@ -841,7 +803,7 @@ AreaContextual
 
             onClicked:
             {
-                if (currentPage == pageTab)
+                if (currentId == 3) // Tab
                 {
                      gui.browseFeed(pItem);
                 }

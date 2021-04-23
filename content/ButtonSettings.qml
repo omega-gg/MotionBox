@@ -23,37 +23,37 @@
 import QtQuick 1.0
 import Sky     1.0
 
-Item
+ButtonPianoFull
 {
+    id: buttonSettings
+
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
-    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    /* read */ property int contentWidth : st.dp480
-    /* read */ property int contentHeight: st.dp288
+    /* mandatory */ property variant settings
 
-    //---------------------------------------------------------------------------------------------
-    // Connections
-    //---------------------------------------------------------------------------------------------
-
-    Connections
-    {
-        target: controllerFile
-
-        onLogChanged: itemConsole.append(message)
-    }
+    property int currentIndex: -1
+    property int activeIndex : -1
 
     //---------------------------------------------------------------------------------------------
-    // Childs
+    // Settings
     //---------------------------------------------------------------------------------------------
 
-    Console
-    {
-        id: itemConsole
+    checkable: true
+    checked  : (areaContextual.item == buttonSettings)
 
-        anchors.fill: parent
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
 
-        log: controllerFile.log
-    }
+    onPressed: areaContextual.showPanelSettings(buttonSettings, settings, currentIndex,
+                                                activeIndex)
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+    // Events
+
+    /* virtual */ function onClick(index) {}
 }

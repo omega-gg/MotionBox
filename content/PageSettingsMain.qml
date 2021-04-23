@@ -26,10 +26,12 @@ import Sky     1.0
 Item
 {
     //---------------------------------------------------------------------------------------------
-    // Settings
+    // Properties
     //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    anchors.fill: parent
+    /* read */ property int contentWidth : st.dp320
+    /* read */ property int contentHeight: editScale.y + editScale.height + st.dp4
 
     //---------------------------------------------------------------------------------------------
     // Functions

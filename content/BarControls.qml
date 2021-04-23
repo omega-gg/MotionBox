@@ -378,8 +378,6 @@ MouseArea
 
             width: st.dp44
 
-            highlighted: player.isPlaying
-
             checkable: true
             checked  : panelSettings.isExposed
 

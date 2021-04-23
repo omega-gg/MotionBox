@@ -28,6 +28,12 @@ Item
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+
+    /* read */ property int contentWidth : st.dp480
+    /* read */ property int contentHeight: lineEdit.height + loader.height
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pAnimate: true
@@ -43,12 +49,6 @@ Item
     property string pQuery
 
     property bool pEvents: true
-
-    //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
-
-    height: lineEdit.height + loader.height
 
     //---------------------------------------------------------------------------------------------
     // Events

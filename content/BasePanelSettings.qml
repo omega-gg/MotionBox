@@ -69,6 +69,7 @@ Panel
     y: parent.height + height
 //#END
 
+    width : getWidth ()
     height: getHeight()
 
     borderLeft  : borderSize
@@ -157,6 +158,18 @@ Panel
     // Animations
     //---------------------------------------------------------------------------------------------
 
+    Behavior on width
+    {
+        enabled: pAnimate
+
+        PropertyAnimation
+        {
+            duration: st.duration_fast
+
+            easing.type: st.easing
+        }
+    }
+
     Behavior on height
     {
         enabled: pAnimate
@@ -188,6 +201,8 @@ Panel
             currentIndex = 0;
 
             loader.source = sources[0];
+
+            loader.item.forceActiveFocus();
         }
 
         // NOTE: We check if the 'onShow' function is defined.
@@ -196,13 +211,24 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
+    function getWidth()
+    {
+        var item = loader.item;
+
+        if (item)
+        {
+             return item.contentWidth + borderSizeWidth;
+        }
+        else return borderSizeWidth;
+    }
+
     function getHeight()
     {
         var item = loader.item;
 
         if (item)
         {
-             return loader.y + item.height;
+             return loader.y + item.contentHeight;
         }
         else return loader.y;
     }
@@ -216,6 +242,33 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
+    function pSelectTab(index)
+    {
+        if (loader.isAnimated || currentIndex == index || index >= sources.length) return;
+
+        var source = sources[index];
+
+        pAnimate = true;
+
+        if (currentIndex < index)
+        {
+             loader.loadLeft(source);
+        }
+        else loader.loadRight(source);
+
+        // NOTE: We check if the 'onShow' function is defined.
+        if (page.onShow) page.onShow();
+
+        pAnimate = false;
+
+        // NOTE: We apply the current index after the animation.
+        currentIndex = index;
+
+        loader.item.forceActiveFocus();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function pGetTitle()
     {
         if (currentIndex == -1)
@@ -223,6 +276,18 @@ Panel
             return "";
         }
         else return titles[currentIndex];
+    }
+
+    function pGetSettings()
+    {
+        var settings = new Array;
+
+        for (var i = 0; i < titles.length; i++)
+        {
+            settings.push({ "title": titles[i] });
+        }
+
+        return settings;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -240,7 +305,7 @@ Panel
 
         borderTop: 0
 
-        ButtonPiano
+        ButtonSettings
         {
             id: button
 
@@ -251,10 +316,22 @@ Panel
 
             text: pGetTitle()
 
+            settings: pGetSettings()
+
+            currentIndex: basePanelSettings.currentIndex
+
             font.pixelSize: st.dp14
 
             // NOTE: We make sure the text is always opaque even when the item is disabled.
             itemText.opacity: 1.0
+
+            //-----------------------------------------------------------------------------------------
+            // ButtonSettingsAction implementation
+
+            function onClick(index)
+            {
+                pSelectTab(index);
+            }
         }
     }
 
@@ -262,10 +339,9 @@ Panel
     {
         id: loader
 
-        anchors.left : parent.left
-        anchors.right: parent.right
-        anchors.top  : bar.bottom
-
-        height: (item) ? item.height : 0
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : bar.bottom
+        anchors.bottom: parent.bottom
     }
 }

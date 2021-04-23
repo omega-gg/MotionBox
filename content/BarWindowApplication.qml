@@ -36,7 +36,7 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pMargin: buttonAdd.width - buttonApplication.borderRight
+    property int pMargin: buttonAdd.width - st.border_size
 
     property bool pVersion: (online.version && online.version != sk.version)
 
@@ -54,8 +54,6 @@ Item
     property alias tabs: itemTabs.tabs
 
     //---------------------------------------------------------------------------------------------
-
-    property alias buttonApplication: buttonApplication
 
     property alias buttonVersion: buttonVersion
     property alias buttonMessage: buttonMessage
@@ -355,34 +353,11 @@ Item
         }
     }
 
-    ButtonPianoIcon
-    {
-        id: buttonApplication
-
-        checkable: true
-        checked  : panelApplication.isExposed
-
-        icon          : st.icon
-        iconSourceSize: st.size24x24
-
-        enableFilter: false
-
-        onPressed:
-        {
-            gui.restoreBars();
-
-            panelApplication.toggleExpose();
-        }
-    }
-
     ButtonPiano
     {
         id: buttonVersion
 
-        anchors.left: buttonApplication.right
-        anchors.top : border.top
-
-        height: buttonApplication.height + borderSizeHeight
+        anchors.top: border.top
 
         borderTop: borderSize
 
@@ -528,8 +503,8 @@ Item
     {
         id: buttonMessage
 
-        anchors.left: (buttonVersion.visible) ? buttonVersion    .right
-                                              : buttonApplication.right
+        anchors.left: (buttonVersion.visible) ? buttonVersion.right
+                                              : parent.left
 
         anchors.top: border.top
 
@@ -617,7 +592,7 @@ Item
 
         anchors.right: buttonIconify.left
 
-        anchors.leftMargin: -(buttonApplication.borderRight)
+        anchors.leftMargin: -(st.border_size)
 
         anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
                                                  : pMargin + st.dp32

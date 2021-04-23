@@ -32,10 +32,10 @@ Item
     /* read */ property bool hasMessage: (online.messageUrl != "")
 
     //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    anchors.fill: parent
+    /* read */ property int contentWidth : st.dp320
+    /* read */ property int contentHeight: st.dp288
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -118,16 +118,6 @@ Item
         iconSourceSize: st.size16x16
 
         onClicked: gui.openUrl(controllerFile.applicationFileUrl("Readme.html"))
-
-        Behavior on x
-        {
-            PropertyAnimation
-            {
-                duration: st.duration_normal
-
-                easing.type: st.easing
-            }
-        }
     }
 
     ButtonPushRight
@@ -144,16 +134,6 @@ Item
         text: qsTr("Credits")
 
         onClicked: pLoad("PageAboutCredits.qml")
-
-        Behavior on x
-        {
-            PropertyAnimation
-            {
-                duration: st.duration_normal
-
-                easing.type: st.easing
-            }
-        }
     }
 
     ButtonImage

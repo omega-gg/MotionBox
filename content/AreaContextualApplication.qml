@@ -38,6 +38,8 @@ AreaContextual
     // 3: Tab
     // 4: Browse
 
+    /* read */ property variant item: null
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -73,6 +75,42 @@ AreaContextual
 
     //---------------------------------------------------------------------------------------------
     // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function showPanelSettings(item, settings, currentIndex, activeIndex)
+    {
+        // NOTE: We don't want to show the same panel twice.
+        if (checkPanel(panelContextual, item)) return;
+
+        areaContextual.item = item;
+
+        var array = new Array;
+
+        for (var i = 0; i < settings.length; i++)
+        {
+            var data = settings[i];
+
+            var icon = data.icon;
+
+            // NOTE: We make sure id(s) are equivalent to index(es).
+            if (icon)
+            {
+                 array.push({ "id": i, "title": data.title, "icon": icon,
+                              "iconSize": data.iconSize });
+            }
+            else array.push({ "id": i, "title": data.title });
+        }
+
+        page.values = array;
+
+        page.set(activeIndex, { "isCurrent": true });
+
+        // NOTE: We make sure id(s) are equivalent to index(es).
+        page.currentId = currentIndex;
+
+        showPanelPositionMargins(panelContextual, item, Sk.BottomLeftCorner, 0, -st.border_size);
+    }
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -137,11 +175,15 @@ AreaContextual
             if (isActive)
             {
                 listContextual.focus();
+
+                return;
             }
-            else if (currentPage)
-            {
-                currentPage.currentId = -1;
-            }
+
+            currentPage.clearItems();
+
+            areaContextual.currentId = -1;
+
+            areaContextual.item = null;
         }
 
         //-----------------------------------------------------------------------------------------
@@ -751,6 +793,15 @@ AreaContextual
 
                 // NOTE: We want the 'areaContextual' currentId.
                 var currentId = areaContextual.currentId;
+
+                if (currentId == -1)
+                {
+                    var item = areaContextual.item;
+
+                    if (item) item.onClick(id);
+
+                    areaContextual.hidePanels();
+                }
 
                 if      (currentId == 0) clear = panelContextual.onFolderClicked(id);
                 else if (currentId == 1) clear = panelContextual.onTrackClicked (id);

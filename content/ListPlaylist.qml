@@ -245,7 +245,7 @@ BaseList
 
                 showPanel(index);
 
-                areaContextual.currentPage.currentId = 2;
+                areaContextual.currentPage.currentId = 1; // Tracks remove
             }
         }
         else if (event.key == Qt.Key_A && event.modifiers == Qt.ControlModifier)

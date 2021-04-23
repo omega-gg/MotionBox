@@ -177,8 +177,6 @@ Item
 
     property alias tabs: barWindow.tabs
 
-    property alias buttonApplication: barWindow.buttonApplication
-
     property alias itemTabs: barWindow.itemTabs
 
     property alias buttonMaximize: barWindow.buttonMaximize
@@ -2190,12 +2188,12 @@ Item
 
             barWindow.buttonClose.returnPressed();
         }
-        else if (event.key == Qt.Key_F1) // Application
+        /*else if (event.key == Qt.Key_F1) // Application
         {
             event.accepted = true;
 
             buttonApplication.returnPressed();
-        }
+        }*/
         else if (event.key == Qt.Key_F2) // Expand
         {
             event.accepted = true;
@@ -2385,10 +2383,10 @@ Item
         {
             barWindow.buttonClose.returnReleased();
         }
-        else if (buttonApplication.isReturnPressed)
+        /*else if (buttonApplication.isReturnPressed)
         {
             buttonApplication.returnReleased();
-        }
+        }*/
         else if (buttonBackward.isReturnPressed)
         {
             buttonBackward.returnReleased();

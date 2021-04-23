@@ -28,18 +28,18 @@ Item
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+
+    /* read */ property int contentWidth : st.dp400
+    /* read */ property int contentHeight: barBottom.y + barBottom.height + st.dp50
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     property int pRepeat: local.repeat
 
     property int pQuality      : local.quality
     property int pQualityActive: player.qualityActive
-
-    //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
-
-    height: barBottom.y + barBottom.height + st.dp50
 
     //---------------------------------------------------------------------------------------------
     // Events

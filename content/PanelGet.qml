@@ -29,8 +29,6 @@ BasePanelSettings
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: st.dp480 + borderSizeWidth
-
     sources: [ Qt.resolvedUrl("PageSubtitles.qml") ]
 
     titles: [ qsTr("Subtitles") ]

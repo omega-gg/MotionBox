@@ -29,13 +29,12 @@ BasePanelSettings
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: st.dp400 + borderSizeWidth
-
     sources: [ Qt.resolvedUrl("PageSettingsVideo.qml"),
-               Qt.resolvedUrl("PageSettingsAdvanced.qml"),
-               Qt.resolvedUrl("PageConsole.qml") ]
+               Qt.resolvedUrl("PageSettingsMain.qml"),
+               Qt.resolvedUrl("PageConsole.qml"),
+               Qt.resolvedUrl("PageAboutMain.qml") ]
 
-    titles: [ qsTr("Video"), qsTr("Advanced"), qsTr("Console") ]
+    titles: [ qsTr("Video"), qsTr("General"), qsTr("Console"), qsTr("About") ]
 
     //---------------------------------------------------------------------------------------------
     // Functions

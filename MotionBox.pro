@@ -211,6 +211,7 @@ OTHER_FILES += 3rdparty.sh \
                content/BarTop.qml \
                content/BarControls.qml \
                content/ButtonPianoTitle.qml \
+               content/ButtonSettings.qml \
                content/ButtonLogo.qml \
                content/ButtonsBrowse.qml \
                content/LineEditSearch.qml \

@@ -2188,12 +2188,19 @@ Item
 
             barWindow.buttonClose.returnPressed();
         }
-        /*else if (event.key == Qt.Key_F1) // Application
+        else if (event.key == Qt.Key_F1) // Browse
         {
             event.accepted = true;
 
-            buttonApplication.returnPressed();
-        }*/
+            if (isExpanded)
+            {
+                restoreBars();
+                restore    ();
+
+                panelBrowse.expose();
+            }
+            else buttonBrowse.returnPressed();
+        }
         else if (event.key == Qt.Key_F2) // Expand
         {
             event.accepted = true;
@@ -2231,18 +2238,18 @@ Item
                 buttonRelated.returnPressed();
             }
         }
-        else if (event.key == Qt.Key_F5) // Browse
+        else if (event.key == Qt.Key_F5) // Select
         {
             event.accepted = true;
 
-            if (isExpanded)
-            {
-                restoreBars();
-                restore    ();
+            if (event.isAutoRepeat) return;
 
-                panelBrowse.expose();
-            }
-            else buttonBrowse.returnPressed();
+            restoreBars();
+            restore    ();
+
+            gui.selectTrack(playerTab);
+
+            //panelCover.buttonTrack.returnPressed();
         }
         else if (event.key == Qt.Key_F6) // Settings
         {
@@ -2256,7 +2263,7 @@ Item
 
             buttonGet.returnPressed();
         }
-        else if (event.key == Qt.Key_F8) // Select
+        else if (event.key == Qt.Key_F8) // Playlist
         {
             event.accepted = true;
 
@@ -2265,9 +2272,7 @@ Item
             restoreBars();
             restore    ();
 
-            gui.selectTrack(playerTab);
-
-            //panelCover.buttonTrack.returnPressed();
+            panelLibrary.buttonAdd.returnPressed();
         }
         else if (event.key == Qt.Key_F9) // Normal
         {

@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Basculer le panneau d'application.
+F1: Basculer le Navigateur de Tracks.
 
 F2: Basculer le Navigateur Vidéo.
 
@@ -14,13 +14,13 @@ F4: Basculer le Navigateur Relatif.
 
 #
 
-F5: Basculer le Navigateur de Tracks.
+F5: Aller au track courant.
 
 F6: Basculer le panneau de paramètres.
 
 F7: Basculer le panneau de téléchargements.
 
-F8: Aller au track courant.
+F8: Créer une nouvelle playlist.
 
 #
 

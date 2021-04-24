@@ -4,7 +4,7 @@
 
 # Global
 
-F1: Toggle the application panel.
+F1: Toggle the Track Browser.
 
 F2: Toggle the Player Browser.
 
@@ -14,13 +14,13 @@ F4: Toggle the Related Browser.
 
 #
 
-F5: Toggle the Track Browser.
+F5: Go to the current track.
 
 F6: Toggle the settings panel.
 
 F7: Toggle the download panel.
 
-F8: Go to the current track.
+F8: Create a new playlist.
 
 #
 

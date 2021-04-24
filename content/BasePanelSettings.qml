@@ -36,7 +36,7 @@ Panel
     /* mandatory */ property variant sources
     /* mandatory */ property variant titles
 
-    /* read */ property int currentIndex: -1
+    /* read */ property int currentIndex: 0
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -196,11 +196,9 @@ Panel
 
     function loadPage()
     {
-        if (currentIndex == -1)
+        if (loader.source == "")
         {
-            currentIndex = 0;
-
-            loader.source = sources[0];
+            loader.source = sources[currentIndex];
 
             loader.item.forceActiveFocus();
         }
@@ -271,11 +269,7 @@ Panel
 
     function pGetTitle()
     {
-        if (currentIndex == -1)
-        {
-            return "";
-        }
-        else return titles[currentIndex];
+        return titles[currentIndex];
     }
 
     function pGetSettings()

@@ -226,6 +226,7 @@ $SkyComponents/ButtonPushOverlay.qml \
 $SkyComponents/ButtonPiano.qml \
 $SkyComponents/ButtonPianoIcon.qml \
 $SkyComponents/ButtonPianoFull.qml \
+$SkyComponents/ButtonPianoAction.qml \
 $SkyComponents/ButtonPianoWindow.qml \
 $SkyComponents/ButtonPianoReset.qml \
 $SkyComponents/ButtonRound.qml \

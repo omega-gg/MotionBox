@@ -30,9 +30,9 @@ BasePanelSettings
     //---------------------------------------------------------------------------------------------
 
     sources: [ Qt.resolvedUrl("PageSettingsVideo.qml"),
-               Qt.resolvedUrl("PageSettingsMain.qml"),
+               Qt.resolvedUrl("PageSettings.qml"),
                Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAboutMain.qml") ]
+               Qt.resolvedUrl("PageAbout.qml") ]
 
     titles: [ qsTr("Video"), qsTr("General"), qsTr("Console"), qsTr("About") ]
 

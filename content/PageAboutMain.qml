@@ -32,10 +32,10 @@ Item
     /* read */ property bool hasMessage: (online.messageUrl != "")
 
     //---------------------------------------------------------------------------------------------
-    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+    // Settings
+    //---------------------------------------------------------------------------------------------
 
-    /* read */ property int contentWidth : st.dp320
-    /* read */ property int contentHeight: st.dp288
+    anchors.fill: parent
 
     //---------------------------------------------------------------------------------------------
     // Functions

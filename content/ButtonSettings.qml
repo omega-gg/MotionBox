@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPianoFull
+ButtonPianoAction
 {
     id: buttonSettings
 

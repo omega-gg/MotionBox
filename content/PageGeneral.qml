@@ -323,9 +323,8 @@ Column
 
             width: Math.round(contentWidth / 2)
 
-            highlighted: (player.isPlaying && checked)
-
-            checked: local.shuffle
+            checkable: true
+            checked  : local.shuffle
 
             icon          : st.icon16x16_shuffle
             iconSourceSize: st.size16x16
@@ -339,16 +338,15 @@ Column
         {
             width: buttonShuffle.width
 
-            highlighted: (player.isPlaying && checked)
-
-            checked: (pRepeat > 0)
+            checkable: true
+            checked  : (pRepeat > 0)
 
             icon: (pRepeat == 2) ? st.icon16x16_repeatOne
                                  : st.icon16x16_repeat
 
             iconSourceSize: st.size16x16
 
-            text: (pRepeat == 2) ? qsTr("One")
+            text: (pRepeat == 2) ? qsTr("Rep. 1")
                                  : qsTr("Repeat")
 
             onClicked:

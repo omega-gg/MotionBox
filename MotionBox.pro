@@ -232,8 +232,6 @@ OTHER_FILES += 3rdparty.sh \
                content/PageSettingsMain.qml \
                content/PageSettingsProxy.qml \
                content/PageSettingsTorrent.qml \
-               #content/PageSettingsVideo.qml \
-               #content/PageSettingsAdvanced.qml \
                content/PageGeneral.qml \
                content/PageConsole.qml \
                content/PageAbout.qml \

@@ -34,7 +34,7 @@ BasePanelSettings
                Qt.resolvedUrl("PageConsole.qml"),
                Qt.resolvedUrl("PageAbout.qml") ]
 
-    titles: [ qsTr("Application"), qsTr("General"), qsTr("Console"), qsTr("About") ]
+    titles: [ qsTr("Application"), qsTr("Video"), qsTr("Console"), qsTr("About") ]
 
     currentIndex: 1
 

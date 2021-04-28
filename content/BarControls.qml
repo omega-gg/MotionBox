@@ -222,11 +222,10 @@ MouseArea
 
             highlighted: (enabled && player.isPlaying)
 
-            icon: (player.shuffle) ? st.icon20x20_shuffle
+            icon: (player.shuffle) ? st.icon16x16_shuffle
                                    : st.icon16x16_forward
 
-            iconSourceSize: (player.shuffle) ? st.size20x20
-                                             : st.size16x16
+            iconSourceSize: st.size16x16
 
             acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
                                                 : Qt.LeftButton

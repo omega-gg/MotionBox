@@ -210,8 +210,10 @@ OTHER_FILES += 3rdparty.sh \
                content/BarWindowApplication.qml \
                content/BarTop.qml \
                content/BarControls.qml \
+               content/BarSettings.qml \
                content/ButtonPianoTitle.qml \
                content/ButtonSettings.qml \
+               content/ButtonSettingsAction.qml \
                content/ButtonLogo.qml \
                content/ButtonsBrowse.qml \
                content/LineEditSearch.qml \
@@ -230,8 +232,9 @@ OTHER_FILES += 3rdparty.sh \
                content/PageSettingsMain.qml \
                content/PageSettingsProxy.qml \
                content/PageSettingsTorrent.qml \
-               content/PageSettingsVideo.qml \
-               content/PageSettingsAdvanced.qml \
+               #content/PageSettingsVideo.qml \
+               #content/PageSettingsAdvanced.qml \
+               content/PageGeneral.qml \
                content/PageConsole.qml \
                content/PageAbout.qml \
                content/PageAboutMain.qml \

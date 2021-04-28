@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPianoAction
+ButtonPianoFull
 {
     id: buttonSettings
 
@@ -33,6 +33,10 @@ ButtonPianoAction
 
     /* mandatory */ property variant settings
 
+    property bool active: false
+
+    property int marginY: 0
+
     property int currentIndex: -1
     property int activeIndex : -1
 
@@ -40,14 +44,22 @@ ButtonPianoAction
     // Settings
     //---------------------------------------------------------------------------------------------
 
+    anchors.left : parent.left
+    anchors.right: parent.right
+
+    borderRight : 0
+    borderBottom: borderSize
+
     checkable: true
     checked  : (areaContextual.item == buttonSettings)
+
+    itemText.color: st.getTextColor(isHighlighted, active)
 
     //---------------------------------------------------------------------------------------------
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onPressed: areaContextual.showPanelSettings(buttonSettings, settings, currentIndex,
+    onPressed: areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
                                                 activeIndex)
 
     //---------------------------------------------------------------------------------------------

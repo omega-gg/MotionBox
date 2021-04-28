@@ -23,58 +23,33 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+BarTitleSmall
 {
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias text: itemText.text
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSettings.qml"),
-               Qt.resolvedUrl("PageGeneral.qml"),
-               Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAbout.qml") ]
+    anchors.left : parent.left
+    anchors.right: parent.right
 
-    titles: [ qsTr("Application"), qsTr("General"), qsTr("Console"), qsTr("About") ]
-
-    currentIndex: 1
+    borderTop: 0
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Childs
     //---------------------------------------------------------------------------------------------
 
-    function expose()
+    BarTitleText
     {
-        if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
+        id: itemText
 
-        gui.panelAddHide();
+        anchors.fill: parent
 
-        panelGet.collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelGet.z = 0;
-
-        visible = true;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function collapse()
-    {
-        if (isExposed == false || actionCue.tryPush(gui.actionSettingsCollapse)) return;
-
-        isExposed = false;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
+        font.pixelSize: st.dp12
     }
 }

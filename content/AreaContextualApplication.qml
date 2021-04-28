@@ -77,7 +77,7 @@ AreaContextual
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function showPanelSettings(item, settings, currentIndex, activeIndex)
+    function showPanelSettings(item, marginY, settings, currentIndex, activeIndex)
     {
         // NOTE: We don't want to show the same panel twice.
         if (checkPanel(panelContextual, item)) return;
@@ -108,7 +108,8 @@ AreaContextual
         // NOTE: We make sure id(s) are equivalent to index(es).
         page.currentId = currentIndex;
 
-        showPanelPositionMargins(panelContextual, item, Sk.BottomLeftCorner, 0, -st.border_size);
+        showPanelPositionMargins(panelContextual, item,
+                                 Sk.BottomLeftCorner, 0, marginY - st.border_size);
     }
 
     //---------------------------------------------------------------------------------------------

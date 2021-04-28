@@ -154,6 +154,11 @@ StyleComponents
 
     property url icon16x16_addBold: icon_addBold
 
+    property url icon16x16_shuffle: icon_shuffle
+
+    property url icon16x16_repeat   : icon_repeat
+    property url icon16x16_repeatOne: icon_repeatOne
+
     property url icon16x16_link: icon_link
 
     property url icon16x16_playlist: icon_playlist
@@ -176,11 +181,6 @@ StyleComponents
 
     property url icon20x20_subtitles: icon_subtitles
     property url icon20x20_settings : icon_settings
-
-    property url icon20x20_shuffle: icon_shuffle
-
-    property url icon20x20_repeat   : icon_repeat
-    property url icon20x20_repeatOne: icon_repeatOne
 
     property url icon20x20_setting: icon_setting
     property url icon20x20_about  : icon_about

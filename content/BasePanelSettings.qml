@@ -215,7 +215,7 @@ Panel
 
         if (item)
         {
-             return item.contentWidth + borderSizeWidth;
+             return borderSizeWidth + item.contentWidth;
         }
         else return borderSizeWidth;
     }
@@ -226,9 +226,9 @@ Panel
 
         if (item)
         {
-             return loader.y + item.contentHeight;
+             return loader.y + borderSizeHeight + item.contentHeight;
         }
-        else return loader.y;
+        else return loader.y + borderSizeHeight;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -299,7 +299,7 @@ Panel
 
         borderTop: 0
 
-        ButtonSettings
+        ButtonSettingsAction
         {
             id: button
 

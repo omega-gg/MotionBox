@@ -23,58 +23,42 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+ButtonPianoAction
 {
+    id: buttonSettingsAction
+
+    //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+
+    /* mandatory */ property variant settings
+
+    property int currentIndex: -1
+    property int activeIndex : -1
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSettings.qml"),
-               Qt.resolvedUrl("PageGeneral.qml"),
-               Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAbout.qml") ]
+    anchors.left : parent.left
+    anchors.right: parent.right
 
-    titles: [ qsTr("Application"), qsTr("General"), qsTr("Console"), qsTr("About") ]
+    borderRight: 0
 
-    currentIndex: 1
+    checkable: true
+    checked  : (areaContextual.item == buttonSettingsAction)
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onPressed: areaContextual.showPanelSettings(buttonSettingsAction, 0, settings, currentIndex,
+                                                activeIndex)
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+    // Events
 
-    function expose()
-    {
-        if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
-
-        gui.panelAddHide();
-
-        panelGet.collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelGet.z = 0;
-
-        visible = true;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function collapse()
-    {
-        if (isExposed == false || actionCue.tryPush(gui.actionSettingsCollapse)) return;
-
-        isExposed = false;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
-    }
+    /* virtual */ function onClick(index) {}
 }

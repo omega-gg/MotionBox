@@ -48,6 +48,8 @@ Application
 
         maximized: local.maximized
 
+        vsync: local.vsync
+
         dropEnabled: true
 
         resizable: false

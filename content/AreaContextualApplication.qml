@@ -108,8 +108,15 @@ AreaContextual
         // NOTE: We make sure id(s) are equivalent to index(es).
         page.currentId = currentIndex;
 
-        showPanelPositionMargins(panelContextual, item,
-                                 Sk.BottomLeftCorner, 0, marginY - st.border_size);
+        var panel = pGetPanel();
+
+        if (panel.height < panelContextual.preferredHeight)
+        {
+             showPanelPositionMargins(panelContextual, panel,
+                                      Sk.TopLeftCorner, st.border_size, st.border_size);
+        }
+        else showPanelPositionMargins(panelContextual, item,
+                                      Sk.BottomLeftCorner, 0, marginY - st.border_size);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -147,6 +154,14 @@ AreaContextual
         gui.restore();
 
         panelBrowse.browse(query);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pGetPanel()
+    {
+        if (panelGet.active) return panelGet;
+        else                 return panelSettings;
     }
 
     //---------------------------------------------------------------------------------------------

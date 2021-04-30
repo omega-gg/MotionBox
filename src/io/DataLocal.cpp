@@ -107,8 +107,11 @@ public: // Variables
     bool                       shuffle;
     WDeclarativePlayer::Repeat repeat;
 
-    WAbstractBackend::Output  output;
-    WAbstractBackend::Quality quality;
+    WAbstractBackend::Output   output;
+    WAbstractBackend::Quality  quality;
+    WAbstractBackend::FillMode fillMode;
+
+    bool vsync;
 
     int subtitleIndex;
 
@@ -201,8 +204,11 @@ public: // Variables
     stream.writeTextElement("shuffle", QString::number(shuffle));
     stream.writeTextElement("repeat",  QString::number(repeat));
 
-    stream.writeTextElement("output",  QString::number(output));
-    stream.writeTextElement("quality", QString::number(quality));
+    stream.writeTextElement("output",   QString::number(output));
+    stream.writeTextElement("quality",  QString::number(quality));
+    stream.writeTextElement("fillMode", QString::number(fillMode));
+
+    stream.writeTextElement("vsync", QString::number(vsync));
 
     stream.writeTextElement("subtitleIndex", QString::number(subtitleIndex));
 
@@ -277,8 +283,16 @@ public: // Variables
     _shuffle = false;
     _repeat  = WDeclarativePlayer::RepeatNone;
 
-    _output  = WAbstractBackend::OutputMedia;
-    _quality = WAbstractBackend::Quality720;
+    _output   = WAbstractBackend::OutputMedia;
+    _quality  = WAbstractBackend::Quality720;
+    _fillMode = WAbstractBackend::PreserveAspectFit;
+
+#if defined(Q_OS_MAC) || defined(Q_OS_ANDROID)
+    // NOTE macOS/Android: Without vsync animations are messed up.
+    _vsync = true;
+#else
+    _vsync = false;
+#endif
 
     _subtitleIndex = 19; // English
 
@@ -399,8 +413,11 @@ public: // Variables
     action->shuffle = _shuffle;
     action->repeat  = _repeat;
 
-    action->output  = _output;
-    action->quality = _quality;
+    action->output   = _output;
+    action->quality  = _quality;
+    action->fillMode = _fillMode;
+
+    action->vsync = _vsync;
 
     action->subtitleIndex = _subtitleIndex;
 
@@ -620,6 +637,20 @@ bool DataLocal::extract(const QByteArray & array)
     if (WControllerXml::readNextStartElement(&stream, "quality") == false) return false;
 
     _quality = static_cast<WAbstractBackend::Quality> (WControllerXml::readNextInt(&stream));
+
+    //---------------------------------------------------------------------------------------------
+    // fillMode
+
+    if (WControllerXml::readNextStartElement(&stream, "fillMode") == false) return false;
+
+    _fillMode = static_cast<WAbstractBackend::FillMode> (WControllerXml::readNextInt(&stream));
+
+    //---------------------------------------------------------------------------------------------
+    // vsync
+
+    if (WControllerXml::readNextStartElement(&stream, "vsync") == false) return false;
+
+    _vsync = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // subtitleIndex
@@ -1076,6 +1107,40 @@ void DataLocal::setQuality(WAbstractBackend::Quality quality)
     _quality = quality;
 
     emit qualityChanged();
+
+    save();
+}
+
+WAbstractBackend::FillMode DataLocal::fillMode() const
+{
+    return _fillMode;
+}
+
+void DataLocal::setFillMode(WAbstractBackend::FillMode fillMode)
+{
+    if (_fillMode == fillMode) return;
+
+    _fillMode = fillMode;
+
+    emit fillModeChanged();
+
+    save();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool DataLocal::vsync() const
+{
+    return _vsync;
+}
+
+void DataLocal::setVsync(bool enabled)
+{
+    if (_vsync == enabled) return;
+
+    _vsync = enabled;
+
+    emit vsyncChanged();
 
     save();
 }

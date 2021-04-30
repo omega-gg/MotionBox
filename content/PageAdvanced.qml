@@ -23,60 +23,42 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+Column
 {
     //---------------------------------------------------------------------------------------------
-    // Settings
+    // Properties
     //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    sources: [ Qt.resolvedUrl("PageSettings.qml"),
-               Qt.resolvedUrl("PageVideo.qml"),
-               Qt.resolvedUrl("PageAdvanced.qml"),
-               Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAbout.qml") ]
-
-    titles: [ qsTr("Application"), qsTr("Video"), qsTr("Advanced"), qsTr("Console"),
-              qsTr("About") ]
-
-    currentIndex: 1
+    /* read */ property int contentWidth : st.dp192
+    /* read */ property int contentHeight: buttonVsync.y + buttonVsync.height
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Childs
     //---------------------------------------------------------------------------------------------
 
-    function expose()
+//#DESKTOP
+    // NOTE: We can't lock the window on mobile.
+    ButtonCheckSettings
     {
-        if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
+        checked: window.locked
 
-        gui.panelAddHide();
+        text: qsTr("Stay on top")
 
-        panelGet.collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelGet.z = 0;
-
-        visible = true;
-
-        gui.startActionCue(st.duration_faster);
+        onCheckClicked: window.locked = checked
     }
+//#END
 
-    function collapse()
+    ButtonCheckSettings
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionSettingsCollapse)) return;
+        id: buttonVsync
 
-        isExposed = false;
+        borderSize: 0
 
-        gui.startActionCue(st.duration_faster);
-    }
+        checked: window.vsync
 
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
+        text: qsTr("Vsync")
+
+        onCheckClicked: window.vsync = checked
     }
 }

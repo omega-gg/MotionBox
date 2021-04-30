@@ -196,26 +196,16 @@ Column
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    ButtonCheckLabel
+    ButtonCheckSettings
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
-
         checked: local.autoPlay
 
         text: qsTr("Autoplay")
 
-        itemText.horizontalAlignment: Text.AlignLeft
-
         onCheckClicked: local.autoPlay = checked
     }
 
-    BarSettings
-    {
-        borderTop: borderSize
-
-        text: qsTr("Output")
-    }
+    BarSettings { text: qsTr("Output") }
 
     ButtonsCheck
     {
@@ -317,11 +307,14 @@ Column
     {
         id: row
 
+        anchors.left : parent.left
+        anchors.right: parent.right
+
         ButtonPushFull
         {
             id: buttonShuffle
 
-            width: Math.round(contentWidth / 2)
+            width: Math.round(parent.width / 2)
 
             checkable: true
             checked  : local.shuffle

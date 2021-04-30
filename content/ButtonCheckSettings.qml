@@ -23,60 +23,76 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+Rectangle
 {
+    id: buttonCheckSettings
+
+    //---------------------------------------------------------------------------------------------
+    // Alias
+    //---------------------------------------------------------------------------------------------
+
+    property int padding: st.buttonPiano_padding
+
+    property alias borderSize: border.size
+
+    property alias checked: button.checked
+
+    property alias text: itemText.text
+
+    //---------------------------------------------------------------------------------------------
+    // Signals
+    //---------------------------------------------------------------------------------------------
+
+    signal checkClicked
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSettings.qml"),
-               Qt.resolvedUrl("PageVideo.qml"),
-               Qt.resolvedUrl("PageAdvanced.qml"),
-               Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAbout.qml") ]
+    anchors.left : parent.left
+    anchors.right: parent.right
 
-    titles: [ qsTr("Application"), qsTr("Video"), qsTr("Advanced"), qsTr("Console"),
-              qsTr("About") ]
+    height: st.buttonPiano_height + borderSize
 
-    currentIndex: 1
+    color: st.labelRoundInfo_color
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Childs
     //---------------------------------------------------------------------------------------------
 
-    function expose()
+    TextBase
     {
-        if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
+        id: itemText
 
-        gui.panelAddHide();
+        anchors.left  : parent.left
+        anchors.right : button.left
+        anchors.top   : parent.top
+        anchors.bottom: border.top
 
-        panelGet.collapse();
+        anchors.leftMargin: buttonCheckSettings.padding
 
-        loadPage();
+        verticalAlignment: Text.AlignVCenter
 
-        isExposed = true;
-
-        z = 1;
-
-        panelGet.z = 0;
-
-        visible = true;
-
-        gui.startActionCue(st.duration_faster);
+        color: st.labelRoundInfo_colorText
     }
 
-    function collapse()
+    ButtonCheck
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionSettingsCollapse)) return;
+        id: button
 
-        isExposed = false;
+        anchors.right: parent.right
 
-        gui.startActionCue(st.duration_faster);
+        anchors.verticalCenter: itemText.verticalCenter
+
+        enabled: parent.enabled
+
+        onCheckClicked: buttonCheckSettings.checkClicked()
     }
 
-    function toggleExpose()
+    BorderHorizontal
     {
-        if (isExposed) collapse();
-        else           expose  ();
+        id: border
+
+        anchors.bottom: parent.bottom
     }
 }

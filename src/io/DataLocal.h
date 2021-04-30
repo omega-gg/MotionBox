@@ -83,6 +83,11 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(WAbstractBackend::Quality quality READ quality WRITE setQuality
                NOTIFY qualityChanged)
 
+    Q_PROPERTY(WAbstractBackend::FillMode fillMode READ fillMode WRITE setFillMode
+               NOTIFY fillModeChanged)
+
+    Q_PROPERTY(bool vsync READ vsync WRITE setVsync NOTIFY vsyncChanged)
+
     Q_PROPERTY(int subtitleIndex READ subtitleIndex WRITE setSubtitleIndex
                NOTIFY subtitleIndexChanged)
 
@@ -165,8 +170,11 @@ signals:
     void shuffleChanged();
     void repeatChanged ();
 
-    void outputChanged ();
-    void qualityChanged();
+    void outputChanged  ();
+    void qualityChanged ();
+    void fillModeChanged();
+
+    void vsyncChanged();
 
     void subtitleIndexChanged();
 
@@ -256,8 +264,14 @@ public: // Properties
     WAbstractBackend::Quality quality() const;
     void                      setQuality(WAbstractBackend::Quality quality);
 
+    WAbstractBackend::FillMode fillMode() const;
+    void                       setFillMode(WAbstractBackend::FillMode fillMode);
+
     int  subtitleIndex() const;
     void setSubtitleIndex(int index);
+
+    bool vsync() const;
+    void setVsync(bool enabled);
 
     bool cache() const;
     void setCache(bool cache);
@@ -338,8 +352,11 @@ private: // Variables
     bool                       _shuffle;
     WDeclarativePlayer::Repeat _repeat;
 
-    WAbstractBackend::Output  _output;
-    WAbstractBackend::Quality _quality;
+    WAbstractBackend::Output   _output;
+    WAbstractBackend::Quality  _quality;
+    WAbstractBackend::FillMode _fillMode;
+
+    bool _vsync;
 
     int _subtitleIndex;
 

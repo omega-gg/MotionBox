@@ -305,8 +305,9 @@ Item
 
         player.repeat = local.repeat;
 
-        player.output  = local.output;
-        player.quality = local.quality;
+        player.output   = local.output;
+        player.quality  = local.quality;
+        player.fillMode = local.fillMode;
 
         if (local.proxyActive)
         {
@@ -381,46 +382,17 @@ Item
     {
         target: window
 
-        onActiveChanged: updateScreenDim()
-
-        onIdleChanged:
-        {
-            if (window.idle)
-            {
-                // NOTE: We make sure hovered items are up to date.
-                window.updateHover();
-
-                if (playerMouseArea.containsMouse)
-                {
-                    sk.cursorVisible = false;
-                }
-            }
-            else sk.cursorVisible = true;
-        }
-
         onMousePressed : onMousePressed (event)
         onMouseReleased: onMouseReleased(event)
+
+        onKeyPressed : onKeyPressed (event)
+        onKeyReleased: onKeyReleased(event)
 
         onDragEntered: onDragEntered(event)
         onDragExited : onDragExited (event)
         onDrop       : onDrop       (event)
 
         onDragEnded: onDragEnded()
-
-        onKeyPressed : onKeyPressed (event)
-        onKeyReleased: onKeyReleased(event)
-
-        onZoomChanged:
-        {
-            if (pZoomLater)
-            {
-                pZoomLater = false;
-
-                scaleAfter();
-
-                asynchronous = true;
-            }
-        }
 
         onBeforeClose:
         {
@@ -484,6 +456,37 @@ Item
             pSaveSize();
 
             local.save();
+        }
+
+        onZoomChanged:
+        {
+            if (pZoomLater)
+            {
+                pZoomLater = false;
+
+                scaleAfter();
+
+                asynchronous = true;
+            }
+        }
+
+        onActiveChanged: updateScreenDim()
+
+        onVsyncChanged: local.vsync = window.vsync
+
+        onIdleChanged:
+        {
+            if (window.idle)
+            {
+                // NOTE: We make sure hovered items are up to date.
+                window.updateHover();
+
+                if (playerMouseArea.containsMouse)
+                {
+                    sk.cursorVisible = false;
+                }
+            }
+            else sk.cursorVisible = true;
         }
     }
 
@@ -599,8 +602,9 @@ Item
 
         onRepeatChanged: local.repeat = player.repeat
 
-        onOutputChanged : local.output  = player.output
-        onQualityChanged: local.quality = player.quality
+        onOutputChanged  : local.output   = player.output
+        onQualityChanged : local.quality  = player.quality
+        onFillModeChanged: local.fillMode = player.fillMode
 
         onCurrentTrackUpdated: timerHistory.restart()
 

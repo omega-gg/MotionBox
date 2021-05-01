@@ -232,7 +232,7 @@ BaseList
 
             showPanel(indexCurrent);
 
-            areaContextual.currentPage.currentId = 7; // Folder remove
+            areaContextual.currentPage.selectedId = 7; // Folder remove
         }
     }
 

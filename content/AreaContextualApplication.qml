@@ -103,10 +103,9 @@ AreaContextual
 
         page.values = array;
 
-        page.set(activeIndex, { "isCurrent": true });
-
         // NOTE: We make sure id(s) are equivalent to index(es).
-        page.currentId = currentIndex;
+        page.selectedId = currentIndex;
+        page.currentId  = activeIndex;
 
         var panel = pGetPanel();
 
@@ -744,7 +743,7 @@ AreaContextual
         {
             if (id == 0) // Open File
             {
-                listContextual.setCurrentId(0);
+                listContextual.setSelectedId(0);
 
                 var path = core.openFile(qsTr("Select File"));
 
@@ -752,7 +751,7 @@ AreaContextual
             }
             else if (id == 1) // Open Folder
             {
-                listContextual.setCurrentId(1);
+                listContextual.setSelectedId(1);
 
                 /* var */ path = core.openFolder(qsTr("Select Folder"));
 
@@ -806,9 +805,6 @@ AreaContextual
             onItemClicked:
             {
                 var clear;
-
-                // NOTE: We want the 'areaContextual' currentId.
-                var currentId = areaContextual.currentId;
 
                 if (currentId == -1)
                 {

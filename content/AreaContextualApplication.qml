@@ -107,6 +107,8 @@ AreaContextual
         page.selectedId = currentIndex;
         page.currentId  = activeIndex;
 
+        currentId = -1;
+
         var panel = pGetPanel();
 
         if (panel.height < panelContextual.preferredHeight)

@@ -393,6 +393,29 @@ MouseArea
         }
     }
 
+    function searchMore(source, title)
+    {
+        source = controllerPlaylist.backendIdFromSource(source);
+
+        // NOTE: We simplify the title to remove '.' and ':' thus avoiding matching the query as
+        //       a url in the PanelTracks.
+        title = controllerPlaylist.simpleQuery(title);
+
+        if (source)
+        {
+            var index = backends.indexFromLabel(source);
+
+            if (index != -1)
+            {
+                search(backends.idAt(index), title, true, false);
+
+                return;
+            }
+        }
+
+        browse(title);
+    }
+
     function browse(query)
     {
         search(1, query, true, false);

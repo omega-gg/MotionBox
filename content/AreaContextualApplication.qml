@@ -150,11 +150,11 @@ AreaContextual
 
     //---------------------------------------------------------------------------------------------
 
-    function pBrowse(query)
+    function pSearchMore(source, title)
     {
         gui.restore();
 
-        panelBrowse.browse(query);
+        panelBrowse.searchMore(source, title);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -234,8 +234,11 @@ AreaContextual
                     {
                         if (folder != feeds)
                         {
-                            array.push({ "id": 4, "title": qsTr("Rename")      });
-                            array.push({ "id": 5, "title": qsTr("Move to ...") });
+                            array.push
+                            (
+                                { "id": 4, "title": qsTr("Rename")      },
+                                { "id": 5, "title": qsTr("Move to ...") }
+                            );
                         }
                         else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
                                           "title": qsTr("Clear everything") });
@@ -247,29 +250,35 @@ AreaContextual
                     {
                         if (folder == feeds)
                         {
-                            array.push({ "id": 1, "icon": st.icon18x18_addIn,
-                                         "iconSize": st.size18x18, "title": qsTr("Add to ...") });
+                            array.push
+                            (
+                                { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                                  "title": qsTr("Add to ...") },
 
-                            array.push({ "id": 2, "icon": st.icon16x16_external,
-                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                  "title": qsTr("Open link") },
 
-                            array.push({ "id": 3, "icon": st.icon16x16_link,
-                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                  "title": qsTr("Copy link") },
 
-                            array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
-                                         "title": qsTr("Clear everything") });
+                                { "id": 6, "type": ContextualPage.ItemConfirm,
+                                  "title": qsTr("Clear everything") }
+                            );
                         }
                         else
                         {
-                            array.push({ "id": 2, "icon": st.icon16x16_external,
-                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+                            array.push
+                            (
+                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                  "title": qsTr("Open link") },
 
-                            array.push({ "id": 3, "icon": st.icon16x16_link,
-                                          "iconSize": st.size16x16, "title": qsTr("Copy link") });
+                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                  "title": qsTr("Copy link") },
+
+                                { "id": 7, "type": ContextualPage.ItemConfirm,
+                                  "title": qsTr("Remove Playlist") }
+                            );
                         }
-
-                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
-                                     "title": qsTr("Remove Playlist") });
                     }
                 }
                 else if (type == LibraryItem.PlaylistFeed)
@@ -286,9 +295,11 @@ AreaContextual
                     {
                         if (folder != feeds)
                         {
-                            array.push({ "id": 4, "title": qsTr("Rename")      });
-                            array.push({ "id": 5, "title": qsTr("Move to ...") });
-
+                            array.push
+                            (
+                                { "id": 4, "title": qsTr("Rename")      },
+                                { "id": 5, "title": qsTr("Move to ...") }
+                            );
                         }
                         else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
                                           "title": qsTr("Clear everything") });
@@ -300,27 +311,33 @@ AreaContextual
                     {
                         if (folder == feeds)
                         {
-                            array.push({ "id": 1, "icon": st.icon18x18_addIn,
-                                         "iconSize": st.size18x18, "title": qsTr("Add to ...") });
+                            array.push
+                            (
+                                { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                                  "title": qsTr("Add to ...") },
 
-                            array.push({ "id": 2, "icon": st.icon16x16_external,
-                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                  "title": qsTr("Open link") },
 
-                            array.push({ "id": 3, "icon": st.icon16x16_link,
-                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                  "title": qsTr("Copy link") },
 
-                            array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
-                                         "title": qsTr("Clear everything") });
+                                { "id": 6, "type": ContextualPage.ItemConfirm,
+                                  "title": qsTr("Clear everything") }
+                            );
                         }
                         else
                         {
-                            array.push({ "id": 2, "icon": st.icon16x16_external,
-                                         "iconSize": st.size16x16, "title": qsTr("Open link") });
+                            array.push
+                            (
+                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                  "title": qsTr("Open link") },
 
-                            array.push({ "id": 3, "icon": st.icon16x16_link,
-                                         "iconSize": st.size16x16, "title": qsTr("Copy link") });
+                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                  "title": qsTr("Copy link") },
 
-                            array.push({ "id": 5, "title": qsTr("Move to ...") });
+                                { "id": 5, "title": qsTr("Move to ...") }
+                            );
                         }
 
                         array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
@@ -329,12 +346,15 @@ AreaContextual
                 }
                 else
                 {
-                    array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
+                    array.push
+                    (
+                        { "type": ContextualPage.Category, "title": qsTr("Folder") },
 
-                    array.push({ "id": 4, "title": qsTr("Rename") });
+                        { "id": 4, "title": qsTr("Rename") },
 
-                    array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
-                                 "title": qsTr("Delete Folder") });
+                        { "id": 7, "type": ContextualPage.ItemConfirm,
+                          "title": qsTr("Delete Folder") }
+                    );
                 }
             }
             else
@@ -369,11 +389,14 @@ AreaContextual
 
                 if (folder.itemIsLocal(index))
                 {
-                    array.push({ "id": 2, "icon": st.icon16x16_external,
-                                 "iconSize": st.size16x16, "title": qsTr("Open link") });
+                    array.push
+                    (
+                        { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                          "title": qsTr("Open link") },
 
-                    array.push({ "id": 3, "icon": st.icon16x16_link,
-                                 "iconSize": st.size16x16, "title": qsTr("Copy link") });
+                        { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                          "title": qsTr("Copy link") }
+                    );
                 }
             }
 
@@ -399,10 +422,13 @@ AreaContextual
             {
                 var title = selectedCount + " " + qsTr("Tracks");
 
-                array.push({ "type": ContextualPage.Category, "title": title });
+                array.push
+                (
+                    { "type": ContextualPage.Category, "title": title },
 
-                array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                             "title": qsTr("Add to ...") });
+                    { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                      "title": qsTr("Add to ...") }
+                );
 
                 if (gui.listPlaylist == list)
                 {
@@ -424,24 +450,30 @@ AreaContextual
 
                 pAuthor = gui.getTrackAuthor(pData.author, pFeed);
 
-                array.push({ "type": ContextualPage.Category, "title": qsTr("Track") });
+                array.push
+                (
+                    { "type": ContextualPage.Category, "title": qsTr("Track") },
 
-                array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                             "title": qsTr("Add to ...") });
+                    { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                      "title": qsTr("Add to ...") },
 
-                array.push({ "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                             "title": qsTr("More like this") });
+                    { "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                      "title": qsTr("More like this") },
 
-                array.push({ "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                             "title": qsTr("Open link") });
+                    { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                      "title": qsTr("Open link") },
 
-                array.push({ "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                             "title": qsTr("Copy link") });
+                    { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                      "title": qsTr("Copy link") }
+                );
 
                 if (playlist.isLocal)
                 {
-                    array.push({ "id": 4, "title": qsTr("Set as Cover") });
-                    array.push({ "id": 5, "title": qsTr("Remove Track") });
+                    array.push
+                    (
+                        { "id": 4, "title": qsTr("Set as Cover") },
+                        { "id": 5, "title": qsTr("Remove Track") }
+                    );
                 }
 
                 page.values = array;
@@ -469,22 +501,26 @@ AreaContextual
 
             var array = new Array;
 
-            array.push({ "type": ContextualPage.Category, "title": qsTr("Tab") });
+            array.push
+            (
+                { "type": ContextualPage.Category, "title": qsTr("Tab") },
 
-            array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                         "title": qsTr("Add to ...") });
+                { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                  "title": qsTr("Add to ...") },
 
-            array.push({ "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                         "title": qsTr("More like this") });
+                { "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                  "title": qsTr("More like this") },
 
-            array.push({ "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                         "title": qsTr("Open link") });
+                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                  "title": qsTr("Open link") },
 
-            array.push({ "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                         "title": qsTr("Copy link") });
+                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                  "title": qsTr("Copy link") },
 
-            array.push({ "id": 4, "title": qsTr("Close other Tabs") });
-            array.push({ "id": 5, "title": qsTr("Close all Tabs")   });
+                { "id": 4, "title": qsTr("Close other Tabs") },
+
+                { "id": 5, "title": qsTr("Close all Tabs") }
+            );
 
             page.values = array;
 
@@ -535,16 +571,19 @@ AreaContextual
         {
             var array = new Array;
 
-            array.push({ "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                         "title": qsTr("Open File") });
+            array.push
+            (
+                { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                  "title": qsTr("Open File") },
 
-            array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                         "title": qsTr("Open Folder") });
+                { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                  "title": qsTr("Open Folder") },
 
-            array.push({ "id": 2, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                         "title": qsTr("Update Backends") });
+                { "id": 2, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                  "title": qsTr("Update Backends") },
 
-            array.push({ "id": 3, "title": qsTr("Reset Backends") });
+                { "id": 3, "title": qsTr("Reset Backends") }
+            );
 
             page.values = array;
 
@@ -631,9 +670,9 @@ AreaContextual
             }
             else if (id == 1) // More like this
             {
-                var title = pItem.playlist.trackTitle(pIndex);
+                /* var */ playlist = pItem.playlist;
 
-                pBrowse(controllerPlaylist.simpleQuery(title));
+                pSearchMore(playlist.trackSource(pIndex), playlist.trackTitle(pIndex));
             }
             else if (id == 2) // Open link
             {
@@ -709,7 +748,9 @@ AreaContextual
             }
             else if (id == 1) // More like this
             {
-                pBrowse(controllerPlaylist.simpleQuery(pItem.title));
+                /* var */ playlist = pItem.playlist;
+
+                pSearchMore(playlist.trackSource(pIndex), playlist.trackTitle(pIndex));
             }
             else if (id == 2) // Open link
             {

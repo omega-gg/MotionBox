@@ -157,6 +157,22 @@ Item
     property bool pZoomAfter: false
     property bool pZoomLater: false
 
+//#!DEPLOY
+    //---------------------------------------------------------------------------------------------
+    // Dev
+
+    /* read */ property bool cursorIsActive: (cursorVisible && sk.cursorVisible
+                                              &&
+                                              window.isEntered)
+
+    property bool cursorVisible: false
+
+    property url sourceBlank: controllerFile.currentFileUrl("../dist/cursors/blank.svg")
+    property url sourceArrow: controllerFile.currentFileUrl("../dist/cursors/arrow.svg")
+    property url sourceHand : controllerFile.currentFileUrl("../dist/cursors/hand.svg")
+    property url sourceBeam : controllerFile.currentFileUrl("../dist/cursors/beam.svg")
+//#END
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -2196,6 +2212,15 @@ Item
         {
             event.accepted = true;
 
+//#!DEPLOY
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                sk.restartScript();
+
+                return;
+            }
+//#END
+
             if (isExpanded)
             {
                 restoreBars();
@@ -2209,6 +2234,17 @@ Item
         {
             event.accepted = true;
 
+//#!DEPLOY
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                pSetDesktop();
+
+                player.volume = 0.4;
+
+                return;
+            }
+//#END
+
             restoreBars();
 
             buttonExpand.returnPressed();
@@ -2216,6 +2252,17 @@ Item
         else if (event.key == Qt.Key_F3) // Wall
         {
             event.accepted = true;
+
+//#!DEPLOY
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                pSetDesktop();
+
+                player.volume = 0.0;
+
+                return;
+            }
+//#END
 
             if (panelTracks.isExpanded == false)
             {
@@ -2251,7 +2298,7 @@ Item
             restoreBars();
             restore    ();
 
-            gui.selectTrack(playerTab);
+            selectTrack(playerTab);
 
             //panelCover.buttonTrack.returnPressed();
         }
@@ -2293,8 +2340,8 @@ Item
                     //              This could be related to the animation.
                     buttonFullScreen.returnPressed();
 //#ELSE
-                    gui.restoreFullScreen();
-                    gui.restoreMaximize  ();
+                    restoreFullScreen();
+                    restoreMaximize  ();
 //#END
                 }
                 else buttonMaximize.returnPressed();
@@ -2971,6 +3018,69 @@ Item
         else local.setSize(window.getScreenNumber(), window.width, window.height);
     }
 
+//#!DEPLOY
+    //---------------------------------------------------------------------------------------------
+    // Dev
+
+    function pClearCursor()
+    {
+        window.registerCursorUrl(Qt.ArrowCursor,        sourceBlank);
+        window.registerCursorUrl(Qt.PointingHandCursor, sourceBlank);
+        window.registerCursorUrl(Qt.IBeamCursor,        sourceBlank);
+    }
+
+    function pSetDesktop()
+    {
+        pClearCursor();
+
+        cursorVisible = true;
+
+        window.borderSize = 0;
+
+        window.resizable = false;
+
+        var width = window.availableGeometry.width;
+
+        if (width == 1920)
+        {
+            // NOTE: This is optimized for 1920 x 1080.
+            st.ratio = 1.2;
+        }
+        else st.ratio = 1.6;
+
+        st.applyStyle(0);
+
+        width /= 1.3333;
+
+        window.width  = width;
+        window.height = width * 0.5625; // 16:9 ratio
+
+        window.centerWindow();
+
+        pClearTorrents();
+    }
+
+    function pClearTorrents()
+    {
+        var index = 0;
+
+        // NOTE: We make sure that playlistTracks has been created.
+        if (playlistTracks == null)
+        {
+            playlistTracks = createItemAt(feeds, 0);
+        }
+
+        while (index < playlistTracks.count)
+        {
+            if (controllerPlaylist.urlIsTorrent(playlistTracks.trackSource(index)))
+            {
+                playlistTracks.removeTrack(index);
+            }
+            else index++;
+        }
+    }
+//#END
+
     //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
@@ -3138,4 +3248,31 @@ Item
 
         z: 1
     }
+
+    //---------------------------------------------------------------------------------------------
+    // Dev
+
+//#!DEPLOY
+    CursorSvg
+    {
+        width: Math.round(st.cursor_size * 1.5)
+
+        z: 1
+
+        visible: cursorIsActive
+
+        source:
+        {
+            if (window.mouseCursor == Qt.PointingHandCursor)
+            {
+                return sourceHand;
+            }
+            else if (window.mouseCursor == Qt.IBeamCursor)
+            {
+                return sourceBeam;
+            }
+            else return sourceArrow;
+        }
+    }
+//#END
 }

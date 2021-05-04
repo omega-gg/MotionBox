@@ -293,4 +293,16 @@ $SkyComponents/ContextualItem.qml \
 $SkyComponents/ContextualItemCover.qml \
 $SkyComponents/ContextualItemConfirm.qml"
 
+#--------------------------------------------------------------------------------------------------
+# Dev
+
+# NOTE: We only need those files to communicate about the application.
+if [ "$2" != "deploy" ]; then
+
+    files="$files \
+$SkyBase/CursorSvg.qml"
+fi
+
+#--------------------------------------------------------------------------------------------------
+
 "$Sky"/deploy/deployer $path $version MotionBox.qrc "$defines" $files

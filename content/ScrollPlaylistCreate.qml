@@ -29,7 +29,7 @@ ScrollPlaylist
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property bool isDroppable: (playlist && playlist.isOnline == false)
+    /* read */ property bool isDroppable: (playlist != null && playlist.isOnline == false)
 
     /* read */ property bool isDropping: false
 

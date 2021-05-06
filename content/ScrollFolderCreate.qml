@@ -31,7 +31,7 @@ ScrollFolder
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property bool isDroppable: (folder)
+    /* read */ property bool isDroppable: (folder != null)
 
     /* read */ property bool isCreating: false
     /* read */ property bool isDropping: false

@@ -252,10 +252,21 @@ Item
 
         Component.onCompleted:
         {
+//#QT_4
+            // NOTE Qt4: We can only append items one by one.
             model.append({ "title": qsTr("Light")   });
             model.append({ "title": qsTr("Night")   });
             model.append({ "title": qsTr("Bold")    });
             model.append({ "title": qsTr("Classic") });
+//#ELSE
+            model.append(
+            [
+                { "title": qsTr("Light")   },
+                { "title": qsTr("Night")   },
+                { "title": qsTr("Bold")    },
+                { "title": qsTr("Classic") }
+            ]);
+//#END
         }
 
         onPressed: pSetStyle(currentIndex)
@@ -419,11 +430,23 @@ Item
 
         Component.onCompleted:
         {
+//#QT_4
+            // NOTE Qt4: We can only append items one by one.
             model.append({ "title": qsTr("92")  });
             model.append({ "title": qsTr("100") });
             model.append({ "title": qsTr("128") });
             model.append({ "title": qsTr("160") });
             model.append({ "title": qsTr("200") });
+//#ELSE
+            model.append(
+            [
+                { "title": qsTr("92")  },
+                { "title": qsTr("100") },
+                { "title": qsTr("128") },
+                { "title": qsTr("160") },
+                { "title": qsTr("200") }
+            ]);
+//#END
 
             if      (st.scale == 0.92) currentIndex = 0;
             else if (st.scale == 1.0)  currentIndex = 1;

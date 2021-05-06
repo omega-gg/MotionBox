@@ -42,8 +42,10 @@ Column
     // Events
     //---------------------------------------------------------------------------------------------
 
+//#QT_5
     // NOTE: We need to forceLayout and processEvents to get the proper contentHeight.
     Component.onCompleted: forceLayout()
+//#END
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -221,11 +223,17 @@ Column
 
         Component.onCompleted:
         {
+//#QT_4
+            // NOTE Qt4: We can only append items one by one.
+            model.append({ "title": qsTr("Audio") });
+            model.append({ "title": qsTr("Video") });
+//#ELSE
             model.append(
             [
                 { "title": qsTr("Audio") },
                 { "title": qsTr("Video") }
             ]);
+//#END
         }
 
         onPressed: pClickVideo(currentIndex)

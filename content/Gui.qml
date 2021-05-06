@@ -2375,6 +2375,15 @@ Item
         {
             event.accepted = true;
 
+//#!DEPLOY
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                pTakeShot();
+
+                return;
+            }
+//#END
+
             if (panelTracks.buttonUp.visible)
             {
                 panelTracks.buttonUp.returnPressed();
@@ -3078,6 +3087,92 @@ Item
             }
             else index++;
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pTakeShot()
+    {
+        //-----------------------------------------------------------------------------------------
+        // NOTE: Apply the default state
+
+        player.stop();
+
+        player.volume = 1.0;
+
+        tabs.closeTabs();
+
+        core.clearCache();
+
+        expand();
+
+        panelTracks.restore();
+
+        panelBrowse .collapse();
+        panelRelated.collapse();
+
+        scrollLibrary.visible = false;
+
+        feeds.currentId = -1;
+
+        //-----------------------------------------------------------------------------------------
+
+        window.clearHover();
+
+        window.hoverEnabled = false;
+
+        var width = 1920;
+
+        window.width  = width;
+        window.height = width * 0.5625; // 16:9 ratio
+
+        st.ratio = 1.4;
+
+        var path = "../dist/screens";
+
+        pSaveShot(path + "/MotionBoxA.png");
+
+        lineEditSearch.focus();
+
+        // NOTE: Wait for the cursor.
+        sk.wait(200);
+
+        pSaveShot(path + "/MotionBoxB.png");
+
+        restore();
+
+        panelBrowse.search(3, "chillwave", true, false); // Youtube
+
+        // NOTE: Wait for the icons to load.
+        sk.wait(5000);
+
+        // NOTE: We want to skip a few tracks.
+        for (var i = 0; i < 2; i++)
+        {
+            player.setNextTrack();
+        }
+
+        pSaveShot(path + "/MotionBoxC.png");
+
+        panelBrowse.browse("https://www.youtube.com/watch?v=n5vjV4hwRxo");
+
+        // NOTE: We wait for the track to load.
+        sk.wait(3000);
+
+        expand();
+
+        pSaveShot(path + "/MotionBoxD.png");
+
+        window.compressShots(path);
+
+        window.close();
+    }
+
+    function pSaveShot(path)
+    {
+        sk.wait(1000);
+
+        window.saveShot(path);
     }
 //#END
 

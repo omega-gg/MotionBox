@@ -210,7 +210,8 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // Border
 
-    border_size: (local.style < 2) ? st.dp1
+    // NOTE: We want to make sure we always have a visible border.
+    border_size: (local.style < 2) ? Math.max(st.dp1, 1)
                                    : st.dp2
 
     border_sizeFocus: st.dp2

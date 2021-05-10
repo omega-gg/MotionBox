@@ -320,7 +320,7 @@ Panel
             itemText.opacity: 1.0
 
             //-----------------------------------------------------------------------------------------
-            // ButtonSettingsAction implementation
+            // ButtonSettingsAction events
 
             function onClick(index)
             {

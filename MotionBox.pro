@@ -63,7 +63,7 @@ deploy|android {
     RESOURCES = dist/MotionBox.qrc
 }
 
-!win32-msvc*:QMAKE_CXXFLAGS += -std=c++11
+!win32-msvc*:QMAKE_CXXFLAGS += -std=c++14
 
 !win32-msvc*:!android:QMAKE_CXXFLAGS += -msse
 
@@ -120,7 +120,7 @@ win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
 win32:LIBS += -L$$SK/lib -llibvlc \
               -lmswsock -lws2_32 \
 
-win32:LIBS += -L$$SK/lib -ltorrent \
+win32:LIBS += -L$$SK/lib -ltorrent-rasterbar \
               -L$$SK/lib -lboost_system \
 
 # Boost dependencies
@@ -130,7 +130,7 @@ win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
 win32-msvc*:LIBS += shell32.lib User32.lib
 
 macx:LIBS += -L$$SK/lib -lvlc \
-             -L$$SK/lib -ltorrent \
+             -L$$SK/lib -ltorrent-rasterbar \
              -L$$SK/lib -lboost_system \
 
 unix:LIBS += -lz
@@ -140,7 +140,7 @@ unix:!macx:!android:LIBS += -lvlc \
                             -lboost_system -lboost_random -lboost_chrono \
 
 android:LIBS += -L$$SK/lib/$$ANDROID_TARGET_ARCH -lvlc \
-                -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltorrent \
+                -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltorrent-rasterbar \
 
 unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11
@@ -155,8 +155,8 @@ macx {
     QMAKE_POST_LINK += install_name_tool -change @rpath/libvlc.dylib \
                        @loader_path/libvlc.dylib $$PATH/$${TARGET};
 
-    QMAKE_POST_LINK += install_name_tool -change libtorrent.dylib.1.2.6 \
-                       @loader_path/libtorrent.dylib $$PATH/$${TARGET};
+    QMAKE_POST_LINK += install_name_tool -change libtorrent-rasterbar.dylib.1.2.6 \
+                       @loader_path/libtorrent-rasterbar.dylib $$PATH/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \
                        @loader_path/libboost_system.dylib $$PATH/$${TARGET};

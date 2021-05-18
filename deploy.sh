@@ -261,7 +261,7 @@ elif [ $1 = "macOS" ]; then
     # libtorrent
 
     install_name_tool -change libboost_system.dylib \
-                              @loader_path/libboost_system.dylib libtorrent.dylib
+                              @loader_path/libboost_system.dylib libtorrent-rasterbar.dylib
 
     #----------------------------------------------------------------------------------------------
 

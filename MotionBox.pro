@@ -120,7 +120,7 @@ win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
 win32:LIBS += -L$$SK/lib -llibvlc \
               -lmswsock -lws2_32 \
 
-win32:LIBS += -L$$SK/lib -ltorrent-rasterbar \
+win32:LIBS += -L$$SK/lib -ltorrent \
               -L$$SK/lib -lboost_system \
 
 # Boost dependencies

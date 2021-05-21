@@ -12,7 +12,7 @@ Built to load and play multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 
 ## MotionBox Video Browser
-<a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBox.png" alt="Video Browser" width="512px"></a>
+<a href="http://omega.gg/MotionBox"><img src="dist/pictures/MotionBoxC.png" alt="Video Browser" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](http://en.wikipedia.org/wiki/DuckDuckGo).<br>
 It streams [Torrents](http://en.wikipedia.org/wiki/BitTorrent), [Youtube](http://en.wikipedia.org/wiki/Youtube), [Dailymotion](http://en.wikipedia.org/wiki/Dailymotion), [Vimeo](http://en.wikipedia.org/wiki/Vimeo) and [SoundCloud](http://en.wikipedia.org/wiki/SoundCloud).<br>

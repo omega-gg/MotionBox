@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-Rectangle
+Item
 {
     id: buttonCheckSettings
 
@@ -53,8 +53,6 @@ Rectangle
     anchors.right: parent.right
 
     height: st.buttonPiano_height + borderSize
-
-    color: st.labelRoundInfo_color
 
     //---------------------------------------------------------------------------------------------
     // Childs

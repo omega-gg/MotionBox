@@ -32,8 +32,12 @@ PageWipe
     //---------------------------------------------------------------------------------------------
     // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    /* read */ property int contentWidth : st.dp320
-    /* read */ property int contentHeight: st.dp295
+    /* read */ property int contentWidth: st.dp320
+
+    // NOTE: We need to be specific to avoid scaling issues.
+    /* read */ property int contentHeight: (st.barTitleSmall_height + st.border_size * 2
+                                            +
+                                            st.buttonPush_height + st.dp3 * 2) * 4
 
     //---------------------------------------------------------------------------------------------
     // Settings

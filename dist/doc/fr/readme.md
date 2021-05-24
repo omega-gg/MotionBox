@@ -19,6 +19,8 @@ Je développe du logiciel innovant au service de l'homme.
 
 ## Historique
 
+- 1.7.0: [Interface améliorée, paramètres unifiés, nouvelles icônes](../changes/1.6.0.html).
+
 - 1.6.0: [Backends universels, support macOS, gestion des sous-titres](../changes/1.6.0.html).
 
 - 1.5.0: [Thèmes légers, 64 bit, historique de lecture](../changes/1.5.0.html).

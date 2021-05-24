@@ -38,9 +38,8 @@ WindowsKit_version="10"
 #--------------------------------------------------------------------------------------------------
 # Android
 
+SDK_version="29"
 NDK_version="21"
-
-NDK_platform="29"
 
 #--------------------------------------------------------------------------------------------------
 # environment
@@ -280,7 +279,7 @@ elif [ $1 = "android" ]; then
 
     export ANDROID_NDK_ROOT="$external/NDK/$NDK_version"
 
-    export ANDROID_NDK_PLATFORM="android-$NDK_platform"
+    export ANDROID_NDK_PLATFORM="android-$SDK_version"
 fi
 
 $qmake --version

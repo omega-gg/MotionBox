@@ -1347,8 +1347,6 @@ PanelContextual
 
             visible: (indexCurrent == 3)
 
-            mode: 2
-
             colorA: st.itemList_colorSelectFocusA
             colorB: st.itemList_colorSelectFocusB
 

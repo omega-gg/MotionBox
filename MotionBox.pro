@@ -155,7 +155,7 @@ macx {
     QMAKE_POST_LINK += install_name_tool -change @rpath/libvlc.dylib \
                        @loader_path/libvlc.dylib $$PATH/$${TARGET};
 
-    QMAKE_POST_LINK += install_name_tool -change libtorrent-rasterbar.dylib.1.2.6 \
+    QMAKE_POST_LINK += install_name_tool -change libtorrent-rasterbar.dylib.10.0.0 \
                        @loader_path/libtorrent-rasterbar.dylib $$PATH/$${TARGET};
 
     QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \

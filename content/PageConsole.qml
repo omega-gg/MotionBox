@@ -52,7 +52,11 @@ Item
     {
         id: itemConsole
 
-        anchors.fill: parent
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
+
+        // NOTE: This avoids us a slow horizontal word wrapped resizing.
+        width: contentWidth
 
         log: controllerFile.log
     }

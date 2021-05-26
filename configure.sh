@@ -86,8 +86,19 @@ rm -rf lib
 mkdir  lib
 touch  lib/.gitignore
 
-rm -rf bin/*
-touch  bin/.gitignore
+# NOTE: We want to keep the 'storage' folder.
+if [ -d "bin/storage" ]; then
+
+    mv bin/storage .
+
+    rm -rf bin/*
+    touch  bin/.gitignore
+
+    mv storage bin
+else
+    rm -rf bin/*
+    touch  bin/.gitignore
+fi
 
 # NOTE: We have to remove the folder to delete .qmake.stash.
 rm -rf build

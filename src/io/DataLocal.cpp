@@ -287,11 +287,11 @@ public: // Variables
     _quality  = WAbstractBackend::Quality720;
     _fillMode = WAbstractBackend::PreserveAspectFit;
 
-#if defined(Q_OS_MAC) || defined(Q_OS_ANDROID)
-    // NOTE macOS/Android: Without vsync animations are messed up.
-    _vsync = true;
-#else
+#ifdef QT_4
     _vsync = false;
+#else
+    // NOTE Qt5: Without vsync animations are messed up.
+    _vsync = true;
 #endif
 
     _subtitleIndex = 19; // English

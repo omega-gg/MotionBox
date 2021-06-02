@@ -82,10 +82,6 @@ VLC="$external/VLC/$VLC_version"
 
 echo "CLEANING"
 
-rm -rf lib
-mkdir  lib
-touch  lib/.gitignore
-
 # NOTE: We want to keep the 'storage' folder.
 if [ -d "bin/storage" ]; then
 

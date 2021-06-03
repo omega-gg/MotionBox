@@ -39,6 +39,8 @@ WindowsKit_version="10"
 # Android
 
 SDK_version="29"
+SDK_version_minimum="21"
+
 NDK_version="21"
 
 #--------------------------------------------------------------------------------------------------
@@ -305,7 +307,10 @@ fi
 
 if [ $1 = "android" ]; then
 
-    $qmake -r -spec $spec "$config" "ANDROID_ABIS=$abi" ..
+    $qmake -r -spec $spec "$config" \
+        "ANDROID_ABIS=$abi" \
+        "ANDROID_MIN_SDK_VERSION=$SDK_version_minimum" \
+        "ANDROID_TARGET_SDK_VERSION=$SDK_version" ..
 else
     $qmake -r -spec $spec "$config" ..
 fi

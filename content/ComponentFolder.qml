@@ -102,7 +102,7 @@ ComponentLibraryItem
         }
         else if (source != "")
         {
-            return gui.getUrlTitle(source, gui.getItemName(type));
+            return st.getUrlTitle(source, gui.getItemName(type));
         }
         else return qsTr("Invalid Item");
     }

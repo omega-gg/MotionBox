@@ -70,7 +70,7 @@ ComponentLibraryItem
         else return st.icon16x16_track;
     }
 
-    text: gui.getTrackTitle(title, loadState, source)
+    text: st.getTrackTitle(title, loadState, source)
 
     iconFillMode: (isCurrent) ? Image.PreserveAspectFit
                               : Image.PreserveAspectCrop

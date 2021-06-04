@@ -601,7 +601,7 @@ Item
 
         delegate: ComponentTabTrack
         {
-            text: gui.getTabTitle(item.title, item.state, item.source)
+            text: st.getTabTitle(item.title, item.state, item.source)
         }
 
         player: gui.player

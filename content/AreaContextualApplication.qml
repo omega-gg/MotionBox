@@ -748,9 +748,7 @@ AreaContextual
             }
             else if (id == 1) // More like this
             {
-                /* var */ playlist = pItem.playlist;
-
-                pSearchMore(playlist.trackSource(pIndex), playlist.trackTitle(pIndex));
+                pSearchMore(pItem.source, pItem.title);
             }
             else if (id == 2) // Open link
             {

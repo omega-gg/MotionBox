@@ -1456,51 +1456,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function getTabTitle(title, state, source)
-    {
-        if (title)
-        {
-            return title;
-        }
-        else if (state == LocalObject.Loading)
-        {
-            return qsTr("Loading...");
-        }
-        else if (source != "")
-        {
-            return getUrlTitle(source, qsTr("Track"));
-        }
-        else return qsTr("New Tab");
-    }
-
-    function getTrackTitle(title, state, source)
-    {
-        if (title)
-        {
-            return title;
-        }
-        else if (state == LocalObject.Loading)
-        {
-            return qsTr("Loading Track...");
-        }
-        else if (source != "")
-        {
-            return getUrlTitle(source, qsTr("Track"));
-        }
-        else return qsTr("Invalid Track");
-    }
-
-    function getUrlTitle(source, text)
-    {
-        var title = controllerNetwork.urlTitle(source);
-
-        if (title)
-        {
-             return title + ' ' + text;
-        }
-        else return text;
-    }
-
     function getOpenTitle(source)
     {
         if (controllerNetwork.urlIsFile(source))
@@ -3147,7 +3102,7 @@ Item
         sk.wait(5000);
 
         // NOTE: We want to skip a few tracks.
-        for (var i = 0; i < 2; i++)
+        for (var i = 0; i < 3; i++)
         {
             player.setNextTrack();
         }

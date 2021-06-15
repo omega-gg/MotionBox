@@ -103,6 +103,10 @@ contains(QT_MAJOR_VERSION, 5) {
                    $$SK/include/Qt5/QtQuick
 }
 
+unix:!macx:!android:contains(QT_MAJOR_VERSION, 5) {
+    INCLUDEPATH += $$SK/include/Qt5/QtDBus
+}
+
 unix:contains(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/Qt4/QtCore \
                    $$SK/include/Qt4/QtGui \

@@ -14,12 +14,10 @@ contains(QT_MAJOR_VERSION, 4) {
     QT += opengl declarative network script xml xmlpatterns svg
 } else {
     QT += opengl quick widgets network xml xmlpatterns svg
-}
 
-contains(QT_MAJOR_VERSION, 5) {
     win32:QT += winextras
 
-    unix:!macx:!android:QT += x11extras
+    unix:!macx:!android:QT += dbus x11extras
 
     android:QT += androidextras
 }

@@ -27,8 +27,8 @@ DEFINES += QUAZIP_BUILD \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 win32-msvc* {
-    # libtorrent: This fixes the winsock2 errors
-    DEFINES += WIN32_LEAN_AND_MEAN
+    # libtorrent: This fixes the winsock2 and std::min errors.
+    DEFINES += WIN32_LEAN_AND_MEAN NOMINMAX
 
     # Boost: This prevents an issue with linking
     DEFINES += BOOST_ALL_NO_LIB
@@ -120,10 +120,10 @@ win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
 win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
 
 win32:LIBS += -L$$SK/lib -llibvlc \
-              -lmswsock -lws2_32 \
+              -lmswsock -lws2_32
 
 win32:LIBS += -L$$SK/lib -ltorrent \
-              -L$$SK/lib -lboost_system \
+              -L$$SK/lib -lboost_system
 
 # Boost dependencies
 win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
@@ -133,16 +133,17 @@ win32-msvc*:LIBS += shell32.lib User32.lib
 
 macx:LIBS += -L$$SK/lib -lvlc \
              -L$$SK/lib -ltorrent-rasterbar \
-             -L$$SK/lib -lboost_system \
+             -L$$SK/lib -lboost_system
 
 unix:LIBS += -lz
 
 unix:!macx:!android:LIBS += -lvlc \
                             -ltorrent-rasterbar \
-                            -lboost_system -lboost_random -lboost_chrono \
+                            -lboost_system -lboost_random -lboost_chrono
 
 android:LIBS += -L$$SK/lib/$$ANDROID_TARGET_ARCH -lvlc \
                 -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltorrent-rasterbar \
+                -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltry_signal
 
 unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11

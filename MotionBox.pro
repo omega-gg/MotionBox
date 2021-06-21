@@ -22,6 +22,13 @@ contains(QT_MAJOR_VERSION, 4) {
     android:QT += androidextras
 }
 
+# C++17
+contains(QT_MAJOR_VERSION, 4) {
+    QMAKE_CXXFLAGS += -std=c++1z
+} else {
+    CONFIG += c++1z
+}
+
 DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
@@ -60,8 +67,6 @@ deploy|android {
 
     RESOURCES = dist/MotionBox.qrc
 }
-
-!win32-msvc*:QMAKE_CXXFLAGS += -std=c++14
 
 !win32-msvc*:!android:QMAKE_CXXFLAGS += -msse
 

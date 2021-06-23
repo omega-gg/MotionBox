@@ -786,17 +786,23 @@ AreaContextual
             {
                 listContextual.setSelectedId(0);
 
-                var path = core.openFile(qsTr("Select File"));
-
-                panelBrowse.browse(path);
+//#QT_4
+                gui.browseFile();
+//#ELSE
+                // NOTE: We call this later to avoid a crash when the ContextualItem gets deleted.
+                Qt.callLater(gui.browseFile);
+//#END
             }
             else if (id == 1) // Open Folder
             {
                 listContextual.setSelectedId(1);
 
-                /* var */ path = core.openFolder(qsTr("Select Folder"));
-
-                panelBrowse.browse(path);
+//#QT_4
+                gui.browseFolder();
+//#ELSE
+                // NOTE: We call this later to avoid a crash when the ContextualItem gets deleted.
+                Qt.callLater(gui.browseFolder);
+//#END
             }
             else if (id == 2) // Update Backends
             {

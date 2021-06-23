@@ -1356,6 +1356,22 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function browseFile()
+    {
+        var path = core.openFile(qsTr("Select File"));
+
+        panelBrowse.browse(path);
+    }
+
+    function browseFolder()
+    {
+        /* var */ path = core.openFolder(qsTr("Select Folder"));
+
+        panelBrowse.browse(path);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function loadTabItems(tab)
     {
         if (tab == null || tab.isValid == false) return;

@@ -1365,7 +1365,7 @@ Item
 
     function browseFolder()
     {
-        /* var */ path = core.openFolder(qsTr("Select Folder"));
+        var path = core.openFolder(qsTr("Select Folder"));
 
         panelBrowse.browse(path);
     }

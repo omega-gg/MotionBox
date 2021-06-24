@@ -2273,17 +2273,17 @@ Item
 
             //panelCover.buttonTrack.returnPressed();
         }
-        else if (event.key == Qt.Key_F6) // Settings
-        {
-            event.accepted = true;
-
-            buttonSettings.returnPressed();
-        }
-        else if (event.key == Qt.Key_F7) // Get
+        else if (event.key == Qt.Key_F6) // Get
         {
             event.accepted = true;
 
             buttonGet.returnPressed();
+        }
+        else if (event.key == Qt.Key_F7) // Settings
+        {
+            event.accepted = true;
+
+            buttonSettings.returnPressed();
         }
         else if (event.key == Qt.Key_F8) // Playlist
         {

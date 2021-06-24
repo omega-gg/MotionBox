@@ -16,9 +16,9 @@ F4: Toggle the Related Browser.
 
 F5: Go to the current track.
 
-F6: Toggle the settings panel.
+F6: Toggle the subtitles panel.
 
-F7: Toggle the download panel.
+F7: Toggle the settings panel.
 
 F8: Create a new playlist.
 

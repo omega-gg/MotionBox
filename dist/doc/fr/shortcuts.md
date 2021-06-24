@@ -16,9 +16,9 @@ F4: Basculer le Navigateur Relatif.
 
 F5: Aller au track courant.
 
-F6: Basculer le panneau de paramètres.
+F6: Basculer le panneau des sous-titres.
 
-F7: Basculer le panneau de téléchargements.
+F7: Basculer le panneau des paramètres.
 
 F8: Créer une nouvelle playlist.
 

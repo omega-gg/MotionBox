@@ -236,14 +236,14 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 4, "title": qsTr("Rename")      },
-                                { "id": 5, "title": qsTr("Move to ...") }
+                                { "id": 5, "title": qsTr("Rename")      },
+                                { "id": 6, "title": qsTr("Move to ...") }
                             );
                         }
-                        else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                        else array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
                                           "title": qsTr("Clear everything") });
 
-                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Playlist") });
                     }
                     else
@@ -255,13 +255,16 @@ AreaContextual
                                 { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
                                   "title": qsTr("Add to ...") },
 
-                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                                   "title": qsTr("More like this") },
+
+                                { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
                                   "title": qsTr("Open link") },
 
-                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                                   "title": qsTr("Copy link") },
 
-                                { "id": 6, "type": ContextualPage.ItemConfirm,
+                                { "id": 7, "type": ContextualPage.ItemConfirm,
                                   "title": qsTr("Clear everything") }
                             );
                         }
@@ -269,13 +272,16 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                                  "title": qsTr("More like this") },
+
+                                { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
                                   "title": qsTr("Open link") },
 
-                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                                   "title": qsTr("Copy link") },
 
-                                { "id": 7, "type": ContextualPage.ItemConfirm,
+                                { "id": 8, "type": ContextualPage.ItemConfirm,
                                   "title": qsTr("Remove Playlist") }
                             );
                         }
@@ -297,14 +303,14 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 4, "title": qsTr("Rename")      },
-                                { "id": 5, "title": qsTr("Move to ...") }
+                                { "id": 5, "title": qsTr("Rename")      },
+                                { "id": 6, "title": qsTr("Move to ...") }
                             );
                         }
-                        else array.push({ "id": 6, "type": ContextualPage.ItemConfirm,
+                        else array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
                                           "title": qsTr("Clear everything") });
 
-                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Feed") });
                     }
                     else
@@ -316,13 +322,16 @@ AreaContextual
                                 { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
                                   "title": qsTr("Add to ...") },
 
-                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                                  "title": qsTr("More like this") },
+
+                                { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
                                   "title": qsTr("Open link") },
 
-                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                                   "title": qsTr("Copy link") },
 
-                                { "id": 6, "type": ContextualPage.ItemConfirm,
+                                { "id": 7, "type": ContextualPage.ItemConfirm,
                                   "title": qsTr("Clear everything") }
                             );
                         }
@@ -330,17 +339,20 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                                  "title": qsTr("More like this") },
+
+                                { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
                                   "title": qsTr("Open link") },
 
-                                { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                                { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                                   "title": qsTr("Copy link") },
 
-                                { "id": 5, "title": qsTr("Move to ...") }
+                                { "id": 6, "title": qsTr("Move to ...") }
                             );
                         }
 
-                        array.push({ "id": 7, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Remove Feed") });
                     }
                 }
@@ -350,9 +362,9 @@ AreaContextual
                     (
                         { "type": ContextualPage.Category, "title": qsTr("Folder") },
 
-                        { "id": 4, "title": qsTr("Rename") },
+                        { "id": 5, "title": qsTr("Rename") },
 
-                        { "id": 7, "type": ContextualPage.ItemConfirm,
+                        { "id": 8, "type": ContextualPage.ItemConfirm,
                           "title": qsTr("Delete Folder") }
                     );
                 }
@@ -387,14 +399,17 @@ AreaContextual
                 }
                 else array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
 
-                if (folder.itemIsLocal(index))
+                if (folder.itemIsLocal(index) == false)
                 {
                     array.push
                     (
-                        { "id": 2, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                        { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                          "title": qsTr("More like this") },
+
+                        { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
                           "title": qsTr("Open link") },
 
-                        { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                        { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                           "title": qsTr("Copy link") }
                     );
                 }
@@ -607,23 +622,29 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 2) // Open link
+            else if (id == 2) // More like this
+            {
+                var folder = pItem.folder;
+
+                pSearchMore(folder.itemSource(pIndex), folder.itemTitle(pIndex));
+            }
+            else if (id == 3) // Open link
             {
                 var source = pItem.folder.itemSource(pIndex);
 
                 gui.openSource(source);
             }
-            else if (id == 3) // Copy link
+            else if (id == 4) // Copy link
             {
                 /* var */ source = pItem.folder.itemSource(pIndex);
 
                 sk.setClipboardText(source);
             }
-            else if (id == 4) // Rename
+            else if (id == 5) // Rename
             {
                 pItem.renameItem(pIndex);
             }
-            else if (id == 5) // Move to ...
+            else if (id == 6) // Move to ...
             {
                 panelAdd.setSource(2, pItem.folder, pIndex);
 
@@ -631,11 +652,11 @@ AreaContextual
 
                 return false;
             }
-            else if (id == 6) // Clear
+            else if (id == 7) // Clear
             {
                 pItem.folder.clearItems();
             }
-            else if (id == 7) // Remove
+            else if (id == 8) // Remove
             {
                 pItem.removeItem(pIndex, true);
 

@@ -294,7 +294,7 @@ public: // Variables
     _vsync = true;
 #endif
 
-    _subtitleIndex = 19; // English
+    _subtitleIndex = 20; // English
 
     _cache = false;
 

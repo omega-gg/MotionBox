@@ -2277,11 +2277,15 @@ Item
         {
             event.accepted = true;
 
+            restoreBars();
+
             buttonGet.returnPressed();
         }
         else if (event.key == Qt.Key_F7) // Settings
         {
             event.accepted = true;
+
+            restoreBars();
 
             buttonSettings.returnPressed();
         }

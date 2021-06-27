@@ -43,8 +43,8 @@ Column
     //---------------------------------------------------------------------------------------------
 
 //#QT_5
-    // NOTE: We need to forceLayout and processEvents to get the proper contentHeight.
-    Component.onCompleted: forceLayout()
+    // NOTE Qt5.9: We need to forceLayout and processEvents to get the proper contentHeight.
+    Component.onCompleted: if (typeof forceLayout == "function") forceLayout()
 //#END
 
     //---------------------------------------------------------------------------------------------

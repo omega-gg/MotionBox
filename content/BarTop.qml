@@ -235,29 +235,6 @@ Item
 
             width: buttonBrowse.width + buttonExpand.width + buttonWall.width + buttonRelated.width
 
-            states: State
-            {
-                name: "hidden"; when: panelTracks.isExpanded
-
-                AnchorChanges
-                {
-                    target: buttons
-
-                    anchors.left : parent.right
-                    anchors.right: undefined
-                }
-            }
-
-            transitions: Transition
-            {
-                AnchorAnimation
-                {
-                    duration: st.duration_normal
-
-                    easing.type: st.easing
-                }
-            }
-
             ButtonPianoIcon
             {
                 id: buttonBrowse

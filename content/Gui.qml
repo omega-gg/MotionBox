@@ -2235,30 +2235,17 @@ Item
             }
 //#END
 
-            if (panelTracks.isExpanded == false)
-            {
-                restoreBars();
+            restoreBars();
 
-                buttonWall.returnPressed();
-            }
-            else panelTracks.restore();
+            buttonWall.returnPressed();
         }
         else if (event.key == Qt.Key_F4) // Related
         {
             event.accepted = true;
 
-            if (panelTracks.isExpanded)
-            {
-                panelTracks.restore();
+            restoreBars();
 
-                panelRelated.expose();
-            }
-            else
-            {
-                restoreBars();
-
-                buttonRelated.returnPressed();
-            }
+            buttonRelated.returnPressed();
         }
         else if (event.key == Qt.Key_F5) // Select
         {

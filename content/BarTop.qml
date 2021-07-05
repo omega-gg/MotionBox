@@ -292,7 +292,16 @@ Item
                 icon          : st.icon20x20_wall
                 iconSourceSize: st.size20x20
 
-                onPressed: gui.toggleWall()
+                onPressed:
+                {
+                    if (panelTracks.isExpanded)
+                    {
+                        panelTracks.restore();
+
+                        gui.exposeWall();
+                    }
+                    else gui.toggleWall();
+                }
             }
 
             ButtonPianoIcon
@@ -307,7 +316,16 @@ Item
                 icon          : st.icon20x20_related
                 iconSourceSize: st.size20x20
 
-                onPressed: panelRelated.toggleExpose()
+                onPressed:
+                {
+                    if (panelTracks.isExpanded)
+                    {
+                        panelTracks.restore();
+
+                        panelRelated.expose();
+                    }
+                    else panelRelated.toggleExpose();
+                }
             }
         }
     }

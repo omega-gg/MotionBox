@@ -653,7 +653,7 @@ BaseList
 
         var size = playlist.insertSource(index, url);
 
-        playlist.loadTracks(index, 5);
+        playlist.loadTracksBetween(index, 5);
 
         if (animate)
         {
@@ -997,7 +997,7 @@ BaseList
         {
             if (playlist.trackTitle(i) == "" || playlist.trackCover(i) == "")
             {
-                playlist.loadTracks(index, 5);
+                playlist.loadTracksBetween(index, 5);
 
                 return;
             }
@@ -1296,7 +1296,7 @@ BaseList
 
             if (playlist.trackIsDefault(indexHover))
             {
-                playlist.loadTracks(indexHover, 10);
+                playlist.loadTracksBetween(indexHover, 10);
 
                 return;
             }

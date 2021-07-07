@@ -159,7 +159,7 @@ ComponentLibraryItem
         {
             if (list.isSelecting)
             {
-                playlist.loadTracks(index, 10);
+                playlist.loadTracksBetween(index, 10);
 
                 list.isSelecting = false;
             }

@@ -3223,7 +3223,7 @@ Item
         {
             if (pLoadPlaylist)
             {
-                pLoadPlaylist.loadTracks(pLoadIndex, 10);
+                pLoadPlaylist.loadTracksBetween(pLoadIndex, 10);
             }
         }
     }

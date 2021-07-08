@@ -7,7 +7,7 @@
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 [MotionBox](http://omega.gg/MotionBox) is a video player designed for the Internet.<br>
-Built to access and organize decentralized video sources.<br>
+Built to access and organize distributed video sources.<br>
 Built to load, play and share multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 
@@ -21,7 +21,7 @@ All of this inside multiple tabs and without ever showing an ad.<br>
 ## For Motion Freedom
 
 - Freedom to access video resources on the Internet.
-- Freedom to organize decentralized video sources.
+- Freedom to organize distributed video sources.
 - Freedom to share video content with the world.
 
 ## Technology

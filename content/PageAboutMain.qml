@@ -98,7 +98,7 @@ Item
 
         enableFilter: isIconDefault
 
-        onClicked: pLoad("PageAboutMessage.qml")
+        onClicked: gui.openUrl(online.messageUrl)
     }
 
     ButtonPushLeftFull

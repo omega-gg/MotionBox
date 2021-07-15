@@ -799,12 +799,6 @@ Item
 
             return;
         }
-        else if (panelApplication.isExposed)
-        {
-            panelApplication.collapse();
-
-            return;
-        }
         else if (lineEditSearch.isFocused)
         {
             window.clearFocus();
@@ -1105,8 +1099,6 @@ Item
 
     function collapsePanels()
     {
-        panelApplication.collapse();
-
         panelSettings.collapse();
         panelGet     .collapse();
 
@@ -2623,11 +2615,7 @@ Item
         }
         else if (event.key == Qt.Key_Escape)
         {
-            if (panelApplication.isExposed)
-            {
-                panelApplication.collapse();
-            }
-            else if (panelSettings.isExposed)
+            if (panelSettings.isExposed)
             {
                 panelSettings.collapse();
             }
@@ -3269,8 +3257,6 @@ Item
     BarTop { id: barTop }
 
     BarControls { id: barControls }
-
-    PanelApplication { id: panelApplication }
 
     BarWindowApplication { id: barWindow }
 

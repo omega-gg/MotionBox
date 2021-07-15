@@ -29,7 +29,7 @@ BasePanelSettings
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSettings.qml"),
+    sources: [ Qt.resolvedUrl("PageApplication.qml"),
                Qt.resolvedUrl("PageVideo.qml"),
                Qt.resolvedUrl("PageAdvanced.qml"),
                Qt.resolvedUrl("PageConsole.qml"),

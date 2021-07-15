@@ -384,8 +384,6 @@ ScrollFolder
     {
         event.accepted = true;
 
-        panelApplication.collapse();
-
         clearItem();
 
         bordersDrop.setItem(container);

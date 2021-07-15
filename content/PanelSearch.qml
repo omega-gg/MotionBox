@@ -70,8 +70,7 @@ Panel
     {
         if (visible == false) return;
 
-        panelApplication.collapse();
-        //panelDiscover   .collapse();
+        //panelDiscover.collapse();
 
         pIndexFocus = 1;
 

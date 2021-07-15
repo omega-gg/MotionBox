@@ -33,12 +33,4 @@ PageAboutText
     url  : "http://omega.gg/MotionBox"
 
     text: controllerFile.readAll(Qt.resolvedUrl("text/credits.txt"))
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    Component.onCompleted: scrollArea.value = panelApplication.pCreditsValue
-
-    Component.onDestruction: panelApplication.pCreditsValue = scrollArea.value
 }

@@ -408,12 +408,7 @@ Item
             }
         }
 
-        onPressed:
-        {
-            panelApplication.collapse();
-
-            pUpdate = !(pUpdate);
-        }
+        onPressed: pUpdate = !(pUpdate)
     }
 
     ButtonPiano
@@ -516,10 +511,6 @@ Item
 
         visible: pMessage
 
-        checked: (panelApplication.isExposed && panelApplication.indexCurrent == 1
-                  &&
-                  panelApplication.sourceAbout == Qt.resolvedUrl("PageAboutMessage.qml"))
-
         icon: online.messageIcon
 
         iconDefault   : st.icon20x20_love
@@ -530,15 +521,6 @@ Item
         text: online.messageTitle
 
         font.pixelSize: st.dp14
-
-        onClicked:
-        {
-            if (checked)
-            {
-                 panelApplication.collapse();
-            }
-            else panelApplication.setAboutPage("PageAboutMessage.qml");
-        }
 
         states: State
         {

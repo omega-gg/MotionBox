@@ -201,7 +201,6 @@ OTHER_FILES += 3rdparty.sh \
                content/ItemNew.qml \
                content/TextLogo.qml \
                content/BasePanelSettings.qml \
-               content/PanelApplication.qml \
                #content/PanelDiscover.qml \
                content/PanelSearch.qml \
                content/PanelLibrary.qml \
@@ -236,9 +235,9 @@ OTHER_FILES += 3rdparty.sh \
                content/ComponentLibraryItem.qml \
                content/ComponentTrack.qml \
                content/ComponentFolder.qml \
+               content/PageApplication.qml \
+               content/PageApplicationMain.qml \
                content/BasePageSettings.qml \
-               content/PageSettings.qml \
-               content/PageSettingsMain.qml \
                content/PageSettingsProxy.qml \
                content/PageSettingsTorrent.qml \
                content/PageVideo.qml \
@@ -247,7 +246,6 @@ OTHER_FILES += 3rdparty.sh \
                content/PageAbout.qml \
                content/PageAboutMain.qml \
                content/PageAboutText.qml \
-               content/PageAboutMessage.qml \
                content/PageAboutCredits.qml \
                content/PageSubtitles.qml \
                content/PageSubtitlesSearch.qml \

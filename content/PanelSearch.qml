@@ -74,7 +74,8 @@ Panel
 
         pIndexFocus = 1;
 
-        selectBackend(0);
+        // FIXME: We select the Youtube backend by default.
+        selectBackend(backends.indexFromLabel("youtube"));
 
         action = 0;
 
@@ -97,7 +98,7 @@ Panel
 
             if (text && core.checkUrl(text))
             {
-                selectBackend(0);
+                selectBackend(0); // Browser
             }
 
             scrollCompletion.runCompletion(text);

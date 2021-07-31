@@ -2152,7 +2152,7 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            core.saveShot(window);
+            window.writeShot(core.pathShots);
         }
         else if (event.key == Qt.Key_U && event.modifiers == Qt.ControlModifier)
         {

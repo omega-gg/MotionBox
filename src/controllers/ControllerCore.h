@@ -80,6 +80,7 @@ class ControllerCore : public WController
 
     Q_PROPERTY(QString pathStorage READ pathStorage CONSTANT)
     Q_PROPERTY(QString pathSplash  READ pathSplash  CONSTANT)
+    Q_PROPERTY(QString pathShots   READ pathShots   CONSTANT)
 
 private:
     ControllerCore();
@@ -100,7 +101,6 @@ public: // Interface
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);
 
-    Q_INVOKABLE void saveShot  (WWindow * window)             const;
     Q_INVOKABLE void saveSplash(WWindow * window, int border) const;
 
     Q_INVOKABLE void applyProxy(bool active);
@@ -202,6 +202,7 @@ public: // Properties
 
     QString pathStorage() const;
     QString pathSplash () const;
+    QString pathShots  () const;
 
 private: // Variables
 #ifdef SK_DESKTOP

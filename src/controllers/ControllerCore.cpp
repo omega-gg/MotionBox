@@ -104,39 +104,9 @@ static const QString PATH_BACKEND = "../../backend";
 #endif
 #endif
 
-//=================================================================================================
-// ShotWrite
-//=================================================================================================
-
-class ShotWrite : public WAbstractThreadAction
-{
-    Q_OBJECT
-
-public:
-    ShotWrite(const QImage & image, const QString & fileName)
-    {
-        this->image    = image;
-        this->fileName = fileName;
-    }
-
-protected: // WAbstractThreadAction implementation
-    /* virtual */ bool run();
-
-public: // Variables
-    QImage image;
-
-    QString fileName;
-};
-
-/* virtual */ bool ShotWrite::run()
-{
-    return image.save(fileName, "png");
-}
-
-//=================================================================================================
-// ControllerCore
-//=================================================================================================
-// Private ctor / dtor
+//-------------------------------------------------------------------------------------------------
+// Ctor / dtor
+//-------------------------------------------------------------------------------------------------
 
 ControllerCore::ControllerCore() : WController()
 {
@@ -615,21 +585,6 @@ ControllerCore::ControllerCore() : WController()
 }
 
 //-------------------------------------------------------------------------------------------------
-
-/* Q_INVOKABLE */ void ControllerCore::saveShot(WWindow * window) const
-{
-    QImage image = window->takeShot(0, 0, window->width(), window->height());
-
-    QString path = _path + "/screenshots";
-
-    WControllerFile::createFolder(path);
-
-    path.append("/MotionBox_" + Sk::currentDateString("yyyy-MM-dd_hh-mm-ss-zzz") + ".png");
-
-    ShotWrite * action = new ShotWrite(image, path);
-
-    wControllerFile->startWriteAction(action);
-}
 
 /* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border) const
 {
@@ -1136,6 +1091,11 @@ QString ControllerCore::pathStorage() const
 QString ControllerCore::pathSplash() const
 {
     return _pathSplash;
+}
+
+QString ControllerCore::pathShots() const
+{
+    return _path + "/screenshots";
 }
 
 #include "ControllerCore.moc"

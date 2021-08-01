@@ -1097,5 +1097,3 @@ QString ControllerCore::pathShots() const
 {
     return _path + "/screenshots";
 }
-
-#include "ControllerCore.moc"

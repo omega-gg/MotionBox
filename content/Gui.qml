@@ -829,6 +829,7 @@ Item
 
             return;
         }
+        // NOTE: We don't want to expand further when the panelRelated is exposed.
         else if (window.fullScreen == false || panelRelated.isExposed)
         {
             return;

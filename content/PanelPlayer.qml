@@ -272,6 +272,14 @@ Item
                 }
             }
 
+            onPlayerDoubleClicked:
+            {
+                if (mouse.button & Qt.LeftButton)
+                {
+                    gui.toggleFullScreen();
+                }
+            }
+
             //-------------------------------------------------------------------------------------
 
             onContextual:

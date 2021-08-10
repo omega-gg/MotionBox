@@ -157,8 +157,6 @@ MouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: height + borderSizeWidth
-
             enabled: (player.source != "")
 
             highlighted: (enabled && player.isPlaying)

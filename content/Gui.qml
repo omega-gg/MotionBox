@@ -817,18 +817,6 @@ Item
 
             return;
         }
-        else if (panelRelated.isExposed)
-        {
-            panelRelated.collapse();
-
-            return;
-        }
-        else if (isExpanded == false)
-        {
-            expand();
-
-            return;
-        }
         else if (panelSettings.isExposed)
         {
             panelSettings.collapse();
@@ -839,6 +827,10 @@ Item
         {
             panelGet.collapse();
 
+            return;
+        }
+        else if (window.fullScreen == false || panelRelated.isExposed)
+        {
             return;
         }
 
@@ -866,46 +858,22 @@ Item
 
     function toggleBars()
     {
-        if (barTop.isExpanded)
+        // NOTE: We only want to toggle bars in fullscreen.
+        if (window.fullScreen)
         {
-            if (timer.running)
-            {
-                timer.stop();
+            // NOTE: We avoid toggling bars too quickly to avoid a weird feeling when exiting
+            //       fullscreen.
+            if (isExpanded == false || timer.running) return;
 
-                restoreBars();
-
-                restore();
-            }
-            else
+            if (barTop.isExpanded)
             {
                 restoreBars();
-
-                timer.start();
             }
-        }
-        else if (isExpanded == false)
-        {
-            timer.stop();
+            else expandBars();
 
-            expandBars();
+            timer.start();
         }
-        else if (timer.running)
-        {
-            timer.stop();
-
-            restoreBars();
-
-            restore();
-        }
-        else
-        {
-            expandBars();
-
-            if (highlightedTab == null)
-            {
-                timer.start();
-            }
-        }
+        else expandBars();
     }
 
     //---------------------------------------------------------------------------------------------

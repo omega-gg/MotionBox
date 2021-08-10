@@ -1344,8 +1344,6 @@ MouseArea
 
         anchors.leftMargin: buttonsBrowse.getWidth()
 
-        width: height + borderSizeWidth
-
         enabled: (buttonsBrowse.count || query != "")
 
         icon          : st.icon12x12_close
@@ -1391,8 +1389,6 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        width: height + borderSizeWidth
-
         borderLeft: borderSize
 
         visible: (playlist != null && playlist.selectedCount)
@@ -1422,8 +1418,6 @@ MouseArea
         anchors.rightMargin : st.dp16
         anchors.topMargin   : bar.borderTop
         anchors.bottomMargin: bar.borderBottom
-
-        width: height + borderSizeWidth
 
         borderLeft: (buttonAddTrack.visible) ? 0 : borderSize
 
@@ -1489,8 +1483,6 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        width: height + borderSizeWidth
-
         visible: (playlist != null && playlist.isPlaylistSearch == false && playlist.isOnline)
 
         icon          : st.icon16x16_refresh
@@ -1546,6 +1538,9 @@ MouseArea
 
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
+
+        // NOTE: This is required for oriental right to left text.
+        horizontalAlignment: Text.AlignLeft
 
         visible: buttonPlaylist.visible
 

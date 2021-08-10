@@ -414,8 +414,6 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: height + borderSizeWidth
-
             checkable: true
             checked  : isExpanded
 
@@ -432,8 +430,6 @@ Panel
             anchors.left  : buttonLeft.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
-
-            width: height + borderSizeWidth
 
             enabled: (isAnimated == false && playlist != null && playlist.isLoading == false
                       &&
@@ -453,8 +449,6 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            width: height + borderSizeWidth
-
             enabled: (isAnimated == false && playlist != null && playlist.isLoading == false
                       &&
                       related.hasNextPlaylist)
@@ -465,30 +459,30 @@ Panel
             onClicked: setNextPlaylist()
         }
 
-        //-----------------------------------------------------------------------------------------
-
-        ButtonPiano
+        ButtonPianoIcon
         {
             id: buttonRefresh
 
             anchors.left  : buttonForward.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            enabled: (isAnimated == false && currentTab.isValid)
+
+            icon          : st.icon16x16_refresh
+            iconSourceSize: st.size16x16
+
+            onClicked: refresh()
+        }
+
+        BarTitleText
+        {
+            anchors.left  : buttonRefresh.right
             anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            anchors.rightMargin: st.dp16
-
-            visible: enabled
-
-            enabled: (isAnimated == false && currentTab.isValid)
-
             text: qsTr("Related")
-
-            font.pixelSize: st.dp14
-
-            itemText.horizontalAlignment: Text.AlignLeft
-
-            onClicked: refresh()
         }
     }
 

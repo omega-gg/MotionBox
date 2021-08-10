@@ -753,7 +753,7 @@ PanelContextual
 
             library.setItemTitle(index, text);
         }
-        else pInsert(index, type, text);
+        else list.insertItem(index, type, text, true);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -869,7 +869,6 @@ PanelContextual
         {
             anchors.right: parent.right
 
-            width : st.barTitle_height + borderSizeWidth
             height: st.barTitle_height
 
             borderLeft : borderSize

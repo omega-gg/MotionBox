@@ -149,8 +149,6 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                width: height + borderSizeWidth
-
                 visible: (folder != null)
 
                 checkable: true
@@ -409,8 +407,6 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                width: height + borderSizeWidth
-
                 visible: (playlist != null && playlist.isOnline)
 
                 icon          : st.icon16x16_refresh
@@ -456,6 +452,9 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
+                // NOTE: This is required for oriental right to left text.
+                horizontalAlignment: Text.AlignLeft
+
                 visible: (playlist != null)
 
                 text: (playlist) ? playlist.title : ""
@@ -470,8 +469,6 @@ Item
                 anchors.bottom: parent.bottom
 
                 anchors.rightMargin: st.dp16
-
-                width: height + borderSizeWidth
 
                 borderLeft: borderSize
 

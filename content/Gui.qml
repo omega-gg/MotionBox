@@ -3178,10 +3178,9 @@ Item
 
         onTriggered:
         {
-            if (pLoadPlaylist)
-            {
-                pLoadPlaylist.loadTracksBetween(pLoadIndex, 10);
-            }
+            if (pLoadPlaylist == null) return;
+
+            pLoadPlaylist.loadTracksBetween(pLoadIndex, 10);
         }
     }
 

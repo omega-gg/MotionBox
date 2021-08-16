@@ -256,7 +256,7 @@ Item
             {
                 if (mouse.button & Qt.LeftButton)
                 {
-                    gui.toggleBars();
+                    if (window.fullScreen) gui.expandBars();
 
                     window.clearFocus();
                 }
@@ -310,6 +310,24 @@ Item
             function onBeforeItemClose(index)
             {
                 return gui.onBeforeTabClose(index);
+            }
+
+            //-------------------------------------------------------------------------------------
+            // Connections
+            //-------------------------------------------------------------------------------------
+
+            Connections
+            {
+                target: (window.fullScreen) ? playerMouseArea : null
+
+                onPositionChanged:
+                {
+                    var y = mouse.y;
+
+                    if (y < st.dp64
+                        ||
+                        playerMouseArea.height - y < st.dp64) gui.restoreBars();
+                }
             }
         }
     }

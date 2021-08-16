@@ -829,8 +829,8 @@ Item
 
             return;
         }
-        // NOTE: We don't want to expand further when the panelRelated is exposed.
-        else if (window.fullScreen == false || panelRelated.isExposed)
+        // NOTE: We don't want to expand further when expanded or the panelRelated is exposed.
+        else if (window.fullScreen == false || isExpanded == false || panelRelated.isExposed)
         {
             return;
         }
@@ -859,22 +859,8 @@ Item
 
     function toggleBars()
     {
-        // NOTE: We only want to toggle bars in fullscreen.
-        if (window.fullScreen)
-        {
-            // NOTE: We avoid toggling bars too quickly to avoid a weird feeling when exiting
-            //       fullscreen.
-            if (isExpanded == false || timer.running) return;
-
-            if (barTop.isExpanded)
-            {
-                restoreBars();
-            }
-            else expandBars();
-
-            timer.start();
-        }
-        else expandBars();
+        if (barTop.isExpanded) restoreBars();
+        else                   expandBars ();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3161,13 +3147,6 @@ Item
                 panelPreview.update();
             }
         }
-    }
-
-    Timer
-    {
-        id: timer
-
-        interval: 400
     }
 
     Timer

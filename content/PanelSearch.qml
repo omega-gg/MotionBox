@@ -74,8 +74,12 @@ Panel
 
         pIndexFocus = 1;
 
-        // FIXME: We select the Youtube backend by default.
-        selectBackend(backends.indexFromLabel("youtube"));
+        // NOTE: We select the default backend when the text query is not a URL.
+        if (core.checkUrl(lineEditSearch.text) == false)
+        {
+            // FIXME: We select the Youtube backend by default.
+            selectBackend(backends.indexFromLabel("youtube"));
+        }
 
         action = 0;
 
@@ -96,7 +100,7 @@ Panel
 
             var text = lineEditSearch.text;
 
-            if (text && core.checkUrl(text))
+            if (core.checkUrl(text))
             {
                 selectBackend(0); // Browser
             }

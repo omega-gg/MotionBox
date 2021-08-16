@@ -33,8 +33,6 @@ Item
 
     property int padding: st.buttonPiano_padding
 
-    property alias borderSize: border.size
-
     property alias checked: button.checked
 
     property alias text: itemText.text
@@ -52,7 +50,7 @@ Item
     anchors.left : parent.left
     anchors.right: parent.right
 
-    height: st.buttonPiano_height + borderSize
+    height: st.buttonPiano_height
 
     //---------------------------------------------------------------------------------------------
     // Childs
@@ -65,7 +63,7 @@ Item
         anchors.left  : parent.left
         anchors.right : button.left
         anchors.top   : parent.top
-        anchors.bottom: border.top
+        anchors.bottom: parent.bottom
 
         anchors.leftMargin: buttonCheckSettings.padding
 
@@ -85,12 +83,5 @@ Item
         enabled: parent.enabled
 
         onCheckClicked: buttonCheckSettings.checkClicked()
-    }
-
-    BorderHorizontal
-    {
-        id: border
-
-        anchors.bottom: parent.bottom
     }
 }

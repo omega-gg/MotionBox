@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPianoFull
+ButtonPush
 {
     id: buttonSettings
 
@@ -46,9 +46,6 @@ ButtonPianoFull
 
     anchors.left : parent.left
     anchors.right: parent.right
-
-    borderRight : 0
-    borderBottom: borderSize
 
     checkable: true
     checked  : (areaContextual.item == buttonSettings)

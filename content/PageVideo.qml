@@ -239,12 +239,7 @@ Column
         onPressed: pClickVideo(currentIndex)
     }
 
-    BarSettings
-    {
-        borderTop: borderSize
-
-        text: qsTr("Quality")
-    }
+    BarSettings { text: qsTr("Quality") }
 
     ButtonSettings
     {

@@ -53,8 +53,6 @@ Column
     {
         id: buttonVsync
 
-        borderSize: 0
-
         checked: window.vsync
 
         text: qsTr("Vsync")

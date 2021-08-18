@@ -256,7 +256,7 @@ Item
             {
                 if (mouse.button & Qt.LeftButton)
                 {
-                    if (window.fullScreen) gui.expandBars();
+                    gui.expandBars();
 
                     window.clearFocus();
                 }

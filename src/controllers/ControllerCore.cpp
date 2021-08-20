@@ -675,7 +675,7 @@ ControllerCore::ControllerCore() : WController()
     {
         _index->createFolderItems(_backends, WLibraryItem::FolderSearchable);
 
-        WBackendLoader::clearCache();
+        _index->clearCache();
     }
 
     _cache->clearFiles();
@@ -961,11 +961,13 @@ void ControllerCore::onUpdated()
 
 void ControllerCore::onReload()
 {
-    WBackendLoader::clearCache();
+    if (_index == NULL) return;
 
-    if (_index) _index->reload();
+    _index->clearCache();
 
-    WBackendLoader::reloadBackends();
+    _index->reload();
+
+    _index->reloadBackends();
 }
 
 //-------------------------------------------------------------------------------------------------

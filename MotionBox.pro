@@ -96,7 +96,7 @@ INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkBackend \
                $$SK/include \
                src/controllers \
-               src/io \
+               src/io
 
 contains(QT_MAJOR_VERSION, 5) {
     INCLUDEPATH += $$SK/include/Qt5 \

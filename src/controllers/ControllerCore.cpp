@@ -373,6 +373,15 @@ ControllerCore::ControllerCore() : WController()
 #endif
 
     //---------------------------------------------------------------------------------------------
+    // Paths
+
+    qDebug("MotionBox %s", sk->version().C_STR);
+
+    qDebug("Path storage: %s", _path.C_STR);
+    qDebug("Path log:     %s", wControllerFile->pathLog().C_STR);
+    qDebug("Path config:  %s", _local->getFilePath().C_STR);
+
+    //---------------------------------------------------------------------------------------------
     // Controllers
 
     W_CREATE_CONTROLLER(WControllerPlaylist);

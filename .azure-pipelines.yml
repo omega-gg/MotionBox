@@ -33,7 +33,7 @@ jobs:
 
 - job: macOS_qt5
   pool:
-    vmImage: "macOS-latest"
+    vmImage: "macOS-10.15"
   steps:
   - bash: |
       sh build.sh macOS all

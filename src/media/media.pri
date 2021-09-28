@@ -35,12 +35,14 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
            $$SK_GUI/media/WLibraryItem.cpp \
            $$SK_GUI/media/WPlaylist.cpp \
+           $$SK_GUI/media/WPlaylist_patch.cpp \
            $$SK_GUI/media/WLibraryFolder.cpp \
            $$SK_GUI/media/WLibraryFolderRelated.cpp \
            $$SK_GUI/media/WAbstractBackend.cpp \
            $$SK_GUI/media/WAbstractHook.cpp \
            $$SK_GUI/media/WBookmarkTrack.cpp \
            $$SK_GUI/media/WTabTrack.cpp \
+           $$SK_GUI/media/WTabTrack_patch.cpp \
            $$SK_GUI/media/WTabsTrack.cpp \
            $$SK_MEDIA/media/WBackendVlc.cpp \
            $$SK_MEDIA/media/WBackendSubtitle.cpp \

@@ -49,8 +49,6 @@ PanelImage
 
     /* read */ property int duration: 0
 
-    /* read */ property int quality: 0
-
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -258,8 +256,6 @@ PanelImage
 
         core.datePreview = tab.date;
 
-        quality = tab.quality;
-
         detail = true;
 
         type = 2;
@@ -410,8 +406,6 @@ PanelImage
         duration = data.duration;
 
         core.datePreview = data.date;
-
-        quality = data.quality;
 
         if (data.state < LocalObject.Loaded)
         {

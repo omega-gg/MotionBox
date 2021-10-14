@@ -199,6 +199,7 @@ $SkyComponents/BorderButton.qml \
 $SkyComponents/WindowScale.qml \
 $SkyComponents/RectangleBordersDrop.qml \
 $SkyComponents/RectangleLogo.qml \
+$SkyComponents/RectangleLive.qml \
 $SkyComponents/Icon.qml \
 $SkyComponents/IconOverlay.qml \
 $SkyComponents/IconLoading.qml \

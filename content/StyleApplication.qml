@@ -72,6 +72,12 @@ StyleComponents
     property int scrollFolderCreate_durationAdd   : panelAdd_durationAdd
 
     //---------------------------------------------------------------------------------------------
+    // ScrollPlaylist
+
+    property int scrollPlaylist_intervalLoad  :   200
+    property int scrollPlaylist_intervalReload: 60000 // 1 minute
+
+    //---------------------------------------------------------------------------------------------
     // ScrollPlaylistCreate
 
     property int scrollPlaylistCreate_durationAdd: panelAdd_durationAdd

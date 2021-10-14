@@ -196,4 +196,18 @@ ComponentLibraryItem
         }
         else showPanel(index);
     }
+
+    //---------------------------------------------------------------------------------------------
+    // Children
+    //---------------------------------------------------------------------------------------------
+
+    RectangleLive
+    {
+        anchors.left  : parent.left
+        anchors.bottom: background.bottom
+
+        anchors.leftMargin: iconWidth - width
+
+        visible: (type == Playlist.TrackLive)
+    }
 }

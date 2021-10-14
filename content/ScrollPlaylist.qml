@@ -40,6 +40,8 @@ ScrollArea
 
     property bool pAtBottom: false
 
+    property bool pReload: false
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -93,7 +95,50 @@ ScrollArea
     wheelMultiplier: 1
 
     //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onHeightChanged: loadTracks()
+
+    onValueChanged: loadTracks()
+
+    onVisibleChanged:
+    {
+        if (visible)
+        {
+            loadTracks();
+
+            timerReload.start();
+        }
+        else timerReload.stop();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    onPlaylistChanged: reloadTracks()
+
+    onCountChanged: loadTracks()
+
+    //---------------------------------------------------------------------------------------------
     // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function loadTracks()
+    {
+        if (visible == false) return;
+
+        timerLoad.restart();
+    }
+
+    function reloadTracks()
+    {
+        if (visible == false) return;
+
+        pReload = true;
+
+        timerLoad.restart();
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function focus()
@@ -183,6 +228,48 @@ ScrollArea
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pApplyLoad()
+    {
+        if (playlist == null) return;
+
+        if (pReload)
+        {
+            pReload = false;
+
+            playlist.reloadTracks(pGetIndex(), pGetCount());
+        }
+        else playlist.loadTracks(pGetIndex(), pGetCount());
+    }
+
+    function pApplyReload()
+    {
+        if (playlist == null) return;
+
+        // NOTE: We are reloading so we don't need to load anymore.
+        timerLoad.stop();
+
+        pReload = false;
+
+        playlist.reloadTracks(pGetIndex(), pGetCount());
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pGetIndex()
+    {
+        return Math.floor(value / list.itemSize);
+    }
+
+    function pGetCount()
+    {
+        // NOTE: We add 1 to cover the entire region when half a track is exposed at the top and
+        //       the bottom of the list.
+        return Math.ceil(height / list.itemSize) + 1;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Childs
     //---------------------------------------------------------------------------------------------
 
@@ -193,6 +280,27 @@ ScrollArea
         interval: st.duration_faster
 
         onTriggered: updateCurrentY()
+    }
+
+    Timer
+    {
+        id: timerLoad
+
+        interval: st.scrollPlaylist_intervalLoad
+
+        onTriggered: pApplyLoad()
+    }
+
+    // NOTE: We want to reload each track periodically.
+    Timer
+    {
+        id: timerReload
+
+        interval: st.scrollPlaylist_intervalReload
+
+        repeat: true
+
+        onTriggered: pApplyReload()
     }
 
     ListPlaylist

@@ -46,6 +46,7 @@ MouseArea
 
     property alias buttonGet       : buttonGet
     property alias buttonSettings  : buttonSettings
+    property alias buttonOutput    : buttonOutput
     property alias buttonFullScreen: buttonFullScreen
 
     property alias sliderVolume: sliderVolume
@@ -370,8 +371,8 @@ MouseArea
         {
             id: buttonSettings
 
-            anchors.right: buttonFullScreen.left
-            anchors.top  : buttonFullScreen.top
+            anchors.right: buttonOutput.left
+            anchors.top  : buttonOutput.top
 
             width: st.dp44
 
@@ -382,6 +383,24 @@ MouseArea
             iconSourceSize: st.size20x20
 
             onPressed: panelSettings.toggleExpose()
+        }
+
+        ButtonPushIcon
+        {
+            id: buttonOutput
+
+            anchors.right: buttonFullScreen.left
+            anchors.top  : buttonFullScreen.top
+
+            width: st.dp44
+
+            checkable: true
+            checked  : panelOutput.isExposed
+
+            icon          : st.icon24x24_output
+            iconSourceSize: st.size24x24
+
+            onPressed: panelOutput.toggleExpose()
         }
 
         ButtonPushIcon

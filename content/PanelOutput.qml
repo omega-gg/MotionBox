@@ -29,9 +29,9 @@ BasePanelSettings
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSubtitles.qml") ]
+    sources: [ Qt.resolvedUrl("PageOutput.qml") ]
 
-    titles: [ qsTr("Subtitles") ]
+    titles: [ qsTr("Output") ]
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -47,12 +47,12 @@ BasePanelSettings
 
     function expose()
     {
-        if (isExposed || actionCue.tryPush(gui.actionGetExpose)) return;
+        if (isExposed || actionCue.tryPush(gui.actionOutputExpose)) return;
 
         gui.panelAddHide();
 
         panelSettings.collapse();
-        panelOutput  .collapse();
+        panelGet     .collapse();
 
         loadPage();
 
@@ -61,7 +61,7 @@ BasePanelSettings
         z = 1;
 
         panelSettings.z = 0;
-        panelOutput  .z = 0;
+        panelGet     .z = 0;
 
         visible = true;
 
@@ -70,7 +70,7 @@ BasePanelSettings
 
     function collapse()
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionGetCollapse)) return;
+        if (isExposed == false || actionCue.tryPush(gui.actionOutputCollapse)) return;
 
         isExposed = false;
 

@@ -23,57 +23,80 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+Item
 {
     //---------------------------------------------------------------------------------------------
-    // Settings
+    // Properties
+    //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+
+    /* read */ property int contentWidth : st.dp192
+
+    //---------------------------------------------------------------------------------------------
+    // Aliases
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageSubtitles.qml") ]
-
-    titles: [ qsTr("Subtitles") ]
+    // NOTE: This is useful for BasePanelSettings.
+    /* read */ property alias contentHeight: list.contentHeight
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Private
+
+    property int pRepeat: local.repeat
+
+    //---------------------------------------------------------------------------------------------
+    // Events
     //---------------------------------------------------------------------------------------------
 
-    function clearSubtitle()
+    Component.onCompleted: player.scanOutput = true
+
+    onVisibleChanged:
     {
-        if (indexCurrent == 0) page.clearSubtitle();
+        if (visible)
+        {
+            timer.stop();
+
+            player.scanOutput = true;
+        }
+        // NOTE: We want to clear the output(s) later in case we reopen this page right away.
+        //       That being said, we don't want to scan at all time.
+        else timer.restart();
     }
 
     //---------------------------------------------------------------------------------------------
-    // BasePanelSettings reimplementation
+    // Childs
+    //---------------------------------------------------------------------------------------------
 
-    function expose()
+    Timer
     {
-        if (isExposed || actionCue.tryPush(gui.actionGetExpose)) return;
+        id: timer
 
-        gui.panelAddHide();
+        interval: st.pageOutput_interval
 
-        panelSettings.collapse();
-        panelOutput  .collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelSettings.z = 0;
-        panelOutput  .z = 0;
-
-        visible = true;
-
-        gui.startActionCue(st.duration_faster);
+        onTriggered: player.scanOutput = false
     }
 
-    function collapse()
+    ScrollList
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionGetCollapse)) return;
+        id: list
 
-        isExposed = false;
+        anchors.fill: parent
 
-        gui.startActionCue(st.duration_faster);
+        model: ModelOutput { backend: player.backend }
+
+        delegate: ComponentList
+        {
+            isCurrent: current
+
+            text: name
+
+            onClicked:
+            {
+                player.currentOutput = index;
+
+                // NOTE: We want to hide the panel right away.
+                panelOutput.collapse();
+            }
+        }
     }
 }

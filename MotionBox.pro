@@ -212,6 +212,7 @@ OTHER_FILES += 3rdparty.sh \
                #content/PanelCover.qml \
                content/PanelSettings.qml \
                content/PanelGet.qml \
+               content/PanelOutput.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \
                content/BarWindowApplication.qml \
@@ -249,6 +250,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PageAboutCredits.qml \
                content/PageSubtitles.qml \
                content/PageSubtitlesSearch.qml \
+               content/PageOutput.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \
                dist/doc/readme.md \

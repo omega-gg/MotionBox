@@ -98,20 +98,13 @@ ScrollArea
     // Events
     //---------------------------------------------------------------------------------------------
 
+    Component.onCompleted: pUpdateVisible()
+
     onHeightChanged: loadTracks()
 
     onValueChanged: loadTracks()
 
-    onVisibleChanged:
-    {
-        if (visible)
-        {
-            loadTracks();
-
-            timerReload.start();
-        }
-        else timerReload.stop();
-    }
+    onVisibleChanged: pUpdateVisible()
 
     //---------------------------------------------------------------------------------------------
 
@@ -229,6 +222,17 @@ ScrollArea
 
     //---------------------------------------------------------------------------------------------
     // Private
+
+    function pUpdateVisible()
+    {
+        if (visible)
+        {
+            loadTracks();
+
+            timerReload.start();
+        }
+        else timerReload.stop();
+    }
 
     function pApplyLoad()
     {

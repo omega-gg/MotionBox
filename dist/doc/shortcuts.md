@@ -20,7 +20,7 @@ F6: Toggle the subtitles panel.
 
 F7: Toggle the settings panel.
 
-F8: Create a new playlist.
+F8: Toggle the output panel.
 
 #
 

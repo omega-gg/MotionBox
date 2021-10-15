@@ -93,21 +93,24 @@ Item
     /* read */ property int actionSettingsExpose  : 16
     /* read */ property int actionSettingsCollapse: 17
 
-    /* read */ property int actionShareExpose  : 18
-    /* read */ property int actionShareCollapse: 19
+    /* read */ property int actionGetExpose  : 18
+    /* read */ property int actionGetCollapse: 19
 
-    /* read */ property int actionSearchExpose: 20
+    /* read */ property int actionOutputExpose  : 20
+    /* read */ property int actionOutputCollapse: 21
 
-    /* read */ property int actionMaximizeExpose : 21
-    /* read */ property int actionMaximizeRestore: 22
+    /* read */ property int actionSearchExpose: 22
 
-    /* read */ property int actionFullScreenExpose : 23
-    /* read */ property int actionFullScreenRestore: 24
+    /* read */ property int actionMaximizeExpose : 23
+    /* read */ property int actionMaximizeRestore: 24
 
-    /* read */ property int actionTabOpen: 25
-    /* read */ property int actionTabMenu: 26
+    /* read */ property int actionFullScreenExpose : 25
+    /* read */ property int actionFullScreenRestore: 26
 
-    /* read */ property int actionZoom: 27
+    /* read */ property int actionTabOpen: 27
+    /* read */ property int actionTabMenu: 28
+
+    /* read */ property int actionZoom: 29
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -261,6 +264,7 @@ Item
 
     property alias buttonSettings  : barControls.buttonSettings
     property alias buttonGet       : barControls.buttonGet
+    property alias buttonOutput    : barControls.buttonOutput
     property alias buttonFullScreen: barControls.buttonFullScreen
 
     property alias sliderVolume: barControls.sliderVolume
@@ -829,6 +833,12 @@ Item
 
             return;
         }
+        else if (panelOutput.isExposed)
+        {
+            panelOutput.collapse();
+
+            return;
+        }
         // NOTE: We don't want to expand further when expanded or the panelRelated is exposed.
         else if (window.fullScreen == false || isExpanded == false || panelRelated.isExposed)
         {
@@ -905,6 +915,7 @@ Item
 
         panelSettings.collapse();
         panelGet     .collapse();
+        panelOutput  .collapse();
 
         playlistTemp.clearTracks();
 
@@ -1056,6 +1067,7 @@ Item
     {
         panelSettings.collapse();
         panelGet     .collapse();
+        panelOutput  .collapse();
 
         //panelDiscover.collapse();
 
@@ -2223,16 +2235,13 @@ Item
 
             buttonSettings.returnPressed();
         }
-        else if (event.key == Qt.Key_F8) // Playlist
+        else if (event.key == Qt.Key_F8) // Output
         {
             event.accepted = true;
 
-            if (event.isAutoRepeat) return;
-
             restoreBars();
-            restore    ();
 
-            panelLibrary.buttonAdd.returnPressed();
+            buttonOutput.returnPressed();
         }
         else if (event.key == Qt.Key_F9) // Normal
         {
@@ -2429,6 +2438,10 @@ Item
         {
             buttonGet.returnReleased();
         }
+        else if (buttonOutput.isReturnPressed)
+        {
+            buttonOutput.returnReleased();
+        }
         else if (buttonMaximize.isReturnPressed)
         {
             buttonMaximize.returnReleased();
@@ -2577,6 +2590,10 @@ Item
             else if (panelGet.isExposed)
             {
                 panelGet.collapse();
+            }
+            else if (panelOutput.isExposed)
+            {
+                panelOutput.collapse();
             }
             /*else if (panelDiscover.isExposed)
             {
@@ -3117,8 +3134,11 @@ Item
             else if (id == actionSettingsExpose)   panelSettings.expose  ();
             else if (id == actionSettingsCollapse) panelSettings.collapse();
 
-            else if (id == actionShareExpose)   panelGet.expose  ();
-            else if (id == actionShareCollapse) panelGet.collapse();
+            else if (id == actionGetExpose)   panelGet.expose  ();
+            else if (id == actionGetCollapse) panelGet.collapse();
+
+            else if (id == actionOutputExpose)   panelOutput.expose  ();
+            else if (id == actionOutputCollapse) panelOutput.collapse();
 
             else if (id == actionSearchExpose) lineEditSearch.focus();
 
@@ -3197,6 +3217,8 @@ Item
         PanelGet { id: panelGet }
 
         PanelSettings { id: panelSettings }
+
+        PanelOutput { id: panelOutput }
 
         PanelSearch { id: panelSearch }
     }

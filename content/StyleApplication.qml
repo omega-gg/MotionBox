@@ -94,6 +94,11 @@ StyleComponents
     //property int componentDiscover_height: dp48 + border_size
 
     //---------------------------------------------------------------------------------------------
+    // PageOutput
+
+    property int pageOutput_interval: 10000 // 10 seconds
+
+    //---------------------------------------------------------------------------------------------
     // Icons
 
     property url icon_qt    : "pictures/icons/qt.png"
@@ -128,6 +133,7 @@ StyleComponents
 
     property url icon_subtitles: "pictures/icons/quote-right.svg"
     property url icon_settings : "pictures/icons/cog.svg"
+    property url icon_output   : "pictures/icons/chromecast.svg"
 
     property url icon_shuffle: "pictures/icons/random.svg"
 
@@ -194,6 +200,11 @@ StyleComponents
     property url icon20x20_url: icon_url
 
     property url icon20x20_love: icon_love
+
+    //---------------------------------------------------------------------------------------------
+    // 24x24
+
+    property url icon24x24_output: icon_output
 
     //---------------------------------------------------------------------------------------------
     // Settings

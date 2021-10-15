@@ -208,6 +208,6 @@ ComponentLibraryItem
 
         anchors.leftMargin: iconWidth - width
 
-        visible: (type == Playlist.TrackLive)
+        visible: (type == Playlist.TrackLive && isCurrent == false)
     }
 }

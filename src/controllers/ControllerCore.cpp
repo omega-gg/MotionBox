@@ -64,6 +64,7 @@
 #include <WBackendUniversal>
 #include <WModelRange>
 #include <WModelList>
+#include <WModelOutput>
 #include <WModelLibraryFolder>
 #include <WModelPlaylist>
 #include <WModelCompletionGoogle>
@@ -268,6 +269,8 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WModelRange>("Sky", 1,0, "ModelRange");
 
     qmlRegisterType<WModelList>("Sky", 1,0, "ModelList");
+
+    qmlRegisterType<WModelOutput>("Sky", 1,0, "ModelOutput");
 
     qmlRegisterType<WModelLibraryFolder>        ("Sky", 1,0, "ModelLibraryFolder");
     qmlRegisterType<WModelLibraryFolderFiltered>("Sky", 1,0, "ModelLibraryFolderFiltered");

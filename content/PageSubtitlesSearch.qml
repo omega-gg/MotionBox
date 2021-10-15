@@ -196,7 +196,7 @@ Item
             titles: controllerPlaylist.getLanguages()
         }
 
-        delegate: ComponentList {}
+        delegate: ComponentList { checkHover: false }
 
         onItemDoubleClicked: if (currentIndex == index) pReload()
 

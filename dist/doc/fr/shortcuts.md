@@ -20,7 +20,7 @@ F6: Basculer le panneau des sous-titres.
 
 F7: Basculer le panneau des paramètres.
 
-F8: Créer une nouvelle playlist.
+F8: Basculer le panneau des sorties vidéo.
 
 #
 

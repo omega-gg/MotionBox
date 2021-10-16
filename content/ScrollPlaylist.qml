@@ -43,9 +43,6 @@ ScrollArea
     // NOTE: We need this to avoid loading tracks when the item is not loaded.
     property bool pReady: false
 
-    // NOTE: We want to reload tracks by default.
-    property bool pReload: true
-
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -109,9 +106,9 @@ ScrollArea
         pUpdateVisible();
     }
 
-    onHeightChanged: loadTracks()
+    onHeightChanged: reloadTracks()
 
-    onValueChanged: loadTracks()
+    onValueChanged: reloadTracks()
 
     onVisibleChanged: if (pReady) pUpdateVisible()
 
@@ -119,24 +116,15 @@ ScrollArea
 
     onPlaylistChanged: reloadTracks()
 
-    onCountChanged: loadTracks()
+    onCountChanged: reloadTracks()
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function loadTracks()
-    {
-        if (pReady == false || visible == false) return;
-
-        timerLoad.restart();
-    }
-
     function reloadTracks()
     {
         if (pReady == false || visible == false) return;
-
-        pReload = true;
 
         timerLoad.restart();
     }
@@ -236,36 +224,19 @@ ScrollArea
     {
         if (visible)
         {
-            loadTracks();
+            reloadTracks();
 
             timerReload.start();
         }
         else timerReload.stop();
     }
 
-    function pApplyLoad()
-    {
-        if (playlist == null) return;
-
-        if (pReload)
-        {
-            pReload = false;
-
-            playlist.reloadTracks(pGetIndex(), pGetCount());
-        }
-        else playlist.loadTracks(pGetIndex(), pGetCount());
-    }
-
     function pApplyReload()
     {
         if (playlist == null) return;
 
-        // NOTE: We are reloading so we don't need to load anymore.
-        timerLoad.stop();
-
-        pReload = false;
-
-        playlist.reloadTracks(pGetIndex(), pGetCount());
+        // NOTE: We skip tracks that were reloaded less than 1 minute ago.
+        playlist.reloadTracks(pGetIndex(), pGetCount(), 60000);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -301,7 +272,7 @@ ScrollArea
 
         interval: st.scrollPlaylist_intervalLoad
 
-        onTriggered: pApplyLoad()
+        onTriggered: pApplyReload()
     }
 
     // NOTE: We want to reload each track periodically.
@@ -313,7 +284,13 @@ ScrollArea
 
         repeat: true
 
-        onTriggered: pApplyReload()
+        onTriggered:
+        {
+            // NOTE: We are reloading so we don't need to load anymore.
+            timerLoad.stop();
+
+            pApplyReload();
+        }
     }
 
     ListPlaylist

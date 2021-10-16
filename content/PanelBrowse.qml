@@ -419,7 +419,10 @@ MouseArea
             }
         }
 
-        browse(title);
+        // NOTE: We select the DuckDuckGo backend by default.
+        /* var */ index = backends.indexFromLabel("duckduckgo");
+
+        search(backends.idAt(index), title, true, false);
     }
 
     function browse(query)

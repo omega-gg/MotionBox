@@ -77,7 +77,7 @@ Panel
         // NOTE: We select the default backend when the text query is not a URL.
         if (core.checkUrl(lineEditSearch.text) == false)
         {
-            // FIXME: We select the Youtube backend by default.
+            // NOTE: We select the Youtube backend by default.
             selectBackend(backends.indexFromLabel("youtube"));
         }
 

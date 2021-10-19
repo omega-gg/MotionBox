@@ -123,8 +123,6 @@ BaseList
 
             pUpdatePlayerOverlay();
 
-            pLoadTracks();
-
             pRestoreScroll();
         }
         else
@@ -278,9 +276,6 @@ BaseList
     Connections
     {
         target: (hasPlaylist) ? playlist : null
-
-        onLoaded        : pLoadTracks()
-        onQueryCompleted: pLoadTracks()
 
         onSelectedTracksChanged:
         {
@@ -653,8 +648,6 @@ BaseList
 
         var size = playlist.insertSource(index, url);
 
-        playlist.loadTracksBetween(index, 5);
-
         if (animate)
         {
             var array = new Array;
@@ -983,29 +976,6 @@ BaseList
 
     //---------------------------------------------------------------------------------------------
 
-    function pLoadTracks()
-    {
-        var index;
-
-        if (playlist.currentIndex == -1)
-        {
-             index = 0;
-        }
-        else index = playlist.currentIndex;
-
-        for (var i = index; i < count; i++)
-        {
-            if (playlist.trackTitle(i) == "" || playlist.trackCover(i) == "")
-            {
-                playlist.loadTracksBetween(index, 5);
-
-                return;
-            }
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function pPlay()
     {
         if (highlightedTab) tabs.highlightedTab = null;
@@ -1292,14 +1262,9 @@ BaseList
 
         onPressed:
         {
-            if ((mouse.button & Qt.LeftButton) == false) return;
-
-            if (playlist.trackIsDefault(indexHover))
-            {
-                playlist.loadTracksBetween(indexHover, 10);
-
-                return;
-            }
+            if ((mouse.button & Qt.LeftButton) == false
+                ||
+                playlist.trackIsDefault(indexHover)) return;
 
             indexPreview = indexHover;
         }

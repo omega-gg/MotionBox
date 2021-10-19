@@ -159,8 +159,6 @@ ComponentLibraryItem
         {
             if (list.isSelecting)
             {
-                playlist.loadTracksBetween(index, 10);
-
                 list.isSelecting = false;
             }
             else if (window.keyShiftPressed == false)

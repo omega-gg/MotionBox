@@ -271,3 +271,4 @@ OTHER_FILES += 3rdparty.sh \
                dist/changes/1.6.0.md \
                dist/changes/1.7.0.md \
                dist/changes/1.8.0.md \
+               dist/changes/1.9.0.md \

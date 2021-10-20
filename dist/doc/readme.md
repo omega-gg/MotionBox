@@ -19,6 +19,8 @@ I'm building innovative software that empowers people.
 
 ## Changelog
 
+- 1.8.0: [Live streaming and Chromecast support](documents/changes/1.8.0.html).
+
 - 1.7.0: [Revamped interface, unified settings, new icons](documents/changes/1.7.0.html).
 
 - 1.6.0: [Universal backends, macOS support, subtitles implementation](documents/changes/1.6.0.html).

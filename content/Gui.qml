@@ -3063,16 +3063,21 @@ Item
 
         restore();
 
-        panelBrowse.search(3, "chillwave", true, false); // Youtube
+        panelBrowse.search(4, "chillwave", true, false); // Youtube
 
         // NOTE: Wait for the icons to load.
         sk.wait(5000);
 
+        var index = currentPlaylist.indexFromSource("https://www.youtube.com/watch?v=UTN2YKLNDFc");
+
         // NOTE: We want to skip a few tracks.
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < index; i++)
         {
             player.setNextTrack();
         }
+
+        // NOTE: Wait for the track to load.
+        sk.wait(5000);
 
         pSaveShot(path + "/MotionBoxC.png");
 

@@ -654,7 +654,8 @@ AreaContextual
             }
             else if (id == 7) // Clear
             {
-                pItem.folder.clearItems();
+                // NOTE: We remove all the feeds except the 'Tracks' playlist.
+                pItem.folder.removeItems(1, pItem.folder.count - 1);
             }
             else if (id == 8) // Remove
             {

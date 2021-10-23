@@ -1090,6 +1090,26 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function clearTabs()
+    {
+        wall.enableAnimation = false;
+
+        player.stop();
+
+        tabs.closeTabs();
+
+        wall.enableAnimation = true;
+    }
+
+    function clearCache()
+    {
+        panelBrowse.clearEdit();
+
+        core.clearCache();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function setCurrentTrack(playlist, index)
     {
         playlist.currentIndex = index;
@@ -2975,7 +2995,7 @@ Item
         if (width == 1920)
         {
             // NOTE: This is optimized for 1920 x 1080.
-            st.ratio = 1.2;
+            st.ratio = 1.1;
         }
         else st.ratio = 1.6;
 
@@ -2987,6 +3007,8 @@ Item
         window.height = width * 0.5625; // 16:9 ratio
 
         window.centerWindow();
+
+        clearCache();
 
         pClearTorrents();
     }

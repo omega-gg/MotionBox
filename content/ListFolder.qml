@@ -298,14 +298,27 @@ BaseList
             else if (indexEdit       >= index) indexEdit       += count;
         }
 
-        onItemRemoved:
+        onItemsRemoved:
         {
-            if      (indexContextual > index) indexContextual--;
-            else if (indexDrag       > index) indexDrag--;
-            else if (indexEdit       > index) indexEdit--;
+            var countContextual = 0;
+            var countDrag       = 0;
+            var countEdit       = 0;
+
+            for (var i = 0; i < indexes.length; i++)
+            {
+                var index = indexes[i];
+
+                if      (indexContextual > index) countContextual++;
+                else if (indexDrag       > index) countDrag++;
+                else if (indexEdit       > index) countEdit++;
+            }
+
+            indexContextual -= countContextual;
+            indexDrag       -= countDrag;
+            indexEdit       -= countEdit;
         }
 
-        onItemMoved:
+        onItemsMoved:
         {
             clearIndexEdit();
 

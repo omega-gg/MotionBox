@@ -47,26 +47,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function pClearTabs()
-    {
-        wall.enableAnimation = false;
-
-        player.stop();
-
-        tabs.closeTabs();
-
-        wall.enableAnimation = true;
-    }
-
-    function pClearCache()
-    {
-        panelBrowse.clearEdit();
-
-        core.clearCache();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function pScale(scale)
     {
 //#QT_4
@@ -179,7 +159,7 @@ Item
 
         text: qsTr("Clear tabs")
 
-        onClicked: pClearTabs()
+        onClicked: gui.clearTabs()
     }
 
     ButtonPushRight
@@ -195,7 +175,7 @@ Item
 
         text: qsTr("Clear cache")
 
-        onClicked: pClearCache()
+        onClicked: gui.clearCache()
     }
 
     ButtonPush
@@ -212,8 +192,8 @@ Item
 
         onClicked:
         {
-            pClearTabs ();
-            pClearCache();
+            gui.clearTabs ();
+            gui.clearCache();
         }
     }
 

@@ -2189,7 +2189,7 @@ Item
             {
                 pSetDesktop();
 
-                player.volume = 0.4;
+                player.volume = 0.3;
 
                 return;
             }
@@ -2997,7 +2997,7 @@ Item
             // NOTE: This is optimized for 1920 x 1080.
             st.ratio = 1.1;
         }
-        else st.ratio = 1.6;
+        else st.ratio = 1.5;
 
         st.applyStyle(0);
 

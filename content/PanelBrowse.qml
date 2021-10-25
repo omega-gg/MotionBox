@@ -296,13 +296,8 @@ MouseArea
     {
         target: (playlist) ? playlist : null
 
-        onQueryEnded:
-        {
-            if (playlist.isEmpty == false) pCompleteSearch();
-
-            // NOTE: We want the first tracks to be loaded rigth away.
-            gui.loadTracksLater(playlist, 0);
-        }
+        // NOTE: We want the first tracks to be loaded rigth away.
+        onQueryEnded: gui.loadTracksLater(playlist, 0)
 
         onQueryCompleted: if (playlist.queryIsLoading == false && playlist.isEmpty) pSearchStop()
 

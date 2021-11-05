@@ -27,7 +27,7 @@ BuildTools="$ProgramFiles/Microsoft Visual Studio/2019/BuildTools"
 
 #--------------------------------------------------------------------------------------------------
 
-MinGW_version="7.3.0"
+MinGW_version="8.1.0"
 
 jom_version="1.1.3"
 

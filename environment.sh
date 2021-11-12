@@ -58,11 +58,11 @@ getOs()
 
 if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" ] \
+   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" -a $1 != "qt6" ] \
    || \
    [ $# = 2 -a "$2" != "all" ]; then
 
-    echo "Usage: environment <mingw | msvc | qt4 | qt5> [all]"
+    echo "Usage: environment <mingw | msvc | qt4 | qt5 | qt6> [all]"
 
     exit 1
 fi

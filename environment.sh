@@ -56,13 +56,13 @@ getOs()
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
-if [ $# != 2 -a $# != 3 ] \
+if [ $# != 1 -a $# != 2 ] \
    || \
-   [ $1 != "mingw" -a $1 != "msvc" ] || [ $2 != "qt4" -a $2 != "qt5" ] \
+   [ $1 != "mingw" -a $1 != "msvc" -a $1 != "qt4" -a $1 != "qt5" ] \
    || \
-   [ $# = 3 -a "$3" != "all" ]; then
+   [ $# = 2 -a "$2" != "all" ]; then
 
-    echo "Usage: environment <mingw | msvc> <qt4 | qt5> [all]"
+    echo "Usage: environment <mingw | msvc | qt4 | qt5> [all]"
 
     exit 1
 fi
@@ -77,14 +77,14 @@ host=$(getOs)
 # Sky
 #--------------------------------------------------------------------------------------------------
 
-if [ "$3" = "all" ]; then
+if [ "$2" = "all" ]; then
 
     echo "ENVIRONMENT Sky"
     echo "---------------"
 
     cd "$Sky"
 
-    sh environment.sh $1 $2 all
+    sh environment.sh $1 all
 
     cd -
 
@@ -99,8 +99,10 @@ fi
 if [ $1 = "msvc" ]; then
 
     replace compiler_win $compiler_win msvc
-else
-    replace compiler_win $compiler_win mingw
-fi
 
-replace qt $qt $2
+elif [ $1 = "mingw" ]; then
+
+    replace compiler_win $compiler_win mingw
+else
+    replace qt $qt $1
+fi

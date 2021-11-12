@@ -23,7 +23,8 @@ environment:
       compiler: msvc
 
 build_script:
-  - sh environment.sh %compiler% %qt%
+  - sh environment.sh %compiler%
+  - sh environment.sh %qt%
   - sh build.sh %platform% all
   - cd deploy
   - rm .gitignore

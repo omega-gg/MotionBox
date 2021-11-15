@@ -167,7 +167,7 @@ defines="$defines BarWindow icons_slide icons_scale icons_add icons_external ico
 
 files="\
 $SkyBase/Style.qml \
-$SkyBase/Window.qml \
+$SkyBase/WindowSky.qml \
 $SkyBase/ItemSlide.qml \
 $SkyBase/ItemWipe.qml \
 $SkyBase/LoaderSlide.qml \

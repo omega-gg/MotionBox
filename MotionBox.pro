@@ -53,6 +53,8 @@ contains(QT_MAJOR_VERSION, 4) {
 }
 
 deploy|android {
+    DEFINES += SK_DEPLOY
+
     RESOURCES = dist/MotionBox.qrc
 }
 

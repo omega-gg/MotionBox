@@ -44,27 +44,15 @@ win32-msvc* {
 !win32-msvc*:!android:DEFINES += CAN_COMPILE_SSE2
 
 contains(QT_MAJOR_VERSION, 4) {
-    DEFINES += QT_4
-
     CONFIG(release, debug|release) {
 
         win32:DEFINES += SK_WIN_NATIVE
     }
 } else {
-    DEFINES += QT_LATEST #SK_SOFTWARE
-
     win32:DEFINES += SK_WIN_NATIVE
 }
 
-android {
-    DEFINES += SK_MOBILE
-} else {
-    DEFINES += SK_DESKTOP
-}
-
 deploy|android {
-    DEFINES += SK_DEPLOY
-
     RESOURCES = dist/MotionBox.qrc
 }
 
@@ -72,6 +60,7 @@ deploy|android {
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 
+include($$SK/src/Sk.pri)
 include(src/global/global.pri)
 include(src/controllers/controllers.pri)
 include(src/kernel/kernel.pri)

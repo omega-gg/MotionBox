@@ -108,7 +108,11 @@ Liberté Médiatique: [http://omega.gg/about/MotionFreedom/fr][Liberté Médiati
 
 bunjee: [http://bunjee.me/fr][bunjee]
 
+omega: [http://omega.gg/about/fr][omega]
+
 [bunjee]: http://bunjee.me/fr
+
+[omega]: http://omega.gg/about/fr
 
 ---
 

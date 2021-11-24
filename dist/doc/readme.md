@@ -135,3 +135,10 @@ libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
 [VLC]: http://en.wikipedia.org/wiki/VLC_media_player
 
 [libtorrent]: http://en.wikipedia.org/wiki/libtorrent
+
+
+# About
+
+[MotionBox] by [omega] for Motion Freedom.
+
+License: [GPLv3](documents/license.html).

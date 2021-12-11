@@ -320,4 +320,4 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-"$Sky"/deploy/deployer $path $version MotionBox.qrc "$defines" $files
+"$Sky"/deploy/deployer $path $version qrc/MotionBox.qrc "$defines" $files

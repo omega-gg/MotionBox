@@ -137,7 +137,7 @@ ControllerCore::ControllerCore() : WController()
     sk->setVersion(CORE_VERSION);
 
 #ifdef Q_OS_LINUX
-    sk->setIcon(":/qrc/pictures/icons/icon.svg");
+    sk->setIcon(":/pictures/icons/icon.svg");
 #endif
 
 #ifdef SK_DEPLOY

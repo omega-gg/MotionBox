@@ -64,7 +64,7 @@ Item
     {
         target: player
 
-        onTabChanged:
+        QML_CONNECTION function onTabChanged()
         {
             if (pSearch)
             {
@@ -78,7 +78,7 @@ Item
     {
         target: playerTab
 
-        onCurrentBookmarkChanged:
+        QML_CONNECTION function onCurrentBookmarkChanged()
         {
             var subtitle = playerTab.subtitle;
 

@@ -94,7 +94,7 @@ Panel
     {
         target: lineEditSearch
 
-        onTextChanged:
+        QML_CONNECTION function onTextChanged()
         {
             if (pTextEvents == false) return;
 

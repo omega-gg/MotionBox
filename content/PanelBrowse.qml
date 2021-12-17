@@ -179,7 +179,7 @@ MouseArea
         target: (pFolderBackends && pFolderBackends.isLoaded && pEventBackend) ? pFolderBackends
                                                                                : null
 
-        onLoaded:
+        QML_CONNECTION function onLoaded()
         {
             buttonsBrowse.enableAnimation = false;
 
@@ -188,7 +188,7 @@ MouseArea
             buttonsBrowse.enableAnimation = true;
         }
 
-        onCurrentIdChanged:
+        QML_CONNECTION function onCurrentIdChanged()
         {
             if (pIndexBrowse == -2)
             {
@@ -209,9 +209,12 @@ MouseArea
     {
         target: (pFolderBrowse && pEventBrowse) ? pFolderBrowse : null
 
-        onLoaded: if (pLoading) pSearchBrowse()
+        QML_CONNECTION function onLoaded()
+        {
+            if (pLoading) pSearchBrowse();
+        }
 
-        onQueryEnded:
+        QML_CONNECTION function onQueryEnded()
         {
             if (pFolderBrowse.currentIndex != -1) return;
 
@@ -223,7 +226,7 @@ MouseArea
             }
         }
 
-        onQueryCompleted:
+        QML_CONNECTION function onQueryCompleted()
         {
             if (pFolderBrowse.isEmpty == false) return;
 
@@ -236,7 +239,7 @@ MouseArea
             }
         }
 
-        onCurrentIdChanged:
+        QML_CONNECTION function onCurrentIdChanged()
         {
             if (pLoading) return;
 
@@ -257,9 +260,12 @@ MouseArea
     {
         target: (pItemBrowse) ? pItemBrowse : null
 
-        onLoaded: if (pLoading) pSearchStart()
+        QML_CONNECTION function onLoaded()
+        {
+            if (pLoading) pSearchStart();
+        }
 
-        onQueryStarted:
+        QML_CONNECTION function onQueryStarted()
         {
             // NOTE: We want to set the first index as soon as possible.
             if (pBrowsing && pItemBrowse.currentIndex == -1)
@@ -273,7 +279,7 @@ MouseArea
     {
         target: (pFolder) ? pFolder : null
 
-        onQueryEnded:
+        QML_CONNECTION function onQueryEnded()
         {
             if (pFolder.currentIndex != -1) return;
 
@@ -289,7 +295,10 @@ MouseArea
             }
         }
 
-        onQueryCompleted: if (pFolder.isEmpty) pSearchStop()
+        QML_CONNECTION function onQueryCompleted()
+        {
+            if (pFolder.isEmpty) pSearchStop();
+        }
     }
 
     Connections
@@ -297,11 +306,19 @@ MouseArea
         target: (playlist) ? playlist : null
 
         // NOTE: We want the first tracks to be loaded rigth away.
-        onQueryEnded: gui.loadTracksLater(playlist, 0)
+        QML_CONNECTION function onQueryEnded()
+        {
+            gui.loadTracksLater(playlist, 0);
+        }
 
-        onQueryCompleted: if (playlist.queryIsLoading == false && playlist.isEmpty) pSearchStop()
+        QML_CONNECTION function onQueryCompleted()
+        {
+            if (playlist.queryIsLoading || playlist.isEmpty == false) return;
 
-        onTrackQueryEnded: pCompleteSearch()
+            pSearchStop();
+        }
+
+        QML_CONNECTION function onTrackQueryEnded() { pCompleteSearch() }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1301,7 +1318,7 @@ MouseArea
 
         onPressed: pSelectButton(-1)
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Escape)
             {
@@ -1592,7 +1609,7 @@ MouseArea
 
         itemRight: scrollBrowse
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
             {
@@ -1654,7 +1671,7 @@ MouseArea
         itemTop: (pSearchHidden) ? buttonBrowse
                                  : lineEdit
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
             {
@@ -1723,7 +1740,7 @@ MouseArea
 
         itemRight: scrollPlaylist
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Plus && buttonAddItem.visible)
             {
@@ -1785,7 +1802,7 @@ MouseArea
 
         itemTop: (buttonTitle.visible) ? buttonTitle : null
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Plus && buttonAddTrack.visible)
             {

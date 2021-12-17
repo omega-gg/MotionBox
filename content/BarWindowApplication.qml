@@ -483,7 +483,7 @@ Item
             window.clearFocus();
         }
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Escape)
             {

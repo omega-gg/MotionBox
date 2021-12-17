@@ -235,7 +235,7 @@ PanelContextual
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    Keys.onPressed:
+    QML_EVENT Keys.onPressed: function(event)
     {
         if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
         {
@@ -282,7 +282,7 @@ PanelContextual
     {
         target: (library) ? library : null
 
-        onCountChanged:
+        QML_CONNECTION function onCountChanged()
         {
             if (library.contains(listLibrary.currentId) == false)
             {
@@ -297,14 +297,14 @@ PanelContextual
                  &&
                  panelAdd.target && panelAdd.target.isFolder) ? panelAdd.target : null
 
-        onLoaded: pApplyTarget()
+        QML_CONNECTION function onLoaded() { pApplyTarget() }
     }
 
     Connections
     {
         target: (pFolder) ? pFolder : null
 
-        onLoaded:
+        QML_CONNECTION function onLoaded()
         {
             if (type == 0 && indexCurrent != 3 && listFolder.currentId == -1)
             {
@@ -312,7 +312,7 @@ PanelContextual
             }
         }
 
-        onCountChanged:
+        QML_CONNECTION function onCountChanged()
         {
             if (pFolder.contains(listFolder.currentId) == false)
             {
@@ -987,7 +987,7 @@ PanelContextual
 
                 //---------------------------------------------------------------------------------
 
-                Keys.onPressed:
+                QML_EVENT Keys.onPressed: function(event)
                 {
                     if (event.key == Qt.Key_Up
                         &&
@@ -1190,7 +1190,7 @@ PanelContextual
             // Keys
             //-------------------------------------------------------------------------------------
 
-            Keys.onPressed:
+            QML_EVENT Keys.onPressed: function(event)
             {
                 var index;
 
@@ -1478,7 +1478,7 @@ PanelContextual
             // Events
             //-------------------------------------------------------------------------------------
 
-            Keys.onPressed:
+            QML_EVENT Keys.onPressed: function(event)
             {
                 var index;
 

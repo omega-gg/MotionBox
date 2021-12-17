@@ -378,7 +378,7 @@ Item
     {
         target: core
 
-        onCacheEmptyChanged:
+        QML_CONNECTION function onCacheEmptyChanged()
         {
             if (core.cacheIsEmpty == false)
             {
@@ -391,7 +391,7 @@ Item
     {
         target: st
 
-        onRatioChanged:
+        QML_CONNECTION function onRatioChanged()
         {
             areaDrag   .updatePosition();
             bordersDrop.updatePosition();
@@ -402,19 +402,19 @@ Item
     {
         target: window
 
-        onMousePressed : onMousePressed (event)
-        onMouseReleased: onMouseReleased(event)
+        QML_CONNECTION function onMousePressed (event) { onMousePressed (event) }
+        QML_CONNECTION function onMouseReleased(event) { onMouseReleased(event) }
 
-        onKeyPressed : onKeyPressed (event)
-        onKeyReleased: onKeyReleased(event)
+        QML_CONNECTION function onKeyPressed (event) { onKeyPressed (event) }
+        QML_CONNECTION function onKeyReleased(event) { onKeyReleased(event) }
 
-        onDragEntered: onDragEntered(event)
-        onDragExited : onDragExited (event)
-        onDrop       : onDrop       (event)
+        QML_CONNECTION function onDragEntered(event) { onDragEntered(event) }
+        QML_CONNECTION function onDragExited (event) { onDragExited (event) }
+        QML_CONNECTION function onDrop       (event) { onDrop       (event) }
 
-        onDragEnded: onDragEnded()
+        QML_CONNECTION function onDragEnded() onDragEnded()
 
-        onBeforeClose:
+        QML_CONNECTION function onBeforeClose()
         {
             if (player.isStopped) return;
 
@@ -427,7 +427,7 @@ Item
             st.animate = true;
         }
 
-        onFadeOut:
+        QML_CONNECTION function onFadeOut()
         {
             window.minimized = false;
 
@@ -478,23 +478,22 @@ Item
             local.save();
         }
 
-        onZoomChanged:
+        QML_CONNECTION function onZoomChanged()
         {
-            if (pZoomLater)
-            {
-                pZoomLater = false;
+            if (pZoomLater == false) return;
 
-                scaleAfter();
+            pZoomLater = false;
 
-                asynchronous = true;
-            }
+            scaleAfter();
+
+            asynchronous = true;
         }
 
-        onActiveChanged: updateScreenDim()
+        QML_CONNECTION function onActiveChanged() { updateScreenDim() }
 
-        onVsyncChanged: local.vsync = window.vsync
+        QML_CONNECTION function onVsyncChanged() { local.vsync = window.vsync }
 
-        onIdleChanged:
+        QML_CONNECTION function onIdleChanged()
         {
             if (window.idle)
             {
@@ -514,7 +513,7 @@ Item
     {
         target: tabs
 
-        onCurrentTabChanged:
+        QML_CONNECTION function onCurrentTabChanged()
         {
             if (currentTab.currentTime == -1)
             {
@@ -535,7 +534,7 @@ Item
     {
         target: currentTab
 
-        onCurrentBookmarkChanged:
+        QML_CONNECTION function onCurrentBookmarkChanged()
         {
             panelSearch.setText(currentTab.source);
 
@@ -557,7 +556,7 @@ Item
     {
         target: (currentTab && currentTab.playlist) ? currentTab.playlist : null
 
-        onTrackUpdated:
+        QML_CONNECTION function onTrackUpdated(index)
         {
             var currentIndex = currentTab.playlist.currentIndex;
 
@@ -574,9 +573,9 @@ Item
     {
         target: player
 
-        onSourceChanged: timerHistory.restart()
+        QML_CONNECTION function onSourceChanged() { timerHistory.restart() }
 
-        onIsPlayingChanged:
+        QML_CONNECTION function onIsPlayingChanged()
         {
             updateScreenDim();
 
@@ -609,26 +608,26 @@ Item
             sk.screenSaverEnabled = true;
         }
 
-        onHasStartedChanged:
+        QML_CONNECTION function onHasStartedChanged()
         {
             restoreBars();
 
             timerHistory.restart();
         }
 
-        onSpeedChanged: local.speed = player.speed
+        QML_CONNECTION function onSpeedChanged() { local.speed = player.speed }
 
-        onVolumeChanged: local.volume = player.volume
+        QML_CONNECTION function onVolumeChanged() { local.volume = player.volume }
 
-        onRepeatChanged: local.repeat = player.repeat
+        QML_CONNECTION function onRepeatChanged() { local.repeat = player.repeat }
 
-        onOutputChanged  : local.output   = player.output
-        onQualityChanged : local.quality  = player.quality
-        onFillModeChanged: local.fillMode = player.fillMode
+        QML_CONNECTION function onOutputChanged  () { local.output   = player.output   }
+        QML_CONNECTION function onQualityChanged () { local.quality  = player.quality  }
+        QML_CONNECTION function onFillModeChanged() { local.fillMode = player.fillMode }
 
-        onCurrentTrackUpdated: timerHistory.restart()
+        QML_CONNECTION function onCurrentTrackUpdated() { timerHistory.restart() }
 
-        onTabChanged: timerHistory.restart()
+        QML_CONNECTION function onTabChanged() { timerHistory.restart() }
     }
 
     //---------------------------------------------------------------------------------------------

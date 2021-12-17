@@ -139,7 +139,7 @@ BaseList
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    Keys.onPressed:
+    QML_EVENT Keys.onPressed: function(event)
     {
         if (playlist == null) return;
 
@@ -262,22 +262,22 @@ BaseList
     {
         target: sk
 
-        onAboutToQuit: saveScroll()
+        QML_CONNECTION function onAboutToQuit() { saveScroll() }
     }
 
     Connections
     {
         target: gui
 
-        onScaleBefore: saveScroll    ()
-        onScaleAfter : pRestoreScroll()
+        QML_CONNECTION function onScaleBefore() { saveScroll    () }
+        QML_CONNECTION function onScaleAfter () { pRestoreScroll() }
     }
 
     Connections
     {
         target: (hasPlaylist) ? playlist : null
 
-        onSelectedTracksChanged:
+        QML_CONNECTION function onSelectedTracksChanged()
         {
             pUpdateCurrentY();
 
@@ -300,14 +300,14 @@ BaseList
             }
         }
 
-        onTracksInserted:
+        QML_CONNECTION function onTracksInserted(index)
         {
             if      (indexPreview    >= index) indexPreview    += count;
             if      (indexContextual >= index) indexContextual += count;
             else if (indexPlayer     >= index) indexPlayer     += count;
         }
 
-        onTracksRemoved:
+        QML_CONNECTION function onTracksRemoved(indexes)
         {
             var countPreview    = 0;
             var countContextual = 0;
@@ -327,7 +327,7 @@ BaseList
             indexPlayer     -= countPlayer;
         }
 
-        onTracksMoved:
+        QML_CONNECTION function onTracksMoved()
         {
             indexPreview    = -1;
             indexContextual = -1;
@@ -335,7 +335,7 @@ BaseList
             pUpdatePlayerOverlay();
         }
 
-        onTracksCleared:
+        QML_CONNECTION function onTracksCleared()
         {
             timer.stop();
 
@@ -357,14 +357,14 @@ BaseList
     {
         target: tabs
 
-        onCurrentTabChanged: pUpdateSelected()
+        QML_CONNECTION function onCurrentTabChanged() { pUpdateSelected() }
     }
 
     Connections
     {
         target: currentTab
 
-        onCurrentBookmarkChanged:
+        QML_CONNECTION function onCurrentBookmarkChanged()
         {
             if (playlist && pSelect && (player.isPlaying == false || highlightedTab))
             {
@@ -381,8 +381,8 @@ BaseList
     {
         target: player
 
-        onCurrentTrackUpdated: pUpdatePlayerOverlay()
-        onHasStartedChanged  : pUpdatePlayerOverlay()
+        QML_CONNECTION function onCurrentTrackUpdated() { pUpdatePlayerOverlay() }
+        QML_CONNECTION function onHasStartedChanged  () { pUpdatePlayerOverlay() }
     }
 
     //---------------------------------------------------------------------------------------------

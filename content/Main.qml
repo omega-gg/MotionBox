@@ -93,7 +93,7 @@ Application
         // Keys
         //-----------------------------------------------------------------------------------------
 
-        Keys.onPressed:
+        QML_EVENT Keys.onPressed: function(event)
         {
             if (gui == null) return;
 
@@ -102,7 +102,10 @@ Application
             gui.keyPressed(event);
         }
 
-        Keys.onReleased: gui.keyReleased(event)
+        QML_EVENT Keys.onReleased: function(event)
+        {
+            gui.keyReleased(event);
+        }
 
         //-----------------------------------------------------------------------------------------
         // Childs

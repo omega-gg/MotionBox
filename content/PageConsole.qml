@@ -41,7 +41,10 @@ Item
     {
         target: controllerFile
 
-        onLogChanged: itemConsole.append(message)
+        QML_CONNECTION function onLogChanged(message)
+        {
+            itemConsole.append(message);
+        }
     }
 
     //---------------------------------------------------------------------------------------------

@@ -320,7 +320,7 @@ Item
             {
                 target: (window.fullScreen) ? playerMouseArea : null
 
-                onPositionChanged:
+                QML_CONNECTION function onPositionChanged(mouse)
                 {
                     var y = mouse.y;
 

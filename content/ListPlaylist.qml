@@ -1260,7 +1260,7 @@ BaseList
 
         onExited: panelPreview.clear()
 
-        onPressed:
+        QML_EVENT onPressed: function(mouse)
         {
             if ((mouse.button & Qt.LeftButton) == false
                 ||

@@ -416,14 +416,13 @@ Panel
 
             onClear:
             {
-                if (list.activeFocus == false && pIndex == 0)
-                {
-                    // NOTE: We want to keep the 'feed' button selected during the 'clear'
-                    //       animation.
-                    pIndex = -2;
+                if (list.activeFocus || pIndex) return;
 
-                    select(0);
-                }
+                // NOTE: We want to keep the 'feed' button selected during the 'clear'
+                //       animation.
+                pIndex = -2;
+
+                select(0);
             }
 
             onFinished: pIndex = -1

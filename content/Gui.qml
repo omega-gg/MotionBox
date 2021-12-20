@@ -3132,7 +3132,7 @@ Item
     {
         id: actionCue
 
-        onProcessAction:
+        QML_EVENT onProcessAction: function(id)
         {
             if      (id == actionExpand)  expand ();
             else if (id == actionRestore) restore();

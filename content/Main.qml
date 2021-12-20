@@ -66,7 +66,7 @@ Application
         // Events
         //-----------------------------------------------------------------------------------------
 
-        onMessageReceived:
+        QML_EVENT onMessageReceived: function(mesage)
         {
             activate();
 

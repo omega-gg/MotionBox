@@ -98,7 +98,7 @@ ScrollFolder
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onDragEntered:
+    QML_EVENT onDragEntered: function(event)
     {
         if (isDroppable == false) return;
 
@@ -180,7 +180,7 @@ ScrollFolder
 
     onDragExited: pClearDrag()
 
-    onDragMove:
+    QML_EVENT onDragMove: function(event)
     {
         if (isDroppable == false) return;
 
@@ -188,7 +188,7 @@ ScrollFolder
         else           pOnDragTrack(event);
     }
 
-    onDrop:
+    QML_EVENT onDrop: function(event)
     {
         if (isDroppable == false) return;
 

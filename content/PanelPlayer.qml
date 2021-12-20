@@ -252,7 +252,7 @@ Item
             onTitleClicked : gui.selectCurrentTrack()
             onAuthorClicked: gui.browseCurrentFeed ()
 
-            onPlayerPressed:
+            QML_EVENT onPlayerPressed: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -272,7 +272,7 @@ Item
                 }
             }
 
-            onPlayerDoubleClicked:
+            QML_EVENT onPlayerDoubleClicked: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {

@@ -596,7 +596,7 @@ Item
         // Events
         //-------------------------------------------------------------------------------------
 
-        onTabPressed:
+        QML_EVENT onTabPressed: function(index)
         {
             if (tabs.currentIndex == index)
             {
@@ -693,7 +693,7 @@ Item
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        onPressed:
+        QML_EVENT onPressed: function(mouse)
         {
             window.clearFocus();
 
@@ -705,7 +705,7 @@ Item
             }
         }
 
-        onDoubleClicked:
+        QML_EVENT onDoubleClicked: function(mouse)
         {
             if (mouse.button & Qt.LeftButton)
             {

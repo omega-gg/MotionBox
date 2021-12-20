@@ -212,7 +212,7 @@ Item
                     else scrollFolder.createItem(0);
                 }
 
-                onDragEntered:
+                QML_EVENT onDragEntered: function(event)
                 {
                     if (folder.isFull) return;
 
@@ -240,7 +240,7 @@ Item
 
                 onDragExited: bordersDrop.clearItem(buttonAdd)
 
-                onDrop:
+                QML_EVENT onDrop: function(event)
                 {
                     scrollFolder.createItem(0);
 

@@ -85,13 +85,13 @@ ComponentLibraryItem
     onEntered: setItemHovered  (componentTrack)
     onExited : clearItemHovered()
 
-    onPositionChanged: pPositionChanged(mouse)
+    QML_EVENT onPositionChanged: function(mouse) { pPositionChanged(mouse) }
 
-    onPressed : pPressed (mouse)
-    onReleased: pReleased(mouse)
+    QML_EVENT onPressed : function(mouse) { pPressed (mouse) }
+    QML_EVENT onReleased: function(mouse) { pReleased(mouse) }
 
-    onClicked      : pClicked      (mouse)
-    onDoubleClicked: pDoubleClicked(mouse)
+    QML_EVENT onClicked      : function(mouse) { pClicked      (mouse) }
+    QML_EVENT onDoubleClicked: function(mouse) { pDoubleClicked(mouse) }
 
     //---------------------------------------------------------------------------------------------
     // Functions

@@ -174,7 +174,7 @@ Item
 
             itemIcon.opacity: 1.0
 
-            onClicked:
+            QML_EVENT onClicked: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {

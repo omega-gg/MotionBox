@@ -2802,7 +2802,7 @@ Item
 
     function pRestoreWall()
     {
-//#QT_5
+//#QT_LATEST
         // FIXME Qt5: Waiting for resize to be applied.
         sk.processEvents();
 //#END

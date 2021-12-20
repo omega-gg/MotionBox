@@ -389,7 +389,7 @@ BaseList
     {
         itemHovered = item;
 
-//#QT_5
+//#QT_LATEST
         if (overlay.visible && overlay.containsMouse) pUpdatePreview();
 //#END
     }

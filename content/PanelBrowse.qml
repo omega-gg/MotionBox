@@ -1147,7 +1147,7 @@ MouseArea
 
             font.pixelSize: st.dp14
 
-//#QT_5
+//#QT_LATEST
             textInput.visible: isFocused
 
             itemTextDefault.visible: (isFocused == false)

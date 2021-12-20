@@ -402,17 +402,17 @@ Item
     {
         target: window
 
-        QML_CONNECTION function onMousePressed (event) { onMousePressed (event) }
-        QML_CONNECTION function onMouseReleased(event) { onMouseReleased(event) }
+        QML_CONNECTION function onMousePressed (event) { onMousePressed (event); }
+        QML_CONNECTION function onMouseReleased(event) { onMouseReleased(event); }
 
-        QML_CONNECTION function onKeyPressed (event) { onKeyPressed (event) }
-        QML_CONNECTION function onKeyReleased(event) { onKeyReleased(event) }
+        QML_CONNECTION function onKeyPressed (event) { onKeyPressed (event); }
+        QML_CONNECTION function onKeyReleased(event) { onKeyReleased(event); }
 
-        QML_CONNECTION function onDragEntered(event) { onDragEntered(event) }
-        QML_CONNECTION function onDragExited (event) { onDragExited (event) }
-        QML_CONNECTION function onDrop       (event) { onDrop       (event) }
+        QML_CONNECTION function onDragEntered(event) { onDragEntered(event); }
+        QML_CONNECTION function onDragExited (event) { onDragExited (event); }
+        QML_CONNECTION function onDrop       (event) { onDrop       (event); }
 
-        QML_CONNECTION function onDragEnded() onDragEnded()
+        QML_CONNECTION function onDragEnded() { onDragEnded(); }
 
         QML_CONNECTION function onBeforeClose()
         {
@@ -489,9 +489,9 @@ Item
             asynchronous = true;
         }
 
-        QML_CONNECTION function onActiveChanged() { updateScreenDim() }
+        QML_CONNECTION function onActiveChanged() { updateScreenDim(); }
 
-        QML_CONNECTION function onVsyncChanged() { local.vsync = window.vsync }
+        QML_CONNECTION function onVsyncChanged() { local.vsync = window.vsync; }
 
         QML_CONNECTION function onIdleChanged()
         {
@@ -573,7 +573,7 @@ Item
     {
         target: player
 
-        QML_CONNECTION function onSourceChanged() { timerHistory.restart() }
+        QML_CONNECTION function onSourceChanged() { timerHistory.restart(); }
 
         QML_CONNECTION function onIsPlayingChanged()
         {
@@ -615,19 +615,19 @@ Item
             timerHistory.restart();
         }
 
-        QML_CONNECTION function onSpeedChanged() { local.speed = player.speed }
+        QML_CONNECTION function onSpeedChanged() { local.speed = player.speed; }
 
-        QML_CONNECTION function onVolumeChanged() { local.volume = player.volume }
+        QML_CONNECTION function onVolumeChanged() { local.volume = player.volume; }
 
-        QML_CONNECTION function onRepeatChanged() { local.repeat = player.repeat }
+        QML_CONNECTION function onRepeatChanged() { local.repeat = player.repeat; }
 
-        QML_CONNECTION function onOutputChanged  () { local.output   = player.output   }
-        QML_CONNECTION function onQualityChanged () { local.quality  = player.quality  }
-        QML_CONNECTION function onFillModeChanged() { local.fillMode = player.fillMode }
+        QML_CONNECTION function onOutputChanged  () { local.output   = player.output;   }
+        QML_CONNECTION function onQualityChanged () { local.quality  = player.quality;  }
+        QML_CONNECTION function onFillModeChanged() { local.fillMode = player.fillMode; }
 
-        QML_CONNECTION function onCurrentTrackUpdated() { timerHistory.restart() }
+        QML_CONNECTION function onCurrentTrackUpdated() { timerHistory.restart(); }
 
-        QML_CONNECTION function onTabChanged() { timerHistory.restart() }
+        QML_CONNECTION function onTabChanged() { timerHistory.restart(); }
     }
 
     //---------------------------------------------------------------------------------------------

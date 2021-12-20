@@ -297,7 +297,7 @@ PanelContextual
                  &&
                  panelAdd.target && panelAdd.target.isFolder) ? panelAdd.target : null
 
-        QML_CONNECTION function onLoaded() { pApplyTarget() }
+        QML_CONNECTION function onLoaded() { pApplyTarget(); }
     }
 
     Connections

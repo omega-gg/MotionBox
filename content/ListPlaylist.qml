@@ -262,15 +262,15 @@ BaseList
     {
         target: sk
 
-        QML_CONNECTION function onAboutToQuit() { saveScroll() }
+        QML_CONNECTION function onAboutToQuit() { saveScroll(); }
     }
 
     Connections
     {
         target: gui
 
-        QML_CONNECTION function onScaleBefore() { saveScroll    () }
-        QML_CONNECTION function onScaleAfter () { pRestoreScroll() }
+        QML_CONNECTION function onScaleBefore() { saveScroll    (); }
+        QML_CONNECTION function onScaleAfter () { pRestoreScroll(); }
     }
 
     Connections
@@ -357,7 +357,7 @@ BaseList
     {
         target: tabs
 
-        QML_CONNECTION function onCurrentTabChanged() { pUpdateSelected() }
+        QML_CONNECTION function onCurrentTabChanged() { pUpdateSelected(); }
     }
 
     Connections
@@ -381,8 +381,8 @@ BaseList
     {
         target: player
 
-        QML_CONNECTION function onCurrentTrackUpdated() { pUpdatePlayerOverlay() }
-        QML_CONNECTION function onHasStartedChanged  () { pUpdatePlayerOverlay() }
+        QML_CONNECTION function onCurrentTrackUpdated() { pUpdatePlayerOverlay(); }
+        QML_CONNECTION function onHasStartedChanged  () { pUpdatePlayerOverlay(); }
     }
 
     //---------------------------------------------------------------------------------------------

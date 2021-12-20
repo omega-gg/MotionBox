@@ -318,7 +318,7 @@ MouseArea
             pSearchStop();
         }
 
-        QML_CONNECTION function onTrackQueryEnded() { pCompleteSearch() }
+        QML_CONNECTION function onTrackQueryEnded() { pCompleteSearch(); }
     }
 
     //---------------------------------------------------------------------------------------------

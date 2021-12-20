@@ -244,29 +244,29 @@ BaseList
     {
         target: sk
 
-        QML_CONNECTION function onAboutToQuit() { saveScroll() }
+        QML_CONNECTION function onAboutToQuit() { saveScroll(); }
     }
 
     Connections
     {
         target: window
 
-        QML_CONNECTION function onDragEnded() { indexDrag = -1 }
+        QML_CONNECTION function onDragEnded() { indexDrag = -1; }
     }
 
     Connections
     {
         target: gui
 
-        QML_CONNECTION function onScaleBefore() { saveScroll    () }
-        QML_CONNECTION function onScaleAfter () { pRestoreScroll() }
+        QML_CONNECTION function onScaleBefore() { saveScroll    (); }
+        QML_CONNECTION function onScaleAfter () { pRestoreScroll(); }
     }
 
     Connections
     {
         target: (hasFolder) ? folder : null
 
-        QML_CONNECTION function onLoaded() { pRestoreScroll() }
+        QML_CONNECTION function onLoaded() { pRestoreScroll(); }
 
         QML_CONNECTION function onCurrentIdChanged()
         {
@@ -289,7 +289,7 @@ BaseList
             scrollToCurrentItem();
         }
 
-        QML_CONNECTION function onCurrentIdUpdated() { scrollToCurrentItem() }
+        QML_CONNECTION function onCurrentIdUpdated() { scrollToCurrentItem(); }
 
         QML_CONNECTION function onItemsInserted(index)
         {

@@ -126,13 +126,13 @@ ComponentLibraryItem
     onEntered: setItemHovered  (componentFolder)
     onExited : clearItemHovered()
 
-    QML_EVENT onPositionChanged: function(mouse) { pPositionChanged(mouse) }
+    /* QML_EVENT */ onPositionChanged: function(mouse) { pPositionChanged(mouse) }
 
-    QML_EVENT onPressed : function(mouse) { pPressed (mouse) }
-    QML_EVENT onReleased: function(mouse) { pReleased(mouse) }
+    /* QML_EVENT */ onPressed : function(mouse) { pPressed (mouse) }
+    /* QML_EVENT */ onReleased: function(mouse) { pReleased(mouse) }
 
-    QML_EVENT onClicked      : function(mouse) { pClicked      (mouse) }
-    QML_EVENT onDoubleClicked: function(mouse) { pDoubleClicked(mouse) }
+    /* QML_EVENT */ onClicked      : function(mouse) { pClicked      (mouse) }
+    /* QML_EVENT */ onDoubleClicked: function(mouse) { pDoubleClicked(mouse) }
 
     //---------------------------------------------------------------------------------------------
     // Functions

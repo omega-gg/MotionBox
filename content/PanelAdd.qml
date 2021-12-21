@@ -235,7 +235,7 @@ PanelContextual
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT Keys.onPressed: function(event)
+    /* QML_EVENT */ Keys.onPressed: function(event)
     {
         if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
         {
@@ -282,7 +282,7 @@ PanelContextual
     {
         target: (library) ? library : null
 
-        QML_CONNECTION function onCountChanged()
+        /* QML_CONNECTION */ function onCountChanged()
         {
             if (library.contains(listLibrary.currentId) == false)
             {
@@ -297,14 +297,14 @@ PanelContextual
                  &&
                  panelAdd.target && panelAdd.target.isFolder) ? panelAdd.target : null
 
-        QML_CONNECTION function onLoaded() { pApplyTarget(); }
+        /* QML_CONNECTION */ function onLoaded() { pApplyTarget(); }
     }
 
     Connections
     {
         target: (pFolder) ? pFolder : null
 
-        QML_CONNECTION function onLoaded()
+        /* QML_CONNECTION */ function onLoaded()
         {
             if (type == 0 && indexCurrent != 3 && listFolder.currentId == -1)
             {
@@ -312,7 +312,7 @@ PanelContextual
             }
         }
 
-        QML_CONNECTION function onCountChanged()
+        /* QML_CONNECTION */ function onCountChanged()
         {
             if (pFolder.contains(listFolder.currentId) == false)
             {
@@ -987,7 +987,7 @@ PanelContextual
 
                 //---------------------------------------------------------------------------------
 
-                QML_EVENT Keys.onPressed: function(event)
+                /* QML_EVENT */ Keys.onPressed: function(event)
                 {
                     if (event.key == Qt.Key_Up
                         &&
@@ -1190,7 +1190,7 @@ PanelContextual
             // Keys
             //-------------------------------------------------------------------------------------
 
-            QML_EVENT Keys.onPressed: function(event)
+            /* QML_EVENT */ Keys.onPressed: function(event)
             {
                 var index;
 
@@ -1478,7 +1478,7 @@ PanelContextual
             // Events
             //-------------------------------------------------------------------------------------
 
-            QML_EVENT Keys.onPressed: function(event)
+            /* QML_EVENT */ Keys.onPressed: function(event)
             {
                 var index;
 

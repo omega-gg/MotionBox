@@ -54,7 +54,7 @@ MouseArea
     // Events
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT onDragEntered: function(event) { event.accepted = true }
+    /* QML_EVENT */ onDragEntered: function(event) { event.accepted = true }
 
     onDragExited:
     {

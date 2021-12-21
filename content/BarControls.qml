@@ -231,7 +231,7 @@ MouseArea
 
             hoverRetain: true
 
-            QML_EVENT onClicked: function(mouse)
+            /* QML_EVENT */ onClicked: function(mouse)
             {
                 if (mouse.button & Qt.RightButton)
                 {

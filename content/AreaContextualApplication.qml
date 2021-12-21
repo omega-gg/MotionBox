@@ -871,7 +871,7 @@ AreaContextual
             // Events
             //-------------------------------------------------------------------------------------
 
-            QML_EVENT onItemClicked: function(id)
+            /* QML_EVENT */ onItemClicked: function(id)
             {
                 var clear;
 

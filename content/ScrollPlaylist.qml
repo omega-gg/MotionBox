@@ -302,7 +302,7 @@ ScrollArea
 
         scrollArea: scrollPlaylist
 
-        QML_EVENT onLink: function(index)
+        /* QML_EVENT */ onLink: function(index)
         {
             scrollPlaylist.onLink(index);
         }

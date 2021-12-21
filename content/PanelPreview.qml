@@ -151,7 +151,7 @@ PanelImage
     {
         target: (pActive && type == 1) ? playlist : null
 
-        QML_CONNECTION function onTrackUpdated(index)
+        /* QML_CONNECTION */ function onTrackUpdated(index)
         {
             if (list.indexPreview != index) return;
 

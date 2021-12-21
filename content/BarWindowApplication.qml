@@ -483,7 +483,7 @@ Item
             window.clearFocus();
         }
 
-        QML_EVENT Keys.onPressed: function(event)
+        /* QML_EVENT */ Keys.onPressed: function(event)
         {
             if (event.key == Qt.Key_Escape)
             {
@@ -596,7 +596,7 @@ Item
         // Events
         //-------------------------------------------------------------------------------------
 
-        QML_EVENT onTabPressed: function(index)
+        /* QML_EVENT */ onTabPressed: function(index)
         {
             if (tabs.currentIndex == index)
             {
@@ -693,7 +693,7 @@ Item
 
         acceptedButtons: Qt.LeftButton | Qt.RightButton
 
-        QML_EVENT onPressed: function(mouse)
+        /* QML_EVENT */ onPressed: function(mouse)
         {
             window.clearFocus();
 
@@ -705,7 +705,7 @@ Item
             }
         }
 
-        QML_EVENT onDoubleClicked: function(mouse)
+        /* QML_EVENT */ onDoubleClicked: function(mouse)
         {
             if (mouse.button & Qt.LeftButton)
             {

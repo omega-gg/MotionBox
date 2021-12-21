@@ -139,7 +139,7 @@ BaseList
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT Keys.onPressed: function(event)
+    /* QML_EVENT */ Keys.onPressed: function(event)
     {
         if (playlist == null) return;
 
@@ -262,22 +262,22 @@ BaseList
     {
         target: sk
 
-        QML_CONNECTION function onAboutToQuit() { saveScroll(); }
+        /* QML_CONNECTION */ function onAboutToQuit() { saveScroll(); }
     }
 
     Connections
     {
         target: gui
 
-        QML_CONNECTION function onScaleBefore() { saveScroll    (); }
-        QML_CONNECTION function onScaleAfter () { pRestoreScroll(); }
+        /* QML_CONNECTION */ function onScaleBefore() { saveScroll    (); }
+        /* QML_CONNECTION */ function onScaleAfter () { pRestoreScroll(); }
     }
 
     Connections
     {
         target: (hasPlaylist) ? playlist : null
 
-        QML_CONNECTION function onSelectedTracksChanged()
+        /* QML_CONNECTION */ function onSelectedTracksChanged()
         {
             pUpdateCurrentY();
 
@@ -300,14 +300,14 @@ BaseList
             }
         }
 
-        QML_CONNECTION function onTracksInserted(index)
+        /* QML_CONNECTION */ function onTracksInserted(index)
         {
             if      (indexPreview    >= index) indexPreview    += count;
             if      (indexContextual >= index) indexContextual += count;
             else if (indexPlayer     >= index) indexPlayer     += count;
         }
 
-        QML_CONNECTION function onTracksRemoved(indexes)
+        /* QML_CONNECTION */ function onTracksRemoved(indexes)
         {
             var countPreview    = 0;
             var countContextual = 0;
@@ -327,7 +327,7 @@ BaseList
             indexPlayer     -= countPlayer;
         }
 
-        QML_CONNECTION function onTracksMoved()
+        /* QML_CONNECTION */ function onTracksMoved()
         {
             indexPreview    = -1;
             indexContextual = -1;
@@ -335,7 +335,7 @@ BaseList
             pUpdatePlayerOverlay();
         }
 
-        QML_CONNECTION function onTracksCleared()
+        /* QML_CONNECTION */ function onTracksCleared()
         {
             timer.stop();
 
@@ -357,14 +357,14 @@ BaseList
     {
         target: tabs
 
-        QML_CONNECTION function onCurrentTabChanged() { pUpdateSelected(); }
+        /* QML_CONNECTION */ function onCurrentTabChanged() { pUpdateSelected(); }
     }
 
     Connections
     {
         target: currentTab
 
-        QML_CONNECTION function onCurrentBookmarkChanged()
+        /* QML_CONNECTION */ function onCurrentBookmarkChanged()
         {
             if (playlist && pSelect && (player.isPlaying == false || highlightedTab))
             {
@@ -381,8 +381,8 @@ BaseList
     {
         target: player
 
-        QML_CONNECTION function onCurrentTrackUpdated() { pUpdatePlayerOverlay(); }
-        QML_CONNECTION function onHasStartedChanged  () { pUpdatePlayerOverlay(); }
+        /* QML_CONNECTION */ function onCurrentTrackUpdated() { pUpdatePlayerOverlay(); }
+        /* QML_CONNECTION */ function onHasStartedChanged  () { pUpdatePlayerOverlay(); }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1260,7 +1260,7 @@ BaseList
 
         onExited: panelPreview.clear()
 
-        QML_EVENT onPressed: function(mouse)
+        /* QML_EVENT */ onPressed: function(mouse)
         {
             if ((mouse.button & Qt.LeftButton) == false
                 ||

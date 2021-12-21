@@ -60,7 +60,7 @@ MouseArea
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT Keys.onPressed: function(event)
+    /* QML_EVENT */ Keys.onPressed: function(event)
     {
         if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
         {

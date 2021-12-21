@@ -144,7 +144,7 @@ BaseList
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT Keys.onPressed: function(event)
+    /* QML_EVENT */ Keys.onPressed: function(event)
     {
         if (folder == null) return;
 
@@ -244,31 +244,31 @@ BaseList
     {
         target: sk
 
-        QML_CONNECTION function onAboutToQuit() { saveScroll(); }
+        /* QML_CONNECTION */ function onAboutToQuit() { saveScroll(); }
     }
 
     Connections
     {
         target: window
 
-        QML_CONNECTION function onDragEnded() { indexDrag = -1; }
+        /* QML_CONNECTION */ function onDragEnded() { indexDrag = -1; }
     }
 
     Connections
     {
         target: gui
 
-        QML_CONNECTION function onScaleBefore() { saveScroll    (); }
-        QML_CONNECTION function onScaleAfter () { pRestoreScroll(); }
+        /* QML_CONNECTION */ function onScaleBefore() { saveScroll    (); }
+        /* QML_CONNECTION */ function onScaleAfter () { pRestoreScroll(); }
     }
 
     Connections
     {
         target: (hasFolder) ? folder : null
 
-        QML_CONNECTION function onLoaded() { pRestoreScroll(); }
+        /* QML_CONNECTION */ function onLoaded() { pRestoreScroll(); }
 
-        QML_CONNECTION function onCurrentIdChanged()
+        /* QML_CONNECTION */ function onCurrentIdChanged()
         {
             clearIndexEdit();
 
@@ -280,7 +280,7 @@ BaseList
             }
         }
 
-        QML_CONNECTION function onCurrentIndexChanged()
+        /* QML_CONNECTION */ function onCurrentIndexChanged()
         {
             indexCurrent = folder.currentIndex;
 
@@ -289,16 +289,16 @@ BaseList
             scrollToCurrentItem();
         }
 
-        QML_CONNECTION function onCurrentIdUpdated() { scrollToCurrentItem(); }
+        /* QML_CONNECTION */ function onCurrentIdUpdated() { scrollToCurrentItem(); }
 
-        QML_CONNECTION function onItemsInserted(index)
+        /* QML_CONNECTION */ function onItemsInserted(index)
         {
             if      (indexContextual >= index) indexContextual += count;
             else if (indexDrag       >= index) indexDrag       += count;
             else if (indexEdit       >= index) indexEdit       += count;
         }
 
-        QML_CONNECTION function onItemsRemoved(indexes)
+        /* QML_CONNECTION */ function onItemsRemoved(indexes)
         {
             var countContextual = 0;
             var countDrag       = 0;
@@ -318,7 +318,7 @@ BaseList
             indexEdit       -= countEdit;
         }
 
-        QML_CONNECTION function onItemsMoved()
+        /* QML_CONNECTION */ function onItemsMoved()
         {
             clearIndexEdit();
 
@@ -326,7 +326,7 @@ BaseList
             indexDrag       = -1;
         }
 
-        QML_CONNECTION function onItemsCleared()
+        /* QML_CONNECTION */ function onItemsCleared()
         {
             timer.stop();
 

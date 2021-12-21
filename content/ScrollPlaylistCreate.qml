@@ -53,7 +53,7 @@ ScrollPlaylist
     // Events
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT onDragEntered: function(event)
+    /* QML_EVENT */ onDragEntered: function(event)
     {
         if (isDroppable == false) return;
 
@@ -84,7 +84,7 @@ ScrollPlaylist
 
     onDragExited: pClearDrag()
 
-    QML_EVENT onDragMove: function(event)
+    /* QML_EVENT */ onDragMove: function(event)
     {
         if (isDroppable == false) return;
 
@@ -127,7 +127,7 @@ ScrollPlaylist
         lineDrop.visible = true;
     }
 
-    QML_EVENT onDrop: function(event)
+    /* QML_EVENT */ onDrop: function(event)
     {
         if (isDroppable == false) return;
 

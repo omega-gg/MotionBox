@@ -252,7 +252,7 @@ Item
             onTitleClicked : gui.selectCurrentTrack()
             onAuthorClicked: gui.browseCurrentFeed ()
 
-            QML_EVENT onPlayerPressed: function(mouse)
+            /* QML_EVENT */ onPlayerPressed: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -272,7 +272,7 @@ Item
                 }
             }
 
-            QML_EVENT onPlayerDoubleClicked: function(mouse)
+            /* QML_EVENT */ onPlayerDoubleClicked: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -320,7 +320,7 @@ Item
             {
                 target: (window.fullScreen) ? playerMouseArea : null
 
-                QML_CONNECTION function onPositionChanged(mouse)
+                /* QML_CONNECTION */ function onPositionChanged(mouse)
                 {
                     var y = mouse.y;
 

@@ -144,7 +144,7 @@ Panel
     // Keys
     //---------------------------------------------------------------------------------------------
 
-    QML_EVENT Keys.onPressed: function(event)
+    /* QML_EVENT */ Keys.onPressed: function(event)
     {
         if (event.key == Qt.Key_Escape)
         {

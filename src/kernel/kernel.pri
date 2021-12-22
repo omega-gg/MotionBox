@@ -14,6 +14,8 @@ HEADERS += $$SK_CORE/kernel/WCoreApplication.h \
            $$SK_GUI/kernel/WInputCue.h \
            $$SK_GUI/kernel/WInputCue_p.h \
 
+greaterThan(QT_MAJOR_VERSION, 5): HEADERS += $$SK_CORE/kernel/WList.h \
+
 SOURCES += $$SK_CORE/kernel/WCoreApplication.cpp \
            $$SK_CORE/kernel/WCrypter.cpp \
            $$SK_CORE/kernel/WListId.cpp \

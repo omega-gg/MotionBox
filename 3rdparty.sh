@@ -8,6 +8,7 @@ set -e
 source="https://github.com/omega-gg"
 
 #--------------------------------------------------------------------------------------------------
+# environment
 
 compiler_win="mingw"
 

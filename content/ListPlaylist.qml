@@ -589,7 +589,7 @@ BaseList
             pUpdateCheckBox(indexHover);
         }
 
-//#QT_LATEST
+//#QT_NEW
         if (overlay.visible && overlay.containsMouse) pUpdatePreview();
 //#END
     }
@@ -1211,7 +1211,7 @@ BaseList
     }
 
     //---------------------------------------------------------------------------------------------
-    // Childs
+    // Children
     //---------------------------------------------------------------------------------------------
 
     Timer

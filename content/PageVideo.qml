@@ -42,7 +42,7 @@ Column
     // Events
     //---------------------------------------------------------------------------------------------
 
-//#QT_LATEST
+//#QT_NEW
     // NOTE Qt5.9: We need to forceLayout and processEvents to get the proper contentHeight.
     Component.onCompleted: if (typeof forceLayout == "function") forceLayout()
 //#END
@@ -195,7 +195,7 @@ Column
     }
 
     //---------------------------------------------------------------------------------------------
-    // Childs
+    // Children
     //---------------------------------------------------------------------------------------------
 
     ButtonCheckSettings

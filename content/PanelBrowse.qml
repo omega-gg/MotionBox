@@ -1065,7 +1065,7 @@ MouseArea
     }
 
     //---------------------------------------------------------------------------------------------
-    // Childs
+    // Children
     //---------------------------------------------------------------------------------------------
 
     Rectangle
@@ -1147,7 +1147,7 @@ MouseArea
 
             font.pixelSize: st.dp14
 
-//#QT_LATEST
+//#QT_NEW
             textInput.visible: isFocused
 
             itemTextDefault.visible: (isFocused == false)

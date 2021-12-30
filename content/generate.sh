@@ -139,9 +139,9 @@ if [ $qt = "qt4" ]; then
 else
     if [ $qt = "qt5" ]; then
 
-        defines="QT_5 QT_LATEST"
+        defines="QT_5 QT_NEW"
     else
-        defines="QT_6 QT_LATEST"
+        defines="QT_6 QT_NEW"
     fi
 
     if [ $1 = "linux" ]; then

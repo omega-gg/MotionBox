@@ -2802,7 +2802,7 @@ Item
 
     function pRestoreWall()
     {
-//#QT_LATEST
+//#QT_NEW
         // FIXME Qt5: Waiting for resize to be applied.
         sk.processEvents();
 //#END
@@ -3125,7 +3125,7 @@ Item
 //#END
 
     //---------------------------------------------------------------------------------------------
-    // Childs
+    // Children
     //---------------------------------------------------------------------------------------------
 
     ActionCue

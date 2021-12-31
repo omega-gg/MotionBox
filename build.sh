@@ -216,14 +216,12 @@ fi
 echo "BUILDING MotionBox"
 echo "------------------"
 
-if [ $qt = "qt4" ]; then
+export QT_SELECT="$qt"
 
-    export QT_SELECT=qt4
+if [ $qt = "qt4" ]; then
 
     config="CONFIG+=release"
 else
-    export QT_SELECT=qt5
-
     config="CONFIG+=release qtquickcompiler"
 fi
 

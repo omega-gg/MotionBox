@@ -149,7 +149,7 @@ elif [ $1 = "macOS" ]; then
     cd $deploy
 
     #----------------------------------------------------------------------------------------------
-    # Qt
+    # target
 
     install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
                               @loader_path/QtCore.dylib MotionBox
@@ -187,69 +187,37 @@ elif [ $1 = "macOS" ]; then
     install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
                               @loader_path/QtXmlPatterns.dylib MotionBox
 
+    otool -L $target
+
     #----------------------------------------------------------------------------------------------
     # platforms
 
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
-                              @loader_path/../QtCore.dylib platforms/libqcocoa.dylib
+    if [ $qt = "qt5" ]; then
 
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../QtGui.dylib platforms/libqcocoa.dylib
+        install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
+                                  @loader_path/../QtDBus.dylib platforms/libqcocoa.dylib
 
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
-                              @loader_path/../QtWidgets.dylib platforms/libqcocoa.dylib
-
-    install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
-                              @loader_path/../QtDBus.dylib platforms/libqcocoa.dylib
-
-    install_name_tool -change @rpath/QtPrintSupport.framework/Versions/5/QtPrintSupport \
-                              @loader_path/../QtPrintSupport.dylib platforms/libqcocoa.dylib
-
-    #----------------------------------------------------------------------------------------------
-    # imageformats
-
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
-                              @loader_path/../QtCore.dylib imageformats/libqjpeg.dylib
-
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../QtGui.dylib imageformats/libqjpeg.dylib
-
-    #----------------------------------------------------------------------------------------------
-
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
-                              @loader_path/../QtCore.dylib imageformats/libqsvg.dylib
-
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../QtGui.dylib imageformats/libqsvg.dylib
-
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
-                              @loader_path/../QtWidgets.dylib imageformats/libqsvg.dylib
-
-    install_name_tool -change @rpath/QtSvg.framework/Versions/5/QtSvg \
-                              @loader_path/../QtSvg.dylib imageformats/libqsvg.dylib
-
-    #----------------------------------------------------------------------------------------------
-    # QtQuick.2
-
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
-                              @loader_path/../QtGui.dylib QtQuick.2/libqtquick2plugin.dylib
-
-    install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
-                              @loader_path/../QtQml.dylib QtQuick.2/libqtquick2plugin.dylib
-
-    install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
-                              @loader_path/../QtQuick.dylib QtQuick.2/libqtquick2plugin.dylib
-
-    if [ -f QtQmlModels.dylib ]; then
-
-        install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
-                                  @loader_path/../QtQmlModels.dylib \
-                                  QtQuick.2/libqtquick2plugin.dylib
-
-        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
-                                  @loader_path/../QtQmlWorkerScript.dylib \
-                                  QtQuick.2/libqtquick2plugin.dylib
+        install_name_tool -change @rpath/QtPrintSupport.framework/Versions/5/QtPrintSupport \
+                                  @loader_path/../QtPrintSupport.dylib platforms/libqcocoa.dylib
     fi
+
+    otool -L platforms/libqcocoa.dylib
+
+    #----------------------------------------------------------------------------------------------
+    # QtQuick
+
+    if [ $qt = "qt5" ]; then
+
+        if [ -f QtQmlModels.dylib ]; then
+
+            install_name_tool -change \
+                              @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
+                              @loader_path/../QtQmlWorkerScript.dylib \
+                              QtQuick.2/libqtquick2plugin.dylib
+        fi
+    fi
+
+    otool -L $QtQuick/libqtquick2plugin.dylib
 
     #----------------------------------------------------------------------------------------------
     # VLC
@@ -257,11 +225,15 @@ elif [ $1 = "macOS" ]; then
     install_name_tool -change @rpath/libvlccore.dylib \
                               @loader_path/libvlccore.dylib libvlc.dylib
 
+    otool -L libvlc.dylib
+
     #----------------------------------------------------------------------------------------------
     # libtorrent
 
     install_name_tool -change libboost_system.dylib \
                               @loader_path/libboost_system.dylib libtorrent-rasterbar.dylib
+
+    otool -L libtorrent-rasterbar.dylib
 
     #----------------------------------------------------------------------------------------------
 

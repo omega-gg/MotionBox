@@ -12,12 +12,22 @@ DESTDIR = $$_PRO_FILE_PWD_/bin
 
 contains(QT_MAJOR_VERSION, 4) {
     QT += opengl declarative network script xml xmlpatterns svg
-} else {
-    QT += opengl quick widgets network xml xmlpatterns svg
 
+} else:contains(QT_MAJOR_VERSION, 5) {
+
+    QT += opengl quick network xml xmlpatterns svg
+} else {
+    QT += opengl quick network xml svg core5compat
+}
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    unix:!macx:!android:QT += dbus
+}
+
+contains(QT_MAJOR_VERSION, 5) {
     win32:QT += winextras
 
-    unix:!macx:!android:QT += dbus x11extras
+    unix:!macx:!android:QT += x11extras
 
     android:QT += androidextras
 }
@@ -91,22 +101,22 @@ INCLUDEPATH += $$SK/include/SkCore \
                src/controllers \
                src/io
 
-contains(QT_MAJOR_VERSION, 5) {
-    INCLUDEPATH += $$SK/include/Qt5 \
-                   $$SK/include/Qt5/QtCore \
-                   $$SK/include/Qt5/QtGui \
-                   $$SK/include/Qt5/QtQml \
-                   $$SK/include/Qt5/QtQuick
-}
-
-unix:!macx:!android:contains(QT_MAJOR_VERSION, 5) {
-    INCLUDEPATH += $$SK/include/Qt5/QtDBus
-}
-
 unix:contains(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/Qt4/QtCore \
                    $$SK/include/Qt4/QtGui \
                    $$SK/include/Qt4/QtDeclarative
+}
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    INCLUDEPATH += $$SK/include/$$QTX \
+                   $$SK/include/$$QTX/QtCore \
+                   $$SK/include/$$QTX/QtGui \
+                   $$SK/include/$$QTX/QtQml \
+                   $$SK/include/$$QTX/QtQuick
+}
+
+unix:!macx:!android:greaterThan(QT_MAJOR_VERSION, 4) {
+    INCLUDEPATH += $$SK/include/Qt5/QtDBus
 }
 
 win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
@@ -139,9 +149,9 @@ unix:!macx:!android:LIBS += -lvlc \
                             -L$$SK/lib -ltorrent-rasterbar \
                             -L$$SK/lib -lboost_system
 
-android:LIBS += -L$$SK/lib/$$ANDROID_TARGET_ARCH -lvlc \
-                -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltorrent-rasterbar \
-                -L$$SK/lib/$$ANDROID_TARGET_ARCH -ltry_signal
+android:LIBS += -L$$ANDROID_LIB -lvlc \
+                -L$$ANDROID_LIB -ltorrent-rasterbar \
+                -L$$ANDROID_LIB -ltry_signal
 
 unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11

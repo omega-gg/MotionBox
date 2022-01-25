@@ -125,27 +125,27 @@ void DataOnline::onLoaded(WRemoteData * data)
 
         if (type != QXmlStreamReader::StartElement) continue;
 
-        if (stream.name() == "version")
+        if (stream.name() == QString("version"))
         {
             _version = WControllerXml::readNextString(&stream);
         }
-        else if (stream.name() == "messageUrl")
+        else if (stream.name() == QString("messageUrl"))
         {
             _messageUrl = generateUrl(WControllerXml::readNextString(&stream));
         }
-        else if (stream.name() == "messageIcon")
+        else if (stream.name() == QString("messageIcon"))
         {
             _messageIcon = generateUrl(WControllerXml::readNextString(&stream));
         }
-        else if (stream.name() == "messageTitle")
+        else if (stream.name() == QString("messageTitle"))
         {
             _messageTitle = WControllerXml::readNextString(&stream);
         }
-        else if (stream.name() == "messageCover")
+        else if (stream.name() == QString("messageCover"))
         {
             _messageCover = generateUrl(WControllerXml::readNextString(&stream));
         }
-        else if (stream.name() == "messageText")
+        else if (stream.name() == QString("messageText"))
         {
             _messageText = generateUrl(WControllerXml::readNextString(&stream));
         }

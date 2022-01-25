@@ -52,6 +52,12 @@ class WTabsTrack;
 class DataLocal;
 class DataOnline;
 
+#ifdef QT_6
+Q_MOC_INCLUDE("WTabsTrack")
+Q_MOC_INCLUDE("WLibraryFolderRelated")
+Q_MOC_INCLUDE("WBackendIndex")
+#endif
+
 class ControllerCore : public WController
 {
     Q_OBJECT

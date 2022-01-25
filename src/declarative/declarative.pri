@@ -27,10 +27,10 @@ HEADERS += $$SK_GUI/declarative/WDeclarativeApplication.h \
            $$SK_GUI/declarative/WDeclarativeListView_p.h \
            $$SK_GUI/declarative/WDeclarativeContextualPage.h \
 
-contains(QT_MAJOR_VERSION, 5): HEADERS += $$SK_GUI/declarative/WDeclarativeTexture.h \
-                                          $$SK_GUI/declarative/WDeclarativeTexture_p.h \
-                                          $$SK_GUI/declarative/WDeclarativeItemPaint.h \
-                                          $$SK_GUI/declarative/WDeclarativeItemPaint_p.h \
+greaterThan(QT_MAJOR_VERSION, 4): HEADERS += $$SK_GUI/declarative/WDeclarativeTexture.h \
+                                             $$SK_GUI/declarative/WDeclarativeTexture_p.h \
+                                             $$SK_GUI/declarative/WDeclarativeItemPaint.h \
+                                             $$SK_GUI/declarative/WDeclarativeItemPaint_p.h \
 
 SOURCES += $$SK_GUI/declarative/WDeclarativeApplication.cpp \
            $$SK_GUI/declarative/WDeclarativeItem.cpp \
@@ -48,5 +48,5 @@ SOURCES += $$SK_GUI/declarative/WDeclarativeApplication.cpp \
            $$SK_GUI/declarative/WDeclarativeListView.cpp \
            $$SK_GUI/declarative/WDeclarativeContextualPage.cpp \
 
-contains(QT_MAJOR_VERSION, 5): SOURCES += $$SK_GUI/declarative/WDeclarativeTexture.cpp \
-                                          $$SK_GUI/declarative/WDeclarativeItemPaint.cpp \
+greaterThan(QT_MAJOR_VERSION, 4): SOURCES += $$SK_GUI/declarative/WDeclarativeTexture.cpp \
+                                             $$SK_GUI/declarative/WDeclarativeItemPaint.cpp \

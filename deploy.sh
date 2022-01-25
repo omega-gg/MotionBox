@@ -91,10 +91,15 @@ path="$Sky/deploy"
 
 cp -r "$path"/imageformats $deploy
 
-if [ $qt = "qt5" ]; then
+if [ $qt != "qt4" ]; then
 
     cp -r "$path"/platforms $deploy
-    cp -r "$path"/QtQuick.2 $deploy
+    cp -r "$path"/QtQuick*  $deploy
+
+    if [ $qt = "qt6" ]; then
+
+        cp -r "$path"/QtQml $deploy
+    fi
 
     if [ $1 = "linux" ]; then
 
@@ -184,10 +189,27 @@ elif [ $1 = "macOS" ]; then
     install_name_tool -change @rpath/QtXml.framework/Versions/5/QtXml \
                               @loader_path/QtXml.dylib MotionBox
 
-    install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/5/QtXmlPatterns \
-                              @loader_path/QtXmlPatterns.dylib MotionBox
+    if [ $qt = "qt5" ]; then
+
+        install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/$qx/QtXmlPatterns \
+                                  @loader_path/QtXmlPatterns.dylib $target
+    else
+        install_name_tool -change @rpath/QtCore5Compat.framework/Versions/$qx/QtCore5Compat \
+                                  @loader_path/QtCore5Compat.dylib $target
+    fi
 
     otool -L $target
+
+    #----------------------------------------------------------------------------------------------
+    # QtGui
+
+    if [ $qt = "qt6" ]; then
+
+        install_name_tool -change @rpath/QtDBus.framework/Versions/$qx/QtDBus \
+                                  @loader_path/QtDBus.dylib QtGui.dylib
+    fi
+
+    otool -L QtGui.dylib
 
     #----------------------------------------------------------------------------------------------
     # platforms

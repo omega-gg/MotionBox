@@ -15,6 +15,7 @@ external="$PWD/../3rdparty"
 
 Qt4_version="4.8.7"
 Qt5_version="5.15.2"
+Qt6_version="6.2.1"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -55,6 +56,34 @@ qt="qt5"
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
+
+makeAndroid()
+{
+    if [ ! -d "${1}" ]; then
+
+        mkdir $1
+    fi
+
+    cd $1
+
+    if [ $qt = "qt5" ]; then
+
+        qtconf=""
+    else
+        qtconf="-qtconf $2"
+    fi
+
+    $qmake -r -spec $spec $qtconf "$config" \
+        "ANDROID_ABIS=$1" \
+        "ANDROID_MIN_SDK_VERSION=$SDK_version_minimum" \
+        "ANDROID_TARGET_SDK_VERSION=$SDK_version" ../..
+
+    make $make_arguments
+
+    make INSTALL_ROOT=android-build install
+
+    cd ..
+}
 
 getOs()
 {
@@ -187,11 +216,20 @@ fi
 if [ $qt = "qt4" ]; then
 
     Qt="$external/Qt/$Qt4_version"
-else
+
+elif [ $qt = "qt5" ]; then
+
     Qt="$external/Qt/$Qt5_version"
+else
+    Qt="$external/Qt/$Qt6_version"
 fi
 
-qmake="$Qt/bin/qmake"
+if [ $1 = "android" -a $qt = "qt6" ]; then
+
+    qmake="$Qt/gcc_64/bin/qmake"
+else
+    qmake="$Qt/bin/qmake"
+fi
 
 #--------------------------------------------------------------------------------------------------
 # Clean
@@ -300,10 +338,10 @@ fi
 
 if [ $1 = "android" ]; then
 
-    $qmake -r -spec $spec "$config" \
-        "ANDROID_ABIS=$abi" \
-        "ANDROID_MIN_SDK_VERSION=$SDK_version_minimum" \
-        "ANDROID_TARGET_SDK_VERSION=$SDK_version" ..
+    makeAndroid "armeabi-v7a" "$Qt"/android_armv7/bin/target_qt.conf
+    makeAndroid "arm64-v8a"   "$Qt"/android_arm64_v8a/bin/target_qt.conf
+    makeAndroid "x86"         "$Qt"/android_x86/bin/target_qt.conf
+    makeAndroid "x86_64"      "$Qt"/android_x86_64/bin/target_qt.conf
 else
     $qmake -r -spec $spec "$config" ..
 fi
@@ -315,7 +353,9 @@ if [ $compiler = "mingw" ]; then
 elif [ $compiler = "msvc" ]; then
 
     jom
-else
+
+elif [ $1 != "android" ]; then
+
     make $make_arguments
 fi
 

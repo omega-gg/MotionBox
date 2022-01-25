@@ -92,6 +92,13 @@ cp $content/*.qml $path
 
 if [ "$2" = "all" -o "$2" = "deploy" ]; then
 
+    if [ $qt = "qt6" ]; then
+
+        echo "COPYING shaders"
+
+        cp -r "$Sky"/deploy/shaders $path
+    fi
+
     echo "COPYING pictures"
 
     cp -r $content/pictures $path

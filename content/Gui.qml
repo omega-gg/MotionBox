@@ -402,17 +402,17 @@ Item
     {
         target: window
 
-        /* QML_CONNECTION */ function onMousePressed (event) { onMousePressed (event); }
-        /* QML_CONNECTION */ function onMouseReleased(event) { onMouseReleased(event); }
+        /* QML_CONNECTION */ function onMousePressed (event) { gui.onMousePressed (event); }
+        /* QML_CONNECTION */ function onMouseReleased(event) { gui.onMouseReleased(event); }
 
-        /* QML_CONNECTION */ function onKeyPressed (event) { onKeyPressed (event); }
-        /* QML_CONNECTION */ function onKeyReleased(event) { onKeyReleased(event); }
+        /* QML_CONNECTION */ function onKeyPressed (event) { gui.onKeyPressed (event); }
+        /* QML_CONNECTION */ function onKeyReleased(event) { gui.onKeyReleased(event); }
 
-        /* QML_CONNECTION */ function onDragEntered(event) { onDragEntered(event); }
-        /* QML_CONNECTION */ function onDragExited (event) { onDragExited (event); }
-        /* QML_CONNECTION */ function onDrop       (event) { onDrop       (event); }
+        /* QML_CONNECTION */ function onDragEntered(event) { gui.onDragEntered(event); }
+        /* QML_CONNECTION */ function onDragExited (event) { gui.onDragExited (event); }
+        /* QML_CONNECTION */ function onDrop       (event) { gui.onDrop       (event); }
 
-        /* QML_CONNECTION */ function onDragEnded() { onDragEnded(); }
+        /* QML_CONNECTION */ function onDragEnded() { gui.onDragEnded(); }
 
         /* QML_CONNECTION */ function onBeforeClose()
         {

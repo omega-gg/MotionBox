@@ -149,9 +149,9 @@ unix:!macx:!android:LIBS += -lvlc \
                             -L$$SK/lib -ltorrent-rasterbar \
                             -L$$SK/lib -lboost_system
 
-android:LIBS += -L$$ANDROID_LIB -lvlc \
-                -L$$ANDROID_LIB -ltorrent-rasterbar \
-                -L$$ANDROID_LIB -ltry_signal
+android:LIBS += -L$$SK/lib/$$ABI -lvlc \
+                -L$$SK/lib/$$ABI -ltorrent-rasterbar \
+                -L$$SK/lib/$$ABI -ltry_signal
 
 unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11

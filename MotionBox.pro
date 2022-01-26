@@ -191,7 +191,6 @@ OTHER_FILES += 3rdparty.sh \
                LICENSE.md \
                AUTHORS.md \
                .azure-pipelines.yml \
-               .travis.yml \
                .appveyor.yml \
                content/text/credits.txt \
                content/generate.sh \

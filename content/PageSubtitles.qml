@@ -97,7 +97,7 @@ Item
             }
         }
 
-        onSubtitleChanged:
+        /* QML_CONNECTION */ function onSubtitleChanged()
         {
             if (pEvents == false || pSearch) return;
 

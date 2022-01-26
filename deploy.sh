@@ -126,7 +126,7 @@ elif [ $1 = "macOS" ]; then
 
     rm -f $deploy/Sk*.dylib
 
-elif [ $1 = "linux" ]; then
+elif [ $1 = "linux" -o $1 = "android" ]; then
 
     # FIXME Linux: We can't seem to be able to enforce our VLC libraries on ArchLinux.
     #cp -r "$path"/vlc $deploy

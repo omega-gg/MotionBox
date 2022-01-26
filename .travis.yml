@@ -18,7 +18,6 @@ matrix:
 
 # FIXME: Travis requires the --privileged option for Qt on Ubuntu 20.04.
 script:
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker run --privileged -d --name ubuntu -v $PWD:/MotionBox ${TARGET}/ubuntu:${VERSION} tail -f /dev/null
   - docker exec -t ubuntu bash -c "cd /MotionBox;
                                    apt-get update;

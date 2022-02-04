@@ -149,13 +149,13 @@ BaseList
         {
             event.accepted = true;
 
-            if (itemLeft) itemLeft.focus();
+            if (itemLeft) itemLeft.setFocus();
         }
         else if (event.key == Qt.Key_Right && event.modifiers == sk.keypad(Qt.NoModifier))
         {
             event.accepted = true;
 
-            if (itemRight) itemRight.focus();
+            if (itemRight) itemRight.setFocus();
         }
         else if (event.key == Qt.Key_Up && (event.modifiers == sk.keypad(Qt.NoModifier)
                                             ||
@@ -389,7 +389,7 @@ BaseList
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function focus()
+    function setFocus()
     {
         if (activeFocus || count == 0) return;
 
@@ -444,7 +444,7 @@ BaseList
 
         if (last == -1 || last == 0)
         {
-            if (itemTop) itemTop.focus();
+            if (itemTop) itemTop.setFocus();
 
             return;
         }
@@ -500,7 +500,7 @@ BaseList
 
         if (last == -1 || last == (count - 1))
         {
-            if (itemBottom) itemBottom.focus();
+            if (itemBottom) itemBottom.setFocus();
 
             return;
         }

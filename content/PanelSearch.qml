@@ -120,7 +120,7 @@ Panel
 
     function browse()
     {
-        lineEditSearch.focus();
+        lineEditSearch.setFocus();
 
         backend = 1;
     }

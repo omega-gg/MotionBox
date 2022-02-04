@@ -122,7 +122,7 @@ LineEditBox
             {
                 if (panelBrowse.lineEdit.visible)
                 {
-                    panelBrowse.lineEdit.focus();
+                    panelBrowse.lineEdit.setFocus();
                 }
                 else window.clearFocus();
             }

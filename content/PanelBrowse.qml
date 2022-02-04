@@ -396,7 +396,7 @@ MouseArea
         }
         else pSetQuery(query);
 
-        focus();
+        setFocus();
 
         pQuery = query;
 
@@ -444,11 +444,11 @@ MouseArea
 
     //---------------------------------------------------------------------------------------------
 
-    function focus()
+    function setFocus()
     {
         if (lineEdit.visible)
         {
-            lineEdit.focus();
+            lineEdit.setFocus();
 
             lineEdit.selectAll();
         }
@@ -654,7 +654,7 @@ MouseArea
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {
-            scrollPlaylist.focus();
+            scrollPlaylist.setFocus();
         }
     }
 
@@ -892,7 +892,7 @@ MouseArea
         {
             if (pSearchHidden)
             {
-                scrollBrowse.focus();
+                scrollBrowse.setFocus();
 
                 return;
             }
@@ -911,7 +911,7 @@ MouseArea
             }
             else
             {
-                focus();
+                setFocus();
 
                 return;
             }
@@ -933,7 +933,7 @@ MouseArea
 
             pFolderBackends.currentId = id;
 
-            focus();
+            setFocus();
         }
         else if (pFolderBackends.currentId != 1)
         {
@@ -941,7 +941,7 @@ MouseArea
 
             pFolderBackends.currentId = 1;
 
-            focus();
+            setFocus();
         }
         else pApplyButton(index);
     }
@@ -1004,7 +1004,7 @@ MouseArea
 
         pBrowseIndex = index;
 
-        focus();
+        setFocus();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1203,7 +1203,7 @@ MouseArea
                             pRestoreQuery();
                         }
                     }
-                    else buttonBrowse.focus();
+                    else buttonBrowse.setFocus();
                 }
                 else if (event.key == Qt.Key_Down && event.modifiers == sk.keypad(Qt.NoModifier))
                 {
@@ -1218,7 +1218,7 @@ MouseArea
                             pRestoreQuery();
                         }
                     }
-                    else scrollBrowse.focus();
+                    else scrollBrowse.setFocus();
                 }
                 else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
                 {
@@ -1238,7 +1238,7 @@ MouseArea
                 {
                     event.accepted = true;
 
-                    lineEditSearch.focus();
+                    lineEditSearch.setFocus();
                 }
             }
         }
@@ -1746,7 +1746,7 @@ MouseArea
             {
                 event.accepted = true;
 
-                buttonAddItem.focus();
+                buttonAddItem.setFocus();
 
                 buttonAddItem.returnPressed();
             }
@@ -1808,7 +1808,7 @@ MouseArea
             {
                 event.accepted = true;
 
-                buttonAddTrack.focus();
+                buttonAddTrack.setFocus();
 
                 buttonAddTrack.returnPressed();
             }

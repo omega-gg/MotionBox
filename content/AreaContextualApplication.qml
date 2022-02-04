@@ -191,7 +191,7 @@ AreaContextual
         {
             if (isActive)
             {
-                listContextual.focus();
+                listContextual.setFocus();
 
                 return;
             }

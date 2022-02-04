@@ -134,7 +134,7 @@ PanelContextual
         pAnimate = false;
     }
 
-    onPressed: panelAdd.focus()
+    onPressed: panelAdd.setFocus()
 
     onIsActiveChanged:
     {
@@ -154,9 +154,9 @@ PanelContextual
                 {
                     if (listFolder.currentId != -1)
                     {
-                         listFolder.focus();
+                         listFolder.setFocus();
                     }
-                    else listLibrary.focus();
+                    else listLibrary.setFocus();
 
                     pFocus = false;
                 }
@@ -166,9 +166,9 @@ PanelContextual
             {
                 if (indexCurrent == 0)
                 {
-                    itemLibrary.focus();
+                    itemLibrary.setFocus();
                 }
-                else focus();
+                else setFocus();
 
                 pFocus = false;
             }
@@ -205,7 +205,7 @@ PanelContextual
 
             scrollLibrary.ensureVisible(0, 33);
 
-            itemLibrary.focus();
+            itemLibrary.setFocus();
         }
         else if (indexCurrent == 1 || indexCurrent == 2)
         {
@@ -215,7 +215,7 @@ PanelContextual
 
             scrollLibrary.ensureVisible(0, 33);
 
-            itemNewA.focus();
+            itemNewA.setFocus();
         }
         else if (indexCurrent == 3)
         {
@@ -227,7 +227,7 @@ PanelContextual
 
             scrollFolder.ensureVisible(0, 33);
 
-            itemNewB.focus();
+            itemNewB.setFocus();
         }
     }
 
@@ -570,7 +570,7 @@ PanelContextual
     {
         if (listLibrary.count)
         {
-            listLibrary.focus();
+            listLibrary.setFocus();
 
             if (listLibrary.currentId == -1)
             {
@@ -583,7 +583,7 @@ PanelContextual
     {
         if (listFolder.count)
         {
-            listFolder.focus();
+            listFolder.setFocus();
 
             if (listFolder.currentId == -1)
             {
@@ -622,13 +622,13 @@ PanelContextual
         {
             if (listFolder.currentId != -1)
             {
-                listFolder.focus();
+                listFolder.setFocus();
             }
             else if (listLibrary.currentId != -1)
             {
-                listLibrary.focus();
+                listLibrary.setFocus();
             }
-            else focus();
+            else setFocus();
 
             pFocus = false;
         }
@@ -826,7 +826,7 @@ PanelContextual
             {
                 if (isAdding) return;
 
-                list.focus();
+                list.setFocus();
 
                 currentId = id;
             }
@@ -978,7 +978,7 @@ PanelContextual
 
                 onPressed:
                 {
-                    focus();
+                    setFocus();
 
                     selectIndex();
                 }
@@ -1062,7 +1062,7 @@ PanelContextual
 
                     indexCurrent = -1;
 
-                    panelAdd.focus();
+                    panelAdd.setFocus();
                 }
             }
 
@@ -1213,7 +1213,7 @@ PanelContextual
                     {
                         if (listFolder.count)
                         {
-                            listFolder.focus();
+                            listFolder.setFocus();
                         }
                         else if (itemListB.visible)
                         {
@@ -1367,7 +1367,7 @@ PanelContextual
 
                     pSelectFolder();
 
-                    listLibrary.focus();
+                    listLibrary.setFocus();
                 }
                 else if (event.key == Qt.Key_Down && event.modifiers == sk.keypad(Qt.NoModifier))
                 {
@@ -1387,7 +1387,7 @@ PanelContextual
 
                     indexCurrent = -1;
 
-                    panelAdd.focus();
+                    panelAdd.setFocus();
                 }
             }
 
@@ -1486,7 +1486,7 @@ PanelContextual
                 {
                     event.accepted = true;
 
-                    listLibrary.focus();
+                    listLibrary.setFocus();
                 }
                 else if (event.key == Qt.Key_Right && event.modifiers == sk.keypad(Qt.NoModifier))
                 {

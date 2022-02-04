@@ -229,7 +229,7 @@ ScrollFolder
 
         itemNew.visible = true;
 
-        itemNew.focus();
+        itemNew.setFocus();
     }
 
     function clearItem()

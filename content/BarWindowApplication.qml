@@ -130,7 +130,7 @@ Item
         {
             buttonUpdate.visible = true;
 
-            buttonUpdate.focus();
+            buttonUpdate.setFocus();
         }
     }
 

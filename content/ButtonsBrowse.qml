@@ -90,11 +90,11 @@ Item
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function focus()
+    function setFocus()
     {
         if (count)
         {
-            pItemAt(0).focus();
+            pItemAt(0).setFocus();
         }
     }
 
@@ -572,11 +572,11 @@ Item
 
             //-------------------------------------------------------------------------------------
 
-            function focus()
+            function setFocus()
             {
                 if (children.length)
                 {
-                    children[0].focus();
+                    children[0].setFocus();
                 }
             }
         }

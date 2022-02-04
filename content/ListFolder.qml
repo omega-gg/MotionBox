@@ -152,13 +152,13 @@ BaseList
         {
             event.accepted = true;
 
-            if (itemLeft) itemLeft.focus();
+            if (itemLeft) itemLeft.setFocus();
         }
         else if (event.key == Qt.Key_Right && event.modifiers == sk.keypad(Qt.NoModifier))
         {
             event.accepted = true;
 
-            if (itemRight) itemRight.focus();
+            if (itemRight) itemRight.setFocus();
         }
         else if (event.key == Qt.Key_Up && event.modifiers == sk.keypad(Qt.NoModifier))
         {
@@ -166,7 +166,7 @@ BaseList
 
             if (indexCurrent == 0)
             {
-                if (itemTop) itemTop.focus();
+                if (itemTop) itemTop.setFocus();
 
                 return;
             }
@@ -181,7 +181,7 @@ BaseList
 
             if (indexCurrent == (count - 1))
             {
-                if (itemBottom) itemBottom.focus();
+                if (itemBottom) itemBottom.setFocus();
 
                 return;
             }
@@ -345,7 +345,7 @@ BaseList
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function focus()
+    function setFocus()
     {
         if (activeFocus || count == 0) return;
 
@@ -1001,7 +1001,7 @@ BaseList
 
         visible: (indexEdit != -1)
 
-        onVisibleChanged: if (visible) focus()
+        onVisibleChanged: if (visible) setFocus()
 
         onIsFocusedChanged: if (isFocused == false) clearIndexEdit()
 

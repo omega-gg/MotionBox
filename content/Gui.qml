@@ -1382,14 +1382,14 @@ Item
 
             actionCue.tryPush(actionSearchExpose);
         }
-        else lineEditSearch.focus();
+        else lineEditSearch.setFocus();
     }
 
     function focusListPlaylist(playlist)
     {
         var list = getListPlaylist(playlist);
 
-        if (list) list.focus();
+        if (list) list.setFocus();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3075,7 +3075,7 @@ Item
 
         pSaveShot(path + "/MotionBoxA.png");
 
-        lineEditSearch.focus();
+        lineEditSearch.setFocus();
 
         // NOTE: Wait for the cursor.
         sk.wait(200);
@@ -3166,7 +3166,7 @@ Item
             else if (id == actionOutputExpose)   panelOutput.expose  ();
             else if (id == actionOutputCollapse) panelOutput.collapse();
 
-            else if (id == actionSearchExpose) lineEditSearch.focus();
+            else if (id == actionSearchExpose) lineEditSearch.setFocus();
 
             else if (id == actionMaximizeExpose)  exposeMaximize ();
             else if (id == actionMaximizeRestore) restoreMaximize();

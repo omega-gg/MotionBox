@@ -128,6 +128,15 @@ MouseArea
 
             anchors.top: panelTracks.top
         }
+//#QT_6
+        // FIXME Qt6.2: We have to redeclare this to have a proper height.
+        PropertyChanges
+        {
+            target: panelBrowse
+
+            height: panelTracks.height
+        }
+//#END
     }
 
     transitions: Transition

@@ -68,12 +68,6 @@ Item
         {
             name: "hidden"; when: panelTracks.isExpanded
 
-            AnchorChanges
-            {
-                target: panelPlayer
-
-                anchors.bottom: undefined
-            }
             PropertyChanges
             {
                 target: panelPlayer

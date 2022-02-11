@@ -40,6 +40,20 @@ else
     os="default"
 fi
 
+if [ $qt = "qt5" ]; then
+
+    qx="5"
+
+elif [ $qt = "qt6" ]; then
+
+    if [ $1 = "macOS" ]; then
+
+        qx="A"
+    else
+        qx="6"
+    fi
+fi
+
 #--------------------------------------------------------------------------------------------------
 # Clean
 #--------------------------------------------------------------------------------------------------
@@ -156,37 +170,37 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # target
 
-    install_name_tool -change @rpath/QtCore.framework/Versions/5/QtCore \
+    install_name_tool -change @rpath/QtCore.framework/Versions/$qx/QtCore \
                               @loader_path/QtCore.dylib MotionBox
 
-    install_name_tool -change @rpath/QtGui.framework/Versions/5/QtGui \
+    install_name_tool -change @rpath/QtGui.framework/Versions/$qx/QtGui \
                               @loader_path/QtGui.dylib MotionBox
 
-    install_name_tool -change @rpath/QtNetwork.framework/Versions/5/QtNetwork \
+    install_name_tool -change @rpath/QtNetwork.framework/Versions/$qx/QtNetwork \
                               @loader_path/QtNetwork.dylib MotionBox
 
-    install_name_tool -change @rpath/QtOpenGL.framework/Versions/5/QtOpenGL \
+    install_name_tool -change @rpath/QtOpenGL.framework/Versions/$qx/QtOpenGL \
                               @loader_path/QtOpenGL.dylib MotionBox
 
-    install_name_tool -change @rpath/QtQml.framework/Versions/5/QtQml \
+    install_name_tool -change @rpath/QtQml.framework/Versions/$qx/QtQml \
                               @loader_path/QtQml.dylib MotionBox
 
     if [ -f QtQmlModels.dylib ]; then
 
-        install_name_tool -change @rpath/QtQmlModels.framework/Versions/5/QtQmlModels \
+        install_name_tool -change @rpath/QtQmlModels.framework/Versions/$qx/QtQmlModels \
                                   @loader_path/QtQmlModels.dylib MotionBox
     fi
 
-    install_name_tool -change @rpath/QtQuick.framework/Versions/5/QtQuick \
+    install_name_tool -change @rpath/QtQuick.framework/Versions/$qx/QtQuick \
                               @loader_path/QtQuick.dylib MotionBox
 
-    install_name_tool -change @rpath/QtSvg.framework/Versions/5/QtSvg \
+    install_name_tool -change @rpath/QtSvg.framework/Versions/$qx/QtSvg \
                               @loader_path/QtSvg.dylib MotionBox
 
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/5/QtWidgets \
+    install_name_tool -change @rpath/QtWidgets.framework/Versions/$qx/QtWidgets \
                               @loader_path/QtWidgets.dylib MotionBox
 
-    install_name_tool -change @rpath/QtXml.framework/Versions/5/QtXml \
+    install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
                               @loader_path/QtXml.dylib MotionBox
 
     if [ $qt = "qt5" ]; then
@@ -216,10 +230,10 @@ elif [ $1 = "macOS" ]; then
 
     if [ $qt = "qt5" ]; then
 
-        install_name_tool -change @rpath/QtDBus.framework/Versions/5/QtDBus \
+        install_name_tool -change @rpath/QtDBus.framework/Versions/$qx/QtDBus \
                                   @loader_path/../QtDBus.dylib platforms/libqcocoa.dylib
 
-        install_name_tool -change @rpath/QtPrintSupport.framework/Versions/5/QtPrintSupport \
+        install_name_tool -change @rpath/QtPrintSupport.framework/Versions/$qx/QtPrintSupport \
                                   @loader_path/../QtPrintSupport.dylib platforms/libqcocoa.dylib
     fi
 
@@ -233,7 +247,7 @@ elif [ $1 = "macOS" ]; then
         if [ -f QtQmlModels.dylib ]; then
 
             install_name_tool -change \
-                              @rpath/QtQmlWorkerScript.framework/Versions/5/QtQmlWorkerScript \
+                              @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
                               @loader_path/../QtQmlWorkerScript.dylib \
                               QtQuick.2/libqtquick2plugin.dylib
         fi

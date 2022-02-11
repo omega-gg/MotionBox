@@ -107,10 +107,19 @@ path="$Sky/deploy"
 
 cp -r "$path"/imageformats $deploy
 
+if [ $qt = "qt5" ]; then
+
+    QtQuick="QtQuick.2"
+
+elif [ $qt = "qt6" ]; then
+
+    QtQuick="QtQuick"
+fi
+
 if [ $qt != "qt4" ]; then
 
     cp -r "$path"/platforms $deploy
-    cp -r "$path"/QtQuick*  $deploy
+    cp -r "$path"/$QtQuick  $deploy
 
     if [ $qt = "qt6" ]; then
 
@@ -251,7 +260,7 @@ elif [ $1 = "macOS" ]; then
             install_name_tool -change \
                               @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
                               @loader_path/../QtQmlWorkerScript.dylib \
-                              QtQuick.2/libqtquick2plugin.dylib
+                              $QtQuick/libqtquick2plugin.dylib
         fi
     fi
 

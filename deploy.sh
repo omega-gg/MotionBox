@@ -5,6 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
+target="MotionBox"
+
 Sky="../Sky"
 
 backend="../backend"
@@ -77,9 +79,9 @@ echo ""
 
 if [ $1 = "macOS" ]; then
 
-    cp -r bin/MotionBox.app deploy
+    cp -r bin/$target.app deploy
 
-    deploy="deploy/MotionBox.app/Contents/MacOS"
+    deploy="deploy/$target.app/Contents/MacOS"
 
     rm -rf $deploy/plugins
 
@@ -157,11 +159,11 @@ echo ""
 # MotionBox
 #--------------------------------------------------------------------------------------------------
 
-echo "COPYING MotionBox"
+echo "COPYING $target"
 
 if [ $os = "windows" ]; then
 
-    cp bin/MotionBox.exe deploy
+    cp bin/$target.exe deploy
 
 elif [ $1 = "macOS" ]; then
 
@@ -171,37 +173,37 @@ elif [ $1 = "macOS" ]; then
     # target
 
     install_name_tool -change @rpath/QtCore.framework/Versions/$qx/QtCore \
-                              @loader_path/QtCore.dylib MotionBox
+                              @loader_path/QtCore.dylib $target
 
     install_name_tool -change @rpath/QtGui.framework/Versions/$qx/QtGui \
-                              @loader_path/QtGui.dylib MotionBox
+                              @loader_path/QtGui.dylib $target
 
     install_name_tool -change @rpath/QtNetwork.framework/Versions/$qx/QtNetwork \
-                              @loader_path/QtNetwork.dylib MotionBox
+                              @loader_path/QtNetwork.dylib $target
 
     install_name_tool -change @rpath/QtOpenGL.framework/Versions/$qx/QtOpenGL \
-                              @loader_path/QtOpenGL.dylib MotionBox
+                              @loader_path/QtOpenGL.dylib $target
 
     install_name_tool -change @rpath/QtQml.framework/Versions/$qx/QtQml \
-                              @loader_path/QtQml.dylib MotionBox
+                              @loader_path/QtQml.dylib $target
 
     if [ -f QtQmlModels.dylib ]; then
 
         install_name_tool -change @rpath/QtQmlModels.framework/Versions/$qx/QtQmlModels \
-                                  @loader_path/QtQmlModels.dylib MotionBox
+                                  @loader_path/QtQmlModels.dylib $target
     fi
 
     install_name_tool -change @rpath/QtQuick.framework/Versions/$qx/QtQuick \
-                              @loader_path/QtQuick.dylib MotionBox
+                              @loader_path/QtQuick.dylib $target
 
     install_name_tool -change @rpath/QtSvg.framework/Versions/$qx/QtSvg \
-                              @loader_path/QtSvg.dylib MotionBox
+                              @loader_path/QtSvg.dylib $target
 
     install_name_tool -change @rpath/QtWidgets.framework/Versions/$qx/QtWidgets \
-                              @loader_path/QtWidgets.dylib MotionBox
+                              @loader_path/QtWidgets.dylib $target
 
     install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
-                              @loader_path/QtXml.dylib MotionBox
+                              @loader_path/QtXml.dylib $target
 
     if [ $qt = "qt5" ]; then
 
@@ -277,7 +279,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "linux" ]; then
 
-    cp bin/MotionBox $deploy
+    cp bin/$target $deploy
 
     # NOTE: This script is useful for compatibilty. It enforces the application path for libraries.
     cp dist/script/start.sh $deploy
@@ -286,7 +288,7 @@ elif [ $1 = "linux" ]; then
 
 elif [ $1 = "android" ]; then
 
-    cp bin/libMotionBox* $deploy
+    cp bin/lib$target* $deploy
 fi
 
 #--------------------------------------------------------------------------------------------------

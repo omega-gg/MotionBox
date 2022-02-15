@@ -251,14 +251,30 @@ elif [ $1 = "macOS" ]; then
     otool -L platforms/libqcocoa.dylib
 
     #----------------------------------------------------------------------------------------------
-    # QtQuick
+    # QtQml
 
-    if [ -f QtQmlModels.dylib ]; then
+    if [ $qt = "qt6" ]; then
 
         install_name_tool -change \
                           @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-                          @loader_path/../QtQmlWorkerScript.dylib \
-                          $QtQuick/libqtquick2plugin.dylib
+                          @loader_path/../../QtQmlWorkerScript.dylib \
+                          QtQml/WorkerScript/libworkerscriptplugin.dylib
+
+        otool -L QtQml/WorkerScript/libworkerscriptplugin.dylib
+    fi
+
+    #----------------------------------------------------------------------------------------------
+    # QtQuick
+
+    if [ $qt = "qt5" ]; then
+
+        if [ -f QtQmlModels.dylib ]; then
+
+            install_name_tool -change \
+                              @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
+                              @loader_path/../QtQmlWorkerScript.dylib \
+                              $QtQuick/libqtquick2plugin.dylib
+        fi
     fi
 
     otool -L $QtQuick/libqtquick2plugin.dylib

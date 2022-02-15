@@ -253,15 +253,12 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # QtQuick
 
-    if [ $qt = "qt5" ]; then
+    if [ -f QtQmlModels.dylib ]; then
 
-        if [ -f QtQmlModels.dylib ]; then
-
-            install_name_tool -change \
-                              @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-                              @loader_path/../QtQmlWorkerScript.dylib \
-                              $QtQuick/libqtquick2plugin.dylib
-        fi
+        install_name_tool -change \
+                          @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
+                          @loader_path/../QtQmlWorkerScript.dylib \
+                          $QtQuick/libqtquick2plugin.dylib
     fi
 
     otool -L $QtQuick/libqtquick2plugin.dylib

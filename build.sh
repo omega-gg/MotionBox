@@ -342,6 +342,10 @@ if [ $1 = "android" ]; then
     makeAndroid arm64-v8a   "$Qt"/android_arm64_v8a/bin/target_qt.conf
     makeAndroid x86         "$Qt"/android_x86/bin/target_qt.conf
     makeAndroid x86_64      "$Qt"/android_x86_64/bin/target_qt.conf
+
+elif [ $1 = "macOS" -a $qt = "qt6" ]; then
+
+    $qmake -r -spec $spec "$config" QMAKE_APPLE_DEVICE_ARCHS="x86_64" ..
 else
     $qmake -r -spec $spec "$config" ..
 fi

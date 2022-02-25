@@ -226,10 +226,12 @@ fi
 
 if [ $1 = "android" -a $qt = "qt6" ]; then
 
-    qmake="$Qt/gcc_64/bin/qmake"
+    QtBin="$Qt/gcc_64/bin"
 else
-    qmake="$Qt/bin/qmake"
+    QtBin="$Qt/bin"
 fi
+
+qmake="$QtBin/qmake"
 
 #--------------------------------------------------------------------------------------------------
 # Clean

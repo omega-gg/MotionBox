@@ -194,20 +194,14 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
             abi="x64"
         fi
     fi
-
-elif [ $1 = "android" ]; then
-
-    if [ $host != "linux" ]; then
+else
+    if [ $1 = "android" -a $host != "linux" ]; then
 
         echo "You have to cross-compile $1 from Linux (preferably Ubuntu)."
 
         exit 1
     fi
 
-    os="default"
-
-    compiler="default"
-else
     os="default"
 
     compiler="default"

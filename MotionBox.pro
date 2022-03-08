@@ -51,7 +51,7 @@ win32-msvc* {
     DEFINES += BOOST_ALL_NO_LIB
 }
 
-!win32-msvc*:!android:DEFINES += CAN_COMPILE_SSE2
+!win32-msvc*:!ios:!android:DEFINES += CAN_COMPILE_SSE2
 
 #DEFINES += SK_SOFTWARE
 
@@ -70,7 +70,7 @@ deploy|android {
     RESOURCES = dist/qrc/MotionBox.qrc
 }
 
-!win32-msvc*:!android:QMAKE_CXXFLAGS += -msse
+!win32-msvc*:!ios:!android:QMAKE_CXXFLAGS += -msse
 
 unix:QMAKE_LFLAGS += "-Wl,-rpath,'\$$ORIGIN'"
 

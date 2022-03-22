@@ -226,9 +226,9 @@ Panel
 
         if (item)
         {
-             return loader.y + borderSizeHeight + item.contentHeight;
+             return Math.min(loader.y + borderSizeHeight + item.contentHeight, gui.panelHeight);
         }
-        else return loader.y + borderSizeHeight;
+        else return Math.min(loader.y + borderSizeHeight, gui.panelHeight);
     }
 
     //---------------------------------------------------------------------------------------------

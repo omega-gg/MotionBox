@@ -52,6 +52,10 @@ Item
     /* read */ property Playlist playlistTracks: null
     /* read */ property Playlist playlistTemp  : controllerPlaylist.createPlaylist()
 
+    // NOTE: This is the panel maximum height. We get a binding loop in BasePanelSettings when
+    //       using itemContent directly.
+    /* read */ property int panelHeight: itemContent.height + barTop.border.size
+
     //---------------------------------------------------------------------------------------------
     // Drag
 

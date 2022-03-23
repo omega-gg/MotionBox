@@ -202,6 +202,7 @@ $SkyBase/BaseButton.qml \
 $SkyBase/BaseLineEdit.qml \
 $SkyBase/BaseTextEdit.qml \
 $SkyBase/BaseConsole.qml \
+$SkyBase/ColumnAuto.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
 $SkyComponents/StyleComponents.qml \
@@ -275,6 +276,7 @@ $SkyComponents/LineEditValue.qml \
 $SkyComponents/LineEditBox.qml \
 $SkyComponents/LineEditBoxClear.qml \
 $SkyComponents/Console.qml \
+$SkyComponents/ColumnScroll.qml \
 $SkyComponents/BaseList.qml \
 $SkyComponents/List.qml \
 $SkyComponents/ListCompletion.qml \

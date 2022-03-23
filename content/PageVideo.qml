@@ -195,6 +195,76 @@ Column
     }
 
     //---------------------------------------------------------------------------------------------
+    // Videos
+
+    function pSettingsVideos()
+    {
+        var settings = new Array;
+
+        for (var i = 0; i < player.countVideos; i++)
+        {
+            var id = player.idVideo(i);
+
+            settings.push({ "title": player.videoName(id) });
+        }
+
+        return settings;
+    }
+
+    function pStringVideos()
+    {
+        var video = player.videoName(player.trackVideo);
+
+        if (video) return video;
+        else       return qsTr("Unknown");
+    }
+
+    function pIndexVideos()
+    {
+        return player.indexVideo(player.trackVideo);
+    }
+
+    function pClickVideos(index)
+    {
+        player.trackVideo = player.idVideo(index);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Audios
+
+    function pSettingsAudios()
+    {
+        var settings = new Array;
+
+        for (var i = 0; i < player.countAudios; i++)
+        {
+            var id = player.idAudio(i);
+
+            settings.push({ "title": player.audioName(id) });
+        }
+
+        return settings;
+    }
+
+    function pStringAudios()
+    {
+        var audio = player.audioName(player.trackAudio);
+
+        if (audio) return audio;
+        else       return qsTr("Unknown");
+    }
+
+    function pIndexAudios()
+    {
+        return player.indexAudio(player.trackAudio);
+    }
+
+    function pClickAudios(index)
+    {
+        player.trackAudio = player.idAudio(index);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
@@ -302,6 +372,50 @@ Column
         currentIndex: pIndexSpeed()
 
         function onClick(index) { pClickSpeed(index) }
+    }
+
+    BarSettings
+    {
+        text: qsTr("Video")
+
+        visible: buttonVideos.visible
+    }
+
+    ButtonSettings
+    {
+        id: buttonVideos
+
+        visible: (player.countVideos > 1)
+
+        settings: pSettingsVideos()
+
+        text: pStringVideos()
+
+        currentIndex: pIndexVideos()
+
+        function onClick(index) { pClickVideos(index) }
+    }
+
+    BarSettings
+    {
+        text: qsTr("Audio")
+
+        visible: buttonAudios.visible
+    }
+
+    ButtonSettings
+    {
+        id: buttonAudios
+
+        visible: (player.countAudios > 1)
+
+        settings: pSettingsAudios()
+
+        text: pStringAudios()
+
+        currentIndex: pIndexAudios()
+
+        function onClick(index) { pClickAudios(index) }
     }
 
     BarSettings { text: qsTr("Playback") }

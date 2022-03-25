@@ -74,9 +74,9 @@ makeAndroid()
     fi
 
     $qmake -r -spec $spec $qtconf "$config" \
-        "ANDROID_ABIS=$1" \
-        "ANDROID_MIN_SDK_VERSION=$SDK_version_minimum" \
-        "ANDROID_TARGET_SDK_VERSION=$SDK_version" ../..
+           "ANDROID_ABIS=$1" \
+           "ANDROID_MIN_SDK_VERSION=$SDK_version_minimum" \
+           "ANDROID_TARGET_SDK_VERSION=$SDK_version" ../..
 
     make $make_arguments
 

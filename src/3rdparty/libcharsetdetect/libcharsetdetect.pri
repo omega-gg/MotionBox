@@ -1,5 +1,9 @@
 # libcharsetdetect module
 
+INCLUDEPATH += $$SK_CORE/3rdparty/libcharsetdetect \
+               $$SK_CORE/3rdparty/libcharsetdetect/base \
+               $$SK_CORE/3rdparty/libcharsetdetect/nspr-emu \
+
 HEADERS += $$SK_CORE/3rdparty/libcharsetdetect/charsetdetect.h \
            $$SK_CORE/3rdparty/libcharsetdetect/charsetdetectPriv.h \
            $$SK_CORE/3rdparty/libcharsetdetect/nscore.h \
@@ -59,7 +63,3 @@ SOURCES += $$SK_CORE/3rdparty/libcharsetdetect/charsetdetect.cpp \
            $$SK_CORE/3rdparty/libcharsetdetect/base/nsSJISProber.cpp \
            $$SK_CORE/3rdparty/libcharsetdetect/base/nsUniversalDetector.cpp \
            $$SK_CORE/3rdparty/libcharsetdetect/base/nsUTF8Prober.cpp \
-
-INCLUDEPATH += $$SK_CORE/3rdparty/libcharsetdetect \
-               $$SK_CORE/3rdparty/libcharsetdetect/base \
-               $$SK_CORE/3rdparty/libcharsetdetect/nspr-emu \

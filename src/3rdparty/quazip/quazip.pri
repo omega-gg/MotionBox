@@ -1,5 +1,7 @@
 # QuaZip module
 
+INCLUDEPATH += $$SK_CORE/3rdparty/quazip \
+
 HEADERS += $$SK_CORE/3rdparty/quazip/ioapi.h \
            $$SK_CORE/3rdparty/quazip/JlCompress.h \
            $$SK_CORE/3rdparty/quazip/minizip_crypt.h \
@@ -32,5 +34,3 @@ SOURCES += $$SK_CORE/3rdparty/quazip/JlCompress.cpp \
            $$SK_CORE/3rdparty/quazip/quazipnewinfo.cpp \
            $$SK_CORE/3rdparty/quazip/unzip.c \
            $$SK_CORE/3rdparty/quazip/zip.c \
-
-INCLUDEPATH += $$SK_CORE/3rdparty/quazip \

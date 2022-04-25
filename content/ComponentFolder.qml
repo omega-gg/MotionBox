@@ -123,8 +123,8 @@ ComponentLibraryItem
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onEntered: setItemHovered  (componentFolder)
-    onExited : clearItemHovered()
+    onHoverEntered: setItemHovered  (componentFolder)
+    onHoverExited : clearItemHovered()
 
     /* QML_EVENT */ onPositionChanged: function(mouse) { pPositionChanged(mouse) }
 

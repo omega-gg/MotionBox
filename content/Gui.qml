@@ -504,7 +504,7 @@ Item
                 // NOTE: We make sure hovered items are up to date.
                 window.updateHover();
 
-                if (playerMouseArea.containsMouse)
+                if (playerMouseArea.hoverActive)
                 {
                     sk.cursorVisible = false;
                 }

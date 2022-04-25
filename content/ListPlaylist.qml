@@ -590,7 +590,7 @@ BaseList
         }
 
 //#QT_NEW
-        if (overlay.visible && overlay.containsMouse) pUpdatePreview();
+        if (overlay.visible && overlay.hoverActive) pUpdatePreview();
 //#END
     }
 
@@ -1253,12 +1253,12 @@ BaseList
             else return st.itemList_colorBorder;
         }
 
-        background.visible: containsMouse
+        background.visible: isHovered
         borders   .visible: background.visible
 
-        onEntered: pUpdatePreview()
+        onHoverEntered: pUpdatePreview()
 
-        onExited: panelPreview.clear()
+        onHoverExited: panelPreview.clear()
 
         /* QML_EVENT */ onPressed: function(mouse)
         {

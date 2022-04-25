@@ -88,6 +88,7 @@ include(src/media/media.pri)
 include(src/vlc/vlc.pri)
 include(src/torrent/torrent.pri)
 
+include(src/3rdparty/Qt/Qt.pri)
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
 include(src/3rdparty/quazip/quazip.pri)
 include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)

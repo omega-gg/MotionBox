@@ -229,7 +229,6 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WDeclarativeMouseArea>   ("Sky", 1,0, "MouseArea");
     qmlRegisterType<WDeclarativeMouseWatcher>("Sky", 1,0, "MouseWatcher");
-    qmlRegisterType<WDeclarativeDrag>        ("Sky", 1,0, "Drag");
 
     qmlRegisterType<WDeclarativeListHorizontal>("Sky", 1,0, "ListHorizontal");
     qmlRegisterType<WDeclarativeListVertical>  ("Sky", 1,0, "ListVertical");
@@ -314,9 +313,6 @@ ControllerCore::ControllerCore() : WController()
 
     //---------------------------------------------------------------------------------------------
     // Events
-
-    qmlRegisterUncreatableType<WDeclarativeMouseEvent>("Sky", 1,0, "DeclarativeMouseEvent",
-                                                       "DeclarativeMouseEvent is not creatable");
 
     qmlRegisterUncreatableType<WDeclarativeDropEvent>("Sky", 1,0, "DeclarativeDropEvent",
                                                       "DeclarativeDropEvent is not creatable");

@@ -102,9 +102,10 @@ INCLUDEPATH += $$SK/include/SkCore \
                src/io
 
 unix:contains(QT_MAJOR_VERSION, 4) {
-    INCLUDEPATH += $$SK/include/Qt4/QtCore \
-                   $$SK/include/Qt4/QtGui \
-                   $$SK/include/Qt4/QtDeclarative
+    INCLUDEPATH += $$SK/include/$$QTX \
+                   $$SK/include/$$QTX/QtCore \
+                   $$SK/include/$$QTX/QtGui \
+                   $$SK/include/$$QTX/QtDeclarative
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {

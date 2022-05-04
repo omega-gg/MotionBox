@@ -117,7 +117,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 }
 
 unix:!macx:!android:greaterThan(QT_MAJOR_VERSION, 4) {
-    INCLUDEPATH += $$SK/include/Qt5/QtDBus
+    INCLUDEPATH += $$SK/include/$$QTX/QtDBus
 }
 
 win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib

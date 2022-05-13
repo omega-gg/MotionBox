@@ -329,4 +329,4 @@ fi
 
 #--------------------------------------------------------------------------------------------------
 
-"$Sky"/deploy/deployer $path $imports qrc/MotionBox.qrc "$defines" $files
+"$Sky"/deploy/deployer $path "$imports" qrc/MotionBox.qrc "$defines" $files

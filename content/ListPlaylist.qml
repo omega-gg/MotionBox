@@ -1360,8 +1360,8 @@ BaseList
 
         checked: (indexContextual != -1)
 
-        icon          : st.icon12x12_contextualDown
-        iconSourceSize: st.size12x12
+        icon          : st.icon10x10_contextualDown
+        iconSourceSize: st.size10x10
 
         onPressed: showPanel(indexHover)
     }

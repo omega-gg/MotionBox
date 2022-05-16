@@ -970,8 +970,8 @@ BaseList
         width : st.dp28
         height: st.dp28
 
-        icon          : st.icon12x12_contextualDown
-        iconSourceSize: st.size12x12
+        icon          : st.icon10x10_contextualDown
+        iconSourceSize: st.size10x10
 
         onPressed: showPanel(indexHover)
     }

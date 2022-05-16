@@ -195,6 +195,7 @@ OTHER_FILES += 3rdparty.sh \
                .appveyor.yml \
                content/text/credits.txt \
                content/generate.sh \
+               content/icons.sh \
                content/Main.qml \
                content/StyleApplication.qml \
                content/Splash.qml \

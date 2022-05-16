@@ -1253,7 +1253,7 @@ BaseList
             else return st.itemList_colorBorder;
         }
 
-        background.visible: isHovered
+        background.visible: containsMouse
         borders   .visible: background.visible
 
         onHoverEntered: pUpdatePreview()

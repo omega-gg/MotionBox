@@ -32,7 +32,11 @@
 
 int main(int argc, char * argv[])
 {
+#ifdef QT_4
     QApplication * application = WApplication::create(argc, argv);
+#else
+    QGuiApplication * application = WApplication::create(argc, argv);
+#endif
 
     if (application == NULL) return 0;
 

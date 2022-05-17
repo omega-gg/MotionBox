@@ -305,9 +305,6 @@ Panel
 
             width: st.dp128
 
-            // NOTE: We disable the button when we have a single source.
-            enabled: (sources.length > 1)
-
             text: pGetTitle()
 
             settings: pGetSettings()
@@ -315,9 +312,6 @@ Panel
             currentIndex: basePanelSettings.currentIndex
 
             font.pixelSize: st.dp14
-
-            // NOTE: We make sure the text is always opaque even when the item is disabled.
-            itemText.opacity: 1.0
 
             //-----------------------------------------------------------------------------------------
             // ButtonSettingsAction events

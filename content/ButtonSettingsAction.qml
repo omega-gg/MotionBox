@@ -45,8 +45,16 @@ ButtonPianoAction
 
     borderRight: 0
 
+    // NOTE: We disable the button when we have a single source.
+    enabled: (settings.length > 1)
+
     checkable: true
     checked  : (areaContextual.item == buttonSettingsAction)
+
+    // NOTE: We make sure the text is always opaque even when the item is disabled.
+    itemText.opacity: 1.0
+
+    iconAction.visible: enabled
 
     //---------------------------------------------------------------------------------------------
     // Events

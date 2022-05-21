@@ -90,7 +90,7 @@ Deploy the application and its dependencies:
 
 ## License
 
-Copyright (C) 2015 - 2020 MotionBox authors | http://omega.gg/MotionBox.
+Copyright (C) 2015 - 2020 MotionBox authors | http://omega.gg/MotionBox
 
 ### Authors
 

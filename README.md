@@ -6,7 +6,7 @@
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 [MotionBox](http://omega.gg/MotionBox) is a video player designed for the Internet.<br>
-Built to access video sources semantically.<br>
+Built to access and play video sources semantically.<br>
 Built to organize and share multiple video resources.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 

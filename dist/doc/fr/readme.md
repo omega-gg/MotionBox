@@ -6,7 +6,7 @@
 
 [MotionBox] est un [Navigateur Vidéo] pour la [Liberté Médiatique].
 
-Conçu pour accéder aux sources vidéo sémantiquement.
+Conçu pour accéder et diffuser les sources vidéo sémantiquement.
 
 Conçu pour organiser et partager une multitude de ressources vidéo.
 

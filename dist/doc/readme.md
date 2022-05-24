@@ -6,7 +6,7 @@
 
 [MotionBox] is a [Video Browser] for [Motion Freedom].
 
-Built to access video sources semantically.
+Built to access and play video sources semantically.
 
 Built to organize and share multiple video resources.
 

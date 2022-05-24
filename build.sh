@@ -15,7 +15,7 @@ external="$PWD/../3rdparty"
 
 Qt4_version="4.8.7"
 Qt5_version="5.15.2"
-Qt6_version="6.2.1"
+Qt6_version="6.3.0"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@ BuildTools="$ProgramFiles/Microsoft Visual Studio/2019/BuildTools"
 
 #--------------------------------------------------------------------------------------------------
 
-MinGW_version="8.1.0"
+MinGW_version="11.2.0"
 
 jom_version="1.1.3"
 

@@ -20,17 +20,17 @@ contains(QT_MAJOR_VERSION, 4) {
     QT += opengl quick network xml svg core5compat
 }
 
-greaterThan(QT_MAJOR_VERSION, 4) {
-    unix:!macx:!android:QT += dbus
-}
-
-# NOTE Qt6: We need that dependency for QFileDialog(s).
+# NOTE Qt6.3: We need the widgets for QApplication and QFileDialog(s).
 contains(QT_MAJOR_VERSION, 6) {
     win32:QT += widgets
 
     macx:QT += widgets
 
     unix:!android:QT += widgets
+}
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    unix:!macx:!android:QT += dbus
 }
 
 contains(QT_MAJOR_VERSION, 5) {

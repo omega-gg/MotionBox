@@ -24,6 +24,15 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     unix:!macx:!android:QT += dbus
 }
 
+# NOTE Qt6: We need that dependency for QFileDialog(s).
+contains(QT_MAJOR_VERSION, 6) {
+    win32:QT += widgets
+
+    macx:QT += widgets
+
+    unix:!android:QT += widgets
+}
+
 contains(QT_MAJOR_VERSION, 5) {
     win32:QT += winextras
 

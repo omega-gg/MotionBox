@@ -30,7 +30,9 @@
 #include <QQmlEngine>
 #endif
 //#include <QNetworkDiskCache>
+#ifdef SK_DESKTOP
 #include <QFileDialog>
+#endif
 
 // Sk includes
 #include <WControllerApplication>
@@ -576,6 +578,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ QString ControllerCore::openFolder(const QString & title)
 {
+#ifdef SK_DESKTOP
     QString path = QFileDialog::getExistingDirectory(NULL, title, _pathOpen);
 
     if (path.isEmpty()) return QString();
@@ -585,6 +588,11 @@ ControllerCore::ControllerCore() : WController()
     _pathOpen = info.absoluteFilePath();
 
     return WControllerFile::fileUrl(_pathOpen);
+#else
+    Q_UNUSED(title);
+
+    return WQString();
+#endif
 }
 
 /* Q_INVOKABLE */ QString ControllerCore::openSubtitle(const QString & title)
@@ -896,6 +904,7 @@ WControllerFileReply * ControllerCore::copyBackends() const
 
 QString ControllerCore::getFile(const QString & title, const QString & filter)
 {
+#ifdef SK_DESKTOP
     QString path = QFileDialog::getOpenFileName(NULL, title, _pathOpen, filter);
 
     if (path.isEmpty()) return QString();
@@ -905,6 +914,11 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
     _pathOpen = info.absoluteFilePath();
 
     return WControllerFile::fileUrl(info.absoluteFilePath());
+#else
+    Q_UNUSED(title); Q_UNUSED(filter);
+
+    return WQString();
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------

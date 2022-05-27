@@ -251,18 +251,6 @@ elif [ $1 = "macOS" ]; then
     otool -L platforms/libqcocoa.dylib
 
     #----------------------------------------------------------------------------------------------
-    # mediaservice
-
-    if [ $qt = "qt5" ]; then
-
-        install_name_tool -change @rpath/QtDBus.framework/Versions/$qx/QtMultimedia \
-                                  @loader_path/../QtMultimedia.dylib \
-                                  mediaservice/libqavfcamera.dylib
-
-        otool -L mediaservice/libqavfcamera.dylib
-    fi
-
-    #----------------------------------------------------------------------------------------------
     # QtQml
 
     if [ $qt = "qt6" ]; then

@@ -32,6 +32,8 @@
 //#include <QNetworkDiskCache>
 #ifdef SK_DESKTOP
 #include <QFileDialog>
+#else
+#include <QDir>
 #endif
 
 // Sk includes

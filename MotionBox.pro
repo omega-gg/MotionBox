@@ -16,12 +16,18 @@ contains(QT_MAJOR_VERSION, 4) {
 } else:contains(QT_MAJOR_VERSION, 5) {
 
     QT += opengl quick network xml xmlpatterns svg
+
+    win32:QT += winextras
+
+    unix:!macx:!android:QT += x11extras
+
+    android:QT += androidextras
 } else {
     QT += opengl quick network xml svg core5compat
-}
 
-# NOTE Qt6.3: We need the widgets for QApplication and QFileDialog(s).
-contains(QT_MAJOR_VERSION, 6) {
+    #----------------------------------------------------------------------------------------------
+    # NOTE Qt6.3: We need the widgets for QApplication and QFileDialog(s).
+
     win32:QT += widgets
 
     macx:QT += widgets
@@ -31,14 +37,6 @@ contains(QT_MAJOR_VERSION, 6) {
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     unix:!macx:!android:QT += dbus
-}
-
-contains(QT_MAJOR_VERSION, 5) {
-    win32:QT += winextras
-
-    unix:!macx:!android:QT += x11extras
-
-    android:QT += androidextras
 }
 
 # C++17

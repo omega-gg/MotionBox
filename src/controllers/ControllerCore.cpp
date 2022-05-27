@@ -591,7 +591,7 @@ ControllerCore::ControllerCore() : WController()
 #else
     Q_UNUSED(title);
 
-    return WQString();
+    return QString();
 #endif
 }
 
@@ -917,7 +917,7 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
 #else
     Q_UNUSED(title); Q_UNUSED(filter);
 
-    return WQString();
+    return QString();
 #endif
 }
 

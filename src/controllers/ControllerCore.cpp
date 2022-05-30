@@ -917,7 +917,7 @@ QString ControllerCore::getFile(const QString & title, const QString & filter)
 
     _pathOpen = info.absolutePath();
 
-    return WControllerFile::fileUrl(_pathOpen);
+    return WControllerFile::fileUrl(info.absoluteFilePath());
 #else
     Q_UNUSED(title); Q_UNUSED(filter);
 

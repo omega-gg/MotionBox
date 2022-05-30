@@ -359,8 +359,6 @@ ControllerCore::ControllerCore() : WController()
 {
     if (_cache) return;
 
-    _pathOpen = QDir::rootPath();
-
     //---------------------------------------------------------------------------------------------
     // DataLocal
 
@@ -581,6 +579,8 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE */ QString ControllerCore::openFolder(const QString & title)
 {
 #ifdef SK_DESKTOP
+    if (_pathOpen.isEmpty()) _pathOpen = QDir::rootPath();
+
     QString path = QFileDialog::getExistingDirectory(NULL, title, _pathOpen);
 
     if (path.isEmpty()) return QString();
@@ -907,15 +907,17 @@ WControllerFileReply * ControllerCore::copyBackends() const
 QString ControllerCore::getFile(const QString & title, const QString & filter)
 {
 #ifdef SK_DESKTOP
+    if (_pathOpen.isEmpty()) _pathOpen = QDir::rootPath();
+
     QString path = QFileDialog::getOpenFileName(NULL, title, _pathOpen, filter);
 
     if (path.isEmpty()) return QString();
 
     QFileInfo info(path);
 
-    _pathOpen = info.absoluteFilePath();
+    _pathOpen = info.absolutePath();
 
-    return WControllerFile::fileUrl(info.absoluteFilePath());
+    return WControllerFile::fileUrl(_pathOpen);
 #else
     Q_UNUSED(title); Q_UNUSED(filter);
 

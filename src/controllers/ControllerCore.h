@@ -240,7 +240,9 @@ private: // Variables
     QDateTime _datePreview;
 
     QString _pathSplash;
+#ifdef SK_DESKTOP
     QString _pathOpen;
+#endif
 
 #ifndef SK_DEPLOY
     WFileWatcher _watcher;

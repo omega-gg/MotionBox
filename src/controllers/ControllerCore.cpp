@@ -487,7 +487,7 @@ ControllerCore::ControllerCore() : WController()
 
         WControllerFileReply * reply = copyBackends();
 
-        connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onLoaded()));
+        connect(reply, SIGNAL(complete(bool)), this, SLOT(onLoaded()));
     }
     else createIndex();
 
@@ -566,7 +566,7 @@ ControllerCore::ControllerCore() : WController()
 {
     WControllerFileReply * reply = copyBackends();
 
-    connect(reply, SIGNAL(actionComplete(bool)), this, SLOT(onReload()));
+    connect(reply, SIGNAL(complete(bool)), this, SLOT(onReload()));
 }
 
 //-------------------------------------------------------------------------------------------------

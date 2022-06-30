@@ -56,6 +56,7 @@
 #include <WLoaderNetwork>
 //#include <WLoaderWeb>
 #include <WLoaderTorrent>
+#include <WLoaderVbml>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WAbstractTabs>
@@ -422,6 +423,13 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
     wControllerTorrent ->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
+
+    //---------------------------------------------------------------------------------------------
+    // LoaderVbml
+
+    WLoaderVbml * loaderVbml = new WLoaderVbml(this);
+
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, loaderVbml);
 
     //---------------------------------------------------------------------------------------------
     // Proxy

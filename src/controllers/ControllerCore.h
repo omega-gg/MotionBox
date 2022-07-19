@@ -223,6 +223,10 @@ private: // Variables
     //QNetworkDiskCache * _diskCache;
 
     QString _path;
+    QString _pathSplash;
+#ifdef SK_DESKTOP
+    QString _pathOpen;
+#endif
 
     WTabsTrack * _tabs;
 
@@ -238,11 +242,6 @@ private: // Variables
 
     QDateTime _dateCover;
     QDateTime _datePreview;
-
-    QString _pathSplash;
-#ifdef SK_DESKTOP
-    QString _pathOpen;
-#endif
 
 #ifndef SK_DEPLOY
     WFileWatcher _watcher;

@@ -812,7 +812,7 @@ ControllerCore::ControllerCore() : WController()
 
     int count = 3;
 
-    for (int i = index - 1; count && i >= 0; i--)
+    for (int i = index - 1; count && i > -1; i--)
     {
         urls.append(playlist->trackCover(i));
 

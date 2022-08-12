@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-MouseArea
+Rectangle
 {
     id: splash
 
@@ -32,16 +32,19 @@ MouseArea
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pTransition: -1
+    property bool pFade: false
 
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width : parent.width + st.splash_borderSize
-    height: parent.height
+    anchors.fill: parent
 
-    hoverRetain: true
+    gradient: Gradient
+    {
+        GradientStop { position: 0.0; color: st.splash_colorA }
+        GradientStop { position: 1.0; color: st.splash_colorB }
+    }
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -49,13 +52,13 @@ MouseArea
 
     states: State
     {
-        name: "scroll"; when: (pTransition == 0)
+        name: "fade"; when: pFade
 
-        AnchorChanges
+        PropertyChanges
         {
             target: splash
 
-            anchors.right: parent.left
+            opacity: 0.0
         }
     }
 
@@ -63,11 +66,13 @@ MouseArea
     {
         SequentialAnimation
         {
-            PauseAnimation { duration: st.ms1000 }
-
-            AnchorAnimation
+            NumberAnimation
             {
-                duration: st.duration_slower
+                property: "opacity"
+
+                // NOTE: We want to fade slower when restoring to let images load.
+                duration: (image.isSourceDefault) ? st.duration_normal
+                                                  : st.duration_slow
 
                 easing.type: st.easing
             }
@@ -82,18 +87,7 @@ MouseArea
 
     function hide()
     {
-        if (image.isSourceDefault)
-        {
-            clip = true;
-
-            pTransition = 0;
-        }
-        else
-        {
-            hoverRetain = false;
-
-            pTransition = 1;
-        }
+        pFade = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -104,13 +98,11 @@ MouseArea
         window.resizable = true;
 
         visible = false;
-        clip    = false;
 
         width  = undefined;
         height = undefined;
 
-        image.source        = "";
-        image.sourceDefault = "";
+        image.source = "";
 
         online.load();
     }
@@ -119,37 +111,11 @@ MouseArea
     // Children
     //---------------------------------------------------------------------------------------------
 
-    Rectangle
-    {
-        id: background
-
-        anchors.top   : parent.top
-        anchors.bottom: parent.bottom
-
-        width: loader.width
-
-        x: -(parent.x)
-
-        visible: image.isSourceDefault
-
-        gradient: Gradient
-        {
-            GradientStop { position: 0.0; color: st.splash_colorA }
-            GradientStop { position: 1.0; color: st.splash_colorB }
-        }
-    }
-
-    ImageScale
+    Image
     {
         id: image
 
-        anchors.centerIn: background
-
-        width: (isSourceDefault) ? Math.round(parent.width / 1.5)
-                                 : loader.width
-
-        height: (isSourceDefault) ? Math.round(width / 3.875)
-                                  : loader.height
+        anchors.fill: parent
 
         source: (local.splashWidth  == loader.width
                  &&
@@ -157,49 +123,6 @@ MouseArea
 
         sourceSize: (isSourceDefault) ? undefined : Qt.size(local.splashWidth, local.splashHeight)
 
-        sourceDefault: st.logoApplication
-
         cache: false
-
-        scaling   : isSourceDefault
-        scaleDelay: 0
-
-        states: State
-        {
-            name: "fade"; when: (pTransition == 1)
-
-            PropertyChanges
-            {
-                target: splash
-
-                opacity: 0.0
-            }
-        }
-
-        transitions: Transition
-        {
-            SequentialAnimation
-            {
-                NumberAnimation
-                {
-                    property: "opacity"
-
-                    duration: st.duration_slower
-
-                    easing.type: st.easing
-                }
-
-                ScriptAction { script: pClearSpash() }
-            }
-        }
-    }
-
-    BorderVertical
-    {
-        anchors.right: parent.right
-
-        size: st.splash_borderSize
-
-        visible: image.isSourceDefault
     }
 }

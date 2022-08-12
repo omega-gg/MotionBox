@@ -40,8 +40,8 @@ StyleComponents
 
     property int splash_borderSize: dp8
 
-    property color splash_colorA: (local.style == 2) ? "#646464" : logo_colorB
-    property color splash_colorB: (local.style == 2) ? "#323232" : logo_colorA
+    property color splash_colorA: (local.style == 3) ? "#646464" : logo_colorB
+    property color splash_colorB: (local.style == 3) ? "#323232" : logo_colorA
 
     //---------------------------------------------------------------------------------------------
     // PanelRelated
@@ -255,7 +255,7 @@ StyleComponents
         {
             applyNight();
         }
-        else // if (index == 2)
+        else // if (index == 3)
         {
             applyClassic();
         }

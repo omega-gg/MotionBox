@@ -322,9 +322,13 @@ MouseArea
 
         /* QML_CONNECTION */ function onQueryCompleted()
         {
-            if (playlist.queryIsLoading || playlist.isEmpty == false) return;
+            if (playlist.queryIsLoading) return;
 
-            pSearchStop();
+            if (playlist.isEmpty)
+            {
+                pSearchStop();
+            }
+            else pCompleteSearch();
         }
 
         /* QML_CONNECTION */ function onTrackQueryEnded() { pCompleteSearch(); }

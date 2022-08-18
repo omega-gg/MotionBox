@@ -265,7 +265,10 @@ AreaContextual
                                   "title": qsTr("Copy link") },
 
                                 { "id": 7, "type": ContextualPage.ItemConfirm,
-                                  "title": qsTr("Clear everything") }
+                                  "title": qsTr("Clear everything") },
+
+                                { "id": 8, "type": ContextualPage.ItemConfirm,
+                                  "title": qsTr("Remove Playlist") }
                             );
                         }
                         else

@@ -2861,9 +2861,9 @@ Item
 
         var feed = playerTab.feed;
 
-        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return;
+        pAddHistoryFeed(feed, source);
 
-        pAddHistoryFeed(controllerPlaylist.getFeed(feed, source));
+        pAddHistoryPlaylist(feed, playerTab.playlist);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2918,7 +2918,27 @@ Item
         if (cover) playlistTracks.cover = cover;
     }
 
-    function pAddHistoryFeed(source)
+    function pAddHistoryFeed(feed, source)
+    {
+        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return;
+
+        pAddPlaylist(controllerPlaylist.getFeed(feed, source));
+    }
+
+    function pAddHistoryPlaylist(feed, playlist)
+    {
+        if (playlist == "") return;
+
+        var source = playlist.source;
+
+        if (source == "" || source == feed || controllerNetwork.urlIsApp(source)
+            ||
+            controllerPlaylist.urlIsTorrent(source)) return;
+
+        pAddPlaylist(source);
+    }
+
+    function pAddPlaylist(source)
     {
         var index = feeds.indexFromSource(source);
 
@@ -2929,14 +2949,9 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            var playlist = controllerPlaylist.createPlaylist(core.urlType(source));
+            playlist = controllerPlaylist.createPlaylist(core.urlType(source));
 
             insertLibraryItem(1, playlist, listLibrary, feeds);
-
-            if (controllerPlaylist.urlIsMedia(player.trackTitle))
-            {
-                playlist.cover = player.trackCover;
-            }
 
             playlist.loadSource(source);
 

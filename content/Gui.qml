@@ -2861,9 +2861,9 @@ Item
 
         var feed = playerTab.feed;
 
-        pAddHistoryFeed(feed, source);
+        var hasFeed = pAddHistoryFeed(feed, source);
 
-        pAddHistoryPlaylist(feed, playerTab.playlist);
+        pAddHistoryPlaylist(feed, playerTab.playlist, hasFeed);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2920,26 +2920,10 @@ Item
 
     function pAddHistoryFeed(feed, source)
     {
-        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return;
+        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return false;
 
-        pAddPlaylist(controllerPlaylist.getFeed(feed, source));
-    }
+        source = controllerPlaylist.getFeed(feed, source);
 
-    function pAddHistoryPlaylist(feed, playlist)
-    {
-        if (playlist == "") return;
-
-        var source = playlist.source;
-
-        if (source == "" || source == feed || controllerNetwork.urlIsApp(source)
-            ||
-            controllerPlaylist.urlIsTorrent(source)) return;
-
-        pAddPlaylist(source);
-    }
-
-    function pAddPlaylist(source)
-    {
         var index = feeds.indexFromSource(source);
 
         if (index == -1)
@@ -2949,15 +2933,51 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            var playlist = controllerPlaylist.createPlaylist(core.urlType(source));
-
-            insertLibraryItem(1, playlist, listLibrary, feeds);
-
-            playlist.loadSource(source);
-
-            playlist.tryDelete();
+            pAddPlaylist(core.urlType(source), source);
         }
         else feeds.moveAt(index, 1);
+
+        return true;
+    }
+
+    function pAddHistoryPlaylist(feed, playlist, hasFeed)
+    {
+        if (playlist == "") return;
+
+        var source = playlist.source;
+
+        if (source == "" || source == feed || controllerNetwork.urlIsApp(source)
+            ||
+            controllerPlaylist.urlIsTorrent(source)) return;
+
+        var index = feeds.indexFromSource(source);
+
+        if (index == -1)
+        {
+            var type = core.urlType(source);
+
+            // NOTE: If we've already pushed a backend feed we don't want a second one.
+            if (hasFeed && type == LibraryItem.PlaylistFeed) return;
+
+            while (feeds.isFull)
+            {
+                feeds.removeAt(feeds.count - 1);
+            }
+
+            pAddPlaylist(type, source);
+        }
+        else feeds.moveAt(index, 1);
+    }
+
+    function pAddPlaylist(type, source)
+    {
+        var playlist = controllerPlaylist.createPlaylist(type);
+
+        insertLibraryItem(1, playlist, listLibrary, feeds);
+
+        playlist.loadSource(source);
+
+        playlist.tryDelete();
     }
 
     //---------------------------------------------------------------------------------------------

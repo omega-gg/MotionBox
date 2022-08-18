@@ -578,8 +578,6 @@ MouseArea
 
                     pUpdateButtonsBrowsing();
 
-                    if (pSearchHidden) pBrowseIndex = 0;
-
                     return;
                 }
 
@@ -819,13 +817,6 @@ MouseArea
 
         if (backend)
         {
-            var host = backend.getHost();
-
-            if (host)
-            {
-                buttonsBrowse.pushItem(host, pGetSearchCover());
-            }
-
             buttonsBrowse.pushItem(backend.getTitle(), pFolderBrowse.cover);
 
             backend.tryDelete();
@@ -852,12 +843,6 @@ MouseArea
         // NOTE: We need to clear items after creating the backend because of processEvents.
         buttonsBrowse.clearItems();
 
-        if (pSearchHidden)
-        {
-             buttonsBrowse.pushItem(source);
-        }
-        else buttonsBrowse.pushItem(source, pGetSearchCover());
-
         if (backend)
         {
             if (backend.hasSearch())
@@ -876,23 +861,7 @@ MouseArea
         // NOTE: When this returns true it means we are on a backend.
         if (pUpdateButtons())
         {
-            if (buttonsBrowse.getCount() == 2)
-            {
-                 pBrowseIndex = 1;
-            }
-            else pBrowseIndex = 0;
-        }
-        else if (pBrowsing)
-        {
-            if (buttonsBrowse.getCount()
-                &&
-                (pSearchHidden
-                 ||
-                 controllerNetwork.extractUrlValue(pFolderBrowse.source, "label") == "site"))
-            {
-                 pBrowseIndex = 0;
-            }
-            else pBrowseIndex = -1;
+             pBrowseIndex = 0;
         }
         else pBrowseIndex = -1;
     }
@@ -905,7 +874,9 @@ MouseArea
         {
             if (pSearchHidden)
             {
-                scrollBrowse.setFocus();
+                pClearSource();
+
+                setFocus();
 
                 return;
             }
@@ -936,11 +907,11 @@ MouseArea
             pHideCompletion();
         }
 
-        if (index == 1)
+        if (index == 0)
         {
-            pIndexBrowse = 1;
+            pIndexBrowse = 0;
 
-            var title = buttonsBrowse.model.get(1).title;
+            var title = buttonsBrowse.model.get(0).title;
 
             var id = core.idFromTitle(backends, title);
 
@@ -980,35 +951,7 @@ MouseArea
             }
             else pClearSource();
         }
-        else if (index == 0)
-        {
-            if (pSearchHidden == false)
-            {
-                var title = buttonsBrowse.model.get(0).title;
-
-                if (pItemBrowse == null)
-                {
-                    pBrowseSite(title);
-
-                    local.cache = true;
-                }
-                else if (pItemBrowse.title == title)
-                {
-                    if (query)
-                    {
-                        /* var */ source = pSiteQuery(title, query);
-
-                        source = controllerPlaylist.createSource(pSearchEngine,
-                                                                 "search", "site", source);
-
-                        pFolderBrowse.loadSource(source);
-                    }
-                }
-                else pBrowseSite(title);
-            }
-            else pClearSource();
-        }
-        else // if (index == 1)
+        else // if (index == 0)
         {
             pBrowseBackend();
         }
@@ -1318,7 +1261,7 @@ MouseArea
         anchors.bottom: buttonUp.bottom
 
         checkable: true
-        checked  : (pBrowseIndex == -1)
+        checked  : (pBrowseIndex == -1 && pSearchHidden == false)
 
         text: qsTr("Browse")
 
@@ -1372,7 +1315,7 @@ MouseArea
 
         anchors.leftMargin: buttonsBrowse.getWidth()
 
-        enabled: (buttonsBrowse.count || query != "")
+        enabled: (pFolderBrowse && pFolderBrowse.count)
 
         icon          : st.icon12x12_close
         iconSourceSize: st.size12x12

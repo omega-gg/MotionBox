@@ -88,7 +88,7 @@ MouseArea
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property alias pBrowseIndex: buttonsBrowse.currentIndex
+    property alias pButtonsIndex: buttonsBrowse.currentIndex
 
     //---------------------------------------------------------------------------------------------
 
@@ -244,7 +244,7 @@ MouseArea
             if (pBrowsing)
             {
                 // NOTE: We need to clear the browse index when a query fails.
-                pBrowseIndex = -1;
+                pButtonsIndex = -1;
             }
         }
 
@@ -552,7 +552,7 @@ MouseArea
         if (pBrowsing)
         {
             // NOTE: When the pFolderBrowse is empty or the browse button is selected.
-            if (pItemBrowse == null || pBrowseIndex == -1)
+            if (pItemBrowse == null || pButtonsIndex == -1)
             {
                 if (panelBrowse.query == "")
                 {
@@ -679,7 +679,7 @@ MouseArea
 
         pClearSource();
 
-        pBrowseIndex = -1;
+        pButtonsIndex = -1;
     }
 
     function pClearSource()
@@ -861,16 +861,16 @@ MouseArea
         // NOTE: When this returns true it means we are on a backend.
         if (pUpdateButtons())
         {
-             pBrowseIndex = 0;
+             pButtonsIndex = 0;
         }
-        else pBrowseIndex = -1;
+        else pButtonsIndex = -1;
     }
 
     //---------------------------------------------------------------------------------------------
 
     function pSelectButton(index)
     {
-        if (pBrowseIndex == index)
+        if (pButtonsIndex == index)
         {
             if (pSearchHidden)
             {
@@ -958,7 +958,7 @@ MouseArea
 
         pUpdateButtons();
 
-        pBrowseIndex = index;
+        pButtonsIndex = index;
 
         setFocus();
     }
@@ -1261,7 +1261,7 @@ MouseArea
         anchors.bottom: buttonUp.bottom
 
         checkable: true
-        checked  : (pBrowseIndex == -1 && pSearchHidden == false)
+        checked  : (pButtonsIndex == -1 && pSearchHidden == false)
 
         text: qsTr("Browse")
 

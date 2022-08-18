@@ -2949,7 +2949,7 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            playlist = controllerPlaylist.createPlaylist(core.urlType(source));
+            var playlist = controllerPlaylist.createPlaylist(core.urlType(source));
 
             insertLibraryItem(1, playlist, listLibrary, feeds);
 

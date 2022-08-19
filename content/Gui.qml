@@ -2863,7 +2863,7 @@ Item
 
         var hasFeed = pAddHistoryFeed(feed, source);
 
-        pAddHistoryPlaylist(feed, playerTab.playlist, hasFeed);
+        pAddHistoryPlaylist(playerTab.playlist, feed, hasFeed);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2940,9 +2940,9 @@ Item
         return true;
     }
 
-    function pAddHistoryPlaylist(feed, playlist, hasFeed)
+    function pAddHistoryPlaylist(playlist, feed, hasFeed)
     {
-        if (playlist == "") return;
+        if (playlist == null) return;
 
         var source = playlist.source;
 

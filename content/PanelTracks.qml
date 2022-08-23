@@ -415,39 +415,11 @@ Item
                 onClicked: playlist.reloadQuery()
             }
 
-            ButtonPianoTitle
+            BarTitleText
             {
-                id: buttonTitle
-
                 anchors.left: (buttonRefresh.visible) ? buttonRefresh.right
                                                       : buttonRefresh.left
 
-                anchors.top   : parent.top
-                anchors.bottom: parent.bottom
-
-                visible: (itemTitle.visible && itemTitle.text != "" && playlist.isOnline)
-
-                itemTitle: itemTitle
-
-                itemBottom: scrollPlaylist
-
-                onClicked:
-                {
-                    if (isFocused) window.clearFocus();
-
-                    if (playlist.source == "")
-                    {
-                         panelBrowse.expose();
-                    }
-                    else panelBrowse.browse(playlist.source);
-                }
-            }
-
-            BarTitleText
-            {
-                id: itemTitle
-
-                anchors.left  : buttonTitle.left
                 anchors.right : buttonUp.left
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
@@ -494,8 +466,6 @@ Item
 
             itemLeft: (listFolder.visible) ? listFolder
                                            : gui.listLibrary
-
-            itemTop: (buttonTitle.visible) ? buttonTitle : null
         }
 
         ScrollerList

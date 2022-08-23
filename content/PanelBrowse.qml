@@ -1462,10 +1462,8 @@ MouseArea
         onClicked: playlist.reloadQuery()
     }
 
-    ButtonPianoTitle
+    BarTitleText
     {
-        id: buttonTitle
-
         anchors.left:
         {
             if (buttonRefresh.visible)
@@ -1478,31 +1476,6 @@ MouseArea
             }
             else return scrollPlaylist.left;
         }
-
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
-
-        visible: (itemTitle.visible && itemTitle.text != ""
-                  &&
-                  playlist.source != pFolderBrowse.source)
-
-        itemTitle: itemTitle
-
-        itemBottom: scrollPlaylist
-
-        onClicked:
-        {
-            if (isFocused) window.clearFocus();
-
-            browse(playlist.source);
-        }
-    }
-
-    BarTitleText
-    {
-        id: itemTitle
-
-        anchors.left: buttonTitle.left
 
         anchors.right: (buttonAddTrack.visible) ? buttonAddTrack.left
                                                 : buttonUp      .left
@@ -1755,8 +1728,6 @@ MouseArea
             }
             else return scrollBrowse;
         }
-
-        itemTop: (buttonTitle.visible) ? buttonTitle : null
 
         /* QML_EVENT */ Keys.onPressed: function(event)
         {

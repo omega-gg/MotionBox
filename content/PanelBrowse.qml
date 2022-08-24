@@ -294,14 +294,13 @@ MouseArea
 
             pFolder.loadCurrentIndex(0, true);
 
-            if (playlist && playlist.queryIsLoading == false)
+            if (playlist == null || playlist.queryIsLoading) return;
+
+            if (playlist.isEmpty)
             {
-                if (playlist.isEmpty)
-                {
-                    pSearchStop();
-                }
-                else pCompleteSearch();
+                pSearchStop();
             }
+            else pCompleteSearch();
         }
 
         /* QML_CONNECTION */ function onQueryCompleted()
@@ -331,7 +330,7 @@ MouseArea
             else pCompleteSearch();
         }
 
-        /* QML_CONNECTION */ function onTrackQueryEnded() { pCompleteSearch(); }
+        /* QML_CONNECTION */ function onTrackQueryEnded() { pCompleteSearch() }
     }
 
     //---------------------------------------------------------------------------------------------

@@ -3128,7 +3128,7 @@ Item
         // NOTE: Wait for the icons to load.
         sk.wait(5000);
 
-        var index = currentPlaylist.indexFromSource("https://www.youtube.com/watch?v=UTN2YKLNDFc");
+        var index = currentPlaylist.indexFromSource("https://www.youtube.com/watch?v=UedTcufyrHc");
 
         // NOTE: We want to skip a few tracks.
         for (var i = 0; i < index; i++)

@@ -14,6 +14,8 @@ backend="../backend"
 #--------------------------------------------------------------------------------------------------
 # environment
 
+compiler_win="mingw"
+
 qt="qt5"
 
 #--------------------------------------------------------------------------------------------------
@@ -38,15 +40,28 @@ fi
 if [ $1 = "win32" -o $1 = "win64" ]; then
 
     os="windows"
+
+    compiler="$compiler_win"
 else
-    os="default"
+    if [ $1 = "iOS" -o $1 = "android" ]; then
+
+        os="mobile"
+    else
+        os="default"
+    fi
+
+    compiler="default"
 fi
 
 if [ $qt = "qt5" ]; then
 
+    QtX="Qt5"
+
     qx="5"
 
 elif [ $qt = "qt6" ]; then
+
+    QtX="Qt6"
 
     if [ $1 = "macOS" ]; then
 
@@ -82,10 +97,6 @@ if [ $1 = "macOS" ]; then
     cp -r bin/$target.app deploy
 
     deploy="deploy/$target.app/Contents/MacOS"
-
-    rm -rf $deploy/plugins
-
-    rm $deploy/*.dylib
 else
     deploy="deploy"
 fi
@@ -105,7 +116,9 @@ cd -
 
 path="$Sky/deploy"
 
-cp -r "$path"/imageformats $deploy
+#--------------------------------------------------------------------------------------------------
+# Qt
+#--------------------------------------------------------------------------------------------------
 
 if [ $qt = "qt5" ]; then
 
@@ -116,49 +129,356 @@ elif [ $qt = "qt6" ]; then
     QtQuick="QtQuick"
 fi
 
-if [ $qt != "qt4" ]; then
+if [ $os = "windows" ]; then
 
-    cp -r "$path"/platforms $deploy
-    cp -r "$path"/$QtQuick  $deploy
+    if [ $compiler = "mingw" ]; then
 
-    if [ $qt = "qt6" ]; then
-
-        cp -r "$path"/QtQml $deploy
+        cp "$path"/libgcc_s_*-1.dll    $deploy
+        cp "$path"/libstdc++-6.dll     $deploy
+        cp "$path"/libwinpthread-1.dll $deploy
     fi
 
-    if [ $1 = "linux" ]; then
+    if [ $qt = "qt4" ]; then
 
-        cp -r "$path"/xcbglintegrations $deploy
+        mkdir $deploy/imageformats
+
+        cp "$path"/QtCore4.dll        $deploy
+        cp "$path"/QtGui4.dll         $deploy
+        cp "$path"/QtDeclarative4.dll $deploy
+        cp "$path"/QtNetwork4.dll     $deploy
+        cp "$path"/QtOpenGL4.dll      $deploy
+        cp "$path"/QtScript4.dll      $deploy
+        cp "$path"/QtSql4.dll         $deploy
+        cp "$path"/QtSvg4.dll         $deploy
+        cp "$path"/QtWebKit4.dll      $deploy
+        cp "$path"/QtXml4.dll         $deploy
+        cp "$path"/QtXmlPatterns4.dll $deploy
+
+        cp "$path"/imageformats/qsvg4.dll  $deploy/imageformats
+        cp "$path"/imageformats/qjpeg4.dll $deploy/imageformats
+    else
+        mkdir $deploy/platforms
+        mkdir $deploy/imageformats
+        mkdir $deploy/$QtQuick
+        mkdir $deploy/QtMultimedia
+
+        if [ $qt = "qt5" ]; then
+
+            mkdir -p $deploy/mediaservice
+        else
+            mkdir -p $deploy/tls
+
+            mkdir -p $deploy/QtQml/WorkerScript
+        fi
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/libEGL.dll    deploy
+            cp "$path"/libGLESv2.dll deploy
+        fi
+
+        cp "$path/$QtX"Core.dll            $deploy
+        cp "$path/$QtX"Gui.dll             $deploy
+        cp "$path/$QtX"Network.dll         $deploy
+        cp "$path/$QtX"OpenGL.dll          $deploy
+        cp "$path/$QtX"Qml.dll             $deploy
+        cp "$path/$QtX"Quick.dll           $deploy
+        cp "$path/$QtX"Svg.dll             $deploy
+        cp "$path/$QtX"Widgets.dll         $deploy
+        cp "$path/$QtX"Xml.dll             $deploy
+        cp "$path/$QtX"Multimedia.dll      $deploy
+        cp "$path/$QtX"MultimediaQuick.dll $deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path/$QtX"XmlPatterns.dll $deploy
+            cp "$path/$QtX"WinExtras.dll   $deploy
+        else
+            cp "$path/$QtX"Core5Compat.dll $deploy
+        fi
+
+        if [ -f "$path/$QtX"QmlModels.dll ]; then
+
+            cp "$path/$QtX"QmlModels.dll       $deploy
+            cp "$path/$QtX"QmlWorkerScript.dll $deploy
+        fi
+
+        cp "$path"/platforms/qwindows.dll $deploy/platforms
+
+        cp "$path"/imageformats/qsvg.dll  $deploy/imageformats
+        cp "$path"/imageformats/qjpeg.dll $deploy/imageformats
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/mediaservice/dsengine.dll $deploy/mediaservice
+        else
+            cp "$path"/tls/qopensslbackend.dll $deploy/tls
+        fi
+
+        cp "$path"/$QtQuick/qtquick2plugin.dll $deploy/$QtQuick
+        cp "$path"/$QtQuick/qmldir             $deploy/$QtQuick
+
+        cp "$path"/QtMultimedia/*multimedia*.dll $deploy/QtMultimedia
+        cp "$path"/QtMultimedia/qmldir           $deploy/QtMultimedia
+
+        if [ $qt = "qt6" ]; then
+
+            cp "$path"/QtQml/WorkerScript/workerscriptplugin.dll $deploy/QtQml/WorkerScript
+            cp "$path"/QtQml/WorkerScript/qmldir                 $deploy/QtQml/WorkerScript
+        fi
+    fi
+
+elif [ $1 = "macOS" ]; then
+
+    if [ $qt != "qt4" ]; then
+
+        mkdir $deploy/platforms
+        mkdir $deploy/imageformats
+        mkdir $deploy/$QtQuick
+        mkdir $deploy/QtMultimedia
+
+        if [ $qt = "qt5" ]; then
+
+            mkdir -p $deploy/mediaservice
+        else
+            mkdir -p $deploy/tls
+
+            mkdir -p $deploy/QtQml/WorkerScript
+        fi
+
+        # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
+        cp "$path"/qt.conf $deploy
+
+        cp "$path"/QtCore.dylib            $deploy
+        cp "$path"/QtGui.dylib             $deploy
+        cp "$path"/QtNetwork.dylib         $deploy
+        cp "$path"/QtOpenGL.dylib          $deploy
+        cp "$path"/QtCore.dylib            $deploy
+        cp "$path"/QtQml.dylib             $deploy
+        cp "$path"/QtQuick.dylib           $deploy
+        cp "$path"/QtSvg.dylib             $deploy
+        cp "$path"/QtWidgets.dylib         $deploy
+        cp "$path"/QtXml.dylib             $deploy
+        cp "$path/"QtMultimedia.dylib      $deploy
+        cp "$path/"QtMultimediaQuick.dylib $deploy
+        cp "$path"/QtDBus.dylib            $deploy
+        cp "$path"/QtPrintSupport.dylib    $deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/QtXmlPatterns.dylib $deploy
+        else
+            cp "$path"/QtCore5Compat.dylib $deploy
+        fi
+
+        if [ -f "$path"/QtQmlModels.dylib ]; then
+
+            cp "$path"/QtQmlModels.dylib       $deploy
+            cp "$path"/QtQmlWorkerScript.dylib $deploy
+        fi
+
+        cp "$path"/platforms/libqcocoa.dylib $deploy/platforms
+
+        cp "$path"/imageformats/libqsvg.dylib  $deploy/imageformats
+        cp "$path"/imageformats/libqjpeg.dylib $deploy/imageformats
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/mediaservice/libqavfcamera.dylib $deploy/mediaservice
+        else
+            cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
+        fi
+
+        cp "$path"/$QtQuick/libqtquick2plugin.dylib $deploy/$QtQuick
+        cp "$path"/$QtQuick/qmldir                  $deploy/$QtQuick
+
+        cp "$path"/QtMultimedia/lib*multimedia*.dylib $deploy/QtMultimedia
+        cp "$path"/QtMultimedia/qmldir                $deploy/QtMultimedia
+
+        if [ $qt = "qt6" ]; then
+
+            cp "$path"/QtQml/WorkerScript/libworkerscriptplugin.dylib $deploy/QtQml/WorkerScript
+            cp "$path"/QtQml/WorkerScript/qmldir                      $deploy/QtQml/WorkerScript
+        fi
+    fi
+
+elif [ $1 = "linux" ]; then
+
+    if [ $qt = "qt4" ]; then
+
+        mkdir $deploy/imageformats
+
+        cp "$path"/libpng16.so.16 $deploy
+
+        cp "$path"/libQtCore.so.4        $deploy
+        cp "$path"/libQtGui.so.4         $deploy
+        cp "$path"/libQtDeclarative.so.4 $deploy
+        cp "$path"/libQtNetwork.so.4     $deploy
+        cp "$path"/libQtOpenGL.so.4      $deploy
+        cp "$path"/libQtScript.so.4      $deploy
+        cp "$path"/libQtSql.so.4         $deploy
+        cp "$path"/libQtSvg.so.4         $deploy
+        cp "$path"/libQtWebKit.so.4      $deploy
+        cp "$path"/libQtXml.so.4         $deploy
+        cp "$path"/libQtXmlPatterns.so.4 $deploy
+
+        cp "$path"/imageformats/libqsvg.so  $deploy/imageformats
+        cp "$path"/imageformats/libqjpeg.so $deploy/imageformats
+    else
+        mkdir $deploy/platforms
+        mkdir $deploy/imageformats
+        mkdir $deploy/$QtQuick
+        mkdir $deploy/QtMultimedia
+        mkdir $deploy/xcbglintegrations
+
+        if [ $qt = "qt5" ]; then
+
+            mkdir -p $deploy/mediaservice
+        else
+            mkdir -p $deploy/tls
+
+            mkdir -p $deploy/QtQml/WorkerScript
+        fi
+
+        cp "$path"/libz.so.* $deploy
+
+        cp "$path"/libicudata.so.* $deploy
+        cp "$path"/libicui18n.so.* $deploy
+        cp "$path"/libicuuc.so.*   $deploy
+
+        cp "$path"/libdouble-conversion.so.* $deploy
+        cp "$path"/libpng16.so.*             $deploy
+        cp "$path"/libharfbuzz.so.*          $deploy
+        cp "$path"/libxcb-xinerama.so.*      $deploy
+
+        # NOTE: Required for Ubuntu 20.04.
+        if [ -f "$path"/libpcre2-16.so.0 ]; then
+
+            cp "$path"/libpcre2-16.so.0 $deploy
+        fi
+
+        cp "$path/lib$QtX"Core.so.$qx            $deploy
+        cp "$path/lib$QtX"Gui.so.$qx             $deploy
+        cp "$path/lib$QtX"Network.so.$qx         $deploy
+        cp "$path/lib$QtX"OpenGL.so.$qx          $deploy
+        cp "$path/lib$QtX"Qml.so.$qx             $deploy
+        cp "$path/lib$QtX"Quick.so.$qx           $deploy
+        cp "$path/lib$QtX"Svg.so.$qx             $deploy
+        cp "$path/lib$QtX"Widgets.so.$qx         $deploy
+        cp "$path/lib$QtX"Xml.so.$qx             $deploy
+        cp "$path/lib$QtX"Multimedia.so.$qx      $deploy
+        cp "$path/lib$QtX"MultimediaQuick.so.$qx $deploy
+        cp "$path/lib$QtX"XcbQpa.so.$qx          $deploy
+        cp "$path/lib$QtX"DBus.so.$qx            $deploy
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path/lib$QtX"XmlPatterns.so.$qx $deploy
+        else
+            cp "$path/lib$QtX"Core5Compat.so.$qx $deploy
+        fi
+
+        if [ -f "$path/lib$QtX"QmlModels.so.$qx ]; then
+
+            cp "$path/lib$QtX"QmlModels.so.$qx       $deploy
+            cp "$path/lib$QtX"QmlWorkerScript.so.$qx $deploy
+        fi
+
+        cp "$path"/platforms/libqxcb.so $deploy/platforms
+
+        cp "$path"/imageformats/libqsvg.so  $deploy/imageformats
+        cp "$path"/imageformats/libqjpeg.so $deploy/imageformats
+
+        if [ $qt = "qt5" ]; then
+
+            cp "$path"/mediaservice/libgstcamerabin.so $deploy/mediaservice
+        else
+            cp "$path"/tls/libqopensslbackend.so $deploy/tls
+        fi
+
+        cp "$path"/xcbglintegrations/libqxcb-egl-integration.so $deploy/xcbglintegrations
+        cp "$path"/xcbglintegrations/libqxcb-glx-integration.so $deploy/xcbglintegrations
+
+        cp "$path"/$QtQuick/libqtquick2plugin.so $deploy/$QtQuick
+        cp "$path"/$QtQuick/qmldir               $deploy/$QtQuick
+
+        cp "$path"/QtMultimedia/lib*multimedia*.so $deploy/QtMultimedia
+        cp "$path"/QtMultimedia/qmldir             $deploy/QtMultimedia
+
+        if [ $qt = "qt6" ]; then
+
+            cp "$path"/QtQml/WorkerScript/libworkerscriptplugin.so $deploy/QtQml/WorkerScript
+            cp "$path"/QtQml/WorkerScript/qmldir                   $deploy/QtQml/WorkerScript
+        fi
     fi
 fi
+
+#--------------------------------------------------------------------------------------------------
+# SSL
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    if [ $qt = "qt4" ]; then
+
+        cp "$path"/libeay32.dll $deploy
+        cp "$path"/ssleay32.dll $deploy
+    else
+        cp "$path"/libssl*.dll    $deploy
+        cp "$path"/libcrypto*.dll $deploy
+    fi
+
+elif [ $1 = "linux" ]; then
+
+    cp "$path"/libssl.so*    $deploy
+    cp "$path"/libcrypto.so* $deploy
+fi
+
+#--------------------------------------------------------------------------------------------------
+# VLC
+#--------------------------------------------------------------------------------------------------
 
 if [ $os = "windows" ]; then
 
     cp -r "$path"/plugins $deploy
 
-    cp "$path"/*.dll $deploy
-
-    rm -f $deploy/Sk*.dll
+    cp "$path"/libvlc*.dll $deploy
 
 elif [ $1 = "macOS" ]; then
 
-    # FIXME Qt 5.14 macOS: We have to copy qt.conf to avoid a segfault.
-    cp "$path"/qt.conf $deploy/../Resources
-
     cp -r "$path"/plugins $deploy
 
-    cp "$path"/*.dylib $deploy
+    cp "$path"/libvlc*.dylib $deploy
+fi
 
-    rm -f $deploy/Sk*.dylib
+#--------------------------------------------------------------------------------------------------
+# libtorrent
+#--------------------------------------------------------------------------------------------------
 
-elif [ $1 = "linux" -o $1 = "android" ]; then
+if [ $os = "windows" ]; then
 
-    # FIXME Linux: We can't seem to be able to enforce our VLC libraries on ArchLinux.
-    #cp -r "$path"/vlc $deploy
+    cp "$path"/*torrent-rasterbar.dll $deploy
 
-    cp "$path"/*.so* $deploy
+elif [ $1 = "macOS" ]; then
 
-    rm -f $deploy/Sk*.so*
+    cp "$path"/libtorrent-rasterbar.dylib $deploy
+
+elif [ $1 = "linux" ]; then
+
+    cp "$path"/libtorrent-rasterbar*.so* deploy
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Boost
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "macOS" ]; then
+
+    cp "$path"/libboost*.dylib $deploy
+
+elif [ $1 = "linux" ]; then
+
+    cp "$path"/libboost*.so* $deploy
 fi
 
 echo "-------------"
@@ -213,6 +533,9 @@ elif [ $1 = "macOS" ]; then
 
     install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
                               @loader_path/QtXml.dylib $target
+
+    install_name_tool -change @rpath/QtMultimedia.framework/Versions/$qx/QtMultimedia \
+                              @loader_path/QtMultimedia.dylib $target
 
     if [ $qt = "qt5" ]; then
 
@@ -280,6 +603,28 @@ elif [ $1 = "macOS" ]; then
     otool -L $QtQuick/libqtquick2plugin.dylib
 
     #----------------------------------------------------------------------------------------------
+    # QtMultimedia
+
+    if [ $qt = "qt5" ]; then
+
+        libmultimedia="libdeclarative_multimedia"
+    else
+        libmultimedia="libquickmultimediaplugin"
+    fi
+
+    install_name_tool -change \
+                      @rpath/QtMultimedia.framework/Versions/$qx/QtMultimedia \
+                      @loader_path/../QtMultimedia.dylib \
+                      QtMultimedia/$libmultimedia.dylib
+
+    install_name_tool -change \
+                      @rpath/QtMultimediaQuick.framework/Versions/$qx/QtMultimediaQuick \
+                      @loader_path/../QtMultimediaQuick.dylib \
+                      QtMultimedia/$libmultimedia.dylib
+
+    otool -L QtMultimedia/$libmultimedia.dylib
+
+    #----------------------------------------------------------------------------------------------
     # VLC
 
     install_name_tool -change @rpath/libvlccore.dylib \
@@ -317,10 +662,13 @@ fi
 # backend
 #--------------------------------------------------------------------------------------------------
 
-echo "COPYING backend"
+if [ $os != "mobile" ]; then
 
-mkdir -p $deploy/backend/cover
+    echo "COPYING backend"
 
-cp "$backend"/cover/* $deploy/backend/cover
+    mkdir -p $deploy/backend/cover
 
-cp "$backend"/*.vbml $deploy/backend
+    cp "$backend"/cover/* $deploy/backend/cover
+
+    cp "$backend"/*.vbml $deploy/backend
+fi

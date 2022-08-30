@@ -92,13 +92,13 @@ Cette page: [http://omega.gg/MotionBox/get/fr][page]
 
 MotionBox: [http://omega.gg/MotionBox/fr][MotionBox]
 
-Navigateur Vidéo: [http://omega.gg/MotionBox/VideoBrowser/fr][Navigateur Vidéo]
+Navigateur Vidéo: [http://omega.gg/about/VideoBrowser/fr][Navigateur Vidéo]
 
 Liberté Médiatique: [http://omega.gg/about/MotionFreedom/fr][Liberté Médiatique]
 
 [MotionBox]: http://omega.gg/MotionBox/fr
 
-[Navigateur Vidéo]: http://omega.gg/MotionBox/VideoBrowser/fr
+[Navigateur Vidéo]: http://omega.gg/about/VideoBrowser/fr
 
 [Liberté Médiatique]: http://omega.gg/about/MotionFreedom/fr
 

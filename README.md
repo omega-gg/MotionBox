@@ -5,7 +5,7 @@
 [![appveyor](https://ci.appveyor.com/api/projects/status/ct0kbo659jviskec?svg=true)](https://ci.appveyor.com/project/3unjee/MotionBox)
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
-[MotionBox](http://omega.gg/MotionBox) is a video player designed for the Internet.<br>
+[MotionBox](http://omega.gg/MotionBox) is a desktop [Semantic Player](http://omega.gg/about/SemanticPlayer) designed for the Internet.<br>
 Built to access, organize and share video sources semantically.<br>
 [omega](http://omega.gg/about) is building MotionBox to empower people.<br>
 

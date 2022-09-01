@@ -58,13 +58,13 @@ The video player is based on [VLC] and [libtorrent].
 
 # Credits
 
-Code and Design: [Benjamin Arnaud](http://bunjee.me)
+Code and Design: [Benjamin Arnaud](https://bunjee.me)
 
-Qt Framework: [Qt Project team](http://www.qt.io)
+Qt Framework: [Qt Project team](https://www.qt.io)
 
-VLC Video Engine: [VideoLAN organization](http://www.videolan.org)
+VLC Video Engine: [VideoLAN organization](https://www.videolan.org)
 
-libtorrent Library: [Arvid Norberg](http://www.libtorrent.org)
+libtorrent Library: [Arvid Norberg](https://www.libtorrent.org)
 
 
 # Contacts

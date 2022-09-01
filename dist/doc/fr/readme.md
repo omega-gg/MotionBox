@@ -58,13 +58,13 @@ Le lecteur vidéo est basé sur [VLC] et [libtorrent].
 
 # Crédits
 
-Code et Conception: [Benjamin Arnaud](http://bunjee.me/fr)
+Code et Conception: [Benjamin Arnaud](https://bunjee.me/fr)
 
-Framework Qt: [Qt Project team](http://www.qt.io)
+Framework Qt: [Qt Project team](https://www.qt.io)
 
-Moteur Vidéo VLC: [VideoLAN organization](http://www.videolan.org)
+Moteur Vidéo VLC: [VideoLAN organization](https://www.videolan.org)
 
-Librairie libtorrent: [Arvid Norberg](http://www.libtorrent.org)
+Librairie libtorrent: [Arvid Norberg](https://www.libtorrent.org)
 
 
 # Contacts

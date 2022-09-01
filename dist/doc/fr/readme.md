@@ -69,67 +69,67 @@ Librairie libtorrent: [Arvid Norberg](https://www.libtorrent.org)
 
 # Contacts
 
-Forum: [http://omega.gg/forum][Forum]
+Forum: [https://omega.gg/forum][Forum]
 
 Mail: [contact@omega.gg][Mail]
 
 Twitter: [@omega_gg][Twitter]
 
-[Forum]: http://omega.gg/forum
+[Forum]: https://omega.gg/forum
 
 [Mail]: mailto:contact@omega.gg
 
-[Twitter]: http://twitter.com/omega_gg
+[Twitter]: https://twitter.com/omega_gg
 
 
 # Liens
 
-Cette page: [http://omega.gg/MotionBox/get/fr][page]
+Cette page: [https://omega.gg/MotionBox/get/fr][page]
 
-[page]: http://omega.gg/MotionBox/get/fr
-
----
-
-MotionBox: [http://omega.gg/MotionBox/fr][MotionBox]
-
-Navigateur Vidéo: [http://omega.gg/about/VideoBrowser/fr][Navigateur Vidéo]
-
-Liberté Médiatique: [http://omega.gg/about/MotionFreedom/fr][Liberté Médiatique]
-
-[MotionBox]: http://omega.gg/MotionBox/fr
-
-[Navigateur Vidéo]: http://omega.gg/about/VideoBrowser/fr
-
-[Liberté Médiatique]: http://omega.gg/about/MotionFreedom/fr
+[page]: https://omega.gg/MotionBox/get/fr
 
 ---
 
-bunjee: [http://bunjee.me/fr][bunjee]
+MotionBox: [https://omega.gg/MotionBox/fr][MotionBox]
 
-omega: [http://omega.gg/about/fr][omega]
+Navigateur Vidéo: [https://omega.gg/about/VideoBrowser/fr][Navigateur Vidéo]
 
-[bunjee]: http://bunjee.me/fr
+Liberté Médiatique: [https://omega.gg/about/MotionFreedom/fr][Liberté Médiatique]
 
-[omega]: http://omega.gg/about/fr
+[MotionBox]: https://omega.gg/MotionBox/fr
+
+[Navigateur Vidéo]: https://omega.gg/about/VideoBrowser/fr
+
+[Liberté Médiatique]: https://omega.gg/about/MotionFreedom/fr
 
 ---
 
-Sky kit: [http://omega.gg/Sky/fr][Sky kit]
+bunjee: [https://bunjee.me/fr][bunjee]
 
-Framework Qt: [http://fr.wikipedia.org/wiki/Qt][Framework Qt]
+omega: [https://omega.gg/about/fr][omega]
 
-QML: [http://en.wikipedia.org/wiki/QML][QML]
+[bunjee]: https://bunjee.me/fr
 
-VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
+[omega]: https://omega.gg/about/fr
 
-libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
+---
 
-[Sky kit]: http://omega.gg/Sky/fr
+Sky kit: [https://omega.gg/Sky/fr][Sky kit]
 
-[Framework Qt]: http://fr.wikipedia.org/wiki/Qt
+Framework Qt: [https://fr.wikipedia.org/wiki/Qt][Framework Qt]
 
-[QML]: http://en.wikipedia.org/wiki/QML
+QML: [https://en.wikipedia.org/wiki/QML][QML]
 
-[VLC]: http://fr.wikipedia.org/wiki/VLC_media_player
+VLC media player: [https://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
-[libtorrent]: http://en.wikipedia.org/wiki/libtorrent
+libtorrent: [https://en.wikipedia.org/wiki/libtorrent][libtorrent]
+
+[Sky kit]: https://omega.gg/Sky/fr
+
+[Framework Qt]: https://fr.wikipedia.org/wiki/Qt
+
+[QML]: https://en.wikipedia.org/wiki/QML
+
+[VLC]: https://fr.wikipedia.org/wiki/VLC_media_player
+
+[libtorrent]: https://en.wikipedia.org/wiki/libtorrent

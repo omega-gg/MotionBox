@@ -69,70 +69,70 @@ libtorrent Library: [Arvid Norberg](https://www.libtorrent.org)
 
 # Contacts
 
-Forum: [http://omega.gg/forum][Forum]
+Forum: [https://omega.gg/forum][Forum]
 
 Mail: [contact@omega.gg][Mail]
 
 Twitter: [@omega_gg][Twitter]
 
-[Forum]: http://omega.gg/forum
+[Forum]: https://omega.gg/forum
 
 [Mail]: mailto:contact@omega.gg
 
-[Twitter]: http://twitter.com/omega_gg
+[Twitter]: https://twitter.com/omega_gg
 
 
 # Links
 
-This page: [http://omega.gg/MotionBox/get][page]
+This page: [https://omega.gg/MotionBox/get][page]
 
-[page]: http://omega.gg/MotionBox/get
-
----
-
-MotionBox: [http://omega.gg/MotionBox][MotionBox]
-
-Video Browser: [http://omega.gg/about/VideoBrowser][Video Browser]
-
-Motion Freedom: [http://omega.gg/about/MotionFreedom][Motion Freedom]
-
-[MotionBox]: http://omega.gg/MotionBox
-
-[Video Browser]: http://omega.gg/about/VideoBrowser
-
-[Motion Freedom]: http://omega.gg/about/MotionFreedom
+[page]: https://omega.gg/MotionBox/get
 
 ---
 
-bunjee: [http://bunjee.me][bunjee]
+MotionBox: [https://omega.gg/MotionBox][MotionBox]
 
-omega: [http://omega.gg/about][omega]
+Video Browser: [https://omega.gg/about/VideoBrowser][Video Browser]
 
-[bunjee]: http://bunjee.me
+Motion Freedom: [https://omega.gg/about/MotionFreedom][Motion Freedom]
 
-[omega]: http://omega.gg/about
+[MotionBox]: https://omega.gg/MotionBox
+
+[Video Browser]: https://omega.gg/about/VideoBrowser
+
+[Motion Freedom]: https://omega.gg/about/MotionFreedom
 
 ---
 
-Sky kit: [http://omega.gg/Sky][Sky kit]
+bunjee: [https://bunjee.me][bunjee]
 
-Qt framework: [http://en.wikipedia.org/wiki/Qt_%28software%29][Qt framework]
+omega: [https://omega.gg/about][omega]
 
-QML: [http://en.wikipedia.org/wiki/QML][QML]
+[bunjee]: https://bunjee.me
 
-VLC media player: [http://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
+[omega]: https://omega.gg/about
 
-libtorrent: [http://en.wikipedia.org/wiki/libtorrent][libtorrent]
+---
 
-[Sky kit]: http://omega.gg/Sky
+Sky kit: [https://omega.gg/Sky][Sky kit]
 
-[Qt framework]: http://en.wikipedia.org/wiki/Qt_%28software%29
+Qt framework: [https://en.wikipedia.org/wiki/Qt_%28software%29][Qt framework]
 
-[QML]: http://en.wikipedia.org/wiki/QML
+QML: [https://en.wikipedia.org/wiki/QML][QML]
 
-[VLC]: http://en.wikipedia.org/wiki/VLC_media_player
+VLC media player: [https://en.wikipedia.org/wiki/VLC\_media\_player][VLC]
 
-[libtorrent]: http://en.wikipedia.org/wiki/libtorrent
+libtorrent: [https://en.wikipedia.org/wiki/libtorrent][libtorrent]
+
+[Sky kit]: https://omega.gg/Sky
+
+[Qt framework]: https://en.wikipedia.org/wiki/Qt_%28software%29
+
+[QML]: https://en.wikipedia.org/wiki/QML
+
+[VLC]: https://en.wikipedia.org/wiki/VLC_media_player
+
+[libtorrent]: https://en.wikipedia.org/wiki/libtorrent
 
 
 # About

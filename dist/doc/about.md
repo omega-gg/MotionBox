@@ -4,6 +4,6 @@
 
 License: [GPLv3](license.html).
 
-[MotionBox]: http://omega.gg/MotionBox
+[MotionBox]: https://omega.gg/MotionBox
 
-[omega]: http://omega.gg/about
+[omega]: https://omega.gg/about

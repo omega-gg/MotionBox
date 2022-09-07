@@ -373,8 +373,8 @@ private: // Variables
 
     int _torrentConnections;
 
-    int  _torrentUpload;
-    int  _torrentDownload;
+    int _torrentUpload;
+    int _torrentDownload;
 
     bool _torrentUploadActive;
     bool _torrentDownloadActive;

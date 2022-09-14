@@ -33,6 +33,9 @@
 #include <WFileWatcher>
 #endif
 
+// Application includes
+#include "DataLocal.h"
+
 // Defines
 #define core ControllerCore::instance()
 
@@ -49,7 +52,7 @@ class WBackendIndex;
 class WBackendNet;
 class WLibraryFolderRelated;
 class WTabsTrack;
-class DataLocal;
+class WDeclarativePlayer;
 class DataOnline;
 
 #ifdef QT_6
@@ -107,7 +110,7 @@ public: // Interface
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);
 
-    Q_INVOKABLE void saveSplash(WWindow * window, int border) const;
+    Q_INVOKABLE void saveSplash(WWindow * window, int border);
 
     Q_INVOKABLE void applyProxy(bool active);
 
@@ -117,7 +120,7 @@ public: // Static functions
     Q_INVOKABLE static void applyTorrentOptions(int connections,
                                                 int upload, int download, int cache);
 
-    Q_INVOKABLE static WAbstractHook * createHook(WAbstractBackend * backend);
+    Q_INVOKABLE static void applyHooks(WDeclarativePlayer * player);
 
     //---------------------------------------------------------------------------------------------
 
@@ -215,7 +218,7 @@ private: // Variables
     QString _argument;
 #endif
 
-    DataLocal  * _local;
+    DataLocal    _local;
     DataOnline * _online;
 
     WCache * _cache;

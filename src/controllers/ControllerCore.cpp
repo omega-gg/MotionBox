@@ -90,7 +90,6 @@
 #include <WDeclarativePlayer>
 
 // Application includes
-#include "DataLocal.h"
 #include "DataOnline.h"
 
 W_INIT_CONTROLLER(ControllerCore)
@@ -158,23 +157,21 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // DataLocal
 
-    _local = new DataLocal(this);
+    _local.setSaveEnabled(true);
 
-    _local->setSaveEnabled(true);
+    _local.load(true);
 
-    _local->load(true);
-
-    if (_local->_maximized)
+    if (_local._maximized)
     {
         sk->setDefaultMode(Sk::Maximized);
     }
 
-    sk->setDefaultScreen(_local->_screen);
+    sk->setDefaultScreen(_local._screen);
 
-    sk->setDefaultWidth (_local->_width);
-    sk->setDefaultHeight(_local->_height);
+    sk->setDefaultWidth (_local._width);
+    sk->setDefaultHeight(_local._height);
 
-    if (_local->_splashWidth != -1)
+    if (_local._splashWidth != -1)
     {
         _pathSplash = WControllerFile::fileUrl(_path + "/splash.png");
     }
@@ -336,7 +333,7 @@ ControllerCore::ControllerCore() : WController()
     wControllerDeclarative->setContextProperty("sk", sk);
 
     wControllerDeclarative->setContextProperty("core",  this);
-    wControllerDeclarative->setContextProperty("local", _local);
+    wControllerDeclarative->setContextProperty("local", &_local);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -364,7 +361,7 @@ ControllerCore::ControllerCore() : WController()
     // DataLocal
 
     // NOTE: We make sure the storage folder is created.
-    _local->createPath();
+    _local.createPath();
 
     //---------------------------------------------------------------------------------------------
     // Message handler
@@ -381,7 +378,7 @@ ControllerCore::ControllerCore() : WController()
 
     qDebug("Path storage: %s", _path.C_STR);
     qDebug("Path log:     %s", wControllerFile->pathLog().C_STR);
-    qDebug("Path config:  %s", _local->getFilePath().C_STR);
+    qDebug("Path config:  %s", _local.getFilePath().C_STR);
 
     //---------------------------------------------------------------------------------------------
     // Controllers
@@ -389,7 +386,7 @@ ControllerCore::ControllerCore() : WController()
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
 
-    W_CREATE_CONTROLLER_2(WControllerTorrent, _path + "/torrents", _local->_torrentPort);
+    W_CREATE_CONTROLLER_2(WControllerTorrent, _path + "/torrents", _local._torrentPort);
 
     //---------------------------------------------------------------------------------------------
     // Cache
@@ -434,13 +431,13 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Proxy
 
-    applyProxy(_local->_proxyActive);
+    applyProxy(_local._proxyActive);
 
     //---------------------------------------------------------------------------------------------
     // Torrents
 
-    applyTorrentOptions(_local->_torrentConnections,
-                        _local->_torrentUpload, _local->_torrentDownload, _local->_torrentCache);
+    applyTorrentOptions(_local._torrentConnections,
+                        _local._torrentUpload, _local._torrentDownload, _local._torrentCache);
 
     //---------------------------------------------------------------------------------------------
     // Tabs
@@ -541,9 +538,9 @@ ControllerCore::ControllerCore() : WController()
 
     startTimer(60000); // 1 minute
 
-    _local->setSplashSize(-1, -1);
+    _local.setSplashSize(-1, -1);
 
-    _local->save();
+    _local.save();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -612,7 +609,7 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border) const
+/* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border)
 {
     QImage image;
 
@@ -629,7 +626,7 @@ ControllerCore::ControllerCore() : WController()
 
     image.save(_path + "/splash.png", "png");
 
-    _local->setSplashSize(image.width(), image.height());
+    _local.setSplashSize(image.width(), image.height());
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -640,35 +637,35 @@ ControllerCore::ControllerCore() : WController()
 
     if (active)
     {
-        if (_local->_proxyStream)
+        if (_local._proxyStream)
         {
             _cache    ->clearProxy();
             //_loaderWeb->clearProxy();
 
             wControllerDownload->clearProxy();
 
-            wControllerTorrent->setProxy(_local->_proxyHost,
-                                         _local->_proxyPort, _local->_proxyPassword);
+            wControllerTorrent->setProxy(_local._proxyHost,
+                                         _local._proxyPort, _local._proxyPassword);
 
             if (_loaderMedia == NULL)
             {
                 _loaderMedia = new WLoaderNetwork(this);
             }
 
-            _loaderMedia->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
+            _loaderMedia->setProxy(_local._proxyHost, _local._proxyPort, _local._proxyPassword);
 
             wControllerMedia->setLoader(_loaderMedia);
         }
         else
         {
-            _cache    ->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
-            //_loaderWeb->setProxy(_local->_proxyHost, _local->_proxyPort, _local->_proxyPassword);
+            _cache    ->setProxy(_local._proxyHost, _local._proxyPort, _local._proxyPassword);
+            //_loaderWeb->setProxy(_local._proxyHost, _local._proxyPort, _local._proxyPassword);
 
-            wControllerDownload->setProxy(_local->_proxyHost,
-                                          _local->_proxyPort, _local->_proxyPassword);
+            wControllerDownload->setProxy(_local._proxyHost,
+                                          _local._proxyPort, _local._proxyPassword);
 
-            wControllerTorrent->setProxy(_local->_proxyHost,
-                                         _local->_proxyPort, _local->_proxyPassword);
+            wControllerTorrent->setProxy(_local._proxyHost,
+                                         _local._proxyPort, _local._proxyPassword);
 
             wControllerMedia->setLoader(NULL);
         }
@@ -710,7 +707,7 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerTorrent->clearTorrents();
 
-    _local->setCache(false);
+    _local.setCache(false);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -728,9 +725,23 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ WAbstractHook * ControllerCore::createHook(WAbstractBackend * backend)
+/* Q_INVOKABLE static */ void ControllerCore::applyHooks(WDeclarativePlayer * player)
 {
-    return new WHookTorrent(backend);
+#ifdef SK_NO_TORRENT
+    return;
+#endif
+
+    Q_ASSERT(player);
+
+    WAbstractBackend * backend = player->backend();
+
+    Q_ASSERT(backend);
+
+    QList<WAbstractHook *> list;
+
+    list.append(new WHookTorrent(backend));
+
+    player->setHooks(list);
 }
 
 //-------------------------------------------------------------------------------------------------

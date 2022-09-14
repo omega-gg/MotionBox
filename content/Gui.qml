@@ -2870,7 +2870,7 @@ Item
 
     function pAddHistoryTrack(source)
     {
-        // NOTE: We match the source with the 'noFragment' option to avoid duplicates.
+        // NOTE: We match the source with the 'clean' option to avoid duplicates.
         var index = playlistTracks.indexFromSource(source, true);
 
         if (index == 0)

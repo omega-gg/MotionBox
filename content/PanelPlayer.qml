@@ -207,8 +207,6 @@ Item
 
             asynchronous: true
 
-            player.hook: core.createHook(player.backend)
-
             player.autoPlay: local.autoPlay
 
             player.shuffle: (player.isPlaying) ? local.shuffle : false
@@ -226,6 +224,8 @@ Item
             //-------------------------------------------------------------------------------------
             // Events
             //-------------------------------------------------------------------------------------
+
+            Component.onCompleted: core.applyHooks(player)
 
             onIsActiveChanged: gui.updateColor()
 

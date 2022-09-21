@@ -54,9 +54,9 @@
 #include <WActionCue>
 #include <WInputCue>
 #include <WLoaderNetwork>
+#include <WLoaderVbml>
 //#include <WLoaderWeb>
 #include <WLoaderTorrent>
-#include <WLoaderVbml>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WAbstractTabs>
@@ -414,19 +414,19 @@ ControllerCore::ControllerCore() : WController()
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeWeb, _loaderWeb);*/
 
     //---------------------------------------------------------------------------------------------
+    // LoaderVbml
+
+    WLoaderVbml * loaderVbml = new WLoaderVbml(this);
+
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, loaderVbml);
+
+    //---------------------------------------------------------------------------------------------
     // LoaderTorrent
 
     WLoaderTorrent * loaderTorrent = new WLoaderTorrent(this);
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
     wControllerTorrent ->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
-
-    //---------------------------------------------------------------------------------------------
-    // LoaderVbml
-
-    WLoaderVbml * loaderVbml = new WLoaderVbml(this);
-
-    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, loaderVbml);
 
     //---------------------------------------------------------------------------------------------
     // Proxy
@@ -456,6 +456,8 @@ ControllerCore::ControllerCore() : WController()
     {
         _tabs->save();
     }
+
+    emit tabsChanged();
 
     //---------------------------------------------------------------------------------------------
     // Library
@@ -490,7 +492,7 @@ ControllerCore::ControllerCore() : WController()
 
         _backends->setCurrentIndex(0);
 
-        WControllerFileReply * reply = copyBackends();
+        WControllerFileReply * reply = copyBackends(_path + "/backend/");
 
         connect(reply, SIGNAL(complete(bool)), this, SLOT(onLoaded()));
     }
@@ -569,7 +571,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::resetBackends() const
 {
-    WControllerFileReply * reply = copyBackends();
+    WControllerFileReply * reply = copyBackends(_path + "/backend/");
 
     connect(reply, SIGNAL(complete(bool)), this, SLOT(onReload()));
 }
@@ -728,9 +730,10 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE static */ void ControllerCore::applyHooks(WDeclarativePlayer * player)
 {
 #ifdef SK_NO_TORRENT
-    return;
-#endif
+    Q_UNSUED(player);
 
+    return;
+#else
     Q_ASSERT(player);
 
     WAbstractBackend * backend = player->backend();
@@ -742,6 +745,7 @@ ControllerCore::ControllerCore() : WController()
     list.append(new WHookTorrent(backend));
 
     player->setHooks(list);
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -906,18 +910,16 @@ void ControllerCore::createIndex()
 
 //-------------------------------------------------------------------------------------------------
 
-WControllerFileReply * ControllerCore::copyBackends() const
+WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 {
 #ifdef SK_DEPLOY
 #ifdef Q_OS_ANDROID
-    return WControllerPlaylist::copyBackends("assets:/backend", _path + "/backend/");
+    return WControllerPlaylist::copyBackends("assets:/backend", path);
 #else
-    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath("backend"),
-                                             _path + "/backend/");
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath("backend"), path);
 #endif
 #else
-    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath(PATH_BACKEND),
-                                             _path + "/backend/");
+    return WControllerPlaylist::copyBackends(WControllerFile::applicationPath(PATH_BACKEND), path);
 #endif
 }
 

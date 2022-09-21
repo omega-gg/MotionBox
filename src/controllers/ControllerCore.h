@@ -74,7 +74,7 @@ class ControllerCore : public WController
     Q_PROPERTY(QString version     READ version     CONSTANT)
     Q_PROPERTY(QString versionName READ versionName CONSTANT)
 
-    Q_PROPERTY(WTabsTrack * tabs READ tabs CONSTANT)
+    Q_PROPERTY(WTabsTrack * tabs READ tabs NOTIFY tabsChanged)
 
     Q_PROPERTY(WLibraryFolder        * library  READ library  NOTIFY libraryChanged)
     Q_PROPERTY(WLibraryFolder        * feeds    READ feeds    NOTIFY feedsChanged)
@@ -157,7 +157,7 @@ private: // Functions
 
     void createIndex();
 
-    WControllerFileReply * copyBackends() const;
+    WControllerFileReply * copyBackends(const QString & path) const;
 
     QString getFile(const QString & title, const QString & filter);
 
@@ -173,6 +173,8 @@ private slots:
 
 signals:
     void cacheEmptyChanged();
+
+    void tabsChanged();
 
     void libraryChanged ();
     void feedsChanged   ();

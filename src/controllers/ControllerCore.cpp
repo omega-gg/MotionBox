@@ -961,7 +961,8 @@ void ControllerCore::onIndexLoaded()
 
     connect(_index, SIGNAL(updated()), this, SLOT(onUpdated()));
 
-    connect(_index, SIGNAL(backendUpdated(QString)), this, SLOT(onBackendUpdated(QString)));
+    connect(_index, SIGNAL(backendUpdated(const QString &)),
+            this,   SLOT(onBackendUpdated(const QString &)));
 
     if (_backends->count() == 1)
     {

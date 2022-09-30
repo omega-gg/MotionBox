@@ -416,9 +416,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // LoaderVbml
 
-    WLoaderVbml * loaderVbml = new WLoaderVbml(this);
-
-    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, loaderVbml);
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, new WLoaderVbml(this));
 
     //---------------------------------------------------------------------------------------------
     // LoaderTorrent

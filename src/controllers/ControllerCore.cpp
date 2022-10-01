@@ -55,6 +55,7 @@
 #include <WInputCue>
 #include <WLoaderNetwork>
 #include <WLoaderVbml>
+#include <WLoaderBarcode>
 //#include <WLoaderWeb>
 #include <WLoaderTorrent>
 #include <WHookTorrent>
@@ -417,6 +418,11 @@ ControllerCore::ControllerCore() : WController()
     // LoaderVbml
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeVbml, new WLoaderVbml(this));
+
+    //---------------------------------------------------------------------------------------------
+    // LoaderBarcode
+
+    wControllerPlaylist->registerLoader(WBackendNetQuery::TypeImage, new WLoaderBarcode(this));
 
     //---------------------------------------------------------------------------------------------
     // LoaderTorrent

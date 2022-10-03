@@ -846,7 +846,7 @@ MouseArea
         {
             if (backend.hasSearch())
             {
-                buttonsBrowse.pushItem(backend.getTitle(), pItemBrowse.cover);
+                buttonsBrowse.pushItem(backend.getTitle(), backend.getCover());
             }
 
             backend.tryDelete();

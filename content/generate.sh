@@ -190,6 +190,7 @@ $SkyBase/LoaderSlide.qml \
 $SkyBase/LoaderWipe.qml \
 $SkyBase/AreaContextual.qml \
 $SkyBase/RectangleBorders.qml \
+$SkyBase/RectangleBordersDrop.qml \
 $SkyBase/RectangleShadow.qml \
 $SkyBase/RectangleShadowClick.qml \
 $SkyBase/TextBase.qml \
@@ -214,7 +215,6 @@ $SkyComponents/BorderHorizontal.qml \
 $SkyComponents/BorderVertical.qml \
 $SkyComponents/BorderButton.qml \
 $SkyComponents/WindowScale.qml \
-$SkyComponents/RectangleBordersDrop.qml \
 $SkyComponents/RectangleLogo.qml \
 $SkyComponents/RectangleLive.qml \
 $SkyComponents/Icon.qml \

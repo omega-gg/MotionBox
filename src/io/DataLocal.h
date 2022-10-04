@@ -102,6 +102,7 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool proxyStream READ proxyStream WRITE setProxyStream NOTIFY proxyStreamChanged)
     Q_PROPERTY(bool proxyActive READ proxyActive WRITE setProxyActive NOTIFY proxyActiveChanged)
 
+#ifndef SK_NO_TORRENT
     Q_PROPERTY(int torrentPort READ torrentPort WRITE setTorrentPort NOTIFY torrentPortChanged)
 
     Q_PROPERTY(int torrentConnections READ torrentConnections WRITE setTorrentConnections
@@ -120,6 +121,7 @@ class DataLocal : public WLocalObject
                NOTIFY torrentDownloadActiveChanged)
 
     Q_PROPERTY(int torrentCache READ torrentCache WRITE setTorrentCache NOTIFY torrentCacheChanged)
+#endif
 
 public:
     explicit DataLocal(QObject * parent = NULL);
@@ -187,6 +189,7 @@ signals:
     void proxyStreamChanged();
     void proxyActiveChanged();
 
+#ifndef SK_NO_TORRENT
     void torrentPortChanged();
 
     void torrentConnectionsChanged();
@@ -198,6 +201,7 @@ signals:
     void torrentDownloadActiveChanged();
 
     void torrentCacheChanged();
+#endif
 
 public: // Properties
     QString version() const;
@@ -291,6 +295,7 @@ public: // Properties
     bool proxyActive() const;
     void setProxyActive(bool active);
 
+#ifndef SK_NO_TORRENT
     int  torrentPort() const;
     void setTorrentPort(int port);
 
@@ -311,6 +316,7 @@ public: // Properties
 
     int  torrentCache() const;
     void setTorrentCache(int cache);
+#endif
 
 private: // Variables
     QString _version;
@@ -369,6 +375,7 @@ private: // Variables
     bool _proxyStream;
     bool _proxyActive;
 
+#ifndef SK_NO_TORRENT
     int _torrentPort;
 
     int _torrentConnections;
@@ -380,6 +387,7 @@ private: // Variables
     bool _torrentDownloadActive;
 
     int _torrentCache;
+#endif
 
 private:
     Q_DISABLE_COPY(DataLocal)

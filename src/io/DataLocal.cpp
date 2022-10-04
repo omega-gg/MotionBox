@@ -124,6 +124,7 @@ public: // Variables
     bool proxyStream;
     bool proxyActive;
 
+#ifndef SK_NO_TORRENT
     int torrentPort;
 
     int torrentConnections;
@@ -135,6 +136,7 @@ public: // Variables
     bool torrentDownloadActive;
 
     int torrentCache;
+#endif
 };
 
 //=================================================================================================
@@ -221,6 +223,7 @@ public: // Variables
     stream.writeTextElement("proxyStream", QString::number(proxyStream));
     stream.writeTextElement("proxyActive", QString::number(proxyActive));
 
+#ifndef SK_NO_TORRENT
     stream.writeTextElement("torrentPort", QString::number(torrentPort));
 
     stream.writeTextElement("torrentConnections", QString::number(torrentConnections));
@@ -232,6 +235,7 @@ public: // Variables
     stream.writeTextElement("torrentDownloadActive", QString::number(torrentDownloadActive));
 
     stream.writeTextElement("torrentCache", QString::number(torrentCache));
+#endif
 
     stream.writeEndElement(); // name
 
@@ -303,6 +307,7 @@ public: // Variables
     _proxyStream = false;
     _proxyActive = false;
 
+#ifndef SK_NO_TORRENT
     _torrentPort = DATALOCAL_PORT;
 
     _torrentConnections = 500;
@@ -314,6 +319,7 @@ public: // Variables
     _torrentDownloadActive = false;
 
     _torrentCache = 2000;
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -430,6 +436,7 @@ public: // Variables
     action->proxyStream = _proxyStream;
     action->proxyActive = _proxyActive;
 
+#ifndef SK_NO_TORRENT
     action->torrentPort = _torrentPort;
 
     action->torrentConnections = _torrentConnections;
@@ -441,6 +448,7 @@ public: // Variables
     action->torrentDownloadActive = _torrentDownloadActive;
 
     action->torrentCache = _torrentCache;
+#endif
 
     return action;
 }
@@ -701,6 +709,7 @@ bool DataLocal::extract(const QByteArray & array)
 
     _proxyActive = WControllerXml::readNextInt(&stream);
 
+#ifndef SK_NO_TORRENT
     //---------------------------------------------------------------------------------------------
     // torrentPort
 
@@ -755,6 +764,7 @@ bool DataLocal::extract(const QByteArray & array)
     if (WControllerXml::readNextStartElement(&stream, "torrentCache") == false) return false;
 
     _torrentCache = WControllerXml::readNextInt(&stream);
+#endif
 
     qDebug("DATA LOCAL LOADED");
 
@@ -1269,6 +1279,8 @@ void DataLocal::setProxyActive(bool active)
 
 //-------------------------------------------------------------------------------------------------
 
+#ifndef SK_NO_TORRENT
+
 int DataLocal::torrentPort() const
 {
     return _torrentPort;
@@ -1392,5 +1404,7 @@ void DataLocal::setTorrentCache(int cache)
 
     save();
 }
+
+#endif
 
 #include "DataLocal.moc"

@@ -387,7 +387,9 @@ ControllerCore::ControllerCore() : WController()
     W_CREATE_CONTROLLER(WControllerPlaylist);
     W_CREATE_CONTROLLER(WControllerMedia);
 
+#ifndef SK_NO_TORRENT
     W_CREATE_CONTROLLER_2(WControllerTorrent, _path + "/torrents", _local._torrentPort);
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Cache
@@ -424,6 +426,7 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeImage, new WLoaderBarcode(this));
 
+#ifndef SK_NO_TORRENT
     //---------------------------------------------------------------------------------------------
     // LoaderTorrent
 
@@ -431,17 +434,20 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
     wControllerTorrent ->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Proxy
 
     applyProxy(_local._proxyActive);
 
+#ifndef SK_NO_TORRENT
     //---------------------------------------------------------------------------------------------
     // Torrents
 
     applyTorrentOptions(_local._torrentConnections,
                         _local._torrentUpload, _local._torrentDownload, _local._torrentCache);
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Tabs
@@ -711,7 +717,9 @@ ControllerCore::ControllerCore() : WController()
 
     //_diskCache->clear();
 
+#ifndef SK_NO_TORRENT
     wControllerTorrent->clearTorrents();
+#endif
 
     _local.setCache(false);
 }
@@ -724,9 +732,13 @@ ControllerCore::ControllerCore() : WController()
                                                                   int upload, int download,
                                                                   int cache)
 {
+#ifdef SK_NO_TORRENT
+    Q_UNUSED(connections); Q_UNUSED(upload); Q_UNUSED(download); Q_UNUSED(cache);
+#else
     wControllerTorrent->setOptions(connections, upload * 1024, download * 1024);
 
     wControllerTorrent->setSizeMax(qint64(cache) * 1048576);
+#endif
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -905,7 +917,11 @@ void ControllerCore::createBrowse() const
 
 void ControllerCore::createIndex()
 {
-    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend"));
+#ifdef SK_NO_TORRENT
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend/indexLite.vbml"));
+#else
+    _index = new WBackendIndex(WControllerFile::fileUrl(_path + "/backend/index.vbml"));
+#endif
 
     connect(_index, SIGNAL(loaded()), this, SLOT(onIndexLoaded()));
 

@@ -2863,7 +2863,7 @@ Item
 
         var hasFeed = pAddHistoryFeed(feed, source);
 
-        pAddHistoryPlaylist(playerTab.playlist, feed, hasFeed);
+        pAddHistoryPlaylist(playerTab.playlist, feed, source, hasFeed);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2922,9 +2922,11 @@ Item
     {
         if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return false;
 
-        source = controllerPlaylist.getFeed(feed, source);
+        feed = controllerPlaylist.getFeed(feed, source);
 
-        var index = feeds.indexFromSource(source);
+        if (feed == source) return false;
+
+        var index = feeds.indexFromSource(feed);
 
         if (index == -1)
         {
@@ -2933,28 +2935,28 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            pAddPlaylist(core.urlType(source), source);
+            pAddPlaylist(core.urlType(feed), feed);
         }
         else feeds.moveAt(index, 1);
 
         return true;
     }
 
-    function pAddHistoryPlaylist(playlist, feed, hasFeed)
+    function pAddHistoryPlaylist(playlist, feed, source, hasFeed)
     {
         if (playlist == null) return;
 
-        var source = playlist.source;
+        var url = playlist.source;
 
-        if (source == "" || source == feed || controllerNetwork.urlIsApp(source)
+        if (url == "" || url == feed || url == source || controllerNetwork.urlIsApp(url)
             ||
-            controllerPlaylist.urlIsTorrent(source)) return;
+            controllerPlaylist.urlIsTorrent(url)) return;
 
-        var index = feeds.indexFromSource(source);
+        var index = feeds.indexFromSource(url);
 
         if (index == -1)
         {
-            var type = core.urlType(source);
+            var type = core.urlType(url);
 
             // NOTE: If we've already pushed a backend feed we don't want a second one.
             if (hasFeed && type == LibraryItem.PlaylistFeed) return;
@@ -2964,18 +2966,18 @@ Item
                 feeds.removeAt(feeds.count - 1);
             }
 
-            pAddPlaylist(type, source);
+            pAddPlaylist(type, url);
         }
         else feeds.moveAt(index, 1);
     }
 
-    function pAddPlaylist(type, source)
+    function pAddPlaylist(type, url)
     {
         var playlist = controllerPlaylist.createPlaylist(type);
 
         insertLibraryItem(1, playlist, listLibrary, feeds);
 
-        playlist.loadSource(source);
+        playlist.loadSource(url);
 
         playlist.tryDelete();
     }

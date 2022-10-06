@@ -15,21 +15,25 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/CharacterSet.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/CharacterSetECI.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ConcentricFinder.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/Content.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/CustomData.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/DecodeHints.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/DecodeStatus.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/DecoderResult.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/DecodeStatus.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/DetectorResult.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/ECI.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/Error.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/Flags.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/GTIN.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/Generator.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/GenericGF.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/GenericGFPoly.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/GenericLuminanceSource.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/GlobalHistogramBinarizer.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/GridSampler.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/GS1.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/GTIN.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/HybridBinarizer.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/ImageView.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/LogMatrix.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/LuminanceSource.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/Matrix.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/MultiFormatReader.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/MultiFormatWriter.h \
@@ -43,7 +47,6 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ReedSolomonEncoder.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/RegressionLine.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/Result.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/ResultMetadata.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ResultPoint.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/Scope.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/StructuredAppend.h \
@@ -53,9 +56,9 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ThresholdBinarizer.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/TritMatrix.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/WhiteRectDetector.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/ZXAlgorithms.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ZXBigInteger.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ZXConfig.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/ZXContainerAlgorithms.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ZXNullable.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/ZXTestSupport.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/aztec/AZDecoder.h \
@@ -92,6 +95,7 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODCode93Reader.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODCode93Writer.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarCommon.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarExpandedBitDecoder.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarExpandedReader.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarReader.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODEAN13Writer.h \
@@ -105,9 +109,6 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODUPCEANCommon.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODUPCEWriter.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODWriterHelper.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSExpandedBinaryDecoder.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSFieldParser.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSGenericAppIdDecoder.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFBarcodeMetadata.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFBarcodeValue.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFBoundingBox.h \
@@ -131,11 +132,10 @@ HEADERS += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRDataBlock.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRDataMask.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRDecoder.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRDecoderMetadata.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRDetector.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRECB.h \
-           $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QREncodeResult.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QREncoder.h \
+           $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QREncodeResult.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRErrorCorrectionLevel.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRFormatInformation.h \
            $$SK_BARCODE/3rdparty/zxing-cpp/qrcode/QRMaskUtil.h \
@@ -160,18 +160,19 @@ SOURCES += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/BitMatrix.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/BitMatrixIO.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/BitSource.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/CharacterSetECI.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/CharacterSet.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/ConcentricFinder.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/Content.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/DecodeHints.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/DecodeStatus.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/GTIN.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/ECI.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/GenericGF.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/GenericGFPoly.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/GenericLuminanceSource.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/GlobalHistogramBinarizer.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/GridSampler.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/GS1.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/GTIN.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/HybridBinarizer.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/LuminanceSource.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/MultiFormatReader.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/MultiFormatWriter.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/PerspectiveTransform.cpp \
@@ -179,7 +180,6 @@ SOURCES += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/ReedSolomonDecoder.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/ReedSolomonEncoder.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/Result.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/ResultMetadata.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/ResultPoint.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/TextDecoder.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/TextEncoder.cpp \
@@ -216,6 +216,7 @@ SOURCES += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODCode93Reader.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODCode93Writer.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarCommon.cpp \
+           $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarExpandedBitDecoder.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarExpandedReader.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODDataBarReader.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODEAN13Writer.cpp \
@@ -229,9 +230,6 @@ SOURCES += $$SK_BARCODE/3rdparty/zxing-cpp/BarcodeFormat.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODUPCEANCommon.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODUPCEWriter.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/oned/ODWriterHelper.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSExpandedBinaryDecoder.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSFieldParser.cpp \
-           $$SK_BARCODE/3rdparty/zxing-cpp/oned/rss/ODRSSGenericAppIdDecoder.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFBarcodeValue.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFBoundingBox.cpp \
            $$SK_BARCODE/3rdparty/zxing-cpp/pdf417/PDFCodewordDecoder.cpp \

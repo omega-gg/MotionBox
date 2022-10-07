@@ -316,7 +316,11 @@ MouseArea
         // NOTE: We want the first tracks to be loaded rigth away.
         /* QML_CONNECTION */ function onQueryEnded()
         {
+            if (playlist.isEmpty) return;
+
             gui.loadTracksLater(playlist, 0);
+
+            pCompleteSearch();
         }
 
         /* QML_CONNECTION */ function onQueryCompleted()

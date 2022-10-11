@@ -67,7 +67,7 @@ Item
 
         fillMode: Image.PreserveAspectFit
 
-        onClicked: gui.openUrl("http://omega.gg/MotionBox")
+        onClicked: gui.openUrl("https://omega.gg/MotionBox")
     }
 
     TextLogo
@@ -184,7 +184,7 @@ Item
         source: (isHovered) ? st.icon_sky
                             : st.icon_skyGray
 
-        onClicked: gui.openUrl("http://omega.gg/Sky")
+        onClicked: gui.openUrl("https://omega.gg/Sky")
     }
 
     BarTitleSmall
@@ -227,7 +227,7 @@ Item
 
             source: st.icon_w
 
-            onClicked: gui.openUrl("http://omega.gg/about")
+            onClicked: gui.openUrl("https://omega.gg/about")
         }
     }
 }

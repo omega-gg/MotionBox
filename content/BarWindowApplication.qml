@@ -478,7 +478,7 @@ Item
                 return;
             }
 
-            gui.openUrl("http://omega.gg/MotionBox/get");
+            gui.openUrl("https://omega.gg/MotionBox/get");
 
             window.clearFocus();
         }

@@ -120,7 +120,7 @@ Item
 
             source: st.icon_w
 
-            onClicked: gui.openUrl("http://omega.gg/about")
+            onClicked: gui.openUrl("https://omega.gg/about")
         }
 
         TextLogo

@@ -30,7 +30,7 @@ PageAboutText
     //---------------------------------------------------------------------------------------------
 
     cover: st.logoApplication
-    url  : "http://omega.gg/MotionBox"
+    url  : "https://omega.gg/MotionBox"
 
     text: controllerFile.readAll(Qt.resolvedUrl("text/credits.txt"))
 }

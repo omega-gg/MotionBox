@@ -746,7 +746,7 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE static */ void ControllerCore::applyHooks(WDeclarativePlayer * player)
 {
 #ifdef SK_NO_TORRENT
-    Q_UNSUED(player);
+    Q_UNUSED(player);
 
     return;
 #else

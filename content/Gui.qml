@@ -2950,7 +2950,7 @@ Item
 
         if (url == "" || url == feed || url == source || controllerNetwork.urlIsApp(url)
             ||
-            controllerPlaylist.urlIsTorrent(url)) return;
+            controllerPlaylist.urlIsTrack(url) || controllerPlaylist.urlIsTorrent(url)) return;
 
         var index = feeds.indexFromSource(url);
 

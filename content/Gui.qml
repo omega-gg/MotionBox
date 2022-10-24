@@ -652,7 +652,7 @@ Item
 
         scaleAfter();
 
-        sk.defaultScreen = window.getScreenNumber();
+        sk.defaultScreen = window.screenNumber();
 
         sk.defaultWidth  = -1;
         sk.defaultHeight = -1;
@@ -3004,9 +3004,9 @@ Item
         {
             var geometry = window.geometryNormal;
 
-            local.setSize(window.getScreenNumber(), geometry.width, geometry.height);
+            local.setSize(window.screenNumber(), geometry.width, geometry.height);
         }
-        else local.setSize(window.getScreenNumber(), window.width, window.height);
+        else local.setSize(window.screenNumber(), window.width, window.height);
     }
 
 //#!DEPLOY

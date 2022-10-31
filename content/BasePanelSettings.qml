@@ -316,7 +316,7 @@ Panel
             //-----------------------------------------------------------------------------------------
             // ButtonSettingsAction events
 
-            function onClick(index)
+            function onSelect(index)
             {
                 pSelectTab(index);
             }

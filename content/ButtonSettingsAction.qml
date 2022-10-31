@@ -60,13 +60,22 @@ ButtonPianoAction
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onPressed: areaContextual.showPanelSettings(buttonSettingsAction, 0, settings, currentIndex,
-                                                activeIndex)
+    onPressed: onPress()
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+
+    function showPanel()
+    {
+        areaContextual.showPanelSettings(buttonSettingsAction, 0, settings, currentIndex,
+                                         activeIndex);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Events
 
-    /* virtual */ function onClick(index) {}
+    /* virtual */ function onPress() { showPanel() }
+
+    /* virtual */ function onSelect(index) {}
 }

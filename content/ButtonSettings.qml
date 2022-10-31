@@ -56,13 +56,22 @@ ButtonPush
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onPressed: areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                                activeIndex)
+    onPressed: onPress()
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+
+    function showPanel()
+    {
+        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
+                                         activeIndex);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Events
 
-    /* virtual */ function onClick(index) {}
+    /* virtual */ function onPress() { showPanel() }
+
+    /* virtual */ function onSelect(index) {}
 }

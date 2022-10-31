@@ -66,7 +66,7 @@ ColumnScroll
         else                                            return -1;
     }
 
-    function pClickVideo(index)
+    function pSelectVideo(index)
     {
         if (index == 0)
         {
@@ -112,7 +112,7 @@ ColumnScroll
         return quality - 1;
     }
 
-    function pClickQuality(index)
+    function pSelectQuality(index)
     {
         player.quality = index + 1;
     }
@@ -138,7 +138,7 @@ ColumnScroll
         else                                                return 1;
     }
 
-    function pClickRatio(index)
+    function pSelectRatio(index)
     {
         if (index == 0)
         {
@@ -179,7 +179,7 @@ ColumnScroll
         else                    return -1;
     }
 
-    function pClickSpeed(index)
+    function pSelectSpeed(index)
     {
         var speed;
 
@@ -224,7 +224,7 @@ ColumnScroll
         return player.indexVideo(player.trackVideo);
     }
 
-    function pClickVideos(index)
+    function pSelectVideos(index)
     {
         player.trackVideo = player.idVideo(index);
     }
@@ -259,7 +259,7 @@ ColumnScroll
         return player.indexAudio(player.trackAudio);
     }
 
-    function pClickAudios(index)
+    function pSelectAudios(index)
     {
         player.trackAudio = player.idAudio(index);
     }
@@ -306,7 +306,7 @@ ColumnScroll
 //#END
         }
 
-        onPressed: pClickVideo(currentIndex)
+        onPressed: pSelectVideo(currentIndex)
     }
 
     BarSettings { text: qsTr("Quality") }
@@ -333,7 +333,7 @@ ColumnScroll
         currentIndex: pIndexQuality(player.quality)
         activeIndex : pIndexQuality(player.qualityActive)
 
-        function onClick(index) { pClickQuality(index) }
+        function onSelect(index) { pSelectQuality(index) }
     }
 
     BarSettings { text: qsTr("Ratio") }
@@ -348,7 +348,7 @@ ColumnScroll
 
         currentIndex: pIndexRatio(player.fillMode)
 
-        function onClick(index) { pClickRatio(index) }
+        function onSelect(index) { pSelectRatio(index) }
     }
 
     BarSettings { text: qsTr("Speed") }
@@ -371,7 +371,7 @@ ColumnScroll
 
         currentIndex: pIndexSpeed()
 
-        function onClick(index) { pClickSpeed(index) }
+        function onSelect(index) { pSelectSpeed(index) }
     }
 
     BarSettings
@@ -393,7 +393,7 @@ ColumnScroll
 
         currentIndex: pIndexVideos()
 
-        function onClick(index) { pClickVideos(index) }
+        function onSelect(index) { pSelectVideos(index) }
     }
 
     BarSettings
@@ -415,7 +415,7 @@ ColumnScroll
 
         currentIndex: pIndexAudios()
 
-        function onClick(index) { pClickAudios(index) }
+        function onSelect(index) { pSelectAudios(index) }
     }
 
     BarSettings { text: qsTr("Playback") }

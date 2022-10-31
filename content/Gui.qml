@@ -3143,11 +3143,6 @@ Item
 
         pSaveShot(path + "/MotionBoxC.png");
 
-        panelBrowse.browse("https://www.youtube.com/watch?v=n5vjV4hwRxo");
-
-        // NOTE: We wait for the track to load.
-        sk.wait(3000);
-
         expand();
 
         pSaveShot(path + "/MotionBoxD.png");

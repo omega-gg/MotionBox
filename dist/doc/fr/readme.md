@@ -77,9 +77,9 @@ Twitter: [@omega_gg][Twitter]
 
 [Forum]: https://omega.gg/forum
 
-[Mail]: mailto:contact@omega.gg
+[Mail]: https://omega.gg/contact
 
-[Twitter]: https://twitter.com/omega_gg
+[Twitter]: https://omega.gg/twitter
 
 
 # Liens

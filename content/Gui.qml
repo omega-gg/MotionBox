@@ -1833,6 +1833,8 @@ Item
 
     function openUrl(url)
     {
+        url = controllerNetwork.generateScheme(url);
+
         Qt.openUrlExternally(controllerNetwork.encodedUrl(url));
     }
 

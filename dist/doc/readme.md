@@ -8,41 +8,14 @@
 
 Built to access, organize and share multiple video resources.
 
-#
-
-I am [bunjee] and started MotionBox in 2011.
-
-I'm building innovative software that empowers people.
+[omega] is building MotionBox to empower people.
 
 
-## Changelog
+# Support
 
-- 1.8.0: [Live streaming and Chromecast support](documents/changes/1.8.0.html).
+Documentation: [https://omega.gg/MotionBox/documentation](https://omega.gg/MotionBox/documentation)
 
-- 1.7.0: [Revamped interface, unified settings, new icons](documents/changes/1.7.0.html).
-
-- 1.6.0: [Universal backends, macOS support, subtitles implementation](documents/changes/1.6.0.html).
-
-- 1.5.0: [Light themes, 64 bit, playback history](documents/changes/1.5.0.html).
-
-- 1.4.0: [Torrent search, Qt 5, VLC 3.0](documents/changes/1.4.0.html).
-
-- 1.3.0: [Torrent streaming, dynamic covers, improved full screen](documents/changes/1.3.0.html).
-
-- 1.2.0: [Complete audio support, playback speed, native window](documents/changes/1.2.0.html).
-
-- 1.1.2: [Improved interface, fast startup, wide search bars](documents/changes/1.1.2.html).
-
-- 1.1.1: [Buttons highlight, cleaner interface, components style](documents/changes/1.1.1.html).
-
-- 1.1.0: [Complete track browser, dynamic loading, video files](documents/changes/1.1.0.html).
-
-- 1.0.1: [Window and player inputs, url parsing, contextual menus](documents/changes/1.0.1.html).
-
-- 1.0.0: Initial release.
-
-
-# Pages
+Bug tracker: [https://omega.gg/MotionBox/tracker](https://omega.gg/MotionBox/tracker)
 
 Shortcuts: [documents/shortcuts.html](documents/shortcuts.html)
 
@@ -104,11 +77,7 @@ Motion Freedom: [https://omega.gg/about/MotionFreedom][Motion Freedom]
 
 ---
 
-bunjee: [https://bunjee.me][bunjee]
-
 omega: [https://omega.gg/about][omega]
-
-[bunjee]: https://bunjee.me
 
 [omega]: https://omega.gg/about
 

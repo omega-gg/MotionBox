@@ -8,41 +8,14 @@
 
 Conçu pour accéder, organiser et partager une multitude de ressources vidéo.
 
-#
-
-Je suis [bunjee] et j'ai commencé MotionBox en 2011.
-
-Je développe du logiciel innovant au service de l'homme.
+[omega] développe MotionBox au service de l'utilisateur.
 
 
-## Historique
+# Support
 
-- 1.8.0: [Flux en direct et support Chromecast](../changes/1.8.0.html).
+Documentation: [https://omega.gg/MotionBox/documentation/fr](https://omega.gg/MotionBox/documentation/fr)
 
-- 1.7.0: [Interface améliorée, paramètres unifiés, nouvelles icônes](../changes/1.7.0.html).
-
-- 1.6.0: [Backends universels, support macOS, gestion des sous-titres](../changes/1.6.0.html).
-
-- 1.5.0: [Thèmes légers, 64 bit, historique de lecture](../changes/1.5.0.html).
-
-- 1.4.0: [Recherche torrent, Qt 5, VLC 3.0](../changes/1.4.0.html).
-
-- 1.3.0: [Streaming torrent, covers dynamiques, plein écran amélioré](../changes/1.3.0.html).
-
-- 1.2.0: [Support audio complet, vitesse de lecture, fenêtre native](../changes/1.2.0.html).
-
-- 1.1.2: [Amélioration de l'interface, démarrage rapide, grandes barres de recherche](../changes/1.1.2.html).
-
-- 1.1.1: [Surbrillance des boutons, clarté de l'interface, style des composants](../changes/1.1.1.html).
-
-- 1.1.0: [Navigateur de tracks complet, chargement dynamique, fichiers vidéo](../changes/1.1.0.html).
-
-- 1.0.1: [Interactions fenêtre et lecteur, parsing url, menus contextuels](../changes/1.0.1.html).
-
-- 1.0.0: Première version.
-
-
-# Pages
+Bug tracker: [https://omega.gg/MotionBox/tracker/fr](https://omega.gg/MotionBox/tracker/fr)
 
 Raccourcis: [documents/fr/shortcuts.html](shortcuts.html)
 
@@ -104,11 +77,7 @@ Liberté Médiatique: [https://omega.gg/about/MotionFreedom/fr][Liberté Médiat
 
 ---
 
-bunjee: [https://bunjee.me/fr][bunjee]
-
 omega: [https://omega.gg/about/fr][omega]
-
-[bunjee]: https://bunjee.me/fr
 
 [omega]: https://omega.gg/about/fr
 

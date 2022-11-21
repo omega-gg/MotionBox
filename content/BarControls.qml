@@ -394,6 +394,8 @@ MouseArea
 
             width: st.dp44
 
+            highlighted: player.hasOutput
+
             checkable: true
             checked  : panelOutput.isExposed
 

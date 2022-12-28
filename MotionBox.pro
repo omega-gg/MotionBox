@@ -152,9 +152,9 @@ win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
 # Windows dependency for ShellExecuteA and SystemParametersInfo
 win32-msvc*:LIBS += shell32.lib User32.lib
 
-unix:!android:LIBS += -L$$SK/lib -lvlc \
-                      -L$$SK/lib -ltorrent-rasterbar \
-                      -L$$SK/lib -lboost_system
+unix:!ios:!android:LIBS += -L$$SK/lib -lvlc \
+                           -L$$SK/lib -ltorrent-rasterbar \
+                           -L$$SK/lib -lboost_system
 
 unix:LIBS += -lz
 

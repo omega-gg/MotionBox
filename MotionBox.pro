@@ -128,7 +128,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
                    $$SK/include/$$QTX/QtQuick
 }
 
-unix:!macx:!android:greaterThan(QT_MAJOR_VERSION, 4) {
+unix:!macx:!ios:!android:greaterThan(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/$$QTX/QtDBus
 }
 
@@ -162,7 +162,7 @@ android:LIBS += -L$$SK/lib/$$ABI -lvlc \
                 -L$$SK/lib/$$ABI -ltorrent-rasterbar \
                 -L$$SK/lib/$$ABI -ltry_signal
 
-unix:!macx:!android:contains(QT_MAJOR_VERSION, 4) {
+unix:!macx:!ios:!android:contains(QT_MAJOR_VERSION, 4) {
     LIBS += -lX11
 }
 

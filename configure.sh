@@ -161,25 +161,13 @@ if [ $os = "windows" ]; then
     rm -rf bin/plugins
     mkdir  bin/plugins
 
-    cp -r "$VLC"/plugins/access             bin/plugins
-    cp -r "$VLC"/plugins/audio_filter       bin/plugins
-    cp -r "$VLC"/plugins/audio_mixer        bin/plugins
-    cp -r "$VLC"/plugins/audio_output       bin/plugins
-    cp -r "$VLC"/plugins/codec              bin/plugins
-    cp -r "$VLC"/plugins/control            bin/plugins
-    cp -r "$VLC"/plugins/demux              bin/plugins
-    cp -r "$VLC"/plugins/misc               bin/plugins
-    cp -r "$VLC"/plugins/packetizer         bin/plugins
-    cp -r "$VLC"/plugins/services_discovery bin/plugins
-    cp -r "$VLC"/plugins/stream_filter      bin/plugins
-    cp -r "$VLC"/plugins/stream_out         bin/plugins
-    cp -r "$VLC"/plugins/video_chroma       bin/plugins
-    cp -r "$VLC"/plugins/video_filter       bin/plugins
-    cp -r "$VLC"/plugins/video_output       bin/plugins
+    cp -r "$VLC"/plugins bin
 
     cp "$VLC"/libvlc*.dll bin
 
 elif [ $1 = "macOS" ]; then
+
+    echo "COPYING VLC"
 
     rm -rf bin/plugins
     mkdir  bin/plugins
@@ -188,6 +176,17 @@ elif [ $1 = "macOS" ]; then
 
     cp "$VLC"/lib/libvlc.5.dylib     bin/libvlc.dylib
     cp "$VLC"/lib/libvlccore.9.dylib bin/libvlccore.dylib
+
+elif [ $1 = "linux" ]; then
+
+    echo "COPYING VLC"
+
+    rm -rf bin/vlc
+    mkdir  bin/vlc
+
+    cp -r "$VLC"/vlc bin/vlc
+
+    cp "$VLC"/lib*.so.* bin
 fi
 
 echo "---------------------"

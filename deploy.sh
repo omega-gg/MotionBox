@@ -308,7 +308,7 @@ elif [ $1 = "linux" ]; then
 
         mkdir $deploy/imageformats
 
-        cp "$path"/libpng16.so.16 $deploy
+        #cp "$path"/libpng16.so.16 $deploy
 
         cp "$path"/libQtCore.so.4        $deploy
         cp "$path"/libQtGui.so.4         $deploy
@@ -340,22 +340,22 @@ elif [ $1 = "linux" ]; then
             mkdir -p $deploy/QtQml/WorkerScript
         fi
 
-        cp "$path"/libz.so.* $deploy
+        #cp "$path"/libz.so.* $deploy
 
         cp "$path"/libicudata.so.* $deploy
         cp "$path"/libicui18n.so.* $deploy
         cp "$path"/libicuuc.so.*   $deploy
 
-        cp "$path"/libdouble-conversion.so.* $deploy
-        cp "$path"/libpng16.so.*             $deploy
-        cp "$path"/libharfbuzz.so.*          $deploy
-        cp "$path"/libxcb-xinerama.so.*      $deploy
+        #cp "$path"/libdouble-conversion.so.* $deploy
+        #cp "$path"/libpng16.so.*             $deploy
+        #cp "$path"/libharfbuzz.so.*          $deploy
+        #cp "$path"/libxcb-xinerama.so.*      $deploy
 
         # NOTE: Required for Ubuntu 20.04.
-        if [ -f "$path"/libpcre2-16.so.0 ]; then
+        #if [ -f "$path"/libpcre2-16.so.0 ]; then
 
-            cp "$path"/libpcre2-16.so.0 $deploy
-        fi
+            #cp "$path"/libpcre2-16.so.0 $deploy
+        #fi
 
         cp "$path/lib$QtX"Core.so.$qx            $deploy
         cp "$path/lib$QtX"Gui.so.$qx             $deploy
@@ -449,6 +449,12 @@ elif [ $1 = "macOS" ]; then
     cp -r "$path"/plugins $deploy
 
     cp "$path"/libvlc*.dylib $deploy
+
+elif [ $1 = "linux" ]; then
+
+    cp -r "$path"/vlc $deploy
+
+    cp "$path"/libvlc*.so* $deploy
 fi
 
 #--------------------------------------------------------------------------------------------------

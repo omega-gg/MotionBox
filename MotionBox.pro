@@ -20,7 +20,7 @@ contains(QT_MAJOR_VERSION, 4) {
 
     win32:QT += winextras
 
-    unix:!macx:!android:QT += x11extras
+    unix:!macx:!ios:!android:QT += x11extras
 
     android:QT += androidextras
 } else {
@@ -37,7 +37,7 @@ contains(QT_MAJOR_VERSION, 4) {
 }
 
 greaterThan(QT_MAJOR_VERSION, 4) {
-    unix:!macx:!android:QT += dbus
+    unix:!macx:!ios:!android:QT += dbus
 }
 
 # C++17

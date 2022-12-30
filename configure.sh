@@ -184,7 +184,7 @@ elif [ $1 = "linux" ]; then
     rm -rf bin/vlc
     mkdir  bin/vlc
 
-    cp -r "$VLC"/vlc bin/vlc
+    cp -r "$VLC"/vlc bin
 
     cp "$VLC"/lib*.so.* bin
 fi

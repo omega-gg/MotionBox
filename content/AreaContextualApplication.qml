@@ -882,7 +882,7 @@ AreaContextual
                 {
                     var item = areaContextual.item;
 
-                    if (item) item.onClick(id);
+                    if (item) item.onSelect(id);
 
                     areaContextual.hidePanels();
                 }

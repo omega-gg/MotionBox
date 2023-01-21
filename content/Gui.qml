@@ -629,8 +629,6 @@ Item
         /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality;  }
         /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode; }
 
-        /* QML_CONNECTION */ function onCurrentTrackUpdated() { timerHistory.restart(); }
-
         /* QML_CONNECTION */ function onTabChanged() { timerHistory.restart(); }
     }
 

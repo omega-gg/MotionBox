@@ -98,6 +98,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
+// NOTE: Also check version_windows.
 static const QString CORE_VERSION = "1.8.0-0";
 
 #ifndef SK_DEPLOY

@@ -13,7 +13,7 @@ Built to access, organize and share multiple video resources.<br>
 <a href="http://omega.gg/MotionBox"><img src="dist/screens/MotionBoxC.png" alt="Video Browser" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo).<br>
-It supports [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent), [Youtube](https://en.wikipedia.org/wiki/Youtube), [Dailymotion](https://en.wikipedia.org/wiki/Dailymotion), [Vimeo](https://en.wikipedia.org/wiki/Vimeo) and [SoundCloud](https://en.wikipedia.org/wiki/SoundCloud).<br>
+It supports [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent), [Youtube](https://en.wikipedia.org/wiki/Youtube), [Dailymotion](https://en.wikipedia.org/wiki/Dailymotion), [Vimeo](https://en.wikipedia.org/wiki/Vimeo), [Twitch](https://en.wikipedia.org/wiki/Twitch_(service)) and [SoundCloud](https://en.wikipedia.org/wiki/SoundCloud).<br>
 All of this inside multiple tabs and without ever showing an ad.<br>
 
 ## For Motion Freedom

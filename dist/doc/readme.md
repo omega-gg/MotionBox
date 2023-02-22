@@ -1,4 +1,4 @@
-# [MotionBox] - alpha 1.6.0
+# [MotionBox] - alpha 1.8.0
 
 ### english / [français](documents/fr/Readme.html)
 

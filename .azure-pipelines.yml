@@ -73,13 +73,17 @@ jobs:
 
 - job: linux64_qt5
   pool:
-    # NOTE: We need an older version to package the application.
-    vmImage: "ubuntu-18.04"
+    vmImage: "ubuntu-latest"
   steps:
+  # NOTE: We need an older version to package the application.
   - bash: |
-      sh build.sh linux all
-      cd deploy
-      zip -rq ../MotionBox.zip *
+      docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:18.04 tail -f /dev/null
+      docker exec -t ubuntu bash -c "cd /MotionBox;
+                                     apt-get update;
+                                     apt-get -y install sudo curl zip git;
+                                     sh build.sh linux all;
+                                     cd deploy;
+                                     zip -rq ../MotionBox.zip *"
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux64-qt5
 

@@ -71,7 +71,7 @@ Application
             activate();
 
 //#DESKTOP
-            gui.browse(sk.extractArgument(message));
+            gui.browse(sk.extractMessage(message));
 //#ELSE
             gui.browse(message);
 //#END

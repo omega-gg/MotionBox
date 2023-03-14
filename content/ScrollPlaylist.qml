@@ -40,7 +40,7 @@ ScrollArea
 
     property bool pAtBottom: false
 
-    // NOTE: We need this to avoid loading tracks when the item is not loaded.
+    // NOTE: We avoid loading tracks when the item is not loaded.
     property bool pReady: false
 
     //---------------------------------------------------------------------------------------------

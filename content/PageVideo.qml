@@ -50,32 +50,6 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-
-    function pStringVideo()
-    {
-        var output = player.output;
-
-        if (output == AbstractBackend.OutputAudio) return qsTr("Audio");
-        else                                       return qsTr("Video");
-    }
-
-    function pIndexVideo(output)
-    {
-        if      (output == AbstractBackend.OutputAudio) return  0;
-        else if (output == AbstractBackend.OutputMedia) return  1;
-        else                                            return -1;
-    }
-
-    function pSelectVideo(index)
-    {
-        if (index == 0)
-        {
-             player.output = AbstractBackend.OutputAudio;
-        }
-        else player.output = AbstractBackend.OutputMedia;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // BasePanelSettings events
 
     // NOTE: We need to forceLayout and processEvents to get the proper contentHeight.
@@ -85,14 +59,33 @@ ColumnScroll
     }
 
     //---------------------------------------------------------------------------------------------
+    // Video
+
+    function pVideoIndex(output)
+    {
+        if      (output == AbstractBackend.OutputAudio) return  0;
+        else if (output == AbstractBackend.OutputMedia) return  1;
+        else                                            return -1;
+    }
+
+    function pVideoSelect(index)
+    {
+        if (index == 0)
+        {
+             player.output = AbstractBackend.OutputAudio;
+        }
+        else player.output = AbstractBackend.OutputMedia;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Quality
 
-    function pActiveQuality()
+    function pQualityActive()
     {
         return (player.qualityActive == player.quality);
     }
 
-    function pStringQuality()
+    function pQualityString()
     {
         var quality = player.quality;
 
@@ -107,12 +100,12 @@ ColumnScroll
         else                                             return qsTr("Invalid");
     }
 
-    function pIndexQuality(quality)
+    function pQualityIndex(quality)
     {
         return quality - 1;
     }
 
-    function pSelectQuality(index)
+    function pQualitySelect(index)
     {
         player.quality = index + 1;
     }
@@ -120,7 +113,7 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Video
 
-    function pStringRatio()
+    function pRatioString()
     {
         var mode = player.fillMode;
 
@@ -129,7 +122,7 @@ ColumnScroll
         else                                                return qsTr("Expand");
     }
 
-    function pIndexRatio()
+    function pRatioIndex()
     {
         var mode = player.fillMode;
 
@@ -138,7 +131,7 @@ ColumnScroll
         else                                                return 1;
     }
 
-    function pSelectRatio(index)
+    function pRatioSelect(index)
     {
         if (index == 0)
         {
@@ -154,7 +147,7 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Speed
 
-    function pStringSpeed()
+    function pSpeedString()
     {
         var speed = player.speed;
 
@@ -165,7 +158,7 @@ ColumnScroll
         else return speed;
     }
 
-    function pIndexSpeed()
+    function pSpeedIndex()
     {
         var speed = player.speed;
 
@@ -179,7 +172,7 @@ ColumnScroll
         else                    return -1;
     }
 
-    function pSelectSpeed(index)
+    function pSpeedSelect(index)
     {
         var speed;
 
@@ -197,7 +190,7 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Videos
 
-    function pSettingsVideos()
+    function pVideosSettings()
     {
         var settings = new Array;
 
@@ -211,7 +204,7 @@ ColumnScroll
         return settings;
     }
 
-    function pStringVideos()
+    function pVideosString()
     {
         var video = player.videoName(player.trackVideo);
 
@@ -219,12 +212,12 @@ ColumnScroll
         else       return qsTr("Unknown");
     }
 
-    function pIndexVideos()
+    function pVideosIndex()
     {
         return player.indexVideo(player.trackVideo);
     }
 
-    function pSelectVideos(index)
+    function pVideosSelect(index)
     {
         player.trackVideo = player.idVideo(index);
     }
@@ -232,7 +225,7 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Audios
 
-    function pSettingsAudios()
+    function pAudiosSettings()
     {
         var settings = new Array;
 
@@ -246,7 +239,7 @@ ColumnScroll
         return settings;
     }
 
-    function pStringAudios()
+    function pAudiosString()
     {
         var audio = player.audioName(player.trackAudio);
 
@@ -254,12 +247,12 @@ ColumnScroll
         else       return qsTr("Unknown");
     }
 
-    function pIndexAudios()
+    function pAudiosIndex()
     {
         return player.indexAudio(player.trackAudio);
     }
 
-    function pSelectAudios(index)
+    function pAudiosSelect(index)
     {
         player.trackAudio = player.idAudio(index);
     }
@@ -288,8 +281,8 @@ ColumnScroll
 
         model: ListModel {}
 
-        currentIndex : pIndexVideo(player.output)
-        currentActive: pIndexVideo(player.outputActive)
+        currentIndex : pVideoIndex(player.output)
+        currentActive: pVideoIndex(player.outputActive)
 
         Component.onCompleted:
         {
@@ -306,7 +299,7 @@ ColumnScroll
 //#END
         }
 
-        onPressed: pSelectVideo(currentIndex)
+        onPressed: pVideoSelect(currentIndex)
     }
 
     BarSettings { text: qsTr("Quality") }
@@ -326,14 +319,14 @@ ColumnScroll
                    { "title": qsTr("1440p") },
                    { "title": qsTr("2160p") }]
 
-        active: pActiveQuality()
+        active: pQualityActive()
 
-        text: pStringQuality()
+        text: pQualityString()
 
-        currentIndex: pIndexQuality(player.quality)
-        activeIndex : pIndexQuality(player.qualityActive)
+        currentIndex: pQualityIndex(player.quality)
+        activeIndex : pQualityIndex(player.qualityActive)
 
-        function onSelect(index) { pSelectQuality(index) }
+        function onSelect(index) { pQualitySelect(index) }
     }
 
     BarSettings { text: qsTr("Ratio") }
@@ -344,11 +337,11 @@ ColumnScroll
                    { "title": qsTr("Expand")  },
                    { "title": qsTr("Stretch") }]
 
-        text: pStringRatio()
+        text: pRatioString()
 
-        currentIndex: pIndexRatio(player.fillMode)
+        currentIndex: pRatioIndex(player.fillMode)
 
-        function onSelect(index) { pSelectRatio(index) }
+        function onSelect(index) { pRatioSelect(index) }
     }
 
     BarSettings { text: qsTr("Speed") }
@@ -367,11 +360,11 @@ ColumnScroll
                    { "title": qsTr("1.5")    },
                    { "title": qsTr("2")      }]
 
-        text: pStringSpeed()
+        text: pSpeedString()
 
-        currentIndex: pIndexSpeed()
+        currentIndex: pSpeedIndex()
 
-        function onSelect(index) { pSelectSpeed(index) }
+        function onSelect(index) { pSpeedSelect(index) }
     }
 
     BarSettings
@@ -387,13 +380,13 @@ ColumnScroll
 
         visible: (player.countVideos > 1)
 
-        settings: pSettingsVideos()
+        settings: pVideosSettings()
 
-        text: pStringVideos()
+        text: pVideosString()
 
-        currentIndex: pIndexVideos()
+        currentIndex: pVideosIndex()
 
-        function onSelect(index) { pSelectVideos(index) }
+        function onSelect(index) { pVideosSelect(index) }
     }
 
     BarSettings
@@ -409,13 +402,13 @@ ColumnScroll
 
         visible: (player.countAudios > 1)
 
-        settings: pSettingsAudios()
+        settings: pAudiosSettings()
 
-        text: pStringAudios()
+        text: pAudiosString()
 
-        currentIndex: pIndexAudios()
+        currentIndex: pAudiosIndex()
 
-        function onSelect(index) { pSelectAudios(index) }
+        function onSelect(index) { pAudiosSelect(index) }
     }
 
     BarSettings { text: qsTr("Playback") }

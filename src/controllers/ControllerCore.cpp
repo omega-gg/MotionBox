@@ -101,6 +101,8 @@ W_INIT_CONTROLLER(ControllerCore)
 // NOTE: Also check version_windows.
 static const QString CORE_VERSION = "1.8.0-0";
 
+static const int CORE_CACHE = 1048576 * 100; // 100 megabytes
+
 #ifndef SK_DEPLOY
 #ifdef Q_OS_MAC
 static const QString PATH_STORAGE = "/../../../storage";
@@ -395,7 +397,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Cache
 
-    _cache = new WCache(_path + "/cache", 1048576 * 100); // 100 megabytes
+    _cache = new WCache(_path + "/cache", CORE_CACHE);
 
     wControllerFile->setCache(_cache);
 

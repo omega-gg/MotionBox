@@ -3013,18 +3013,18 @@ Item
     //---------------------------------------------------------------------------------------------
     // Dev
 
-    function pClearCursor()
+    function pApplyCursor()
     {
         window.registerCursorUrl(Qt.ArrowCursor,        sourceBlank);
         window.registerCursorUrl(Qt.PointingHandCursor, sourceBlank);
         window.registerCursorUrl(Qt.IBeamCursor,        sourceBlank);
+
+        cursorVisible = true;
     }
 
     function pSetDesktop()
     {
-        pClearCursor();
-
-        cursorVisible = true;
+        pApplyCursor();
 
         window.borderSize = 0;
 

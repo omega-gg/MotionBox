@@ -2948,7 +2948,7 @@ Item
 
         var url = playlist.source;
 
-        if (url == "" || url == feed || url == source || controllerPlaylist.urlIsVbmlRun(url)
+        if (url == "" || url == feed || url == source || controllerPlaylist.urlIsVbmlSearch(url)
             ||
             controllerPlaylist.urlIsTrack(url) || controllerPlaylist.urlIsTorrent(url)) return;
 

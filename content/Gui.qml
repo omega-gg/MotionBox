@@ -2948,9 +2948,7 @@ Item
 
         var url = playlist.source;
 
-        if (url == "" || url == feed || url == source || controllerPlaylist.urlIsVbmlSearch(url)
-            ||
-            controllerPlaylist.urlIsTrack(url) || controllerPlaylist.urlIsTorrent(url)) return;
+        if (pCheckPlaylist(url, feed, source));
 
         var index = feeds.indexFromSource(url);
 
@@ -2969,6 +2967,23 @@ Item
             pAddPlaylist(type, url);
         }
         else feeds.moveAt(index, 1);
+    }
+
+    function pCheckPlaylist(url, feed, source)
+    {
+        if (url == "" || url == feed || url == source || controllerPlaylist.urlIsTrack(url)
+            ||
+            controllerPlaylist.urlIsTorrent(url))
+        {
+            return false;
+        }
+        else if (controllerPlaylist.urlIsVbmlRun(url))
+        {
+            var method = controllerNetwork.extractUrlValue(url, "method").toLowerCase();
+
+            return (method == "view");
+        }
+        else return true;
     }
 
     function pAddPlaylist(type, url)

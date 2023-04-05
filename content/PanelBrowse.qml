@@ -427,28 +427,20 @@ MouseArea
         }
     }
 
-    function searchMore(source, title)
+    function searchMore(playlist, title)
     {
-        source = controllerPlaylist.backendIdFromSource(source);
+        if (playlist)
+        {
+            // NOTE: When the source is empty we push the playlist in the history.
+            gui.addHistoryPlaylist(playlist, "", "", false);
+        }
 
         // NOTE: We simplify the title to remove '.' and ':' thus avoiding matching the query as
         //       a url in the PanelTracks.
         title = controllerPlaylist.simpleQuery(title);
 
-        if (source)
-        {
-            var index = backends.indexFromLabel(source);
-
-            if (index != -1)
-            {
-                search(backends.idAt(index), title, true, false);
-
-                return;
-            }
-        }
-
         // NOTE: We select the DuckDuckGo backend by default.
-        /* var */ index = backends.indexFromLabel("duckduckgo");
+        var index = backends.indexFromLabel("duckduckgo");
 
         search(backends.idAt(index), title, true, false);
     }

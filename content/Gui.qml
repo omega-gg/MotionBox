@@ -1807,6 +1807,109 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function addHistoryTrack(source)
+    {
+        // NOTE: We match the source with the 'clean' option to avoid duplicates.
+        var index = playlistTracks.indexFromSource(source, true);
+
+        if (index == 0)
+        {
+            // NOTE: Sometimes duration is updated after playback.
+            playlistTracks.setTrackDuration(0, playerTab.duration);
+
+            return;
+        }
+
+        if (index == -1)
+        {
+            while (playlistTracks.isFull)
+            {
+                playlistTracks.removeTrack(playlistTracks.count - 1);
+            }
+
+            var playlist = playerTab.playlist;
+
+            if (playlist)
+            {
+                if (listPlaylist.playlist == playlistTracks)
+                {
+                    listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
+                }
+                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
+            }
+            else
+            {
+                playlistTracks.insertSource(0, source);
+
+                playlistTracks.loadTrack(0);
+            }
+        }
+        else
+        {
+            playlistTracks.moveTrack(index, 0);
+
+            // NOTE: We make sure we have the right source with the right fragment.
+            playlistTracks.setTrackSource(0, source);
+        }
+
+        var cover = playlistTracks.trackCover(0);
+
+        if (cover) playlistTracks.cover = cover;
+    }
+
+    function addHistoryFeed(feed, source)
+    {
+        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return false;
+
+        feed = controllerPlaylist.getFeed(feed, source);
+
+        if (feed == source) return false;
+
+        var index = feeds.indexFromSource(feed);
+
+        if (index == -1)
+        {
+            while (feeds.isFull)
+            {
+                feeds.removeAt(feeds.count - 1);
+            }
+
+            pAddPlaylist(core.urlType(feed), feed);
+        }
+        else feeds.moveAt(index, 1);
+
+        return true;
+    }
+
+    function addHistoryPlaylist(playlist, feed, source, hasFeed)
+    {
+        if (playlist == null) return;
+
+        var url = playlist.source;
+
+        if (pCheckPlaylist(url, feed, source));
+
+        var index = feeds.indexFromSource(url);
+
+        if (index == -1)
+        {
+            var type = core.urlType(url);
+
+            // NOTE: If we've already pushed a backend feed we don't want a second one.
+            if (hasFeed && type == LibraryItem.PlaylistFeed) return;
+
+            while (feeds.isFull)
+            {
+                feeds.removeAt(feeds.count - 1);
+            }
+
+            pAddPlaylist(type, url);
+        }
+        else feeds.moveAt(index, 1);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
     function updateColor()
     {
         if (wall.isActive)
@@ -2061,6 +2164,25 @@ Item
 
             dragIndex = -1;
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function onBeforeTabClose(index)
+    {
+        if (player.isPlaying && player.tabIndex == index)
+        {
+            pause();
+
+            return false;
+        }
+
+        if (highlightedTab && tabs.currentIndex == index)
+        {
+            tabs.currentTab = highlightedTab;
+        }
+
+        return true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2730,26 +2852,6 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
-    // Events
-
-    function onBeforeTabClose(index)
-    {
-        if (player.isPlaying && player.tabIndex == index)
-        {
-            pause();
-
-            return false;
-        }
-
-        if (highlightedTab && tabs.currentIndex == index)
-        {
-            tabs.currentTab = highlightedTab;
-        }
-
-        return true;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Private
 
     function pExpandFullScreen()
@@ -2857,117 +2959,16 @@ Item
             else playlistTracks = createItemAt(feeds, 0);
         }
 
-        pAddHistoryTrack(source);
+        addHistoryTrack(source);
 
         var feed = playerTab.feed;
 
-        var hasFeed = pAddHistoryFeed(feed, source);
+        var hasFeed = addHistoryFeed(feed, source);
 
-        pAddHistoryPlaylist(playerTab.playlist, feed, source, hasFeed);
+        addHistoryPlaylist(playerTab.playlist, feed, source, hasFeed);
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function pAddHistoryTrack(source)
-    {
-        // NOTE: We match the source with the 'clean' option to avoid duplicates.
-        var index = playlistTracks.indexFromSource(source, true);
-
-        if (index == 0)
-        {
-            // NOTE: Sometimes duration is updated after playback.
-            playlistTracks.setTrackDuration(0, playerTab.duration);
-
-            return;
-        }
-
-        if (index == -1)
-        {
-            while (playlistTracks.isFull)
-            {
-                playlistTracks.removeTrack(playlistTracks.count - 1);
-            }
-
-            var playlist = playerTab.playlist;
-
-            if (playlist)
-            {
-                if (listPlaylist.playlist == playlistTracks)
-                {
-                    listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
-                }
-                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
-            }
-            else
-            {
-                playlistTracks.insertSource(0, source);
-
-                playlistTracks.loadTrack(0);
-            }
-        }
-        else
-        {
-            playlistTracks.moveTrack(index, 0);
-
-            // NOTE: We make sure we have the right source with the right fragment.
-            playlistTracks.setTrackSource(0, source);
-        }
-
-        var cover = playlistTracks.trackCover(0);
-
-        if (cover) playlistTracks.cover = cover;
-    }
-
-    function pAddHistoryFeed(feed, source)
-    {
-        if (feed == "" || controllerPlaylist.urlIsTorrent(feed)) return false;
-
-        feed = controllerPlaylist.getFeed(feed, source);
-
-        if (feed == source) return false;
-
-        var index = feeds.indexFromSource(feed);
-
-        if (index == -1)
-        {
-            while (feeds.isFull)
-            {
-                feeds.removeAt(feeds.count - 1);
-            }
-
-            pAddPlaylist(core.urlType(feed), feed);
-        }
-        else feeds.moveAt(index, 1);
-
-        return true;
-    }
-
-    function pAddHistoryPlaylist(playlist, feed, source, hasFeed)
-    {
-        if (playlist == null) return;
-
-        var url = playlist.source;
-
-        if (pCheckPlaylist(url, feed, source));
-
-        var index = feeds.indexFromSource(url);
-
-        if (index == -1)
-        {
-            var type = core.urlType(url);
-
-            // NOTE: If we've already pushed a backend feed we don't want a second one.
-            if (hasFeed && type == LibraryItem.PlaylistFeed) return;
-
-            while (feeds.isFull)
-            {
-                feeds.removeAt(feeds.count - 1);
-            }
-
-            pAddPlaylist(type, url);
-        }
-        else feeds.moveAt(index, 1);
-    }
 
     function pCheckPlaylist(url, feed, source)
     {
@@ -3140,7 +3141,7 @@ Item
 
         restore();
 
-        panelBrowse.search(4, "chillwave", true, false); // Youtube
+        panelBrowse.search(3, "chillwave", true, false); // DuckDuckGo
 
         // NOTE: Wait for the icons to load.
         sk.wait(5000);

@@ -427,11 +427,11 @@ MouseArea
         }
     }
 
-    function searchMore(playlist, title)
+    function searchMore(playlist, source, title)
     {
-        if (playlist)
+        // NOTE: When the source is empty we push the playlist in the history.
+        if (source == "" && playlist)
         {
-            // NOTE: When the source is empty we push the playlist in the history.
             gui.addHistoryPlaylist(playlist, "", "", false);
         }
 

@@ -150,11 +150,11 @@ AreaContextual
 
     //---------------------------------------------------------------------------------------------
 
-    function pSearchMore(playlist, title)
+    function pSearchMore(playlist, source, title)
     {
         gui.restore();
 
-        panelBrowse.searchMore(playlist, title);
+        panelBrowse.searchMore(playlist, source, title);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -629,7 +629,7 @@ AreaContextual
             {
                 var folder = pItem.folder;
 
-                pSearchMore(null, folder.itemTitle(pIndex));
+                pSearchMore(null, folder.itemSource(pIndex), folder.itemTitle(pIndex));
             }
             else if (id == 3) // Open link
             {
@@ -697,7 +697,7 @@ AreaContextual
             {
                 /* var */ playlist = pItem.playlist;
 
-                pSearchMore(playlist, playlist.trackTitle(pIndex));
+                pSearchMore(playlist, playlist.trackSource(pIndex), playlist.trackTitle(pIndex));
             }
             else if (id == 2) // Open link
             {
@@ -773,7 +773,7 @@ AreaContextual
             }
             else if (id == 1) // More like this
             {
-                pSearchMore(currentTab.playlist, pItem.title);
+                pSearchMore(currentTab.playlist, pItem.source, pItem.title);
             }
             else if (id == 2) // Open link
             {

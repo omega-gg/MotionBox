@@ -20,7 +20,9 @@ It supports [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent),
             [Vimeo](https://en.wikipedia.org/wiki/Vimeo),
             [Twitch](https://en.wikipedia.org/wiki/Twitch_(service)),
             [TikTok](https://en.wikipedia.org/wiki/TikTok),
-            [Odysee](https://en.wikipedia.org/wiki/Odysee) and
+            [Facebook](https://en.wikipedia.org/wiki/Facebook),
+            [Odysee](https://en.wikipedia.org/wiki/Odysee),
+            [Last.fm](https://en.wikipedia.org/wiki/Lastfm) and
             [SoundCloud](https://en.wikipedia.org/wiki/SoundCloud).<br>
 All of this inside multiple tabs and without ever showing an ad.<br>
 

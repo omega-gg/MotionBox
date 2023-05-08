@@ -1887,7 +1887,7 @@ Item
 
         var url = playlist.source;
 
-        if (pCheckPlaylist(url, feed, source));
+        if (pCheckPlaylist(url, feed, source) == false) return;
 
         var index = feeds.indexFromSource(url);
 

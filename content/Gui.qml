@@ -1863,8 +1863,6 @@ Item
 
         feed = controllerPlaylist.getFeed(feed, source);
 
-        if (feed == source) return false;
-
         var index = feeds.indexFromSource(feed);
 
         if (index == -1)

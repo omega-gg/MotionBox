@@ -34,10 +34,10 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
 SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
            $$SK_GUI/media/WLibraryItem.cpp \
-           $$SK_GUI/media/WPlaylist.cpp \
-           $$SK_GUI/media/WPlaylist_patch.cpp \
            $$SK_GUI/media/WLibraryFolder.cpp \
            $$SK_GUI/media/WLibraryFolderRelated.cpp \
+           $$SK_GUI/media/WPlaylist.cpp \
+           $$SK_GUI/media/WPlaylist_patch.cpp \
            $$SK_GUI/media/WAbstractBackend.cpp \
            $$SK_GUI/media/WAbstractHook.cpp \
            $$SK_GUI/media/WBookmarkTrack.cpp \

@@ -1,4 +1,4 @@
-<a href="http://omega.gg/MotionBox"><img src="dist/icon.png" alt="MotionBox" width="128px"></a>
+<a href="https://omega.gg/MotionBox"><img src="dist/icon.png" alt="MotionBox" width="128px"></a>
 ---
 [![Discord](https://img.shields.io/discord/705770212485496852)](https://omega.gg/discord)
 [![azure](https://dev.azure.com/bunjee/MotionBox/_apis/build/status/omega-gg.MotionBox)](https://dev.azure.com/bunjee/MotionBox/_build)
@@ -10,7 +10,7 @@ Built to access, organize and share multiple video resources.<br>
 [omega](https://omega.gg/about) is building MotionBox to empower people.<br>
 
 ## MotionBox Video Browser
-<a href="http://omega.gg/MotionBox"><img src="dist/screens/MotionBoxC.png" alt="Video Browser" width="512px"></a>
+<a href="https://omega.gg/MotionBox"><img src="dist/screens/MotionBoxC.png" alt="Video Browser" width="512px"></a>
 
 MotionBox accesses videos directly via [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo).<br>
 It supports [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent),
@@ -99,7 +99,7 @@ Deploy the application and its dependencies:
 
 ## License
 
-Copyright (C) 2015 - 2020 MotionBox authors | http://omega.gg/MotionBox
+Copyright (C) 2015 - 2020 MotionBox authors | https://omega.gg/MotionBox
 
 ### Authors
 

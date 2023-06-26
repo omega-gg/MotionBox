@@ -96,13 +96,13 @@ ComponentLibraryItem
         {
             if (loadState == LocalObject.Loading)
             {
-                 return qsTr("Loading " + gui.getItemName(type) + "...");
+                 return qsTr("Loading " + st.getItemName(type) + "...");
             }
-            else return qsTr("Invalid " + gui.getItemName(type));
+            else return qsTr("Invalid " + st.getItemName(type));
         }
         else if (source != "")
         {
-            return st.getUrlTitle(source, gui.getItemName(type));
+            return st.getUrlTitle(source, st.getItemName(type));
         }
         else return qsTr("Invalid Item");
     }

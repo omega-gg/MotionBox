@@ -197,8 +197,8 @@ MouseArea
 
             highlighted: (enabled && player.isPlaying)
 
-            icon          : st.icon16x16_backward
-            iconSourceSize: st.size16x16
+            icon          : st.icon12x12_backward
+            iconSourceSize: st.size12x12
 
             hoverRetain: true
 
@@ -222,9 +222,10 @@ MouseArea
             highlighted: (enabled && player.isPlaying)
 
             icon: (player.shuffle) ? st.icon16x16_shuffle
-                                   : st.icon16x16_forward
+                                   : st.icon12x12_forward
 
-            iconSourceSize: st.size16x16
+            iconSourceSize: (player.shuffle) ? st.size16x16
+                                             : st.size12x12
 
             acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
                                                 : Qt.LeftButton

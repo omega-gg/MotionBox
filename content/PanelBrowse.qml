@@ -1232,6 +1232,8 @@ MouseArea
 
         width: st.dp32 + borderSizeWidth
 
+        borderRight: 0
+
         checkable: true
         checked  : (panelContextual.item == buttonHome)
 
@@ -1254,6 +1256,8 @@ MouseArea
         anchors.left  : buttonHome.right
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
+
+        borderRight: 0
 
         checkable: true
         checked  : (pButtonsIndex == -1 && pSearchHidden == false)
@@ -1355,7 +1359,8 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        borderLeft: borderSize
+        borderLeft : borderSize
+        borderRight: 0
 
         visible: (playlist != null && playlist.selectedCount)
 
@@ -1405,6 +1410,8 @@ MouseArea
         anchors.bottom: buttonUp.bottom
 
         width: st.dp56 + borderSizeWidth
+
+        borderRight: (buttonRefresh.visible) ? 0 : borderSize
 
         visible: (playlist != null && playlist.isPlaylistSearch == false)
 

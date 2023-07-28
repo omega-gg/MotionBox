@@ -233,7 +233,7 @@ StyleComponents
 
     border_sizeFocus: st.dp2
 
-    border_color: (local.style) ? "#161616"
+    border_color: (local.style) ? "#242424"
                                 : "#969696"
 
     //---------------------------------------------------------------------------------------------

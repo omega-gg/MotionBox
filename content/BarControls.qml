@@ -191,6 +191,8 @@ MouseArea
 
             margins: st.dp6
 
+            showBorder: false
+
             enabled: player.hasPreviousTrack
 
             highlighted: (enabled && player.isPlaying)
@@ -212,6 +214,8 @@ MouseArea
             height: width
 
             margins: st.dp6
+
+            showBorder: false
 
             enabled: player.hasNextTrack
 
@@ -354,6 +358,8 @@ MouseArea
             width : st.dp44
             height: width
 
+            showBorder: false
+
             checkable: true
             checked  : panelGet.isExposed
 
@@ -373,6 +379,8 @@ MouseArea
             width : st.dp38
             height: st.dp44
 
+            showBorder: false
+
             checkable: true
             checked  : panelSettings.isExposed
 
@@ -391,6 +399,8 @@ MouseArea
 
             width : st.dp38
             height: st.dp44
+
+            showBorder: false
 
             highlighted: player.hasOutput
 
@@ -415,6 +425,8 @@ MouseArea
 
             width : st.dp44
             height: width
+
+            showBorder: false
 
             highlighted: window.fullScreen
 

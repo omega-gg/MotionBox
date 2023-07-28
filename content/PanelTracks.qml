@@ -361,6 +361,8 @@ Item
 
                 width: st.dp56 + borderSizeWidth
 
+                borderRight: (buttonRefresh.visible) ? 0 : borderSize
+
                 visible: (playlist != null)
 
                 highlighted: (player.isPlaying && player.playlist == playlist)

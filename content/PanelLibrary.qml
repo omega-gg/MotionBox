@@ -244,8 +244,6 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            borderRight: 0
-
             checkable: true
             checked  : (buttonHistory.checked == false)
 
@@ -355,8 +353,6 @@ Panel
             anchors.right : buttonAdd.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
-
-            borderRight: 0
 
             visible: buttonPlaylist.visible
 

@@ -487,9 +487,11 @@ Item
             {
                 ButtonPianoFull
                 {
-                    property int margins: iconWidth + spacing + paddingRight + borderRight
+                    property int margins: iconWidth + spacing + paddingRight
 
                     anchors.fill: parent
+
+                    borderRight: 0
 
                     spacing: padding
 

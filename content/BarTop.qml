@@ -179,6 +179,8 @@ Item
         {
             id: buttonBackward
 
+            borderRight: 0
+
             enabled: (currentTab != null && currentTab.hasPreviousBookmark)
 
             highlighted: (enabled && player.isPlaying)
@@ -241,7 +243,8 @@ Item
 
                 anchors.right: buttonExpand.left
 
-                borderLeft: borderSize
+                borderLeft : borderSize
+                borderRight: 0
 
                 checkable: true
 
@@ -270,6 +273,8 @@ Item
 
                 anchors.right: buttonWall.left
 
+                borderRight: 0
+
                 checkable: true
 
                 checked: gui.isExpanded
@@ -285,6 +290,8 @@ Item
                 id: buttonWall
 
                 anchors.right: buttonRelated.left
+
+                borderRight: 0
 
                 checkable: true
                 checked  : wall.isExposed

@@ -215,6 +215,8 @@ Panel
 
             width: Math.round((parent.width - buttonAdd.width) / 2)
 
+            borderRight: 0
+
             checkable: true
 
             // NOTE: We want to keep the 'feed' button selected during the 'clear' animation.
@@ -296,6 +298,8 @@ Panel
 
             width: Math.round((parent.width - buttonAdd.width) / 3)
 
+            borderRight: 0
+
             // NOTE: This makes sure that the 'create' buttons are visible during the animation.
             visible: (pIndex > -1)
 
@@ -323,6 +327,8 @@ Panel
             anchors.bottom: parent.bottom
 
             width: buttonPlaylist.width
+
+            borderRight: 0
 
             visible: buttonPlaylist.visible
 

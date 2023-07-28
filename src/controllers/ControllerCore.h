@@ -120,7 +120,7 @@ public: // Static functions
     Q_INVOKABLE static void applyTorrentOptions(int connections,
                                                 int upload, int download, int cache);
 
-    Q_INVOKABLE static void applyHooks(WDeclarativePlayer * player);
+    Q_INVOKABLE static void applyBackend(WDeclarativePlayer * player);
 
     //---------------------------------------------------------------------------------------------
 

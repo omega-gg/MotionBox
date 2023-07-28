@@ -301,6 +301,8 @@ Item
 
     Component.onCompleted:
     {
+        core.applyBackend(player);
+
         loadTabItems(currentTab);
 
         if (local.browserVisible)

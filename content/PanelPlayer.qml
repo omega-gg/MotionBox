@@ -225,8 +225,6 @@ Item
             // Events
             //-------------------------------------------------------------------------------------
 
-            Component.onCompleted: core.applyHooks(player)
-
             onIsActiveChanged: gui.updateColor()
 
             onIsExposedChanged: local.macro = isExposed

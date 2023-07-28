@@ -746,18 +746,17 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ void ControllerCore::applyHooks(WDeclarativePlayer * player)
+/* Q_INVOKABLE static */ void ControllerCore::applyBackend(WDeclarativePlayer * player)
 {
-#ifdef SK_NO_TORRENT
-    Q_UNUSED(player);
-
-    return;
-#else
     Q_ASSERT(player);
 
-    WAbstractBackend * backend = player->backend();
+    WBackendVlc * backend = new WBackendVlc;
 
-    Q_ASSERT(backend);
+    player->setBackend(backend);
+
+#ifdef SK_NO_TORRENT
+    return;
+#else
 
     QList<WAbstractHook *> list;
 

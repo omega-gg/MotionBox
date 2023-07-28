@@ -167,8 +167,6 @@ MouseArea
 
             iconSourceSize: st.size16x16
 
-            hoverRetain: true
-
             onClicked:
             {
                 if (player.isPlaying)
@@ -200,8 +198,6 @@ MouseArea
             icon          : st.icon12x12_backward
             iconSourceSize: st.size12x12
 
-            hoverRetain: true
-
             onClicked: player.setPreviousTrack()
         }
 
@@ -229,8 +225,6 @@ MouseArea
 
             acceptedButtons: (player.isPlaying) ? Qt.LeftButton | Qt.RightButton
                                                 : Qt.LeftButton
-
-            hoverRetain: true
 
             /* QML_EVENT */ onClicked: function(mouse)
             {
@@ -350,14 +344,15 @@ MouseArea
             anchors.rightMargin: st.dp7
         }
 
-        ButtonPushIcon
+        ButtonPushLeftIcon
         {
             id: buttonGet
 
             anchors.right: buttonSettings.left
             anchors.top  : buttonSettings.top
 
-            width: st.dp44
+            width : st.dp44
+            height: width
 
             checkable: true
             checked  : panelGet.isExposed
@@ -368,14 +363,15 @@ MouseArea
             onPressed: panelGet.toggleExpose()
         }
 
-        ButtonPushIcon
+        ButtonPushCenterIcon
         {
             id: buttonSettings
 
             anchors.right: buttonOutput.left
             anchors.top  : buttonOutput.top
 
-            width: st.dp44
+            width : st.dp38
+            height: st.dp44
 
             checkable: true
             checked  : panelSettings.isExposed
@@ -386,14 +382,15 @@ MouseArea
             onPressed: panelSettings.toggleExpose()
         }
 
-        ButtonPushIcon
+        ButtonPushCenterIcon
         {
             id: buttonOutput
 
             anchors.right: buttonFullScreen.left
             anchors.top  : buttonFullScreen.top
 
-            width: st.dp44
+            width : st.dp38
+            height: st.dp44
 
             highlighted: player.hasOutput
 
@@ -406,17 +403,18 @@ MouseArea
             onPressed: panelOutput.toggleExpose()
         }
 
-        ButtonPushIcon
+        ButtonPushRightIcon
         {
             id: buttonFullScreen
 
             anchors.right: parent.right
             anchors.top  : parent.top
 
-            anchors.rightMargin: st.dp11
-            anchors.topMargin  : st.dp4
+            anchors.rightMargin: st.dp12
+            anchors.topMargin  : st.dp2
 
-            width: st.dp44
+            width : st.dp44
+            height: width
 
             highlighted: window.fullScreen
 

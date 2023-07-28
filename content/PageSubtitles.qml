@@ -421,7 +421,6 @@ Item
         anchors.top   : lineEdit.top
         anchors.bottom: lineEdit.bottom
 
-        borderLeft : borderSize
         borderRight: 0
 
         enabled: pEnable

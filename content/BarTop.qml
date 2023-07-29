@@ -164,15 +164,8 @@ Item
 
         gradient: Gradient
         {
-            GradientStop { position: 0.0; color: st.barTitle_colorA }
-            GradientStop { position: 1.0; color: st.barTitle_colorB }
-        }
-
-        BorderHorizontal
-        {
-            visible: (st.barTitle_colorA != st.barTitle_colorB)
-
-            color: st.barTitle_colorBorderLine
+            GradientStop { position: 0.0; color: st.buttonPiano_colorA }
+            GradientStop { position: 1.0; color: st.buttonPiano_colorB }
         }
 
         ButtonPianoIcon
@@ -233,7 +226,7 @@ Item
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            anchors.rightMargin: st.dp16
+            anchors.rightMargin: st.dp16 + buttonRelated.borderSize
 
             width: buttonBrowse.width + buttonExpand.width + buttonWall.width + buttonRelated.width
 
@@ -316,6 +309,8 @@ Item
                 id: buttonRelated
 
                 anchors.right: parent.right
+
+                borderRight: 0
 
                 checkable: true
                 checked  : panelRelated.isExposed

@@ -206,6 +206,9 @@ $SkyBase/BaseConsole.qml \
 $SkyBase/ColumnAuto.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
+$SkyBase/AnimatedSlide.qml \
+$SkyBase/AnimatedSlideImage.qml \
+$SkyBase/AnimatedLoader.qml \
 $SkyComponents/StyleComponents.qml \
 $SkyComponents/PageWipe.qml \
 $SkyComponents/LineHorizontal.qml \

@@ -35,7 +35,9 @@ ComponentLibraryItem
 
     iconWidth: st.dp56
 
-    iconDefaultSize: st.size16x16
+    // NOTE: We want smaller play and pause icons to keep it subtle.
+    iconDefaultSize: (isCurrent) ? st.size14x14
+                                 : st.size16x16
 
     //---------------------------------------------------------------------------------------------
 

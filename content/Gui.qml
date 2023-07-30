@@ -3126,13 +3126,13 @@ Item
         lineEditSearch.setFocus();
 
         // NOTE: Wait for the cursor.
-        sk.wait(200);
+        sk.wait(400);
 
         pSaveShot(path + "/MotionBoxB.png");
 
         restore();
 
-        panelBrowse.search(3, "chillwave", true, false); // DuckDuckGo
+        panelBrowse.search(2, "chillwave", true, false); // DuckDuckGo
 
         // NOTE: Wait for the icons to load.
         sk.wait(5000);

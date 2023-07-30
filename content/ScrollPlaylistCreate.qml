@@ -25,6 +25,8 @@ import Sky     1.0
 
 ScrollPlaylist
 {
+    id: scrollPlaylistCreate
+
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
@@ -68,7 +70,7 @@ ScrollPlaylist
                 event.action = Qt.MoveAction;
             }
 
-            bordersDrop.setItem(container);
+            bordersDrop.setItem(scrollPlaylistCreate);
         }
         else if (gui.drag == -1)
         {
@@ -76,7 +78,7 @@ ScrollPlaylist
 
             event.accepted = true;
 
-            bordersDrop.setItem(container);
+            bordersDrop.setItem(scrollPlaylistCreate);
 
             toolTip.show(qsTr("Add Track"), st.icon20x20_addList, st.dp20, st.dp20);
         }
@@ -179,7 +181,7 @@ ScrollPlaylist
 
     function pClearDrag()
     {
-        bordersDrop.clearItem(container);
+        bordersDrop.clearItem(scrollPlaylistCreate);
 
         pClearDrop();
     }

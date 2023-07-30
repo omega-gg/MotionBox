@@ -386,14 +386,14 @@ ScrollFolder
 
         clearItem();
 
-        bordersDrop.setItem(container);
+        bordersDrop.setItem(scrollFolder);
     }
 
     function pClearDrag()
     {
         timerSelect.stop();
 
-        bordersDrop.clearItem(container);
+        bordersDrop.clearItem(scrollFolder);
 
         pClearDrop();
     }

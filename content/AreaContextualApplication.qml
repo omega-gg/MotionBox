@@ -848,7 +848,9 @@ AreaContextual
         {
             if (pButtonsVisible)
             {
-                 return listContextual.height + borderSizeHeight + buttonFeed.height;
+                 return listContextual.height + borderSizeHeight + buttonFeed.height
+                        -
+                        buttonFeed.borderTop;
             }
             else return listContextual.height + borderSizeHeight - borderBottom;
         }
@@ -926,6 +928,7 @@ AreaContextual
             anchors.bottom: parent.bottom
 
             borderRight: 0
+            borderTop  : borderSize
 
             visible: pButtonsVisible
 

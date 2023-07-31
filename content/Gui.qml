@@ -3126,7 +3126,7 @@ Item
         lineEditSearch.setFocus();
 
         // NOTE: Wait for the cursor.
-        sk.wait(400);
+        sk.wait(500);
 
         pSaveShot(path + "/MotionBoxB.png");
 

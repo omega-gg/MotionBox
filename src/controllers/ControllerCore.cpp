@@ -724,6 +724,9 @@ ControllerCore::ControllerCore() : WController()
     wControllerTorrent->clearTorrents();
 #endif
 
+    // NOTE: It's important to reset backends in case they got corrupted.
+    resetBackends();
+
     _local.setCache(false);
 }
 

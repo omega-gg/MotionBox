@@ -208,6 +208,8 @@ ComponentLibraryItem
 
         anchors.leftMargin: iconWidth - width
 
-        visible: (type == Playlist.TrackLive && isCurrent == false)
+        visible: (st.getTrackActive(type) && isCurrent == false)
+
+        trackType: type
     }
 }

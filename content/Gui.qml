@@ -1575,7 +1575,7 @@ Item
 
         if (list)
         {
-            return list.insertSource(-1, source, true);
+            return list.insertSources(-1, source, true);
         }
         else if (item.isFull == false)
         {
@@ -1830,12 +1830,7 @@ Item
                 }
                 else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
             }
-            else
-            {
-                playlistTracks.insertSource(0, source);
-
-                playlistTracks.loadTrack(0);
-            }
+            else playlistTracks.insertSource(0, source, true);
         }
         else
         {

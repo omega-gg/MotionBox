@@ -147,7 +147,7 @@ ScrollPlaylist
         }
         else if (gui.drag == -1)
         {
-            list.insertSource(pDropIndex, event.text, true);
+            list.insertSources(pDropIndex, event.text, true);
         }
 
         pClearDrop();

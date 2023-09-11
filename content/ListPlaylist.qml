@@ -633,7 +633,7 @@ BaseList
 
     //---------------------------------------------------------------------------------------------
 
-    function insertSource(index, url, animate)
+    function insertSources(index, url, animate)
     {
         if (playlist == null || playlist.isFull)
         {
@@ -646,7 +646,7 @@ BaseList
             else                 index = count;
         }
 
-        var size = playlist.insertSource(index, url);
+        var size = playlist.insertSources(index, url);
 
         if (animate)
         {

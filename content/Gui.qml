@@ -372,7 +372,7 @@ Item
 //#DESKTOP
         browse(core.argument);
 //#ELSE
-        browse(sk.getMessage());
+        browse(sk.message);
 //#END
     }
 

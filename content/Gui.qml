@@ -369,7 +369,12 @@ Item
 
         pReadyBrowse = false;
 
-//#DESKTOP
+//#MAC
+        var argument = core.argument;
+
+        if (argument) browse(argument);
+        else          browse(sk.message);
+//#ELIF DESKTOP
         browse(core.argument);
 //#ELSE
         browse(sk.message);

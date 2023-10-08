@@ -68,9 +68,13 @@ Application
 
         /* QML_EVENT */ onMessageReceived: function(mesage)
         {
+//#MAC
             activate();
 
-//#DESKTOP
+            gui.browse(message);
+//#ELIF DESKTOP
+            activate();
+
             gui.browse(sk.extractMessage(message));
 //#ELSE
             gui.browse(message);

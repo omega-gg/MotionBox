@@ -66,20 +66,7 @@ Application
         // Events
         //-----------------------------------------------------------------------------------------
 
-        /* QML_EVENT */ onMessageReceived: function(mesage)
-        {
-//#MAC
-            activate();
-
-            gui.browse(message);
-//#ELIF DESKTOP
-            activate();
-
-            gui.browse(sk.extractMessage(message));
-//#ELSE
-            gui.browse(message);
-//#END
-        }
+        /* QML_EVENT */ onMessageReceived: function(mesage) { gui.onMessageReceived(message) }
 
         onFadeIn:
         {

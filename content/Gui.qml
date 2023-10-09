@@ -367,7 +367,7 @@ Item
     {
         if (pReadyBrowse == false) return;
 
-        pReadyBrowse = false;
+        pReadyBrowse = true;
 
 //#MAC
         var argument = core.argument;
@@ -2005,6 +2005,25 @@ Item
 
     //---------------------------------------------------------------------------------------------
     // Events
+
+    function onMessageReceived(message)
+    {
+        if (pReadyBrowse == false) return;
+
+//#MAC
+        window.activate();
+
+        browse(message);
+//#ELIF DESKTOP
+        window.activate();
+
+        browse(sk.extractMessage(message));
+//#ELSE
+        browse(message);
+//#END
+    }
+
+    //---------------------------------------------------------------------------------------------
 
     function onMousePressed(event)
     {

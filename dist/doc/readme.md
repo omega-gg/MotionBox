@@ -4,7 +4,7 @@
 
 #
 
-[MotionBox] is a [Video Browser] for [Motion Freedom].
+[MotionBox] is a [Video Browser] built for [Motion Freedom].
 
 Designed to access, organize and share multiple video resources.
 

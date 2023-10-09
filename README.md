@@ -5,8 +5,8 @@
 [![appveyor](https://ci.appveyor.com/api/projects/status/ct0kbo659jviskec?svg=true)](https://ci.appveyor.com/project/3unjee/MotionBox)
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
-[MotionBox](https://omega.gg/MotionBox) is a [Video Browser](https://omega.gg/about/VideoBrowser) designed for the Internet.<br>
-Built to access, organize and share multiple video resources.<br>
+[MotionBox](https://omega.gg/MotionBox) is a [Video Browser](https://omega.gg/about/VideoBrowser) built for [MotionFreedom](https://omega.gg/about/MotionFreedom).<br>
+Designed to access, organize and share multiple video resources.<br>
 [omega](https://omega.gg/about) is building MotionBox to empower people.<br>
 
 ## MotionBox Video Browser

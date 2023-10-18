@@ -390,7 +390,11 @@ elif [ $1 = "linux" ]; then
 
         cp "$path"/imageformats/libqsvg.so  $deploy/imageformats
         cp "$path"/imageformats/libqjpeg.so $deploy/imageformats
-        cp "$path"/imageformats/libqwebp.so $deploy/imageformats
+
+        if [ -f "$path"/imageformats/libqwebp.so ]; then
+
+            cp "$path"/imageformats/libqwebp.so $deploy/imageformats
+        fi
 
         if [ $qt = "qt5" ]; then
 

@@ -207,6 +207,7 @@ if [ $os = "windows" ]; then
 
         cp "$path"/imageformats/qsvg.dll  $deploy/imageformats
         cp "$path"/imageformats/qjpeg.dll $deploy/imageformats
+        cp "$path"/imageformats/qwebp.dll $deploy/imageformats
 
         if [ $qt = "qt5" ]; then
 
@@ -281,6 +282,7 @@ elif [ $1 = "macOS" ]; then
 
         cp "$path"/imageformats/libqsvg.dylib  $deploy/imageformats
         cp "$path"/imageformats/libqjpeg.dylib $deploy/imageformats
+        cp "$path"/imageformats/libqwebp.dylib $deploy/imageformats
 
         if [ $qt = "qt5" ]; then
 
@@ -388,6 +390,7 @@ elif [ $1 = "linux" ]; then
 
         cp "$path"/imageformats/libqsvg.so  $deploy/imageformats
         cp "$path"/imageformats/libqjpeg.so $deploy/imageformats
+        cp "$path"/imageformats/libqwebp.so $deploy/imageformats
 
         if [ $qt = "qt5" ]; then
 

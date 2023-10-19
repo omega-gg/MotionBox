@@ -58,6 +58,7 @@
 #include <WLoaderBarcode>
 //#include <WLoaderWeb>
 #include <WLoaderTorrent>
+#include <WHookOutputBarcode>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WAbstractTabs>
@@ -67,6 +68,7 @@
 #include <WBackendVlc>
 #include <WBackendSubtitle>
 #include <WBackendIndex>
+#include <WBackendTorrent>
 #include <WBackendUniversal>
 #include <WModelRange>
 #include <WModelList>
@@ -136,6 +138,8 @@ ControllerCore::ControllerCore() : WController()
     //_loaderWeb   = NULL;
 
     _index = NULL;
+
+    _output = NULL;
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -354,6 +358,29 @@ ControllerCore::ControllerCore() : WController()
 }
 
 #endif
+
+/* Q_INVOKABLE */ void ControllerCore::applyBackend(WDeclarativePlayer * player)
+{
+    Q_ASSERT(player);
+
+#ifdef SK_NO_TORRENT
+    WBackendManager * backend = new WBackendManager;
+#else
+    WBackendTorrent * backend = new WBackendTorrent;
+#endif
+
+    player->setBackend(backend);
+
+    QList<WAbstractHook *> list;
+
+    _output = new WHookOutputBarcode(backend);
+
+    list.append(_output);
+
+    player->setHooks(list);
+
+    emit outputChanged();
+}
 
 //-------------------------------------------------------------------------------------------------
 
@@ -749,27 +776,6 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE static */ void ControllerCore::applyBackend(WDeclarativePlayer * player)
-{
-    Q_ASSERT(player);
-
-    WBackendVlc * backend = new WBackendVlc;
-
-    player->setBackend(backend);
-
-#ifdef SK_NO_TORRENT
-    return;
-#else
-    QList<WAbstractHook *> list;
-
-    list.append(new WHookTorrent(backend));
-
-    player->setHooks(list);
-#endif
-}
-
-//-------------------------------------------------------------------------------------------------
-
 /* Q_INVOKABLE static */ bool ControllerCore::checkUrl(const QString & text)
 {
     return WControllerNetwork::textIsUri(text);
@@ -1121,6 +1127,13 @@ WLibraryFolderRelated * ControllerCore::related() const
 WBackendIndex * ControllerCore::index() const
 {
     return _index;
+}
+
+//-------------------------------------------------------------------------------------------------
+
+WHookOutput * ControllerCore::output() const
+{
+    return _output;
 }
 
 //-------------------------------------------------------------------------------------------------

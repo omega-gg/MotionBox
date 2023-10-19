@@ -44,6 +44,7 @@
 class WControllerFileReply;
 class WAbstractBackend;
 class WAbstractHook;
+class WHookOutput;
 class WWindow;
 class WCache;
 class WLoaderNetwork;
@@ -59,6 +60,7 @@ class DataOnline;
 Q_MOC_INCLUDE("WTabsTrack")
 Q_MOC_INCLUDE("WLibraryFolderRelated")
 Q_MOC_INCLUDE("WBackendIndex")
+Q_MOC_INCLUDE("WHookOutput")
 #endif
 
 class ControllerCore : public WController
@@ -83,6 +85,8 @@ class ControllerCore : public WController
 
     Q_PROPERTY(WBackendIndex * index READ index NOTIFY indexChanged)
 
+    Q_PROPERTY(WHookOutput * output READ output NOTIFY outputChanged)
+
     Q_PROPERTY(QDateTime dateCover   READ dateCover   WRITE setDateCover NOTIFY dateCoverChanged)
     Q_PROPERTY(QDateTime datePreview READ datePreview WRITE setDatePreview
                NOTIFY datePreviewChanged)
@@ -98,6 +102,8 @@ public: // Interface
 #ifdef SK_DESKTOP
     Q_INVOKABLE void applyArguments(int & argc, char ** argv);
 #endif
+
+    Q_INVOKABLE void applyBackend(WDeclarativePlayer * player);
 
     Q_INVOKABLE void load();
 
@@ -119,8 +125,6 @@ public: // Interface
 public: // Static functions
     Q_INVOKABLE static void applyTorrentOptions(int connections,
                                                 int upload, int download, int cache);
-
-    Q_INVOKABLE static void applyBackend(WDeclarativePlayer * player);
 
     //---------------------------------------------------------------------------------------------
 
@@ -183,6 +187,8 @@ signals:
 
     void indexChanged();
 
+    void outputChanged();
+
     void dateCoverChanged  ();
     void datePreviewChanged();
 
@@ -204,6 +210,8 @@ public: // Properties
     WLibraryFolderRelated * related () const;
 
     WBackendIndex * index() const;
+
+    WHookOutput * output() const;
 
     QDateTime dateCover() const;
     void      setDateCover(const QDateTime & date);
@@ -244,6 +252,8 @@ private: // Variables
     //WLoaderWeb     * _loaderWeb;
 
     WBackendIndex * _index;
+
+    WHookOutput * _output;
 
     QDateTime _dateCover;
     QDateTime _datePreview;

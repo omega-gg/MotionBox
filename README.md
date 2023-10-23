@@ -12,8 +12,9 @@ Designed to access, organize and share multiple video resources.<br>
 ## MotionBox Video Browser
 <a href="https://omega.gg/MotionBox"><img src="dist/screens/MotionBoxC.png" alt="Video Browser" width="512px"></a>
 
-MotionBox accesses videos directly via [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo).<br>
-It supports [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent),
+MotionBox accesses and aggregates videos via the [VBML](https://omega.gg/VBML) language.<br>
+It supports [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo),
+            [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent),
             [TMDB](https://www.themoviedb.org),
             [Youtube](https://en.wikipedia.org/wiki/Youtube),
             [Dailymotion](https://en.wikipedia.org/wiki/Dailymotion),

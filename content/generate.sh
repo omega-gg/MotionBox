@@ -186,6 +186,7 @@ $SkyBase/Style.qml \
 $SkyBase/WindowSky.qml \
 $SkyBase/ItemSlide.qml \
 $SkyBase/ItemWipe.qml \
+$SkyBase/ItemScan.qml \
 $SkyBase/LoaderSlide.qml \
 $SkyBase/LoaderWipe.qml \
 $SkyBase/AreaContextual.qml \
@@ -193,6 +194,7 @@ $SkyBase/RectangleBorders.qml \
 $SkyBase/RectangleBordersDrop.qml \
 $SkyBase/RectangleShadow.qml \
 $SkyBase/RectangleShadowClick.qml \
+$SkyBase/RectangleTag.qml \
 $SkyBase/TextBase.qml \
 $SkyBase/TextClick.qml \
 $SkyBase/TextLink.qml \

@@ -1294,13 +1294,16 @@ Item
 
     function browse(url)
     {
-        if (url == "") return;
-
         if (controllerPlaylist.urlIsTrack(url) && player.isPlaying && highlightedTab == null)
         {
              panelBrowse.search(panelSearch.backendAt(0), url, true, true);
         }
         else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
+    }
+
+    function browseTag(url)
+    {
+        panelBrowse.search(panelSearch.backendAt(0), url, true, player.isPlaying);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1317,8 +1320,6 @@ Item
         browseFeedTrack(currentTab.feed, currentTab.source);
     }
 
-    //---------------------------------------------------------------------------------------------
-
     function browseFeedTrack(feed, source)
     {
         restore();
@@ -1327,8 +1328,6 @@ Item
 
         panelBrowse.browse(feed);
     }
-
-    //---------------------------------------------------------------------------------------------
 
     function browseRelated(data)
     {

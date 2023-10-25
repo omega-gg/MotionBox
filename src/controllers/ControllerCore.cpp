@@ -91,6 +91,7 @@
 #include <WDeclarativeBorderImage>
 #include <WDeclarativeTextSvg>
 #include <WDeclarativePlayer>
+#include <WDeclarativeScanner>
 
 // Application includes
 #include "DataOnline.h"
@@ -271,6 +272,8 @@ ControllerCore::ControllerCore() : WController()
 #endif
 
     qmlRegisterType<WDeclarativePlayer>("Sky", 1,0, "Player");
+
+    qmlRegisterType<WDeclarativeScanner>("Sky", 1,0, "Scanner");
 
     //---------------------------------------------------------------------------------------------
     // Models

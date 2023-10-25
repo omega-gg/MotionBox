@@ -26,6 +26,8 @@ HEADERS += $$SK_GUI/declarative/WDeclarativeApplication.h \
            $$SK_GUI/declarative/WDeclarativeListView.h \
            $$SK_GUI/declarative/WDeclarativeListView_p.h \
            $$SK_GUI/declarative/WDeclarativeContextualPage.h \
+           $$SK_BARCODE/declarative/WDeclarativeScanner.h \
+           $$SK_BARCODE/declarative/WDeclarativeScanner_p.h \
 
 contains(QT_MAJOR_VERSION, 4) {
     HEADERS += $$SK_GUI/declarative/Qt/qdeclarativemousearea_p.h \
@@ -52,6 +54,7 @@ SOURCES += $$SK_GUI/declarative/WDeclarativeApplication.cpp \
            $$SK_GUI/declarative/WDeclarativePlayer.cpp \
            $$SK_GUI/declarative/WDeclarativeListView.cpp \
            $$SK_GUI/declarative/WDeclarativeContextualPage.cpp \
+           $$SK_BARCODE/declarative/WDeclarativeScanner.cpp \
 
 contains(QT_MAJOR_VERSION, 4) {
     SOURCES += $$SK_GUI/declarative/Qt/qdeclarativemousearea.cpp

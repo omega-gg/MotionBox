@@ -272,6 +272,8 @@ Item
                 }
             }
 
+            /* QML_EVENT */ onTagClicked: function(text) { browseTag(text) }
+
             //-------------------------------------------------------------------------------------
 
             onContextual:

@@ -115,7 +115,7 @@ BaseList
         {
             hasPlaylist = true;
 
-            if (enableLoad && playlist.count == 0) playlist.loadQuery();
+            if (enableLoad && playlist.isEmpty) playlist.loadQuery();
 
             pApplyPlaylist();
 

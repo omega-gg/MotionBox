@@ -272,7 +272,7 @@ Item
                 }
             }
 
-            /* QML_EVENT */ onTagClicked: function(text) { browseTag(text) }
+            /* QML_EVENT */ onTagClicked: function(text) { gui.browse(text) }
 
             //-------------------------------------------------------------------------------------
 

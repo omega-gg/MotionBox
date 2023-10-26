@@ -43,6 +43,12 @@ Panel
     property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias model: scrollBackends.model
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -185,18 +191,6 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function backendAt(index)
-    {
-        return backends.idAt(index);
-    }
-
-    function getBackendIndex()
-    {
-        return backends.indexFromId(backend);
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function selectBackend(index)
     {
         var id = backends.idAt(index);
@@ -210,14 +204,14 @@ Panel
 
     function selectPreviousBackend()
     {
-        var index = getBackendIndex() - 1;
+        var index = pBackendIndex() - 1;
 
         selectBackend(index);
     }
 
     function selectNextBackend()
     {
-        var index = getBackendIndex() + 1;
+        var index = pBackendIndex() + 1;
 
         selectBackend(index);
     }
@@ -257,6 +251,23 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function backendAt(index)
+    {
+        return backends.idAt(index);
+    }
+
+    function getIdFromLabel(label)
+    {
+        return model.idAt(getIndexFromLabel(label));
+    }
+
+    function getIndexFromLabel(label)
+    {
+        return model.indexFromRole(ModelLibraryFolder.RoleLabel, label);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     function pStartSearch()
@@ -268,8 +279,6 @@ Panel
         else panelBrowse.search(backend, lineEditSearch.text, true, true);
     }
 
-    //---------------------------------------------------------------------------------------------
-
     function pRestoreQuery()
     {
         pTextEvents = false;
@@ -279,12 +288,17 @@ Panel
         pTextEvents = true;
     }
 
-    //---------------------------------------------------------------------------------------------
-
     function pUpdateFocus()
     {
         if (scrollCompletion.count) pIndexFocus = -1;
         else                        pIndexFocus =  1;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pBackendIndex()
+    {
+        return backends.indexFromId(backend);
     }
 
     //---------------------------------------------------------------------------------------------

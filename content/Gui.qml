@@ -1294,16 +1294,11 @@ Item
 
     function browse(url)
     {
-        if (controllerPlaylist.urlIsTrack(url) && player.isPlaying && highlightedTab == null)
+        if (player.isPlaying && highlightedTab == null)
         {
              panelBrowse.search(panelSearch.backendAt(0), url, true, true);
         }
         else panelBrowse.search(panelSearch.backendAt(0), url, true, false);
-    }
-
-    function browseTag(url)
-    {
-        panelBrowse.search(panelSearch.backendAt(0), url, true, player.isPlaying);
     }
 
     //---------------------------------------------------------------------------------------------

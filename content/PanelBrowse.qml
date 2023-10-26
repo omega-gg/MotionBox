@@ -634,13 +634,30 @@ MouseArea
 
         isSelecting = false;
 
-        var index;
+        var index = playlist.currentIndex;
 
-        if (playlist.currentIndex == -1)
+        if (index == -1)
         {
-             index = 0;
+            if (controllerPlaylist.urlIsTrackOnly(playlist.source) == false)
+            {
+                if (player.isPlaying && highlightedTab == null)
+                {
+                    playlist.selectSingleTrack(0);
+
+                    pOpenTab();
+                }
+                else gui.setCurrentTrack(playlist, 0);
+
+                if (gui.isExpanded == false && playlist.isEmpty == false)
+                {
+                    scrollPlaylist.setFocus();
+                }
+
+                return;
+            }
+            // NOTE: If it's a Track URL we want to select it right away.
+            else index = 0;
         }
-        else index = playlist.currentIndex;
 
         if (pPlay)
         {
@@ -662,6 +679,36 @@ MouseArea
         {
             scrollPlaylist.setFocus();
         }
+    }
+
+    function pCheckQuery(source)
+    {
+        if (backends.currentId != 1) return false; // browser id
+
+        if (controllerPlaylist.urlIsVbmlRun(source) == false) return false;
+
+        var method = controllerNetwork.extractUrlValue(source, "method");
+
+        if (method != "search") return false;
+
+        var label = controllerNetwork.extractUrlValue(source, "backend");
+
+        var q = controllerNetwork.extractUrlEncoded(source, "q");
+
+        // NOTE: When we have a q, we apply the query and select the proper backend.
+        if (q)
+        {
+            search(panelSearch.getIdFromLabel(label), query, true, false);
+        }
+        // NOTE: When the q is empty, we clear the backends and open the search panel.
+        else
+        {
+            lineEditSearch.setFocus();
+
+            panelSearch.selectBackend(panelSearch.getIndexFromLabel(label));
+        }
+
+        return true;
     }
 
     //---------------------------------------------------------------------------------------------

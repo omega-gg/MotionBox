@@ -640,13 +640,11 @@ MouseArea
         {
             if (controllerPlaylist.urlIsTrackOnly(playlist.source) == false)
             {
-                if (player.isPlaying && highlightedTab == null)
+                if (highlightedTab)
                 {
-                    playlist.selectSingleTrack(0);
-
-                    pOpenTab();
+                    gui.setCurrentTrack(playlist, 0);
                 }
-                else gui.setCurrentTrack(playlist, 0);
+                else gui.restore();
 
                 if (gui.isExpanded == false && playlist.isEmpty == false)
                 {
@@ -667,13 +665,11 @@ MouseArea
 
             player.replay();
         }
-        else if (player.isPlaying && highlightedTab == null)
+        else if (highlightedTab)
         {
-            playlist.selectSingleTrack(index);
-
-            pOpenTab();
+            gui.setCurrentTrack(playlist, index);
         }
-        else gui.setCurrentTrack(playlist, index);
+        else gui.restore();
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {
@@ -763,7 +759,7 @@ MouseArea
     {
         if (gui.isExpanded == false) return;
 
-        if (barWindow.openTabPlaylist(null))
+        if (barWindow.openTab())
         {
              gui.restoreBars();
         }

@@ -152,7 +152,7 @@ Item
 
     function openTab()
     {
-        return openTabPlaylist(currentPlaylist);
+        return openTabPlaylist(null);
     }
 
     function openTabPlaylist(playlist)

@@ -244,7 +244,7 @@ Item
             onTitleClicked : gui.selectCurrentTrack()
             onAuthorClicked: gui.browseCurrentFeed ()
 
-            /* QML_EVENT */ onPlayerPressed: function(mouse)
+            /* QML_EVENT */ onPlayerClicked: function(mouse)
             {
                 if (mouse.button & Qt.LeftButton)
                 {
@@ -272,7 +272,15 @@ Item
                 }
             }
 
-            /* QML_EVENT */ onTagClicked: function(text) { gui.browse(text) }
+            /* QML_EVENT */ onTagClicked: function(mouse, text)
+            {
+                if (mouse.button & Qt.MiddleButton)
+                {
+                    barWindow.openTab();
+                }
+
+                gui.browse(text)
+            }
 
             //-------------------------------------------------------------------------------------
 

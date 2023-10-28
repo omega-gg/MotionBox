@@ -101,7 +101,7 @@ W_INIT_CONTROLLER(ControllerCore)
 //-------------------------------------------------------------------------------------------------
 // Static variables
 
-// NOTE: Also check version_windows.
+// NOTE: Also check DataLocal_patch, version_windows.
 static const QString CORE_VERSION = "1.8.1-2";
 
 static const int CORE_CACHE = 1048576 * 100; // 100 megabytes

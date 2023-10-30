@@ -37,6 +37,7 @@ AreaContextual
     // 2: Tracks
     // 3: Tab
     // 4: Browse
+    // 5: Tag
 
     /* read */ property variant item: null
 
@@ -46,11 +47,11 @@ AreaContextual
     property variant pItem : null
     property int     pIndex: -1
 
-    property variant pData: null
-
     property string pSource
     property string pAuthor
     property string pFeed
+
+    property string pText
 
     property bool pButtonsVisible: (currentId == 1 || currentId == 3) // Track or Tab
 
@@ -423,8 +424,6 @@ AreaContextual
             currentId = 0;
         }
 
-        //-----------------------------------------------------------------------------------------
-
         function loadPageTrack(list, index)
         {
             pItem  = list;
@@ -461,12 +460,12 @@ AreaContextual
             }
             else
             {
-                pData = playlist.trackData(index);
+                var data = playlist.trackData(index);
 
-                pSource = pData.source;
-                pFeed   = pData.feed;
+                pSource = data.source;
+                pFeed   = data.feed;
 
-                pAuthor = gui.getTrackAuthor(pData.author, pFeed);
+                pAuthor = gui.getTrackAuthor(data.author, pFeed);
 
                 array.push
                 (
@@ -496,7 +495,7 @@ AreaContextual
 
                 page.values = array;
 
-                if (pData.title == "")
+                if (data.title == "")
                 {
                     page.setItemEnabled(2, false);
                 }
@@ -544,12 +543,12 @@ AreaContextual
 
             if (tab.isValid)
             {
-                pData = tab.trackData;
+                var data = tab.trackData;
 
-                pSource = pData.source;
-                pFeed   = pData.feed;
+                pSource = data.source;
+                pFeed   = data.feed;
 
-                pAuthor = gui.getTrackAuthor(pData.author, pFeed);
+                pAuthor = gui.getTrackAuthor(data.author, pFeed);
 
                 if (tab.title == "")
                 {
@@ -606,6 +605,27 @@ AreaContextual
             page.values = array;
 
             currentId = 4;
+        }
+
+        function loadPageTag(text)
+        {
+            pText = text;
+
+            var array = new Array;
+
+            array.push
+            (
+                { "type": ContextualPage.Category, "title": qsTr("VideoTag") },
+
+                { "id": 0, "iconSize": st.size18x18, "title": qsTr("Open in a new tab") },
+
+                { "id": 1, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                  "title": qsTr("Copy link") }
+            );
+
+            page.values = array;
+
+            currentId = 5;
         }
 
         //-----------------------------------------------------------------------------------------
@@ -674,8 +694,6 @@ AreaContextual
 
             return true;
         }
-
-        //-----------------------------------------------------------------------------------------
 
         function onTrackClicked(id)
         {
@@ -841,6 +859,22 @@ AreaContextual
             return true;
         }
 
+        function onTagClicked(id)
+        {
+            if (id == 0) // Open in new tab
+            {
+                barWindow.openTab();
+
+                gui.browse(pText);
+            }
+            else if (id == 1) // Copy link
+            {
+                sk.setClipboardText(pText);
+            }
+
+            return true;
+        }
+
         //-----------------------------------------------------------------------------------------
         // Private
 
@@ -894,6 +928,7 @@ AreaContextual
                 else if (currentId == 2) clear = panelContextual.onTracksClicked(id);
                 else if (currentId == 3) clear = panelContextual.onTabClicked   (id);
                 else if (currentId == 4) clear = panelContextual.onBrowseClicked(id);
+                else if (currentId == 5) clear = panelContextual.onTagClicked   (id);
                 else                     clear = true;
 
                 if (clear) areaContextual.hidePanels();

@@ -167,6 +167,18 @@ Item
         barWindow.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(), true);
     }
 
+    function pContextualTag(text)
+    {
+        if (text == "") return false;
+
+        panelContextual.loadPageTag(text);
+
+        areaContextual.showPanelAt(panelContextual, wall, window.contentMouseX(),
+                                   window.contentMouseY(), true);
+
+        return true;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
@@ -254,6 +266,8 @@ Item
                 }
                 else if (mouse.button & Qt.RightButton)
                 {
+                    if (pContextualTag(scannerPlayer.getTextHovered())) return;
+
                     gui.restoreBars();
 
                     pContextualTab(playerTab);
@@ -279,14 +293,14 @@ Item
                     barWindow.openTab();
                 }
 
-                gui.browse(text)
+                gui.browse(text);
             }
 
             //-------------------------------------------------------------------------------------
 
             onContextual:
             {
-                if (isExposed == false) return;
+                if (pContextualTag(scannerPlayer.getTextHovered()) || isExposed == false) return;
 
                 var tab = tabs.tabAt(indexHover);
 
@@ -300,7 +314,12 @@ Item
                 }
             }
 
-            onContextualBrowser: pContextualTab(currentTab)
+            onContextualBrowser:
+            {
+                if (pContextualTag(scannerBrowser.getTextHovered())) return;
+
+                pContextualTab(currentTab);
+            }
 
             onSubtitleLoaded: if (ok == false) panelGet.clearSubtitle()
 

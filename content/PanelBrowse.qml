@@ -537,9 +537,9 @@ MouseArea
         isSearching = true;
         isSelecting = pSelect;
 
-        if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
+        if (pSelect && player.isPlaying && highlightedTab == null)
         {
-            pOpenTab();
+            gui.restore();
         }
 
         var source;
@@ -640,11 +640,10 @@ MouseArea
         {
             if (controllerPlaylist.urlIsTrackOnly(playlist.source) == false)
             {
-                if (highlightedTab)
+                if (player.isPlaying == false || highlightedTab)
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
-                else gui.restore();
 
                 if (gui.isExpanded == false && playlist.isEmpty == false)
                 {
@@ -665,11 +664,10 @@ MouseArea
 
             player.replay();
         }
-        else if (highlightedTab)
+        if (player.isPlaying == false || highlightedTab)
         {
             gui.setCurrentTrack(playlist, index);
         }
-        else gui.restore();
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {
@@ -751,19 +749,6 @@ MouseArea
         pUpdateButtons();
 
         pEventBrowse = true;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pOpenTab()
-    {
-        if (gui.isExpanded == false) return;
-
-        if (barWindow.openTab())
-        {
-             gui.restoreBars();
-        }
-        else gui.restore();
     }
 
     //---------------------------------------------------------------------------------------------

@@ -54,7 +54,7 @@ Panel
 
     width: lineEditSearch.width + borderSizeWidth
 
-    height: st.list_itemSize * 6 + borderSizeHeight
+    height: st.list_itemSize * 7 + borderSizeHeight
 
     borderTop: 0
 

@@ -43,12 +43,6 @@ Panel
     property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias model: scrollBackends.model
-
-    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -259,12 +253,12 @@ Panel
 
     function getIdFromLabel(label)
     {
-        return model.idAt(getIndexFromLabel(label));
+        return backends.idAt(getIndexFromLabel(label));
     }
 
     function getIndexFromLabel(label)
     {
-        return model.indexFromRole(ModelLibraryFolder.RoleLabel, label);
+        return backends.indexFromLabel(label);
     }
 
     //---------------------------------------------------------------------------------------------

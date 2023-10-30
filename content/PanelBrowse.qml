@@ -290,7 +290,7 @@ MouseArea
 
         /* QML_CONNECTION */ function onQueryEnded()
         {
-            if (pFolder.currentIndex != -1) return;
+            if (pCheckQuery(pFolder.source) || pFolder.currentIndex != -1) return;
 
             pFolder.loadCurrentIndex(0, true);
 
@@ -685,22 +685,26 @@ MouseArea
 
         if (method != "search") return false;
 
+        isSearching = false;
+        isSelecting = false;
+
         var label = controllerNetwork.extractUrlValue(source, "backend");
 
         var q = controllerNetwork.extractUrlEncoded(source, "q");
 
-        // NOTE: When we have a q, we apply the query and select the proper backend.
-        if (q)
-        {
-            search(panelSearch.getIdFromLabel(label), query, true, false);
-        }
         // NOTE: When the q is empty, we clear the backends and open the search panel.
-        else
+        if (q == "")
         {
+            pClearSearch();
+
             lineEditSearch.setFocus();
+
+            lineEditSearch.clear();
 
             panelSearch.selectBackend(panelSearch.getIndexFromLabel(label));
         }
+        // NOTE: When we have a q, we apply the query and select the proper backend.
+        else search(panelSearch.getIdFromLabel(label), q, pSelect, pPlay);
 
         return true;
     }

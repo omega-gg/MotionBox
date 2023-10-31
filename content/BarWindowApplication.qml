@@ -361,7 +361,11 @@ Item
 
         borderTop: borderSize
 
+//#WINDOWS
+        visible: (sk.isUwp == false && pVersion)
+//#ELSE
         visible: pVersion
+//#END
 
         highlighted: true
         checked    : pUpdate

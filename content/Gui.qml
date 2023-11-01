@@ -767,6 +767,8 @@ Item
 
     function restore()
     {
+        restoreBars();
+
         if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
 
         //panelDiscover.collapse();
@@ -2302,8 +2304,8 @@ Item
 
             if (isExpanded)
             {
-                restoreBars();
-                restore    ();
+                //restoreBars();
+                restore();
 
                 panelBrowse.expose();
             }
@@ -2361,8 +2363,8 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            restoreBars();
-            restore    ();
+            //restoreBars();
+            restore();
 
             selectTrack(playerTab);
 

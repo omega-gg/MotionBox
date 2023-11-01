@@ -26,6 +26,14 @@ import Sky     1.0
 BasePageSettings
 {
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+
+    /* read */ property int contentWidth : st.dp320
+    /* read */ property int contentHeight: st.dp288
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -38,7 +46,7 @@ BasePageSettings
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onCancel: pageSettings.loadMain()
+    onCancel: loadMain()
 
     onOk: pApply()
 
@@ -69,7 +77,7 @@ BasePageSettings
             &&
             local.torrentCache == cache)
         {
-            pageSettings.loadMain();
+            loadMain();
 
             return;
         }
@@ -96,7 +104,7 @@ BasePageSettings
 
         core.applyTorrentOptions(connections, upload, download, cache);
 
-        pageSettings.loadMain();
+        loadMain();
     }
 
     //---------------------------------------------------------------------------------------------

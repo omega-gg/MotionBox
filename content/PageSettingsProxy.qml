@@ -30,6 +30,12 @@ BasePageSettings
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
+
+    /* read */ property int contentWidth : st.dp320
+    /* read */ property int contentHeight: st.dp288
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pStream: local.proxyStream
@@ -49,7 +55,7 @@ BasePageSettings
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onCancel: pageSettings.loadMain()
+    onCancel: loadMain()
 
     onOk: pApply()
 
@@ -80,7 +86,7 @@ BasePageSettings
             &&
             local.proxyStream == stream && local.proxyActive == active)
         {
-            pageSettings.loadMain();
+            loadMain();
 
             return;
         }
@@ -102,7 +108,7 @@ BasePageSettings
             gui.applyProxy(true);
         }
 
-        pageSettings.loadMain();
+        loadMain();
     }
 
     //---------------------------------------------------------------------------------------------

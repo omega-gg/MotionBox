@@ -194,6 +194,31 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
+    function selectTab(index)
+    {
+        if (loader.isAnimated || currentIndex == index || index >= sources.length) return;
+
+        var source = sources[index];
+
+        pAnimate = true;
+
+        if (currentIndex < index)
+        {
+             loader.loadLeft(source);
+        }
+        else loader.loadRight(source);
+
+        // NOTE: We check if the 'onShow' function is defined.
+        if (page.onShow) page.onShow();
+
+        pAnimate = false;
+
+        // NOTE: We apply the current index after the animation.
+        currentIndex = index;
+
+        loader.item.forceActiveFocus();
+    }
+
     function loadPage()
     {
         if (loader.source == "")
@@ -239,33 +264,6 @@ Panel
 
     //---------------------------------------------------------------------------------------------
     // Private
-
-    function pSelectTab(index)
-    {
-        if (loader.isAnimated || currentIndex == index || index >= sources.length) return;
-
-        var source = sources[index];
-
-        pAnimate = true;
-
-        if (currentIndex < index)
-        {
-             loader.loadLeft(source);
-        }
-        else loader.loadRight(source);
-
-        // NOTE: We check if the 'onShow' function is defined.
-        if (page.onShow) page.onShow();
-
-        pAnimate = false;
-
-        // NOTE: We apply the current index after the animation.
-        currentIndex = index;
-
-        loader.item.forceActiveFocus();
-    }
-
-    //---------------------------------------------------------------------------------------------
 
     function pGetTitle()
     {
@@ -318,7 +316,7 @@ Panel
 
             function onSelect(index)
             {
-                pSelectTab(index);
+                selectTab(index);
             }
         }
     }

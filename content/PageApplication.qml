@@ -23,41 +23,119 @@
 import QtQuick 1.0
 import Sky     1.0
 
-PageWipe
+ColumnScroll
 {
-    id: pageSettings
-
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
     // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
-    /* read */ property int contentWidth: st.dp320
-
-    // NOTE: We need to be specific to avoid scaling issues.
-    /* read */ property int contentHeight: (st.barTitleSmall_height + st.border_size * 2
-                                            +
-                                            st.buttonPush_height + st.dp3 * 2) * 4
+    /* read */ property int contentWidth : st.dp192
+    /* read */ property int contentHeight: button.y + button.height
 
     //---------------------------------------------------------------------------------------------
-    // Settings
+    // Events
     //---------------------------------------------------------------------------------------------
-
-    mainSource: "PageApplicationMain.qml"
 
 //#QT_NEW
+    // NOTE Qt5.9: We need to forceLayout and processEvents to get the proper contentHeight.
+    Component.onCompleted: if (typeof forceLayout == "function") forceLayout()
+//#END
+
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+    // BasePanelSettings events
 
-    function loadPage(source)
+    // NOTE: We need to forceLayout and processEvents to get the proper contentHeight.
+    function onShow()
     {
-        Qt.callLater(loadLeft, source);
+        sk.processEvents();
     }
 
-    function loadMain()
+    //---------------------------------------------------------------------------------------------
+    // Children
+    //---------------------------------------------------------------------------------------------
+
+//#DESKTOP
+    ButtonCheckSettings
     {
-        Qt.callLater(loadRight, mainSource);
+//#WINDOWS
+        visible: (sk.isUwp == false)
+//#END
+
+        checked: controllerPlaylist.associateVbml
+
+        text: qsTr("Set default player")
+
+        onCheckClicked: controllerPlaylist.associateVbml = checked
     }
 //#END
+
+    BarSettings { text: qsTr("Content") }
+
+    ButtonPush
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        text: qsTr("View storage")
+    }
+
+    BarSettings { text: qsTr("Cache") }
+
+    ButtonsCheck
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        checkable: false
+
+        model: ListModel {}
+
+        Component.onCompleted:
+        {
+//#QT_4
+            // NOTE Qt4: We can only append items one by one.
+            model.append({ "title": qsTr("Clear tabs") });
+            model.append({ "title": qsTr("Clear cache") });
+//#ELSE
+            model.append(
+            [
+                { "title": qsTr("Clear tabs") },
+                { "title": qsTr("Clear cache") }
+            ]);
+//#END
+        }
+    }
+
+    ButtonPush
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        text: qsTr("Clear both")
+    }
+
+    BarSettings { text: qsTr("Zoom") }
+
+    ButtonPush
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        text: qsTr("100%")
+    }
+
+    BarSettings { text: qsTr("Style") }
+
+    ButtonPush
+    {
+        id: button
+
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        text: qsTr("Light")
+    }
 }

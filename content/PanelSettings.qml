@@ -32,11 +32,13 @@ BasePanelSettings
     sources: [ Qt.resolvedUrl("PageApplication.qml"),
                Qt.resolvedUrl("PageVideo.qml"),
                Qt.resolvedUrl("PageAdvanced.qml"),
+               Qt.resolvedUrl("PageSettingsProxy.qml"),
+               Qt.resolvedUrl("PageSettingsTorrent.qml"),
                Qt.resolvedUrl("PageConsole.qml"),
                Qt.resolvedUrl("PageAbout.qml") ]
 
-    titles: [ qsTr("Application"), qsTr("Player"), qsTr("Advanced"), qsTr("Console"),
-              qsTr("About") ]
+    titles: [ qsTr("Application"), qsTr("Player"), qsTr("Advanced"), qsTr("Proxy"),
+              qsTr("Torrent"), qsTr("Console"), qsTr("About") ]
 
     currentIndex: 1
 

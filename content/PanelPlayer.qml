@@ -339,7 +339,7 @@ Item
 
             Connections
             {
-                target: (window.fullScreen) ? playerMouseArea : null
+                target: (window.fullScreen) ? wall.scannerPlayer : null
 
                 /* QML_CONNECTION */ function onPositionChanged(mouse)
                 {

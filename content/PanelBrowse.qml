@@ -537,7 +537,7 @@ MouseArea
         isSearching = true;
         isSelecting = pSelect;
 
-        if (pSelect && player.isPlaying && highlightedTab == null)
+        if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
         {
             gui.restore();
         }
@@ -644,6 +644,7 @@ MouseArea
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
+                else gui.restore();
 
                 if (gui.isExpanded == false && playlist.isEmpty == false)
                 {
@@ -664,10 +665,11 @@ MouseArea
 
             player.replay();
         }
-        if (player.isPlaying == false || highlightedTab)
+        else if (player.isPlaying == false || highlightedTab)
         {
             gui.setCurrentTrack(playlist, index);
         }
+        else gui.restore();
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {

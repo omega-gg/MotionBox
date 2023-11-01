@@ -249,7 +249,6 @@ OTHER_FILES += 3rdparty.sh \
                content/ComponentTrack.qml \
                content/ComponentFolder.qml \
                content/PageApplication.qml \
-               content/PageApplicationMain.qml \
                content/BasePageSettings.qml \
                content/PageSettingsProxy.qml \
                content/PageSettingsTorrent.qml \

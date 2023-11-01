@@ -31,7 +31,7 @@ ColumnScroll
     // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
     /* read */ property int contentWidth : st.dp192
-    /* read */ property int contentHeight: button.y + button.height
+    /* read */ property int contentHeight: buttonStyle.y + buttonStyle.height
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -51,6 +51,58 @@ ColumnScroll
     function onShow()
     {
         sk.processEvents();
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Quality
+
+    function pScaleString()
+    {
+        return qsTr("%1 %").arg(Math.round(st.scale * 100));
+    }
+
+    function pScaleIndex()
+    {
+        var scale = st.scale;
+
+        if      (scale == 0.92) return 0;
+        else if (scale == 1.0)  return 1;
+        else if (scale == 1.28) return 2;
+        else if (scale == 1.6)  return 3;
+        else if (scale == 2.0)  return 4;
+    }
+
+    function pScaleSelect(index)
+    {
+        if      (index == 0) gui.scale(0.92);
+        else if (index == 1) gui.scale(1.0);
+        else if (index == 2) gui.scale(1.28);
+        else if (index == 3) gui.scale(1.6);
+        else                 gui.scale(2.0);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Style
+
+    function pStyleString()
+    {
+        var style = local.style;
+
+        if      (style == 0) return qsTr("Light");
+        else if (style == 1) return qsTr("Night");
+        else if (style == 2) return qsTr("Bold");
+        else                 return qsTr("Classic");
+    }
+
+    function pStyleIndex() { return local.style }
+
+    function pStyleSelect(index)
+    {
+        st.applyStyle(index);
+
+        gui.updateColor();
+
+        local.style = index;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -74,18 +126,19 @@ ColumnScroll
 
     BarSettings { text: qsTr("Content") }
 
-    ButtonPush
+    ButtonWide
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
-
         text: qsTr("View storage")
+
+        onClicked: gui.openFile(core.pathStorage)
     }
 
     BarSettings { text: qsTr("Cache") }
 
     ButtonsCheck
     {
+        id: buttonsClear
+
         anchors.left : parent.left
         anchors.right: parent.right
 
@@ -107,35 +160,69 @@ ColumnScroll
             ]);
 //#END
         }
+
+        onClicked:
+        {
+            if (index == 0)
+            {
+                gui.clearTabs();
+
+                itemAt(0).enabled = false;
+            }
+            else
+            {
+                gui.clearCache();
+
+                itemAt(1).enabled = false;
+            }
+        }
     }
 
-    ButtonPush
+    ButtonWide
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
-
         text: qsTr("Clear both")
+
+        onClicked:
+        {
+            buttonsClear.clickAt(0);
+            buttonsClear.clickAt(1);
+
+            enabled = false;
+        }
     }
 
-    BarSettings { text: qsTr("Zoom") }
+    BarSettings { text: qsTr("Scale") }
 
-    ButtonPush
+    ButtonSettings
     {
-        anchors.left : parent.left
-        anchors.right: parent.right
+        settings: [{ "title": qsTr("92 %")  },
+                   { "title": qsTr("100 %") },
+                   { "title": qsTr("128 %") },
+                   { "title": qsTr("160 %") },
+                   { "title": qsTr("200 %") }]
 
-        text: qsTr("100%")
+        text: pScaleString()
+
+        currentIndex: pScaleIndex()
+
+        function onSelect(index) { pScaleSelect(index) }
     }
 
     BarSettings { text: qsTr("Style") }
 
-    ButtonPush
+    ButtonSettings
     {
-        id: button
+        id: buttonStyle
 
-        anchors.left : parent.left
-        anchors.right: parent.right
+        settings: [{ "title": qsTr("Light")   },
+                   { "title": qsTr("Night")   },
+                   { "title": qsTr("Bold")    },
+                   { "title": qsTr("Classic") }]
 
-        text: qsTr("Light")
+        text: pStyleString()
+
+        currentIndex: pStyleIndex()
+
+        function onSelect(index) { pStyleSelect(index) }
     }
 }

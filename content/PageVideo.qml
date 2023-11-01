@@ -100,6 +100,9 @@ ColumnScroll
         else                                             return qsTr("Invalid");
     }
 
+    //---------------------------------------------------------------------------------------------
+    // NOTE: We ignore the default quality.
+
     function pQualityIndex(quality)
     {
         return quality - 1;
@@ -339,7 +342,7 @@ ColumnScroll
 
         text: pRatioString()
 
-        currentIndex: pRatioIndex(player.fillMode)
+        currentIndex: pRatioIndex()
 
         function onSelect(index) { pRatioSelect(index) }
     }

@@ -30,10 +30,6 @@ Item
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
-
-    /* read */ property variant playlist: null
-
-    //---------------------------------------------------------------------------------------------
     // Private
 
     property int pMargin: buttonAdd.width - st.border_size
@@ -152,16 +148,27 @@ Item
 
     function openTab()
     {
-        return openTabPlaylist(null);
+        if (actionCue.tryPush(actionTabOpen) || itemTabs.openTab() == false) return;
+
+        startActionCue(st.duration_normal);
     }
 
-    function openTabPlaylist(playlist)
+    function openTabCurrent()
     {
-        if (tabs.isFull) return false;
+        if (actionCue.tryPush(actionTabOpen)) return;
 
-        pOpenTabPlaylist(playlist);
+        var index = tabs.indexOf(currentTab) + 1;
 
-        return true;
+        if (itemTabs.openTabAt(index) == false) return;
+
+        startActionCue(st.duration_normal);
+    }
+
+    function openTabPlaylist()
+    {
+        if (tabs.isFull) return;
+
+        pOpenTabPlaylist(currentPlaylist);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -212,88 +219,36 @@ Item
 
     function pOpenTabPlaylist(playlist)
     {
-        if (actionCue.tryPush(actionTabOpen))
-        {
-            barWindow.playlist = playlist;
-
-            return;
-        }
+        if (actionCue.tryPush(actionTabOpen)) return;
 
         //panelDiscover.collapse();
 
-        var index;
-
         if (playlist)
         {
-             index = playlist.lastSelected;
-        }
-        else index = -1;
+            var index = tabs.indexOf(currentTab) + 1;
 
-        var samePlaylist;
+            if (itemTabs.openTabAt(index) == false) return;
 
-        if (playlist && currentTab.playlist == playlist)
-        {
-             samePlaylist = true;
-        }
-        else samePlaylist = false;
+            if (playlist.isEmpty == false)
+            {
+                wall.asynchronous = false;
 
-        if (samePlaylist)
-        {
-            var indexTab = tabs.indexOf(currentTab) + 1;
+                index = playlist.lastSelected;
 
-            if (itemTabs.openTabAt(indexTab) == false) return;
+                if (index != -1)
+                {
+                    gui.setCurrentTrack(playlist, index);
+                }
+                else if (playlist.currentIndex != -1)
+                {
+                    gui.setCurrentTrack(playlist, playlist.currentIndex);
+                }
+                else gui.setCurrentTrack(playlist, 0);
+
+                wall.asynchronous = true;
+            }
         }
         else if (itemTabs.openTab() == false) return;
-
-        if (playlist == null || playlist.isEmpty)
-        {
-            startActionCue(st.duration_normal);
-
-            return;
-        }
-
-        var playlistIndex;
-
-        if (samePlaylist)
-        {
-            if (index != -1 && index != playlist.currentIndex)
-            {
-                playlistIndex = index;
-            }
-            else if (playlist.currentIndex != -1)
-            {
-                playlistIndex = playlist.currentIndex;
-
-                /*if (playlist.isFeed)
-                {
-                    if (playlist.currentIndex > 0)
-                    {
-                         playlistIndex = playlist.currentIndex - 1;
-                    }
-                    else playlistIndex = playlist.currentIndex;
-                }
-                else
-                {
-                    if (playlist.currentIndex < (playlist.count - 1))
-                    {
-                         playlistIndex = playlist.currentIndex + 1;
-                    }
-                    else playlistIndex = playlist.currentIndex;
-                }*/
-            }
-            else playlistIndex = 0;
-        }
-        else if (index != -1)
-        {
-             playlistIndex = index;
-        }
-        else playlistIndex = 0;
-
-        wall.asynchronous = false;
-
-        gui.setCurrentTrack(playlist, playlistIndex);
-
-        wall.asynchronous = true;
 
         startActionCue(st.duration_normal);
     }
@@ -653,7 +608,7 @@ Item
     {
         id: buttonAdd
 
-        x: itemTabs .x + itemTabs.tabsWidth - borderLeft
+        x: itemTabs.x + itemTabs.tabsWidth - borderLeft
 
         borderLeft: borderSize
 

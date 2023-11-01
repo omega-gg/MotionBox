@@ -3230,7 +3230,7 @@ Item
             else if (id == actionFullScreenExpose)  exposeFullScreen ();
             else if (id == actionFullScreenRestore) restoreFullScreen();
 
-            else if (id == actionTabOpen) barWindow.openTabPlaylist(barWindow.playlist);
+            else if (id == actionTabOpen) barWindow.openTabPlaylist();
 
             else if (id == actionTabMenu) barWindow.showCurrentTabMenu();
 

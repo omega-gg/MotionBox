@@ -57,16 +57,19 @@ PanelImage
 
     property bool pActive: false
 
+    property int pWidth : st.dp256
+    property int pHeight: st.dp144
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    width: (type) ? st.dp192 + borderSizeWidth
-                  : st.dp108 + borderSizeWidth
+    width: (type) ? pWidth  + borderSizeWidth
+                  : pHeight + borderSizeWidth
 
     height: pGetHeight(detail)
 
-    sourceSize: Qt.size(st.dp192, st.dp108)
+    sourceSize: Qt.size(pWidth, pHeight)
 
     z: 1
 
@@ -124,7 +127,7 @@ PanelImage
     imageFront.anchors.left : imageFront.parent.left
     imageFront.anchors.right: imageFront.parent.right
 
-    imageFront.height: st.dp108
+    imageFront.height: pHeight
 
     imageFront.z: 1
 
@@ -418,23 +421,26 @@ PanelImage
 
     function pGetHeight(detail)
     {
-        var size = st.dp108 + borderSizeHeight;
+        var size = pHeight + borderSizeHeight;
 
-        if (detail)
+        if (detail == false) return size;
+
+        if (itemDuration.text)
         {
-            if (itemDuration.text == "")
+            if (textDate.text)
             {
-                if (textDate.text == "")
-                {
-                     return size + buttonFeed.height;
-                }
-                else return size + buttonFeed.height + border.size + st.dp24;
+                 size += st.dp48 + border.size;
             }
-            else if (textDate.text == "")
-            {
-                 return size + buttonFeed.height + border.size + st.dp24;
-            }
-            else return size + buttonFeed.height + border.size + st.dp48;
+            else size += st.dp24 + border.size;
+        }
+        else if (textDate.text)
+        {
+            size += st.dp24 + border.size;
+        }
+
+        if (buttonFeed.text)
+        {
+            return size + buttonFeed.height;
         }
         else return size;
     }

@@ -788,13 +788,7 @@ BaseList
     {
         if (index < 0 || index >= count) return;
 
-        if (currentTab.playlist == playlist)
-        {
-            var indexTab = tabs.indexOf(currentTab) + 1;
-
-            if (itemTabs.openTabAt(indexTab) == false) return;
-        }
-        else if (itemTabs.openTab() == false) return;
+        barWindow.openTabCurrent();
 
         wall.asynchronous = false;
 

@@ -290,7 +290,7 @@ Item
             {
                 if (mouse.button & Qt.MiddleButton)
                 {
-                    barWindow.openTab();
+                    barWindow.openTabCurrent();
                 }
 
                 gui.browse(text);

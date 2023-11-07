@@ -26,7 +26,7 @@ make_arguments="-j 4"
 
 ProgramFiles="/c/Program Files (x86)"
 
-BuildTools="$ProgramFiles/Microsoft Visual Studio/2019/BuildTools"
+BuildTools="$ProgramFiles/Microsoft Visual Studio/2022/BuildTools"
 
 #--------------------------------------------------------------------------------------------------
 

@@ -99,6 +99,7 @@ include(src/vlc/vlc.pri)
 include(src/torrent/torrent.pri)
 
 include(src/3rdparty/qtsingleapplication/qtsingleapplication.pri)
+include(src/3rdparty/zlib/zlib.pri)
 include(src/3rdparty/quazip/quazip.pri)
 include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 include(src/3rdparty/zxing-cpp/zxing-cpp.pri)
@@ -132,13 +133,9 @@ unix:!macx:!ios:!android:greaterThan(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/$$QTX/QtDBus
 }
 
-win32-msvc*:INCLUDEPATH += $$[QT_INSTALL_PREFIX]/include/QtZlib
-
 #win32:contains(QT_MAJOR_VERSION, 5) {
 #    LIBS += -lopengl32
 #}
-
-win32:!win32-msvc*:LIBS += -L$$SK/lib -lz
 
 win32:LIBS += -L$$SK/lib -llibvlc \
               -lmswsock -lws2_32
@@ -155,8 +152,6 @@ win32-msvc*:LIBS += shell32.lib User32.lib
 unix:!ios:!android:LIBS += -L$$SK/lib -lvlc \
                            -L$$SK/lib -ltorrent-rasterbar \
                            -L$$SK/lib -lboost_system
-
-unix:LIBS += -lz
 
 android:LIBS += -L$$SK/lib/$$ABI -lvlc \
                 -L$$SK/lib/$$ABI -ltorrent-rasterbar \

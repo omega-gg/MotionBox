@@ -317,6 +317,7 @@ Item
         borderTop: borderSize
 
 //#WINDOWS
+        // NOTE windows/uwp: Updates are handled by the store.
         visible: (sk.isUwp == false && pVersion)
 //#ELSE
         visible: pVersion

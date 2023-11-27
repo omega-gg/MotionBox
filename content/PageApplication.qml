@@ -112,6 +112,8 @@ ColumnScroll
 //#DESKTOP
     ButtonCheckSettings
     {
+        id: buttonDefault
+
 //#WINDOWS
         visible: (sk.isUwp == false)
 //#END
@@ -124,7 +126,14 @@ ColumnScroll
     }
 //#END
 
-    BarSettings { text: qsTr("Content") }
+    BarSettings
+    {
+//#DESKTOP
+        borderTop: (buttonDefault.visible) ? borderSize : 0
+//#END
+
+        text: qsTr("Content")
+    }
 
     ButtonWide
     {

@@ -14,12 +14,14 @@ Designed to access, organize and share multiple video resources.<br>
 
 MotionBox accesses and aggregates videos via the [VBML](https://omega.gg/VBML) language.<br>
 It supports [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo),
+            [vox](https://omega.gg/vox),
             [BitTorrent](https://en.wikipedia.org/wiki/BitTorrent),
             [TMDB](https://www.themoviedb.org),
             [Youtube](https://en.wikipedia.org/wiki/Youtube),
             [Dailymotion](https://en.wikipedia.org/wiki/Dailymotion),
             [Vimeo](https://en.wikipedia.org/wiki/Vimeo),
             [Twitch](https://en.wikipedia.org/wiki/Twitch_(service)),
+            [IPTV(s)](https://github.com/iptv-org/iptv),
             [TikTok](https://en.wikipedia.org/wiki/TikTok),
             [Facebook](https://en.wikipedia.org/wiki/Facebook),
             [Odysee](https://en.wikipedia.org/wiki/Odysee),

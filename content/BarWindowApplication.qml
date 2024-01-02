@@ -534,7 +534,7 @@ Item
 
         anchors.right: buttonIconify.left
 
-        anchors.leftMargin: -(st.border_size)
+        anchors.leftMargin: -st.border_size
 
         anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
                                                  : pMargin + st.dp32

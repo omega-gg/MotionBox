@@ -189,6 +189,7 @@ $SkyBase/ItemWipe.qml \
 $SkyBase/ItemScan.qml \
 $SkyBase/LoaderSlide.qml \
 $SkyBase/LoaderWipe.qml \
+$SkyBase/AreaPanel.qml \
 $SkyBase/AreaContextual.qml \
 $SkyBase/RectangleBorders.qml \
 $SkyBase/RectangleBordersDrop.qml \

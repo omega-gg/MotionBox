@@ -222,6 +222,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PanelOutput.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \
+               content/PanelAssociate.qml \
                content/BarWindowApplication.qml \
                content/BarTop.qml \
                content/BarControls.qml \

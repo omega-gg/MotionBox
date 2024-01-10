@@ -32,12 +32,8 @@ Item
 
     /* read */ property int contentWidth : st.dp192
 
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
     // NOTE: This is useful for BasePanelSettings.
-    /* read */ property alias contentHeight: list.contentHeight
+    /* read */ property int contentHeight: list.contentHeight + button.height
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -80,7 +76,10 @@ Item
     {
         id: list
 
-        anchors.fill: parent
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : parent.top
+        anchors.bottom: button.top
 
         model: ModelOutput { backend: player.backend }
 
@@ -98,5 +97,14 @@ Item
                 panelOutput.collapse();
             }
         }
+    }
+
+    ButtonWide
+    {
+        id: button
+
+        anchors.bottom: parent.bottom
+
+        text: qsTr("Enter code")
     }
 }

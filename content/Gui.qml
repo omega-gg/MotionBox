@@ -347,6 +347,16 @@ Item
         window.clearFocus();
 
         isLoaded = true;
+
+//#DESKTOP+!LINUX
+//#WINDOWS
+        if (sk.isUwp || controllerPlaylist.associateVbml) return;
+//#ELSE
+        if (controllerPlaylist.associateVbml) return;
+//#END
+
+        areaPanel.showPanel("PanelAssociate.qml");
+//#END
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3312,6 +3322,15 @@ Item
     BarControls { id: barControls }
 
     BarWindowApplication { id: barWindow }
+
+    AreaPanel
+    {
+        id: areaPanel
+
+        anchors.fill: parent
+
+        marginTop: barTop.y + barTop.height + st.dp16
+    }
 
     AreaDrag { id: areaDrag }
 

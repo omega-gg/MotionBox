@@ -23,90 +23,63 @@
 import QtQuick 1.0
 import Sky     1.0
 
-Item
+Panel
 {
     //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-    // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
-
-    /* read */ property int contentWidth : st.dp192
-
-    // NOTE: This is useful for BasePanelSettings.
-    /* read */ property int contentHeight: list.contentHeight + button.height
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    property int pRepeat: local.repeat
-
-    //---------------------------------------------------------------------------------------------
-    // Events
+    // Aliases
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted: player.scanOutput = true
+    /* read */ property alias spacing: input.spacing
 
-    onVisibleChanged:
-    {
-        if (visible)
-        {
-            timer.stop();
+    //---------------------------------------------------------------------------------------------
+    // Settings
+    //---------------------------------------------------------------------------------------------
 
-            player.scanOutput = true;
-        }
-        // NOTE: We want to clear the output(s) later in case we reopen this page right away.
-        //       That being said, we don't want to scan at all time.
-        else timer.restart();
-    }
+    width: input.width + spacing * 2 + borderSizeWidth
+
+    height: input.y + input.height + spacing + borderSizeHeight
 
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
-    Timer
+    BarSettings
     {
-        id: timer
+        id: bar
 
-        interval: st.pageOutput_interval
+        borderTop: 0
 
-        onTriggered: player.scanOutput = false
+        text: qsTr("Enter Magic Number")
     }
 
-    ScrollList
+    CodeInput
     {
-        id: list
+        id: input
 
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.top   : parent.top
-        anchors.bottom: button.top
+        anchors.top: bar.bottom
 
-        model: ModelOutput { backend: player.backend }
+        anchors.topMargin: spacing
 
-        delegate: ComponentList
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        color: st.baseLineEdit_colorText
+
+        colorBackground: st.lineEdit_color
+
+        onHide: areaPanel.hidePanel()
+
+        onValidate:
         {
-            isCurrent: current
+            var ip = "";
 
-            text: name
-
-            onClicked:
+            for (var i = 0; i < 4; i++)
             {
-                player.currentOutput = index;
-
-                // NOTE: We want to hide the panel right away.
-                panelOutput.collapse();
+                ip += (digits[i] - 100) + '.';
             }
+
+            areaPanel.hidePanel();
+
+            core.connectToHost("vbml:connect/" + ip.substring(0, ip.length - 1));
         }
-    }
-
-    ButtonWide
-    {
-        id: button
-
-        anchors.bottom: parent.bottom
-
-        text: qsTr("Enter code")
-
-        onClicked: areaPanel.showPanel("PanelCodeInput.qml")
     }
 }

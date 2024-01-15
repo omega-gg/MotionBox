@@ -212,6 +212,7 @@ $SkyBase/BasePlayerBrowser.qml \
 $SkyBase/AnimatedSlide.qml \
 $SkyBase/AnimatedSlideImage.qml \
 $SkyBase/AnimatedLoader.qml \
+$SkyBase/CodeInput.qml \
 $SkyComponents/StyleComponents.qml \
 $SkyComponents/PageWipe.qml \
 $SkyComponents/LineHorizontal.qml \

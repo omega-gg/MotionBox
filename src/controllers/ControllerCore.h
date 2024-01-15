@@ -112,6 +112,8 @@ public: // Interface
     Q_INVOKABLE void updateBackends() const;
     Q_INVOKABLE void resetBackends () const;
 
+    Q_INVOKABLE void connectToHost(const QString & url);
+
     Q_INVOKABLE QString openFile    (const QString & title);
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);

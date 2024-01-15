@@ -621,6 +621,13 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::connectToHost(const QString & url)
+{
+    if (_output) _output->connectToHost(url);
+}
+
+//-------------------------------------------------------------------------------------------------
+
 /* Q_INVOKABLE */ QString ControllerCore::openFile(const QString & title)
 {
     return getFile(title, WControllerPlaylist::getFilterFile());

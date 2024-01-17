@@ -88,6 +88,20 @@ Item
 
         text: qsTr("Enter code")
 
-        onClicked: areaPanel.showPanel("PanelCodeInput.qml")
+        onClicked:
+        {
+            if (highlighted)
+            {
+                highlighted = false;
+
+                areaPanel.hidePanel();
+            }
+            else
+            {
+                highlighted = true;
+
+                areaPanel.showPanel("PanelCodeInput.qml");
+            }
+        }
     }
 }

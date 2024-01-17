@@ -143,14 +143,19 @@ StyleComponents
     property url icon_setting: "pictures/icons/cog.svg"
     property url icon_about  : "pictures/icons/info-circle.svg"
 
-    property url icon_url : "pictures/icons/globe-americas.svg"
-    property url icon_link: "pictures/icons/link.svg"
+    property url icon_url   : "pictures/icons/globe-americas.svg"
+    property url icon_link  : "pictures/icons/link.svg"
+    property url icon_unlink: "pictures/icons/link-slash.svg"
 
     property url icon_playlist: "pictures/icons/tv.svg"
     property url icon_folder  : "pictures/icons/folder.svg"
     property url icon_feed    : "pictures/icons/rss.svg"
 
     property url icon_track: "pictures/icons/video.svg"
+
+    property url icon_shutdown: "pictures/icons/power-off.svg"
+
+    property url icon_tevolution: "pictures/icons/tevolution.svg"
 
     property url icon_love: "pictures/icons/heart.svg"
 
@@ -171,7 +176,8 @@ StyleComponents
     property url icon16x16_repeat   : icon_repeat
     property url icon16x16_repeatOne: icon_repeatOne
 
-    property url icon16x16_link: icon_link
+    property url icon16x16_link  : icon_link
+    property url icon16x16_unlink: icon_unlink
 
     property url icon16x16_playlist: icon_playlist
     property url icon16x16_folder  : icon_folder

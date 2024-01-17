@@ -36,41 +36,8 @@ Item
     /* read */ property int contentHeight: list.contentHeight + button.height
 
     //---------------------------------------------------------------------------------------------
-    // Private
-
-    property int pRepeat: local.repeat
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    Component.onCompleted: player.scanOutput = true
-
-    onVisibleChanged:
-    {
-        if (visible)
-        {
-            timer.stop();
-
-            player.scanOutput = true;
-        }
-        // NOTE: We want to clear the output(s) later in case we reopen this page right away.
-        //       That being said, we don't want to scan at all time.
-        else timer.restart();
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
-
-    Timer
-    {
-        id: timer
-
-        interval: st.pageOutput_interval
-
-        onTriggered: player.scanOutput = false
-    }
 
     ScrollList
     {
@@ -83,15 +50,29 @@ Item
 
         model: ModelOutput { backend: player.backend }
 
-        delegate: ComponentList
+        delegate: ComponentListFull
         {
             isCurrent: current
 
-            text: name
+            icon: (label == "tevolution") ? st.icon_tevolution : ""
+
+            text: (name) ? name
+                         : qsTr("Unknown")
+
+            itemIcon.enableFilter: false
 
             onClicked:
             {
-                player.currentOutput = index;
+                if (player.currentOutput == index)
+                {
+                    if (panelOutput.hasSettings)
+                    {
+                        panelOutput.selectTab(1);
+
+                        return;
+                    }
+                }
+                else player.currentOutput = index;
 
                 // NOTE: We want to hide the panel right away.
                 panelOutput.collapse();

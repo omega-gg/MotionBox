@@ -23,23 +23,8 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPushFull
+ButtonPianoFull
 {
-    id: buttonSettings
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* mandatory */ property variant settings
-
-    property bool active: false
-
-    property int marginY: 0
-
-    property int currentIndex: -1
-    property int activeIndex : -1
-
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
@@ -47,31 +32,14 @@ ButtonPushFull
     anchors.left : parent.left
     anchors.right: parent.right
 
-    checkable: true
-    checked  : (areaContextual.item == buttonSettings)
+    borderRight : 0
+    borderBottom: borderSize
 
-    itemText.color: st.getTextColor(isHighlighted, active)
+    text: (player.outputName) ? player.outputName
+                              : qsTr("Unknown")
 
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
+    icon          : st.icon_tevolution
+    iconSourceSize: st.size20x20
 
-    onPressed: onPress()
-
-    //---------------------------------------------------------------------------------------------
-    // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function showPanel()
-    {
-        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                         activeIndex);
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-
-    /* virtual */ function onPress() { showPanel() }
-
-    /* virtual */ function onSelect(index) {}
+    enableFilter: false
 }

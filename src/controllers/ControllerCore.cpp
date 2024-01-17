@@ -306,6 +306,9 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterUncreatableType<WAbstractHook>("Sky", 1,0, "AbstractHook",
                                               "AbstractHook is abstract");
 
+    qmlRegisterUncreatableType<WHookOutput>("Sky", 1,0, "HookOutput",
+                                            "HookOutput is not creatable");
+
     qmlRegisterUncreatableType<WLocalObject>("Sky", 1,0, "LocalObject", "LocalObject is abstract");
 
     qmlRegisterUncreatableType<WLibraryItem>("Sky", 1,0, "LibraryItem", "LibraryItem is abstract");

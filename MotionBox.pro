@@ -230,6 +230,7 @@ OTHER_FILES += 3rdparty.sh \
                content/BarSettings.qml \
                content/ButtonPianoTitle.qml \
                content/ButtonLogo.qml \
+               content/ButtonOutput.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
                content/ButtonCheckSettings.qml \
@@ -259,6 +260,8 @@ OTHER_FILES += 3rdparty.sh \
                content/PageSubtitles.qml \
                content/PageSubtitlesSearch.qml \
                content/PageOutput.qml \
+               content/PageOutputSettings.qml \
+               content/PageOutputAdvanced.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \
                dist/doc/readme.md \

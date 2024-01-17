@@ -254,6 +254,7 @@ $SkyComponents/ButtonPushRight.qml \
 $SkyComponents/ButtonPushRightIcon.qml \
 $SkyComponents/ButtonPushOverlay.qml \
 $SkyComponents/ButtonWide.qml \
+$SkyComponents/ButtonWideFull.qml \
 $SkyComponents/ButtonPiano.qml \
 $SkyComponents/ButtonPianoIcon.qml \
 $SkyComponents/ButtonPianoFull.qml \
@@ -299,6 +300,7 @@ $SkyComponents/ScrollerList.qml \
 $SkyComponents/Slider.qml \
 $SkyComponents/SliderVolume.qml \
 $SkyComponents/SliderStream.qml \
+$SkyComponents/SliderWide.qml \
 $SkyComponents/BaseTabs.qml \
 $SkyComponents/TabsBrowser.qml \
 $SkyComponents/TabsTrack.qml \
@@ -313,6 +315,7 @@ $SkyComponents/ItemList.qml \
 $SkyComponents/ItemTab.qml \
 $SkyComponents/ItemWall.qml \
 $SkyComponents/ComponentList.qml \
+$SkyComponents/ComponentListFull.qml \
 $SkyComponents/ComponentContextual.qml \
 $SkyComponents/ComponentCompletion.qml \
 $SkyComponents/ComponentTab.qml \

@@ -23,110 +23,102 @@
 import QtQuick 1.0
 import Sky     1.0
 
-BasePanelSettings
+ColumnScroll
 {
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+    // Private
 
-    /* read */ property bool hasSettings: (player.outputType == AbstractBackend.OutputVbml)
-
-    //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
-
-    sources: [ Qt.resolvedUrl("PageOutput.qml"),
-               Qt.resolvedUrl("PageOutputSettings.qml"),
-               Qt.resolvedUrl("PageOutputAdvanced.qml") ]
-
-    titles: [ qsTr("Output"), qsTr("Settings"), qsTr("Advanced") ]
-
-    // NOTE: For now we only have settings for the VBML output.
-    button.enabled: hasSettings
+    property variant pOutput: core.output
 
     //---------------------------------------------------------------------------------------------
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onHasSettingsChanged:
+    Component.onCompleted: pUpdateVisible()
+
+    //---------------------------------------------------------------------------------------------
+    // Connections
+    //---------------------------------------------------------------------------------------------
+
+    Connections
     {
-        if (hasSettings) selectTab(1);
-        else             selectTab(0);
+        target: pOutput
+
+        /* QML_CONNECTION */ function onSettingsChanged()
+        {
+            pUpdateVisible();
+        }
     }
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-    // BasePanelSettings reimplementation
 
-    function expose()
+    function pUpdateVisible()
     {
-        if (isExposed || actionCue.tryPush(gui.actionOutputExpose)) return;
-
-        timer.stop();
-
-        gui.panelAddHide();
-
-        panelSettings.collapse();
-        panelGet     .collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelSettings.z = 0;
-        panelGet     .z = 0;
-
-        visible = true;
-
-        player.scanOutput = true;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function collapse()
-    {
-        if (isExposed == false || actionCue.tryPush(gui.actionOutputCollapse)) return;
-
-        isExposed = false;
-
-        // NOTE: We want to clear the output(s) later in case we reopen this page right away.
-        //       That being said, we don't want to scan at all time.
-        timer.restart();
-
-        gui.startActionCue(st.duration_faster);
+        buttonClear.visible    = pOutput.hasSetting("CLEAR");
+        buttonStartup.visible  = pOutput.hasSetting("STARTUP");
+        buttonShutdown.visible = pOutput.hasSetting("SHUTDOWN");
     }
 
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
-    Timer
+    ButtonOutput
     {
-        id: timer
+        borderBottom: (buttonClear.visible || buttonStartup.visible || buttonShutdown.visible)
+                      ? borderSize
+                      : 0
 
-        interval: st.pageOutput_interval
-
-        onTriggered: player.scanOutput = false
+        onClicked: panelOutput.selectTab(1)
     }
 
-    ButtonPushIcon
+    ButtonWide
     {
-        anchors.right: parent.right
-        anchors.top  : parent.top
+        id: buttonClear
 
-        width : st.dp32
-        height: st.dp32
+        text: qsTr("Clear cache")
 
-        visible: (hasSettings == false)
+        onClicked:
+        {
+            pOutput.clearCache();
 
-        icon          : st.icon_tevolution
-        iconSourceSize: st.size24x24
+            enabled = false;
+        }
+    }
 
-        enableFilter: false
+    ButtonCheckSettings
+    {
+        id: buttonStartup
 
-        onClicked: gui.openUrl("https://omega.gg/tevolution")
+        checked: pOutput.startup
+
+        text: qsTr("Run on startup")
+
+        function onClick()
+        {
+            pOutput.startup = !(checked);
+        }
+    }
+
+    ButtonSettings
+    {
+        id: buttonShutdown
+
+        settings: [{ "title": qsTr("Yes") },
+                   { "title": qsTr("No")  }]
+
+        icon          : st.icon_shutdown
+        iconSourceSize: st.size16x16
+
+        text: qsTr("Shutdown")
+
+        function onSelect(index)
+        {
+            pOutput.shutdown();
+        }
     }
 }

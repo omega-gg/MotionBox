@@ -23,55 +23,74 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPushFull
+ColumnAuto
 {
-    id: buttonSettings
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* mandatory */ property variant settings
-
-    property bool active: false
-
-    property int marginY: 0
-
-    property int currentIndex: -1
-    property int activeIndex : -1
-
-    //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
-
-    anchors.left : parent.left
-    anchors.right: parent.right
-
-    checkable: true
-    checked  : (areaContextual.item == buttonSettings)
-
-    itemText.color: st.getTextColor(isHighlighted, checked, active)
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    onPressed: onPress()
-
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+    // Private
 
-    function showPanel()
+    function pVideoIndex(output)
     {
-        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                         activeIndex);
+        if      (output == AbstractBackend.OutputAudio) return  0;
+        else if (output == AbstractBackend.OutputMedia) return  1;
+        else                                            return -1;
+    }
+
+    function pApply(index)
+    {
+        if (index) player.output = AbstractBackend.OutputMedia;
+        else       player.output = AbstractBackend.OutputAudio;
+
+        areaContextual.hidePanels();
     }
 
     //---------------------------------------------------------------------------------------------
-    // Events
+    // Children
+    //---------------------------------------------------------------------------------------------
 
-    /* virtual */ function onPress() { showPanel() }
+    ButtonCheckSettings
+    {
+        checked: (player.sourceMode == AbstractBackend.SourceSafe)
 
-    /* virtual */ function onSelect(index) {}
+        text: qsTr("Safe mode")
+
+        onCheckClicked:
+        {
+            var mode;
+
+            if (checked) player.sourceMode = AbstractBackend.SourceSafe;
+            else         player.sourceMode = AbstractBackend.SourceDefault;
+
+            areaContextual.hidePanels();
+        }
+    }
+
+    ButtonsCheck
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        model: ListModel {}
+
+        currentIndex : pVideoIndex(player.output)
+        currentActive: pVideoIndex(player.outputActive)
+
+        Component.onCompleted:
+        {
+//#QT_4
+            // NOTE Qt4: We can only append items one by one.
+            model.append({ "title": qsTr("Audio") });
+            model.append({ "title": qsTr("Video") });
+//#ELSE
+            model.append(
+            [
+                { "title": qsTr("Audio") },
+                { "title": qsTr("Video") }
+            ]);
+//#END
+        }
+
+        onPressed: pApply(currentIndex)
+    }
 }

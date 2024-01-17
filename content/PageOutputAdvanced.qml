@@ -98,10 +98,7 @@ ColumnScroll
 
         text: qsTr("Run on startup")
 
-        function onClick()
-        {
-            pOutput.startup = !(checked);
-        }
+        onCheckClicked: pOutput.startup = checked
     }
 
     ButtonSettings

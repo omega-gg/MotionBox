@@ -38,6 +38,7 @@ AreaContextual
     // 3: Tab
     // 4: Browse
     // 5: Tag
+    // 6: Mode
 
     /* read */ property variant item: null
 
@@ -73,6 +74,19 @@ AreaContextual
     anchors.fill: parent
 
     z: 1
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onIsActiveChanged:
+    {
+        if (isActive) return;
+
+        currentId = -1;
+
+        areaContextual.item = null;
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -121,18 +135,27 @@ AreaContextual
                                       Sk.BottomLeftCorner, 0, marginY - st.border_size);
     }
 
+    function showPanelMode(button, marginY)
+    {
+        currentId = 6;
+
+        item = button;
+
+        showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
+    }
+
     //---------------------------------------------------------------------------------------------
     // Private
 
     function pShowPanelAdd()
     {
-        areaContextual.showPanel(panelAdd, panelContextual.item,
-                                           panelContextual.position,
-                                           panelContextual.posX,
-                                           panelContextual.posY,
-                                           panelContextual.marginX,
-                                           panelContextual.marginY,
-                                           panelContextual.isCursorChild);
+        showPanel(panelAdd, panelContextual.item,
+                            panelContextual.position,
+                            panelContextual.posX,
+                            panelContextual.posY,
+                            panelContextual.marginX,
+                            panelContextual.marginY,
+                            panelContextual.isCursorChild);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -159,6 +182,12 @@ AreaContextual
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function pGetSource()
+    {
+        if (currentId == 6) return "ContextualMode.qml";
+        else                return "";
+    }
 
     function pGetPanel()
     {
@@ -194,15 +223,8 @@ AreaContextual
             if (isActive)
             {
                 listContextual.setFocus();
-
-                return;
             }
-
-            currentPage.clearItems();
-
-            areaContextual.currentId = -1;
-
-            areaContextual.item = null;
+            else currentPage.clearItems();
         }
 
         //-----------------------------------------------------------------------------------------
@@ -985,6 +1007,15 @@ AreaContextual
                 areaContextual.hidePanels();
             }
         }
+    }
+
+    PanelContextualLoader
+    {
+        id: panelLoader
+
+        minimumWidth: st.dp160
+
+        source: pGetSource()
     }
 
     PanelAdd { id: panelAdd }

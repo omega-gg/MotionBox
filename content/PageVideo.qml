@@ -61,20 +61,17 @@ ColumnScroll
     //---------------------------------------------------------------------------------------------
     // Video
 
-    function pVideoIndex(output)
+    function pVideoActive()
     {
-        if      (output == AbstractBackend.OutputAudio) return  0;
-        else if (output == AbstractBackend.OutputMedia) return  1;
-        else                                            return -1;
+        return (player.outputActive == player.output);
     }
 
-    function pVideoSelect(index)
+    function pVideoString()
     {
-        if (index == 0)
-        {
-             player.output = AbstractBackend.OutputAudio;
-        }
-        else player.output = AbstractBackend.OutputMedia;
+        var output = player.output;
+
+        if (output == AbstractBackend.OutputAudio) return qsTr("Audio");
+        else                                       return qsTr("Video");
     }
 
     //---------------------------------------------------------------------------------------------
@@ -275,34 +272,38 @@ ColumnScroll
 
     BarSettings { text: qsTr("Output") }
 
-    ButtonsCheck
+    Item
     {
-        id: buttonsVideo
+        id: itemVideo
 
         anchors.left : parent.left
         anchors.right: parent.right
 
-        model: ListModel {}
+        height: buttonOutput.height
 
-        currentIndex : pVideoIndex(player.output)
-        currentActive: pVideoIndex(player.outputActive)
-
-        Component.onCompleted:
+        ButtonSettings
         {
-//#QT_4
-            // NOTE Qt4: We can only append items one by one.
-            model.append({ "title": qsTr("Audio") });
-            model.append({ "title": qsTr("Video") });
-//#ELSE
-            model.append(
-            [
-                { "title": qsTr("Audio") },
-                { "title": qsTr("Video") }
-            ]);
-//#END
+            id: buttonOutput
+
+            anchors.left : parent.left
+            anchors.right: buttonReload.left
+
+            active: pVideoActive()
+
+            text: pVideoString()
+
+            function onPress(index) { areaContextual.showPanelMode(buttonOutput, marginY) }
         }
 
-        onPressed: pVideoSelect(currentIndex)
+        ButtonPushIcon
+        {
+            id: buttonReload
+
+            anchors.right: parent.right
+
+            icon          : st.icon16x16_refresh
+            iconSourceSize: st.size16x16
+        }
     }
 
     BarSettings { text: qsTr("Quality") }
@@ -311,7 +312,7 @@ ColumnScroll
     {
         id: buttonQuality
 
-        marginY: buttonsVideo.y - buttonQuality.y
+        marginY: itemVideo.y - buttonQuality.y
 
         settings: [{ "title": qsTr("144p")  },
                    { "title": qsTr("240p")  },
@@ -353,7 +354,7 @@ ColumnScroll
     {
         id: buttonSpeed
 
-        marginY: buttonsVideo.y - buttonSpeed.y
+        marginY: itemVideo.y - buttonSpeed.y
 
         settings: [{ "title": qsTr("0.25")   },
                    { "title": qsTr("0.5")    },

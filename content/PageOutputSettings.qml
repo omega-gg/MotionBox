@@ -153,10 +153,7 @@ ColumnScroll
 
         text: qsTr("Fullscreen")
 
-        function onClick()
-        {
-            pOutput.fullScreen = !(checked);
-        }
+        onCheckClicked: pOutput.fullScreen = checked
     }
 
     ButtonCheckSettings
@@ -167,10 +164,7 @@ ColumnScroll
 
         text: qsTr("Show VideoTag")
 
-        function onClick()
-        {
-            pOutput.videoTag = !(checked);
-        }
+        onCheckClicked: pOutput.videoTag = checked
     }
 
     ButtonWide

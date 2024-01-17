@@ -232,6 +232,7 @@ $SkyComponents/TextDate.qml \
 $SkyComponents/TextListDefault.qml \
 $SkyComponents/Panel.qml \
 $SkyComponents/PanelContextual.qml \
+$SkyComponents/PanelContextualLoader.qml \
 $SkyComponents/PanelImage.qml \
 $SkyComponents/BaseToolTip.qml \
 $SkyComponents/ToolTip.qml \

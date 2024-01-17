@@ -185,6 +185,8 @@ StyleComponents
 
     property url icon16x16_track: icon_track
 
+    property url icon16x16_shutdown: icon_shutdown
+
     //---------------------------------------------------------------------------------------------
     // 20x20
 

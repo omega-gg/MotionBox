@@ -108,7 +108,7 @@ ColumnScroll
         settings: [{ "title": qsTr("Yes") },
                    { "title": qsTr("No")  }]
 
-        icon          : st.icon_shutdown
+        icon          : st.icon16x16_shutdown
         iconSourceSize: st.size16x16
 
         text: qsTr("Shutdown")

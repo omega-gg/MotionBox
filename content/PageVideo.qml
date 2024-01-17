@@ -301,8 +301,12 @@ ColumnScroll
 
             anchors.right: parent.right
 
+            enabled: player.isPlaying
+
             icon          : st.icon16x16_refresh
             iconSourceSize: st.size16x16
+
+            onClicked: gui.reload(player.playlist, player.trackIndex)
         }
     }
 

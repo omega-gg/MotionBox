@@ -739,6 +739,11 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::clearMedia(const QString & url) const
+{
+    wControllerMedia->clearMedia(url);
+}
+
 /* Q_INVOKABLE */ void ControllerCore::clearCache()
 {
     _related->clearItems();

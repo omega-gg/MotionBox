@@ -1302,6 +1302,35 @@ Item
         setCurrentTrack(player.playlist, player.trackIndex);
     }
 
+    function reload(playlist, index)
+    {
+        if (playlist) playlist.reloadTrack(index);
+
+        if (player.playlist != playlist || player.trackIndex != index) return;
+
+        if (player.hasStarted)
+        {
+            // NOTE: We close the split view before reloading the track.
+            if (highlightedTab) tabs.currentTab = highlightedTab;
+
+            if (player.isPlaying)
+            {
+                player.stop();
+
+                core.clearMedia(player.source);
+
+                player.play();
+            }
+            else
+            {
+                player.stop();
+
+                core.clearMedia(player.source);
+            }
+        }
+        else core.clearMedia(player.source);
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function browse(url)

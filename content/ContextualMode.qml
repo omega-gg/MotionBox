@@ -41,8 +41,6 @@ ColumnAuto
     {
         if (index) player.output = AbstractBackend.OutputMedia;
         else       player.output = AbstractBackend.OutputAudio;
-
-        areaContextual.hidePanels();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -59,10 +57,38 @@ ColumnAuto
         {
             var mode;
 
-            if (checked) player.sourceMode = AbstractBackend.SourceSafe;
-            else         player.sourceMode = AbstractBackend.SourceDefault;
+            if (checked) mode = AbstractBackend.SourceSafe;
+            else         mode = AbstractBackend.SourceDefault;
 
-            areaContextual.hidePanels();
+            if (player.sourceMode == mode)
+            {
+                areaContextual.hidePanels();
+
+                return;
+            }
+
+            // FIXME: This is a hack to keep the current frame while loading the other sources.
+            if (player.hasStarted)
+            {
+                // NOTE: We close the split view before reloading the track.
+                if (highlightedTab) tabs.currentTab = highlightedTab;
+
+                if (player.isPlaying)
+                {
+                    player.stop();
+
+                    player.sourceMode = mode;
+
+                    player.play();
+                }
+                else
+                {
+                    player.stop();
+
+                    player.sourceMode = mode;
+                }
+            }
+            else player.sourceMode = mode;
         }
     }
 

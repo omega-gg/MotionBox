@@ -122,6 +122,8 @@ public: // Interface
 
     Q_INVOKABLE void applyProxy(bool active);
 
+    Q_INVOKABLE void clearMedia(const QString & url) const;
+
     Q_INVOKABLE void clearCache();
 
 public: // Static functions

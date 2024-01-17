@@ -86,22 +86,10 @@ Item
 
         anchors.bottom: parent.bottom
 
+        highlighted: areaPanel.visible
+
         text: qsTr("Enter code")
 
-        onClicked:
-        {
-            if (highlighted)
-            {
-                highlighted = false;
-
-                areaPanel.hidePanel();
-            }
-            else
-            {
-                highlighted = true;
-
-                areaPanel.showPanel("PanelCodeInput.qml");
-            }
-        }
+        onPressed: areaPanel.showPanel("PanelCodeInput.qml")
     }
 }

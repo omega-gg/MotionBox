@@ -504,15 +504,18 @@ AreaContextual
                       "title": qsTr("Open link") },
 
                     { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                      "title": qsTr("Copy link") }
+                      "title": qsTr("Copy link") },
+
+                    { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                      "title": qsTr("Reload") }
                 );
 
                 if (playlist.isLocal)
                 {
                     array.push
                     (
-                        { "id": 4, "title": qsTr("Set as Cover") },
-                        { "id": 5, "title": qsTr("Remove Track") }
+                        { "id": 5, "title": qsTr("Set as Cover") },
+                        { "id": 6, "title": qsTr("Remove Track") }
                     );
                 }
 
@@ -557,9 +560,12 @@ AreaContextual
                 { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                   "title": qsTr("Copy link") },
 
-                { "id": 4, "title": qsTr("Close other Tabs") },
+                { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                  "title": qsTr("Reload") },
 
-                { "id": 5, "title": qsTr("Close all Tabs") }
+                { "id": 5, "title": qsTr("Close other Tabs") },
+
+                { "id": 6, "title": qsTr("Close all Tabs") }
             );
 
             page.values = array;
@@ -594,7 +600,6 @@ AreaContextual
                 page.setItemEnabled(2, false);
                 page.setItemEnabled(3, false);
                 page.setItemEnabled(4, false);
-                page.setItemEnabled(5, false);
 
                 if (tabs.count == 1)
                 {
@@ -752,7 +757,11 @@ AreaContextual
 
                 sk.setClipboardText(source);
             }
-            else if (id == 4) // Set as Cover
+            else if (id == 4) // Reload
+            {
+                gui.reload(pItem.playlist, pIndex);
+            }
+            else if (id == 5) // Set as Cover
             {
                 /* var */ playlist = pItem.playlist;
 
@@ -764,7 +773,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 5) // Remove
+            else if (id == 6) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -824,7 +833,11 @@ AreaContextual
             {
                 sk.setClipboardText(pItem.source);
             }
-            else if (id == 4) // Close other tabs
+            else if (id == 4) // Reload
+            {
+                gui.reload(currentTab.playlist, pItem.trackIndex);
+            }
+            else if (id == 5) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -832,7 +845,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 5) // Close all tabs
+            else if (id == 6) // Close all tabs
             {
                 wall.enableAnimation = false;
 

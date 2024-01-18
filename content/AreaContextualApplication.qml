@@ -543,19 +543,19 @@ AreaContextual
 
                 if (data.title == "")
                 {
-                    page.setItemEnabled(2, false);
+                    page.setItemEnabled(2, false); // More like this
                 }
 
                 if (pSource == "")
                 {
-                    page.setItemEnabled(3, false);
-                    page.setItemEnabled(4, false);
-                    page.setItemEnabled(5, false);
-                    page.setItemEnabled(6, false);
+                    page.setItemEnabled(3, false); // Open link
+                    page.setItemEnabled(4, false); // Copy link
+                    page.setItemEnabled(5, false); // Reload
+                    page.setItemEnabled(6, false); // Clear timestamp
                 }
                 else if (pShowTimestamp(playlist, index) == false)
                 {
-                    page.setItemEnabled(6, false);
+                    page.setItemEnabled(6, false); // Clear timestamp
                 }
 
                 currentId = 1;
@@ -609,17 +609,17 @@ AreaContextual
 
                 if (tab.title == "")
                 {
-                    page.setItemEnabled(2, false);
+                    page.setItemEnabled(2, false); // More like this
                 }
 
                 if (pSource == "")
                 {
-                    page.setItemEnabled(3, false);
-                    page.setItemEnabled(4, false);
+                    page.setItemEnabled(3, false); // Open link
+                    page.setItemEnabled(4, false); // Copy link
                 }
                 else if (pShowTimestamp(tab.playlist, tab.trackIndex) == false)
                 {
-                    page.setItemEnabled(6, false);
+                    page.setItemEnabled(6, false); // Clear timestamp
                 }
             }
             else
@@ -628,16 +628,16 @@ AreaContextual
                 pAuthor = "";
                 pFeed   = "";
 
-                page.setItemEnabled(1, false);
-                page.setItemEnabled(2, false);
-                page.setItemEnabled(3, false);
-                page.setItemEnabled(4, false);
-                page.setItemEnabled(5, false);
-                page.setItemEnabled(6, false);
+                page.setItemEnabled(1, false); // Add to ...
+                page.setItemEnabled(2, false); // More like this
+                page.setItemEnabled(3, false); // Open link
+                page.setItemEnabled(4, false); // Copy link
+                page.setItemEnabled(5, false); // Reload
+                page.setItemEnabled(6, false); // Clear timestamp
 
                 if (tabs.count == 1)
                 {
-                    page.setItemEnabled(6, false);
+                    page.setItemEnabled(7, false); // Close other Tabs
                 }
             }
 

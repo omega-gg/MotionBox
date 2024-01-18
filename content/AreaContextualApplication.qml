@@ -158,6 +158,24 @@ AreaContextual
                             panelContextual.isCursorChild);
     }
 
+    function pShowTimestamp(playlist, index)
+    {
+        if (playlist == null) return false;
+
+        var source = playlist.trackSource(index);
+
+        return (controllerNetwork.fragmentIndex(source, 't') != -1);
+    }
+
+    function pClearTimestamp(playlist, index)
+    {
+        var source = playlist.trackSource(index);
+
+        source = controllerNetwork.removeFragmentValue(source, 't');
+
+        playlist.setTrackSource(index, source);
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function pCheckPlay(folder, index)
@@ -507,15 +525,17 @@ AreaContextual
                       "title": qsTr("Copy link") },
 
                     { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                      "title": qsTr("Reload") }
+                      "title": qsTr("Reload") },
+
+                    { "id": 5, "title": qsTr("Clear timestamp") }
                 );
 
                 if (playlist.isLocal)
                 {
                     array.push
                     (
-                        { "id": 5, "title": qsTr("Set as Cover") },
-                        { "id": 6, "title": qsTr("Remove Track") }
+                        { "id": 6, "title": qsTr("Set as Cover") },
+                        { "id": 7, "title": qsTr("Remove Track") }
                     );
                 }
 
@@ -531,6 +551,11 @@ AreaContextual
                     page.setItemEnabled(3, false);
                     page.setItemEnabled(4, false);
                     page.setItemEnabled(5, false);
+                    page.setItemEnabled(6, false);
+                }
+                else if (pShowTimestamp(playlist, index) == false)
+                {
+                    page.setItemEnabled(6, false);
                 }
 
                 currentId = 1;
@@ -564,9 +589,11 @@ AreaContextual
                 { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                   "title": qsTr("Reload") },
 
-                { "id": 5, "title": qsTr("Close other Tabs") },
+                { "id": 5, "title": qsTr("Clear timestamp") },
 
-                { "id": 6, "title": qsTr("Close all Tabs") }
+                { "id": 6, "title": qsTr("Close other Tabs") },
+
+                { "id": 7, "title": qsTr("Close all Tabs") }
             );
 
             page.values = array;
@@ -590,6 +617,10 @@ AreaContextual
                     page.setItemEnabled(3, false);
                     page.setItemEnabled(4, false);
                 }
+                else if (pShowTimestamp(tab.playlist, tab.trackIndex) == false)
+                {
+                    page.setItemEnabled(6, false);
+                }
             }
             else
             {
@@ -602,6 +633,7 @@ AreaContextual
                 page.setItemEnabled(3, false);
                 page.setItemEnabled(4, false);
                 page.setItemEnabled(5, false);
+                page.setItemEnabled(6, false);
 
                 if (tabs.count == 1)
                 {
@@ -763,7 +795,13 @@ AreaContextual
             {
                 gui.reload(pItem.playlist, pIndex);
             }
-            else if (id == 5) // Set as Cover
+            else if (id == 5) // Clear timestamp
+            {
+                pClearTimestamp(pItem.playlist, pIndex);
+
+                currentTab.currentTime = -1;
+            }
+            else if (id == 6) // Set as Cover
             {
                 /* var */ playlist = pItem.playlist;
 
@@ -775,7 +813,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 6) // Remove
+            else if (id == 7) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -825,7 +863,7 @@ AreaContextual
             }
             else if (id == 1) // More like this
             {
-                pSearchMore(currentTab.playlist, pItem.source, pItem.title);
+                pSearchMore(pItem.playlist, pItem.source, pItem.title);
             }
             else if (id == 2) // Open link
             {
@@ -837,9 +875,18 @@ AreaContextual
             }
             else if (id == 4) // Reload
             {
-                gui.reload(currentTab.playlist, pItem.trackIndex);
+                gui.reload(pItem.playlist, pItem.trackIndex);
             }
-            else if (id == 5) // Close other tabs
+            else if (id == 5) // Clear timestamp
+            {
+                // NOTE: When clearing the player tab we want to stop playback first.
+                if (player.tab == pItem) player.stop();
+
+                pClearTimestamp(pItem.playlist, pItem.trackIndex);
+
+                currentTab.currentTime = -1;
+            }
+            else if (id == 6) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -847,7 +894,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 6) // Close all tabs
+            else if (id == 7) // Close all tabs
             {
                 wall.enableAnimation = false;
 

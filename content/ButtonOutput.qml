@@ -35,6 +35,8 @@ ButtonPianoFull
     borderRight : 0
     borderBottom: borderSize
 
+    highlighted: true
+
     text: (player.outputName) ? player.outputName
                               : qsTr("Unknown")
 

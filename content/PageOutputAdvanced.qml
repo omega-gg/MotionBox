@@ -115,7 +115,7 @@ ColumnScroll
 
         function onSelect(index)
         {
-            pOutput.shutdown();
+            if (index == 0) pOutput.shutdown();
         }
     }
 }

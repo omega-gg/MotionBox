@@ -530,6 +530,7 @@ AreaContextual
                 {
                     page.setItemEnabled(3, false);
                     page.setItemEnabled(4, false);
+                    page.setItemEnabled(5, false);
                 }
 
                 currentId = 1;
@@ -600,6 +601,7 @@ AreaContextual
                 page.setItemEnabled(2, false);
                 page.setItemEnabled(3, false);
                 page.setItemEnabled(4, false);
+                page.setItemEnabled(5, false);
 
                 if (tabs.count == 1)
                 {
@@ -1026,7 +1028,7 @@ AreaContextual
     {
         id: panelLoader
 
-        minimumWidth: st.dp160
+        minimumWidth: st.dp192 + borderSizeWidth
 
         source: pGetSource()
     }

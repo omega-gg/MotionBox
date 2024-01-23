@@ -746,11 +746,11 @@ AreaContextual
             {
                 pItem.removeItem(pIndex, true);
 
-                if (pItem.folder == feeds && pIndex == 0 && playlistTracks)
+                if (pItem.folder == feeds && pIndex == 0 && history)
                 {
-                    playlistTracks.tryDelete();
+                    history.tryDelete();
 
-                    playlistTracks = null;
+                    history = null;
                 }
             }
 

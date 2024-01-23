@@ -49,8 +49,9 @@ Item
 
     /* read */ property variant currentPlaylist: currentTab.playlist
 
-    /* read */ property Playlist playlistTracks: null
-    /* read */ property Playlist playlistTemp  : controllerPlaylist.createPlaylist()
+    /* read */ property Playlist history: null
+
+    /* read */ property Playlist playlistTemp: controllerPlaylist.createPlaylist()
 
     // NOTE: This is the panel maximum height. We get a binding loop in BasePanelSettings when
     //       using itemContent directly.
@@ -645,6 +646,27 @@ Item
         /* QML_CONNECTION */ function onOutputChanged  () { local.output   = player.output;   }
         /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality;  }
         /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode; }
+
+        /* QML_CONNECTION */ function onContextChanged()
+        {
+            var context = player.context;
+
+            if (context == "") return;
+
+            var playlist = playerTab.playlist;
+
+            if (playlist == "") return;
+
+            var index = playerTab.trackIndex;
+
+            var source = playlist.trackSource(index);
+
+            source = controllerNetwork.applyFragmentValue(source, 'c', context);
+
+            playlist.setTrackSource(index, source);
+
+            saveTrackData();
+        }
 
         /* QML_CONNECTION */ function onTabChanged() { timerHistory.restart(); }
     }
@@ -1843,46 +1865,46 @@ Item
     function addHistoryTrack(source)
     {
         // NOTE: We match the source with the 'clean' option to avoid duplicates.
-        var index = playlistTracks.indexFromSource(source, true);
+        var index = history.indexFromSource(source, true);
 
         if (index == 0)
         {
             // NOTE: Sometimes duration is updated after playback.
-            playlistTracks.setTrackDuration(0, playerTab.duration);
+            history.setTrackDuration(0, playerTab.duration);
 
             return;
         }
 
         if (index == -1)
         {
-            while (playlistTracks.isFull)
+            while (history.isFull)
             {
-                playlistTracks.removeTrack(playlistTracks.count - 1);
+                history.removeTrack(history.count - 1);
             }
 
             var playlist = playerTab.playlist;
 
             if (playlist)
             {
-                if (listPlaylist.playlist == playlistTracks)
+                if (listPlaylist.playlist == history)
                 {
                     listPlaylist.copyTrackFrom(playlist, playerTab.trackIndex, 0, true);
                 }
-                else playlist.copyTrackTo(playerTab.trackIndex, playlistTracks, 0);
+                else playlist.copyTrackTo(playerTab.trackIndex, history, 0);
             }
-            else playlistTracks.insertSource(0, source, true);
+            else history.insertSource(0, source, true);
         }
         else
         {
-            playlistTracks.moveTrack(index, 0);
+            history.moveTrack(index, 0);
 
             // NOTE: We make sure we have the right source with the right fragment.
-            playlistTracks.setTrackSource(0, source);
+            history.setTrackSource(0, source);
         }
 
-        var cover = playlistTracks.trackCover(0);
+        var cover = history.trackCover(0);
 
-        if (cover) playlistTracks.cover = cover;
+        if (cover) history.cover = cover;
     }
 
     function addHistoryFeed(feed, source)
@@ -1932,6 +1954,28 @@ Item
             pAddPlaylist(type, url);
         }
         else feeds.moveAt(index, 1);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function checkSource(sourceA, sourceB)
+    {
+        // NOTE: Checking both sources with a cleaned fragment.
+        return (sourceA == "" || controllerPlaylist.cleanMatch(sourceA, sourceB) == false);
+    }
+
+    function saveTrackData()
+    {
+        var source = currentTab.source;
+
+        // NOTE: Track has to be valid and on top of the history.
+        if (checkSource(source, history.trackSource(0))) return;
+
+        source = applyTimeTrack(source);
+
+        source = applyFragment(source, "sub", controllerNetwork.encodeUrl(playerTab.subtitle));
+
+        history.setTrackSource(0, source);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2967,10 +3011,10 @@ Item
 
     function pCreatePlaylistTracks()
     {
-        playlistTracks = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+        history = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
 
-        playlistTracks.title = qsTr("Tracks");
-        playlistTracks.label = "tracks";
+        history.title = qsTr("Tracks");
+        history.label = "tracks";
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2985,23 +3029,23 @@ Item
 
         if (feeds.isEmpty)
         {
-            if (playlistTracks) playlistTracks.tryDelete();
+            if (history) history.tryDelete();
 
             pCreatePlaylistTracks();
 
-            insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+            insertLibraryItem(0, history, listLibrary, feeds);
 
             feeds.currentIndex = 0;
         }
-        else if (playlistTracks == null)
+        else if (history == null)
         {
             if (feeds.itemLabel(0) != "tracks")
             {
                 pCreatePlaylistTracks();
 
-                insertLibraryItem(0, playlistTracks, listLibrary, feeds);
+                insertLibraryItem(0, history, listLibrary, feeds);
             }
-            else playlistTracks = createItemAt(feeds, 0);
+            else history = createItemAt(feeds, 0);
         }
 
         addHistoryTrack(source);
@@ -3118,17 +3162,17 @@ Item
     {
         var index = 0;
 
-        // NOTE: We make sure that playlistTracks has been created.
-        if (playlistTracks == null)
+        // NOTE: We make sure that history has been created.
+        if (history == null)
         {
-            playlistTracks = createItemAt(feeds, 0);
+            history = createItemAt(feeds, 0);
         }
 
-        while (index < playlistTracks.count)
+        while (index < history.count)
         {
-            if (controllerPlaylist.urlIsTorrent(playlistTracks.trackSource(index)))
+            if (controllerPlaylist.urlIsTorrent(history.trackSource(index)))
             {
-                playlistTracks.removeTrack(index);
+                history.removeTrack(index);
             }
             else index++;
         }

@@ -1884,7 +1884,7 @@ Item
 
             var playlist = playerTab.playlist;
 
-            if (playlist)
+            if (playlist && playerTab.source == source)
             {
                 if (listPlaylist.playlist == history)
                 {

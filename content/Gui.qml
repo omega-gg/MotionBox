@@ -661,7 +661,7 @@ Item
 
             var source = playlist.trackSource(index);
 
-            source = controllerNetwork.applyFragmentValue(source, 'c', context);
+            source = controllerNetwork.applyFragmentValue(source, "ctx", context);
 
             playlist.setTrackSource(index, source);
 

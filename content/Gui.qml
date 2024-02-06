@@ -663,6 +663,8 @@ Item
 
             source = controllerNetwork.applyFragmentValue(source, "ctx", context);
 
+            source = controllerNetwork.removeFragmentValue(source, "arg");
+
             playlist.setTrackSource(index, source);
 
             saveTrackData();

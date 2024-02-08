@@ -661,8 +661,6 @@ Item
 
             var source = playlist.trackSource(index);
 
-            source = controllerNetwork.removeFragmentValue(source, "arg");
-
             source = controllerNetwork.applyFragmentValue(source, "ctx", context);
 
             playlist.setTrackSource(index, source);

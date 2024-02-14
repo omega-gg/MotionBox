@@ -2,10 +2,10 @@ SK = $$_PRO_FILE_PWD_/../Sky
 
 SK_CORE    = $$SK/src/SkCore/src
 SK_GUI     = $$SK/src/SkGui/src
-SK_MEDIA   = $$SK/src/SkMedia/src
 SK_BARCODE = $$SK/src/SkBarcode/src
-SK_TORRENT = $$SK/src/SkTorrent/src
 SK_BACKEND = $$SK/src/SkBackend/src
+SK_MEDIA   = $$SK/src/SkMedia/src
+SK_TORRENT = $$SK/src/SkTorrent/src
 
 TARGET = MotionBox
 
@@ -48,8 +48,8 @@ contains(QT_MAJOR_VERSION, 4) {
 }
 
 DEFINES += QUAZIP_BUILD \
-           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_MEDIA_LIBRARY SK_BARCODE_LIBRARY \
-           SK_TORRENT_LIBRARY SK_BACKEND_LIBRARY \
+           SK_CORE_LIBRARY SK_GUI_LIBRARY SK_BARCODE_LIBRARY SK_BACKEND_LIBRARY SK_MEDIA_LIBRARY \
+           SK_TORRENT_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 win32-msvc* {
@@ -106,10 +106,10 @@ include(src/3rdparty/zxing-cpp/zxing-cpp.pri)
 
 INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
-               $$SK/include/SkMedia \
                $$SK/include/SkBarcode \
-               $$SK/include/SkTorrent \
                $$SK/include/SkBackend \
+               $$SK/include/SkMedia \
+               $$SK/include/SkTorrent \
                $$SK/include \
                src/controllers \
                src/io

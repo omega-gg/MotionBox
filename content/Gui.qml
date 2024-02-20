@@ -655,7 +655,7 @@ Item
 
             var playlist = playerTab.playlist;
 
-            if (playlist == "") return;
+            if (playlist == null) return;
 
             var index = playerTab.trackIndex;
 

@@ -638,7 +638,7 @@ MouseArea
 
         if (index == -1)
         {
-            if (controllerPlaylist.urlIsTrackOnly(playlist.source) == false)
+            if (controllerPlaylist.urlIsTrack(playlist.source) == false)
             {
                 if (player.isPlaying == false || highlightedTab)
                 {

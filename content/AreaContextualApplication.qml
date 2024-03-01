@@ -164,7 +164,7 @@ AreaContextual
 
         var source = playlist.trackSource(index);
 
-        return (controllerNetwork.fragmentIndex(source, 't') != -1);
+        return controllerNetwork.hasFragment(source, 't');
     }
 
     function pClearTimestamp(playlist, index)

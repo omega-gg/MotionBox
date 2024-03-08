@@ -92,6 +92,9 @@
 #include <WDeclarativeTextSvg>
 #include <WDeclarativePlayer>
 #include <WDeclarativeScanner>
+#ifdef SK_DESKTOP
+#include <WDeclarativeScannerHover>
+#endif
 
 // Application includes
 #include "DataOnline.h"
@@ -274,6 +277,10 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WDeclarativePlayer>("Sky", 1,0, "Player");
 
     qmlRegisterType<WDeclarativeScanner>("Sky", 1,0, "Scanner");
+
+#ifdef SK_DESKTOP
+    qmlRegisterType<WDeclarativeScannerHover>("Sky", 1,0, "ScannerHover");
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Models

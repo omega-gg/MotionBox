@@ -383,12 +383,12 @@ Item
 //#MAC
         var argument = core.argument;
 
-        if (argument) browse(argument);
-        else          browse(sk.message);
+        if (argument) panelBrowse.play(argument);
+        else          panelBrowse.play(sk.message);
 //#ELIF DESKTOP
-        browse(core.argument);
+        panelBrowse.play(core.argument);
 //#ELSE
-        browse(sk.message);
+        panelBrowse.play(sk.message);
 //#END
     }
 
@@ -2092,13 +2092,13 @@ Item
 //#MAC
         window.activate();
 
-        browse(message);
+        panelBrowse.play(message);
 //#ELIF DESKTOP
         window.activate();
 
-        browse(sk.extractMessage(message));
+        panelBrowse.play(sk.extractMessage(message));
 //#ELSE
-        browse(message);
+        panelBrowse.play(message);
 //#END
     }
 
@@ -2213,11 +2213,7 @@ Item
 
             playerTab.subtitle = url;
         }
-        else if (dragType == 0)
-        {
-             panelBrowse.search(panelSearch.backendAt(0), url, true, false);
-        }
-        else panelBrowse.search(panelSearch.backendAt(0), url, true, true);
+        else panelBrowse.play(url);
     }
 
     //---------------------------------------------------------------------------------------------

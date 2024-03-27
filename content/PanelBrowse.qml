@@ -49,6 +49,7 @@ MouseArea
 
     property bool pSelect: false
     property bool pPlay  : false
+    property bool pTrack : false
 
     property bool pEventBackend: true
     property bool pEventBrowse : true
@@ -316,7 +317,7 @@ MouseArea
         // NOTE: We want the first tracks to be loaded rigth away.
         /* QML_CONNECTION */ function onQueryEnded()
         {
-            if (playlist.isEmpty) return;
+            if (playlist.isEmpty || pTrack) return;
 
             gui.loadTracksLater(playlist, 0);
 
@@ -330,8 +331,18 @@ MouseArea
             if (playlist.isEmpty)
             {
                 pSearchStop();
+
+                return;
             }
-            else pCompleteSearch();
+
+            pCompleteSearch();
+
+            if (pTrack == false) return;
+
+            pTrack = false;
+
+            // FIXME: This could be done at the backend level.
+            playlist.clearDuplicates();
         }
 
         /* QML_CONNECTION */ function onTrackQueryEnded() { pCompleteSearch() }
@@ -447,7 +458,12 @@ MouseArea
 
     function browse(query)
     {
-        search(1, query, true, false);
+        search(panelSearch.backendAt(0), query, true, false);
+    }
+
+    function play(query)
+    {
+        search(panelSearch.backendAt(0), query, true, true);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -653,9 +669,12 @@ MouseArea
 
                 return;
             }
+
             // NOTE: If it's a Track URL we want to select it right away.
-            else index = 0;
+            index = 0;
         }
+
+        pTrack = true;
 
         if (pPlay)
         {

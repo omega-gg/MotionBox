@@ -66,8 +66,6 @@ Application
         // Events
         //-----------------------------------------------------------------------------------------
 
-        /* QML_EVENT */ onMessageReceived: function(mesage) { gui.onMessageReceived(message) }
-
         onFadeIn:
         {
             core.load();
@@ -79,21 +77,6 @@ Application
 
             loader.source = "Gui.qml";
         }
-
-        //-----------------------------------------------------------------------------------------
-        // Keys
-        //-----------------------------------------------------------------------------------------
-
-        /* QML_EVENT */ onViewportKeyPressed: function(event)
-        {
-            if (gui == null) return;
-
-            event.accepted = true;
-
-            gui.keyPressed(event);
-        }
-
-        /* QML_EVENT */ onViewportKeyReleased: function(event) { gui.keyReleased(event); }
 
         //-----------------------------------------------------------------------------------------
         // Children

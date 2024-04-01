@@ -424,17 +424,28 @@ Item
     {
         target: window
 
-        /* QML_CONNECTION */ function onMousePressed (event) { gui.onMousePressed (event); }
-        /* QML_CONNECTION */ function onMouseReleased(event) { gui.onMouseReleased(event); }
+        /* QML_CONNECTION */ function onMessageReceived(message) { gui.onMessageReceived(message) }
 
-        /* QML_CONNECTION */ function onKeyPressed (event) { gui.onKeyPressed (event); }
-        /* QML_CONNECTION */ function onKeyReleased(event) { gui.onKeyReleased(event); }
+        /* QML_CONNECTION */ function onMousePressed (event) { gui.onMousePressed (event) }
+        /* QML_CONNECTION */ function onMouseReleased(event) { gui.onMouseReleased(event) }
 
-        /* QML_CONNECTION */ function onDragEntered(event) { gui.onDragEntered(event); }
-        /* QML_CONNECTION */ function onDragExited (event) { gui.onDragExited (event); }
-        /* QML_CONNECTION */ function onDrop       (event) { gui.onDrop       (event); }
+        /* QML_CONNECTION */ function onKeyPressed (event) { gui.onKeyPressed (event) }
+        /* QML_CONNECTION */ function onKeyReleased(event) { gui.onKeyReleased(event) }
 
-        /* QML_CONNECTION */ function onDragEnded() { gui.onDragEnded(); }
+        /* QML_CONNECTION */ function onViewportKeyPressed(event)
+        {
+            event.accepted = true;
+
+            keyPressed(event);
+        }
+
+        /* QML_CONNECTION */ function onViewportKeyReleased(event) { keyReleased(event) }
+
+        /* QML_CONNECTION */ function onDragEntered(event) { gui.onDragEntered(event) }
+        /* QML_CONNECTION */ function onDragExited (event) { gui.onDragExited (event) }
+        /* QML_CONNECTION */ function onDrop       (event) { gui.onDrop       (event) }
+
+        /* QML_CONNECTION */ function onDragEnded() { gui.onDragEnded() }
 
         /* QML_CONNECTION */ function onBeforeClose()
         {
@@ -511,9 +522,9 @@ Item
             asynchronous = true;
         }
 
-        /* QML_CONNECTION */ function onActiveChanged() { updateScreenDim(); }
+        /* QML_CONNECTION */ function onActiveChanged() { updateScreenDim() }
 
-        /* QML_CONNECTION */ function onVsyncChanged() { local.vsync = window.vsync; }
+        /* QML_CONNECTION */ function onVsyncChanged() { local.vsync = window.vsync }
 
         /* QML_CONNECTION */ function onIdleChanged()
         {

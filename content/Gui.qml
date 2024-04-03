@@ -569,6 +569,8 @@ Item
 
         /* QML_CONNECTION */ function onCurrentBookmarkChanged()
         {
+            restoreTrackData();
+
             panelSearch.setText(currentTab.source);
 
             var playlist = currentTab.playlist;
@@ -606,7 +608,7 @@ Item
     {
         target: player
 
-        /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart(); }
+        /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart() }
 
         /* QML_CONNECTION */ function onIsPlayingChanged()
         {
@@ -639,47 +641,37 @@ Item
             restoreBars();
 
             sk.screenSaverEnabled = true;
+
+            // NOTE: We save the track data right after pausing the playback.
+            if (player.isPaused) saveTrackData();
         }
 
         /* QML_CONNECTION */ function onHasStartedChanged()
         {
             restoreBars();
 
+            if (player.hasStarted == false)
+            {
+                // NOTE: We save the track data right after stopping the playback.
+                saveTrackData();
+            }
+
             timerHistory.restart();
         }
 
-        /* QML_CONNECTION */ function onSpeedChanged() { local.speed = player.speed; }
+        /* QML_CONNECTION */ function onSpeedChanged() { local.speed = player.speed }
 
-        /* QML_CONNECTION */ function onVolumeChanged() { local.volume = player.volume; }
+        /* QML_CONNECTION */ function onVolumeChanged() { local.volume = player.volume }
 
-        /* QML_CONNECTION */ function onRepeatChanged() { local.repeat = player.repeat; }
+        /* QML_CONNECTION */ function onRepeatChanged() { local.repeat = player.repeat }
 
-        /* QML_CONNECTION */ function onOutputChanged  () { local.output   = player.output;   }
-        /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality;  }
-        /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode; }
+        /* QML_CONNECTION */ function onOutputChanged  () { local.output   = player.output   }
+        /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality  }
+        /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode }
 
-        /* QML_CONNECTION */ function onContextChanged()
-        {
-            var context = player.context;
+        /* QML_CONNECTION */ function onContextChanged() { applyContext() }
 
-            if (context == "") return;
-
-            var playlist = playerTab.playlist;
-
-            if (playlist == null) return;
-
-            var index = playerTab.trackIndex;
-
-            var source = playlist.trackSource(index);
-
-            source = controllerNetwork.applyFragmentValue(source, "ctx", context);
-
-            playlist.setTrackSource(index, source);
-
-            saveTrackData();
-        }
-
-        /* QML_CONNECTION */ function onTabChanged() { timerHistory.restart(); }
+        /* QML_CONNECTION */ function onTabChanged() { timerHistory.restart() }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1165,6 +1157,8 @@ Item
 
     function setCurrentTrack(playlist, index)
     {
+        saveTrackData();
+
         playlist.currentIndex = index;
 
         playlist.selectSingleTrack(index);
@@ -1234,6 +1228,8 @@ Item
     {
         if (playlist == null) return;
 
+        saveTrackData();
+
         if (highlightedTab) tabs.currentTab = playerTab;
 
         playlist.currentIndex = index;
@@ -1285,6 +1281,8 @@ Item
 
         if (playlist.isEmpty == false)
         {
+            saveTrackData();
+
             if (highlightedTab) tabs.currentTab = playerTab;
 
             if (playlist.currentIndex == -1)
@@ -1989,6 +1987,9 @@ Item
 
     function saveTrackData()
     {
+        // NOTE: We make sure that history has been created.
+        if (history == null) return;
+
         var source = currentTab.source;
 
         // NOTE: Track has to be valid and on top of the history.
@@ -1996,9 +1997,29 @@ Item
 
         source = applyTimeTrack(source);
 
-        source = applyFragment(source, "sub", controllerNetwork.encodeUrl(playerTab.subtitle));
+        if (controllerNetwork.hasFragment(source, "sid") == false)
+        {
+            source = applyFragment(source, "sub", controllerNetwork.encodeUrl(playerTab.subtitle));
+        }
 
         history.setTrackSource(0, source);
+    }
+
+    function restoreTrackData()
+    {
+        // NOTE: We are only restoring time on history tracks.
+        //if (currentPlaylist != history) return;
+
+        var time = extractTime(currentTab.source);
+
+        if (time) currentTab.currentTime = time;
+
+        var subtitle = controllerNetwork.extractFragmentValue(currentTab.source, "sub");
+
+        if (subtitle)
+        {
+            playerTab.subtitle = controllerNetwork.decodeUrl(subtitle);
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2070,6 +2091,88 @@ Item
             player.play();
         }
         else player.stop();
+    }
+
+    function applyFragment(source, key, value)
+    {
+        if (value)
+        {
+             return controllerNetwork.applyFragmentValue(source, key, value);
+        }
+        else return controllerNetwork.removeFragmentValue(source, key);
+    }
+
+    function applyTime(source)
+    {
+        // NOTE: We want to save the current time in seconds and floored.
+        var time = Math.floor(player.currentTime / 1000);
+
+        // NOTE: When stopping the player the currentTime is set to -1 before changing the
+        //       state. So the player state might still be 'paused' with an invalid time.
+        if (time < 0)
+        {
+            return source;
+        }
+        else return applyFragment(source, 't', time);
+    }
+
+    function applyTimeTrack(source)
+    {
+        if (player.isLive)
+        {
+            // NOTE: We are not saving the currentTime on a live stream.
+            return controllerNetwork.removeFragmentValue(source, 't');
+        }
+        else return applyTime(source);
+    }
+
+    function applyArgument(argument)
+    {
+        if (argument == "" || playerTab.isInteractive == false) return;
+
+        var source = applyTime(playerTab.source);
+
+        playerTab.source = controllerNetwork.applyFragmentValue(source, "arg", argument);
+
+        if (player.hasStarted)
+        {
+            player.reloadSource();
+        }
+        else player.play();
+
+        // NOTE: We cannot remove the arg fragment here because when the media is cached the
+        //       applyContext function is called before.
+    }
+
+    function applyContext()
+    {
+        var context = player.context;
+
+        if (context)
+        {
+            var source = controllerNetwork.removeFragmentValue(playerTab.source, "arg");
+
+            playerTab.source = player.backend.applyContext(source, context, player.contextId,
+                                                           player.currentTime);
+        }
+        else playerTab.source = controllerNetwork.removeFragmentValue(playerTab.source, "arg");
+
+        saveTrackData();
+    }
+
+    function clearContext(source)
+    {
+        source = controllerNetwork.removeFragmentValue(source, 't');
+        source = controllerNetwork.removeFragmentValue(source, 'ctx');
+        source = controllerNetwork.removeFragmentValue(source, 'id');
+
+        return controllerNetwork.removeFragmentValue(source, 'sid');
+    }
+
+    function extractTime(source)
+    {
+        // NOTE: We want the time in milliseconds.
+        return controllerNetwork.extractFragmentValue(source, 't') * 1000;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3179,13 +3282,17 @@ Item
 
     function pClearTorrents()
     {
-        var index = 0;
+        if (feeds.isEmpty) return;
 
         // NOTE: We make sure that history has been created.
         if (history == null)
         {
+            if (feeds.itemLabel(0) != "tracks") return;
+
             history = createItemAt(feeds, 0);
         }
+
+        var index = 0;
 
         while (index < history.count)
         {

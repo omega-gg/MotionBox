@@ -682,7 +682,7 @@ MouseArea
 
             if (highlightedTab) tabs.highlightedTab = null;
 
-            player.replay();
+            player.play();
         }
         else if (player.isPlaying == false || highlightedTab)
         {

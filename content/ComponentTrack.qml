@@ -28,6 +28,12 @@ ComponentLibraryItem
     id: componentTrack
 
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+
+    /* read */ property int time: pGetTime()
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -198,8 +204,42 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function pGetTime()
+    {
+        var time = controllerNetwork.extractFragmentValue(source, 't');
+
+        if (time == "") return 0;
+
+        time *= 1000; // NOTE: We want the time in milliseconds.
+
+        var duration = playlist.trackDuration(index);
+
+        if (duration < 1 || time > duration)
+        {
+            return 0;
+        }
+        else return time;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
+
+    TabBarProgress
+    {
+        anchors.left  : parent.left
+        anchors.bottom: parent.bottom
+
+        anchors.leftMargin: itemIcon.width
+
+        // FIXME
+        width: (time > 0) ? time * (parent.width - itemIcon.width) / playlist.trackDuration(index) : 0
+
+        visible: (time > 0)
+
+        enabled: player.isPlaying
+    }
 
     RectangleLive
     {

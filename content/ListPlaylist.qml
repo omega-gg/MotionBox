@@ -974,7 +974,7 @@ BaseList
     {
         if (highlightedTab) tabs.highlightedTab = null;
 
-        player.replay();
+        player.play();
 
         window.clearFocus();
     }

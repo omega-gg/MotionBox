@@ -185,6 +185,8 @@ Item
             {
                 //panelDiscover.collapse();
 
+                gui.saveTrackData();
+
                 currentTab.setPreviousBookmark();
             }
         }
@@ -205,6 +207,8 @@ Item
             onClicked:
             {
                 //panelDiscover.collapse();
+
+                gui.saveTrackData();
 
                 currentTab.setNextBookmark();
             }

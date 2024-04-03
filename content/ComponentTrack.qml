@@ -31,7 +31,14 @@ ComponentLibraryItem
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property int time: pGetTime()
+    /* read */ property int time    : -1
+    /* read */ property int duration: -1
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    // NOTE: This is required for the onPSourceChanged event.
+    property string pSource: source
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -101,10 +108,34 @@ ComponentLibraryItem
     /* QML_EVENT */ onClicked      : function(mouse) { pClicked      (mouse) }
     /* QML_EVENT */ onDoubleClicked: function(mouse) { pDoubleClicked(mouse) }
 
+    onPSourceChanged: pUpdateTime()
+
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
     // Private
+
+    function pUpdateTime()
+    {
+        duration = playlist.trackDuration(index);
+
+        var time = controllerNetwork.extractFragmentValue(source, 't');
+
+        if (time == "")
+        {
+            componentTrack.time = -1;
+
+            return;
+        }
+
+        time *= 1000; // NOTE: We want the time in milliseconds.
+
+        if (duration < 1 || time > duration)
+        {
+             componentTrack.time = -1;
+        }
+        else componentTrack.time = time;
+    }
 
     function pPositionChanged(mouse)
     {
@@ -204,25 +235,6 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
-
-    function pGetTime()
-    {
-        var time = controllerNetwork.extractFragmentValue(source, 't');
-
-        if (time == "") return 0;
-
-        time *= 1000; // NOTE: We want the time in milliseconds.
-
-        var duration = playlist.trackDuration(index);
-
-        if (duration < 1 || time > duration)
-        {
-            return 0;
-        }
-        else return time;
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
@@ -233,8 +245,7 @@ ComponentLibraryItem
 
         anchors.leftMargin: itemIcon.width
 
-        // FIXME
-        width: (time > 0) ? time * (parent.width - itemIcon.width) / playlist.trackDuration(index) : 0
+        width: (visible) ? time * (parent.width - itemIcon.width) / duration : 0
 
         visible: (time > 0)
 

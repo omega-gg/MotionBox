@@ -158,22 +158,30 @@ AreaContextual
                             panelContextual.isCursorChild);
     }
 
-    function pShowTimestamp(playlist, index)
+    function pCheckContext(source)
     {
-        if (playlist == null) return false;
-
-        var source = playlist.trackSource(index);
-
-        return controllerNetwork.hasFragment(source, 't');
+        return (controllerNetwork.hasFragment(source, 't')   ||
+                controllerNetwork.hasFragment(source, 'ctx') ||
+                controllerNetwork.hasFragment(source, 'id')  ||
+                controllerNetwork.hasFragment(source, 'sid'));
     }
 
-    function pClearTimestamp(playlist, index)
+    function pClearContext(playlist, index)
     {
-        var source = playlist.trackSource(index);
-
-        source = controllerNetwork.removeFragmentValue(source, 't');
+        var source = gui.clearContext(playlist.trackSource(index));
 
         playlist.setTrackSource(index, source);
+
+        // NOTE: We reload the track to ensure that the duration is accurate.
+        gui.reload(playlist, index);
+    }
+
+    function pClearContextTab(tab)
+    {
+        tab.source = gui.clearContext(tab.source);
+
+        // NOTE: We reload the track to ensure that the duration is accurate.
+        gui.reloadTab(tab);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -527,7 +535,7 @@ AreaContextual
                     { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                       "title": qsTr("Reload") },
 
-                    { "id": 5, "title": qsTr("Clear timestamp") }
+                    { "id": 5, "title": qsTr("Reset timeline") }
                 );
 
                 if (playlist.isLocal)
@@ -551,11 +559,11 @@ AreaContextual
                     page.setItemEnabled(3, false); // Open link
                     page.setItemEnabled(4, false); // Copy link
                     page.setItemEnabled(5, false); // Reload
-                    page.setItemEnabled(6, false); // Clear timestamp
+                    page.setItemEnabled(6, false); // Reset timeline
                 }
-                else if (pShowTimestamp(playlist, index) == false)
+                else if (pCheckContext(playlist.trackSource(index)) == false)
                 {
-                    page.setItemEnabled(6, false); // Clear timestamp
+                    page.setItemEnabled(6, false); // Reset timeline
                 }
 
                 currentId = 1;
@@ -589,7 +597,7 @@ AreaContextual
                 { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                   "title": qsTr("Reload") },
 
-                { "id": 5, "title": qsTr("Clear timestamp") },
+                { "id": 5, "title": qsTr("Reset timeline") },
 
                 { "id": 6, "title": qsTr("Close other Tabs") },
 
@@ -617,9 +625,9 @@ AreaContextual
                     page.setItemEnabled(3, false); // Open link
                     page.setItemEnabled(4, false); // Copy link
                 }
-                else if (pShowTimestamp(tab.playlist, tab.trackIndex) == false)
+                else if (pCheckContext(tab.source) == false)
                 {
-                    page.setItemEnabled(6, false); // Clear timestamp
+                    page.setItemEnabled(6, false); // Reset timeline
                 }
             }
             else
@@ -633,7 +641,7 @@ AreaContextual
                 page.setItemEnabled(3, false); // Open link
                 page.setItemEnabled(4, false); // Copy link
                 page.setItemEnabled(5, false); // Reload
-                page.setItemEnabled(6, false); // Clear timestamp
+                page.setItemEnabled(6, false); // Reset timeline
 
                 if (tabs.count == 1)
                 {
@@ -795,9 +803,9 @@ AreaContextual
             {
                 gui.reload(pItem.playlist, pIndex);
             }
-            else if (id == 5) // Clear timestamp
+            else if (id == 5) // Reset timeline
             {
-                pClearTimestamp(pItem.playlist, pIndex);
+                pClearContext(pItem.playlist, pIndex);
 
                 currentTab.currentTime = -1;
             }
@@ -877,14 +885,25 @@ AreaContextual
             {
                 gui.reload(pItem.playlist, pItem.trackIndex);
             }
-            else if (id == 5) // Clear timestamp
+            else if (id == 5) // Reset timeline
             {
                 // NOTE: When clearing the player tab we want to stop playback first.
-                if (player.tab == pItem) player.stop();
+                if (player.tab == pItem)
+                {
+                    player.stop();
 
-                pClearTimestamp(pItem.playlist, pItem.trackIndex);
+                    pClearContextTab(pItem);
 
-                currentTab.currentTime = -1;
+                    currentTab.currentTime = -1;
+
+                    player.reloadSource();
+                }
+                else
+                {
+                    pClearContextTab(pItem);
+
+                    currentTab.currentTime = -1;
+                }
             }
             else if (id == 6) // Close other tabs
             {

@@ -1341,27 +1341,39 @@ Item
 
         if (player.playlist != playlist || player.trackIndex != index) return;
 
-        if (player.hasStarted)
+        reloadPlayer();
+    }
+
+    function reloadTab(tab)
+    {
+        tab.reloadTrack();
+
+        reloadPlayer();
+    }
+
+    function reloadPlayer()
+    {
+        if (player.hasStarted == false)
         {
-            // NOTE: We close the split view before reloading the track.
-            if (highlightedTab) tabs.currentTab = highlightedTab;
+            core.clearMedia(player.source);
 
-            if (player.isPlaying)
-            {
-                player.stop();
-
-                core.clearMedia(player.source);
-
-                player.play();
-            }
-            else
-            {
-                player.stop();
-
-                core.clearMedia(player.source);
-            }
+            return;
         }
-        else core.clearMedia(player.source);
+
+        if (player.isPlaying == false)
+        {
+            player.stop();
+
+            core.clearMedia(player.source);
+
+            return;
+        }
+
+        player.stop();
+
+        core.clearMedia(player.source);
+
+        player.play();
     }
 
     //---------------------------------------------------------------------------------------------

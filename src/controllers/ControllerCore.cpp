@@ -90,7 +90,7 @@
 #include <WDeclarativeImageSvg>
 #include <WDeclarativeBorderImage>
 #include <WDeclarativeTextSvg>
-#include <WDeclarativePlayer>
+#include <WDeclarativeAmbient>
 #include <WDeclarativeScanner>
 #ifdef SK_DESKTOP
 #include <WDeclarativeScannerHover>
@@ -274,7 +274,8 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WDeclarativeTextSvgScale>("Sky", 1,0, "TextSvgScale");
 #endif
 
-    qmlRegisterType<WDeclarativePlayer>("Sky", 1,0, "Player");
+    qmlRegisterType<WDeclarativePlayer> ("Sky", 1,0, "Player");
+    qmlRegisterType<WDeclarativeAmbient>("Sky", 1,0, "Ambient");
 
     qmlRegisterType<WDeclarativeScanner>("Sky", 1,0, "Scanner");
 

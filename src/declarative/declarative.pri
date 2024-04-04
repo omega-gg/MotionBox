@@ -23,6 +23,8 @@ HEADERS += $$SK_GUI/declarative/WDeclarativeApplication.h \
            $$SK_GUI/declarative/WDeclarativeAnimated_p.h \
            $$SK_GUI/declarative/WDeclarativePlayer.h \
            $$SK_GUI/declarative/WDeclarativePlayer_p.h \
+           $$SK_GUI/declarative/WDeclarativeAmbient.h \
+           $$SK_GUI/declarative/WDeclarativeAmbient_p.h \
            $$SK_GUI/declarative/WDeclarativeListView.h \
            $$SK_GUI/declarative/WDeclarativeListView_p.h \
            $$SK_GUI/declarative/WDeclarativeContextualPage.h \
@@ -54,6 +56,7 @@ SOURCES += $$SK_GUI/declarative/WDeclarativeApplication.cpp \
            $$SK_GUI/declarative/WDeclarativeTextSvg.cpp \
            $$SK_GUI/declarative/WDeclarativeAnimated.cpp \
            $$SK_GUI/declarative/WDeclarativePlayer.cpp \
+           $$SK_GUI/declarative/WDeclarativeAmbient.cpp \
            $$SK_GUI/declarative/WDeclarativeListView.cpp \
            $$SK_GUI/declarative/WDeclarativeContextualPage.cpp \
            $$SK_BARCODE/declarative/WDeclarativeScanner.cpp \

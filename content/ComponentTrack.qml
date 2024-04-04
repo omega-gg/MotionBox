@@ -251,7 +251,8 @@ ComponentLibraryItem
 
         visible: (time > 0)
 
-        enabled: player.isPlaying
+        colorA: st.itemList_colorBorderBar
+        colorB: st.itemList_colorBorderBar
     }
 
     RectangleLive

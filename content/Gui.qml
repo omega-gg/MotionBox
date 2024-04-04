@@ -608,6 +608,8 @@ Item
     {
         target: player
 
+        /* QML_CONNECTION */ function onLoaded() { applyContext() }
+
         /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart() }
 
         /* QML_CONNECTION */ function onIsPlayingChanged()
@@ -669,7 +671,10 @@ Item
         /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality  }
         /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode }
 
-        /* QML_CONNECTION */ function onContextChanged() { applyContext() }
+        /* QML_CONNECTION */ function onAmbientChanged()
+        {
+            loaderAmbient.source = Qt.resolvedUrl("PageAmbient.qml")
+        }
 
         /* QML_CONNECTION */ function onTabChanged() { timerHistory.restart() }
     }
@@ -3499,6 +3504,8 @@ Item
         anchors.right: parent.right
 
         PanelPlayer { id: panelPlayer }
+
+        Loader { id: loaderAmbient }
 
         PanelLibrary { id: panelLibrary }
 

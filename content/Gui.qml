@@ -236,6 +236,8 @@ Item
     property alias playerBrowser  : panelPlayer.playerBrowser
     property alias playerMouseArea: panelPlayer.playerMouseArea
 
+    property alias subtitle: panelPlayer.subtitle
+
     property alias panelRelated: panelPlayer.panelRelated
 
     //---------------------------------------------------------------------------------------------
@@ -2028,6 +2030,33 @@ Item
         {
             playerTab.subtitle = controllerNetwork.decodeUrl(subtitle);
         }
+    }
+
+    function updateTrackSubtitle(id)
+    {
+        if (id == -1)
+        {
+            var source = controllerNetwork.removeFragmentValue(playerTab.source, "sid");
+
+            playerTab.source = applyFragment(source, "sub",
+                                             controllerNetwork.encodeUrl(playerTab.subtitle));
+        }
+        else
+        {
+            /* var */ source = controllerNetwork.removeFragmentValue(playerTab.source, "sub");
+
+            playerTab.source = controllerNetwork.applyFragmentValue(source, "sid", id);
+        }
+
+        var backend = player.backend;
+
+        var timeA = backend.getTimeA();
+
+        if (timeA == -1)
+        {
+            subtitle.delay = 0;
+        }
+        else subtitle.delay = backend.getStart() - timeA;
     }
 
     //---------------------------------------------------------------------------------------------

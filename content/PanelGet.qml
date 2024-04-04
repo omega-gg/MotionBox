@@ -26,6 +26,16 @@ import Sky     1.0
 BasePanelSettings
 {
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    property string pSource
+
+    property int pCount: -1
+    property int pIndex: -1
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
@@ -34,13 +44,85 @@ BasePanelSettings
     titles: [ qsTr("Subtitles") ]
 
     //---------------------------------------------------------------------------------------------
+    // Connections
+    //---------------------------------------------------------------------------------------------
+
+    Connections
+    {
+        target: player
+
+        /* QML_CONNECTION */ function onSubtitlesChanged()
+        {
+            var subtitles = player.subtitles;
+
+            var source = controllerPlaylist.cleanSource(player.source);
+
+            if (pSource == source)
+            {
+                if (pIndex == -1)
+                {
+                    pUpdateView();
+
+                    return;
+                }
+
+                if (subtitles.length != pCount)
+                {
+                    pCount = subtitles.length;
+
+                    if (pCount)
+                    {
+                        pIndex = 0;
+
+                        applySubtitle(subtitles[0], 0);
+                    }
+                    else applySubtitle("", -1);
+                }
+                else applySubtitle(subtitles[pIndex], pIndex);
+
+                pUpdateView();
+
+                return;
+            }
+
+            pSource = source;
+
+            pCount = subtitles.length;
+
+            if (pCount)
+            {
+                var id = controllerNetwork.extractFragmentValue(player.source, "sid");
+
+                if (id > 0 && id < pCount)
+                {
+                    pIndex = id;
+                }
+                else pIndex = 0;
+
+                applySubtitle(subtitles[pIndex], pIndex);
+            }
+            else applySubtitle("", -1);
+
+            pUpdateView();
+        }
+    }
+    //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
 
+    function applySubtitle(source, id)
+    {
+        playerTab.subtitle = source;
+
+        gui.updateTrackSubtitle(id);
+    }
+
     function clearSubtitle()
     {
-        if (indexCurrent == 0) page.clearSubtitle();
+        if (indexCurrent == 0 && page) page.clearSubtitle();
     }
+
+    function clearIndex() { pIndex = -1 }
 
     //---------------------------------------------------------------------------------------------
     // BasePanelSettings reimplementation

@@ -47,6 +47,8 @@ Item
     property alias playerBrowser  : wall.playerBrowser
     property alias playerMouseArea: wall.playerMouseArea
 
+    property alias subtitle: wall.subtitle
+
     property alias panelRelated: panelRelated
 
     //---------------------------------------------------------------------------------------------

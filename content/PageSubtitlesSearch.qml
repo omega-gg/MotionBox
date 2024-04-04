@@ -170,6 +170,8 @@ Item
         playerTab.subtitle = pFolder.itemSource(index);
 
         pEvents = true;
+
+        gui.updateTrackSubtitle(-1);
     }
 
     //---------------------------------------------------------------------------------------------

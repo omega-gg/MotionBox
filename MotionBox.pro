@@ -259,6 +259,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PageAboutCredits.qml \
                content/PageSubtitles.qml \
                content/PageSubtitlesSearch.qml \
+               content/PageSubtitlesView.qml \
                content/PageOutput.qml \
                content/PageOutputSettings.qml \
                content/PageOutputAdvanced.qml \

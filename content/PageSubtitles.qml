@@ -40,6 +40,9 @@ Item
 
     property bool pEnable: (playerTab.currentIndex != -1)
 
+    property bool pActive: (pView || pSearch)
+
+    property bool pView  : false
     property bool pSearch: false
 
     property int pHeight: st.list_itemSize * 6
@@ -119,12 +122,39 @@ Item
         if (pSearch) pItem.clearIndex();
     }
 
+    function updateView()
+    {
+        var active = (player.subtitles.length);
+
+        if (pView == active)
+        {
+            if (pView) pItem.updateView();
+
+            return;
+        }
+
+        if (active == false)
+        {
+            pView = false;
+
+            return;
+        }
+
+        loader.visible = true;
+
+        pView = true;
+
+        pItem.updateView();
+    }
+
     //---------------------------------------------------------------------------------------------
     // Events
 
     function onShow()
     {
-        if (playerTab.subtitle || gui.dragType == -2) return;
+        updateView();
+
+        if (pView || playerTab.subtitle || gui.dragType == -2) return;
 
         var title = playerTab.title;
 
@@ -190,7 +220,6 @@ Item
 
     function pShowSearch()
     {
-        loader.source  = Qt.resolvedUrl("PageSubtitlesSearch.qml");
         loader.visible = true;
 
         pSearch = true;
@@ -271,6 +300,19 @@ Item
         lineEdit.text = text;
 
         pEvents = true;
+    }
+
+    function pGetSource()
+    {
+        if (pSearch)
+        {
+            return Qt.resolvedUrl("PageSubtitlesSearch.qml");
+        }
+        else if (pView)
+        {
+            return Qt.resolvedUrl("PageSubtitlesView.qml");
+        }
+        else return "";
     }
 
     //---------------------------------------------------------------------------------------------
@@ -375,6 +417,8 @@ Item
 
             playerTab.subtitle = "";
 
+            gui.updateTrackSubtitle(-1);
+
             if (pSearch) pItem.clearIndex();
         }
     }
@@ -455,9 +499,11 @@ Item
 
         visible: false
 
+        source: pGetSource()
+
         states: State
         {
-            name: "visible"; when: pSearch
+            name: "visible"; when: pActive
 
             PropertyChanges
             {
@@ -484,10 +530,9 @@ Item
                 {
                     script:
                     {
-                        if (pSearch) return;
+                        if (pActive) return;
 
                         loader.visible = false;
-                        loader.source  = "";
                     }
                 }
             }

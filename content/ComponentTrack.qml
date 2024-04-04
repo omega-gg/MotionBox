@@ -238,7 +238,7 @@ ComponentLibraryItem
     // Children
     //---------------------------------------------------------------------------------------------
 
-    TabBarProgress
+    BarProgress
     {
         anchors.left  : parent.left
         anchors.bottom: parent.bottom

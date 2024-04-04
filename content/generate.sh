@@ -241,6 +241,7 @@ $SkyComponents/BarTitleSmall.qml \
 $SkyComponents/BarTitleText.qml \
 $SkyComponents/BarSetting.qml \
 $SkyComponents/BarSettingReset.qml \
+$SkyComponents/BarProgress.qml \
 $SkyComponents/BaseButtonPush.qml \
 $SkyComponents/BaseButtonPiano.qml \
 $SkyComponents/ButtonPush.qml \
@@ -306,7 +307,6 @@ $SkyComponents/BaseTabs.qml \
 $SkyComponents/TabsBrowser.qml \
 $SkyComponents/TabsTrack.qml \
 $SkyComponents/TabsPlayer.qml \
-$SkyComponents/TabBarProgress.qml \
 $SkyComponents/BaseWall.qml \
 $SkyComponents/Wall.qml \
 $SkyComponents/WallBookmarkTrack.qml \

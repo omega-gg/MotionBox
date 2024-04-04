@@ -2010,9 +2010,12 @@ Item
         // NOTE: We are only restoring time on history tracks.
         //if (currentPlaylist != history) return;
 
-        var time = extractTime(currentTab.source);
+        if (currentTab.currentTime == -1)
+        {
+            var time = extractTime(currentTab.source);
 
-        if (time) currentTab.currentTime = time;
+            if (time) currentTab.currentTime = time;
+        }
 
         var subtitle = controllerNetwork.extractFragmentValue(currentTab.source, "sub");
 

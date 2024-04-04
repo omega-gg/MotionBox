@@ -247,6 +247,8 @@ ComponentLibraryItem
 
         width: (visible) ? time * (parent.width - itemIcon.width) / duration : 0
 
+        height: st.border_size
+
         visible: (time > 0)
 
         enabled: player.isPlaying

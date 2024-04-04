@@ -291,7 +291,21 @@ MouseArea
 
         /* QML_CONNECTION */ function onQueryEnded()
         {
-            if (pCheckQuery(pFolder.source) || pFolder.currentIndex != -1) return;
+            var source = pFolder.source;
+
+            if (source[0] == '#')
+            {
+                gui.applyArgument(controllerPlaylist.vbmlHash(source));
+
+                isSearching = false;
+                isSelecting = false;
+
+                pClearSearch();
+
+                return;
+            }
+
+            if (pCheckQuery(source) || pFolder.currentIndex != -1) return;
 
             pFolder.loadCurrentIndex(0, true);
 
@@ -405,8 +419,6 @@ MouseArea
     {
         if (query == "") return;
 
-        expose();
-
         pSetBackendId(id);
 
         if (pFolderBrowse == null) return;
@@ -511,6 +523,13 @@ MouseArea
         else pStartSearch(query);
     }
 
+    function pRestore()
+    {
+        expose();
+
+        gui.restore();
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function pSearchBrowse()
@@ -527,8 +546,6 @@ MouseArea
         pStartSearch(pQuery);
     }
 
-    //---------------------------------------------------------------------------------------------
-
     function pSearchStop()
     {
         if (isSearching) pSearchEnd();
@@ -539,7 +556,7 @@ MouseArea
         isSearching = false;
         isSelecting = false;
 
-        gui.restore();
+        pRestore();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -555,7 +572,7 @@ MouseArea
 
         if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
         {
-            gui.restore();
+            pRestore();
         }
 
         var source;
@@ -660,7 +677,7 @@ MouseArea
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
-                else gui.restore();
+                else pRestore();
 
                 if (gui.isExpanded == false && playlist.isEmpty == false)
                 {
@@ -688,7 +705,7 @@ MouseArea
         {
             gui.setCurrentTrack(playlist, index);
         }
-        else gui.restore();
+        else pRestore();
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {

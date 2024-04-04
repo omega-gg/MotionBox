@@ -419,6 +419,24 @@ MouseArea
     {
         if (query == "") return;
 
+        var hash = controllerPlaylist.vbmlHashFromUrl(query);
+
+        if (hash != "")
+        {
+            gui.applyArgument(hash);
+
+            return;
+        }
+
+        if (controllerPlaylist.urlIsVbmlConnect(query))
+        {
+            core.connectToHost(query);
+
+            return;
+        }
+
+        expose();
+
         pSetBackendId(id);
 
         if (pFolderBrowse == null) return;
@@ -523,13 +541,6 @@ MouseArea
         else pStartSearch(query);
     }
 
-    function pRestore()
-    {
-        expose();
-
-        gui.restore();
-    }
-
     //---------------------------------------------------------------------------------------------
 
     function pSearchBrowse()
@@ -556,7 +567,7 @@ MouseArea
         isSearching = false;
         isSelecting = false;
 
-        pRestore();
+        gui.restore();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -572,7 +583,7 @@ MouseArea
 
         if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
         {
-            pRestore();
+            gui.restore();
         }
 
         var source;
@@ -677,7 +688,7 @@ MouseArea
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
-                else pRestore();
+                else gui.restore();
 
                 if (gui.isExpanded == false && playlist.isEmpty == false)
                 {
@@ -705,7 +716,7 @@ MouseArea
         {
             gui.setCurrentTrack(playlist, index);
         }
-        else pRestore();
+        else gui.restore();
 
         if (gui.isExpanded == false && playlist.isEmpty == false)
         {

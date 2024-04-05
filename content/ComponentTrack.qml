@@ -235,17 +235,32 @@ ComponentLibraryItem
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function pGetBarWidth()
+    {
+        if (bar.visible == false) return 0;
+
+        if (time < duration)
+        {
+            return time * (width - itemIcon.width) / duration;
+        }
+        else return width - itemIcon.x - itemIcon.width;
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
     BarProgress
     {
+        id: bar
+
         anchors.left  : parent.left
         anchors.bottom: parent.bottom
 
         anchors.leftMargin: itemIcon.width
 
-        width: (visible) ? time * (parent.width - itemIcon.width) / duration : 0
+        width: pGetBarWidth()
 
         height: st.border_size
 

@@ -41,6 +41,10 @@ Panel
 
     property bool pLoading: (playlist != null && playlist.queryIsLoading)
 
+    property bool pEnableTime: (player.isVbml && player.hasStarted)
+
+    property bool pShowButton: false
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -70,6 +74,23 @@ Panel
     borderBottom: 0
 
     visible: false
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onVisibleChanged: if (visible) pShowButton = pEnableTime
+
+    onPEnableTimeChanged:
+    {
+        if (pEnableTime == false || pShowButton) return;
+
+        buttonTime.visible = true;
+
+        pShowButton = true;
+
+        pRefresh();
+    }
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -362,7 +383,15 @@ Panel
     {
         saveScroll();
 
-        related.loadTracks(currentTab.trackData);
+        if (pEnableTime && buttonTime.checked)
+        {
+            if (controllerPlaylist.cleanMatch(currentTab.source, playerTab.source))
+            {
+                 related.loadTracks(currentTab.trackData, player.currentTime);
+            }
+            else related.loadTracks(currentTab.trackData);
+        }
+        else related.loadTracks(currentTab.trackData);
 
         local.cache = true;
     }
@@ -394,6 +423,67 @@ Panel
 
             pRefresh();
         }
+    }
+
+    ButtonCheckSettings
+    {
+        id: buttonTime
+
+        anchors.top: parent.top
+
+        visible: false
+
+        enabled: pEnableTime
+
+        checked: true
+
+        text: qsTr("Current time")
+
+        onCheckClicked: pRefresh()
+
+        states: State
+        {
+            name: "active"; when: pShowButton
+
+            AnchorChanges
+            {
+                target: buttonTime
+
+                anchors.top: bar.bottom
+            }
+        }
+
+        transitions: Transition
+        {
+            SequentialAnimation
+            {
+                AnchorAnimation
+                {
+                    duration: st.duration_faster
+
+                    easing.type: st.easing
+                }
+            }
+
+            ScriptAction
+            {
+                script:
+                {
+                    if (pShowButton) return;
+
+                    buttonTime.visible = false;
+                }
+            }
+        }
+    }
+
+    BorderHorizontal
+    {
+        id: borderTime
+
+        anchors.top: buttonTime.bottom
+
+        visible: buttonTime.visible
     }
 
     BarTitle
@@ -498,7 +588,7 @@ Panel
 
         anchors.left  : parent.left
         anchors.right : parent.right
-        anchors.top   : bar.bottom
+        anchors.top   : borderTime.bottom
         anchors.bottom: parent.bottom
 
         TextListDefault

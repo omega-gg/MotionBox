@@ -2008,6 +2008,8 @@ Item
         // NOTE: We make sure that history has been created.
         if (history == null) return;
 
+        pUpdateHistory();
+
         var source = currentTab.source;
 
         // NOTE: Track has to be valid and on top of the history.

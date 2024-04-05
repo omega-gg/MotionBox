@@ -345,7 +345,7 @@ Item
             backend.setProxy(local.proxyHost, local.proxyPort, local.proxyPassword);
         }
 
-        barWindow.updateTab();
+        panelSearch.setText(currentTab.source);
 
         window.clearFocus();
 
@@ -555,7 +555,7 @@ Item
                 restoreBars();
             }
 
-            barWindow.updateTab();
+            panelSearch.setText(currentTab.source);
 
             loadTabItems(currentTab);
 
@@ -587,6 +587,11 @@ Item
 
             panelRelated.refreshLater();
         }
+
+        /* QML_CONNECTION */ function onCurrentBookmarkUpdated()
+        {
+            panelSearch.setText(currentTab.source);
+        }
     }
 
     Connections
@@ -613,6 +618,12 @@ Item
         /* QML_CONNECTION */ function onLoaded() { applyContext() }
 
         /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart() }
+
+        // NOTE: We want to clear the previous selection when the playback changes.
+        /* QML_CONNECTION */ function onStateLoadChanged()
+        {
+            if (player.isDefault) wall.clearHover();
+        }
 
         /* QML_CONNECTION */ function onIsPlayingChanged()
         {

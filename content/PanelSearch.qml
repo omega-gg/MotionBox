@@ -237,11 +237,6 @@ Panel
             pTextEvents = true;
         }
         else lineEditSearch.text = text;
-
-        if (lineEditSearch.isFocused)
-        {
-            lineEditSearch.selectAll();
-        }
     }
 
     //---------------------------------------------------------------------------------------------

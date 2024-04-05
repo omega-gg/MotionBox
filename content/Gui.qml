@@ -1908,7 +1908,7 @@ Item
 
         if (index == 0)
         {
-            // NOTE: Sometimes duration is updated after playback.
+            // NOTE: Sometimes the duration is updated after playback.
             history.setTrackDuration(0, playerTab.duration);
 
             return;
@@ -2008,12 +2008,13 @@ Item
         // NOTE: We make sure that history has been created.
         if (history == null) return;
 
-        pUpdateHistory();
-
         var source = currentTab.source;
 
         // NOTE: Track has to be valid and on top of the history.
         if (checkSource(source, history.trackSource(0))) return;
+
+        // NOTE: Sometimes the duration is updated after playback.
+        history.setTrackDuration(0, playerTab.duration);
 
         source = applyTimeTrack(source);
 

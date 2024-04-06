@@ -228,6 +228,8 @@ Panel
 
     function setText(text)
     {
+        if (lineEditSearch.isFocused) return;
+
         if (visible == false)
         {
             pTextEvents = false;

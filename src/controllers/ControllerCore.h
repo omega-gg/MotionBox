@@ -107,6 +107,8 @@ public: // Interface
 
     Q_INVOKABLE void load();
 
+    Q_INVOKABLE void loadLinks(const QString & source, bool safe);
+
     Q_INVOKABLE bool updateVersion();
 
     Q_INVOKABLE void updateBackends() const;
@@ -179,7 +181,11 @@ private slots:
 
     void onBackendUpdated(const QString & id);
 
+    void onMediaLoaded(WMediaReply * reply);
+
 signals:
+    void linksLoaded(QStringList medias, QStringList audios);
+
     void cacheEmptyChanged();
 
     void tabsChanged();

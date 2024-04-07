@@ -599,6 +599,25 @@ ControllerCore::ControllerCore() : WController()
     _local.save();
 }
 
+/* Q_INVOKABLE */ void ControllerCore::loadLinks(const QString & source, bool safe)
+{
+    WMediaReply * reply;
+
+    int currentTime = WControllerPlaylist::extractTime(source);
+
+    if (safe)
+    {
+         reply = wControllerMedia->getMedia(source, WAbstractBackend::SourceSafe, currentTime);
+    }
+    else reply = wControllerMedia->getMedia(source, WAbstractBackend::SourceDefault, currentTime);
+
+    if (reply->isLoaded())
+    {
+        onMediaLoaded(reply);
+    }
+    else connect(reply, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMediaLoaded(WMediaReply *)));
+}
+
 //-------------------------------------------------------------------------------------------------
 
 /* Q_INVOKABLE */ bool ControllerCore::updateVersion()
@@ -1061,8 +1080,6 @@ void ControllerCore::onUpdated()
     else _backends->setCurrentIndex(index);
 }
 
-//-------------------------------------------------------------------------------------------------
-
 void ControllerCore::onReload()
 {
     if (_index == NULL) return;
@@ -1074,8 +1091,6 @@ void ControllerCore::onReload()
     _index->reloadBackends();
 }
 
-//-------------------------------------------------------------------------------------------------
-
 void ControllerCore::onBackendUpdated(const QString & id)
 {
     int index = _backends->indexFromLabel(id);
@@ -1085,6 +1100,33 @@ void ControllerCore::onBackendUpdated(const QString & id)
     WLibraryItem * item = _backends->createLibraryItemAt(index);
 
     item->reloadQuery();
+}
+
+void ControllerCore::onMediaLoaded(WMediaReply * reply)
+{
+    QStringList listA;
+    QStringList listB;
+
+    QHash<WAbstractBackend::Quality, QString> medias = reply->medias();
+    QHash<WAbstractBackend::Quality, QString> audios = reply->audios();
+
+    for (int i = 0; i <= WAbstractBackend::Quality2160; i++)
+    {
+        WAbstractBackend::Quality quality = static_cast<WAbstractBackend::Quality> (i);
+
+        listA.append(medias.value(quality));
+
+        QString source = audios.value(quality);
+
+        if (listB.contains(source))
+        {
+             listB.append(QString());
+        }
+        else listB.append(source);
+
+    }
+
+    emit linksLoaded(listA, listB);
 }
 
 //-------------------------------------------------------------------------------------------------

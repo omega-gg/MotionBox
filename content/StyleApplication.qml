@@ -46,8 +46,7 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // PanelRelated
 
-    property int panelRelated_durationMinimum:  500
-    property int panelRelated_durationMaximum: 2000
+    property int panelRelated_duration: 2000
 
     //---------------------------------------------------------------------------------------------
     // PanelCover
@@ -153,6 +152,8 @@ StyleComponents
 
     property url icon_track: "pictures/icons/video.svg"
 
+    property url icon_list: "pictures/icons/list.svg"
+
     property url icon_shutdown: "pictures/icons/power-off.svg"
 
     property url icon_tevolution: "pictures/icons/tevolution.svg"
@@ -184,6 +185,8 @@ StyleComponents
     property url icon16x16_feed    : icon_feed
 
     property url icon16x16_track: icon_track
+
+    property url icon16x16_list: icon_list
 
     property url icon16x16_shutdown: icon_shutdown
 

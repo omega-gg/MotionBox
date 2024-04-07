@@ -50,6 +50,8 @@ cp "$solid"/rss.svg    $icons
 
 cp "$solid"/video.svg $icons
 
+cp "$solid"/list.svg $icons
+
 cp "$solid"/power-off.svg $icons
 
 cp "$solid"/heart.svg $icons

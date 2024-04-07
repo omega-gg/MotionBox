@@ -265,6 +265,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PageOutputAdvanced.qml \
                content/PageAmbient.qml \
                content/ContextualMode.qml \
+               content/ContextualLinks.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \
                dist/doc/readme.md \

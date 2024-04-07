@@ -312,29 +312,59 @@ ColumnScroll
 
     BarSettings { text: qsTr("Quality") }
 
-    ButtonSettings
+    Item
     {
-        id: buttonQuality
+        id: itemQuality
 
-        marginY: itemVideo.y - buttonQuality.y
+        anchors.left : parent.left
+        anchors.right: parent.right
 
-        settings: [{ "title": qsTr("144p")  },
-                   { "title": qsTr("240p")  },
-                   { "title": qsTr("360p")  },
-                   { "title": qsTr("480p")  },
-                   { "title": qsTr("720p")  },
-                   { "title": qsTr("1080p") },
-                   { "title": qsTr("1440p") },
-                   { "title": qsTr("2160p") }]
+        height: buttonQuality.height
 
-        active: pQualityActive()
+        ButtonSettings
+        {
+            id: buttonQuality
 
-        text: pQualityString()
+            anchors.left : parent.left
+            anchors.right: buttonSources.left
 
-        currentIndex: pQualityIndex(player.quality)
-        activeIndex : pQualityIndex(player.qualityActive)
+            marginY: itemVideo.y - itemQuality.y
 
-        function onSelect(index) { pQualitySelect(index) }
+            settings: [{ "title": qsTr("144p")  },
+                       { "title": qsTr("240p")  },
+                       { "title": qsTr("360p")  },
+                       { "title": qsTr("480p")  },
+                       { "title": qsTr("720p")  },
+                       { "title": qsTr("1080p") },
+                       { "title": qsTr("1440p") },
+                       { "title": qsTr("2160p") }]
+
+            active: pQualityActive()
+
+            text: pQualityString()
+
+            currentIndex: pQualityIndex(player.quality)
+            activeIndex : pQualityIndex(player.qualityActive)
+
+            function onSelect(index) { pQualitySelect(index) }
+        }
+
+        ButtonPushIcon
+        {
+            id: buttonSources
+
+            anchors.right: parent.right
+
+            enabled: (player.source)
+
+            checkable: true
+            checked  : (areaContextual.item == buttonSources)
+
+            icon          : st.icon16x16_list
+            iconSourceSize: st.size16x16
+
+            onPressed: areaContextual.showPanelVideo(player.source, buttonSources, 0)
+        }
     }
 
     BarSettings { text: qsTr("Ratio") }

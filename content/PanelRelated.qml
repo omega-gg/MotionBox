@@ -287,10 +287,6 @@ Panel
 
         if (pCheckRefresh())
         {
-            var interval = timer.interval + st.panelRelated_durationMinimum;
-
-            timer.interval = Math.min(interval, st.panelRelated_durationMaximum);
-
             timer.restart();
         }
         else pClearRefresh();
@@ -373,8 +369,6 @@ Panel
     function pClearRefresh()
     {
         timer.stop();
-
-        timer.interval = 0;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -413,13 +407,11 @@ Panel
     {
         id: timer
 
-        interval: 0
+        interval: st.panelRelated_duration
 
         onTriggered:
         {
             stop();
-
-            interval = 0;
 
             pRefresh();
         }

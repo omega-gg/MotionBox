@@ -23,55 +23,22 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPushFull
+ColumnAuto
 {
-    id: buttonSettings
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    /* mandatory */ property variant settings
-
-    property bool active: false
-
-    property int marginY: 0
-
-    property int currentIndex: -1
-    property int activeIndex : -1
-
-    //---------------------------------------------------------------------------------------------
-    // Settings
-    //---------------------------------------------------------------------------------------------
-
-    anchors.left : parent.left
-    anchors.right: parent.right
-
-    checkable: true
-    checked  : (areaContextual.item == buttonSettings)
-
-    itemText.color: st.getTextColor(isHighlighted, active)
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    onPressed: onPress()
-
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function showPanel()
+    function load(source)
     {
-        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                         activeIndex);
     }
 
     //---------------------------------------------------------------------------------------------
-    // Events
+    // Children
+    //---------------------------------------------------------------------------------------------
 
-    /* virtual */ function onPress() { showPanel() }
-
-    /* virtual */ function onSelect(index) {}
+    ButtonCheckSettings
+    {
+        text: qsTr("Safe mode")
+    }
 }

@@ -144,6 +144,17 @@ AreaContextual
         showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
     }
 
+    function showPanelVideo(source, button, marginY)
+    {
+        currentId = 7;
+
+        item = button;
+
+        showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
+
+        panelLoader.item.load(gui.applyTime(source));
+    }
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -211,8 +222,9 @@ AreaContextual
 
     function pGetSource()
     {
-        if (currentId == 6) return "ContextualMode.qml";
-        else                return "";
+        if      (currentId == 6) return "ContextualMode.qml";
+        else if (currentId == 7) return "ContextualLinks.qml";
+        else                     return "";
     }
 
     function pGetPanel()

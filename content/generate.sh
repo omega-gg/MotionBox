@@ -255,8 +255,10 @@ $SkyComponents/ButtonPushCenterIcon.qml \
 $SkyComponents/ButtonPushRight.qml \
 $SkyComponents/ButtonPushRightIcon.qml \
 $SkyComponents/ButtonPushOverlay.qml \
+$SkyComponents/ButtonExtra.qml \
 $SkyComponents/ButtonWide.qml \
 $SkyComponents/ButtonWideFull.qml \
+$SkyComponents/ButtonWideExtra.qml \
 $SkyComponents/ButtonPiano.qml \
 $SkyComponents/ButtonPianoIcon.qml \
 $SkyComponents/ButtonPianoFull.qml \

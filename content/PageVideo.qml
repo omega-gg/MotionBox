@@ -272,99 +272,59 @@ ColumnScroll
 
     BarSettings { text: qsTr("Output") }
 
-    Item
+    ButtonSettingsExtra
     {
-        id: itemVideo
+        id: buttonOutput
 
-        anchors.left : parent.left
-        anchors.right: parent.right
+        active: pVideoActive()
 
-        height: buttonOutput.height
+        text: pVideoString()
 
-        ButtonSettings
-        {
-            id: buttonOutput
+        buttonIcon.enabled: player.isPlaying
 
-            anchors.left : parent.left
-            anchors.right: buttonReload.left
+        buttonIcon.icon          : st.icon16x16_refresh
+        buttonIcon.iconSourceSize: st.size16x16
 
-            active: pVideoActive()
+        buttonIcon.onClicked: gui.reload(player.playlist, player.trackIndex)
 
-            text: pVideoString()
-
-            function onPress(index) { areaContextual.showPanelMode(buttonOutput, marginY) }
-        }
-
-        ButtonPushIcon
-        {
-            id: buttonReload
-
-            anchors.right: parent.right
-
-            enabled: player.isPlaying
-
-            icon          : st.icon16x16_refresh
-            iconSourceSize: st.size16x16
-
-            onClicked: gui.reload(player.playlist, player.trackIndex)
-        }
+        function onPress(index) { areaContextual.showPanelMode(buttonOutput, marginY) }
     }
 
     BarSettings { text: qsTr("Quality") }
 
-    Item
+    ButtonSettingsExtra
     {
-        id: itemQuality
+        id: buttonQuality
 
-        anchors.left : parent.left
-        anchors.right: parent.right
+        marginY: buttonOutput.y - buttonQuality.y
 
-        height: buttonQuality.height
+        settings: [{ "title": qsTr("144p")  },
+                   { "title": qsTr("240p")  },
+                   { "title": qsTr("360p")  },
+                   { "title": qsTr("480p")  },
+                   { "title": qsTr("720p")  },
+                   { "title": qsTr("1080p") },
+                   { "title": qsTr("1440p") },
+                   { "title": qsTr("2160p") }]
 
-        ButtonSettings
-        {
-            id: buttonQuality
+        active: pQualityActive()
 
-            anchors.left : parent.left
-            anchors.right: buttonSources.left
+        text: pQualityString()
 
-            marginY: itemVideo.y - itemQuality.y
+        currentIndex: pQualityIndex(player.quality)
+        activeIndex : pQualityIndex(player.qualityActive)
 
-            settings: [{ "title": qsTr("144p")  },
-                       { "title": qsTr("240p")  },
-                       { "title": qsTr("360p")  },
-                       { "title": qsTr("480p")  },
-                       { "title": qsTr("720p")  },
-                       { "title": qsTr("1080p") },
-                       { "title": qsTr("1440p") },
-                       { "title": qsTr("2160p") }]
+        buttonIcon.enabled: (player.source)
 
-            active: pQualityActive()
+        buttonIcon.checkable: true
+        buttonIcon.checked  : (areaContextual.item == buttonIcon)
 
-            text: pQualityString()
+        buttonIcon.icon          : st.icon16x16_list
+        buttonIcon.iconSourceSize: st.size16x16
 
-            currentIndex: pQualityIndex(player.quality)
-            activeIndex : pQualityIndex(player.qualityActive)
+        buttonIcon.onPressed: areaContextual.showPanelVideo(player.source, buttonIcon, 0)
 
-            function onSelect(index) { pQualitySelect(index) }
-        }
-
-        ButtonPushIcon
-        {
-            id: buttonSources
-
-            anchors.right: parent.right
-
-            enabled: (player.source)
-
-            checkable: true
-            checked  : (areaContextual.item == buttonSources)
-
-            icon          : st.icon16x16_list
-            iconSourceSize: st.size16x16
-
-            onPressed: areaContextual.showPanelVideo(player.source, buttonSources, 0)
-        }
+        function onSelect(index) { pQualitySelect(index) }
     }
 
     BarSettings { text: qsTr("Ratio") }
@@ -388,7 +348,7 @@ ColumnScroll
     {
         id: buttonSpeed
 
-        marginY: itemVideo.y - buttonSpeed.y
+        marginY: buttonOutput.y - buttonSpeed.y
 
         settings: [{ "title": qsTr("0.25")   },
                    { "title": qsTr("0.5")    },

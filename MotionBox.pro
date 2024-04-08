@@ -233,6 +233,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ButtonOutput.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
+               content/ButtonSettingsExtra.qml \
                content/ButtonCheckSettings.qml \
                content/ButtonsBrowse.qml \
                content/LineEditSearch.qml \

@@ -231,6 +231,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ButtonPianoTitle.qml \
                content/ButtonLogo.qml \
                content/ButtonOutput.qml \
+               content/ButtonWideSource.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
                content/ButtonSettingsExtra.qml \

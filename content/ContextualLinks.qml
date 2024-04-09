@@ -129,46 +129,6 @@ ColumnAuto
     // Children
     //---------------------------------------------------------------------------------------------
 
-    Component
-    {
-        id: item
-
-        Item
-        {
-            anchors.left : parent.left
-            anchors.right: parent.right
-
-            height: button.height
-
-            ButtonPush
-            {
-                anchors.left : parent.left
-                anchors.right: button.left
-
-                text: title
-
-                itemText.horizontalAlignment: Text.AlignLeft
-            }
-
-            ButtonPushIcon
-            {
-                id: button
-
-                anchors.right: parent.right
-
-                icon          : st.icon16x16_external
-                iconSourceSize: st.size16x16
-
-                onClicked:
-                {
-                    gui.openSource(source);
-
-                    areaContextual.hidePanels();
-                }
-            }
-        }
-    }
-
     ButtonCheckSettings
     {
         id: buttonSafe
@@ -193,7 +153,7 @@ ColumnAuto
 
         model: ListModel { id: modelVideo }
 
-        delegate: item
+        ButtonWideSource {}
     }
 
     BarSettings
@@ -211,6 +171,6 @@ ColumnAuto
 
         model: ListModel { id: modelAudio }
 
-        delegate: item
+        ButtonWideSource {}
     }
 }

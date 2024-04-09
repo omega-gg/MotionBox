@@ -1575,6 +1575,14 @@ PanelContextual
                 }
                 else return pCount;
             }
+
+            //-------------------------------------------------------------------------------------
+            // NOTE: We want a highlighted label.
+
+            colorA: st.color_highlight
+            colorB: st.color_highlight
+
+            itemText.color: st.text2_color
         }
 
         ButtonPianoFull

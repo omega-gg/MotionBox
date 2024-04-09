@@ -2122,6 +2122,18 @@ Item
         else openUrl(url);
     }
 
+    function applyClipboard(text, title)
+    {
+        sk.setClipboardText(text);
+
+        popup.showText(title);
+    }
+
+    function applyLink(url)
+    {
+        applyClipboard(url, qsTr("Link copied to clipboard"));
+    }
+
     //---------------------------------------------------------------------------------------------
 
     function applyProxy(active)
@@ -3614,6 +3626,18 @@ Item
         id: toolTip
 
         z: 1
+    }
+
+    Popup
+    {
+        id: popup
+
+        anchors.bottom: parent.bottom
+
+        // NOTE: We want to avoid overlapping the BarControls.
+        anchors.bottomMargin: st.dp64
+
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 
     //---------------------------------------------------------------------------------------------

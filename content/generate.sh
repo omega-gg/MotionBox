@@ -282,6 +282,7 @@ $SkyComponents/LabelLoading.qml \
 $SkyComponents/LabelLoadingText.qml \
 $SkyComponents/LabelLoadingButton.qml \
 $SkyComponents/LabelStream.qml \
+$SkyComponents/Popup.qml \
 $SkyComponents/CheckBox.qml \
 $SkyComponents/LineEdit.qml \
 $SkyComponents/LineEditLabel.qml \

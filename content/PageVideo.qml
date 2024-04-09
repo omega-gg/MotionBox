@@ -322,7 +322,7 @@ ColumnScroll
         buttonIcon.icon          : st.icon16x16_list
         buttonIcon.iconSourceSize: st.size16x16
 
-        buttonIcon.onPressed: areaContextual.showPanelLinks(player.source, buttonIcon, marginY)
+        buttonIcon.onPressed: areaContextual.showPanelVideo(player.source, buttonIcon, marginY)
 
         function onSelect(index) { pQualitySelect(index) }
     }

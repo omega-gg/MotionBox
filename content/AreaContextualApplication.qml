@@ -144,7 +144,7 @@ AreaContextual
         showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
     }
 
-    function showPanelLinks(source, button, marginY)
+    function showPanelVideo(source, button, marginY)
     {
         currentId = 7;
 

@@ -743,7 +743,7 @@ AreaContextual
             {
                 /* var */ source = pItem.folder.itemSource(pIndex);
 
-                sk.setClipboardText(source);
+                gui.applyLink(source);
             }
             else if (id == 5) // Rename
             {
@@ -809,7 +809,7 @@ AreaContextual
             {
                 /* var */ source = pItem.playlist.trackSource(pIndex);
 
-                sk.setClipboardText(source);
+                gui.applyLink(source);
             }
             else if (id == 4) // Reload
             {
@@ -891,7 +891,7 @@ AreaContextual
             }
             else if (id == 3) // Copy link
             {
-                sk.setClipboardText(pItem.source);
+                gui.applyLink(pItem.source);
             }
             else if (id == 4) // Reload
             {
@@ -985,7 +985,7 @@ AreaContextual
             }
             else if (id == 1) // Copy link
             {
-                sk.setClipboardText(pText);
+                gui.applyLink(pText);
             }
 
             return true;

@@ -42,7 +42,7 @@ ButtonWideExtra
 
     onClicked:
     {
-        gui.applyLink(source);
+        gui.applyClipboard(source, qsTr("Source copied to clipboard"));
 
         areaContextual.hidePanels();
     }

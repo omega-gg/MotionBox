@@ -152,6 +152,8 @@ StyleComponents
 
     property url icon_track: "pictures/icons/video.svg"
 
+    property url icon_home: "pictures/icons/house.svg"
+
     property url icon_list: "pictures/icons/list.svg"
 
     property url icon_shutdown: "pictures/icons/power-off.svg"
@@ -185,6 +187,8 @@ StyleComponents
     property url icon16x16_feed    : icon_feed
 
     property url icon16x16_track: icon_track
+
+    property url icon16x16_home: icon_home
 
     property url icon16x16_list: icon_list
 

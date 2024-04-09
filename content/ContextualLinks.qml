@@ -173,4 +173,12 @@ ColumnAuto
 
         ButtonWideSource {}
     }
+
+    LabelWide
+    {
+        text: (isLoaded) ? qsTr("Nothing here")
+                         : qsTr("Loading...")
+
+        visible: (listVideo.visible == false && listAudio.visible == false)
+    }
 }

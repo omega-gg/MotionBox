@@ -283,6 +283,15 @@ MouseArea
                 pItemBrowse.loadCurrentIndex(0, true);
             }
         }
+
+        /* QML_CONNECTION */ function onQueryEnded()
+        {
+            // NOTE: We want to set the first index as soon as possible.
+            if (pBrowsing && pItemBrowse.currentIndex == -1)
+            {
+                pItemBrowse.loadCurrentIndex(0, true);
+            }
+        }
     }
 
     Connections

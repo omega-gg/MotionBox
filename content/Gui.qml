@@ -1901,8 +1901,21 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    function createHistory()
+    {
+        if (history) return true;
+
+        if (feeds.isEmpty || feeds.itemLabel(0) != "tracks") return false;
+
+        history = createItemAt(feeds, 0);
+
+        return true;
+    }
+
     function addHistoryTrack(source)
     {
+        if (source == "") return;
+
         // NOTE: We match the source with the 'clean' option to avoid duplicates.
         var index = history.indexFromSource(source, true);
 
@@ -3345,15 +3358,7 @@ Item
 
     function pClearTorrents()
     {
-        if (feeds.isEmpty) return;
-
-        // NOTE: We make sure that history has been created.
-        if (history == null)
-        {
-            if (feeds.itemLabel(0) != "tracks") return;
-
-            history = createItemAt(feeds, 0);
-        }
+        if (createHistory() == false) return;
 
         var index = 0;
 

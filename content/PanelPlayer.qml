@@ -255,6 +255,16 @@ Item
 
             //-------------------------------------------------------------------------------------
 
+            onBrowse:
+            {
+                if (gui.createHistory())
+                {
+                    gui.addHistoryTrack(currentTab.source);
+                }
+
+                panelBrowse.searchMore(currentTab.playlist, currentTab.source, currentTab.title);
+            }
+
             onTitleClicked : gui.selectCurrentTrack()
             onAuthorClicked: gui.browseCurrentFeed ()
 

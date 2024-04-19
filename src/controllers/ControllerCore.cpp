@@ -766,9 +766,12 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
-/* Q_INVOKABLE */ void ControllerCore::clearMedia(const QString & url) const
+/* Q_INVOKABLE */ void ControllerCore::clearMedia(WDeclarativePlayer * player) const
 {
-    wControllerMedia->clearMedia(url);
+    Q_ASSERT(player);
+
+    wControllerMedia->clearMedia(player->source ());
+    wControllerMedia->clearMedia(player->ambient());
 }
 
 /* Q_INVOKABLE */ void ControllerCore::clearCache()

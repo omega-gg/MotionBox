@@ -1371,7 +1371,7 @@ Item
     {
         if (player.hasStarted == false)
         {
-            core.clearMedia(player.source);
+            core.clearMedia(player);
 
             return;
         }
@@ -1380,14 +1380,14 @@ Item
         {
             player.stop();
 
-            core.clearMedia(player.source);
+            core.clearMedia(player);
 
             return;
         }
 
         player.stop();
 
-        core.clearMedia(player.source);
+        core.clearMedia(player);
 
         player.play();
     }

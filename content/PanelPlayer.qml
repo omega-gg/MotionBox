@@ -336,6 +336,18 @@ Item
             onSubtitleLoaded: if (ok == false) panelGet.clearSubtitle()
 
             //-------------------------------------------------------------------------------------
+
+//#DESKTOP
+            onIsScannerHoveredChanged:
+            {
+                if (isScannerHovered) return;
+
+                // NOTE: We hide the cursor as fast as possible.
+                gui.onIdleChanged();
+            }
+//#END
+
+            //-------------------------------------------------------------------------------------
             // Functions
             //-------------------------------------------------------------------------------------
             // Events

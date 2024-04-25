@@ -528,20 +528,7 @@ Item
 
         /* QML_CONNECTION */ function onVsyncChanged() { local.vsync = window.vsync }
 
-        /* QML_CONNECTION */ function onIdleChanged()
-        {
-            if (window.idle)
-            {
-                // NOTE: We make sure hovered items are up to date.
-                window.updateHover();
-
-                if (playerMouseArea.hoverActive)
-                {
-                    sk.cursorVisible = false;
-                }
-            }
-            else sk.cursorVisible = true;
-        }
+        /* QML_CONNECTION */ function onIdleChanged() { gui.onIdleChanged() }
     }
 
     Connections
@@ -619,11 +606,18 @@ Item
 
         /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart() }
 
+//#DESKTOP
         // NOTE: We want to clear the previous selection when the playback changes.
         /* QML_CONNECTION */ function onStateLoadChanged()
         {
-            if (player.isDefault) wall.clearHover();
+            if (player.isDefault == false || wall.isScannerHovered == false) return;
+
+            wall.scan();
+
+            // NOTE: We hide the cursor as fast as possible.
+            window.idle = true;
         }
+//#END
 
         /* QML_CONNECTION */ function onIsPlayingChanged()
         {
@@ -2418,8 +2412,6 @@ Item
         else panelBrowse.play(url);
     }
 
-    //---------------------------------------------------------------------------------------------
-
     function onDragEnded()
     {
         toolTip.hide();
@@ -2451,6 +2443,31 @@ Item
 
             dragIndex = -1;
         }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function onIdleChanged()
+    {
+        if (window.idle == false)
+        {
+            sk.cursorVisible = true;
+
+            return;
+        }
+
+        // NOTE: We make sure hovered items are up to date.
+        window.updateHover();
+
+//#DESKTOP
+        if (playerMouseArea.hoverActive && wall.isScannerHovered == false)
+//#ELSE
+        if (playerMouseArea.hoverActive)
+//#END
+        {
+             sk.cursorVisible = false;
+        }
+        else sk.cursorVisible = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2992,7 +3009,21 @@ Item
         }
         else if (event.key == Qt.Key_Space)
         {
-            buttonPlay.returnPressed();
+            if (player.isPlaying)
+            {
+                buttonPlay.returnPressed();
+
+                window.idle = false;
+            }
+            else
+            {
+                buttonPlay.returnPressed();
+
+                window.idle = true;
+
+                // NOTE: We need to enforce this call, in case idle was already true.
+                onIdleChanged();
+            }
         }
         else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
         {

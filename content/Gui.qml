@@ -834,6 +834,8 @@ Item
         else panelPlayer.wallExpand(itemContent.width - panelLibrary.width,
                                     panelPlayer.heightPlayer);
 
+        window.idle = false;
+
         local.expanded = false;
 
         startActionCue(st.duration_normal);
@@ -2468,6 +2470,8 @@ Item
 //#DESKTOP
     function onScannerActiveChanged()
     {
+        if (isExpanded == false) return;
+
         if (wall.isScannerActive) window.idle = false;
         else                      window.idle = true;
     }

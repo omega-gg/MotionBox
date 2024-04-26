@@ -338,16 +338,10 @@ Item
             //-------------------------------------------------------------------------------------
 
 //#DESKTOP+QT_NEW
-            onIsScannerActiveChanged:
-            {
-                // NOTE: This prevents a binding loop on sk.cursorVisible.
-                Qt.callLater(gui.onScannerActiveChanged);
-            }
+            // NOTE: This prevents a binding loop on sk.cursorVisible.
+            onIsScannerActiveChanged: Qt.callLater(gui.onScannerActiveChanged)
 //#ELIF DESKTOP
-            onIsScannerActiveChanged:
-            {
-                gui.onScannerActiveChanged();
-            }
+            onIsScannerActiveChanged: gui.onScannerActiveChanged()
 //#END
 
             //-------------------------------------------------------------------------------------

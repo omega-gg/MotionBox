@@ -339,9 +339,9 @@ Item
 
 //#DESKTOP+QT_NEW
             // NOTE: This prevents a binding loop on sk.cursorVisible.
-            onIsScannerActiveChanged: Qt.callLater(gui.onScannerActiveChanged)
+            onIsScannerHoveredChanged: Qt.callLater(gui.onScannerHoveredChanged)
 //#ELIF DESKTOP
-            onIsScannerActiveChanged: gui.onScannerActiveChanged()
+            onIsScannerHoveredChanged: gui.onScannerHoveredChanged()
 //#END
 
             //-------------------------------------------------------------------------------------

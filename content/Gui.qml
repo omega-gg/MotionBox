@@ -2457,7 +2457,7 @@ Item
         window.updateHover();
 
 //#DESKTOP
-        if (playerMouseArea.hoverActive && wall.isScannerActive == false)
+        if (playerMouseArea.hoverActive && wall.isScannerHovered == false)
 //#ELSE
         if (playerMouseArea.hoverActive)
 //#END
@@ -2468,12 +2468,12 @@ Item
     }
 
 //#DESKTOP
-    function onScannerActiveChanged()
+    function onScannerHoveredChanged()
     {
         if (isExpanded == false) return;
 
-        if (wall.isScannerActive) window.idle = false;
-        else                      window.idle = true;
+        if (wall.isScannerHovered) window.idle = false;
+        else                       window.idle = true;
     }
 //#END
 

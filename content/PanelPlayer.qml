@@ -337,13 +337,16 @@ Item
 
             //-------------------------------------------------------------------------------------
 
-//#DESKTOP
-            onIsScannerHoveredChanged:
+//#DESKTOP+QT_NEW
+            onIsScannerActiveChanged:
             {
-                if (isScannerHovered) return;
-
-                // NOTE: We hide the cursor as fast as possible.
-                gui.onIdleChanged();
+                // NOTE: This prevents a binding loop on sk.cursorVisible.
+                Qt.callLater(gui.onScannerActiveChanged);
+            }
+//#ELIF DESKTOP
+            onIsScannerActiveChanged:
+            {
+                gui.onScannerActiveChanged();
             }
 //#END
 

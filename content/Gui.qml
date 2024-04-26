@@ -610,12 +610,7 @@ Item
         // NOTE: We want to clear the previous selection when the playback changes.
         /* QML_CONNECTION */ function onStateLoadChanged()
         {
-            if (player.isDefault == false || wall.isScannerHovered == false) return;
-
-            wall.scan();
-
-            // NOTE: We hide the cursor as fast as possible.
-            window.idle = true;
+            if (player.isDefault) wall.scan();
         }
 //#END
 
@@ -2460,7 +2455,7 @@ Item
         window.updateHover();
 
 //#DESKTOP
-        if (playerMouseArea.hoverActive && wall.isScannerHovered == false)
+        if (playerMouseArea.hoverActive && wall.isScannerActive == false)
 //#ELSE
         if (playerMouseArea.hoverActive)
 //#END
@@ -2469,6 +2464,14 @@ Item
         }
         else sk.cursorVisible = true;
     }
+
+//#DESKTOP
+    function onScannerActiveChanged()
+    {
+        if (wall.isScannerActive) window.idle = false;
+        else                      window.idle = true;
+    }
+//#END
 
     //---------------------------------------------------------------------------------------------
 
@@ -3019,10 +3022,12 @@ Item
             {
                 buttonPlay.returnPressed();
 
-                window.idle = true;
-
-                // NOTE: We need to enforce this call, in case idle was already true.
-                onIdleChanged();
+                if (window.idle)
+                {
+                    // NOTE: We enforce this call, in case idle was already true.
+                    onIdleChanged();
+                }
+                else window.idle = true;
             }
         }
         else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)

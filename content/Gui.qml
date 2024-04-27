@@ -2472,8 +2472,7 @@ Item
     {
         if (isExpanded == false) return;
 
-        if (wall.isScannerHovered) window.idle = false;
-        else                       window.idle = true;
+        window.idle = wall.isScannerClicking;
     }
 //#END
 

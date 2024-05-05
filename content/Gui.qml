@@ -2065,16 +2065,6 @@ Item
 
             playerTab.source = controllerNetwork.applyFragmentValue(source, "sid", id);
         }
-
-        var backend = player.backend;
-
-        var timeA = backend.getTimeA();
-
-        if (timeA == -1)
-        {
-            subtitle.delay = 0;
-        }
-        else subtitle.delay = backend.getStart() - timeA;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -2213,16 +2203,26 @@ Item
 
     function applyContext()
     {
+        var backend = player.backend;
+
         var context = player.context;
 
         if (context)
         {
             var source = controllerNetwork.removeFragmentValue(playerTab.source, "arg");
 
-            playerTab.source = player.backend.applyContext(source, context, player.contextId,
-                                                           player.currentTime);
+            playerTab.source = backend.applyContext(source, context,
+                                                    player.contextId, player.currentTime);
         }
         else playerTab.source = controllerNetwork.removeFragmentValue(playerTab.source, "arg");
+
+        var timeA = backend.getTimeA();
+
+        if (timeA == -1)
+        {
+            subtitle.delay = 0;
+        }
+        else subtitle.delay = backend.getStart() - timeA;
 
         saveTrackData();
     }

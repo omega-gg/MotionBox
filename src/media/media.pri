@@ -4,6 +4,8 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WBackendNet_p.h \
            $$SK_GUI/media/WTrack.h \
            $$SK_GUI/media/WTrack_p.h \
+           $$SK_GUI/media/WChapter.h \
+           $$SK_GUI/media/WChapter_p.h \
            $$SK_GUI/media/WLibraryItem.h \
            $$SK_GUI/media/WLibraryItem_p.h \
            $$SK_GUI/media/WLibraryFolder.h \
@@ -41,6 +43,7 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
 
 SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
+           $$SK_GUI/media/WChapter.cpp \
            $$SK_GUI/media/WLibraryItem.cpp \
            $$SK_GUI/media/WLibraryFolder.cpp \
            $$SK_GUI/media/WLibraryFolderRelated.cpp \

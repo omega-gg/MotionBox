@@ -104,7 +104,7 @@ Deploy the application and its dependencies:
 
 ## License
 
-Copyright (C) 2015 - 2020 MotionBox authors | https://omega.gg/MotionBox
+Copyright (C) 2015 - 2024 MotionBox authors | https://omega.gg/MotionBox
 
 ### Authors
 

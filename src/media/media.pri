@@ -14,6 +14,8 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WLibraryFolderRelated_p.h \
            $$SK_GUI/media/WPlaylist.h \
            $$SK_GUI/media/WPlaylist_p.h \
+           $$SK_GUI/media/WPlayer.h \
+           $$SK_GUI/media/WPlayer_p.h \
            $$SK_GUI/media/WAbstractBackend.h \
            $$SK_GUI/media/WAbstractBackend_p.h \
            $$SK_GUI/media/WAbstractHook.h \
@@ -49,6 +51,7 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WLibraryFolderRelated.cpp \
            $$SK_GUI/media/WPlaylist.cpp \
            $$SK_GUI/media/WPlaylist_patch.cpp \
+           $$SK_GUI/media/WPlayer.cpp \
            $$SK_GUI/media/WAbstractBackend.cpp \
            $$SK_GUI/media/WAbstractHook.cpp \
            $$SK_GUI/media/WHookOutput.cpp \

@@ -38,7 +38,7 @@ Ambient
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    player: pPlayer
+    playerSource: pPlayer
 
     volume: pPlayer.volume
 

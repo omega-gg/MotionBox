@@ -478,7 +478,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "linux" ]; then
 
-    cp "$path"/libtorrent-rasterbar*.so* deploy
+    cp "$path"/libtorrent-rasterbar*.so* $deploy
 fi
 
 #--------------------------------------------------------------------------------------------------

@@ -604,6 +604,8 @@ Item
 
         /* QML_CONNECTION */ function onLoaded() { applyContext() }
 
+        /* QML_CONNECTION */ function onEnded() { saveTrackClear() }
+
         /* QML_CONNECTION */ function onSourceChanged() { timerHistory.restart() }
 
 //#DESKTOP
@@ -2021,6 +2023,26 @@ Item
         history.setTrackDuration(0, playerTab.duration);
 
         source = applyTimeTrack(source);
+
+        if (controllerNetwork.hasFragment(source, "sid") == false)
+        {
+            source = applyFragment(source, "sub", controllerNetwork.encodeUrl(playerTab.subtitle));
+        }
+
+        history.setTrackSource(0, source);
+    }
+
+    function saveTrackClear()
+    {
+        // NOTE: We make sure that history has been created.
+        if (history == null) return;
+
+        var source = currentTab.source;
+
+        // NOTE: Track has to be valid and on top of the history.
+        if (checkSource(source, history.trackSource(0))) return;
+
+        source = controllerNetwork.removeFragmentValue(source, 't');
 
         if (controllerNetwork.hasFragment(source, "sid") == false)
         {

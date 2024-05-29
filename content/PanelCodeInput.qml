@@ -74,12 +74,12 @@ Panel
 
             for (var i = 0; i < 4; i++)
             {
-                ip += (digits[i] - 100) + '.';
+                ip += digits[i];
             }
 
             areaPanel.hidePanel();
 
-            core.connectToHost("vbml:connect/" + ip.substring(0, ip.length - 1));
+            core.connectToHost(controllerPlaylist.vbmlUriFromCode(ip));
         }
     }
 }

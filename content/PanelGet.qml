@@ -158,4 +158,14 @@ BasePanelSettings
 
         gui.startActionCue(st.duration_faster);
     }
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pUpdateView()
+    {
+        if (currentIndex != 0 || page == null) return
+
+        page.updateView();
+    }
 }

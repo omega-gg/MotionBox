@@ -675,6 +675,11 @@ Item
         /* QML_CONNECTION */ function onQualityChanged () { local.quality  = player.quality  }
         /* QML_CONNECTION */ function onFillModeChanged() { local.fillMode = player.fillMode }
 
+        /* QML_CONNECTION */ function onChaptersChanged()
+        {
+            sliderStream.chapters = player.chaptersData()
+        }
+
         /* QML_CONNECTION */ function onAmbientChanged()
         {
             loaderAmbient.source = Qt.resolvedUrl("PageAmbient.qml")

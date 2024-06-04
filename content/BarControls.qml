@@ -269,10 +269,11 @@ MouseArea
 
         LabelStream
         {
-            height: st.labelStream_height
+            anchors.left  : sliderStream.left
+            anchors.right : sliderStream.right
+            anchors.bottom: sliderStream.top
 
-            borderTop   : 0
-            borderBottom: 0
+            anchors.bottomMargin: -st.dp8
 
             slider: sliderStream
         }
@@ -308,7 +309,12 @@ MouseArea
                     player.play();
                 }
 
-                player.seek(slider.value);
+                // NOTE: When clicking on the slider we try to interpolate a chapter position.
+                if (slider.mouseX == slider.mousePressX)
+                {
+                     player.seek(st.getChapterTime(sliderStream, st.dp4));
+                }
+                else player.seek(slider.value);
             }
         }
 

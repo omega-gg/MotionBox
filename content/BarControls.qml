@@ -33,6 +33,8 @@ MouseArea
 
     /* read */ property bool isExpanded: false
 
+    /* read */ property bool isChannel: player.trackIsChannel
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -294,11 +296,33 @@ MouseArea
 
             active: player.isPlaying
 
-            currentTime: (player.hasStarted && enabled) ? player.currentTime
-                                                        : player.trackCurrentTime
+            currentTime:
+            {
+                // NOTE: There's no seek bar on a channel.
+                if (isChannel)
+                {
+                    return -1;
+                }
+                else if (player.hasStarted && enabled)
+                {
+                    return player.currentTime;
+                }
+                else return player.trackCurrentTime;
+            }
 
-            duration: (player.duration == -1) ? player.trackDuration
-                                              : player.duration
+            duration:
+            {
+                // NOTE: There's no seek bar on a channel.
+                if (isChannel)
+                {
+                    return -1;
+                }
+                else if (player.hasStarted && player.duration != -1)
+                {
+                    return player.duration;
+                }
+                else return player.trackDuration;
+            }
 
             progress: player.progress
 

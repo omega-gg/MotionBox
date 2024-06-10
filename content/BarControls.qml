@@ -296,6 +296,8 @@ MouseArea
 
             active: player.isPlaying
 
+            live: (active && isChannel)
+
             currentTime:
             {
                 // NOTE: There's no seek bar on a channel.

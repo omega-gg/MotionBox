@@ -338,7 +338,11 @@ MouseArea
                 // NOTE: When clicking on the slider we try to interpolate a chapter position.
                 if (slider.mouseX == slider.mousePressX)
                 {
-                     player.seek(st.getChapterTime(sliderStream, st.dp4));
+//#MOBILE
+                    player.seek(st.getChapterTime(sliderStream, st.dp8));
+//#ELSE
+                    player.seek(st.getChapterTime(sliderStream, st.dp4));
+//#END
                 }
                 else player.seek(slider.value);
             }

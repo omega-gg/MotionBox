@@ -45,6 +45,8 @@ ScrollPlaylist
 
     property int pDropIndex: -1
 
+    property bool pUpdateText: true
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -64,7 +66,8 @@ ScrollPlaylist
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    contentHeight: list.y + list.height
+    contentHeight: (listCompletion.visible) ? listCompletion.y + listCompletion.height
+                                            : list.y + list.height
 
     dropEnabled: true
 
@@ -74,6 +77,8 @@ ScrollPlaylist
     textVisible: (count == 0 && playlist != null && playlist.queryIsLoading == false
                   &&
                   itemNew.visible == false)
+
+    list.visible: (listCompletion.visible == false)
 
     list.anchors.top: itemNew.bottom
 
@@ -212,6 +217,15 @@ ScrollPlaylist
         text = "";
 
         window.clearFocus();
+    }
+
+    function applyText(text)
+    {
+        pUpdateText = false;
+
+        itemNew.text = text;
+
+        pUpdateText = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -366,9 +380,33 @@ ScrollPlaylist
             isCreating = false;
         }
 
+        onTextChanged: if (pUpdateText) listCompletion.runCompletion(text)
+
         function onKeyPressed(event)
         {
-            if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
+            if (event.key == Qt.Key_Up)
+            {
+                event.accepted = true;
+
+                listCompletion.selectPrevious();
+
+                if (listCompletion.currentIndex == -1)
+                {
+                    scrollToTop();
+                }
+            }
+            else if (event.key == Qt.Key_Down)
+            {
+                event.accepted = true;
+
+                listCompletion.selectNext();
+
+                if (listCompletion.currentIndex == -1)
+                {
+                    scrollToTop();
+                }
+            }
+            else if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
             {
                 event.accepted = true;
 
@@ -383,6 +421,34 @@ ScrollPlaylist
                 window.clearFocus();
             }
         }
+    }
+
+    ListCompletion
+    {
+        id: listCompletion
+
+        anchors.left : parent.left
+        anchors.right: parent.right
+        anchors.top  : itemNew.bottom
+
+        scrollArea: scrollPlaylist
+
+        visible: (count != 0)
+
+        onCompletionChanged:
+        {
+            if (currentIndex != -1)
+            {
+                applyText(completion);
+
+                itemNew.moveCursorAtEnd();
+            }
+            else scrollTo(0);
+        }
+
+        onItemClicked: window.clearFocus()
+
+        onCurrentIndexChanged: scrollToItem(currentIndex)
     }
 
     LineHorizontalDrop

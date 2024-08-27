@@ -93,6 +93,11 @@ Item
         lineEdit.setFocus();
     }
 
+    function moveCursorAtEnd()
+    {
+        lineEdit.moveCursorAtEnd();
+    }
+
     //---------------------------------------------------------------------------------------------
     // Events
 

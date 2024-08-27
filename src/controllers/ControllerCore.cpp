@@ -605,17 +605,17 @@ ControllerCore::ControllerCore() : WController()
 {
     Q_ASSERT(playlist);
 
+    if (WControllerNetwork::textIsUri(text))
+    {
+        playlist->insertSource(0, text, true);
+
+        return;
+    }
+
     QString id = wControllerPlaylist->backendIdFromText(text);
 
     if (id.isEmpty())
     {
-        if (WControllerNetwork::textIsUri(text))
-        {
-            playlist->insertSource(0, text, true);
-
-            return;
-        }
-
         id = wControllerPlaylist->backendSearchId();
 
         if (id.isEmpty()) return;

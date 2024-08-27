@@ -138,6 +138,8 @@ ControllerCore::ControllerCore() : WController()
     _backends = NULL;
     _related  = NULL;
 
+    _playlist = NULL;
+
     _loaderMedia = NULL;
     //_loaderWeb   = NULL;
 
@@ -597,6 +599,58 @@ ControllerCore::ControllerCore() : WController()
     _local.setSplashSize(-1, -1);
 
     _local.save();
+}
+
+/* Q_INVOKABLE */ void ControllerCore::loadTrack(WPlaylist * playlist, const QString & text)
+{
+    Q_ASSERT(playlist);
+
+    QString id = wControllerPlaylist->backendIdFromText(text);
+
+    if (id.isEmpty())
+    {
+        if (WControllerNetwork::textIsUri(text))
+        {
+            playlist->insertSource(0, text, true);
+
+            return;
+        }
+
+        id = wControllerPlaylist->backendSearchId();
+
+        if (id.isEmpty()) return;
+
+        _query = text.trimmed();
+    }
+    else _query = text.mid(id.length() + 1).trimmed();
+
+    playlist->addDeleteLock();
+
+    _playlistTrack = playlist;
+
+    if (_playlist == NULL)
+    {
+        _playlist = new WPlaylist;
+
+        _playlist->setParent(this);
+    }
+    else if (_playlist->queryIsLoading())
+    {
+        onQueryCompleted();
+    }
+
+    QString ssource = WControllerPlaylist::createSource(id, "search", "tracks", _query);
+
+    WTrack track;
+
+    track.setTitle(_query);
+
+    _playlistTrack->insertTrack(0, track);
+
+    connect(_playlist, SIGNAL(queryEnded    ()), this, SLOT(onQueryEnded    ()));
+    connect(_playlist, SIGNAL(queryCompleted()), this, SLOT(onQueryCompleted()));
+
+    _playlist->loadSource(ssource);
 }
 
 /* Q_INVOKABLE */ void ControllerCore::loadLinks(const QString & source, bool safe)
@@ -1130,6 +1184,37 @@ void ControllerCore::onMediaLoaded(WMediaReply * reply)
     }
 
     emit linksLoaded(listA, listB);
+}
+
+void ControllerCore::onQueryEnded()
+{
+    if (_playlist->isEmpty()) return;
+
+    disconnect(_playlist, 0, this, 0);
+
+    WTrack track = _playlist->getTrackAt(0);
+
+    _playlist->clearTracks();
+
+    if (_playlistTrack->trackTitle(0) == _query)
+    {
+        _playlistTrack->removeTrack(0);
+    }
+
+    _playlistTrack->insertTrack(0, track);
+
+    _playlistTrack->loadTrack(0);
+
+    _playlistTrack->tryDelete();
+}
+
+void ControllerCore::onQueryCompleted()
+{
+    disconnect(_playlist, 0, this, 0);
+
+    _playlist->clearTracks();
+
+    _playlistTrack->tryDelete();
 }
 
 //-------------------------------------------------------------------------------------------------

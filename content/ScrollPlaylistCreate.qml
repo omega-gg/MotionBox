@@ -33,12 +33,32 @@ ScrollPlaylist
 
     /* read */ property bool isDroppable: (playlist != null && playlist.isOnline == false)
 
+    /* read */ property bool isCreating: false
     /* read */ property bool isDropping: false
+
+    property bool enableAnimation: true
 
     //---------------------------------------------------------------------------------------------
     // Private
 
+    property bool pAnimate: false
+
     property int pDropIndex: -1
+
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias text: itemNew.text
+
+    //---------------------------------------------------------------------------------------------
+    // Signals
+    //---------------------------------------------------------------------------------------------
+
+    signal create
+    signal clear
+
+    signal finished
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -50,6 +70,12 @@ ScrollPlaylist
 
     enableDrag    : true
     enableDragMove: true
+
+    textVisible: (count == 0 && playlist != null && playlist.queryIsLoading == false
+                  &&
+                  itemNew.visible == false)
+
+    list.anchors.top: itemNew.bottom
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -165,6 +191,30 @@ ScrollPlaylist
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+
+    function createItem()
+    {
+        list.enableContextual = false;
+
+        pSetDropping(true);
+
+        scrollToTop();
+
+        itemNew.visible = true;
+
+        itemNew.setFocus();
+    }
+
+    function clearItem()
+    {
+        if (isCreating == false) return;
+
+        text = "";
+
+        window.clearFocus();
+    }
+
+    //---------------------------------------------------------------------------------------------
     // ScrollFolder reimplementation
 
     function updateCurrentY()
@@ -205,6 +255,13 @@ ScrollPlaylist
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function pCreateItem()
+    {
+        core.loadTrack(playlist, text);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
@@ -215,6 +272,117 @@ ScrollPlaylist
         interval: st.scrollPlaylistCreate_durationAdd
 
         onTriggered: pSetDropping(false)
+    }
+
+    ItemNew
+    {
+        id: itemNew
+
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.bottom: parent.top
+
+        visible: false
+
+        button.visible: false
+
+        states: State
+        {
+            name: "active"; when: isCreating
+
+            AnchorChanges
+            {
+                target: itemNew
+
+                anchors.top   : parent.top
+                anchors.bottom: undefined
+            }
+        }
+
+        transitions: Transition
+        {
+            SequentialAnimation
+            {
+                AnchorAnimation
+                {
+                    duration: (enableAnimation && pAnimate) ? st.duration_faster : 0
+
+                    easing.type: st.easing
+                }
+
+                ScriptAction
+                {
+                    script:
+                    {
+                        if (isCreating) return;
+
+                        itemNew.visible = false;
+
+                        list.enableContextual = true;
+
+                        pSetDropping(false);
+
+                        updateVisible();
+
+                        // NOTE: We must call the signal from scrollPlaylist otherwise it does not
+                        //       work.
+                        scrollPlaylist.finished();
+                    }
+                }
+            }
+        }
+
+        onIsFocusedChanged:
+        {
+            if (isFocused)
+            {
+                itemNew.visible = true;
+
+                pAnimate = true;
+
+                isCreating = true;
+
+                return;
+            }
+
+            if (window.isActive == false || visible == false)
+            {
+                text = "";
+
+                clear();
+            }
+            else if (text != "")
+            {
+                pCreateItem();
+
+                text = "";
+
+                pAnimate = false;
+
+                create();
+            }
+            else clear();
+
+            isCreating = false;
+        }
+
+        function onKeyPressed(event)
+        {
+            if (event.key == Qt.Key_Return || event.key == Qt.Key_Enter)
+            {
+                event.accepted = true;
+
+                window.clearFocus();
+            }
+            else if (event.key == Qt.Key_Escape)
+            {
+                event.accepted = true;
+
+                text = "";
+
+                window.clearFocus();
+            }
+        }
     }
 
     LineHorizontalDrop

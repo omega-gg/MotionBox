@@ -188,7 +188,8 @@ Item
         {
             id: lineEdit
 
-            anchors.left  : button.right
+            anchors.left: (button.visible) ? button.right : parent.left
+
             anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom

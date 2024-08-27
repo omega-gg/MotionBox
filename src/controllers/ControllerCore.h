@@ -107,6 +107,8 @@ public: // Interface
 
     Q_INVOKABLE void load();
 
+    Q_INVOKABLE void loadTrack(WPlaylist * playlist, const QString & text);
+
     Q_INVOKABLE void loadLinks(const QString & source, bool safe);
 
     Q_INVOKABLE bool updateVersion();
@@ -183,6 +185,9 @@ private slots:
 
     void onMediaLoaded(WMediaReply * reply);
 
+    void onQueryEnded    ();
+    void onQueryCompleted();
+
 signals:
     void linksLoaded(QStringList medias, QStringList audios);
 
@@ -251,12 +256,17 @@ private: // Variables
     QString _pathOpen;
 #endif
 
+    QString _query;
+
     WTabsTrack * _tabs;
 
     WLibraryFolder        * _library;
     WLibraryFolder        * _feeds;
     WLibraryFolder        * _backends;
     WLibraryFolderRelated * _related;
+
+    WPlaylist * _playlist;
+    WPlaylist * _playlistTrack;
 
     WLoaderNetwork * _loaderMedia;
     //WLoaderWeb     * _loaderWeb;

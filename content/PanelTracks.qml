@@ -120,6 +120,18 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pCreate()
+    {
+        if (buttonPlaylistAdd.checked)
+        {
+            scrollPlaylist.clearItem();
+        }
+        else scrollPlaylist.createItem();
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
@@ -361,7 +373,7 @@ Item
 
                 width: st.dp56 + borderSizeWidth
 
-                borderRight: (buttonRefresh.visible) ? 0 : borderSize
+                borderRight: (buttonPlaylistAdd.visible) ? 0 : borderSize
 
                 visible: (playlist != null)
 
@@ -401,7 +413,7 @@ Item
 
             ButtonPianoIcon
             {
-                id: buttonRefresh
+                id: buttonPlaylistAdd
 
                 anchors.left: (buttonPlaylist.visible) ? buttonPlaylist.right
                                                        : parent.left
@@ -409,18 +421,34 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                visible: (playlist != null && playlist.isOnline)
+                visible: (playlist != null)
 
-                icon          : st.icon16x16_refresh
+                checkable: true
+                checked  : scrollPlaylist.isCreating
+
+                icon: (playlist && playlist.isLocal) ? st.icon16x16_addBold
+                                                     : st.icon16x16_refresh
+
                 iconSourceSize: st.size16x16
 
-                onClicked: playlist.reloadQuery()
+                onPressed:
+                {
+                    if (playlist.isLocal)
+                    {
+//#QT_4
+                        onPressed: pCreate()
+//#ELSE
+                        onPressed: Qt.callLater(pCreate)
+//#END
+                    }
+                    else playlist.reloadQuery();
+                }
             }
 
             BarTitleText
             {
-                anchors.left: (buttonRefresh.visible) ? buttonRefresh.right
-                                                      : buttonRefresh.left
+                anchors.left: (buttonPlaylistAdd.visible) ? buttonPlaylistAdd.right
+                                                          : buttonPlaylistAdd.left
 
                 anchors.right : buttonUp.left
                 anchors.top   : parent.top

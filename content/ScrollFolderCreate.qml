@@ -834,7 +834,8 @@ ScrollFolder
                             pClearAddItem();
                         }
 
-                        // NOTE: We must call the signal from scrollFolder otherwise it does not work.
+                        // NOTE: We must call the signal from scrollFolder otherwise it does not
+                        //       work.
                         scrollFolder.finished();
                     }
                 }

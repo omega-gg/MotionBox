@@ -44,6 +44,8 @@ Item
 
     property alias buttonUp: buttonUp
 
+    property alias buttonPlaylistAdd: buttonPlaylistAdd
+
     property alias scrollFolder  : scrollFolder
     property alias scrollPlaylist: scrollPlaylist
 

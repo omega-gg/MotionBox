@@ -248,6 +248,8 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
+    property alias buttonPlaylistAdd: panelTracks.buttonPlaylistAdd
+
     property alias scrollFolder  : panelTracks.scrollFolder
     property alias scrollPlaylist: panelTracks.scrollPlaylist
 
@@ -3137,7 +3139,11 @@ Item
         {
             restoreBars();
 
-            buttonAdd.returnPressed();
+            if (playlist && playlist.isLocal)
+            {
+                buttonPlaylistAdd.returnPressed();
+            }
+            else buttonAdd.returnPressed();
         }
         else if (event.key == Qt.Key_Menu && barTop.isExpanded == false)
         {
@@ -3201,6 +3207,10 @@ Item
         else if (buttonAdd.isReturnPressed)
         {
             buttonAdd.returnReleased();
+        }
+        else if (buttonPlaylistAdd.isReturnPressed)
+        {
+            buttonPlaylistAdd.returnReleased();
         }
     }
 

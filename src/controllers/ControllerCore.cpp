@@ -622,7 +622,7 @@ ControllerCore::ControllerCore() : WController()
 
         _query = text.trimmed();
     }
-    else _query = text.mid(id.length() + 1).trimmed();
+    else _query = WControllerPlaylist::queryFromText(text, id).trimmed();
 
     playlist->addDeleteLock();
 
@@ -1199,11 +1199,11 @@ void ControllerCore::onQueryEnded()
     if (_playlistTrack->trackTitle(0) == _query)
     {
         _playlistTrack->removeTrack(0);
+
+        _playlistTrack->insertTrack(0, track);
+
+        _playlistTrack->loadTrack(0);
     }
-
-    _playlistTrack->insertTrack(0, track);
-
-    _playlistTrack->loadTrack(0);
 
     _playlistTrack->tryDelete();
 }

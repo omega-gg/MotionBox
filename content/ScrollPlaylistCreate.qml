@@ -272,7 +272,11 @@ ScrollPlaylist
 
     function pCreateItem()
     {
-        core.loadTrack(playlist, text);
+        if (button.visible)
+        {
+             core.loadTrack(playlist, button.text + " " + text);
+        }
+        else core.loadTrack(playlist, text);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -288,15 +292,38 @@ ScrollPlaylist
         onTriggered: pSetDropping(false)
     }
 
+    ButtonPianoFull
+    {
+        id: button
+
+        spacing: padding
+
+        iconSourceSize: st.size32x32
+
+        visible: false
+
+        enableFilter: false
+
+        itemRight: itemNew
+
+        font.pixelSize: st.barTitleText_pixelSize
+
+        onPressed: visible = false
+    }
+
     ItemNew
     {
         id: itemNew
 
-        anchors.left  : parent.left
+        anchors.left: (button.visible) ? button.right
+                                       : parent.left
+
         anchors.right : parent.right
         anchors.bottom: parent.top
 
         visible: false
+
+        font.pixelSize: st.dp14
 
         button.visible: false
 
@@ -378,9 +405,32 @@ ScrollPlaylist
             else clear();
 
             isCreating = false;
+
+            button.text = "";
+
+            button.visible = false;
         }
 
-        onTextChanged: if (pUpdateText) listCompletion.runCompletion(text)
+        onTextChanged:
+        {
+            if (pUpdateText) listCompletion.runCompletion(text);
+
+            if (button.visible) return;
+
+            var id = controllerPlaylist.backendIdFromText(text);
+
+            if (id == "") return;
+
+            button.icon = controllerPlaylist.backendCoverFromId(id);
+
+            button.text = id;
+
+            button.visible = true;
+
+            pUpdateText = true;
+
+            text = controllerPlaylist.queryFromText(text, id);
+        }
 
         function onKeyPressed(event)
         {
@@ -419,6 +469,14 @@ ScrollPlaylist
                 text = "";
 
                 window.clearFocus();
+            }
+            else if (event.key == Qt.Key_Backspace)
+            {
+                if (text != "" || button.visible == false) return;
+
+                event.accepted = true;
+
+                button.visible = false;
             }
         }
     }

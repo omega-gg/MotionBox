@@ -53,6 +53,8 @@ Item
 
     property alias text: lineEdit.text
 
+    property alias font: lineEdit.font
+
     //---------------------------------------------------------------------------------------------
 
     property alias button: button

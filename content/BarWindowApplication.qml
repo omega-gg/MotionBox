@@ -109,6 +109,11 @@ Item
 
     onPVersionChanged:
     {
+//#WINDOWS
+        // NOTE windows/uwp: Updates are handled by the store.
+        if (sk.isUwp) return;
+//#END
+
         clip = true;
 
         if (pVersion)

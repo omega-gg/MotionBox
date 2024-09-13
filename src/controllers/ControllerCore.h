@@ -122,6 +122,8 @@ public: // Interface
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);
 
+    Q_INVOKABLE void saveVbml(const QString & title, const QString & vbml);
+
     Q_INVOKABLE void saveSplash(WWindow * window, int border);
 
     Q_INVOKABLE void applyProxy(bool active);
@@ -171,6 +173,9 @@ private: // Functions
 
     WControllerFileReply * copyBackends(const QString & path) const;
 
+    void writeVbml    (const QString & title, const QString & vbml);
+    void writeVbmlFile(const QString & title, const QString & vbml);
+
     QString getFile(const QString & title, const QString & filter);
 
 private slots:
@@ -188,8 +193,12 @@ private slots:
     void onQueryEnded    ();
     void onQueryCompleted();
 
+    void onVbmlSaved(bool ok);
+
 signals:
     void linksLoaded(QStringList medias, QStringList audios);
+
+    void vbmlSaved(bool ok, const QString & path);
 
     void cacheEmptyChanged();
 
@@ -251,6 +260,7 @@ private: // Variables
     //QNetworkDiskCache * _diskCache;
 
     QString _path;
+    QString _pathDocuments;
     QString _pathSplash;
 #ifdef SK_DESKTOP
     QString _pathOpen;

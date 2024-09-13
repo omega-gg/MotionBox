@@ -34,6 +34,9 @@
 #include <QFileDialog>
 #else
 #include <QDir>
+#if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    #include <QtAndroid>
+#endif
 #endif
 
 // Sk includes
@@ -95,6 +98,7 @@
 #ifdef SK_DESKTOP
 #include <WDeclarativeScannerHover>
 #endif
+#include <WBarcodeWriter>
 
 // Application includes
 #include "DataOnline.h"
@@ -745,6 +749,29 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::saveVbml(const QString & title, const QString & vbml)
+{
+#if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    QString permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+
+    if (QtAndroid::checkPermission(permission) == QtAndroid::PermissionResult::Denied)
+    {
+        QtAndroid::requestPermissions(QStringList(permission),
+                                      [this, permission, title, vbml]
+                                      (QtAndroid::PermissionResultMap hash)
+                                      {
+                                          if (hash.value(permission) != QtAndroid::PermissionResult::Granted) return;
+
+                                          this->writeVbml(title, vbml);
+                                      });
+
+        return;
+    }
+#endif
+
+    writeVbml(title, vbml);
+}
+
 /* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border)
 {
     QImage image;
@@ -1057,6 +1084,40 @@ WControllerFileReply * ControllerCore::copyBackends(const QString & path) const
 
 //-------------------------------------------------------------------------------------------------
 
+void ControllerCore::writeVbml(const QString & title, const QString & vbml)
+{
+    if (_pathDocuments.isNull())
+    {
+        _pathDocuments = WControllerFile::pathDocuments() + '/' + sk->name();
+
+        // NOTE: We create the path when saving our first file.
+        wControllerFile->startCreatePath(_pathDocuments);
+    }
+
+#ifdef Q_OS_ANDROID
+    _fileVbml = _pathDocuments + '/'
+                +
+                WBarcodeWriter::getTagName(title, QString()) + ".vbml";
+
+    writeVbmlFile(_fileVbml, vbml);
+#else
+    QString fileName = _pathDocuments + '/'
+                       +
+                       WBarcodeWriter::getTagName(title, QString()) + ".vbml";
+
+    writeVbmlFile(fileName, vbml);
+#endif
+}
+
+void ControllerCore::writeVbmlFile(const QString & title, const QString & vbml)
+{
+    WControllerFileReply * reply = wControllerFile->startWriteFile(title, vbml.toUtf8());
+
+    connect(reply, SIGNAL(complete(bool)), this, SLOT(onVbmlSaved(bool)));
+}
+
+//-------------------------------------------------------------------------------------------------
+
 QString ControllerCore::getFile(const QString & title, const QString & filter)
 {
 #ifdef SK_DESKTOP
@@ -1215,6 +1276,19 @@ void ControllerCore::onQueryCompleted()
     _playlist->clearTracks();
 
     _playlistTrack->tryDelete();
+}
+
+//-------------------------------------------------------------------------------------------------
+
+void ControllerCore::onVbmlSaved(bool ok)
+{
+#ifdef Q_OS_ANDROID
+    // NOTE android: We have to trigger a scan on the file. Otherwise it won't show up in other
+    //               applications. Yes, that's messed up.
+    if (ok) Sk::scanFile(_fileVbml);
+#endif
+
+    emit vbmlSaved(ok, _pathDocuments);
 }
 
 //-------------------------------------------------------------------------------------------------

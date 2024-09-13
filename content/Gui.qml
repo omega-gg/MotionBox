@@ -404,6 +404,15 @@ Item
     {
         target: core
 
+        /* QML_CONNECTION */ function onVbmlSaved(ok, path)
+        {
+            if (ok)
+            {
+                 popup.showText(qsTr("VBML saved in: ") + path);
+            }
+            else popup.showText(qsTr("Failed to save VBML"));
+        }
+
         /* QML_CONNECTION */ function onCacheEmptyChanged()
         {
             if (core.cacheIsEmpty == false)

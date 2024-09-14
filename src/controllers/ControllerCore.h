@@ -266,6 +266,10 @@ private: // Variables
     QString _pathOpen;
 #endif
 
+#ifdef Q_OS_ANDROID
+    QString _fileVbml;
+#endif
+
     QString _query;
 
     WTabsTrack * _tabs;

@@ -564,15 +564,17 @@ AreaContextual
                     { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                       "title": qsTr("Reload") },
 
-                    { "id": 5, "title": qsTr("Reset timeline") }
+                    { "id": 5, "title": qsTr("Reset timeline") },
+
+                    { "id": 6, "title": qsTr("Save VBML") }
                 );
 
                 if (playlist.isLocal)
                 {
                     array.push
                     (
-                        { "id": 6, "title": qsTr("Set as Cover") },
-                        { "id": 7, "title": qsTr("Remove Track") }
+                        { "id": 7, "title": qsTr("Set as Cover") },
+                        { "id": 8, "title": qsTr("Remove Track") }
                     );
                 }
 
@@ -628,9 +630,11 @@ AreaContextual
 
                 { "id": 5, "title": qsTr("Reset timeline") },
 
-                { "id": 6, "title": qsTr("Close other Tabs") },
+                { "id": 6, "title": qsTr("Save VBML") },
 
-                { "id": 7, "title": qsTr("Close all Tabs") }
+                { "id": 7, "title": qsTr("Close other Tabs") },
+
+                { "id": 8, "title": qsTr("Close all Tabs") }
             );
 
             page.values = array;
@@ -778,7 +782,7 @@ AreaContextual
             {
                 var playlist = gui.createItemAt(pItem.folder, pIndex);
 
-                core.saveVbml(playlist.title, playlist.toVbml());
+                core.saveVbml(playlist.title, playlist.toVbml(2));
 
                 playlist.tryDelete();
             }
@@ -846,7 +850,13 @@ AreaContextual
 
                 currentTab.currentTime = -1;
             }
-            else if (id == 6) // Set as Cover
+            else if (id == 6) // Save VBML
+            {
+                /* var */ playlist = pItem.playlist;
+
+                core.saveVbml(playlist.trackTitle(pIndex), playlist.trackVbml(pIndex));
+            }
+            else if (id == 7) // Set as Cover
             {
                 /* var */ playlist = pItem.playlist;
 
@@ -858,7 +868,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 7) // Remove
+            else if (id == 8) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -942,7 +952,11 @@ AreaContextual
                     currentTab.currentTime = -1;
                 }
             }
-            else if (id == 6) // Close other tabs
+            else if (id == 6) // Save VBML
+            {
+                core.saveVbml(pItem.title, pItem.toVbml());
+            }
+            else if (id == 7) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -950,7 +964,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 7) // Close all tabs
+            else if (id == 8) // Close all tabs
             {
                 wall.enableAnimation = false;
 

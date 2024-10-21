@@ -1207,6 +1207,8 @@ void ControllerCore::onReload()
     _index->reload();
 
     _index->reloadBackends();
+
+    WBackendUniversal::clearCache();
 }
 
 void ControllerCore::onBackendUpdated(const QString & id)

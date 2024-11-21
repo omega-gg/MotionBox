@@ -30,6 +30,8 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
+    property bool pUpdate: true
+
     property string pSource
 
     //---------------------------------------------------------------------------------------------
@@ -61,17 +63,23 @@ Item
     {
         var array = new Array;
 
-        var subtitles = player.subtitles;
+        var subtitles = player.subtitlesData();
 
         var count = subtitles.length;
 
         for (var i = 0; i < count; i++)
         {
-            var source = subtitles[i];
+            var data = subtitles[i];
 
-            var title = controllerNetwork.extractUrlFileName(source);
+            var source = data.source;
+            var title  = data.title;
 
-            array.push({ "title": title, "source": source});
+            if (title == "")
+            {
+                title = controllerNetwork.extractUrlFileName(source);
+            }
+
+            array.push({ "title": title, "source": source });
         }
 
 //#QT_4
@@ -91,9 +99,13 @@ Item
 
         for (/* var */ i = 0; i < count; i++)
         {
-            if (subtitle != subtitles[i]) continue;
+            if (subtitle != subtitles[i].source) continue;
+
+            pUpdate = false;
 
             list.currentIndex = i;
+
+            pUpdate = true;
 
             return;
         }
@@ -107,7 +119,7 @@ Item
 
             panelSubtitles.clearIndex();
         }
-        else playerTab.subtitle = player.subtitles[index];
+        else playerTab.subtitle = player.subtitlesData()[index].source;
 
         gui.updateTrackSubtitle(index);
     }
@@ -148,6 +160,6 @@ Item
             }
         }
 
-        onCurrentIndexChanged: pApplyItem(currentIndex)
+        onCurrentIndexChanged: if (pUpdate) pApplyItem(currentIndex)
     }
 }

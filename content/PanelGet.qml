@@ -53,7 +53,18 @@ BasePanelSettings
 
         /* QML_CONNECTION */ function onSubtitlesChanged()
         {
-            var subtitles = player.subtitles;
+            var subtitles = player.subtitlesData();
+
+            pCount = subtitles.length;
+
+            if (pCount == 0)
+            {
+                applySubtitle("", -1);
+
+                pUpdateView();
+
+                return;
+            }
 
             var source = controllerPlaylist.cleanSource(player.source);
 
@@ -68,17 +79,11 @@ BasePanelSettings
 
                 if (subtitles.length != pCount)
                 {
-                    pCount = subtitles.length;
+                    pIndex = 0;
 
-                    if (pCount)
-                    {
-                        pIndex = 0;
-
-                        applySubtitle(subtitles[0], 0);
-                    }
-                    else applySubtitle("", -1);
+                    applySubtitle(subtitles[0].source, 0);
                 }
-                else applySubtitle(subtitles[pIndex], pIndex);
+                else applySubtitle(subtitles[pIndex].source, pIndex);
 
                 pUpdateView();
 
@@ -87,21 +92,27 @@ BasePanelSettings
 
             pSource = source;
 
-            pCount = subtitles.length;
+            var id = controllerNetwork.extractFragmentValue(player.source, "sid");
 
-            if (pCount)
+            if (id != "" && id >= 0 && id < pCount)
             {
-                var id = controllerNetwork.extractFragmentValue(player.source, "sid");
+                pIndex = id;
 
-                if (id > 0 && id < pCount)
-                {
-                    pIndex = id;
-                }
-                else pIndex = 0;
-
-                applySubtitle(subtitles[pIndex], pIndex);
+                applySubtitle(subtitles[id].source, id);
             }
-            else applySubtitle("", -1);
+            else
+            {
+                pIndex = 0;
+
+                var subtitle = subtitles[0];
+
+                // NOTE: Do not select auto-generated subtitles by default.
+                if (subtitle.title.indexOf("(auto-generated)") == -1)
+                {
+                    applySubtitle(subtitle.source, 0);
+                }
+                else applySubtitle("", -1);
+            }
 
             pUpdateView();
         }

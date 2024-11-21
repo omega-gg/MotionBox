@@ -124,7 +124,7 @@ Item
 
     function updateView()
     {
-        var active = (player.subtitles.length);
+        var active = (player.subtitlesData().length);
 
         if (pView == active)
         {

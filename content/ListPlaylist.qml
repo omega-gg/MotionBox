@@ -181,7 +181,7 @@ BaseList
         {
             event.accepted = true;
 
-            index = playlist.lastSelected;
+            index = indexFromIndex(playlist.lastSelected);
 
             pSetCurrentTrack(index);
 
@@ -197,11 +197,11 @@ BaseList
         {
             event.accepted = true;
 
-            index = playlist.lastSelected;
+            index = indexFromIndex(playlist.lastSelected);
 
             scrollToItem(index);
 
-            panelContextual.loadPageTrack(list, index);
+            panelContextual.loadPageTrack(list, indexAt(index));
 
             pShowPanel(panelContextual, index, -1, -1, false);
         }
@@ -209,7 +209,7 @@ BaseList
         {
             event.accepted = true;
 
-            index = playlist.lastSelected;
+            index = indexFromIndex(playlist.lastSelected);
 
             scrollToItem(index);
 
@@ -223,7 +223,7 @@ BaseList
 
             if (list != gui.listPlaylist) return;
 
-            index = playlist.lastSelected;
+            index = indexFromIndex(playlist.lastSelected);
 
             if (index == -1) return;
 
@@ -287,11 +287,11 @@ BaseList
 
             setPlaylistFocus(playlist);
 
-            var index = playlist.lastSelected;
+            var index = indexFromIndex(playlist.lastSelected);
 
             if (player.isPlaying == false || highlightedTab)
             {
-                pSetCurrentTrack(indexFromIndex(index));
+                pSetCurrentTrack(index);
             }
 
             if (index != -1 && pScroll)
@@ -403,9 +403,9 @@ BaseList
 
             playlist.selectSingleTrack(index);
 
-            scrollToItem(index);
+            scrollToItem(indexFromIndex(index));
         }
-        else scrollToItem(playlist.lastSelected);
+        else scrollToItem(indexFromIndex(playlist.lastSelected));
     }
 
     function focusList()
@@ -429,7 +429,7 @@ BaseList
 
     function unselectTrack(index)
     {
-        if (count) playlist.unselectTrack(index);
+        if (count) playlist.unselectTrack(indexAt(index));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -565,9 +565,9 @@ BaseList
 
             if (playlist.currentId == -1)
             {
-                 index = 0;
+                 index = indexAt(0);
             }
-            else index = playlist.currentIndex
+            else index = playlist.currentIndex;
 
             gui.playTrack(playlist, index, true);
         }
@@ -642,9 +642,10 @@ BaseList
 
         if (index == -1)
         {
-            if (playlist.isFeed) index = 0;
+            if (playlist.isFeed) index = indexAt(0);
             else                 index = count;
         }
+        else index = indexAt(index);
 
         var size = playlist.insertSources(index, url);
 
@@ -654,7 +655,7 @@ BaseList
 
             while (size)
             {
-                array.push(index);
+                array.push(indexFromIndex(index));
 
                 index++;
 
@@ -680,9 +681,10 @@ BaseList
 
         if (to == -1)
         {
-            if (playlist.isFeed) to = 0;
+            if (playlist.isFeed) to = indexAt(0);
             else                 to = count;
         }
+        else to = indexAt(to);
 
         source.copyTracksTo(indexes, playlist, to);
 
@@ -692,7 +694,7 @@ BaseList
 
             for (var i = 0; i < length; i++)
             {
-                array.push(to);
+                array.push(indexFromIndex(to));
 
                 to++;
             }
@@ -716,9 +718,10 @@ BaseList
 
         if (to == -1)
         {
-            if (playlist.isFeed) to = 0;
+            if (playlist.isFeed) to = indexAt(0);
             else                 to = count;
         }
+        else to = indexAt(to);
 
         source.copyTrackTo(from, playlist, to);
 
@@ -726,7 +729,7 @@ BaseList
         {
             var array = new Array;
 
-            array.push(to);
+            array.push(indexFromIndex(to));
 
             animateAdd(array);
         }
@@ -770,7 +773,7 @@ BaseList
 
         var array = new Array;
 
-        array.push(index);
+        array.push(indexAt(index));
 
         pRemove(array, animate);
     }
@@ -801,7 +804,9 @@ BaseList
 
     function scrollToCurrentItem()
     {
-        if (playlist) scrollToItem(playlist.currentIndex);
+        if (playlist == null) return;
+
+        scrollToItem(indexFromIndex(playlist.currentIndex));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -820,7 +825,7 @@ BaseList
     {
         if (playlist)
         {
-             return itemY(playlist.currentIndex);
+             return itemY(indexFromIndex(playlist.currentIndex));
         }
         else return -1;
     }
@@ -829,7 +834,7 @@ BaseList
     {
         if (playlist == null) return -1;
 
-        var index = playlist.lastSelected;
+        var index = indexFromIndex(playlist.lastSelected);
 
         if (index == -1)
         {
@@ -1171,18 +1176,34 @@ BaseList
 
         if (animate)
         {
+            var array = new Array;
+
             for (var i = 0; i < indexes.length; i++)
             {
-                var item = itemAt(indexes[i]);
+                var index = indexes[i];
+
+                array.push(indexAt(index));
+
+                var item = itemAt(index);
 
                 if (item) item.animateRemove();
             }
 
-            pIndexes = indexes;
+            pIndexes = array;
 
             timer.start();
         }
-        else playlist.removeTracks(indexes);
+        else
+        {
+            /* var */ array = new Array;
+
+            for (/* var */ i = 0; i < indexes.length; i++)
+            {
+                array.push(indexAt(indexes[i]));
+            }
+
+            playlist.removeTracks(array);
+        }
     }
 
     function pProcessRemove(playlist)
@@ -1240,7 +1261,9 @@ BaseList
 
         borderBottom: borderSize
 
-        visible: (enablePreview && itemHovered != null && playlist.trackIsValid(indexHover))
+        visible: (enablePreview && itemHovered != null
+                  &&
+                  playlist.trackIsValid(indexAt(indexHover)))
 
         isHovered: false
         isPressed: false
@@ -1270,7 +1293,7 @@ BaseList
         {
             if ((mouse.button & Qt.LeftButton) == false
                 ||
-                playlist.trackIsDefault(indexHover)) return;
+                playlist.trackIsDefault(indexAt(indexHover))) return;
 
             indexPreview = indexHover;
         }
@@ -1332,7 +1355,7 @@ BaseList
             {
                 focusList();
 
-                playlist.selectTrack(indexHover);
+                playlist.selectTrack(indexAt(indexHover));
 
                 pUpdateCurrentTrack(indexHover);
             }
@@ -1343,7 +1366,7 @@ BaseList
                     window.clearFocus();
                 }
 
-                playlist.unselectTrack(indexHover);
+                playlist.unselectTrack(indexAt(indexHover));
             }
         }
     }

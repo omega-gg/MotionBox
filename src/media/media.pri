@@ -16,6 +16,14 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WLibraryFolderRelated_p.h \
            $$SK_GUI/media/WPlaylist.h \
            $$SK_GUI/media/WPlaylist_p.h \
+           $$SK_GUI/media/WLoaderPlaylist.h \
+           $$SK_GUI/media/WLoaderPlaylist_p.h \
+           $$SK_GUI/media/WLoaderSuggest.h \
+           $$SK_GUI/media/WLoaderSuggest_p.h \
+           $$SK_GUI/media/WLoaderRecent.h \
+           $$SK_GUI/media/WLoaderRecent_p.h \
+           $$SK_GUI/media/WLoaderTracks.h \
+           $$SK_GUI/media/WLoaderTracks_p.h \
            $$SK_GUI/media/WPlayer.h \
            $$SK_GUI/media/WPlayer_p.h \
            $$SK_GUI/media/WAbstractBackend.h \
@@ -54,6 +62,10 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WLibraryFolderRelated.cpp \
            $$SK_GUI/media/WPlaylist.cpp \
            $$SK_GUI/media/WPlaylist_patch.cpp \
+           $$SK_GUI/media/WLoaderPlaylist.cpp \
+           $$SK_GUI/media/WLoaderSuggest.cpp \
+           $$SK_GUI/media/WLoaderRecent.cpp \
+           $$SK_GUI/media/WLoaderTracks.cpp \
            $$SK_GUI/media/WPlayer.cpp \
            $$SK_GUI/media/WAbstractBackend.cpp \
            $$SK_GUI/media/WAbstractHook.cpp \

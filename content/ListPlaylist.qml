@@ -101,7 +101,7 @@ BaseList
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    model: ModelPlaylist { id: model }
+    model: ModelPlaylist {}
 
     delegate: ComponentTrack {}
 
@@ -291,7 +291,7 @@ BaseList
 
             if (player.isPlaying == false || highlightedTab)
             {
-                pSetCurrentTrack(index);
+                pSetCurrentTrack(indexFromIndex(index));
             }
 
             if (index != -1 && pScroll)
@@ -438,7 +438,7 @@ BaseList
     {
         if (playlist == null) return;
 
-        var last = playlist.lastSelected;
+        var last = indexFromIndex(playlist.lastSelected);
 
         var index;
 
@@ -448,7 +448,7 @@ BaseList
 
             return;
         }
-        else index = last - 1;
+        else index = indexAt(last - 1);
 
         if (window.keyShiftPressed)
         {
@@ -494,7 +494,7 @@ BaseList
     {
         if (playlist == null) return;
 
-        var last = playlist.lastSelected;
+        var last = indexFromIndex(playlist.lastSelected);
 
         var index;
 
@@ -504,7 +504,7 @@ BaseList
 
             return;
         }
-        else index = last + 1;
+        else index = indexAt(last + 1);
 
         if (window.keyShiftPressed)
         {
@@ -605,7 +605,7 @@ BaseList
     {
         if (enableContextual == false || index == -1) return;
 
-        panelContextual.loadPageTrack(list, index);
+        panelContextual.loadPageTrack(list, indexAt(index));
 
         pShowPanel(panelContextual, index, x, y, isCursorChild);
     }
@@ -792,7 +792,7 @@ BaseList
 
         wall.asynchronous = false;
 
-        playlist.selectSingleTrack(index);
+        playlist.selectSingleTrack(indexAt(index));
 
         wall.asynchronous = true;
     }
@@ -805,6 +805,16 @@ BaseList
     }
 
     //---------------------------------------------------------------------------------------------
+
+    function indexAt(index)
+    {
+        return model.indexAt(index);
+    }
+
+    function indexFromIndex(index)
+    {
+        return model.indexFromIndex(index);
+    }
 
     function currentItemY()
     {
@@ -882,7 +892,7 @@ BaseList
 
     function pSetCurrentTrack(index)
     {
-        gui.setCurrentTrack(playlist, index);
+        gui.setCurrentTrack(playlist, indexAt(index));
     }
 
     function pUpdateCurrentTrack(index)
@@ -891,7 +901,7 @@ BaseList
         {
             pSelect = false;
 
-            playlist.currentIndex = index;
+            playlist.currentIndex = indexAt(index);
 
             pSelect = true;
         }
@@ -901,15 +911,17 @@ BaseList
 
     function pSelectTrack(index)
     {
-        if (playlist.indexSelected(index))
+        var at = indexAt(index);
+
+        if (playlist.indexSelected(at))
         {
             if (window.keyControlPressed)
             {
                 pScroll = false;
 
-                if (playlist.currentIndex == index)
+                if (playlist.currentIndex == at)
                 {
-                    playlist.unselectTrack(index);
+                    playlist.unselectTrack(at);
 
                     pSelect = false;
 
@@ -917,7 +929,7 @@ BaseList
 
                     pSelect = true;
                 }
-                else playlist.unselectTrack(index);
+                else playlist.unselectTrack(at);
 
                 pScroll = true;
 
@@ -925,7 +937,7 @@ BaseList
             }
             else if (window.keyShiftPressed == false)
             {
-                playlist.selectSingleTrack(index);
+                playlist.selectSingleTrack(at);
             }
         }
         else
@@ -936,36 +948,36 @@ BaseList
                 {
                     var last = playlist.lastSelected;
 
-                    playlist.selectSingleTrack(last);
+                    playlist.selectSingleTrack(at);
                 }
 
-                var closest = playlist.closestSelected(index);
+                var closest = playlist.closestSelected(at);
 
                 if (closest != -1)
                 {
-                    playlist.selectTracks(closest, index);
+                    playlist.selectTracks(closest, at);
 
                     scrollToItem(index);
 
                     pUpdateCurrentTrack(index);
                 }
-                else playlist.selectSingleTrack(index);
+                else playlist.selectSingleTrack(at);
             }
             else if (window.keyControlPressed)
             {
-                playlist.selectTrack(index);
+                playlist.selectTrack(at);
 
                 scrollToItem(index);
 
                 pUpdateCurrentTrack(index);
             }
-            else playlist.selectSingleTrack(index);
+            else playlist.selectSingleTrack(at);
         }
     }
 
     function pSelectSingleTrack(index)
     {
-        playlist.selectSingleTrack(index);
+        playlist.selectSingleTrack(indexAt(index));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1102,7 +1114,7 @@ BaseList
 
     function pUpdateCheckBox(index)
     {
-        if (playlist && playlist.indexSelected(index))
+        if (playlist && playlist.indexSelected(indexAt(index)))
         {
              checkBox.checked = true;
         }

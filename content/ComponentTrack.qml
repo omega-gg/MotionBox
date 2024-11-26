@@ -117,7 +117,7 @@ ComponentLibraryItem
 
     function pUpdateTime()
     {
-        duration = playlist.trackDuration(index);
+        duration = playlist.trackDuration(indexAt(index));
 
         var time = controllerNetwork.extractFragmentValue(source, 't');
 
@@ -151,7 +151,7 @@ ComponentLibraryItem
     {
         if (mouse.button & Qt.LeftButton)
         {
-            if (playlist.indexSelected(index) == false)
+            if (playlist.indexSelected(indexAt(index)) == false)
             {
                 focusList();
 

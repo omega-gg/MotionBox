@@ -61,6 +61,9 @@
 #include <WLoaderBarcode>
 //#include <WLoaderWeb>
 #include <WLoaderTorrent>
+#include <WLoaderSuggest>
+#include <WLoaderRecent>
+#include <WLoaderTracks>
 #include <WHookOutputBarcode>
 #include <WHookTorrent>
 #include <WLibraryFolderRelated>
@@ -146,6 +149,10 @@ ControllerCore::ControllerCore() : WController()
 
     _loaderMedia = NULL;
     //_loaderWeb   = NULL;
+
+    _loaderSuggest     = NULL;
+    _loaderRecent      = NULL;
+    _loaderInteractive = NULL;
 
     _index = NULL;
 
@@ -301,7 +308,8 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WModelLibraryFolder>        ("Sky", 1,0, "ModelLibraryFolder");
     qmlRegisterType<WModelLibraryFolderFiltered>("Sky", 1,0, "ModelLibraryFolderFiltered");
 
-    qmlRegisterType<WModelPlaylist>("Sky", 1,0, "ModelPlaylist");
+    qmlRegisterType<WModelPlaylist>        ("Sky", 1,0, "ModelPlaylist");
+    qmlRegisterType<WModelPlaylistFiltered>("Sky", 1,0, "ModelPlaylistFiltered");
 
     qmlRegisterType<WModelCompletionGoogle>("Sky", 1,0, "ModelCompletionGoogle");
 
@@ -532,6 +540,11 @@ ControllerCore::ControllerCore() : WController()
     _feeds = createLibrary(2);
 
     _feeds->setMaxCount(100);
+
+    connect(_feeds, SIGNAL(currentIdChanged()), this, SLOT(onFeedChanged()));
+
+    connect(_feeds, SIGNAL(itemsRemoved(const QList<int> &)), this, SLOT(onFeedUpdated()));
+    connect(_feeds, SIGNAL(itemsCleared()),                   this, SLOT(onFeedUpdated()));
 
     emit feedsChanged();
 
@@ -1220,6 +1233,93 @@ void ControllerCore::onBackendUpdated(const QString & id)
     WLibraryItem * item = _backends->createLibraryItemAt(index);
 
     item->reloadQuery();
+}
+
+void ControllerCore::onFeedChanged()
+{
+    QString label = _feeds->itemLabel(_feeds->currentIndex());
+
+    if (label == "suggest" && _loaderSuggest == NULL)
+    {
+        if (_feeds->itemLabel(0) != "tracks") return;
+
+        _loaderSuggest = new WLoaderSuggest(_feeds, _feeds->currentId());
+
+        WPlaylist * history = _feeds->createLibraryItemAt(0, true)->toPlaylist();
+
+        _loaderSuggest->setHistory(history);
+
+        _loaderSuggest->start();
+    }
+    else if (label == "recent" && _loaderRecent == NULL)
+    {
+        _loaderRecent = new WLoaderRecent(_feeds, _feeds->currentId());
+
+        _loaderRecent->setFeeds(_feeds);
+
+        _loaderRecent->start();
+    }
+    else if (label == "interactive" && _loaderInteractive == NULL)
+    {
+        if (_feeds->itemLabel(0) != "tracks") return;
+
+        _loaderInteractive = new WLoaderTracks(_feeds, _feeds->currentId());
+
+        _loaderInteractive->addType(WTrack::Hub);
+        _loaderInteractive->addType(WTrack::Channel);
+        _loaderInteractive->addType(WTrack::Interactive);
+
+        WPlaylist * history = _feeds->createLibraryItemAt(0, true)->toPlaylist();
+
+        _loaderInteractive->setHistory(history);
+
+        QStringList hubs;
+
+        hubs.append("https://omega.gg/vox");
+        hubs.append("https://vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"); // tmdb
+        hubs.append("https://vox.omega.gg/w/1bygNVLjD7P5Ande3BKktN"); // twitch
+        hubs.append("https://vox.omega.gg/w/azQbNtC41sMW7RYge9qBrV"); // netflix
+        hubs.append("https://vox.omega.gg/w/u7LcNmoaU3AU82PBjFHG72"); // disney
+        hubs.append("https://vox.omega.gg/w/pAtEEiZ13ezKCcgEHnnXY1"); // apple
+        hubs.append("https://vox.omega.gg/w/aHy9qfys6ZHzWHVANxX7fp"); // max
+        hubs.append("https://vox.omega.gg/w/cZwGXA9WztBQX1npkRCnd3"); // blender
+
+        _loaderInteractive->setBaseUrls(hubs);
+
+        _loaderInteractive->start();
+    }
+}
+
+void ControllerCore::onFeedUpdated()
+{
+    if (_feeds->itemLabel(1) != "suggest" && _loaderSuggest)
+    {
+        WPlaylist * history = _loaderSuggest->history();
+
+        if (history) history->tryDelete();
+
+        delete _loaderSuggest;
+
+        _loaderSuggest = NULL;
+    }
+
+    if (_feeds->itemLabel(2) == "recent" && _loaderRecent)
+    {
+        delete _loaderRecent;
+
+        _loaderRecent = NULL;
+    }
+
+    if (_feeds->itemLabel(3) == "interactive" && _loaderInteractive)
+    {
+        WPlaylist * history = _loaderInteractive->history();
+
+        if (history) history->tryDelete();
+
+        delete _loaderInteractive;
+
+        _loaderInteractive = NULL;
+    }
 }
 
 void ControllerCore::onMediaLoaded(WMediaReply * reply)

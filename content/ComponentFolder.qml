@@ -63,30 +63,7 @@ ComponentLibraryItem
 
     icon: (visible && isActive == false) ? cover : ""
 
-    iconDefault:
-    {
-        if (isActive)
-        {
-            if (player.isPaused)
-            {
-                 return st.icon16x16_pause;
-            }
-            else return st.icon16x16_play;
-        }
-        else if (type == LibraryItem.Playlist)
-        {
-            return st.icon16x16_playlist;
-        }
-        else if (type == LibraryItem.PlaylistFeed || type == LibraryItem.FolderSearch)
-        {
-            return st.icon16x16_feed;
-        }
-        else if (type == LibraryItem.PlaylistSearch)
-        {
-            return st.icon16x16_track;
-        }
-        else return st.icon16x16_folder;
-    }
+    iconDefault: getIconDefault()
 
     text:
     {
@@ -143,6 +120,31 @@ ComponentLibraryItem
     function getCover()
     {
         return cover;
+    }
+
+    function getIconDefault()
+    {
+        if (isActive)
+        {
+            if (player.isPaused)
+            {
+                 return st.icon16x16_pause;
+            }
+            else return st.icon16x16_play;
+        }
+        else if (type == LibraryItem.Playlist)
+        {
+            return st.icon16x16_playlist;
+        }
+        else if (type == LibraryItem.PlaylistFeed || type == LibraryItem.FolderSearch)
+        {
+            return st.icon16x16_feed;
+        }
+        else if (type == LibraryItem.PlaylistSearch)
+        {
+            return st.icon16x16_track;
+        }
+        else return st.icon16x16_folder;
     }
 
     //---------------------------------------------------------------------------------------------

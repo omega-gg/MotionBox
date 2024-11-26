@@ -36,6 +36,8 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
+    property bool pIsFeeds: gui.isFeeds
+
     property int pIndex: -1
     property int pValue: -1
 
@@ -406,7 +408,7 @@ Panel
 
             anchors.fill: parent
 
-            folder: (index == 0) ? feeds : library
+            folder: (pIsFeeds) ? feeds : library
 
             listFolder  : gui.listFolder
             listPlaylist: gui.listPlaylist
@@ -415,7 +417,7 @@ Panel
 
             textDefault: qsTr("Empty Library")
 
-            textVisible: (index == 1 && isCreating == false && count == 0)
+            textVisible: (pIsFeeds == false && isCreating == false && count == 0)
 
             itemRight: (listFolder.visible) ? listFolder
                                             : listPlaylist
@@ -432,6 +434,42 @@ Panel
             }
 
             onFinished: pIndex = -1
+
+            delegate: ComponentFolder
+            {
+                property bool pIsLoader: (pIsFeeds
+                                          &&
+                                          (label == "tracks" || label == "suggest"
+                                           ||
+                                           label == "recent" || label == "interactive"))
+
+                icon: (visible && isActive == false && pIsLoader == false) ? cover : ""
+
+                iconDefault:
+                {
+                    if (pIsLoader)
+                    {
+                        if (label == "tracks")
+                        {
+                            return st.icon16x16_history;
+                        }
+                        else if (label == "suggest")
+                        {
+                            return st.icon16x16_suggest;
+                        }
+                        else if (label == "recent")
+                        {
+                            return st.icon16x16_recent;
+                        }
+                        else if (label == "interactive")
+                        {
+                            return st.icon16x16_hub;
+                        }
+                        else return st.icon16x16_feed;
+                    }
+                    else return getIconDefault();
+                }
+            }
         }
 
         ScrollerList

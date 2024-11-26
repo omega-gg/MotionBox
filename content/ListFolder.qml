@@ -95,7 +95,7 @@ BaseList
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    model: ModelLibraryFolder { id: model }
+    model: ModelLibraryFolder {}
 
     delegate: ComponentFolder {}
 

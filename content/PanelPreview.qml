@@ -156,7 +156,7 @@ PanelImage
 
         /* QML_CONNECTION */ function onTrackUpdated(index)
         {
-            if (list.indexPreview != index) return;
+            if (list.indexAt(list.indexPreview) != index) return;
 
             var detail = panelPreview.detail;
 
@@ -394,7 +394,7 @@ PanelImage
 
     function pUpdateTrack()
     {
-        var index = list.indexPreview;
+        var index = list.indexAt(list.indexPreview);
 
         var data = playlist.trackData(index);
 

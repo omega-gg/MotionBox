@@ -49,6 +49,9 @@ class WWindow;
 class WCache;
 class WLoaderNetwork;
 class WLoaderWeb;
+class WLoaderSuggest;
+class WLoaderRecent;
+class WLoaderTracks;
 class WBackendIndex;
 class WBackendNet;
 class WLibraryFolderRelated;
@@ -188,6 +191,9 @@ private slots:
 
     void onBackendUpdated(const QString & id);
 
+    void onFeedChanged();
+    void onFeedUpdated();
+
     void onMediaLoaded(WMediaReply * reply);
 
     void onQueryEnded    ();
@@ -284,6 +290,10 @@ private: // Variables
 
     WLoaderNetwork * _loaderMedia;
     //WLoaderWeb     * _loaderWeb;
+
+    WLoaderSuggest * _loaderSuggest;
+    WLoaderRecent  * _loaderRecent;
+    WLoaderTracks  * _loaderInteractive;
 
     WBackendIndex * _index;
 

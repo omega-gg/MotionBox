@@ -35,6 +35,8 @@ Item
 
     /* read */ property bool isExpanded: local.expanded
 
+    /* read */ property bool isFeeds: (panelLibrary.index == 0)
+
     property bool asynchronous: true
 
     /* read */ property TabTrack currentTab    : tabs.currentTab
@@ -1985,7 +1987,7 @@ Item
 
             pAddPlaylist(core.urlType(feed), feed);
         }
-        else feeds.moveAt(index, 1);
+        else feeds.moveAt(index, 4); // After interactive
 
         return true;
     }
@@ -2014,7 +2016,7 @@ Item
 
             pAddPlaylist(type, url);
         }
-        else feeds.moveAt(index, 1);
+        else feeds.moveAt(index, 4); // After interactive
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3292,12 +3294,55 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function pCreatePlaylistTracks()
+    function pCreatePlaylists()
     {
-        history = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+        if (feeds.itemLabel(0) != "tracks")
+        {
+            if (history) history.tryDelete();
 
-        history.title = qsTr("Tracks");
-        history.label = "tracks";
+            history = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+
+            history.title = qsTr("Tracks");
+            history.label = "tracks";
+
+            insertLibraryItem(0, history, listLibrary, feeds);
+        }
+        else history = createItemAt(feeds, 0);
+
+        if (feeds.currentIndex == -1)
+        {
+            feeds.currentIndex = 0;
+        }
+
+        if (feeds.itemLabel(1) != "suggest")
+        {
+            var playlist = controllerPlaylist.createPlaylist(LibraryItem.Playlist);
+
+            playlist.title = qsTr("Suggestions");
+            playlist.label = "suggest";
+
+            insertLibraryItem(1, playlist, listLibrary, feeds);
+        }
+
+        if (feeds.itemLabel(2) != "recent")
+        {
+            /* var */ playlist = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+
+            playlist.title = qsTr("Recents");
+            playlist.label = "recent";
+
+            insertLibraryItem(2, playlist, listLibrary, feeds);
+        }
+
+        if (feeds.itemLabel(3) != "interactive")
+        {
+            /* var */ playlist = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+
+            playlist.title = qsTr("Interactive");
+            playlist.label = "interactive";
+
+            insertLibraryItem(3, playlist, listLibrary, feeds);
+        }
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3310,26 +3355,7 @@ Item
 
         if (source == "") return;
 
-        if (feeds.isEmpty)
-        {
-            if (history) history.tryDelete();
-
-            pCreatePlaylistTracks();
-
-            insertLibraryItem(0, history, listLibrary, feeds);
-
-            feeds.currentIndex = 0;
-        }
-        else if (history == null)
-        {
-            if (feeds.itemLabel(0) != "tracks")
-            {
-                pCreatePlaylistTracks();
-
-                insertLibraryItem(0, history, listLibrary, feeds);
-            }
-            else history = createItemAt(feeds, 0);
-        }
+        pCreatePlaylists();
 
         addHistoryTrack(source);
 
@@ -3363,7 +3389,7 @@ Item
     {
         var playlist = controllerPlaylist.createPlaylist(type);
 
-        insertLibraryItem(1, playlist, listLibrary, feeds);
+        insertLibraryItem(4, playlist, listLibrary, feeds); // After interactive
 
         playlist.loadSource(url);
 

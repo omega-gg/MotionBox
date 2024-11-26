@@ -35,6 +35,11 @@ cp "$solid"/quote-right.svg $icons
 cp "$solid"/gear.svg        $icons/cog.svg
 cp "$brands"/chromecast.svg $icons
 
+cp "$solid"/clock-rotate-left.svg $icons/history.svg
+cp "$solid"/lightbulb.svg         $icons
+cp "$solid"/clock.svg             $icons
+cp "$solid"/circle-nodes.svg      $icons
+
 cp "$solid"/shuffle.svg $icons/random.svg
 
 cp "$solid"/circle-info.svg $icons/info-circle.svg

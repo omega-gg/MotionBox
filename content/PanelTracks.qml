@@ -133,9 +133,36 @@ Item
         else scrollPlaylist.createItem();
     }
 
+    function pGetModel()
+    {
+        if (gui.isFeeds && feeds.itemLabel(feeds.currentIndex) == "recent")
+        {
+             return modelFiltered;
+        }
+        else return modelDefault;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
+
+    ModelPlaylist
+    {
+        id: modelDefault
+
+        playlist: scrollPlaylist.playlist
+    }
+
+    ModelPlaylistFiltered
+    {
+        id: modelFiltered
+
+        model: modelDefault
+
+        sortRole: ModelPlaylist.RoleDate
+
+        sortOrder: Qt.DescendingOrder
+    }
 
     BorderHorizontal {}
 
@@ -495,6 +522,8 @@ Item
 
             anchors.left : parent.left
             anchors.right: parent.right
+
+            model: pGetModel()
 
             itemLeft: (listFolder.visible) ? listFolder
                                            : gui.listLibrary

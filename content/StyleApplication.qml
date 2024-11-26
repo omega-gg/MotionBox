@@ -134,6 +134,11 @@ StyleComponents
     property url icon_settings : "pictures/icons/cog.svg"
     property url icon_output   : "pictures/icons/chromecast.svg"
 
+    property url icon_history: "pictures/icons/history.svg"
+    property url icon_suggest: "pictures/icons/lightbulb.svg"
+    property url icon_recent : "pictures/icons/clock.svg"
+    property url icon_hub    : "pictures/icons/circle-nodes.svg"
+
     property url icon_shuffle: "pictures/icons/random.svg"
 
     property url icon_repeat   : "pictures/icons/redo.svg"
@@ -171,6 +176,11 @@ StyleComponents
     property url icon16x16_refresh: icon_refresh
 
     property url icon16x16_addBold: icon_addBold
+
+    property url icon16x16_history: icon_history
+    property url icon16x16_suggest: icon_suggest
+    property url icon16x16_recent : icon_recent
+    property url icon16x16_hub    : icon_hub
 
     property url icon16x16_shuffle: icon_shuffle
 

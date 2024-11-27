@@ -429,7 +429,7 @@ BaseList
 
     function unselectTrack(index)
     {
-        if (count) playlist.unselectTrack(indexAt(index));
+        if (count) model.unselectTrack(index);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -448,33 +448,33 @@ BaseList
 
             return;
         }
-        else index = indexAt(last - 1);
+        else index = last - 1;
 
         if (window.keyShiftPressed)
         {
             if (playlist.selectedCount > 1)
             {
-                if (playlist.selectedAligned)
+                if (model.selectedAligned)
                 {
-                    var first = playlist.firstSelected;
+                    var first = indexFromIndex(playlist.firstSelected);
 
                     if (first > index)
                     {
-                         playlist.selectTrack(index);
+                         model.selectTrack(index);
                     }
-                    else playlist.unselectTrack(last);
+                    else model.unselectTrack(last);
 
                     scrollToItem(index);
                 }
                 else
                 {
-                    playlist.selectSingleTrack(last);
+                    playlist.selectSingleTrack(indexAt(last));
 
                     if (last > 0)
                     {
                         last--;
 
-                        playlist.selectTrack(last);
+                        model.selectTrack(last);
 
                         scrollToItem(last);
                     }
@@ -482,12 +482,12 @@ BaseList
             }
             else
             {
-                playlist.selectTrack(index);
+                model.selectTrack(index);
 
                 scrollToItem(index);
             }
         }
-        else playlist.selectSingleTrack(index);
+        else playlist.selectSingleTrack(indexAt(index));
     }
 
     function selectNextTrack()
@@ -504,33 +504,33 @@ BaseList
 
             return;
         }
-        else index = indexAt(last + 1);
+        else index = last + 1;
 
         if (window.keyShiftPressed)
         {
             if (playlist.selectedCount > 1)
             {
-                if (playlist.selectedAligned)
+                if (model.selectedAligned)
                 {
-                    var first = playlist.firstSelected;
+                    var first = indexFromIndex(playlist.firstSelected);
 
                     if (first < index)
                     {
-                         playlist.selectTrack(index);
+                         model.selectTrack(index);
                     }
-                    else playlist.unselectTrack(last);
+                    else model.unselectTrack(last);
 
                     scrollToItem(index);
                 }
                 else
                 {
-                    playlist.selectSingleTrack(last);
+                    playlist.selectSingleTrack(indexAt(last));
 
                     if (last != -1 && last != (count - 1))
                     {
                         last++;
 
-                        playlist.selectTrack(last);
+                        model.selectTrack(last);
 
                         scrollToItem(last);
                     }
@@ -538,12 +538,12 @@ BaseList
             }
             else
             {
-                playlist.selectTrack(index);
+                model.selectTrack(index);
 
                 scrollToItem(index);
             }
         }
-        else playlist.selectSingleTrack(index);
+        else playlist.selectSingleTrack(indexAt(index));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -640,14 +640,16 @@ BaseList
             return false;
         }
 
+        var at;
+
         if (index == -1)
         {
-            if (playlist.isFeed) index = indexAt(0);
-            else                 index = count;
+            if (playlist.isFeed) at = indexAt(0);
+            else                 at = count;
         }
-        else index = indexAt(index);
+        else at = indexAt(index);
 
-        var size = playlist.insertSources(index, url);
+        var size = playlist.insertSources(at, url);
 
         if (animate)
         {
@@ -655,7 +657,7 @@ BaseList
 
             while (size)
             {
-                array.push(indexFromIndex(index));
+                array.push(index);
 
                 index++;
 
@@ -679,14 +681,16 @@ BaseList
             return false;
         }
 
+        var at;
+
         if (to == -1)
         {
-            if (playlist.isFeed) to = indexAt(0);
-            else                 to = count;
+            if (playlist.isFeed) at = indexAt(0);
+            else                 at = count;
         }
-        else to = indexAt(to);
+        else at = indexAt(to);
 
-        source.copyTracksTo(indexes, playlist, to);
+        source.copyTracksTo(indexes, playlist, at);
 
         if (animate)
         {
@@ -694,7 +698,7 @@ BaseList
 
             for (var i = 0; i < length; i++)
             {
-                array.push(indexFromIndex(to));
+                array.push(to);
 
                 to++;
             }
@@ -716,20 +720,22 @@ BaseList
             return false;
         }
 
+        var at;
+
         if (to == -1)
         {
-            if (playlist.isFeed) to = indexAt(0);
-            else                 to = count;
+            if (playlist.isFeed) at = indexAt(0);
+            else                 at = count;
         }
-        else to = indexAt(to);
+        else at = indexAt(to);
 
-        source.copyTrackTo(from, playlist, to);
+        source.copyTrackTo(from, playlist, at);
 
         if (animate)
         {
             var array = new Array;
 
-            array.push(indexFromIndex(to));
+            array.push(to);
 
             animateAdd(array);
         }
@@ -773,7 +779,7 @@ BaseList
 
         var array = new Array;
 
-        array.push(indexAt(index));
+        array.push(index);
 
         pRemove(array, animate);
     }
@@ -949,18 +955,18 @@ BaseList
         {
             if (window.keyShiftPressed)
             {
-                if (playlist.selectedAligned == false)
+                if (model.selectedAligned == false)
                 {
                     var last = playlist.lastSelected;
 
                     playlist.selectSingleTrack(at);
                 }
 
-                var closest = playlist.closestSelected(at);
+                var closest = model.closestSelected(index);
 
                 if (closest != -1)
                 {
-                    playlist.selectTracks(closest, at);
+                    model.selectTracks(closest, index);
 
                     scrollToItem(index);
 
@@ -1355,7 +1361,7 @@ BaseList
             {
                 focusList();
 
-                playlist.selectTrack(indexAt(indexHover));
+                model.selectTrack(indexHover);
 
                 pUpdateCurrentTrack(indexHover);
             }
@@ -1366,7 +1372,7 @@ BaseList
                     window.clearFocus();
                 }
 
-                playlist.unselectTrack(indexAt(indexHover));
+                model.unselectTrack(indexHover);
             }
         }
     }

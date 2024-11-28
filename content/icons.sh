@@ -31,6 +31,8 @@ cp "$solid"/circle-plus.svg $icons/plus-circle.svg
 
 cp "$solid"/magnifying-glass.svg $icons/search.svg
 
+cp "$solid"/qrcode.svg $icons
+
 cp "$solid"/quote-right.svg $icons
 cp "$solid"/gear.svg        $icons/cog.svg
 cp "$brands"/chromecast.svg $icons

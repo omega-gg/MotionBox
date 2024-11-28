@@ -183,7 +183,7 @@ Item
 
             onClicked:
             {
-                //panelDiscover.collapse();
+                panelTag.collapse();
 
                 gui.saveTrackData();
 
@@ -206,7 +206,7 @@ Item
 
             onClicked:
             {
-                //panelDiscover.collapse();
+                panelTag.collapse();
 
                 gui.saveTrackData();
 

@@ -208,7 +208,6 @@ OTHER_FILES += 3rdparty.sh \
                content/ItemNew.qml \
                content/TextLogo.qml \
                content/BasePanelSettings.qml \
-               #content/PanelDiscover.qml \
                content/PanelSearch.qml \
                content/PanelLibrary.qml \
                content/PanelFolder.qml \
@@ -217,6 +216,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PanelBrowse.qml \
                content/PanelRelated.qml \
                #content/PanelCover.qml \
+               content/PanelTag.qml \
                content/PanelSettings.qml \
                content/PanelGet.qml \
                content/PanelOutput.qml \

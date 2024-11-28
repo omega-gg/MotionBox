@@ -44,8 +44,6 @@ MouseArea
     property alias buttonPrevious: buttonPrevious
     property alias buttonNext    : buttonNext
 
-    property alias buttonAdd: buttonAdd
-
     property alias buttonGet       : buttonGet
     property alias buttonSettings  : buttonSettings
     property alias buttonOutput    : buttonOutput
@@ -285,7 +283,7 @@ MouseArea
             id: sliderStream
 
             anchors.left : borderA.right
-            anchors.right: buttonAdd.left
+            anchors.right: buttonTag.left
             anchors.top  : parent.top
 
             anchors.leftMargin : st.dp7
@@ -344,31 +342,25 @@ MouseArea
             }
         }
 
-        ButtonRound
+        ButtonPushIcon
         {
-            id: buttonAdd
+            id: buttonTag
 
             anchors.right: borderB.left
-
-            anchors.top: parent.top
+            anchors.top  : buttonSettings.top
 
             anchors.rightMargin: st.dp7
-            anchors.topMargin  : st.dp5
 
-            width : st.dp38
+            width : st.dp44
             height: width
 
-            enabled: currentTab.isValid
-
-            highlighted: player.isPlaying
-
             checkable: true
-            checked  : (panelAdd.item == barControls)
+            checked  : panelTag.isExposed
 
-            icon          : st.icon18x18_addIn
+            icon          : st.icon18x18_tag
             iconSourceSize: st.size18x18
 
-            onPressed: gui.panelAddShow()
+            onPressed: panelTag.toggleExpose()
         }
 
         BorderVertical

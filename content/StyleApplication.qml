@@ -54,6 +54,11 @@ StyleComponents
     //property int panelCover_intervalClear: ms1000
 
     //---------------------------------------------------------------------------------------------
+    // PanelTag
+
+    property color panelTag_color: (local.style) ? "#161616" : "#242424"
+
+    //---------------------------------------------------------------------------------------------
     // PanelAdd
 
     property int panelAdd_durationCollapse: 1000
@@ -130,6 +135,8 @@ StyleComponents
 
     property url icon_search: "pictures/icons/search.svg"
 
+    property url icon_tag: "pictures/icons/qrcode.svg"
+
     property url icon_subtitles: "pictures/icons/quote-right.svg"
     property url icon_settings : "pictures/icons/cog.svg"
     property url icon_output   : "pictures/icons/chromecast.svg"
@@ -201,13 +208,19 @@ StyleComponents
     property url icon16x16_shutdown: icon_shutdown
 
     //---------------------------------------------------------------------------------------------
+    // 18x18
+
+    property url icon18x18_addIn: icon_addIn
+
+    property url icon18x18_tag: icon_tag
+
+    //---------------------------------------------------------------------------------------------
     // 20x20
 
     property url icon20x20_expand : icon_expand
     property url icon20x20_wall   : icon_wall
     property url icon20x20_related: icon_related
 
-    property url icon18x18_addIn  : icon_addIn
     property url icon20x20_addList: icon_addList
 
     property url icon20x20_search: icon_search

@@ -79,7 +79,7 @@ Item
 
         if (isExpanded || actionCue.tryPush(gui.actionTracksExpand)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         if (panelBrowse.visible)
         {
@@ -101,7 +101,7 @@ Item
     {
         if (isExpanded == false || actionCue.tryPush(gui.actionTracksRestore)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         isExpanded = false;
 

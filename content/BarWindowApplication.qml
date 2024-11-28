@@ -219,7 +219,7 @@ Item
     {
         if (actionCue.tryPush(actionTabOpen)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         if (playlist)
         {
@@ -568,7 +568,7 @@ Item
                 gui.restoreBars();
             }
 
-            //panelDiscover.collapse();
+            panelTag.collapse();
 
             wall.updateCurrentPage();
         }

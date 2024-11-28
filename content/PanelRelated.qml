@@ -168,7 +168,7 @@ Panel
     {
         if (isExposed || actionCue.tryPush(gui.actionRelatedExpose)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         visible = true;
 
@@ -191,7 +191,7 @@ Panel
 
         pClearRefresh();
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         panelPlayer.wallExpand(parent.width, wall.height);
 

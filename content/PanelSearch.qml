@@ -70,7 +70,7 @@ Panel
     {
         if (visible == false) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         pIndexFocus = 1;
 

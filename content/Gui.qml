@@ -271,8 +271,6 @@ Item
     property alias buttonPrevious: barControls.buttonPrevious
     property alias buttonNext    : barControls.buttonNext
 
-    property alias buttonAdd: barControls.buttonAdd
-
     property alias buttonSettings  : barControls.buttonSettings
     property alias buttonGet       : barControls.buttonGet
     property alias buttonOutput    : barControls.buttonOutput
@@ -808,7 +806,7 @@ Item
 
         areaContextual.hidePanels();
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         panelLibrary.saveScroll();
 
@@ -833,7 +831,7 @@ Item
 
         if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         if (panelBrowse.isExposed)
         {
@@ -955,7 +953,7 @@ Item
 
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         wall.expose();
 
@@ -968,7 +966,7 @@ Item
     {
         if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         wall.restore();
 
@@ -985,7 +983,7 @@ Item
 
     function panelAddShow()
     {
-        if (buttonAdd.checked || actionCue.tryPush(actionAddShow)) return;
+        if (actionCue.tryPush(actionAddShow)) return;
 
         panelSettings.collapse();
         panelGet     .collapse();
@@ -1143,7 +1141,7 @@ Item
         panelGet     .collapse();
         panelOutput  .collapse();
 
-        //panelDiscover.collapse();
+        panelTag.collapse();
 
         //panelCover.clearItem();
     }
@@ -3106,13 +3104,13 @@ Item
             {
                 panelOutput.collapse();
             }
-            /*else if (panelDiscover.isExposed)
-            {
-                panelDiscover.collapse();
-            }*/
             else if (panelTracks.isExpanded)
             {
                 panelTracks.restore();
+            }
+            else if (panelTag.isExposed)
+            {
+                panelTag.collapse();
             }
             else if (highlightedTab)
             {
@@ -3154,7 +3152,7 @@ Item
             {
                 buttonPlaylistAdd.returnPressed();
             }
-            else buttonAdd.returnPressed();
+            else panelAddShow();
         }
         else if (event.key == Qt.Key_Menu && barTop.isExpanded == false)
         {
@@ -3214,10 +3212,6 @@ Item
         else if (buttonPlay.isReturnPressed)
         {
             buttonPlay.returnReleased();
-        }
-        else if (buttonAdd.isReturnPressed)
-        {
-            buttonAdd.returnReleased();
         }
         else if (buttonPlaylistAdd.isReturnPressed)
         {
@@ -3686,7 +3680,7 @@ Item
 
         //PanelCover { id: panelCover }
 
-        //PanelDiscover { id: panelDiscover }
+        PanelTag { id: panelTag }
 
         PanelGet { id: panelGet }
 

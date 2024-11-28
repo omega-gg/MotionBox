@@ -33,6 +33,8 @@ MouseArea
 
     /* read */ property bool isExposed: false
 
+    /* read */ property int size: Math.min(parent.width, parent.height) / 2
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -145,15 +147,28 @@ MouseArea
     {
         id: background
 
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.bottom: parent.bottom
+        anchors.left : parent.left
+        anchors.right: parent.right
 
         height: parent.height
+
+        y: -(parent.y)
 
         opacity: 0.8
 
         color: st.panelTag_color
+
+        ImageScale
+        {
+            anchors.centerIn: parent
+
+            width : size
+            height: width
+
+            source: st.picture_tag
+
+            asynchronous: gui.asynchronous
+        }
     }
 
     BorderHorizontal

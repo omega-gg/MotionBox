@@ -357,8 +357,8 @@ MouseArea
             checkable: true
             checked  : panelTag.isExposed
 
-            icon          : st.icon18x18_tag
-            iconSourceSize: st.size18x18
+            icon          : st.icon16x16_tag
+            iconSourceSize: st.size16x16
 
             onPressed: panelTag.toggleExpose()
         }

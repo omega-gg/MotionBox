@@ -1199,6 +1199,8 @@ Item
     {
         if (tab == null || tab.idTrack == -1) return;
 
+        panelTag.collapse();
+
         if (tab.idFolderRoot == 1)
         {
             restore();

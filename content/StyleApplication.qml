@@ -56,7 +56,7 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // PanelTag
 
-    property color panelTag_color: (local.style) ? "#161616" : "#242424"
+    property color panelTag_color: "#242424"
 
     //---------------------------------------------------------------------------------------------
     // PanelAdd
@@ -184,6 +184,8 @@ StyleComponents
 
     property url icon16x16_addBold: icon_addBold
 
+    property url icon16x16_tag: icon_tag
+
     property url icon16x16_history: icon_history
     property url icon16x16_suggest: icon_suggest
     property url icon16x16_recent : icon_recent
@@ -211,8 +213,6 @@ StyleComponents
     // 18x18
 
     property url icon18x18_addIn: icon_addIn
-
-    property url icon18x18_tag: icon_tag
 
     //---------------------------------------------------------------------------------------------
     // 20x20

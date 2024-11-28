@@ -179,7 +179,7 @@ if [ "$2" = "deploy" ]; then
     defines="$defines DEPLOY"
 fi
 
-defines="$defines BarWindow icons_slide icons_scale icons_add icons_external icons_playback"
+defines="$defines BarWindow pictures_tag icons_slide icons_scale icons_add icons_external icons_playback"
 
 files="\
 $SkyBase/Style.qml \

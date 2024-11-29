@@ -200,6 +200,25 @@ ColumnScroll
         }
     }
 
+    ButtonSettings
+    {
+        settings: [{ "title": qsTr("Yes") },
+                   { "title": qsTr("No")  }]
+
+        text: qsTr("Clear feeds")
+
+        itemText.horizontalAlignment: Text.AlignHCenter
+
+        function onSelect(index)
+        {
+            if (index != 0) return;
+
+            feeds.removeItems(1, feeds.count - 1);
+
+            enabled = false;
+        }
+    }
+
     BarSettings { text: qsTr("Scale") }
 
     ButtonSettings

@@ -1501,8 +1501,6 @@ MouseArea
 
         width: st.dp56 + borderSizeWidth
 
-        borderRight: (buttonRefresh.visible) ? 0 : borderSize
-
         visible: (playlist != null && playlist.isPlaylistSearch == false)
 
         highlighted: (player.isPlaying && player.playlist == playlist)
@@ -1536,38 +1534,10 @@ MouseArea
         }
     }
 
-    ButtonPianoIcon
-    {
-        id: buttonRefresh
-
-        anchors.left: (buttonPlaylist.visible) ? buttonPlaylist.right
-                                               : scrollPlaylist.left
-
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
-
-        visible: (playlist != null && playlist.isPlaylistSearch == false && playlist.isOnline)
-
-        icon          : st.icon16x16_refresh
-        iconSourceSize: st.size16x16
-
-        onClicked: playlist.reloadQuery()
-    }
-
     BarTitleText
     {
-        anchors.left:
-        {
-            if (buttonRefresh.visible)
-            {
-                return buttonRefresh.right;
-            }
-            else if (buttonPlaylist.visible)
-            {
-                return buttonPlaylist.right;
-            }
-            else return scrollPlaylist.left;
-        }
+        anchors.left: (buttonPlaylist.visible) ? buttonPlaylist.right
+                                               : scrollPlaylist.left
 
         anchors.right: (buttonAddTrack.visible) ? buttonAddTrack.left
                                                 : buttonUp      .left

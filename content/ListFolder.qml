@@ -771,11 +771,18 @@ BaseList
 
         if (pCurrentItem.isPlaylist && listPlaylist)
         {
+            if (pCurrentItem == oldItem) return;
+
             listPlaylist.playlist = pCurrentItem;
 
             if (oldItem && listFolder && listFolder.folder == oldItem)
             {
                 listFolder.folder = null;
+            }
+
+            if (pCurrentItem.isOnline && pCurrentItem.queryIsLoading == false)
+            {
+                pCurrentItem.reloadQuery();
             }
         }
         else if (pCurrentItem.isFolder && listFolder)

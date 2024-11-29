@@ -450,27 +450,21 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                visible: (playlist != null)
+                visible: (playlist != null && playlist.isLocal)
 
                 checkable: true
                 checked  : scrollPlaylist.isCreating
 
-                icon: (playlist && playlist.isLocal) ? st.icon16x16_addBold
-                                                     : st.icon16x16_refresh
-
+                icon          : st.icon16x16_addBold
                 iconSourceSize: st.size16x16
 
                 onPressed:
                 {
-                    if (playlist.isLocal)
-                    {
 //#QT_4
-                        onPressed: pCreate()
+                    pCreate()
 //#ELSE
-                        onPressed: Qt.callLater(pCreate)
+                    Qt.callLater(pCreate)
 //#END
-                    }
-                    else playlist.reloadQuery();
                 }
             }
 

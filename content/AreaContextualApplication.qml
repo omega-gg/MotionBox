@@ -305,13 +305,10 @@ AreaContextual
                         }
                         else array.push
                         (
-                            { "id": 7, "title": qsTr("Save VBML") },
-
-                            { "id": 8, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Clear everything") }
+                            { "id": 7, "title": qsTr("Save VBML") }
                         );
 
-                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Playlist") });
                     }
                     else if (folder == feeds)
@@ -333,9 +330,6 @@ AreaContextual
                             { "id": 7, "title": qsTr("Save VBML") },
 
                             { "id": 8, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Clear everything") },
-
-                            { "id": 9, "type": ContextualPage.ItemConfirm,
                               "title": qsTr("Remove Playlist") }
                         );
                     }
@@ -382,13 +376,10 @@ AreaContextual
                         }
                         else array.push
                         (
-                            { "id": 7, "title": qsTr("Save VBML") },
-
-                            { "id": 8, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Clear everything") }
+                            { "id": 7, "title": qsTr("Save VBML") }
                         );
 
-                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Feed") });
                     }
                     else
@@ -409,10 +400,7 @@ AreaContextual
                                 { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                                   "title": qsTr("Copy link") },
 
-                                { "id": 7, "title": qsTr("Save VBML") },
-
-                                { "id": 8, "type": ContextualPage.ItemConfirm,
-                                  "title": qsTr("Clear everything") }
+                                { "id": 7, "title": qsTr("Save VBML") }
                             );
                         }
                         else
@@ -434,7 +422,7 @@ AreaContextual
                             );
                         }
 
-                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Remove Feed") });
                     }
                 }
@@ -446,7 +434,7 @@ AreaContextual
 
                         { "id": 5, "title": qsTr("Rename") },
 
-                        { "id": 9, "type": ContextualPage.ItemConfirm,
+                        { "id": 8, "type": ContextualPage.ItemConfirm,
                           "title": qsTr("Delete Folder") }
                     );
                 }
@@ -786,12 +774,7 @@ AreaContextual
 
                 playlist.tryDelete();
             }
-            else if (id == 8) // Clear
-            {
-                // NOTE: We remove all the feeds except the 'Tracks' playlist.
-                pItem.folder.removeItems(1, pItem.folder.count - 1);
-            }
-            else if (id == 9) // Remove
+            else if (id == 8) // Remove
             {
                 pItem.removeItem(pIndex, true);
 

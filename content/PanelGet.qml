@@ -104,19 +104,28 @@ BasePanelSettings
             {
                 pIndex = 0;
 
-                var subtitle = subtitles[0];
-
-                // NOTE: Do not select auto-generated subtitles by default.
-                if (subtitle.title.indexOf("(auto-generated)") == -1)
+                for (var i = 0; i < pCount; i++)
                 {
-                    applySubtitle(subtitle.source, 0);
+                    var subtitle = subtitles[i];
+
+                    // NOTE: Do not select auto-generated subtitles by default.
+                    if (subtitle.title.indexOf("(auto-generated)") == -1)
+                    {
+                        applySubtitle(subtitle.source, i);
+
+                        pUpdateView();
+
+                        return;
+                    }
                 }
-                else applySubtitle("", -1);
+
+                applySubtitle("", -1);
             }
 
             pUpdateView();
         }
     }
+
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
@@ -130,7 +139,7 @@ BasePanelSettings
 
     function clearSubtitle()
     {
-        if (indexCurrent == 0 && page) page.clearSubtitle();
+        if (currentIndex == 0 && page) page.clearSubtitle();
     }
 
     function clearIndex() { pIndex = -1 }

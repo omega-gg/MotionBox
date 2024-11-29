@@ -109,14 +109,13 @@ BasePanelSettings
                     var subtitle = subtitles[i];
 
                     // NOTE: Do not select auto-generated subtitles by default.
-                    if (subtitle.title.indexOf("(auto-generated)") == -1)
-                    {
-                        applySubtitle(subtitle.source, i);
+                    if (subtitle.title.indexOf("(auto-generated)") != -1) continue;
 
-                        pUpdateView();
+                    applySubtitle(subtitle.source, i);
 
-                        return;
-                    }
+                    pUpdateView();
+
+                    return;
                 }
 
                 applySubtitle("", -1);

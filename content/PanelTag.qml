@@ -143,7 +143,7 @@ MouseArea
     // Childs
     //---------------------------------------------------------------------------------------------
 
-    Rectangle
+    Item
     {
         id: background
 
@@ -154,9 +154,14 @@ MouseArea
 
         y: -(parent.y)
 
-        opacity: 0.8
+        Rectangle
+        {
+            anchors.fill: parent
 
-        color: st.panelTag_color
+            opacity: 0.8
+
+            color: st.panelTag_color
+        }
 
         ImageScale
         {

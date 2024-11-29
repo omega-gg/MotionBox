@@ -128,7 +128,10 @@ Item
 
         if (pView == active)
         {
-            if (pView) pItem.updateView();
+            if (pSearch == false && pView)
+            {
+                pItem.updateView();
+            }
 
             return;
         }
@@ -144,7 +147,7 @@ Item
 
         pView = true;
 
-        pItem.updateView();
+        if (pSearch == false) pItem.updateView();
     }
 
     //---------------------------------------------------------------------------------------------

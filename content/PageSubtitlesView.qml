@@ -117,7 +117,7 @@ Item
         {
             playerTab.subtitle = "";
 
-            panelSubtitles.clearIndex();
+            panelGet.clearIndex();
         }
         else playerTab.subtitle = player.subtitlesData()[index].source;
 

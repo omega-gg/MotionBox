@@ -158,15 +158,15 @@ AreaContextual
     //---------------------------------------------------------------------------------------------
     // Private
 
-    function pShowPanelAdd()
+    function pShowPanel(panel)
     {
-        showPanel(panelAdd, panelContextual.item,
-                            panelContextual.position,
-                            panelContextual.posX,
-                            panelContextual.posY,
-                            panelContextual.marginX,
-                            panelContextual.marginY,
-                            panelContextual.isCursorChild);
+        showPanel(panel, panelContextual.item,
+                         panelContextual.position,
+                         panelContextual.posX,
+                         panelContextual.posY,
+                         panelContextual.marginX,
+                         panelContextual.marginY,
+                         panelContextual.isCursorChild);
     }
 
     function pCheckContext(source)
@@ -286,7 +286,9 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
 
-                    if (pCheckPlay(folder, index))
+                    var play = pCheckPlay(folder, index);
+
+                    if (play)
                     {
                         array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
                                      "title": qsTr("Play") });
@@ -298,17 +300,17 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 5, "title": qsTr("Rename")      },
-                                { "id": 6, "title": qsTr("Move to ...") },
-                                { "id": 7, "title": qsTr("Save VBML")   }
+                                { "id": 6, "title": qsTr("Rename")      },
+                                { "id": 7, "title": qsTr("Move to ...") },
+                                { "id": 8, "title": qsTr("Save VBML")   }
                             );
                         }
                         else array.push
                         (
-                            { "id": 7, "title": qsTr("Save VBML") }
+                            { "id": 8, "title": qsTr("Save VBML") }
                         );
 
-                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Playlist") });
                     }
                     else if (folder == feeds)
@@ -325,11 +327,20 @@ AreaContextual
                               "title": qsTr("Open link") },
 
                             { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") },
+                              "title": qsTr("Copy link") }
+                        );
 
-                            { "id": 7, "title": qsTr("Save VBML") },
+                        if (play)
+                        {
+                            array.push({ "id": 5, "icon": st.icon16x16_refresh,
+                                         "iconSize": st.size16x16, "title": qsTr("Reload") });
+                        }
 
-                            { "id": 8, "type": ContextualPage.ItemConfirm,
+                        array.push
+                        (
+                            { "id": 8, "title": qsTr("Save VBML") },
+
+                            { "id": 9, "type": ContextualPage.ItemConfirm,
                               "title": qsTr("Remove Playlist") }
                         );
                     }
@@ -344,11 +355,20 @@ AreaContextual
                               "title": qsTr("Open link") },
 
                             { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") },
+                              "title": qsTr("Copy link") }
+                        );
 
-                            { "id": 7, "title": qsTr("Save VBML") },
+                        if (play)
+                        {
+                            array.push({ "id": 5, "icon": st.icon16x16_refresh,
+                                         "iconSize": st.size16x16, "title": qsTr("Reload") });
+                        }
 
-                            { "id": 8, "type": ContextualPage.ItemConfirm,
+                        array.push
+                        (
+                            { "id": 8, "title": qsTr("Save VBML") },
+
+                            { "id": 9, "type": ContextualPage.ItemConfirm,
                               "title": qsTr("Remove Playlist") }
                         );
                     }
@@ -357,7 +377,9 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
 
-                    if (pCheckPlay(folder, index))
+                    var play = pCheckPlay(folder, index);
+
+                    if (play)
                     {
                         array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
                                      "title": qsTr("Play") });
@@ -369,17 +391,17 @@ AreaContextual
                         {
                             array.push
                             (
-                                { "id": 5, "title": qsTr("Rename")      },
-                                { "id": 6, "title": qsTr("Move to ...") },
-                                { "id": 7, "title": qsTr("Save VBML")   }
+                                { "id": 6, "title": qsTr("Rename")      },
+                                { "id": 7, "title": qsTr("Move to ...") },
+                                { "id": 8, "title": qsTr("Save VBML")   }
                             );
                         }
                         else array.push
                         (
-                            { "id": 7, "title": qsTr("Save VBML") }
+                            { "id": 8, "title": qsTr("Save VBML") }
                         );
 
-                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Delete Feed") });
                     }
                     else
@@ -398,9 +420,18 @@ AreaContextual
                                   "title": qsTr("Open link") },
 
                                 { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") },
+                                  "title": qsTr("Copy link") }
+                            );
 
-                                { "id": 7, "title": qsTr("Save VBML") }
+                            if (play)
+                            {
+                                array.push({ "id": 5, "icon": st.icon16x16_refresh,
+                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
+                            }
+
+                            array.push
+                            (
+                                { "id": 8, "title": qsTr("Save VBML") }
                             );
                         }
                         else
@@ -414,15 +445,24 @@ AreaContextual
                                   "title": qsTr("Open link") },
 
                                 { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") },
+                                  "title": qsTr("Copy link") }
+                             );
 
-                                { "id": 6, "title": qsTr("Move to ...") },
+                            if (play)
+                            {
+                                array.push({ "id": 5, "icon": st.icon16x16_refresh,
+                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
+                            }
 
-                                { "id": 7, "title": qsTr("Save VBML") }
+                            array.push
+                            (
+                                { "id": 7, "title": qsTr("Move to ...") },
+
+                                { "id": 8, "title": qsTr("Save VBML") }
                             );
                         }
 
-                        array.push({ "id": 8, "type": ContextualPage.ItemConfirm,
+                        array.push({ "id": 9, "type": ContextualPage.ItemConfirm,
                                      "title": qsTr("Remove Feed") });
                     }
                 }
@@ -432,9 +472,9 @@ AreaContextual
                     (
                         { "type": ContextualPage.Category, "title": qsTr("Folder") },
 
-                        { "id": 5, "title": qsTr("Rename") },
+                        { "id": 6, "title": qsTr("Rename") },
 
-                        { "id": 8, "type": ContextualPage.ItemConfirm,
+                        { "id": 9, "type": ContextualPage.ItemConfirm,
                           "title": qsTr("Delete Folder") }
                     );
                 }
@@ -549,20 +589,24 @@ AreaContextual
                     { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                       "title": qsTr("Copy link") },
 
-                    { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                    { "id": 4, "icon": st.icon16x16_list, "iconSize": st.size16x16,
+                      "title": qsTr("Sources") },
+
+                    { "id": 5, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                       "title": qsTr("Reload") },
 
-                    { "id": 5, "title": qsTr("Reset timeline") },
+                    { "id": 6, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
+                      "title": qsTr("Reset timeline") },
 
-                    { "id": 6, "title": qsTr("Save VBML") }
+                    { "id": 7, "title": qsTr("Save VBML") }
                 );
 
                 if (playlist.isLocal)
                 {
                     array.push
                     (
-                        { "id": 7, "title": qsTr("Set as Cover") },
-                        { "id": 8, "title": qsTr("Remove Track") }
+                        { "id": 8, "title": qsTr("Set as Cover") },
+                        { "id": 9, "title": qsTr("Remove Track") }
                     );
                 }
 
@@ -577,12 +621,13 @@ AreaContextual
                 {
                     page.setItemEnabled(3, false); // Open link
                     page.setItemEnabled(4, false); // Copy link
-                    page.setItemEnabled(5, false); // Reload
-                    page.setItemEnabled(6, false); // Reset timeline
+                    page.setItemEnabled(5, false); // Sources
+                    page.setItemEnabled(6, false); // Reload
+                    page.setItemEnabled(7, false); // Reset timeline
                 }
                 else if (pCheckContext(playlist.trackSource(index)) == false)
                 {
-                    page.setItemEnabled(6, false); // Reset timeline
+                    page.setItemEnabled(7, false); // Reset timeline
                 }
 
                 currentId = 1;
@@ -613,16 +658,20 @@ AreaContextual
                 { "id": 3, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                   "title": qsTr("Copy link") },
 
-                { "id": 4, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                { "id": 4, "icon": st.icon16x16_list, "iconSize": st.size16x16,
+                  "title": qsTr("Sources") },
+
+                { "id": 5, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
                   "title": qsTr("Reload") },
 
-                { "id": 5, "title": qsTr("Reset timeline") },
+                { "id": 6, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
+                  "title": qsTr("Reset timeline") },
 
-                { "id": 6, "title": qsTr("Save VBML") },
+                { "id": 7, "title": qsTr("Save VBML") },
 
-                { "id": 7, "title": qsTr("Close other Tabs") },
+                { "id": 8, "title": qsTr("Close other Tabs") },
 
-                { "id": 8, "title": qsTr("Close all Tabs") }
+                { "id": 9, "title": qsTr("Close all Tabs") }
             );
 
             page.values = array;
@@ -645,10 +694,11 @@ AreaContextual
                 {
                     page.setItemEnabled(3, false); // Open link
                     page.setItemEnabled(4, false); // Copy link
+                    page.setItemEnabled(5, false); // Sources
                 }
                 else if (pCheckContext(tab.source) == false)
                 {
-                    page.setItemEnabled(6, false); // Reset timeline
+                    page.setItemEnabled(7, false); // Reset timeline
                 }
             }
             else
@@ -661,12 +711,13 @@ AreaContextual
                 page.setItemEnabled(2, false); // More like this
                 page.setItemEnabled(3, false); // Open link
                 page.setItemEnabled(4, false); // Copy link
-                page.setItemEnabled(5, false); // Reload
-                page.setItemEnabled(6, false); // Reset timeline
+                page.setItemEnabled(5, false); // Sources
+                page.setItemEnabled(6, false); // Reload
+                page.setItemEnabled(7, false); // Reset timeline
 
                 if (tabs.count == 1)
                 {
-                    page.setItemEnabled(7, false); // Close other Tabs
+                    page.setItemEnabled(8, false); // Close other Tabs
                 }
             }
 
@@ -732,7 +783,7 @@ AreaContextual
             {
                 panelAdd.setSource(1, pItem.folder, pIndex);
 
-                pShowPanelAdd();
+                pShowPanel(panelAdd);
 
                 return false;
             }
@@ -754,19 +805,23 @@ AreaContextual
 
                 gui.applyLink(source);
             }
-            else if (id == 5) // Rename
+            else if (id == 5) // Reload
+            {
+                pItem.folder.currentItem.reloadQuery();
+            }
+            else if (id == 6) // Rename
             {
                 pItem.renameItem(pIndex);
             }
-            else if (id == 6) // Move to ...
+            else if (id == 7) // Move to ...
             {
                 panelAdd.setSource(2, pItem.folder, pIndex);
 
-                pShowPanelAdd();
+                pShowPanel(panelAdd);
 
                 return false;
             }
-            else if (id == 7) // Save VBML
+            else if (id == 8) // Save VBML
             {
                 var playlist = gui.createItemAt(pItem.folder, pIndex);
 
@@ -774,7 +829,7 @@ AreaContextual
 
                 playlist.tryDelete();
             }
-            else if (id == 8) // Remove
+            else if (id == 9) // Remove
             {
                 pItem.removeItem(pIndex, true);
 
@@ -801,7 +856,7 @@ AreaContextual
                 }
                 else panelAdd.setSource(0, playlist, pIndex);
 
-                pShowPanelAdd();
+                pShowPanel(panelAdd);
 
                 return false;
             }
@@ -823,23 +878,33 @@ AreaContextual
 
                 gui.applyLink(source);
             }
-            else if (id == 4) // Reload
+            else if (id == 4) // Sources
+            {
+                currentId = 7;
+
+                pShowPanel(panelLoader);
+
+                panelLoader.item.load(pItem.playlist.trackSource(pIndex));
+
+                return false;
+            }
+            else if (id == 5) // Reload
             {
                 gui.reload(pItem.playlist, pIndex);
             }
-            else if (id == 5) // Reset timeline
+            else if (id == 6) // Reset timeline
             {
                 pClearContext(pItem.playlist, pIndex);
 
                 currentTab.currentTime = -1;
             }
-            else if (id == 6) // Save VBML
+            else if (id == 7) // Save VBML
             {
                 /* var */ playlist = pItem.playlist;
 
                 core.saveVbml(playlist.trackTitle(pIndex), playlist.trackVbml(pIndex));
             }
-            else if (id == 7) // Set as Cover
+            else if (id == 8) // Set as Cover
             {
                 /* var */ playlist = pItem.playlist;
 
@@ -851,7 +916,7 @@ AreaContextual
                 }
 
             }
-            else if (id == 8) // Remove
+            else if (id == 9) // Remove
             {
                 pItem.removeTrack(pIndex, true);
             }
@@ -865,7 +930,7 @@ AreaContextual
             {
                 panelAdd.setSource(0, pItem.playlist, -1);
 
-                pShowPanelAdd();
+                pShowPanel(panelAdd);
 
                 return false;
             }
@@ -895,7 +960,7 @@ AreaContextual
                 }
                 else panelAdd.setSource(0, playlist, pItem.trackIndex);
 
-                pShowPanelAdd();
+                pShowPanel(panelAdd);
 
                 return false;
             }
@@ -911,11 +976,21 @@ AreaContextual
             {
                 gui.applyLink(pItem.source);
             }
-            else if (id == 4) // Reload
+            else if (id == 4) // Sources
+            {
+                currentId = 7;
+
+                pShowPanel(panelLoader);
+
+                panelLoader.item.load(pItem.source);
+
+                return false;
+            }
+            else if (id == 5) // Reload
             {
                 gui.reload(pItem.playlist, pItem.trackIndex);
             }
-            else if (id == 5) // Reset timeline
+            else if (id == 6) // Reset timeline
             {
                 // NOTE: When clearing the player tab we want to stop playback first.
                 if (player.tab == pItem)
@@ -935,11 +1010,11 @@ AreaContextual
                     currentTab.currentTime = -1;
                 }
             }
-            else if (id == 6) // Save VBML
+            else if (id == 7) // Save VBML
             {
                 core.saveVbml(pItem.title, pItem.toVbml());
             }
-            else if (id == 7) // Close other tabs
+            else if (id == 8) // Close other tabs
             {
                 wall.enableAnimation = false;
 
@@ -947,7 +1022,7 @@ AreaContextual
 
                 wall.enableAnimation = true;
             }
-            else if (id == 8) // Close all tabs
+            else if (id == 9) // Close all tabs
             {
                 wall.enableAnimation = false;
 

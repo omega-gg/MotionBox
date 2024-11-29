@@ -248,6 +248,8 @@ OTHER_FILES += 3rdparty.sh \
                content/ComponentLibraryItem.qml \
                content/ComponentTrack.qml \
                content/ComponentFolder.qml \
+               content/PageCamera.qml \
+               content/PageTag.qml \
                content/PageApplication.qml \
                content/BasePageSettings.qml \
                content/PageSettingsProxy.qml \

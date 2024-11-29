@@ -91,7 +91,14 @@ MouseArea
             {
                 script:
                 {
-                    if (isExposed == false) visible = false;
+                    if (isExposed == false)
+                    {
+                        visible = false;
+
+                        buttonsCheck.currentIndex = -1;
+
+                        loader.source = "";
+                    }
 
                     clip = false;
                 }
@@ -114,6 +121,10 @@ MouseArea
         clip = true;
 
         isExposed = true;
+
+        buttonsCheck.currentIndex = 1;
+
+        loader.source = Qt.resolvedUrl("PageTag.qml");
     }
 
     function collapse()
@@ -163,16 +174,56 @@ MouseArea
             color: st.panelTag_color
         }
 
-        ImageScale
+        LoaderWipe
         {
-            anchors.centerIn: parent
+            id: loader
 
-            width : size
-            height: width
+            anchors.fill: parent
 
-            source: st.picture_tag
+            borderSize: st.dp8
 
-            asynchronous: gui.asynchronous
+//#QT_NEW
+            loader.asynchronous: true
+//#END
+        }
+
+        ButtonsCheck
+        {
+            id: buttonsCheck
+
+            anchors.bottom: parent.bottom
+
+            anchors.bottomMargin: st.dp16
+
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            width: st.dp256
+
+            model: ListModel {}
+
+            Component.onCompleted:
+            {
+//#QT_4
+                // NOTE Qt4: We can only append items one by one.
+                model.append({ "title": qsTr("Camera")   });
+                model.append({ "title": qsTr("VideoTag") });
+//#ELSE
+                model.append(
+                [
+                    { "title": qsTr("Camera")   },
+                    { "title": qsTr("VideoTag") }
+                ]);
+//#END
+            }
+
+            onClicked:
+            {
+                if (index == 0)
+                {
+                     loader.loadLeft(Qt.resolvedUrl("PageCamera.qml"));
+                }
+                else loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
+            }
         }
     }
 

@@ -164,7 +164,7 @@ ColumnScroll
 //#ELSE
             model.append(
             [
-                { "title": qsTr("Clear tabs") },
+                { "title": qsTr("Clear tabs")  },
                 { "title": qsTr("Clear cache") }
             ]);
 //#END

@@ -148,7 +148,7 @@ BasePanelSettings
 
     function expose()
     {
-        if (isExposed || actionCue.tryPush(gui.actionGetExpose)) return;
+        if (isExposed || actionCue.tryPush(gui.actionSubtitlesExpose)) return;
 
         gui.panelAddHide();
 
@@ -171,7 +171,7 @@ BasePanelSettings
 
     function collapse()
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionGetCollapse)) return;
+        if (isExposed == false || actionCue.tryPush(gui.actionSubtitlesCollapse)) return;
 
         isExposed = false;
 

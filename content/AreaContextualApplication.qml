@@ -229,9 +229,9 @@ AreaContextual
 
     function pGetPanel()
     {
-        if      (panelGet.visible)      return panelGet;
-        else if (panelSettings.visible) return panelSettings;
-        else                            return panelOutput;
+        if      (panelSubtitles.visible) return panelSubtitles;
+        else if (panelSettings.visible)  return panelSettings;
+        else                             return panelOutput;
     }
 
     //---------------------------------------------------------------------------------------------

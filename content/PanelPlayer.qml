@@ -333,7 +333,7 @@ Item
                 pContextualTab(currentTab);
             }
 
-            onSubtitleLoaded: if (ok == false) panelGet.clearSubtitle()
+            onSubtitleLoaded: if (ok == false) panelSubtitles.clearSubtitle()
 
             //-------------------------------------------------------------------------------------
 

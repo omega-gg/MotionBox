@@ -218,7 +218,7 @@ OTHER_FILES += 3rdparty.sh \
                #content/PanelCover.qml \
                content/PanelTag.qml \
                content/PanelSettings.qml \
-               content/PanelGet.qml \
+               content/PanelSubtitles.qml \
                content/PanelOutput.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \

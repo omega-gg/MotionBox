@@ -100,8 +100,8 @@ Item
     /* read */ property int actionSettingsExpose  : 16
     /* read */ property int actionSettingsCollapse: 17
 
-    /* read */ property int actionGetExpose  : 18
-    /* read */ property int actionGetCollapse: 19
+    /* read */ property int actionSubtitlesExpose  : 18
+    /* read */ property int actionSubtitlesCollapse: 19
 
     /* read */ property int actionOutputExpose  : 20
     /* read */ property int actionOutputCollapse: 21
@@ -272,7 +272,7 @@ Item
     property alias buttonNext    : barControls.buttonNext
 
     property alias buttonSettings  : barControls.buttonSettings
-    property alias buttonGet       : barControls.buttonGet
+    property alias buttonSubtitles : barControls.buttonSubtitles
     property alias buttonOutput    : barControls.buttonOutput
     property alias buttonFullScreen: barControls.buttonFullScreen
 
@@ -899,9 +899,9 @@ Item
 
             return;
         }
-        else if (panelGet.isExposed)
+        else if (panelSubtitles.isExposed)
         {
-            panelGet.collapse();
+            panelSubtitles.collapse();
 
             return;
         }
@@ -985,9 +985,9 @@ Item
     {
         if (actionCue.tryPush(actionAddShow)) return;
 
-        panelSettings.collapse();
-        panelGet     .collapse();
-        panelOutput  .collapse();
+        panelSettings .collapse();
+        panelSubtitles.collapse();
+        panelOutput   .collapse();
 
         playlistTemp.clearTracks();
 
@@ -1137,9 +1137,9 @@ Item
 
     function collapsePanels()
     {
-        panelSettings.collapse();
-        panelGet     .collapse();
-        panelOutput  .collapse();
+        panelSettings .collapse();
+        panelSubtitles.collapse();
+        panelOutput   .collapse();
 
         panelTag.collapse();
 
@@ -2385,9 +2385,9 @@ Item
 
             dragType = -2;
 
-            panelGet.selectTab(0);
+            panelSubtitles.selectTab(0);
 
-            panelGet.expose();
+            panelSubtitles.expose();
 
             return;
         }
@@ -2442,7 +2442,7 @@ Item
 
         if (dragType == -2)
         {
-            panelGet.page.hideSearch();
+            panelSubtitles.page.hideSearch();
 
             playerTab.subtitle = url;
         }
@@ -2720,7 +2720,7 @@ Item
 
             restoreBars();
 
-            buttonGet.returnPressed();
+            buttonSubtitles.returnPressed();
         }
         else if (event.key == Qt.Key_F7) // Settings
         {
@@ -2929,9 +2929,9 @@ Item
         {
             buttonSettings.returnReleased();
         }
-        else if (buttonGet.isReturnPressed)
+        else if (buttonSubtitles.isReturnPressed)
         {
-            buttonGet.returnReleased();
+            buttonSubtitles.returnReleased();
         }
         else if (buttonOutput.isReturnPressed)
         {
@@ -3098,9 +3098,9 @@ Item
             {
                 panelSettings.collapse();
             }
-            else if (panelGet.isExposed)
+            else if (panelSubtitles.isExposed)
             {
-                panelGet.collapse();
+                panelSubtitles.collapse();
             }
             else if (panelOutput.isExposed)
             {
@@ -3602,8 +3602,8 @@ Item
             else if (id == actionSettingsExpose)   panelSettings.expose  ();
             else if (id == actionSettingsCollapse) panelSettings.collapse();
 
-            else if (id == actionGetExpose)   panelGet.expose  ();
-            else if (id == actionGetCollapse) panelGet.collapse();
+            else if (id == actionSubtitlesExpose)   panelSubtitles.expose  ();
+            else if (id == actionSubtitlesCollapse) panelSubtitles.collapse();
 
             else if (id == actionOutputExpose)   panelOutput.expose  ();
             else if (id == actionOutputCollapse) panelOutput.collapse();
@@ -3684,7 +3684,7 @@ Item
 
         PanelTag { id: panelTag }
 
-        PanelGet { id: panelGet }
+        PanelSubtitles { id: panelSubtitles }
 
         PanelSettings { id: panelSettings }
 

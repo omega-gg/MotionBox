@@ -44,7 +44,7 @@ MouseArea
     property alias buttonPrevious: buttonPrevious
     property alias buttonNext    : buttonNext
 
-    property alias buttonGet       : buttonGet
+    property alias buttonSubtitles : buttonSubtitles
     property alias buttonSettings  : buttonSettings
     property alias buttonOutput    : buttonOutput
     property alias buttonFullScreen: buttonFullScreen
@@ -367,14 +367,14 @@ MouseArea
         {
             id: borderB
 
-            anchors.right: buttonGet.left
+            anchors.right: buttonSubtitles.left
 
             anchors.rightMargin: st.dp7
         }
 
         ButtonPushLeftIcon
         {
-            id: buttonGet
+            id: buttonSubtitles
 
             anchors.right: buttonSettings.left
             anchors.top  : buttonSettings.top
@@ -385,12 +385,12 @@ MouseArea
             showBorder: false
 
             checkable: true
-            checked  : panelGet.isExposed
+            checked  : panelSubtitles.isExposed
 
             icon          : st.icon20x20_subtitles
             iconSourceSize: st.size20x20
 
-            onPressed: panelGet.toggleExpose()
+            onPressed: panelSubtitles.toggleExpose()
         }
 
         ButtonPushCenterIcon

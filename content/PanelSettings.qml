@@ -52,8 +52,8 @@ BasePanelSettings
 
         gui.panelAddHide();
 
-        panelGet   .collapse();
-        panelOutput.collapse();
+        panelSubtitles.collapse();
+        panelOutput   .collapse();
 
         loadPage();
 
@@ -61,8 +61,8 @@ BasePanelSettings
 
         z = 1;
 
-        panelGet   .z = 0;
-        panelOutput.z = 0;
+        panelSubtitles.z = 0;
+        panelOutput   .z = 0;
 
         visible = true;
 

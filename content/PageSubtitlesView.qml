@@ -32,17 +32,17 @@ Item
 
     property bool pUpdate: true
 
-    property string pSource
-
     //---------------------------------------------------------------------------------------------
     // Events
     //---------------------------------------------------------------------------------------------
 
     Component.onCompleted:
     {
-        pSource = player.source;
+        pUpdate = false;
 
         pUpdateList();
+
+        pUpdate = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -51,9 +51,13 @@ Item
 
     function updateView()
     {
+        pUpdate = false;
+
         model.clear();
 
         pUpdateList();
+
+        pUpdate = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -63,7 +67,7 @@ Item
     {
         var array = new Array;
 
-        var subtitles = player.subtitlesData();
+        var subtitles = player.subtitlesData;
 
         var count = subtitles.length;
 
@@ -101,11 +105,7 @@ Item
         {
             if (subtitle != subtitles[i].source) continue;
 
-            pUpdate = false;
-
             list.currentIndex = i;
-
-            pUpdate = true;
 
             return;
         }
@@ -119,7 +119,7 @@ Item
 
             panelSubtitles.clearIndex();
         }
-        else playerTab.subtitle = player.subtitlesData()[index].source;
+        else playerTab.subtitle = player.subtitlesData[index].source;
 
         gui.updateTrackSubtitle(index);
     }
@@ -144,7 +144,7 @@ Item
 
             itemText.elide: Text.ElideLeft
 
-            onClicked:
+            function onPress()
             {
                 if (list.currentIndex == index)
                 {
@@ -156,7 +156,7 @@ Item
                 list.currentIndex = index;
 
                 // NOTE: We want to hide the panel right away.
-                buttonSubtitles.checked = false;
+                panelSubtitles.collapse();
             }
         }
 

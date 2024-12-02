@@ -198,7 +198,15 @@ Item
             titles: controllerPlaylist.getLanguages()
         }
 
-        delegate: ComponentList { checkHover: false }
+        delegate: ComponentList
+        {
+            checkHover: false
+
+            function onPress()
+            {
+                scrollLanguages.currentIndex = index;
+            }
+        }
 
         onItemDoubleClicked: if (currentIndex == index) pReload()
 

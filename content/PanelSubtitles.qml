@@ -53,7 +53,7 @@ BasePanelSettings
 
         /* QML_CONNECTION */ function onSubtitlesChanged()
         {
-            var subtitles = player.subtitlesData();
+            var subtitles = player.subtitlesData;
 
             pCount = subtitles.length;
 

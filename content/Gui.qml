@@ -688,7 +688,7 @@ Item
 
         /* QML_CONNECTION */ function onChaptersChanged()
         {
-            sliderStream.chapters = player.chaptersData()
+            sliderStream.chapters = player.chaptersData
         }
 
         /* QML_CONNECTION */ function onAmbientChanged()

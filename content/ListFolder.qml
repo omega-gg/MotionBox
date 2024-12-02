@@ -780,7 +780,10 @@ BaseList
                 listFolder.folder = null;
             }
 
-            if (pCurrentItem.isOnline && pCurrentItem.queryIsLoading == false)
+            if (pCurrentItem.isOnline && pCurrentItem.queryIsLoading == false
+                &&
+                // NOTE: We don't want to automatically reload search playlists.
+                pCurrentItem.label == "")
             {
                 pCurrentItem.reloadQuery();
             }

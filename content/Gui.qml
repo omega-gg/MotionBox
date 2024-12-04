@@ -1428,6 +1428,12 @@ Item
         tagItem = playlist;
 
         playlist.addDeleteLock();
+
+        if (player.source == playlist.trackSource(index))
+        {
+             panelTag.showCover = false;
+        }
+        else panelTag.showCover = true;
     }
 
     function showTagPlaylist(folder, index)
@@ -1456,6 +1462,8 @@ Item
         tagId   = folder.idAt(index);
 
         tagItem = item;
+
+        panelTag.showCover = true;
     }
 
     function showTagTab(tab)
@@ -1467,6 +1475,12 @@ Item
         tagId   = -1;
 
         tagItem = tab;
+
+        if (player.source == tab.source)
+        {
+             panelTag.showCover = false;
+        }
+        else panelTag.showCover = true;
     }
 
     function clearTag()
@@ -1486,6 +1500,8 @@ Item
             pageTag.clearTagCustom();
         }
         else tagType = -1;
+
+        panelTag.showCover = false;
     }
 
     function getTagCover()

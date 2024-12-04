@@ -41,11 +41,10 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pSize: (pShowCover) ? size / 2
-                                     : size
+    property int pSize: size * 2
 
     // NOTE: Margins are 56 pixels on a 512 tag.
-    property int pSizeTag: pSize * 0.890625
+    property int pSizeTag: size * 0.890625
 
     property int pBorder2x: st.border_size * 2
 
@@ -381,6 +380,8 @@ Item
 
     ImageScale
     {
+        id: background
+
         anchors.centerIn: parent
 
         width : size
@@ -397,10 +398,12 @@ Item
 
         anchors.centerIn: parent
 
-        width : size
+        width : pSize
         height: width
 
-        visible: showCover
+        visible: (opacity != 0.0)
+
+        opacity: (showCover) ? 1.0 : 0.0
 
         clip: true
 
@@ -437,12 +440,22 @@ Item
         {
             anchors.centerIn: parent
 
-            width : pSize
+            width : size
             height: width
 
             source: (pShowCover) ? st.picture_tag : ""
 
             asynchronous: gui.asynchronous
+        }
+
+        Behavior on opacity
+        {
+            PropertyAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
         }
     }
 
@@ -489,7 +502,7 @@ Item
 
         height: column.height + pBorder2x
 
-        x: Math.round(cover.x - width) / 2
+        x: Math.round(background.x - width) / 2
 
         color: st.panel_color
 

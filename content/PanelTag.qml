@@ -150,6 +150,8 @@ MouseArea
         clip = true;
 
         isExposed = false;
+
+        gui.clearTag();
     }
 
     function toggleExpose()
@@ -186,9 +188,19 @@ MouseArea
         anchors.top   : border.bottom
         anchors.bottom: parent.bottom
 
-        opacity: 0.8
+        opacity: (showCover) ? 1.0 : 0.8
 
         color: st.panelTag_color
+
+        Behavior on opacity
+        {
+            PropertyAnimation
+            {
+                duration: st.duration_normal
+
+                easing.type: st.easing
+            }
+        }
     }
 
     Item

@@ -51,6 +51,8 @@ Item
 
     /* read */ property variant currentPlaylist: currentTab.playlist
 
+    /* read */ property bool currentTabActive: (currentTab.isValid || currentTab.title != "")
+
     /* read */ property Playlist history: null
 
     /* read */ property Playlist playlistTemp: controllerPlaylist.createPlaylist()
@@ -58,6 +60,14 @@ Item
     // NOTE: This is the panel maximum height. We get a binding loop in BasePanelSettings when
     //       using itemContent directly.
     /* read */ property int panelHeight: itemContent.height + barTop.border.size
+
+    //---------------------------------------------------------------------------------------------
+    // VideoTag
+
+    /* read */ property variant tagItem: null
+
+    /* read */ property int tagType: -1 // NOTE: 0 for a track, 1 for a playlist, 2 for custom.
+    /* read */ property int tagId  : -1
 
     //---------------------------------------------------------------------------------------------
     // Drag
@@ -197,6 +207,8 @@ Item
     property alias bordersDrop: bordersDrop
 
     property alias toolTip: toolTip
+
+    property alias pageTag: panelTag.item
 
     //---------------------------------------------------------------------------------------------
     // BarWindowApplication
@@ -1401,6 +1413,94 @@ Item
         core.clearMedia(player);
 
         player.play();
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function showTagTrack(playlist, index)
+    {
+        panelTag.expose();
+
+        // NOTE: Applying these values before the item to avoid updating the cover and the label.
+        tagType = 0;
+        tagId   = playlist.idAt(index);
+
+        tagItem = playlist;
+
+        playlist.addDeleteLock();
+    }
+
+    function showTagPlaylist(folder, index)
+    {
+        if (index == -1) return;
+
+        var item;
+
+        item = folder.createLibraryItemAt(index, true);
+
+        // NOTE: When the playlist has a single track with the same source, we show the track
+        //       instead.
+        if (item.count == 1 && item.source == item.trackSource(0))
+        {
+            showTagTrack(item, 0);
+
+            item.tryDelete();
+
+            return;
+        }
+
+        panelTag.expose();
+
+        // NOTE: Applying these values before the item to avoid updating the cover and the label.
+        tagType = 1;
+        tagId   = folder.idAt(index);
+
+        tagItem = item;
+    }
+
+    function showTagTab(tab)
+    {
+        panelTag.expose();
+
+        // NOTE: Applying these values before the item to avoid updating the cover and the label.
+        tagType =  2;
+        tagId   = -1;
+
+        tagItem = tab;
+    }
+
+    function clearTag()
+    {
+        if (tagItem)
+        {
+            if (tagType == 1)
+            {
+                tagItem.tryDelete();
+            }
+
+            tagType = -1;
+            tagItem = null;
+        }
+        else if (pageTag)
+        {
+            pageTag.clearTagCustom();
+        }
+        else tagType = -1;
+    }
+
+    function getTagCover()
+    {
+        if (tagItem)
+        {
+            var item = tagItem;
+
+            if (tagType)
+            {
+                return item.cover;
+            }
+            else return item.trackCover(item.indexFromId(tagId));
+        }
+        else return currentTab.cover;
     }
 
     //---------------------------------------------------------------------------------------------

@@ -762,6 +762,22 @@ ControllerCore::ControllerCore() : WController()
 
 //-------------------------------------------------------------------------------------------------
 
+/* Q_INVOKABLE */ void ControllerCore::generateTag(const QString & vbml, const QString & prefix)
+{
+    if (vbml.isEmpty()) return;
+
+    WBarcodeWriter::startWrite(vbml, this, SIGNAL(tagUpdated(const QImage &, const QString &)),
+                               WBarcodeWriter::Vbml, prefix);
+}
+
+/* Q_INVOKABLE */ void ControllerCore::copyLink(const QString & vbml, const QString & prefix)
+{
+    if (vbml.isEmpty()) return;
+
+    WBarcodeWriter::startEncode(vbml, this, SIGNAL(linkReady(const QString &)),
+                                WBarcodeWriter::Vbml, prefix);
+}
+
 /* Q_INVOKABLE */ void ControllerCore::saveVbml(const QString & title, const QString & vbml)
 {
 #if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
@@ -783,6 +799,34 @@ ControllerCore::ControllerCore() : WController()
 #endif
 
     writeVbml(title, vbml);
+}
+
+/* Q_INVOKABLE */ void ControllerCore::saveTag(const QString & title,
+                                               const QString & vbml,
+                                               const QString & background,
+                                               const QString & cover,
+                                               const QString & prefix, int padding)
+{
+#if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
+    QString permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+
+    if (QtAndroid::checkPermission(permission) == QtAndroid::PermissionResult::Denied)
+    {
+        QtAndroid::requestPermissions(QStringList(permission),
+                                      [this,
+                                       permission, title, vbml, background, cover, prefix, padding]
+                                      (QtAndroid::PermissionResultMap hash)
+        {
+            if (hash.value(permission) != QtAndroid::PermissionResult::Granted) return;
+
+            this->writeTag(title, vbml, background, cover, prefix, padding);
+        });
+
+        return;
+    }
+#endif
+
+    writeTag(title, vbml, background, cover, prefix, padding);
 }
 
 /* Q_INVOKABLE */ void ControllerCore::saveSplash(WWindow * window, int border)
@@ -914,6 +958,15 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerTorrent->setSizeMax(qint64(cache) * 1048576);
 #endif
+}
+
+/* Q_INVOKABLE static */ void ControllerCore::applyCover(WDeclarativeImage * item)
+{
+    Q_ASSERT(item);
+
+    QImage image = WBarcodeWriter::generateCover(item->toImage());
+
+    item->applyImage(image);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1127,6 +1180,47 @@ void ControllerCore::writeVbmlFile(const QString & title, const QString & vbml)
     WControllerFileReply * reply = wControllerFile->startWriteFile(title, vbml.toUtf8());
 
     connect(reply, SIGNAL(complete(bool)), this, SLOT(onVbmlSaved(bool)));
+}
+
+void ControllerCore::writeTag(const QString & title,      const QString & vbml,
+                              const QString & background, const QString & cover,
+                              const QString & prefix,     int             padding)
+{
+    if (_pathPictures.isNull())
+    {
+        _pathPictures = WControllerFile::pathPictures() + '/' + sk->name();
+
+        // NOTE: We create the path when saving our first file.
+        wControllerFile->startCreatePath(_pathPictures);
+    }
+
+#ifdef Q_OS_ANDROID
+    _fileTag = _pathPictures + '/' + WBarcodeWriter::getTagName(title) + ".png";
+
+    writeTagFile(_fileTag, vbml, background, cover, prefix, padding, SLOT(onTagSaved(bool)));
+#else
+    QString fileName = _pathPictures + '/' + WBarcodeWriter::getTagName(title) + ".png";
+
+    writeTagFile(fileName, vbml, background, cover, prefix, padding, SLOT(onTagSaved(bool)));
+#endif
+}
+
+void ControllerCore::writeTagFile(const QString & fileName,   const QString & vbml,
+                                  const QString & background, const QString & cover,
+                                  const QString & prefix,     int             padding,
+                                  const char    * method)
+{
+    WBarcodeTag parameters;
+
+    if (cover.isEmpty() == false)
+    {
+        parameters.cover = wControllerFile->getFileUrl(cover);
+    }
+
+    parameters.prefix  = prefix;
+    parameters.padding = padding;
+
+    WBarcodeWriter::startWriteTagFile(fileName, vbml, background, this, method, parameters);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1391,6 +1485,17 @@ void ControllerCore::onVbmlSaved(bool ok)
 #endif
 
     emit vbmlSaved(ok, _pathDocuments);
+}
+
+void ControllerCore::onTagSaved(bool ok)
+{
+#ifdef Q_OS_ANDROID
+    // NOTE android: We have to trigger a scan on the file. Otherwise it won't show up in other
+    //               applications. Yes, that's messed up.
+    if (ok) Sk::scanFile(_fileTag);
+#endif
+
+    emit tagSaved(ok, _pathPictures);
 }
 
 //-------------------------------------------------------------------------------------------------

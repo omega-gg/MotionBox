@@ -56,6 +56,7 @@ class WBackendIndex;
 class WBackendNet;
 class WLibraryFolderRelated;
 class WTabsTrack;
+class WDeclarativeImage;
 class WDeclarativePlayer;
 class DataOnline;
 
@@ -125,7 +126,18 @@ public: // Interface
     Q_INVOKABLE QString openFolder  (const QString & title);
     Q_INVOKABLE QString openSubtitle(const QString & title);
 
+    Q_INVOKABLE void generateTag(const QString & vbml, const QString & prefix = QString());
+
+    Q_INVOKABLE void copyLink(const QString & vbml, const QString & prefix = QString());
+
     Q_INVOKABLE void saveVbml(const QString & title, const QString & vbml);
+
+    Q_INVOKABLE void saveTag(const QString & title,
+                             const QString & vbml,
+                             const QString & background,
+                             const QString & cover   = QString(),
+                             const QString & prefix  = QString(),
+                             int             padding = 28);
 
     Q_INVOKABLE void saveSplash(WWindow * window, int border);
 
@@ -138,6 +150,8 @@ public: // Interface
 public: // Static functions
     Q_INVOKABLE static void applyTorrentOptions(int connections,
                                                 int upload, int download, int cache);
+
+    Q_INVOKABLE static void applyCover(WDeclarativeImage * item);
 
     //---------------------------------------------------------------------------------------------
 
@@ -179,6 +193,15 @@ private: // Functions
     void writeVbml    (const QString & title, const QString & vbml);
     void writeVbmlFile(const QString & title, const QString & vbml);
 
+    void writeTag(const QString & title,      const QString & vbml,
+                  const QString & background, const QString & cover,
+                  const QString & prefix,     int             padding);
+
+    void writeTagFile(const QString & title,      const QString & vbml,
+                      const QString & background, const QString & cover,
+                      const QString & prefix,     int             padding,
+                      const char    * method);
+
     QString getFile(const QString & title, const QString & filter);
 
 private slots:
@@ -200,11 +223,17 @@ private slots:
     void onQueryCompleted();
 
     void onVbmlSaved(bool ok);
+    void onTagSaved (bool ok);
 
 signals:
+    void tagUpdated(const QImage & image, const QString & text);
+
     void linksLoaded(QStringList medias, QStringList audios);
 
+    void linkReady(const QString & text);
+
     void vbmlSaved(bool ok, const QString & path);
+    void tagSaved (bool ok, const QString & path);
 
     void cacheEmptyChanged();
 
@@ -267,6 +296,7 @@ private: // Variables
 
     QString _path;
     QString _pathDocuments;
+    QString _pathPictures;
     QString _pathSplash;
 #ifdef SK_DESKTOP
     QString _pathOpen;

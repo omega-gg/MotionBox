@@ -310,7 +310,11 @@ AreaContextual
                         }
                         else array.push
                         (
-                            { "id": 9, "title": qsTr("Save VBML") }
+                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
+                              "title": qsTr("VideoTag") },
+
+                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                              "title": qsTr("Save VBML") }
                         );
 
                         array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
@@ -344,7 +348,8 @@ AreaContextual
 
                         array.push
                         (
-                            { "id": 9, "title": qsTr("Save VBML") },
+                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                              "title": qsTr("Save VBML") },
 
                             { "id": 10, "type": ContextualPage.ItemConfirm,
                               "title": qsTr("Remove Playlist") }
@@ -375,7 +380,8 @@ AreaContextual
 
                         array.push
                         (
-                            { "id": 9, "title": qsTr("Save VBML") },
+                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                              "title": qsTr("Save VBML") },
 
                             { "id": 10, "type": ContextualPage.ItemConfirm,
                               "title": qsTr("Remove Playlist") }
@@ -405,11 +411,16 @@ AreaContextual
 
                                 { "id": 7, "title": qsTr("Rename")      },
                                 { "id": 8, "title": qsTr("Move to ...") },
-                                { "id": 9, "title": qsTr("Save VBML")   }
+
+                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                                  "title": qsTr("Save VBML") }
                             );
                         }
                         else array.push
                         (
+                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
+                              "title": qsTr("VideoTag") },
+
                             { "id": 9, "title": qsTr("Save VBML") }
                         );
 
@@ -446,7 +457,8 @@ AreaContextual
 
                             array.push
                             (
-                                { "id": 9, "title": qsTr("Save VBML") }
+                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                                  "title": qsTr("Save VBML") }
                             );
                         }
                         else
@@ -476,7 +488,8 @@ AreaContextual
                             (
                                 { "id": 8, "title": qsTr("Move to ...") },
 
-                                { "id": 9, "title": qsTr("Save VBML") }
+                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                                  "title": qsTr("Save VBML") }
                             );
                         }
 
@@ -622,7 +635,8 @@ AreaContextual
                     { "id": 7, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
                       "title": qsTr("Reset timeline") },
 
-                    { "id": 8, "title": qsTr("Save VBML") }
+                    { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                      "title": qsTr("Save VBML") }
                 );
 
                 if (playlist.isLocal)
@@ -694,7 +708,8 @@ AreaContextual
                 { "id": 7, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
                   "title": qsTr("Reset timeline") },
 
-                { "id": 8, "title": qsTr("Save VBML") },
+                { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                  "title": qsTr("Save VBML") },
 
                 { "id": 9, "title": qsTr("Close other Tabs") },
 
@@ -823,6 +838,7 @@ AreaContextual
             }
             else if (id == 3) // VideoTag
             {
+                gui.showTagPlaylist(pItem.folder, pIndex);
             }
             else if (id == 4) // Open link
             {
@@ -899,6 +915,7 @@ AreaContextual
             }
             else if (id == 2) // VideoTag
             {
+                gui.showTagTrack(pItem.playlist, pIndex);
             }
             else if (id == 3) // Open link
             {
@@ -1004,6 +1021,7 @@ AreaContextual
             }
             else if (id == 2) // VideoTag
             {
+                gui.showTagTab(pItem);
             }
             else if (id == 3) // Open link
             {

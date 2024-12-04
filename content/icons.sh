@@ -17,6 +17,8 @@ icons="pictures/icons"
 # Copy
 #--------------------------------------------------------------------------------------------------
 
+cp "$solid"/download.svg $icons
+
 cp "$solid"/arrow-left.svg  $icons
 cp "$solid"/arrow-right.svg $icons
 

@@ -33,12 +33,28 @@ MouseArea
 
     /* read */ property bool isExposed: false
 
-    /* read */ property int size: Math.min(parent.width, parent.height) / 2
+    //---------------------------------------------------------------------------------------------
+    // PageTag
+
+    property bool showCover: false
+
+    property bool embedCover: true
+
+    property bool synchronize: true
+    property bool prefix     : true
+
+    property string text
 
     //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pLoaded: false
+
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    property alias item: loader.item
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -154,6 +170,27 @@ MouseArea
     // Childs
     //---------------------------------------------------------------------------------------------
 
+    BorderHorizontal
+    {
+        id: border
+
+        size: st.dp8
+
+        color: st.border_colorFocus
+    }
+
+    Rectangle
+    {
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : border.bottom
+        anchors.bottom: parent.bottom
+
+        opacity: 0.8
+
+        color: st.panelTag_color
+    }
+
     Item
     {
         id: background
@@ -164,15 +201,6 @@ MouseArea
         height: parent.height
 
         y: -(parent.y)
-
-        Rectangle
-        {
-            anchors.fill: parent
-
-            opacity: 0.8
-
-            color: st.panelTag_color
-        }
 
         LoaderWipe
         {
@@ -225,14 +253,5 @@ MouseArea
                 else loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
             }
         }
-    }
-
-    BorderHorizontal
-    {
-        id: border
-
-        size: st.dp8
-
-        color: st.border_colorFocus
     }
 }

@@ -118,6 +118,8 @@ StyleComponents
 
     //---------------------------------------------------------------------------------------------
 
+    property url icon_download: "pictures/icons/download.svg"
+
     property url icon_goBackward: "pictures/icons/arrow-left.svg"
     property url icon_goForward : "pictures/icons/arrow-right.svg"
 
@@ -174,6 +176,8 @@ StyleComponents
 
     //---------------------------------------------------------------------------------------------
     // 16x16
+
+    property url icon16x16_download: icon_download
 
     property url icon16x16_goBackward: icon_goBackward
     property url icon16x16_goForward : icon_goForward

@@ -1445,7 +1445,9 @@ MouseArea
     {
         id: buttonAddTrack
 
-        anchors.right : buttonUp.left
+        anchors.right: (buttonTag.visible) ? buttonTag.left
+                                           : buttonUp.left
+
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
@@ -1465,6 +1467,30 @@ MouseArea
             panelAdd.setSource(0, playlist, -1);
 
             areaContextual.showPanelFrom(panelAdd, buttonAddTrack);
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        id: buttonTag
+
+        anchors.right : buttonUp.left
+        anchors.top   : buttonUp.top
+        anchors.bottom: buttonUp.bottom
+
+        borderLeft : borderSize
+        borderRight: 0
+
+        visible: (playlist != null)
+
+        icon          : st.icon16x16_tag
+        iconSourceSize: st.size16x16
+
+        onClicked:
+        {
+            var folder = playlist.parentFolder;
+
+            gui.showTagPlaylist(folder, folder.currentIndex);
         }
     }
 

@@ -25,16 +25,15 @@ import Sky     1.0
 
 LineEditBox
 {
+    id: lineEditSearch
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-//#QT_4
-    textDefault: qsTr("What do you want to watch ?")
-//#ELSE
-    textDefault: (text) ? text
-                        : qsTr("What do you want to watch ?")
+    textDefault: pGetTextDefault()
 
+//#QT_NEW
     textInput.visible: isFocused
 
     itemTextDefault.visible: (isFocused == false)
@@ -53,22 +52,32 @@ LineEditBox
 
     onIsFocusedChanged:
     {
-        if (isFocused == false)
+        if (isFocused)
         {
-            text = currentTab.source;
+            var text = pGetText();
 
-            panelSearch.visible = false;
+            if (text)
+            {
+                panelSearch.checkText = false;
+
+                lineEditSearch.text = text;
+
+                panelSearch.checkText = true;
+            }
+            else
+            {
+                lineEditSearch.text = "";
+
+                panelSearch.visible = true;
+            }
         }
-        else if (text == "")
-        {
-            panelSearch.visible = true;
-        }
+        else panelSearch.visible = false;
     }
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-    // Events
+    // BaseLineEdit events
 
     function onKeyPressed(event)
     {
@@ -128,5 +137,51 @@ LineEditBox
             }
             else panelSearch.selectNextAction();
         }
+    }
+
+//#QT_6
+    function onKeyReleased(event) {}
+//#END
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pGetSource()
+    {
+        var item = gui.tagItem;
+
+        if (item)
+        {
+            if (gui.tagType)
+            {
+                return item.source;
+            }
+
+            var index = item.indexFromId(gui.tagId);
+
+            return item.trackSource(index);
+        }
+        else return currentTab.source;
+    }
+
+    function pGetText()
+    {
+        if (panelTag.isExposed)
+        {
+            var text = panelTag.text;
+
+            if (text) return text;
+        }
+
+        return pGetSource();
+    }
+
+    function pGetTextDefault()
+    {
+        var source = pGetText();
+
+        if (source) return source;
+
+        return qsTr("What do you want to watch ?");
     }
 }

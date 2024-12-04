@@ -403,7 +403,7 @@ Item
 
         visible: (opacity != 0.0)
 
-        opacity: (showCover) ? 1.0 : 0.0
+        opacity: (showCover) ? 0.6 : 0.0
 
         clip: true
 
@@ -436,18 +436,6 @@ Item
             pUpdateCover = true;
         }
 
-        ImageScale
-        {
-            anchors.centerIn: parent
-
-            width : size
-            height: width
-
-            source: (pShowCover) ? st.picture_tag : ""
-
-            asynchronous: gui.asynchronous
-        }
-
         Behavior on opacity
         {
             PropertyAnimation
@@ -457,6 +445,18 @@ Item
                 easing.type: st.easing
             }
         }
+    }
+
+    ImageScale
+    {
+        anchors.centerIn: parent
+
+        width : size
+        height: width
+
+        source: (pShowCover) ? st.picture_tag : ""
+
+        asynchronous: gui.asynchronous
     }
 
     Image
@@ -611,6 +611,23 @@ Item
 
     ButtonRound
     {
+        anchors.left  : background.right
+        anchors.bottom: background.top
+
+        anchors.margins: -st.dp8
+
+        width : st.dp44
+        height: width
+
+        checkable: true
+        checked  : panelEdit.active
+
+        icon          : st.icon16x16_pen
+        iconSourceSize: st.size16x16
+    }
+
+    ButtonRound
+    {
         anchors.bottom: parent.bottom
 
         anchors.bottomMargin: st.dp64
@@ -631,6 +648,8 @@ Item
 
     Item
     {
+        id: itemTitle
+
         anchors.left : parent.left
         anchors.right: parent.right
 
@@ -660,5 +679,21 @@ Item
 
             font.pixelSize: st.dp16
         }
+    }
+
+    ButtonPianoIcon
+    {
+        anchors.right : parent.right
+        anchors.top   : itemTitle.top
+        anchors.bottom: itemTitle.bottom
+
+        borderLeft  : borderSize
+        borderRight : 0
+        borderBottom: borderSize
+
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
+
+        onClicked: panelTag.collapse()
     }
 }

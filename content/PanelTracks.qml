@@ -473,7 +473,9 @@ Item
                 anchors.left: (buttonPlaylistAdd.visible) ? buttonPlaylistAdd.right
                                                           : buttonPlaylistAdd.left
 
-                anchors.right : buttonUp.left
+                anchors.right: (buttonTag.visible) ? buttonTag.left
+                                                   : buttonUp.left
+
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
@@ -483,6 +485,30 @@ Item
                 visible: (playlist != null)
 
                 text: (playlist) ? playlist.title : ""
+            }
+
+            ButtonPianoIcon
+            {
+                id: buttonTag
+
+                anchors.right : buttonUp.left
+                anchors.top   : buttonUp.top
+                anchors.bottom: buttonUp.bottom
+
+                borderLeft : borderSize
+                borderRight: 0
+
+                visible: (playlist != null)
+
+                icon          : st.icon16x16_tag
+                iconSourceSize: st.size16x16
+
+                onClicked:
+                {
+                    var folder = playlist.parentFolder;
+
+                    gui.showTagPlaylist(folder, folder.currentIndex);
+                }
             }
 
             ButtonPianoIcon

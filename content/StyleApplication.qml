@@ -160,6 +160,8 @@ StyleComponents
     property url icon_link  : "pictures/icons/link.svg"
     property url icon_unlink: "pictures/icons/link-slash.svg"
 
+    property url icon_pen: "pictures/icons/pen.svg"
+
     property url icon_playlist: "pictures/icons/tv.svg"
     property url icon_folder  : "pictures/icons/folder.svg"
     property url icon_feed    : "pictures/icons/rss.svg"
@@ -202,6 +204,8 @@ StyleComponents
 
     property url icon16x16_link  : icon_link
     property url icon16x16_unlink: icon_unlink
+
+    property url icon16x16_pen: icon_pen
 
     property url icon16x16_playlist: icon_playlist
     property url icon16x16_folder  : icon_folder

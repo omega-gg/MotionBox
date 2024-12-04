@@ -35,12 +35,12 @@ Panel
 
     /* read */ property int action: 0
 
+    property bool checkText: true
+
     //---------------------------------------------------------------------------------------------
     // Private
 
     property int pIndexFocus: -1
-
-    property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -96,7 +96,7 @@ Panel
 
         /* QML_CONNECTION */ function onTextChanged()
         {
-            if (pTextEvents == false) return;
+            if (checkText == false) return;
 
             var text = lineEditSearch.text;
 
@@ -232,11 +232,11 @@ Panel
 
         if (visible == false)
         {
-            pTextEvents = false;
+            checkText = false;
 
             lineEditSearch.text = text;
 
-            pTextEvents = true;
+            checkText = true;
         }
         else lineEditSearch.text = text;
     }
@@ -272,11 +272,11 @@ Panel
 
     function pRestoreQuery()
     {
-        pTextEvents = false;
+        checkText = false;
 
         lineEditSearch.text = scrollCompletion.query;
 
-        pTextEvents = true;
+        checkText = true;
     }
 
     function pUpdateFocus()
@@ -322,11 +322,11 @@ Panel
 
             pIndexFocus = -1;
 
-            pTextEvents = false;
+            checkText = false;
 
             lineEditSearch.text = completion;
 
-            pTextEvents = true;
+            checkText = true;
 
             lineEditSearch.moveCursorAtEnd();
         }

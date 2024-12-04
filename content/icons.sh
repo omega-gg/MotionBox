@@ -53,6 +53,8 @@ cp "$solid"/earth-americas.svg $icons/globe-america.svg
 cp "$solid"/link.svg       $icons
 cp "$solid"/link-slash.svg $icons
 
+cp "$solid"/pen.svg $icons
+
 cp "$solid"/tv.svg     $icons
 cp "$solid"/folder.svg $icons
 cp "$solid"/rss.svg    $icons

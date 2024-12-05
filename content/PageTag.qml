@@ -166,14 +166,14 @@ Item
     {
         var type = gui.tagType;
 
-        if (type != 2)
+        if (type != 3)
         {
             if (type == 1)
             {
                 gui.tagItem.tryDelete();
             }
 
-            gui.tagType = 2;
+            gui.tagType = 3;
 
             gui.tagItem = null;
         }
@@ -183,7 +183,7 @@ Item
 
     function clearTagCustom()
     {
-        if (gui.tagType != 2) return;
+        if (gui.tagType != 3) return;
 
         gui.tagType = -1;
 
@@ -313,7 +313,7 @@ Item
             }
             else return item.trackTitle(item.indexFromId(gui.tagId));
         }
-        else if (type == 2)
+        else if (type == 3) // Custom
         {
             return "";
         }
@@ -338,7 +338,7 @@ Item
             }
             else return item.trackVbml(item.indexFromId(gui.tagId));
         }
-        else if (type == 2)
+        else if (type == 3) // Custom
         {
             return panelEdit.text;
         }
@@ -471,18 +471,15 @@ Item
         smooth: false
     }
 
-    Item
+    PanelEdit
     {
         id: panelEdit
 
-        anchors.fill: cover
+        anchors.fill: background
 
-        property bool   active: false
-        property string text
+        textDefault: qsTr("Enter VBML...")
 
-        //textDefault: qsTr("Enter VBML...")
-
-        /*onVisibleChanged:
+        onVisibleChanged:
         {
             if (visible) return;
 
@@ -491,7 +488,7 @@ Item
                 showTagCustom();
             }
             else clearTagCustom();
-        }*/
+        }
     }
 
     Rectangle
@@ -614,7 +611,7 @@ Item
         anchors.left  : background.right
         anchors.bottom: background.top
 
-        anchors.margins: -st.dp8
+        anchors.margins: -st.dp4
 
         width : st.dp44
         height: width
@@ -624,6 +621,8 @@ Item
 
         icon          : st.icon16x16_pen
         iconSourceSize: st.size16x16
+
+        onClicked: panelEdit.active = !(panelEdit.active)
     }
 
     ButtonRound

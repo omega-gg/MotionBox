@@ -290,6 +290,7 @@ $SkyComponents/LineEditLabel.qml \
 $SkyComponents/LineEditValue.qml \
 $SkyComponents/LineEditBox.qml \
 $SkyComponents/LineEditBoxClear.qml \
+$SkyComponents/ParagraphEdit.qml \
 $SkyComponents/Console.qml \
 $SkyComponents/ColumnScroll.qml \
 $SkyComponents/BaseList.qml \

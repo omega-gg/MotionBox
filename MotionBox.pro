@@ -220,6 +220,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PanelSettings.qml \
                content/PanelSubtitles.qml \
                content/PanelOutput.qml \
+               content/PanelEdit.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \
                content/PanelAssociate.qml \

@@ -1516,6 +1516,10 @@ Item
             }
             else return item.trackCover(item.indexFromId(tagId));
         }
+        else if (tagType == 3) // Custom
+        {
+            return "";
+        }
         else return currentTab.cover;
     }
 

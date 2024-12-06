@@ -54,6 +54,8 @@ BasePanel
     // Aliases
     //---------------------------------------------------------------------------------------------
 
+    property alias currentIndex: buttonsCheck.currentIndex
+
     property alias item: loader.item
 
     //---------------------------------------------------------------------------------------------
@@ -260,7 +262,9 @@ BasePanel
             {
                 if (index == 0)
                 {
+//#!QT_4
                      loader.loadLeft(Qt.resolvedUrl("PageCamera.qml"));
+//#END
                 }
                 else loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
             }

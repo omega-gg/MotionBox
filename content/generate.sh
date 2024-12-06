@@ -65,15 +65,13 @@ if [ "$2" = "clean" ]; then
 
     echo "CLEANING"
 
-    rm -f $bin/*.qml
-
+    rm -f  $bin/*.qml
     rm -rf $bin/pictures
-    rm -rf $bin/text
+    rm -rf $bin/icons
 
-    rm -f qrc/*.qml
-
-    rm -rf qrc/pictures
-    rm -rf qrc/text
+    rm -rf qrc
+    mkdir  qrc
+    touch  qrc/.gitignore
 
     exit 0
 fi
@@ -102,6 +100,10 @@ if [ "$2" = "all" -o "$2" = "deploy" ]; then
     echo "COPYING pictures"
 
     cp -r $content/pictures $path
+
+    echo "COPYING icons"
+
+    cp -r $content/icons $path
 
     echo "COPYING text"
 

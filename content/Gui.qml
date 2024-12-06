@@ -1495,7 +1495,7 @@ Item
             tagType = -1;
             tagItem = null;
         }
-        else if (pageTag)
+        else if (panelTag.currentIndex == 1 && pageTag) // PageTag.qml
         {
             pageTag.clearTagCustom();
         }

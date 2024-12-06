@@ -105,76 +105,78 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // Icons
 
-    property url icon_qt    : "pictures/icons/qt.png"
-    property url icon_qtGray: "pictures/icons/qtGray.png"
+    property url icon_qt    : "icons/qt.png"
+    property url icon_qtGray: "icons/qtGray.png"
 
-    property url icon_vlc    : "pictures/icons/vlc.png"
-    property url icon_vlcGray: "pictures/icons/vlcGray.png"
+    property url icon_vlc    : "icons/vlc.png"
+    property url icon_vlcGray: "icons/vlcGray.png"
 
-    property url icon_sky    : "pictures/icons/sky.png"
-    property url icon_skyGray: "pictures/icons/skyGray.png"
+    property url icon_sky    : "icons/sky.png"
+    property url icon_skyGray: "icons/skyGray.png"
 
-    property url icon_w: "pictures/icons/w.svg"
+    property url icon_w: "icons/w.svg"
 
     //---------------------------------------------------------------------------------------------
 
-    property url icon_download: "pictures/icons/download.svg"
+    property url icon_download: "icons/download.svg"
 
-    property url icon_goBackward: "pictures/icons/arrow-left.svg"
-    property url icon_goForward : "pictures/icons/arrow-right.svg"
+    property url icon_goBackward: "icons/arrow-left.svg"
+    property url icon_goForward : "icons/arrow-right.svg"
 
-    property url icon_goRelated: "pictures/icons/arrow-right.svg"
+    property url icon_goRelated: "icons/arrow-right.svg"
 
-    property url icon_expand : "pictures/icons/expand-alt.svg"
-    property url icon_wall   : "pictures/icons/expand.svg"
-    property url icon_related: "pictures/icons/bars.svg"
+    property url icon_expand : "icons/expand-alt.svg"
+    property url icon_wall   : "icons/expand.svg"
+    property url icon_related: "icons/bars.svg"
 
-    property url icon_refresh: "pictures/icons/redo.svg"
+    property url icon_refresh: "icons/redo.svg"
 
-    property url icon_addBold: "pictures/icons/plus.svg"
-    property url icon_addList: "pictures/icons/plus-circle.svg"
-    property url icon_addIn  : "pictures/icons/plus-circle.svg"
+    property url icon_addBold: "icons/plus.svg"
+    property url icon_addList: "icons/plus-circle.svg"
+    property url icon_addIn  : "icons/plus-circle.svg"
 
-    property url icon_search: "pictures/icons/search.svg"
+    property url icon_search: "icons/search.svg"
 
-    property url icon_tag: "pictures/icons/qrcode.svg"
+    property url icon_tag: "icons/qrcode.svg"
 
-    property url icon_subtitles: "pictures/icons/quote-right.svg"
-    property url icon_settings : "pictures/icons/cog.svg"
-    property url icon_output   : "pictures/icons/chromecast.svg"
+    property url icon_subtitles: "icons/quote-right.svg"
+    property url icon_settings : "icons/cog.svg"
+    property url icon_output   : "icons/chromecast.svg"
 
-    property url icon_history: "pictures/icons/history.svg"
-    property url icon_suggest: "pictures/icons/lightbulb.svg"
-    property url icon_recent : "pictures/icons/clock.svg"
-    property url icon_hub    : "pictures/icons/circle-nodes.svg"
+    property url icon_history: "icons/history.svg"
+    property url icon_suggest: "icons/lightbulb.svg"
+    property url icon_recent : "icons/clock.svg"
+    property url icon_hub    : "icons/circle-nodes.svg"
 
-    property url icon_shuffle: "pictures/icons/random.svg"
+    property url icon_shuffle: "icons/random.svg"
 
-    property url icon_repeat   : "pictures/icons/redo.svg"
-    property url icon_repeatOne: "pictures/icons/redo.svg"
+    property url icon_repeat   : "icons/redo.svg"
+    property url icon_repeatOne: "icons/redo.svg"
 
-    property url icon_setting: "pictures/icons/cog.svg"
-    property url icon_about  : "pictures/icons/info-circle.svg"
+    property url icon_setting: "icons/cog.svg"
+    property url icon_about  : "icons/info-circle.svg"
 
-    property url icon_url   : "pictures/icons/globe-americas.svg"
-    property url icon_link  : "pictures/icons/link.svg"
-    property url icon_unlink: "pictures/icons/link-slash.svg"
+    property url icon_url   : "icons/globe-americas.svg"
+    property url icon_link  : "icons/link.svg"
+    property url icon_unlink: "icons/link-slash.svg"
 
-    property url icon_pen: "pictures/icons/pen.svg"
+    property url icon_rotate: "icons/camera-rotate.svg"
 
-    property url icon_playlist: "pictures/icons/tv.svg"
-    property url icon_folder  : "pictures/icons/folder.svg"
-    property url icon_feed    : "pictures/icons/rss.svg"
+    property url icon_pen: "icons/pen.svg"
 
-    property url icon_track: "pictures/icons/video.svg"
+    property url icon_playlist: "icons/tv.svg"
+    property url icon_folder  : "icons/folder.svg"
+    property url icon_feed    : "icons/rss.svg"
 
-    property url icon_list: "pictures/icons/list.svg"
+    property url icon_track: "icons/video.svg"
 
-    property url icon_shutdown: "pictures/icons/power-off.svg"
+    property url icon_list: "icons/list.svg"
 
-    property url icon_tevolution: "pictures/icons/tevolution.svg"
+    property url icon_shutdown: "icons/power-off.svg"
 
-    property url icon_love: "pictures/icons/heart.svg"
+    property url icon_tevolution: "icons/tevolution.svg"
+
+    property url icon_love: "icons/heart.svg"
 
     //---------------------------------------------------------------------------------------------
     // 16x16
@@ -204,6 +206,8 @@ StyleComponents
 
     property url icon16x16_link  : icon_link
     property url icon16x16_unlink: icon_unlink
+
+    property url icon16x16_rotate: icon_rotate
 
     property url icon16x16_pen: icon_pen
 
@@ -263,7 +267,7 @@ StyleComponents
 
     zoom: window.zoom
 
-    icon: "pictures/icons/icon.svg"
+    icon: "icons/icon.svg"
 
     logo: (local.style) ? "pictures/logoBackgroundB.svg"
                         : "pictures/logoBackgroundA.svg"

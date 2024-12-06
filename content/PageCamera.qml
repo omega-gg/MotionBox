@@ -148,6 +148,15 @@ VideoOutput
     // Children
     //---------------------------------------------------------------------------------------------
 
+    Rectangle
+    {
+        anchors.fill: parent
+
+        z: -1
+
+        color: "black"
+    }
+
 //#QT_6
     CaptureSession
     {
@@ -233,12 +242,9 @@ VideoOutput
         width : st.dp44
         height: width
 
-        checkable: true
-        checked  : synchronize
-
-        icon          : st.icon16x16_recent
+        icon          : st.icon16x16_rotate
         iconSourceSize: st.size16x16
 
-        onClicked: applySynchronize(!synchronize)
+        onClicked: core.setNextCamera()
     }
 }

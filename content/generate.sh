@@ -157,6 +157,13 @@ else
     else
         imports="QtQuick=2.14"
     fi
+
+    if [ $qt = "qt5" ]; then
+
+        imports="$imports QtMultimedia=5.4"
+    else
+        imports="$imports QtMultimedia=6.0"
+    fi
 fi
 
 if [ $os = "windows" ]; then

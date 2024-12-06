@@ -53,6 +53,15 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_TORRENT/media/WHookTorrent.h \
            $$SK_TORRENT/media/WHookTorrent_p.h \
 
+greaterThan(QT_MAJOR_VERSION, 4) {
+    HEADERS += $$SK_MULTIMEDIA/media/WFilterBarcode.h \
+               $$SK_MULTIMEDIA/media/WFilterBarcode_p.h
+}
+
+contains(QT_MAJOR_VERSION, 5) {
+    HEADERS += $$SK_MULTIMEDIA/media/Qt/qvideoframeconversionhelper_p.h
+}
+
 SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WTrack.cpp \
            $$SK_GUI/media/WChapter.cpp \
@@ -81,3 +90,7 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_MEDIA/media/WBackendSubtitle.cpp \
            $$SK_TORRENT/media/WBackendTorrent.cpp \
            $$SK_TORRENT/media/WHookTorrent.cpp \
+
+greaterThan(QT_MAJOR_VERSION, 4) {
+    SOURCES += $$SK_MULTIMEDIA/media/WFilterBarcode.cpp
+}

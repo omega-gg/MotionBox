@@ -76,6 +76,9 @@
 #include <WBackendIndex>
 #include <WBackendTorrent>
 #include <WBackendUniversal>
+#ifndef QT_4
+#include <WFilterBarcode>
+#endif
 #include <WModelRange>
 #include <WModelList>
 #include <WModelOutput>
@@ -348,6 +351,10 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");
     qmlRegisterType<WBackendSubtitle>("Sky", 1,0, "BackendSubtitle");
+
+#ifndef QT_4
+    qmlRegisterType<WFilterBarcode>("Sky", 1,0, "FilterBarcode");
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Events
@@ -848,6 +855,79 @@ ControllerCore::ControllerCore() : WController()
 
     _local.setSplashSize(image.width(), image.height());
 }
+
+//-------------------------------------------------------------------------------------------------
+
+#ifdef QT_NEW
+
+/* Q_INVOKABLE */ bool ControllerCore::applyCameras(const QVariantList & cameras)
+{
+    _cameras.clear();
+
+    foreach (const QVariant & variant, cameras)
+    {
+        QMap<QString, QVariant> map = variant.toMap();
+
+        QString id = map.value("deviceId").toString();
+
+        // NOTE: Sometimes the same id comes up twice.
+        if (_cameras.contains(id)) continue;
+
+        _cameras.append(map.value("deviceId").toString());
+    }
+
+    if (_cameras.isEmpty())
+    {
+        if (_cameraId.isEmpty() == false)
+        {
+            _cameraId = QString();
+
+            emit cameraIdChanged();
+        }
+
+        return false;
+    }
+    else
+    {
+        if (_cameras.contains(_cameraId) == false)
+        {
+            _cameraId = _cameras.first();
+
+            emit cameraIdChanged();
+        }
+
+        return (_cameras.count() > 1);
+    }
+}
+
+/* Q_INVOKABLE */ void ControllerCore::setNextCamera()
+{
+    int count = _cameras.count();
+
+    for (int i = 0; i < count; i++)
+    {
+        if (_cameras.at(i) == _cameraId)
+        {
+            if (i == count - 1)
+            {
+                 _cameraId = _cameras.first();
+            }
+            else _cameraId = _cameras.at(i + 1);
+
+            emit cameraIdChanged();
+
+            return;
+        }
+    }
+
+    if (count == 0) return;
+
+    _cameraId = _cameras.first();
+
+    emit cameraIdChanged();
+}
+
+#endif
 
 //-------------------------------------------------------------------------------------------------
 
@@ -1604,6 +1684,17 @@ void ControllerCore::setDatePreview(const QDateTime & date)
 
     emit datePreviewChanged();
 }
+
+//-------------------------------------------------------------------------------------------------
+
+#ifdef QT_NEW
+
+QString ControllerCore::cameraId() const
+{
+    return _cameraId;
+}
+
+#endif
 
 //-------------------------------------------------------------------------------------------------
 

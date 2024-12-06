@@ -1,11 +1,12 @@
 SK = $$_PRO_FILE_PWD_/../Sky
 
-SK_CORE    = $$SK/src/SkCore/src
-SK_GUI     = $$SK/src/SkGui/src
-SK_BARCODE = $$SK/src/SkBarcode/src
-SK_BACKEND = $$SK/src/SkBackend/src
-SK_MEDIA   = $$SK/src/SkMedia/src
-SK_TORRENT = $$SK/src/SkTorrent/src
+SK_CORE       = $$SK/src/SkCore/src
+SK_GUI        = $$SK/src/SkGui/src
+SK_BARCODE    = $$SK/src/SkBarcode/src
+SK_BACKEND    = $$SK/src/SkBackend/src
+SK_MEDIA      = $$SK/src/SkMedia/src
+SK_MULTIMEDIA = $$SK/src/SkMultimedia/src
+SK_TORRENT    = $$SK/src/SkTorrent/src
 
 TARGET = MotionBox
 
@@ -16,7 +17,7 @@ contains(QT_MAJOR_VERSION, 4) {
 
 } else:contains(QT_MAJOR_VERSION, 5) {
 
-    QT += opengl quick network xml xmlpatterns svg
+    QT += opengl quick network xml xmlpatterns svg multimedia
 
     win32:QT += winextras
 
@@ -24,7 +25,7 @@ contains(QT_MAJOR_VERSION, 4) {
 
     android:QT += androidextras
 } else {
-    QT += opengl quick network xml svg core5compat
+    QT += opengl quick network xml svg multimedia core5compat
 
     #----------------------------------------------------------------------------------------------
     # NOTE Qt6.3: We need the widgets for QApplication and QFileDialog(s).
@@ -49,7 +50,7 @@ contains(QT_MAJOR_VERSION, 4) {
 
 DEFINES += QUAZIP_BUILD \
            SK_CORE_LIBRARY SK_GUI_LIBRARY SK_BARCODE_LIBRARY SK_BACKEND_LIBRARY SK_MEDIA_LIBRARY \
-           SK_TORRENT_LIBRARY \
+           SK_MULTIMEDIA_LIBRARY SK_TORRENT_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
 win32-msvc* {
@@ -109,6 +110,7 @@ INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkBarcode \
                $$SK/include/SkBackend \
                $$SK/include/SkMedia \
+               $$SK/include/SkMultimedia \
                $$SK/include/SkTorrent \
                $$SK/include \
                src/controllers \

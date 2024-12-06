@@ -403,7 +403,7 @@ Item
 
         visible: (opacity != 0.0)
 
-        opacity: (showCover) ? 0.6 : 0.0
+        opacity: (showCover) ? 0.8 : 0.0
 
         clip: true
 

@@ -95,6 +95,10 @@ class ControllerCore : public WController
     Q_PROPERTY(QDateTime datePreview READ datePreview WRITE setDatePreview
                NOTIFY datePreviewChanged)
 
+#ifdef QT_NEW
+    Q_PROPERTY(QString cameraId READ cameraId NOTIFY cameraIdChanged)
+#endif
+
     Q_PROPERTY(QString pathStorage READ pathStorage CONSTANT)
     Q_PROPERTY(QString pathSplash  READ pathSplash  CONSTANT)
     Q_PROPERTY(QString pathShots   READ pathShots   CONSTANT)
@@ -140,6 +144,12 @@ public: // Interface
                              int             padding = 28);
 
     Q_INVOKABLE void saveSplash(WWindow * window, int border);
+
+#ifdef QT_NEW
+    Q_INVOKABLE bool applyCameras(const QVariantList & cameras);
+
+    Q_INVOKABLE void setNextCamera();
+#endif
 
     Q_INVOKABLE void applyProxy(bool active);
 
@@ -251,6 +261,10 @@ signals:
     void dateCoverChanged  ();
     void datePreviewChanged();
 
+#ifdef QT_NEW
+    void cameraIdChanged();
+#endif
+
 public: // Properties
 #ifdef SK_DESKTOP
     QString argument() const;
@@ -277,6 +291,10 @@ public: // Properties
 
     QDateTime datePreview() const;
     void      setDatePreview(const QDateTime & date);
+
+#ifdef QT_NEW
+    QString cameraId() const;
+#endif
 
     QString pathStorage() const;
     QString pathSplash () const;
@@ -331,6 +349,12 @@ private: // Variables
 
     QDateTime _dateCover;
     QDateTime _datePreview;
+
+#ifdef QT_NEW
+    QStringList _cameras;
+
+    QString _cameraId;
+#endif
 
 #ifndef SK_DEPLOY
     WFileWatcher _watcher;

@@ -20,11 +20,17 @@
 */
 //=================================================================================================
 
-import QtQuick 1.0
-import Sky     1.0
+import QtQuick      1.0
+import QtMultimedia 1.0
 
-Rectangle
+import Sky 1.0
+
+VideoOutput
 {
+//#QT_6
+    id: pageCamera
+//#END
+
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
@@ -35,14 +41,173 @@ Rectangle
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    color: "black"
+    anchors.fill: parent
+
+    opacity: 0.0
+
+//#QT_5
+    autoOrientation: true
+
+    // NOTE macOS/Qt5: We have to ensure the camera is valid, otherwise we crash.
+    source: (camera.deviceId) ? camera : null
+
+    filters: (imageTarget.visible) ? [ filter ] : null
+//#END
+
+    fillMode: VideoOutput.PreserveAspectCrop
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    Component.onCompleted:
+    {
+        pApplyCamera();
+
+//#QT_6
+        // NOTE Qt6: We need to start the camera manually.
+        camera.start();
+//#END
+
+        opacity = 1.0;
+    }
+
+    onSizeChanged: pUpdateTarget()
+
+    // NOTE: It's important to handle these two to get the proper target. The contentRect might
+    //       change fairly often and be incorrect at first.
+    onSourceRectChanged : pUpdateTarget()
+    onContentRectChanged: pUpdateTarget()
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pApplyCamera()
+    {
+//#QT_5
+        // NOTE: Apparently availableCameras does not update itself.
+        if (core.applyCameras(QtMultimedia.availableCameras))
+//#ELSE
+        var ids = new Array;
+
+        for (var i = 0; i < devices.videoInputs.length; i++)
+        {
+            ids.push({ "deviceId": devices.videoInputs[i].id });
+        }
+
+        if (core.applyCameras(ids))
+//#END
+        {
+             buttonCamera.enabled = true;
+        }
+        else buttonCamera.enabled = false;
+    }
+
+    function pUpdateTarget()
+    {
+        var size = gui.size;
+
+        var x = (width  - size) / 2;
+        var y = (height - size) / 2;
+
+        filter.target = filter.mapRectToSource(sourceRect, contentRect, Qt.rect(x, y, size, size),
+                                               orientation);
+    }
+
+//#QT_6
+    function pGetCamera(id)
+    {
+        for (var i = 0; i < devices.videoInputs.length; i++)
+        {
+            var input = devices.videoInputs[i];
+
+            if (input.id == id) return input;
+        }
+
+        return null;
+    }
+//#END
+
+    //---------------------------------------------------------------------------------------------
+    // Animations
+    //---------------------------------------------------------------------------------------------
+
+    Behavior on opacity
+    {
+        PropertyAnimation
+        {
+            duration: st.duration_normal
+
+            easing.type: st.easing
+        }
+    }
 
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
+//#QT_6
+    CaptureSession
+    {
+        videoOutput: pageCamera
+
+        camera: (camera.cameraDevice) ? camera : null
+    }
+
+    MediaDevices
+    {
+        id: devices
+
+        onVideoInputsChanged: pApplyCamera()
+    }
+//#END
+
+    Camera
+    {
+        id: camera
+
+//#QT_5
+        deviceId: (core.cameraId) ? core.cameraId
+                                  : QtMultimedia.defaultCamera.deviceId
+
+        focus.focusMode: CameraFocus.FocusContinuous
+
+        // NOTE: It seems preferrable to focus the center when scanning a tag.
+        focus.focusPointMode: CameraFocus.FocusPointCenter
+//#ELSE
+        cameraDevice: (core.cameraId) ? pGetCamera(core.cameraId)
+                                      : devices.defaultVideoInput
+//#END
+    }
+
+    FilterBarcode
+    {
+        id: filter
+
+//#QT_6
+        videoSink: (imageTarget.visible) ? pageCamera.videoSink : null
+//#END
+
+        /* QML_EVENT */ onLoaded: function(text)
+        {
+            // NOTE: Making sure 'imageTarget' is still visible before browsing. Also checking the
+            //       tag validity.
+            if (imageTarget.visible && core.checkTag(text) == false) return;
+
+            sk.vibrate(200);
+
+            gui.resetPage();
+
+            panelTracks.browseTag(text, true);
+        }
+    }
+
     ImageScale
     {
+        id: imageTarget
+
         anchors.centerIn: parent
 
         width : size
@@ -53,5 +218,27 @@ Rectangle
         source: st.picture_camera
 
         asynchronous: gui.asynchronous
+    }
+
+    ButtonRound
+    {
+        id: buttonCamera
+
+        anchors.bottom: parent.bottom
+
+        anchors.bottomMargin: st.dp64
+
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        width : st.dp44
+        height: width
+
+        checkable: true
+        checked  : synchronize
+
+        icon          : st.icon16x16_recent
+        iconSourceSize: st.size16x16
+
+        onClicked: applySynchronize(!synchronize)
     }
 }

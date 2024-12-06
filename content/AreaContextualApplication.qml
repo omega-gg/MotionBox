@@ -65,6 +65,7 @@ AreaContextual
     //---------------------------------------------------------------------------------------------
 
     property alias panelContextual: panelContextual
+    property alias panelLoader    : panelLoader
     property alias panelAdd       : panelAdd
 
     //---------------------------------------------------------------------------------------------
@@ -246,10 +247,9 @@ AreaContextual
         // Settings
         //-----------------------------------------------------------------------------------------
 
-        minimumWidth : st.dp160
+        minimumWidth : st.dp160 + borderSizeWidth
         minimumHeight: st.list_itemHeight
 
-        preferredWidth : st.dp160
         preferredHeight: pGetPreferredHeight()
 
         //-----------------------------------------------------------------------------------------

@@ -297,6 +297,7 @@ Item
     property alias areaContextual: areaContextual
 
     property alias panelContextual: areaContextual.panelContextual
+    property alias panelLoader    : areaContextual.panelLoader
     property alias panelAdd       : areaContextual.panelAdd
 
     //---------------------------------------------------------------------------------------------

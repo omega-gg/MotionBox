@@ -28,6 +28,13 @@ BasePanelSettings
     id: panelSettingsSplit
 
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    property bool pShowList: (panelContextual.visible == false && panelLoader.visible == false)
+
+    //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
@@ -70,9 +77,13 @@ BasePanelSettings
 
         if (item)
         {
-             return borderSizeWidth + list.width + border.size + item.contentWidth;
+            if (pShowList)
+            {
+                 return borderSizeWidth + list.width + border.size + item.contentWidth;
+            }
+            else return borderSizeWidth + item.contentWidth;
         }
-        else return borderSizeWidth + st.dp192;
+        else return borderSizeWidth + list.width;
     }
 
     function getHeight()
@@ -99,7 +110,9 @@ BasePanelSettings
     {
         id: list
 
-        width: st.dp192
+        // NOTE: We hide the list when a contextual panel is potentially over it to avoid
+        //       confusion.
+        width: (pShowList) ? st.dp160 : 0
 
         currentIndex: panelSettingsSplit.currentIndex
 
@@ -125,13 +138,17 @@ BasePanelSettings
         id: border
 
         anchors.left: list.right
+
+        visible: pShowList
     }
 
     LoaderWipe
     {
         id: loader
 
-        anchors.left  : border.right
+        anchors.left: (pShowList) ? border.right
+                                  : parent.left
+
         anchors.right : parent.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom

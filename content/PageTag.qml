@@ -690,8 +690,8 @@ Item
         borderRight : 0
         borderBottom: borderSize
 
-        icon          : st.icon12x12_close
-        iconSourceSize: st.size12x12
+        icon          : st.icon16x16_slideDown
+        iconSourceSize: st.size16x16
 
         onClicked: panelTag.collapse()
     }

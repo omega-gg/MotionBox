@@ -210,6 +210,8 @@ OTHER_FILES += 3rdparty.sh \
                content/ItemNew.qml \
                content/TextLogo.qml \
                content/BasePanelSettings.qml \
+               content/PanelSettingsAction.qml \
+               content/PanelSettingsSplit.qml \
                content/PanelSearch.qml \
                content/PanelLibrary.qml \
                content/PanelFolder.qml \

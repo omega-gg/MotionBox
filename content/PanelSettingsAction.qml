@@ -23,64 +23,70 @@
 import QtQuick 1.0
 import Sky     1.0
 
-PanelSettingsSplit
+BasePanelSettings
 {
+    id: panelSettingsAction
+
+    //---------------------------------------------------------------------------------------------
+    // Aliases
+    //---------------------------------------------------------------------------------------------
+
+    /* read */ property alias page: loader.item
+
+    property alias button: button
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageApplication.qml"),
-               Qt.resolvedUrl("PageVideo.qml"),
-               Qt.resolvedUrl("PageAdvanced.qml"),
-               Qt.resolvedUrl("PageSettingsProxy.qml"),
-               Qt.resolvedUrl("PageSettingsTorrent.qml"),
-               Qt.resolvedUrl("PageConsole.qml"),
-               Qt.resolvedUrl("PageAbout.qml") ]
-
-    titles: [ qsTr("Application"), qsTr("Player"), qsTr("Advanced"), qsTr("Proxy"),
-              qsTr("Torrent"), qsTr("Console"), qsTr("About") ]
-
-    currentIndex: 1
+    loader: loader
 
     //---------------------------------------------------------------------------------------------
-    // Functions
+    // Children
     //---------------------------------------------------------------------------------------------
 
-    function expose()
+    BarTitle
     {
-        if (isExposed || actionCue.tryPush(gui.actionSettingsExpose)) return;
+        id: bar
 
-        gui.panelAddHide();
+        anchors.left : parent.left
+        anchors.right: parent.right
 
-        panelSubtitles.collapse();
-        panelOutput   .collapse();
+        height: st.dp32 + borderSizeHeight
 
-        loadPage();
+        borderTop: 0
 
-        isExposed = true;
+        ButtonSettingsAction
+        {
+            id: button
 
-        z = 1;
+            width: st.dp128
 
-        panelSubtitles.z = 0;
-        panelOutput   .z = 0;
+            text: getTitle()
 
-        visible = true;
+            settings: getSettings()
 
-        gui.startActionCue(st.duration_faster);
+            currentIndex: panelSettingsAction.currentIndex
+
+            font.pixelSize: st.dp14
+
+            //-------------------------------------------------------------------------------------
+            // ButtonSettingsAction events
+
+            function onSelect(index)
+            {
+                selectTab(index);
+            }
+        }
     }
 
-    function collapse()
+    LoaderSlide
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionSettingsCollapse)) return;
+        id: loader
 
-        isExposed = false;
-
-        gui.startActionCue(st.duration_faster);
-    }
-
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : bar.bottom
+        anchors.bottom: parent.bottom
     }
 }

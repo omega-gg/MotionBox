@@ -33,6 +33,8 @@ Panel
 
     /* read */ property bool isExposed: false
 
+    /* mandatory */ property variant loader
+
     /* mandatory */ property variant sources
     /* mandatory */ property variant titles
 
@@ -42,18 +44,6 @@ Panel
     // Private
 
     property bool pAnimate: false
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    /* read */ property alias page: loader.item
-
-    //---------------------------------------------------------------------------------------------
-
-    property alias button: button
-
-    property alias loader: loader
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -256,21 +246,12 @@ Panel
         else return Math.min(loader.y + borderSizeHeight, gui.panelHeight);
     }
 
-    //---------------------------------------------------------------------------------------------
-    // Virtual
-
-    /* virtual */ function expose  () {}
-    /* virtual */ function collapse() {}
-
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    function pGetTitle()
+    function getTitle()
     {
         return titles[currentIndex];
     }
 
-    function pGetSettings()
+    function getSettings()
     {
         var settings = new Array;
 
@@ -283,51 +264,8 @@ Panel
     }
 
     //---------------------------------------------------------------------------------------------
-    // Children
-    //---------------------------------------------------------------------------------------------
+    // Virtual
 
-    BarTitle
-    {
-        id: bar
-
-        anchors.left : parent.left
-        anchors.right: parent.right
-
-        height: st.dp32 + borderSizeHeight
-
-        borderTop: 0
-
-        ButtonSettingsAction
-        {
-            id: button
-
-            width: st.dp128
-
-            text: pGetTitle()
-
-            settings: pGetSettings()
-
-            currentIndex: basePanelSettings.currentIndex
-
-            font.pixelSize: st.dp14
-
-            //-----------------------------------------------------------------------------------------
-            // ButtonSettingsAction events
-
-            function onSelect(index)
-            {
-                selectTab(index);
-            }
-        }
-    }
-
-    LoaderSlide
-    {
-        id: loader
-
-        anchors.left  : parent.left
-        anchors.right : parent.right
-        anchors.top   : bar.bottom
-        anchors.bottom: parent.bottom
-    }
+    /* virtual */ function expose  () {}
+    /* virtual */ function collapse() {}
 }

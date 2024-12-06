@@ -23,35 +23,40 @@
 import QtQuick 1.0
 import Sky     1.0
 
-PanelSettingsAction
+BasePanelSettings
 {
+    id: panelSettingsSplit
+
     //---------------------------------------------------------------------------------------------
-    // Properties
+    // Aliases
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property bool hasSettings: (player.outputType == AbstractBackend.OutputVbml)
+    /* read */ property alias page: loader.item
 
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    sources: [ Qt.resolvedUrl("PageOutput.qml"),
-               Qt.resolvedUrl("PageOutputSettings.qml"),
-               Qt.resolvedUrl("PageOutputAdvanced.qml") ]
-
-    titles: [ qsTr("Output"), qsTr("Settings"), qsTr("Advanced") ]
-
-    // NOTE: For now we only have settings for the VBML output.
-    button.enabled: hasSettings
+    loader: loader
 
     //---------------------------------------------------------------------------------------------
     // Events
     //---------------------------------------------------------------------------------------------
 
-    onHasSettingsChanged:
+    Component.onCompleted:
     {
-        if (hasSettings) selectTab(1);
-        else             selectTab(0);
+        var settings = getSettings();
+
+//#QT_4
+        // NOTE Qt4: We can only append items one by one.
+        for (/* var */ i = 0; i < settings.length; i++)
+        {
+            model.append(settings[i]);
+        }
+//#ELSE
+        // NOTE: It's probably better to append everything at once.
+        model.append(settings);
+//#END
     }
 
     //---------------------------------------------------------------------------------------------
@@ -59,74 +64,76 @@ PanelSettingsAction
     //---------------------------------------------------------------------------------------------
     // BasePanelSettings reimplementation
 
-    function expose()
+    function getWidth()
     {
-        if (isExposed || actionCue.tryPush(gui.actionOutputExpose)) return;
+        var item = loader.item;
 
-        timer.stop();
-
-        gui.panelAddHide();
-
-        panelSettings .collapse();
-        panelSubtitles.collapse();
-
-        loadPage();
-
-        isExposed = true;
-
-        z = 1;
-
-        panelSettings .z = 0;
-        panelSubtitles.z = 0;
-
-        visible = true;
-
-        player.scanOutput = true;
-
-        gui.startActionCue(st.duration_faster);
+        if (item)
+        {
+             return borderSizeWidth + list.width + border.size + item.contentWidth;
+        }
+        else return borderSizeWidth + st.dp192;
     }
 
-    function collapse()
+    function getHeight()
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionOutputCollapse)) return;
+        var size;
 
-        isExposed = false;
+        var item = loader.item;
 
-        // NOTE: We want to clear the output(s) later in case we reopen this page right away.
-        //       That being said, we don't want to scan at all time.
-        timer.restart();
+        if (item)
+        {
+             size = Math.min(loader.y + borderSizeHeight + item.contentHeight, gui.panelHeight);
+        }
+        else size = Math.min(loader.y + borderSizeHeight, gui.panelHeight);
 
-        gui.startActionCue(st.duration_faster);
+        return Math.max(size, Math.max(st.dp320, list.count * list.itemSize - st.border_size)
+                              + borderSizeHeight);
     }
 
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
-    Timer
+    List
     {
-        id: timer
+        id: list
 
-        interval: st.pageOutput_interval
+        width: st.dp192
 
-        onTriggered: player.scanOutput = false
+        currentIndex: panelSettingsSplit.currentIndex
+
+        model: ListModel { id: model }
+
+        delegate: ComponentList
+        {
+            text: title
+
+            function onPress()
+            {
+//#QT_4
+                selectTab(index);
+//#ELSE
+                Qt.callLater(selectTab, index);
+//#END
+            }
+        }
     }
 
-    ButtonPushIcon
+    BorderVertical
     {
-        anchors.right: parent.right
-        anchors.top  : parent.top
+        id: border
 
-        width : st.dp32
-        height: st.dp32
+        anchors.left: list.right
+    }
 
-        visible: (hasSettings == false)
+    LoaderWipe
+    {
+        id: loader
 
-        icon          : st.icon_tevolution
-        iconSourceSize: st.size24x24
-
-        enableFilter: false
-
-        onClicked: gui.openUrl("https://omega.gg/tevolution")
+        anchors.left  : border.right
+        anchors.right : parent.right
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
     }
 }

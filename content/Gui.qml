@@ -62,12 +62,19 @@ Item
     /* read */ property int panelHeight: itemContent.height + barTop.border.size
 
     //---------------------------------------------------------------------------------------------
-    // VideoTag
+    // PageTag
 
     /* read */ property variant tagItem: null
 
     /* read */ property int tagType: -1 // NOTE: 0 for a track, 1 for a playlist, 2 for custom.
     /* read */ property int tagId  : -1
+
+    //---------------------------------------------------------------------------------------------
+    // PageGrid
+
+    /* read */ property Playlist gridPlaylist: null
+
+    /* read */ property int gridIndex: -1
 
     //---------------------------------------------------------------------------------------------
     // Drag
@@ -1498,9 +1505,18 @@ Item
             tagType = -1;
             tagItem = null;
         }
+        else if (gridPlaylist)
+        {
+            gridPlaylist.tryDelete();
+
+            gridPlaylist = null;
+            gridIndex    = -1;
+        }
         else if (panelTag.currentIndex == 1 && pageTag) // PageTag
         {
             pageTag.clearTagCustom();
+
+            tagType = -1;
         }
         else tagType = -1;
 
@@ -1531,6 +1547,13 @@ Item
 
     function showGrid(playlist, index)
     {
+        if (playlist == null) return;
+
+        playlist.addDeleteLock();
+
+        gridPlaylist = playlist;
+        gridIndex    = index;
+
         panelTag.exposePage(2) // PageGrid
     }
 

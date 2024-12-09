@@ -1303,6 +1303,8 @@ BaseList
 
             indexPreview = indexHover;
 
+            panelPreview.clearInstant();
+
             gui.showGrid(playlist, indexHover);
         }
 

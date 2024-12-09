@@ -936,6 +936,17 @@ BaseList
 
         onHoverExited: panelPreview.clearNow()
 
+        /* QML_EVENT */ onPressed: function(mouse)
+        {
+            if ((mouse.button & Qt.LeftButton) == false) return;
+
+            gui.loadItemAt(folder, indexHover);
+
+            panelPreview.clearInstant();
+
+            gui.showGrid(folder.currentItem, -1);
+        }
+
         Behavior on background.visible
         {
             enabled: overlay.background.visible

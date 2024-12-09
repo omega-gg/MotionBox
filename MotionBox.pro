@@ -255,6 +255,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ComponentFolder.qml \
                content/PageCamera.qml \
                content/PageTag.qml \
+               content/PageGrid.qml \
                content/PageApplication.qml \
                content/BasePageSettings.qml \
                content/PageSettingsProxy.qml \

@@ -46,11 +46,6 @@ BasePanel
     property string text
 
     //---------------------------------------------------------------------------------------------
-    // Private
-
-    property bool pLoaded: false
-
-    //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
@@ -128,11 +123,9 @@ BasePanel
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function expose()
+    function expose(index)
     {
-        if (isExposed) return;
-
-        if (pLoaded == false) pLoad();
+        if (isExposed || index < 0 || index > 2) return;
 
         visible = true;
 
@@ -140,9 +133,9 @@ BasePanel
 
         isExposed = true;
 
-        buttonsCheck.currentIndex = 1;
+        buttonsCheck.currentIndex = index;
 
-        loader.source = Qt.resolvedUrl("PageTag.qml");
+        loader.source = pGetSource(index);
     }
 
     function collapse()
@@ -165,9 +158,17 @@ BasePanel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    function pLoad()
+    function pGetSource(index)
     {
-        pLoaded = true;
+        if (index == 0)
+        {
+            return Qt.resolvedUrl("PageCamera.qml");
+        }
+        else if (index == 1)
+        {
+            return Qt.resolvedUrl("PageTag.qml");
+        }
+        else return "";
     }
 
     //---------------------------------------------------------------------------------------------

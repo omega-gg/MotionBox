@@ -1420,7 +1420,7 @@ Item
 
     function showTagTrack(playlist, index)
     {
-        panelTag.expose();
+        panelTag.expose(1); // PageTag.qml
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 0;
@@ -1456,7 +1456,7 @@ Item
             return;
         }
 
-        panelTag.expose();
+        panelTag.expose(1); // PageTag.qml
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 1;
@@ -1469,7 +1469,7 @@ Item
 
     function showTagTab(tab)
     {
-        panelTag.expose();
+        panelTag.expose(1); // PageTag.qml
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType =  2;

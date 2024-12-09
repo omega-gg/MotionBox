@@ -300,8 +300,6 @@ Item
                 {
                     if (panelTracks.isExpanded)
                     {
-                        panelTracks.restore();
-
                         gui.exposeWall();
                     }
                     else gui.toggleWall();
@@ -326,8 +324,6 @@ Item
                 {
                     if (panelTracks.isExpanded)
                     {
-                        panelTracks.restore();
-
                         panelRelated.expose();
                     }
                     else panelRelated.toggleExpose();

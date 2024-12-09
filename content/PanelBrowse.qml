@@ -377,9 +377,9 @@ MouseArea
 
     function expose()
     {
-        if (isExposed || actionCue.tryPush(gui.actionBrowseExpose)) return;
-
         panelTag.collapse();
+
+        if (isExposed || actionCue.tryPush(gui.actionBrowseExpose)) return;
 
         gui.scrollFolder.clearItem();
 
@@ -402,9 +402,9 @@ MouseArea
 
     function collapse()
     {
-        if (isExposed == false || actionCue.tryPush(gui.actionBrowseCollapse)) return;
-
         panelTag.collapse();
+
+        if (isExposed == false || actionCue.tryPush(gui.actionBrowseCollapse)) return;
 
         isExposed = false;
 

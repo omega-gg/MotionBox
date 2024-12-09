@@ -1302,6 +1302,8 @@ BaseList
                 playlist.trackIsDefault(indexAt(indexHover))) return;
 
             indexPreview = indexHover;
+
+            gui.showGrid(playlist, indexHover);
         }
 
         Behavior on background.visible

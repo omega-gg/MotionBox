@@ -46,6 +46,11 @@ BasePanel
     property string text
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    property int pIndex: 1 // PageTag
+
+    //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
@@ -123,9 +128,50 @@ BasePanel
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function expose(index)
+    function exposePage(index)
     {
         if (isExposed || index < 0 || index > 2) return;
+
+        pIndex = index;
+
+        pExpose(index);
+    }
+
+    function expose()
+    {
+        if (isExposed) return;
+
+        pExpose(pIndex);
+    }
+
+    function collapse()
+    {
+        if (isExposed == false || actionCue.tryPush(gui.actionTagCollapse)) return;
+
+        clip = true;
+
+        isExposed = false;
+
+        gui.clearTag();
+
+        gui.startActionCue(st.duration_fast);
+    }
+
+    function toggleExpose()
+    {
+        if (isExposed)
+        {
+            collapse();
+        }
+        else exposePage(1); // PageTag
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pExpose(index)
+    {
+        if (actionCue.tryPush(gui.actionTagExpose)) return;
 
         visible = true;
 
@@ -136,27 +182,9 @@ BasePanel
         buttonsCheck.currentIndex = index;
 
         loader.source = pGetSource(index);
+
+        gui.startActionCue(st.duration_fast);
     }
-
-    function collapse()
-    {
-        if (isExposed == false) return;
-
-        clip = true;
-
-        isExposed = false;
-
-        gui.clearTag();
-    }
-
-    function toggleExpose()
-    {
-        if (isExposed) collapse();
-        else           expose  ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Private
 
     function pGetSource(index)
     {
@@ -167,6 +195,10 @@ BasePanel
         else if (index == 1)
         {
             return Qt.resolvedUrl("PageTag.qml");
+        }
+        else if (index == 2)
+        {
+            return Qt.resolvedUrl("PageGrid.qml");
         }
         else return "";
     }
@@ -241,6 +273,8 @@ BasePanel
             anchors.horizontalCenter: parent.horizontalCenter
 
             width: st.dp256
+
+            visible: (currentIndex < 2) // PageGrid
 
             model: ListModel {}
 

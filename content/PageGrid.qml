@@ -26,6 +26,22 @@ import Sky     1.0
 Item
 {
     //---------------------------------------------------------------------------------------------
-    // Properties
+    // Children
     //---------------------------------------------------------------------------------------------
+
+    ButtonPianoIcon
+    {
+        anchors.right: parent.right
+
+        height: st.dp32
+
+        borderLeft  : borderSize
+        borderRight : 0
+        borderBottom: borderSize
+
+        icon          : st.icon16x16_slideDown
+        iconSourceSize: st.size16x16
+
+        onClicked: panelTag.collapse()
+    }
 }

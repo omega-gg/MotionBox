@@ -166,9 +166,11 @@ Panel
 
     function expose()
     {
-        if (isExposed || actionCue.tryPush(gui.actionRelatedExpose)) return;
-
         panelTag.collapse();
+
+        panelTracks.restore();
+
+        if (isExposed || actionCue.tryPush(gui.actionRelatedExpose)) return;
 
         visible = true;
 
@@ -187,11 +189,11 @@ Panel
 
     function collapse()
     {
+        panelTag.collapse();
+
         if (isExposed == false || actionCue.tryPush(gui.actionRelatedCollapse)) return;
 
         pClearRefresh();
-
-        panelTag.collapse();
 
         panelPlayer.wallExpand(parent.width, wall.height);
 

@@ -77,9 +77,9 @@ Item
     {
         gui.restore();
 
-        if (isExpanded || actionCue.tryPush(gui.actionTracksExpand)) return;
-
         panelTag.collapse();
+
+        if (isExpanded || actionCue.tryPush(gui.actionTracksExpand)) return;
 
         if (panelBrowse.visible)
         {
@@ -99,9 +99,9 @@ Item
 
     function restore()
     {
-        if (isExpanded == false || actionCue.tryPush(gui.actionTracksRestore)) return;
-
         panelTag.collapse();
+
+        if (isExpanded == false || actionCue.tryPush(gui.actionTracksRestore)) return;
 
         isExpanded = false;
 

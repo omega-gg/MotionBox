@@ -104,30 +104,33 @@ Item
     /* read */ property int actionBrowseExpose  : 12
     /* read */ property int actionBrowseCollapse: 13
 
-    /* read */ property int actionAddShow: 14
-    /* read */ property int actionAddHide: 15
+    /* read */ property int actionTagExpose  : 14
+    /* read */ property int actionTagCollapse: 15
 
-    /* read */ property int actionSettingsExpose  : 16
-    /* read */ property int actionSettingsCollapse: 17
+    /* read */ property int actionAddShow: 16
+    /* read */ property int actionAddHide: 17
 
-    /* read */ property int actionSubtitlesExpose  : 18
-    /* read */ property int actionSubtitlesCollapse: 19
+    /* read */ property int actionSettingsExpose  : 18
+    /* read */ property int actionSettingsCollapse: 19
 
-    /* read */ property int actionOutputExpose  : 20
-    /* read */ property int actionOutputCollapse: 21
+    /* read */ property int actionSubtitlesExpose  : 20
+    /* read */ property int actionSubtitlesCollapse: 21
 
-    /* read */ property int actionSearchExpose: 22
+    /* read */ property int actionOutputExpose  : 22
+    /* read */ property int actionOutputCollapse: 23
 
-    /* read */ property int actionMaximizeExpose : 23
-    /* read */ property int actionMaximizeRestore: 24
+    /* read */ property int actionSearchExpose: 24
 
-    /* read */ property int actionFullScreenExpose : 25
-    /* read */ property int actionFullScreenRestore: 26
+    /* read */ property int actionMaximizeExpose : 25
+    /* read */ property int actionMaximizeRestore: 26
 
-    /* read */ property int actionTabOpen: 27
-    /* read */ property int actionTabMenu: 28
+    /* read */ property int actionFullScreenExpose : 27
+    /* read */ property int actionFullScreenRestore: 28
 
-    /* read */ property int actionZoom: 29
+    /* read */ property int actionTabOpen: 29
+    /* read */ property int actionTabMenu: 30
+
+    /* read */ property int actionZoom: 31
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -813,13 +816,13 @@ Item
 
     function expand()
     {
+        panelTag.collapse();
+
         panelTracks.restore();
 
         if (isExpanded || actionCue.tryPush(actionExpand)) return;
 
         areaContextual.hidePanels();
-
-        panelTag.collapse();
 
         panelLibrary.saveScroll();
 
@@ -842,9 +845,9 @@ Item
     {
         restoreBars();
 
-        if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
-
         panelTag.collapse();
+
+        if (isExpanded == false || actionCue.tryPush(actionRestore)) return;
 
         if (panelBrowse.isExposed)
         {
@@ -962,11 +965,11 @@ Item
 
     function exposeWall()
     {
+        panelTag.collapse();
+
         panelTracks.restore();
 
         if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
-
-        panelTag.collapse();
 
         wall.expose();
 
@@ -977,9 +980,9 @@ Item
 
     function restoreWall()
     {
-        if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
-
         panelTag.collapse();
+
+        if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
 
         wall.restore();
 
@@ -1249,8 +1252,6 @@ Item
         }
         else if (tab.idFolderRoot == 4)
         {
-            panelTracks.restore();
-
             panelRelated.expose();
 
             related.setCurrentTabIds(tab);
@@ -1417,10 +1418,11 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
+    // PageTag
 
     function showTagTrack(playlist, index)
     {
-        panelTag.expose(1); // PageTag.qml
+        panelTag.exposePage(1); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 0;
@@ -1456,7 +1458,7 @@ Item
             return;
         }
 
-        panelTag.expose(1); // PageTag.qml
+        panelTag.exposePage(1); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 1;
@@ -1469,7 +1471,7 @@ Item
 
     function showTagTab(tab)
     {
-        panelTag.expose(1); // PageTag.qml
+        panelTag.exposePage(1); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType =  2;
@@ -1496,7 +1498,7 @@ Item
             tagType = -1;
             tagItem = null;
         }
-        else if (panelTag.currentIndex == 1 && pageTag) // PageTag.qml
+        else if (panelTag.currentIndex == 1 && pageTag) // PageTag
         {
             pageTag.clearTagCustom();
         }
@@ -1522,6 +1524,14 @@ Item
             return "";
         }
         else return currentTab.cover;
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // PageGrid
+
+    function showGrid(playlist, index)
+    {
+        panelTag.exposePage(2) // PageGrid
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1561,8 +1571,6 @@ Item
     function browseRelated(data)
     {
         restoreBars();
-
-        panelTracks.restore();
 
         panelRelated.expose();
 
@@ -3227,13 +3235,13 @@ Item
             {
                 panelOutput.collapse();
             }
-            else if (panelTracks.isExpanded)
-            {
-                panelTracks.restore();
-            }
             else if (panelTag.isExposed)
             {
                 panelTag.collapse();
+            }
+            else if (panelTracks.isExpanded)
+            {
+                panelTracks.restore();
             }
             else if (highlightedTab)
             {
@@ -3716,6 +3724,9 @@ Item
 
             else if (id == actionBrowseExpose)   panelBrowse.expose  ();
             else if (id == actionBrowseCollapse) panelBrowse.collapse();
+
+            else if (id == actionTagExpose)   panelTag.expose  ();
+            else if (id == actionTagCollapse) panelTag.collapse();
 
             else if (id == actionAddShow) panelAddShow();
             else if (id == actionAddHide) panelAddHide();

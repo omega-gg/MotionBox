@@ -654,6 +654,8 @@ Item
 
         height: st.dp32
 
+        visible: (itemText.text != "")
+
         Rectangle
         {
             anchors.fill: parent
@@ -663,6 +665,8 @@ Item
 
         TextBase
         {
+            id: itemText
+
             anchors.fill: parent
 
             anchors.leftMargin : st.dp8

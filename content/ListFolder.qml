@@ -940,7 +940,7 @@ BaseList
         {
             if ((mouse.button & Qt.LeftButton) == false) return;
 
-            gui.loadItemAt(folder, indexHover);
+            folder.loadCurrentIndex(indexHover, true);
 
             var item = folder.currentItem;
 

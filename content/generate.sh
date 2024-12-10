@@ -216,6 +216,7 @@ $SkyBase/BaseLineEdit.qml \
 $SkyBase/BaseTextEdit.qml \
 $SkyBase/BaseConsole.qml \
 $SkyBase/ColumnAuto.qml \
+$SkyBase/BaseGrid.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
 $SkyBase/AnimatedSlide.qml \
@@ -223,6 +224,7 @@ $SkyBase/AnimatedSlideImage.qml \
 $SkyBase/AnimatedLoader.qml \
 $SkyBase/CodeInput.qml \
 $SkyComponents/StyleComponents.qml \
+$SkyComponents/ViewPlaylist.qml \
 $SkyComponents/PageWipe.qml \
 $SkyComponents/LineHorizontal.qml \
 $SkyComponents/LineHorizontalDrop.qml \
@@ -306,6 +308,7 @@ $SkyComponents/BaseList.qml \
 $SkyComponents/List.qml \
 $SkyComponents/ListCompletion.qml \
 $SkyComponents/ListContextual.qml \
+$SkyComponents/GridPlaylist.qml \
 $SkyComponents/ScrollArea.qml \
 $SkyComponents/ScrollBar.qml \
 $SkyComponents/ScrollList.qml \

@@ -910,7 +910,7 @@ BaseList
 
         borderBottom: borderSize
 
-        visible: (enablePreview && itemHovered != null && itemHovered.getCover() != "")
+        visible: (enablePreview && itemHovered != null)
 
         isHovered: false
         isPressed: false
@@ -942,9 +942,13 @@ BaseList
 
             gui.loadItemAt(folder, indexHover);
 
+            var item = folder.currentItem;
+
+            if (item.isPlaylist == false) return;
+
             panelPreview.clearInstant();
 
-            gui.showGrid(folder.currentItem, -1);
+            gui.showGrid(item, -1);
         }
 
         Behavior on background.visible

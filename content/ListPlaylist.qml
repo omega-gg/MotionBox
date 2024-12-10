@@ -1267,9 +1267,7 @@ BaseList
 
         borderBottom: borderSize
 
-        visible: (enablePreview && itemHovered != null
-                  &&
-                  playlist.trackIsValid(indexAt(indexHover)))
+        visible: (enablePreview && itemHovered != null)
 
         isHovered: false
         isPressed: false

@@ -26,14 +26,78 @@ import Sky     1.0
 Item
 {
     //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    Component.onCompleted:
+    {
+        var index = gui.gridIndex;
+
+        if (index == -1) return;
+
+        view.showTrackBegin(index);
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+
+    function pGetTitle()
+    {
+        var playlist = gui.gridPlaylist;
+
+        if (playlist) return playlist.title;
+        else          return "";
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
-    ButtonPianoIcon
+    Item
     {
+        id: itemTitle
+
+        anchors.left : parent.left
         anchors.right: parent.right
 
         height: st.dp32
+
+        visible: (itemText.text != "")
+
+        Rectangle
+        {
+            anchors.fill: parent
+
+            color: st.itemList_colorSelectA
+        }
+
+        TextBase
+        {
+            id: itemText
+
+            anchors.fill: parent
+
+            anchors.leftMargin : st.dp8
+            anchors.rightMargin: st.dp8
+
+            verticalAlignment: Text.AlignVCenter
+
+            text: pGetTitle()
+
+            color: st.itemList_colorTextSelected
+
+            style: st.text_raised
+
+            font.pixelSize: st.dp16
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        anchors.right : parent.right
+        anchors.top   : itemTitle.top
+        anchors.bottom: itemTitle.bottom
 
         borderLeft  : borderSize
         borderRight : 0
@@ -43,5 +107,17 @@ Item
         iconSourceSize: st.size16x16
 
         onClicked: panelTag.collapse()
+    }
+
+    ViewPlaylist
+    {
+        id: view
+
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : itemTitle.bottom
+        anchors.bottom: parent.bottom
+
+        playlist: gui.gridPlaylist
     }
 }

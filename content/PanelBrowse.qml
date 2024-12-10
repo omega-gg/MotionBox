@@ -1478,7 +1478,8 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        borderLeft : borderSize
+        borderLeft: (buttonAddTrack.visible) ? 0 : borderSize
+
         borderRight: 0
 
         visible: (playlist != null)
@@ -1506,7 +1507,7 @@ MouseArea
         anchors.topMargin   : bar.borderTop
         anchors.bottomMargin: bar.borderBottom
 
-        borderLeft: (buttonAddTrack.visible) ? 0 : borderSize
+        borderLeft: (buttonAddTrack.visible || buttonTag.visible) ? 0 : borderSize
 
         checkable: true
         checked  : panelTracks.isExpanded

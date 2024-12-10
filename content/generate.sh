@@ -216,7 +216,6 @@ $SkyBase/BaseLineEdit.qml \
 $SkyBase/BaseTextEdit.qml \
 $SkyBase/BaseConsole.qml \
 $SkyBase/ColumnAuto.qml \
-$SkyBase/BaseGrid.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
 $SkyBase/AnimatedSlide.qml \
@@ -308,6 +307,7 @@ $SkyComponents/BaseList.qml \
 $SkyComponents/List.qml \
 $SkyComponents/ListCompletion.qml \
 $SkyComponents/ListContextual.qml \
+$SkyComponents/BaseGrid.qml \
 $SkyComponents/GridPlaylist.qml \
 $SkyComponents/ScrollArea.qml \
 $SkyComponents/ScrollBar.qml \
@@ -330,12 +330,15 @@ $SkyComponents/WallBookmarkTrack.qml \
 $SkyComponents/WallVideo.qml \
 $SkyComponents/PlayerBrowser.qml \
 $SkyComponents/ItemList.qml \
+$SkyComponents/ItemGrid.qml \
 $SkyComponents/ItemTab.qml \
 $SkyComponents/ItemWall.qml \
 $SkyComponents/ComponentList.qml \
 $SkyComponents/ComponentListFull.qml \
 $SkyComponents/ComponentContextual.qml \
 $SkyComponents/ComponentCompletion.qml \
+$SkyComponents/ComponentGrid.qml \
+$SkyComponents/ComponentGridTrack.qml \
 $SkyComponents/ComponentTab.qml \
 $SkyComponents/ComponentTabBrowser.qml \
 $SkyComponents/ComponentTabTrack.qml \

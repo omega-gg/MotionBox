@@ -33,9 +33,9 @@ All of this inside multiple tabs and without ever showing an ad.<br>
 
 ## For Motion Freedom
 
-- Freedom to access video resources on the Internet.
-- Freedom to organize decentralized video sources.
-- Freedom to share video content with the world.
+- Freedom to access video resources on the Internet
+- Freedom to organize decentralized video sources
+- Freedom to share video content with the world
 
 ## Technology
 

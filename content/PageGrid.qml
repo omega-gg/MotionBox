@@ -50,9 +50,38 @@ Item
         else          return "";
     }
 
+    function pGetModel()
+    {
+        var playlist = gui.gridPlaylist;
+
+        if (playlist && playlist.label == "recent")
+        {
+             return modelFiltered;
+        }
+        else return modelDefault;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
+
+    ModelPlaylist
+    {
+        id: modelDefault
+
+        playlist: view.playlist
+    }
+
+    ModelPlaylistFiltered
+    {
+        id: modelFiltered
+
+        model: modelDefault
+
+        sortRole: ModelPlaylist.RoleDate
+
+        sortOrder: Qt.DescendingOrder
+    }
 
     Item
     {
@@ -119,5 +148,7 @@ Item
         anchors.bottom: parent.bottom
 
         playlist: gui.gridPlaylist
+
+        model: pGetModel()
     }
 }

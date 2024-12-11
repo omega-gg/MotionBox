@@ -31,7 +31,7 @@ Item
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* read */ property bool isExpanded: local.tracksExpanded
+    /* read */ property bool isExpanded: false
 
     //---------------------------------------------------------------------------------------------
     // Aliases

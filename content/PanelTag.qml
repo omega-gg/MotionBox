@@ -173,6 +173,8 @@ BasePanel
     {
         if (actionCue.tryPush(gui.actionTagExpose)) return;
 
+        window.clearFocus();
+
         visible = true;
 
         clip = true;

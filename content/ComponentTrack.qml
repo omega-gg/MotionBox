@@ -119,18 +119,14 @@ ComponentLibraryItem
     {
         duration = playlist.trackDuration(indexAt(index));
 
-        var time = controllerNetwork.extractFragmentValue(source, 't');
-
-        if (time == "")
+        if (duration < 1)
         {
-            componentTrack.time = -1;
-
-            return;
+             componentTrack.time = -1;
         }
 
-        time *= 1000; // NOTE: We want the time in milliseconds.
+        var time = controllerPlaylist.extractTime(source);
 
-        if (duration < 1 || time > duration)
+        if (time == 0 || time > duration)
         {
              componentTrack.time = -1;
         }

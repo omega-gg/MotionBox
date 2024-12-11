@@ -348,9 +348,9 @@ Item
             }
         }
 
-        if (panelTracks.isExpanded)
+        if (local.tracksExpanded)
         {
-            panelPlayer.visible = false;
+            panelTracks.expand();
         }
 
         player.speed = local.speed;
@@ -3159,6 +3159,10 @@ Item
             {
                 restoreBars();
             }
+            else if (panelTag.isExposed)
+            {
+                panelTag.collapse();
+            }
             else if (isExpanded)
             {
                 buttonExpand.returnPressed();
@@ -3179,6 +3183,10 @@ Item
                 restoreBars();
 
                 sliderVolume.volumeDown();
+            }
+            else if (panelTag.isExposed)
+            {
+                panelTag.collapse();
             }
             else if (isExpanded == false)
             {

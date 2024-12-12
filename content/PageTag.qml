@@ -67,12 +67,7 @@ Item
     // Events
     //---------------------------------------------------------------------------------------------
 
-    Component.onCompleted:
-    {
-        text = "";
-
-        pUpdateTag();
-    }
+    Component.onCompleted: pUpdateTag()
 
     //---------------------------------------------------------------------------------------------
     // Connections
@@ -645,7 +640,7 @@ Item
         onClicked: applySynchronize(!synchronize)
     }
 
-    Item
+    MouseArea
     {
         id: itemTitle
 
@@ -656,6 +651,8 @@ Item
 
         visible: (itemText.text != "")
 
+        onClicked: panelTag.collapse()
+
         Rectangle
         {
             anchors.fill: parent
@@ -663,16 +660,11 @@ Item
             color: st.itemList_colorSelectA
         }
 
-        TextBase
+        BarTitleText
         {
             id: itemText
 
             anchors.fill: parent
-
-            anchors.leftMargin : st.dp8
-            anchors.rightMargin: st.dp8
-
-            verticalAlignment: Text.AlignVCenter
 
             text: pGetTitle()
 
@@ -686,17 +678,40 @@ Item
 
     ButtonPianoIcon
     {
-        anchors.right : parent.right
-        anchors.top   : itemTitle.top
-        anchors.bottom: itemTitle.bottom
+        anchors.right : bar.left
+        anchors.top   : bar.top
+        anchors.bottom: bar.bottom
 
         borderLeft  : borderSize
-        borderRight : 0
         borderBottom: borderSize
 
         icon          : st.icon16x16_slideDown
         iconSourceSize: st.size16x16
 
         onClicked: panelTag.collapse()
+    }
+
+    Rectangle
+    {
+        id: bar
+
+        anchors.right : parent.right
+        anchors.top   : itemTitle.top
+        anchors.bottom: itemTitle.bottom
+
+        width: st.dp16
+
+        gradient: Gradient
+        {
+            GradientStop { position: 0.0; color: st.barTitle_colorA }
+            GradientStop { position: 1.0; color: st.barTitle_colorB }
+        }
+    }
+
+    BorderHorizontal
+    {
+        anchors.left  : bar.left
+        anchors.right : bar.right
+        anchors.bottom: bar.bottom
     }
 }

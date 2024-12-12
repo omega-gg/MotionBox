@@ -302,6 +302,8 @@ BaseList
 
         /* QML_CONNECTION */ function onTracksInserted(index)
         {
+            index = indexFromIndex(index);
+
             if      (indexPreview    >= index) indexPreview    += count;
             if      (indexContextual >= index) indexContextual += count;
             else if (indexPlayer     >= index) indexPlayer     += count;
@@ -315,7 +317,7 @@ BaseList
 
             for (var i = 0; i < indexes.length; i++)
             {
-                var index = indexes[i];
+                var index = indexFromIndex(indexes[i]);
 
                 if      (indexPreview    > index) countPreview++;
                 if      (indexContextual > index) countContextual++;
@@ -1116,7 +1118,7 @@ BaseList
     {
         if (player.hasStarted && playlist && player.playlist == playlist)
         {
-             indexPlayer = player.trackIndex;
+             indexPlayer = indexFromIndex(player.trackIndex);
         }
         else indexPlayer = -1;
     }
@@ -1292,15 +1294,17 @@ BaseList
 
         /* QML_EVENT */ onPressed: function(mouse)
         {
+            var index = indexAt(indexHover);
+
             if ((mouse.button & Qt.LeftButton) == false
                 ||
-                playlist.trackIsDefault(indexAt(indexHover))) return;
+                playlist.trackIsDefault(index)) return;
 
             indexPreview = indexHover;
 
             panelPreview.clearInstant();
 
-            gui.showGrid(playlist, indexHover);
+            gui.showGrid(playlist, index);
         }
 
         Behavior on background.visible

@@ -54,7 +54,7 @@ LineEditBox
     {
         if (isFocused)
         {
-            var text = pGetText();
+            var text = pGetSource();
 
             if (text)
             {
@@ -148,40 +148,33 @@ LineEditBox
 
     function pGetSource()
     {
-        var item = gui.tagItem;
-
-        if (item)
-        {
-            if (gui.tagType)
-            {
-                return item.source;
-            }
-
-            var index = item.indexFromId(gui.tagId);
-
-            return item.trackSource(index);
-        }
-        else return currentTab.source;
-    }
-
-    function pGetText()
-    {
         if (panelTag.isExposed)
         {
-            var text = panelTag.text;
+            if (panelTag.currentIndex == 1)
+            {
+                var playlist = gui.gridPlaylist;
 
-            if (text) return text;
+                if (playlist) return playlist.source;
+            }
+            else if (panelTag.currentIndex == 2)
+            {
+                var text = panelTag.text;
+
+                if (text) return text;
+            }
         }
 
-        return pGetSource();
+        return currentTab.source;
     }
 
     function pGetTextDefault()
     {
-        var source = pGetText();
+        var source = pGetSource();
 
-        if (source) return source;
-
-        return qsTr("What do you want to watch ?");
+        if (source)
+        {
+            return source;
+        }
+        else return qsTr("What do you want to watch ?");
     }
 }

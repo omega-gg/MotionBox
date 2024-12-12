@@ -26,21 +26,44 @@ import Sky     1.0
 Item
 {
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    property int pIndex: -1
+
+    //---------------------------------------------------------------------------------------------
     // Events
     //---------------------------------------------------------------------------------------------
 
     Component.onCompleted:
     {
-        var index = gui.gridIndex;
+        pIndex = gui.gridIndex;
 
-        if (index == -1) return;
-
-        view.showTrackBegin(index);
+        pApplyIndex();
     }
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pApplyIndex()
+    {
+        if (pIndex == -1) return;
+
+        var playlist = gui.gridPlaylist;
+
+        if (playlist == null || playlist.isEmpty) return;
+
+        var model = view.model;
+
+        view.showTrackBegin(model.indexFromIndex(pIndex));
+
+        view.currentIndex = pIndex;
+
+        pIndex = -1;
+    }
 
     function pGetTitle()
     {
@@ -83,7 +106,25 @@ Item
         sortOrder: Qt.DescendingOrder
     }
 
-    Item
+    ViewPlaylist
+    {
+        id: view
+
+        anchors.left  : parent.left
+        anchors.right : parent.right
+        anchors.top   : itemTitle.bottom
+        anchors.bottom: parent.bottom
+
+        playlist: gui.gridPlaylist
+
+        model: pGetModel()
+
+        currentIndex: -1
+
+        onCountChanged: pApplyIndex()
+    }
+
+    MouseArea
     {
         id: itemTitle
 
@@ -94,6 +135,8 @@ Item
 
         visible: (itemText.text != "")
 
+        onClicked: panelTag.collapse()
+
         Rectangle
         {
             anchors.fill: parent
@@ -101,16 +144,11 @@ Item
             color: st.itemList_colorSelectA
         }
 
-        TextBase
+        BarTitleText
         {
             id: itemText
 
             anchors.fill: parent
-
-            anchors.leftMargin : st.dp8
-            anchors.rightMargin: st.dp8
-
-            verticalAlignment: Text.AlignVCenter
 
             text: pGetTitle()
 
@@ -124,12 +162,11 @@ Item
 
     ButtonPianoIcon
     {
-        anchors.right : parent.right
-        anchors.top   : itemTitle.top
-        anchors.bottom: itemTitle.bottom
+        anchors.right : bar.left
+        anchors.top   : bar.top
+        anchors.bottom: bar.bottom
 
         borderLeft  : borderSize
-        borderRight : 0
         borderBottom: borderSize
 
         icon          : st.icon16x16_slideDown
@@ -138,17 +175,27 @@ Item
         onClicked: panelTag.collapse()
     }
 
-    ViewPlaylist
+    Rectangle
     {
-        id: view
+        id: bar
 
-        anchors.left  : parent.left
         anchors.right : parent.right
-        anchors.top   : itemTitle.bottom
-        anchors.bottom: parent.bottom
+        anchors.top   : itemTitle.top
+        anchors.bottom: itemTitle.bottom
 
-        playlist: gui.gridPlaylist
+        width: st.dp16
 
-        model: pGetModel()
+        gradient: Gradient
+        {
+            GradientStop { position: 0.0; color: st.barTitle_colorA }
+            GradientStop { position: 1.0; color: st.barTitle_colorB }
+        }
+    }
+
+    BorderHorizontal
+    {
+        anchors.left  : bar.left
+        anchors.right : bar.right
+        anchors.bottom: bar.bottom
     }
 }

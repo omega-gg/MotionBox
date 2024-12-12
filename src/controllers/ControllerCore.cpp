@@ -117,7 +117,8 @@ W_INIT_CONTROLLER(ControllerCore)
 // NOTE: Also check DataLocal_patch, version_windows.
 static const QString CORE_VERSION = "2.0.0-6";
 
-static const int CORE_CACHE = 1048576 * 100; // 100 megabytes
+static const int CORE_CACHE        = 1048576 * 100; // 100 megabytes
+static const int CORE_CACHE_PIXMAP = 1048576 *  30; //  30 megabytes
 
 #ifndef SK_DEPLOY
 #ifdef Q_OS_MACX
@@ -464,6 +465,11 @@ ControllerCore::ControllerCore() : WController()
     wControllerFile->setCache(_cache);
 
     connect(_cache, SIGNAL(emptyChanged()), this, SIGNAL(cacheEmptyChanged()));
+
+    //---------------------------------------------------------------------------------------------
+    // PixmapCache
+
+    WPixmapCache::setSizeMax(CORE_CACHE_PIXMAP);
 
     //---------------------------------------------------------------------------------------------
     // DiskCache

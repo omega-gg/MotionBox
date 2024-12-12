@@ -33,6 +33,8 @@ BasePanel
 
     /* read */ property bool isExposed: false
 
+    /* read */ property int currentIndex: -1
+
     //---------------------------------------------------------------------------------------------
     // PageTag
 
@@ -48,13 +50,11 @@ BasePanel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pIndex: 1 // PageTag
+    property int pIndex: 2 // PageTag
 
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
-
-    property alias currentIndex: buttonsCheck.currentIndex
 
     property alias item: loader.item
 
@@ -113,7 +113,9 @@ BasePanel
                     {
                         visible = false;
 
-                        buttonsCheck.currentIndex = -1;
+                        currentIndex = -1;
+
+                        text = "";
 
                         loader.source = "";
                     }
@@ -163,7 +165,7 @@ BasePanel
         {
             collapse();
         }
-        else exposePage(1); // PageTag
+        else exposePage(2); // PageTag
     }
 
     //---------------------------------------------------------------------------------------------
@@ -181,7 +183,7 @@ BasePanel
 
         isExposed = true;
 
-        buttonsCheck.currentIndex = index;
+        currentIndex = index;
 
         loader.source = pGetSource(index);
 
@@ -196,13 +198,39 @@ BasePanel
         }
         else if (index == 1)
         {
-            return Qt.resolvedUrl("PageTag.qml");
+            return Qt.resolvedUrl("PageGrid.qml");
         }
         else if (index == 2)
         {
-            return Qt.resolvedUrl("PageGrid.qml");
+            return Qt.resolvedUrl("PageTag.qml");
         }
         else return "";
+    }
+
+    function pGetIndex()
+    {
+        if (currentIndex == 0)
+        {
+            return 0;
+        }
+        else if (currentIndex == 2)
+        {
+            return 1;
+        }
+        else return -1;
+    }
+
+    function pGetOpacity()
+    {
+        if (showCover)
+        {
+            return 1.0;
+        }
+        else if (currentIndex == 1)
+        {
+            return 0.9;
+        }
+        else return 0.8;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -212,6 +240,9 @@ BasePanel
     BorderHorizontal
     {
         id: border
+
+        // NOTE: We want the border to stay on top during the animation.
+        z: (parent.clip) ? 1 : 0
 
         size: st.dp8
 
@@ -225,7 +256,7 @@ BasePanel
         anchors.top   : border.bottom
         anchors.bottom: parent.bottom
 
-        opacity: (showCover) ? 1.0 : 0.8
+        opacity: pGetOpacity()
 
         color: st.panelTag_color
 
@@ -276,7 +307,11 @@ BasePanel
 
             width: st.dp256
 
-            visible: (currentIndex < 2) // PageGrid
+            visible: (currentIndex != -1)
+
+            currentIndex: pGetIndex()
+
+            checkable: false
 
             model: ListModel {}
 
@@ -297,13 +332,24 @@ BasePanel
 
             onClicked:
             {
+                if (currentIndex == index) return;
+
+                text = "";
+
                 if (index == 0)
                 {
 //#!QT_4
-                     loader.loadLeft(Qt.resolvedUrl("PageCamera.qml"));
+                    panelTag.currentIndex = 0;
+
+                    loader.loadLeft(Qt.resolvedUrl("PageCamera.qml"));
 //#END
                 }
-                else loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
+                else
+                {
+                    panelTag.currentIndex = 2;
+
+                    loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
+                }
             }
         }
     }

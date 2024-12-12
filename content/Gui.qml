@@ -1429,7 +1429,7 @@ Item
 
     function showTagTrack(playlist, index)
     {
-        panelTag.exposePage(1); // PageTag
+        panelTag.exposePage(2); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 0;
@@ -1465,7 +1465,7 @@ Item
             return;
         }
 
-        panelTag.exposePage(1); // PageTag
+        panelTag.exposePage(2); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 1;
@@ -1478,7 +1478,7 @@ Item
 
     function showTagTab(tab)
     {
-        panelTag.exposePage(1); // PageTag
+        panelTag.exposePage(2); // PageTag
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType =  2;
@@ -1512,7 +1512,7 @@ Item
             gridPlaylist = null;
             gridIndex    = -1;
         }
-        else if (panelTag.currentIndex == 1 && pageTag) // PageTag
+        else if (pageTag && panelTag.currentIndex == 2) // PageTag
         {
             pageTag.clearTagCustom();
 
@@ -1554,7 +1554,7 @@ Item
         gridPlaylist = playlist;
         gridIndex    = index;
 
-        panelTag.exposePage(2) // PageGrid
+        panelTag.exposePage(1) // PageGrid
     }
 
     //---------------------------------------------------------------------------------------------

@@ -140,6 +140,10 @@ Item
 
         currentIndex: -1
 
+        itemText.font.pixelSize: st.dp16
+
+        itemText.color: st.text2_color
+
         onCountChanged: pApplyIndex()
     }
 

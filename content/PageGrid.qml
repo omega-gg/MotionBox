@@ -65,6 +65,19 @@ Item
         pIndex = -1;
     }
 
+    function pGetCoverWidth()
+    {
+        var size = width - view.scrollBar.width;
+
+        var extra = st.border_size * 2 + view.spacing;
+
+        var sizeItem = st.dp320 + extra;
+
+        var ratio = Math.floor(size / sizeItem);
+
+        return sizeItem + Math.floor((size - sizeItem * ratio) / ratio) - extra;
+    }
+
     function pGetTitle()
     {
         var playlist = gui.gridPlaylist;
@@ -115,6 +128,12 @@ Item
         anchors.top   : itemTitle.bottom
         anchors.bottom: parent.bottom
 
+        coverWidth: pGetCoverWidth()
+
+        coverHeight: coverWidth * 0.5625
+
+        spacingBottom: st.dp48
+
         playlist: gui.gridPlaylist
 
         model: pGetModel()
@@ -132,8 +151,6 @@ Item
         anchors.right: parent.right
 
         height: st.dp32
-
-        visible: (itemText.text != "")
 
         onClicked: panelTag.collapse()
 

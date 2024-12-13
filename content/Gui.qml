@@ -1429,7 +1429,7 @@ Item
 
     function showTagTrack(playlist, index)
     {
-        panelTag.exposePage(2); // PageTag
+        clearTag();
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 0;
@@ -1444,6 +1444,8 @@ Item
              panelTag.showCover = false;
         }
         else panelTag.showCover = true;
+
+        panelTag.exposePage(2); // PageTag
     }
 
     function showTagPlaylist(folder, index)
@@ -1465,7 +1467,7 @@ Item
             return;
         }
 
-        panelTag.exposePage(2); // PageTag
+        clearTag();
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType = 1;
@@ -1474,11 +1476,13 @@ Item
         tagItem = item;
 
         panelTag.showCover = true;
+
+        panelTag.exposePage(2); // PageTag
     }
 
     function showTagTab(tab)
     {
-        panelTag.exposePage(2); // PageTag
+        clearTag();
 
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType =  2;
@@ -1491,6 +1495,8 @@ Item
              panelTag.showCover = false;
         }
         else panelTag.showCover = true;
+
+        panelTag.exposePage(2); // PageTag
     }
 
     function clearTag()
@@ -1548,6 +1554,8 @@ Item
     function showGrid(playlist, index)
     {
         if (playlist == null) return;
+
+        clearTag();
 
         playlist.addDeleteLock();
 

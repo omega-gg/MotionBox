@@ -132,7 +132,14 @@ BasePanel
 
     function exposePage(index)
     {
-        if (isExposed || index < 0 || index > 2) return;
+        if (index < 0 || index > 2) return;
+
+        if (isExposed)
+        {
+            pLoadSource(index);
+
+            return;
+        }
 
         pIndex = index;
 
@@ -188,6 +195,21 @@ BasePanel
         loader.source = pGetSource(index);
 
         gui.startActionCue(st.duration_fast);
+    }
+
+    function pLoadSource(index)
+    {
+        if (currentIndex == index) return;
+
+        text = "";
+
+        panelTag.currentIndex = index;
+
+        if (index < currentIndex)
+        {
+            loader.loadLeft(pGetSource(index));
+        }
+        else loader.loadRight(pGetSource(index));
     }
 
     function pGetSource(index)
@@ -332,24 +354,12 @@ BasePanel
 
             onClicked:
             {
-                if (currentIndex == index) return;
-
-                text = "";
-
-                if (index == 0)
-                {
-//#!QT_4
-                    panelTag.currentIndex = 0;
-
-                    loader.loadLeft(Qt.resolvedUrl("PageCamera.qml"));
+//#QT_4
+                if (index == 1) pLoadSource(2); // PageTag
+//#ELSE
+                if (index == 0) pLoadSource(0); // PageCamera
+                else            pLoadSource(2); // PageTag
 //#END
-                }
-                else
-                {
-                    panelTag.currentIndex = 2;
-
-                    loader.loadRight(Qt.resolvedUrl("PageTag.qml"));
-                }
             }
         }
     }

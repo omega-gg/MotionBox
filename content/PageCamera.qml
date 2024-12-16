@@ -215,8 +215,6 @@ VideoOutput
             sk.vibrate(200);
 
             panelBrowse.browse(text);
-
-            panelTag.collapse();
         }
     }
 

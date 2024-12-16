@@ -640,31 +640,26 @@ Item
         onClicked: applySynchronize(!synchronize)
     }
 
-    MouseArea
+    Rectangle
     {
         id: itemTitle
 
         anchors.left : parent.left
         anchors.right: parent.right
 
-        height: st.dp32
+        height: st.dp32 + st.border_size
 
         visible: (itemText.text != "")
 
-        onClicked: panelTag.collapse()
-
-        Rectangle
-        {
-            anchors.fill: parent
-
-            color: st.itemList_colorSelectA
-        }
+        color: st.itemList_colorSelectA
 
         BarTitleText
         {
             id: itemText
 
             anchors.fill: parent
+
+            anchors.bottomMargin: st.border_size
 
             text: pGetTitle()
 
@@ -685,8 +680,8 @@ Item
         borderLeft  : borderSize
         borderBottom: borderSize
 
-        icon          : st.icon16x16_slideDown
-        iconSourceSize: st.size16x16
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
 
         onClicked: panelTag.collapse()
     }

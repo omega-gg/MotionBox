@@ -214,9 +214,9 @@ VideoOutput
 
             sk.vibrate(200);
 
-            gui.resetPage();
+            panelBrowse.browse(text);
 
-            panelTracks.browseTag(text, true);
+            panelTag.collapse();
         }
     }
 
@@ -264,8 +264,8 @@ VideoOutput
         borderLeft  : borderSize
         borderBottom: borderSize
 
-        icon          : st.icon16x16_slideDown
-        iconSourceSize: st.size16x16
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
 
         onClicked: panelTag.collapse()
     }
@@ -277,7 +277,7 @@ VideoOutput
         anchors.right: parent.right
 
         width : st.dp16
-        height: st.dp32
+        height: st.dp32 + st.border_size
 
         gradient: Gradient
         {

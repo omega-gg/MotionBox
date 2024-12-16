@@ -521,7 +521,7 @@ Item
 
                 anchors.rightMargin: st.dp16
 
-                borderLeft: borderSize
+                borderLeft: (buttonTag.visible) ? 0 : borderSize
 
                 checkable: true
                 checked  : isExpanded

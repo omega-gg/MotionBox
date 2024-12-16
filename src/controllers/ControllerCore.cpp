@@ -1062,6 +1062,12 @@ ControllerCore::ControllerCore() : WController()
     return WControllerNetwork::textIsUri(text);
 }
 
+/* Q_INVOKABLE static */ bool ControllerCore::checkTag(const QString & text)
+{
+    // NOTE: Sometimes we get a false positive with a large number.
+    return (text.isEmpty() == false && text.at(0).isNumber() == false);
+}
+
 /* Q_INVOKABLE static */ int ControllerCore::urlType(const QString & url)
 {
     return wControllerPlaylist->urlType(url);

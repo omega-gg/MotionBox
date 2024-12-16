@@ -72,6 +72,8 @@ Item
     //---------------------------------------------------------------------------------------------
     // PageGrid
 
+    /* read */ property ListPlaylist gridList: null
+
     /* read */ property Playlist gridPlaylist: null
 
     /* read */ property int gridIndex: -1
@@ -1515,6 +1517,7 @@ Item
         {
             gridPlaylist.tryDelete();
 
+            gridList     = null;
             gridPlaylist = null;
             gridIndex    = -1;
         }
@@ -1551,7 +1554,7 @@ Item
     //---------------------------------------------------------------------------------------------
     // PageGrid
 
-    function showGrid(playlist, index)
+    function showGrid(list, playlist, index)
     {
         if (playlist == null) return;
 
@@ -1559,6 +1562,7 @@ Item
 
         playlist.addDeleteLock();
 
+        gridList     = list;
         gridPlaylist = playlist;
         gridIndex    = index;
 

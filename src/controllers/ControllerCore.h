@@ -166,6 +166,7 @@ public: // Static functions
     //---------------------------------------------------------------------------------------------
 
     Q_INVOKABLE static bool checkUrl(const QString & text);
+    Q_INVOKABLE static bool checkTag(const QString & text);
 
     Q_INVOKABLE static int urlType(const QString & url);
 

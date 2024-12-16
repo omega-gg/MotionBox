@@ -203,13 +203,18 @@ BasePanel
 
         text = "";
 
-        panelTag.currentIndex = index;
-
         if (index < currentIndex)
         {
+            currentIndex = index;
+
+            loader.loadRight(pGetSource(index));
+        }
+        else
+        {
+            currentIndex = index;
+
             loader.loadLeft(pGetSource(index));
         }
-        else loader.loadRight(pGetSource(index));
     }
 
     function pGetSource(index)

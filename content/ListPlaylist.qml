@@ -1304,7 +1304,7 @@ BaseList
 
             panelPreview.clearInstant();
 
-            gui.showGrid(playlist, index);
+            gui.showGrid(list, playlist, index);
         }
 
         Behavior on background.visible

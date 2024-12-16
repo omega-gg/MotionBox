@@ -1478,8 +1478,7 @@ MouseArea
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom
 
-        borderLeft: (buttonAddTrack.visible) ? 0 : borderSize
-
+        borderLeft : (buttonAddTrack.visible) ? 0 : borderSize
         borderRight: 0
 
         visible: (playlist != null)

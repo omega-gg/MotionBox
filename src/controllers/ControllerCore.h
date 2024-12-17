@@ -325,6 +325,7 @@ private: // Variables
 
 #ifdef Q_OS_ANDROID
     QString _fileVbml;
+    QString _fileTag;
 #endif
 
     QString _query;

@@ -117,6 +117,8 @@ ComponentLibraryItem
 
     function pUpdateTime()
     {
+        if (playlist == null) return;
+
         duration = playlist.trackDuration(indexAt(index));
 
         if (duration < 1)

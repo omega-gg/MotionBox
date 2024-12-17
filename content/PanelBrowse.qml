@@ -693,16 +693,19 @@ MouseArea
         {
             if (controllerPlaylist.urlIsTrack(playlist.source) == false)
             {
-                if (player.isPlaying == false || highlightedTab)
+                if (gui.isExpanded)
+                {
+                    if (playlist.isEmpty)
+                    {
+                        gui.restore();
+                    }
+                    else gui.showGrid(listPlaylist, playlist, -1);
+                }
+                else if (player.isPlaying == false || highlightedTab)
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
                 else gui.restore();
-
-                if (gui.isExpanded == false && playlist.isEmpty == false)
-                {
-                    scrollPlaylist.setFocus();
-                }
 
                 return;
             }
@@ -1481,7 +1484,7 @@ MouseArea
         borderLeft : (buttonAddTrack.visible) ? 0 : borderSize
         borderRight: 0
 
-        visible: (playlist != null)
+        visible: buttonPlaylist.visible
 
         icon          : st.icon16x16_tag
         iconSourceSize: st.size16x16
@@ -1566,7 +1569,7 @@ MouseArea
                                                : scrollPlaylist.left
 
         anchors.right: (buttonAddTrack.visible) ? buttonAddTrack.left
-                                                : buttonUp      .left
+                                                : buttonTag     .left
 
         anchors.top   : buttonUp.top
         anchors.bottom: buttonUp.bottom

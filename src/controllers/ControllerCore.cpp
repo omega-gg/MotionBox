@@ -702,6 +702,22 @@ ControllerCore::ControllerCore() : WController()
     else connect(reply, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMediaLoaded(WMediaReply *)));
 }
 
+/* Q_INVOKABLE */ void ControllerCore::reload(const QString & label)
+{
+    if (label == "suggest")
+    {
+        if (_loaderSuggest) _loaderSuggest->reload();
+    }
+    else if (label == "recent")
+    {
+        if (_loaderRecent) _loaderRecent->reload();
+    }
+    else if (label == "interactive")
+    {
+        if (_loaderInteractive) _loaderInteractive->reload();
+    }
+}
+
 //-------------------------------------------------------------------------------------------------
 
 /* Q_INVOKABLE */ bool ControllerCore::updateVersion()

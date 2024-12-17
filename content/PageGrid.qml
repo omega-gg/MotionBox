@@ -146,7 +146,12 @@ Item
                 {
                     if (mouse.y < border.y)
                     {
-                        gui.setCurrentTrack(playlist, view.model.indexAt(index));
+                        if (highlightedTab
+                            ||
+                            controllerPlaylist.cleanMatch(source, currentTab.source) == false)
+                        {
+                            gui.setCurrentTrack(playlist, view.model.indexAt(index));
+                        }
                     }
                     // NOTE: When pressing the bar we simply select the track.
                     else playlist.selectSingleTrack(view.model.indexAt(index));
@@ -209,7 +214,15 @@ Item
 
             font.pixelSize: st.dp16
 
-            onClicked: panelTag.collapse()
+            onClicked:
+            {
+                if (panelBrowse.playlist == playlist && panelBrowse.isExposed == false)
+                {
+                    panelBrowse.expose();
+                }
+
+                gui.restore();
+            }
         }
     }
 

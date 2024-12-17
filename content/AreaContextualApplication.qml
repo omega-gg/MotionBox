@@ -198,20 +198,6 @@ AreaContextual
 
     //---------------------------------------------------------------------------------------------
 
-    function pCheckPlay(folder, index)
-    {
-        if (folder.currentIndex != index)
-        {
-            return false;
-        }
-
-        var item = folder.currentItem;
-
-        return (item.isPlaylist && item.count)
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function pSearchMore(playlist, source, title)
     {
         gui.restore();
@@ -288,7 +274,7 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
 
-                    var play = pCheckPlay(folder, index);
+                    var play = folder.itemIsPlaylist(index);
 
                     if (play)
                     {
@@ -298,22 +284,27 @@ AreaContextual
 
                     if (folder.itemIsLocal(index))
                     {
-                        if (folder != feeds)
+                        if (folder == feeds)
                         {
-                            array.push
-                            (
-                                { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                                  "title": qsTr("VideoTag") },
+                            array.push ({ "id": 3, "icon": st.icon16x16_tag,
+                                          "iconSize": st.size16x16, "title": qsTr("VideoTag") });
 
-                                { "id": 7, "title": qsTr("Rename")      },
-                                { "id": 8, "title": qsTr("Move to ...") },
-                                { "id": 9, "title": qsTr("Save VBML")   }
-                            );
+                            if (folder.itemLabel(index) == "suggest")
+                            {
+                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
+                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
+                            }
+
+                            array.push ({ "id": 9, "icon": st.icon16x16_download,
+                                          "iconSize": st.size16x16, "title": qsTr("Save VBML") });
                         }
                         else array.push
                         (
                             { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
                               "title": qsTr("VideoTag") },
+
+                            { "id": 7, "title": qsTr("Rename")      },
+                            { "id": 8, "title": qsTr("Move to ...") },
 
                             { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                               "title": qsTr("Save VBML") }
@@ -339,17 +330,11 @@ AreaContextual
                               "title": qsTr("Open link") },
 
                             { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") }
-                        );
+                              "title": qsTr("Copy link") },
 
-                        if (play)
-                        {
-                            array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                         "iconSize": st.size16x16, "title": qsTr("Reload") });
-                        }
+                            { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                              "title": qsTr("Reload") },
 
-                        array.push
-                        (
                             { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                               "title": qsTr("Save VBML") },
 
@@ -371,17 +356,11 @@ AreaContextual
                               "title": qsTr("Open link") },
 
                             { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") }
-                        );
+                              "title": qsTr("Copy link") },
 
-                        if (play)
-                        {
-                            array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                         "iconSize": st.size16x16, "title": qsTr("Reload") });
-                        }
+                            { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                              "title": qsTr("Reload") },
 
-                        array.push
-                        (
                             { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                               "title": qsTr("Save VBML") },
 
@@ -394,7 +373,7 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
 
-                    var play = pCheckPlay(folder, index);
+                    /* var */ play = folder.itemIsPlaylist(index);
 
                     if (play)
                     {
@@ -404,26 +383,32 @@ AreaContextual
 
                     if (folder.itemIsLocal(index))
                     {
-                        if (folder != feeds)
+                        if (folder == feeds)
                         {
-                            array.push
-                            (
-                                { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                                  "title": qsTr("VideoTag") },
+                            array.push({ "id": 3, "icon": st.icon16x16_tag,
+                                         "iconSize": st.size16x16, "title": qsTr("VideoTag") });
 
-                                { "id": 7, "title": qsTr("Rename")      },
-                                { "id": 8, "title": qsTr("Move to ...") },
+                            var label = folder.itemLabel(index);
 
-                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                                  "title": qsTr("Save VBML") }
-                            );
+                            if (label == "recent" || label == "interactive")
+                            {
+                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
+                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
+                            }
+
+                            array.push ({ "id": 9, "icon": st.icon16x16_download,
+                                          "iconSize": st.size16x16, "title": qsTr("Save VBML") });
                         }
                         else array.push
                         (
                             { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
                               "title": qsTr("VideoTag") },
 
-                            { "id": 9, "title": qsTr("Save VBML") }
+                            { "id": 7, "title": qsTr("Rename")      },
+                            { "id": 8, "title": qsTr("Move to ...") },
+
+                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                              "title": qsTr("Save VBML") }
                         );
 
                         array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
@@ -448,17 +433,11 @@ AreaContextual
                                   "title": qsTr("Open link") },
 
                                 { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") }
-                            );
+                                  "title": qsTr("Copy link") },
 
-                            if (play)
-                            {
-                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
-                            }
+                                { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                                  "title": qsTr("Reload") },
 
-                            array.push
-                            (
                                 { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                                   "title": qsTr("Save VBML") }
                             );
@@ -477,17 +456,11 @@ AreaContextual
                                   "title": qsTr("Open link") },
 
                                 { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") }
-                             );
+                                  "title": qsTr("Copy link") },
 
-                            if (play)
-                            {
-                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
-                            }
+                                { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                                  "title": qsTr("Reload") },
 
-                            array.push
-                            (
                                 { "id": 8, "title": qsTr("Move to ...") },
 
                                 { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
@@ -518,7 +491,7 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
 
-                    if (pCheckPlay(folder, index))
+                    if (folder.itemIsPlaylist(index))
                     {
                         array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
                                      "title": qsTr("Play") });
@@ -531,7 +504,7 @@ AreaContextual
                 {
                     array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
 
-                    if (pCheckPlay(folder, index))
+                    if (folder.itemIsPlaylist(index))
                     {
                         array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
                                      "title": qsTr("Play") });
@@ -822,7 +795,13 @@ AreaContextual
         {
             if (id == 0) // Play
             {
-                gui.playItem(pItem.folder, pIndex);
+                var folder = pItem.folder;
+
+                folder.loadCurrentIndex(pIndex, true);
+
+                gui.playItem(folder, pIndex);
+
+                folder.currentItem.selectCurrentTrack();
             }
             else if (id == 1) // Add to ...
             {
@@ -834,7 +813,7 @@ AreaContextual
             }
             else if (id == 2) // More like this
             {
-                var folder = pItem.folder;
+                /* var */ folder = pItem.folder;
 
                 pSearchMore(null, folder.itemSource(pIndex), folder.itemTitle(pIndex));
             }
@@ -856,7 +835,17 @@ AreaContextual
             }
             else if (id == 6) // Reload
             {
-                pItem.folder.currentItem.reloadQuery();
+                /* var */ folder = pItem.folder;
+
+                folder.loadCurrentIndex(pIndex, true);
+
+                var item = folder.currentItem;
+
+                if (item.source)
+                {
+                    item.reloadQuery();
+                }
+                else core.reload(item.label);
             }
             else if (id == 7) // Rename
             {

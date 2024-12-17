@@ -119,6 +119,8 @@ public: // Interface
 
     Q_INVOKABLE void loadLinks(const QString & source, bool safe);
 
+    Q_INVOKABLE void reload(const QString & label);
+
     Q_INVOKABLE bool updateVersion();
 
     Q_INVOKABLE void updateBackends() const;

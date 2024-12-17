@@ -473,8 +473,7 @@ Item
                 anchors.left: (buttonPlaylistAdd.visible) ? buttonPlaylistAdd.right
                                                           : buttonPlaylistAdd.left
 
-                anchors.right: (buttonTag.visible) ? buttonTag.left
-                                                   : buttonUp.left
+                anchors.right: buttonTag.left
 
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
@@ -482,7 +481,7 @@ Item
                 // NOTE: This is required for oriental right to left text.
                 horizontalAlignment: Text.AlignLeft
 
-                visible: (playlist != null)
+                visible: buttonPlaylist.visible
 
                 text: (playlist) ? playlist.title : ""
             }
@@ -498,7 +497,7 @@ Item
                 borderLeft : borderSize
                 borderRight: 0
 
-                visible: (playlist != null)
+                visible: buttonPlaylist.visible
 
                 icon          : st.icon16x16_tag
                 iconSourceSize: st.size16x16

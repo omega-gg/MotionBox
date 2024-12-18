@@ -85,6 +85,8 @@ BasePanel
         {
             name: "visible"; when: isExposed
 
+            // NOTE Windows11: We can't use AnchorAnimation because it seems to glitch the view
+            //                 geometry when collapsing, resizing and exposing it again.
             PropertyChanges
             {
                 target: panelTag

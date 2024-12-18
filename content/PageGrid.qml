@@ -87,6 +87,21 @@ Item
         else return modelDefault;
     }
 
+    function pGetTitle()
+    {
+        if (playlist)
+        {
+            var title = playlist.title;
+
+            if (title)
+            {
+                return title;
+            }
+            else return st.getItemName(playlist.type);
+        }
+        else return "";
+    }
+
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
@@ -206,7 +221,7 @@ Item
 
             verticalAlignment: Text.AlignVCenter
 
-            text: (playlist) ? playlist.title : ""
+            text: pGetTitle()
 
             color: st.itemList_colorTextSelected
 

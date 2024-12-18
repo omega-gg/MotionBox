@@ -142,6 +142,17 @@ Item
         else return modelDefault;
     }
 
+    function pPlaylistLocal()
+    {
+        if (playlist && playlist.isLocal)
+        {
+            var label = playlist.label;
+
+            return (label == "" || label == "tracks");
+        }
+        else return false;
+    }
+
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
@@ -450,7 +461,7 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                visible: (playlist != null && playlist.isLocal)
+                visible: pPlaylistLocal()
 
                 checkable: true
                 checked  : scrollPlaylist.isCreating

@@ -502,8 +502,8 @@ Item
                 id: buttonTag
 
                 anchors.right : buttonUp.left
-                anchors.top   : buttonUp.top
-                anchors.bottom: buttonUp.bottom
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
 
                 borderLeft : borderSize
                 borderRight: 0
@@ -525,13 +525,12 @@ Item
             {
                 id: buttonUp
 
-                anchors.right : parent.right
+                anchors.right : buttonClose.left
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                anchors.rightMargin: st.dp16
-
-                borderLeft: (buttonTag.visible) ? 0 : borderSize
+                borderLeft : (buttonTag.visible) ? 0 : borderSize
+                borderRight: 0
 
                 checkable: true
                 checked  : isExpanded
@@ -540,6 +539,22 @@ Item
                 iconSourceSize: st.size16x16
 
                 onClicked: toggleExpand()
+            }
+
+            ButtonPianoIcon
+            {
+                id: buttonClose
+
+                anchors.right : parent.right
+                anchors.top   : parent.top
+                anchors.bottom: parent.bottom
+
+                anchors.rightMargin: st.dp16
+
+                icon          : st.icon12x12_close
+                iconSourceSize: st.size12x12
+
+                onClicked: gui.expand()
             }
         }
 

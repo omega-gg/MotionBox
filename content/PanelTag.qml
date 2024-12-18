@@ -62,9 +62,10 @@ BasePanel
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    anchors.left : parent.left
-    anchors.right: parent.right
-    anchors.top  : parent.bottom
+    anchors.left  : parent.left
+    anchors.right : parent.right
+    anchors.top   : parent.bottom
+    anchors.bottom: undefined
 
     height: parent.height
 

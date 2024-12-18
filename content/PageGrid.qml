@@ -227,6 +227,7 @@ Item
                 {
                     panelBrowse.expose();
                 }
+                else panelBrowse.collapse();
 
                 gui.restore();
             }

@@ -1309,8 +1309,8 @@ MouseArea
     {
         anchors.left  : scrollBackends.left
         anchors.right : scrollBackends.right
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         text: qsTr("Backends")
     }
@@ -1320,8 +1320,8 @@ MouseArea
         id: buttonHome
 
         anchors.left  : scrollBrowse.left
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         width: st.dp32 + borderSizeWidth
 
@@ -1347,8 +1347,8 @@ MouseArea
         id: buttonBrowse
 
         anchors.left  : buttonHome.right
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         borderRight: 0
 
@@ -1386,10 +1386,10 @@ MouseArea
         anchors.right: (buttonAddItem.visible) ? buttonAddItem.left
                                                : borderFolder .left
 
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
-        anchors.rightMargin: buttonClear.width + st.dp14
+        anchors.rightMargin: st.dp14
 
         itemLeft  : buttonBrowse
         itemBottom: buttonBrowse.itemBottom
@@ -1397,22 +1397,13 @@ MouseArea
         onPressed: pSelectButton(index)
     }
 
-    ButtonPianoIcon
+    BorderVertical
     {
-        id: buttonClear
-
         anchors.left  : buttonsBrowse.left
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         anchors.leftMargin: buttonsBrowse.getWidth()
-
-        enabled: (pFolderBrowse && pFolderBrowse.count)
-
-        icon          : st.icon12x12_close
-        iconSourceSize: st.size12x12
-
-        onClicked: pClearSearch()
     }
 
     ButtonPianoIcon
@@ -1420,8 +1411,8 @@ MouseArea
         id: buttonAddItem
 
         anchors.right : borderFolder.left
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         width: st.dp32 + borderSizeWidth
 
@@ -1451,8 +1442,8 @@ MouseArea
         anchors.right: (buttonTag.visible) ? buttonTag.left
                                            : buttonUp.left
 
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         borderLeft : borderSize
         borderRight: 0
@@ -1478,8 +1469,8 @@ MouseArea
         id: buttonTag
 
         anchors.right : buttonUp.left
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         borderLeft : (buttonAddTrack.visible) ? 0 : borderSize
         borderRight: 0
@@ -1501,15 +1492,12 @@ MouseArea
     {
         id: buttonUp
 
-        anchors.right : parent.right
-        anchors.top   : bar.top
-        anchors.bottom: bar.bottom
+        anchors.right : buttonClose.left
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
-        anchors.rightMargin : st.dp16
-        anchors.topMargin   : bar.borderTop
-        anchors.bottomMargin: bar.borderBottom
-
-        borderLeft: (buttonAddTrack.visible || buttonTag.visible) ? 0 : borderSize
+        borderLeft : (buttonAddTrack.visible || buttonTag.visible) ? 0 : borderSize
+        borderRight: 0
 
         checkable: true
         checked  : panelTracks.isExpanded
@@ -1522,11 +1510,29 @@ MouseArea
 
     ButtonPianoIcon
     {
+        id: buttonClose
+
+        anchors.right : parent.right
+        anchors.top   : bar.top
+        anchors.bottom: bar.bottom
+
+        anchors.rightMargin : st.dp16
+        anchors.topMargin   : bar.borderTop
+        anchors.bottomMargin: bar.borderBottom
+
+        icon          : st.icon12x12_close
+        iconSourceSize: st.size12x12
+
+        onClicked: collapse()
+    }
+
+    ButtonPianoIcon
+    {
         id: buttonPlaylist
 
         anchors.left  : scrollPlaylist.left
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         width: st.dp56 + borderSizeWidth
 
@@ -1571,8 +1577,8 @@ MouseArea
         anchors.right: (buttonAddTrack.visible) ? buttonAddTrack.left
                                                 : buttonTag     .left
 
-        anchors.top   : buttonUp.top
-        anchors.bottom: buttonUp.bottom
+        anchors.top   : buttonClose.top
+        anchors.bottom: buttonClose.bottom
 
         // NOTE: This is required for oriental right to left text.
         horizontalAlignment: Text.AlignLeft

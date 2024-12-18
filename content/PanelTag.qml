@@ -115,6 +115,8 @@ BasePanel
                 {
                     if (isExposed == false)
                     {
+                        gui.clearTag();
+
                         visible = false;
 
                         currentIndex = -1;
@@ -164,8 +166,6 @@ BasePanel
         clip = true;
 
         isExposed = false;
-
-        gui.clearTag();
 
         gui.startActionCue(st.duration_fast);
     }

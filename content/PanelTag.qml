@@ -62,12 +62,12 @@ BasePanel
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    anchors.left  : parent.left
-    anchors.right : parent.right
-    anchors.top   : parent.bottom
-    anchors.bottom: undefined
+    anchors.left : parent.left
+    anchors.right: parent.right
 
     height: parent.height
+
+    y: height
 
     visible: false
 
@@ -85,12 +85,11 @@ BasePanel
         {
             name: "visible"; when: isExposed
 
-            AnchorChanges
+            PropertyChanges
             {
                 target: panelTag
 
-                anchors.top   : undefined
-                anchors.bottom: parent.bottom
+                y: 0
             }
         }
     ]
@@ -99,8 +98,10 @@ BasePanel
     {
         SequentialAnimation
         {
-            AnchorAnimation
+            NumberAnimation
             {
+                property: "y"
+
                 duration: st.duration_fast
 
                 easing.type: st.easing

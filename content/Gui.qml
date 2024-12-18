@@ -51,8 +51,6 @@ Item
 
     /* read */ property variant currentPlaylist: currentTab.playlist
 
-    /* read */ property bool currentTabActive: (currentTab.isValid || currentTab.title != "")
-
     /* read */ property Playlist history: null
 
     /* read */ property Playlist playlistTemp: controllerPlaylist.createPlaylist()
@@ -1441,11 +1439,7 @@ Item
 
         playlist.addDeleteLock();
 
-        if (player.source == playlist.trackSource(index))
-        {
-             panelTag.showCover = false;
-        }
-        else panelTag.showCover = true;
+        panelTag.showCover = true;
 
         panelTag.exposePage(2); // PageTag
     }
@@ -1486,17 +1480,20 @@ Item
     {
         clearTag();
 
+        if (playerTab == tab)
+        {
+            panelTag.exposePage(2); // PageTag
+
+            return;
+        }
+
         // NOTE: Applying these values before the item to avoid updating the cover and the label.
         tagType =  2;
         tagId   = -1;
 
         tagItem = tab;
 
-        if (player.source == tab.source)
-        {
-             panelTag.showCover = false;
-        }
-        else panelTag.showCover = true;
+        panelTag.showCover = true;
 
         panelTag.exposePage(2); // PageTag
     }
@@ -1548,7 +1545,7 @@ Item
         {
             return "";
         }
-        else return currentTab.cover;
+        else return playerTab.cover;
     }
 
     //---------------------------------------------------------------------------------------------

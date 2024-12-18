@@ -135,7 +135,7 @@ Item
 
     Connections
     {
-        target: currentTab
+        target: playerTab
 
         /* QML_CONNECTION */ function onCurrentBookmarkUpdated()
         {
@@ -271,7 +271,7 @@ Item
 
     function pUpdateTag()
     {
-        if (currentTabActive == false && gui.tagType == -1)
+        if ((playerTab.isValid == false || playerTab.title == "") && gui.tagType == -1)
         {
             timer.stop();
 
@@ -312,7 +312,7 @@ Item
         {
             return "";
         }
-        else return currentTab.title;
+        else return playerTab.title;
     }
 
     function pGetVbml()
@@ -341,22 +341,22 @@ Item
         {
             if (player.hasStarted)
             {
-                var source = gui.applyTimeTrack(currentTab.source);
+                var source = gui.applyTimeTrack(playerTab.source);
 
-                return currentTab.toVbml(source, player.currentTime);
+                return playerTab.toVbml(source, player.currentTime);
             }
             else
             {
-                /* var */ source = currentTab.source;
+                /* var */ source = playerTab.source;
 
-                return currentTab.toVbml(source, gui.extractTime(source));
+                return playerTab.toVbml(source, gui.extractTime(source));
             }
         }
         else
         {
-            /* var */ source = gui.clearContext(currentTab.source);
+            /* var */ source = gui.clearContext(playerTab.source);
 
-            return currentTab.toVbml(source, -2);
+            return playerTab.toVbml(source, -2);
         }
     }
 

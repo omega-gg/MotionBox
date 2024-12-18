@@ -216,7 +216,14 @@ Item
 
             onClicked:
             {
-                if (panelBrowse.playlist == playlist && panelBrowse.isExposed == false)
+                if (panelRelated.playlist == playlist)
+                {
+                    panelRelated.expose();
+
+                    return;
+                }
+
+                if (panelBrowse.playlist == playlist)
                 {
                     panelBrowse.expose();
                 }

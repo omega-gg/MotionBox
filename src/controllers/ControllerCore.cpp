@@ -1479,6 +1479,7 @@ void ControllerCore::onFeedChanged()
 
         hubs.append("https://omega.gg/vox");
         hubs.append("https://vox.omega.gg/w/9d5fYXTcjLHReVUQabKRwB"); // tmdb
+        hubs.append("https://vox.omega.gg/w/ora2wN4bVNfBbpHMHbrCrL"); // cinema
         hubs.append("https://vox.omega.gg/w/1bygNVLjD7P5Ande3BKktN"); // twitch
         hubs.append("https://vox.omega.gg/w/azQbNtC41sMW7RYge9qBrV"); // netflix
         hubs.append("https://vox.omega.gg/w/u7LcNmoaU3AU82PBjFHG72"); // disney

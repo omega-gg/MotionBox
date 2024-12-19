@@ -339,6 +339,8 @@ MouseArea
                      player.seek(st.getChapterTime(sliderStream, st.dp4));
                 }
                 else player.seek(slider.value);
+
+                panelTag.collapse();
             }
         }
 

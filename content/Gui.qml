@@ -3696,7 +3696,7 @@ Item
         // NOTE: Wait for the cursor.
         sk.wait(500);
 
-        pSaveShot(path + "/MotionBoxB.png");
+        //pSaveShot(path + "/MotionBoxB.png");
 
         restore();
 
@@ -3705,7 +3705,7 @@ Item
         // NOTE: Wait for the icons to load.
         sk.wait(5000);
 
-        var index = currentPlaylist.indexFromSource("https://www.youtube.com/watch?v=HJcpcb1wnDE");
+        var index = currentPlaylist.indexFromSource("https://www.youtube.com/watch?v=fuib_97sWKw");
 
         // NOTE: We want to skip a few tracks.
         for (var i = 0; i < index; i++)
@@ -3715,6 +3715,10 @@ Item
 
         // NOTE: Wait for the track to load.
         sk.wait(5000);
+
+        pSaveShot(path + "/MotionBoxB.png");
+
+        showGrid(panelBrowse.listPlaylist, playlistBrowse, index);
 
         pSaveShot(path + "/MotionBoxC.png");
 

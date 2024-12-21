@@ -10,7 +10,7 @@ Designed to access, organize and share multiple video resources.<br>
 [omega](https://omega.gg/about) is building MotionBox to empower people.<br>
 
 ## MotionBox Video Browser
-<a href="https://omega.gg/MotionBox"><img src="dist/screens/MotionBoxC.png" alt="Video Browser" width="512px"></a>
+<a href="https://omega.gg/MotionBox"><img src="dist/screens/MotionBoxB.png" alt="Video Browser" width="512px"></a>
 
 MotionBox accesses and aggregates videos via the [VBML](https://omega.gg/VBML) language.<br>
 It supports [DuckDuckGo](https://en.wikipedia.org/wiki/DuckDuckGo),

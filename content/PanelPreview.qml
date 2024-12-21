@@ -425,20 +425,20 @@ PanelImage
 
         if (detail == false) return size;
 
-        if (itemDuration.text)
+        if (itemDuration.visible)
         {
-            if (textDate.text)
+            if (textDate.visible)
             {
                  size += st.dp48 + border.size;
             }
             else size += st.dp24 + border.size;
         }
-        else if (textDate.text)
+        else if (textDate.visible)
         {
             size += st.dp24 + border.size;
         }
 
-        if (buttonFeed.text)
+        if (buttonFeed.visible)
         {
             return size + buttonFeed.height;
         }

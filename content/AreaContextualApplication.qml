@@ -270,17 +270,18 @@ AreaContextual
 
             if (folder.isFolderBase)
             {
-                if (type == LibraryItem.Playlist)
+                if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
                 {
-                    array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
-
-                    var play = folder.itemIsPlaylist(index);
-
-                    if (play)
+                    if (type == LibraryItem.PlaylistFeed)
                     {
-                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                                     "title": qsTr("Play") });
+                        array.push({ "type": ContextualPage.Category,
+                                      "title": qsTr("Feed") });
                     }
+                    else array.push({ "type": ContextualPage.Category,
+                                      "title": qsTr("Playlist") });
+
+                    array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                                 "title": qsTr("Play") });
 
                     if (folder.itemIsLocal(index))
                     {
@@ -289,108 +290,9 @@ AreaContextual
                             array.push ({ "id": 3, "icon": st.icon16x16_tag,
                                           "iconSize": st.size16x16, "title": qsTr("VideoTag") });
 
-                            if (folder.itemLabel(index) == "suggest")
-                            {
-                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
-                            }
-
-                            array.push ({ "id": 9, "icon": st.icon16x16_download,
-                                          "iconSize": st.size16x16, "title": qsTr("Save VBML") });
-                        }
-                        else array.push
-                        (
-                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                              "title": qsTr("VideoTag") },
-
-                            { "id": 7, "title": qsTr("Rename")      },
-                            { "id": 8, "title": qsTr("Move to ...") },
-
-                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                              "title": qsTr("Save VBML") }
-                        );
-
-                        array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                     "title": qsTr("Delete Playlist") });
-                    }
-                    else if (folder == feeds)
-                    {
-                        array.push
-                        (
-                            { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                              "title": qsTr("Add to ...") },
-
-                            { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                               "title": qsTr("More like this") },
-
-                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                              "title": qsTr("VideoTag") },
-
-                            { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                              "title": qsTr("Open link") },
-
-                            { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") },
-
-                            { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                              "title": qsTr("Reload") },
-
-                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                              "title": qsTr("Save VBML") },
-
-                            { "id": 10, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Remove Playlist") }
-                        );
-                    }
-                    else
-                    {
-                        array.push
-                        (
-                            { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                              "title": qsTr("More like this") },
-
-                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                              "title": qsTr("VideoTag") },
-
-                            { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                              "title": qsTr("Open link") },
-
-                            { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                              "title": qsTr("Copy link") },
-
-                            { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                              "title": qsTr("Reload") },
-
-                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                              "title": qsTr("Save VBML") },
-
-                            { "id": 10, "type": ContextualPage.ItemConfirm,
-                              "title": qsTr("Remove Playlist") }
-                        );
-                    }
-                }
-                else if (type == LibraryItem.PlaylistFeed)
-                {
-                    array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
-
-                    /* var */ play = folder.itemIsPlaylist(index);
-
-                    if (play)
-                    {
-                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                                     "title": qsTr("Play") });
-                    }
-
-                    if (folder.itemIsLocal(index))
-                    {
-                        if (folder == feeds)
-                        {
-                            array.push({ "id": 3, "icon": st.icon16x16_tag,
-                                         "iconSize": st.size16x16, "title": qsTr("VideoTag") });
-
                             var label = folder.itemLabel(index);
 
-                            if (label == "recent" || label == "interactive")
+                            if (label == "suggest" || label == "recent" || label == "interactive")
                             {
                                 array.push({ "id": 6, "icon": st.icon16x16_refresh,
                                              "iconSize": st.size16x16, "title": qsTr("Reload") });
@@ -411,11 +313,17 @@ AreaContextual
                               "title": qsTr("Save VBML") }
                         );
 
-                        array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                     "title": qsTr("Delete Feed") });
+                        if (type == LibraryItem.PlaylistFeed)
+                        {
+                             array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
+                                          "title": "Delete Feed" });
+                        }
+                        else array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
+                                          "title": "Delete Playlist" });
                     }
                     else
                     {
+
                         if (folder == feeds)
                         {
                             array.push
@@ -424,7 +332,7 @@ AreaContextual
                                   "title": qsTr("Add to ...") },
 
                                 { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                                  "title": qsTr("More like this") },
+                                   "title": qsTr("More like this") },
 
                                 { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
                                   "title": qsTr("VideoTag") },
@@ -439,7 +347,7 @@ AreaContextual
                                   "title": qsTr("Reload") },
 
                                 { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                                  "title": qsTr("Save VBML") }
+                                  "title": qsTr("Save VBML") },
                             );
                         }
                         else
@@ -464,15 +372,20 @@ AreaContextual
                                 { "id": 8, "title": qsTr("Move to ...") },
 
                                 { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                                  "title": qsTr("Save VBML") }
+                                  "title": qsTr("Save VBML") },
                             );
                         }
 
-                        array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                     "title": qsTr("Remove Feed") });
+                        if (type == LibraryItem.PlaylistFeed)
+                        {
+                             array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
+                                          "title": "Remove Feed" });
+                        }
+                        else array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
+                                          "title": "Remove Playlist" });
                     }
                 }
-                else
+                else // Folder
                 {
                     array.push
                     (
@@ -485,35 +398,49 @@ AreaContextual
                     );
                 }
             }
-            else
+            else if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
             {
-                if (type == LibraryItem.Playlist)
+                if (type == LibraryItem.PlaylistFeed)
                 {
-                    array.push({ "type": ContextualPage.Category, "title": qsTr("Playlist") });
-
-                    if (folder.itemIsPlaylist(index))
-                    {
-                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                                     "title": qsTr("Play") });
-                    }
-
-                    array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                                 "title": qsTr("Add to ...") });
+                    array.push({ "type": ContextualPage.Category,
+                                 "title": qsTr("Feed") });
                 }
-                else if (type == LibraryItem.PlaylistFeed)
+                else array.push({ "type": ContextualPage.Category,
+                                  "title": qsTr("Playlist") });
+
+                array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
+                             "title": qsTr("Play") });
+
+                array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
+                             "title": qsTr("Add to ...") });
+
+                if (folder.itemIsLocal(index) == false)
                 {
-                    array.push({ "type": ContextualPage.Category, "title": qsTr("Feed") });
+                    array.push
+                    (
+                        { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
+                           "title": qsTr("More like this") },
 
-                    if (folder.itemIsPlaylist(index))
-                    {
-                        array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                                     "title": qsTr("Play") });
-                    }
+                        { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
+                          "title": qsTr("VideoTag") },
 
-                    array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                                 "title": qsTr("Add to ...") });
+                        { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
+                          "title": qsTr("Open link") },
+
+                        { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                          "title": qsTr("Copy link") },
+
+                        { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                          "title": qsTr("Reload") },
+
+                        { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                          "title": qsTr("Save VBML") },
+                    );
                 }
-                else array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
+            }
+            else // Folder
+            {
+                array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
 
                 if (folder.itemIsLocal(index) == false)
                 {
@@ -529,7 +456,10 @@ AreaContextual
                           "title": qsTr("Open link") },
 
                         { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                          "title": qsTr("Copy link") }
+                          "title": qsTr("Copy link") },
+
+                        { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
+                          "title": qsTr("Reload") }
                     );
                 }
             }

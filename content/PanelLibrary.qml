@@ -447,7 +447,7 @@ Panel
 
                 iconDefault:
                 {
-                    if (pIsLoader)
+                    if (pIsLoader && isActive == false)
                     {
                         if (label == "tracks")
                         {

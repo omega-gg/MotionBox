@@ -278,6 +278,8 @@ OTHER_FILES += 3rdparty.sh \
                content/ContextualLinks.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \
+               dist/extension/chromium/manifest.json \
+               dist/extension/chromium/background.js \
                dist/doc/readme.md \
                dist/doc/shortcuts.md \
                dist/doc/about.md \

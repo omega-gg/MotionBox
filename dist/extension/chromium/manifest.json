@@ -1,0 +1,22 @@
+{
+    "manifest_version": 3,
+    "name": "MotionBox",
+    "version": "1.0",
+    "description": "Open MotionBox from the current tab's url.",
+    "permissions": ["activeTab", "scripting"],
+    "host_permissions": ["<all_urls>"],
+    "background":
+    {
+        "service_worker": "background.js"
+    },
+    "action":
+    {
+        "default_title": "MotionBox",
+        "default_icon":
+        {
+          "16":  "icon16.png",
+          "48":  "icon48.png",
+          "128": "icon128.png"
+        }
+    }
+}

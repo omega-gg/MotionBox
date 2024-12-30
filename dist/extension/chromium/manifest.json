@@ -4,7 +4,6 @@
     "version": "1.0",
     "description": "Open MotionBox from the current tab's url.",
     "permissions": ["activeTab", "scripting"],
-    "host_permissions": ["<all_urls>"],
     "background":
     {
         "service_worker": "background.js"

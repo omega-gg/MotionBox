@@ -1045,7 +1045,13 @@ BaseList
         gui.dragList  = list;
         gui.dragItem  = playlist;
         gui.dragIndex = panelLibrary.index;
-        gui.dragData  = playlist.selectedTracks;
+
+//#QT_OLD
+        gui.dragData = playlist.selectedTracks;
+//#ELSE
+        // NOTE Qt6: If we don't copy the array we lose the data after panelLibrary.select.
+        gui.dragData = Array.from(playlist.selectedTracks);
+//#END
 
         if (scrollArea && list != gui.listPlaylist)
         {

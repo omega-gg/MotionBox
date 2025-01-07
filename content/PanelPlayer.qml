@@ -333,7 +333,12 @@ Item
                 pContextualTab(currentTab);
             }
 
-            onSubtitleLoaded: if (ok == false) panelSubtitles.clearSubtitle()
+            /* QML_EVENT */ onSubtitleLoaded: function(ok)
+            {
+                if (ok) return;
+
+                panelSubtitles.clearSubtitle();
+            }
 
             //-------------------------------------------------------------------------------------
 

@@ -361,7 +361,7 @@ BasePanel
 //#END
             }
 
-            onClicked:
+            /* QML_EVENT */ onClicked: function(index)
             {
 //#QT_4
                 if (index == 1) pLoadSource(2); // PageTag

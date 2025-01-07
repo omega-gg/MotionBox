@@ -180,7 +180,11 @@ BasePageSettings
 
         editText: (local.proxyPort != -1) ? local.proxyPort : ""
 
+//#QT_OLD
         textInput.validator: RegExpValidator { regExp: /[0-9]*/ }
+//#ELSE
+        textInput.validator: RegularExpressionValidator { regularExpression: /[0-9]*/ }
+//#END
 
         KeyNavigation.backtab: editHost
         KeyNavigation.tab    : editPassword

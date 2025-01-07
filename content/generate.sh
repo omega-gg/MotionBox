@@ -144,11 +144,11 @@ if [ $qt = "qt4" ]; then
 
     imports="QtQuick=1.1"
 
-    defines="QT_4"
+    defines="QT_4 QT_OLD"
 else
     if [ $qt = "qt5" ]; then
 
-        defines="QT_5 QT_NEW"
+        defines="QT_5 QT_OLD QT_NEW"
     else
         defines="QT_6 QT_NEW"
     fi

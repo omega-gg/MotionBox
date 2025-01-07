@@ -362,7 +362,11 @@ MouseArea
             icon          : st.icon16x16_tag
             iconSourceSize: st.size16x16
 
+//#QT_4
             onPressed: panelTag.toggleExpose()
+//#ELSE
+            onPressed: Qt.callLater(panelTag.toggleExpose)
+//#END
         }
 
         BorderVertical
@@ -392,7 +396,11 @@ MouseArea
             icon          : st.icon20x20_subtitles
             iconSourceSize: st.size20x20
 
+//#QT_4
             onPressed: panelSubtitles.toggleExpose()
+//#ELSE
+            onPressed: Qt.callLater(panelSubtitles.toggleExpose)
+//#END
         }
 
         ButtonPushCenterIcon
@@ -413,7 +421,11 @@ MouseArea
             icon          : st.icon20x20_settings
             iconSourceSize: st.size20x20
 
+//#QT_4
             onPressed: panelSettings.toggleExpose()
+//#ELSE
+            onPressed: Qt.callLater(panelSettings.toggleExpose)
+//#END
         }
 
         ButtonPushCenterIcon
@@ -436,7 +448,11 @@ MouseArea
             icon          : st.icon24x24_output
             iconSourceSize: st.size24x24
 
+//#QT_4
             onPressed: panelOutput.toggleExpose()
+//#ELSE
+            onPressed: Qt.callLater(panelOutput.toggleExpose)
+//#END
         }
 
         ButtonPushRightIcon

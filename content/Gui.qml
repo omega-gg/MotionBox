@@ -536,7 +536,12 @@ Item
 
             window.hoverEnabled = false;
 
+//#QT_OLD
             sk.processEvents();
+//#ELSE
+            // FIXME Qt6: We wait for the player cover to appear after stopping playback.
+            sk.wait(1000);
+//#END
 
             core.saveSplash(window, window.borderSize);
 

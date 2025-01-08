@@ -783,7 +783,10 @@ BaseList
             if (pCurrentItem.isOnline && pCurrentItem.queryIsLoading == false
                 &&
                 // NOTE: We don't want to automatically reload search playlists.
-                pCurrentItem.label == "")
+                pCurrentItem.label == ""
+                &&
+                // NOTE: We don't want to reload while selecting a track with gui.selectTrack
+                pCurrentItem.selectedCount == 0)
             {
                 pCurrentItem.reloadQuery();
             }

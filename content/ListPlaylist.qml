@@ -300,7 +300,7 @@ BaseList
             }
         }
 
-        /* QML_CONNECTION */ function onTracksInserted(index)
+        /* QML_CONNECTION */ function onTracksInserted(index, count)
         {
             index = indexFromIndex(index);
 

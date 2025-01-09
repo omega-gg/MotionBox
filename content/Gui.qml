@@ -3187,7 +3187,7 @@ Item
             }
             else if (panelTracks.isExpanded == false)
             {
-                panelTracks.buttonUp.returnPressed();
+                panelBrowse.buttonUp.returnPressed();
             }
         }
         else if (event.key == Qt.Key_Down)
@@ -3206,7 +3206,11 @@ Item
             {
                 if (panelTracks.isExpanded)
                 {
-                    panelTracks.buttonUp.returnPressed();
+                    if (panelBrowse.isExposed)
+                    {
+                        panelBrowse.buttonUp.returnPressed();
+                    }
+                    else panelTracks.buttonUp.returnPressed();
                 }
                 else if (panelBrowse.isExposed)
                 {
@@ -3368,6 +3372,10 @@ Item
         else if (panelTracks.buttonUp.isReturnPressed)
         {
             panelTracks.buttonUp.returnReleased();
+        }
+        else if (panelBrowse.buttonUp.isReturnPressed)
+        {
+            panelBrowse.buttonUp.returnReleased();
         }
         else if (barControls.buttonPrevious.isReturnPressed)
         {

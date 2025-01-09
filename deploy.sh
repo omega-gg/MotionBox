@@ -290,7 +290,7 @@ elif [ $1 = "macOS" ]; then
 
             cp "$path"/mediaservice/libqavfcamera.dylib $deploy/mediaservice
         else
-            cp "$path"/tls/libqschannelbackend.dylib $deploy/tls
+            cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
         fi
 
         cp "$path"/$QtQuick/libqtquick2plugin.dylib $deploy/$QtQuick
@@ -403,7 +403,7 @@ elif [ $1 = "linux" ]; then
 
             cp "$path"/mediaservice/libgstcamerabin.so $deploy/mediaservice
         else
-            cp "$path"/tls/libqschannelbackend.so $deploy/tls
+            cp "$path"/tls/libqopensslbackend.so $deploy/tls
         fi
 
         cp "$path"/xcbglintegrations/libqxcb-egl-integration.so $deploy/xcbglintegrations

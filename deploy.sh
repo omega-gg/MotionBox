@@ -195,6 +195,7 @@ if [ $os = "windows" ]; then
             cp "$path/$QtX"WinExtras.dll   $deploy
         else
             cp "$path/$QtX"Core5Compat.dll $deploy
+            cp "$path/$QtX"QmlMeta.dll     $deploy
         fi
 
         if [ -f "$path/$QtX"QmlModels.dll ]; then
@@ -213,7 +214,7 @@ if [ $os = "windows" ]; then
 
             cp "$path"/mediaservice/dsengine.dll $deploy/mediaservice
         else
-            cp "$path"/tls/qopensslbackend.dll $deploy/tls
+            cp "$path"/tls/qschannelbackend.dll $deploy/tls
         fi
 
         cp "$path"/$QtQuick/qtquick2plugin.dll $deploy/$QtQuick
@@ -270,6 +271,7 @@ elif [ $1 = "macOS" ]; then
             cp "$path"/QtXmlPatterns.dylib $deploy
         else
             cp "$path"/QtCore5Compat.dylib $deploy
+            cp "$path"/QtQmlMeta.dylib     $deploy
         fi
 
         if [ -f "$path"/QtQmlModels.dylib ]; then
@@ -288,7 +290,7 @@ elif [ $1 = "macOS" ]; then
 
             cp "$path"/mediaservice/libqavfcamera.dylib $deploy/mediaservice
         else
-            cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
+            cp "$path"/tls/libqschannelbackend.dylib $deploy/tls
         fi
 
         cp "$path"/$QtQuick/libqtquick2plugin.dylib $deploy/$QtQuick
@@ -378,6 +380,7 @@ elif [ $1 = "linux" ]; then
             cp "$path/lib$QtX"XmlPatterns.so.$qx $deploy
         else
             cp "$path/lib$QtX"Core5Compat.so.$qx $deploy
+            cp "$path/lib$QtX"QmlMeta.so.$qx     $deploy
         fi
 
         if [ -f "$path/lib$QtX"QmlModels.so.$qx ]; then
@@ -400,7 +403,7 @@ elif [ $1 = "linux" ]; then
 
             cp "$path"/mediaservice/libgstcamerabin.so $deploy/mediaservice
         else
-            cp "$path"/tls/libqopensslbackend.so $deploy/tls
+            cp "$path"/tls/libqschannelbackend.so $deploy/tls
         fi
 
         cp "$path"/xcbglintegrations/libqxcb-egl-integration.so $deploy/xcbglintegrations

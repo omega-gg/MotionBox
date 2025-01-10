@@ -2948,7 +2948,11 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            buttonFullScreen.returnPressed();
+            if (buttonFullScreen.visible)
+            {
+                buttonFullScreen.returnPressed();
+            }
+            else toggleFullScreen();
         }
         else if (event.key == Qt.Key_F12) // Expand
         {

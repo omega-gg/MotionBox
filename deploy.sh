@@ -214,6 +214,7 @@ if [ $os = "windows" ]; then
 
             cp "$path"/mediaservice/dsengine.dll $deploy/mediaservice
         else
+            cp "$path"/tls/qopensslbackend.dll  $deploy/tls
             cp "$path"/tls/qschannelbackend.dll $deploy/tls
         fi
 

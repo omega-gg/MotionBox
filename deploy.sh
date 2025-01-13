@@ -561,6 +561,12 @@ elif [ $1 = "macOS" ]; then
     else
         install_name_tool -change @rpath/QtCore5Compat.framework/Versions/$qx/QtCore5Compat \
                                   @loader_path/QtCore5Compat.dylib $target
+
+        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
+                                  @loader_path/QtQmlWorkerScript.dylib $target
+
+        install_name_tool -change @rpath/QtQmlMeta.framework/Versions/$qx/QtQmlMeta \
+                                  @loader_path/QtQmlMeta.dylib $target
     fi
 
     otool -L $target

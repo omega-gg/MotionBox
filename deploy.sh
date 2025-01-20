@@ -599,15 +599,15 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # QtQml
 
-    if [ $qt = "qt6" ]; then
-
-        install_name_tool -change \
-                          @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-                          @loader_path/../../QtQmlWorkerScript.dylib \
-                          QtQml/WorkerScript/libworkerscriptplugin.dylib
-
-        otool -L QtQml/WorkerScript/libworkerscriptplugin.dylib
-    fi
+    #if [ $qt = "qt6" ]; then
+    #
+    #    install_name_tool -change \
+    #                      @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
+    #                      @loader_path/../../QtQmlWorkerScript.dylib \
+    #                      QtQml/WorkerScript/libworkerscriptplugin.dylib
+    #
+    #    otool -L QtQml/WorkerScript/libworkerscriptplugin.dylib
+    #fi
 
     #----------------------------------------------------------------------------------------------
     # QtQuick

@@ -141,13 +141,15 @@ if [ "$2" = "all" ]; then
 
     sh 3rdparty.sh $1 all
 
-    sh configure.sh $1 sky
-
     cd ../Sky
+
+    sh configure.sh $1
 
     sh build.sh $1 tools
 
     cd -
+
+    sh configure.sh $1
 
     sh build.sh $1 deploy
 

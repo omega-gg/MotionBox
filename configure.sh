@@ -10,18 +10,6 @@ Sky="../Sky"
 external="../3rdparty"
 
 #--------------------------------------------------------------------------------------------------
-
-SSL_versionA="1.0.2u"
-SSL_versionB="1.1.1s"
-
-VLC_version="3.0.21"
-
-#--------------------------------------------------------------------------------------------------
-# Windows
-
-MinGW_version="13.1.0"
-
-#--------------------------------------------------------------------------------------------------
 # environment
 
 compiler_win="mingw"
@@ -36,9 +24,9 @@ if [ $# != 1 -a $# != 2 ] \
    || \
    [ $1 != "win32" -a $1 != "win64" -a $1 != "macOS" -a $1 != "linux" -a $1 != "android" ] \
    || \
-   [ $# = 2 -a "$2" != "sky" -a "$2" != "clean" ]; then
+   [ "$2" != "clean" ]; then
 
-    echo "Usage: configure <win32 | win64 | macOS | linux | android> [sky | clean]"
+    echo "Usage: configure <win32 | win64 | macOS | linux | android> [clean]"
 
     exit 1
 fi
@@ -54,27 +42,13 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
     os="windows"
 
     compiler="$compiler_win"
-
-    if [ $compiler = "mingw" ]; then
-
-        MinGW="$external/MinGW/$MinGW_version/bin"
-    fi
 else
     os="default"
 
     compiler="default"
 fi
 
-#--------------------------------------------------------------------------------------------------
-
-if [ $qt = "qt4" ]; then
-
-    SSL="$external/OpenSSL/$SSL_versionA"
-else
-    SSL="$external/OpenSSL/$SSL_versionB"
-fi
-
-VLC="$external/VLC/$VLC_version"
+path="$Sky/deploy"
 
 #--------------------------------------------------------------------------------------------------
 # Clean
@@ -107,25 +81,6 @@ if [ "$2" = "clean" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
-# Sky
-#--------------------------------------------------------------------------------------------------
-
-if [ "$2" = "sky" ]; then
-
-    echo "CONFIGURING Sky"
-    echo "---------------"
-
-    cd "$Sky"
-
-    sh configure.sh $1
-
-    cd -
-
-    echo "---------------"
-    echo ""
-fi
-
-#--------------------------------------------------------------------------------------------------
 # MinGW
 #--------------------------------------------------------------------------------------------------
 
@@ -134,9 +89,11 @@ echo "---------------------"
 
 if [ $compiler = "mingw" ]; then
 
-    cp "$MinGW"/libgcc_s_*-1.dll    bin
-    cp "$MinGW"/libstdc++-6.dll     bin
-    cp "$MinGW"/libwinpthread-1.dll bin
+    echo "COPYING MinGW"
+
+    cp "$path"/libgcc_s_*-1.dll    bin
+    cp "$path"/libstdc++-6.dll     bin
+    cp "$path"/libwinpthread-1.dll bin
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -147,7 +104,14 @@ if [ $os = "windows" ]; then
 
     echo "COPYING SSL"
 
-    cp "$SSL"/*.dll bin
+    if [ $qt = "qt4" ]; then
+
+        cp "$path"/libeay32.dll bin
+        cp "$path"/ssleay32.dll bin
+    else
+        cp "$path"/libssl*.dll    bin
+        cp "$path"/libcrypto*.dll bin
+    fi
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -161,9 +125,9 @@ if [ $os = "windows" ]; then
     rm -rf bin/plugins
     mkdir  bin/plugins
 
-    cp -r "$VLC"/plugins bin
+    cp -r "$path"/plugins bin
 
-    cp "$VLC"/libvlc*.dll bin
+    cp "$path"/libvlc*.dll bin
 
 elif [ $1 = "macOS" ]; then
 
@@ -172,10 +136,9 @@ elif [ $1 = "macOS" ]; then
     rm -rf bin/plugins
     mkdir  bin/plugins
 
-    cp -r "$VLC"/plugins/*.dylib bin/plugins
+    cp -r "$path"/plugins bin
 
-    cp "$VLC"/lib/libvlc.5.dylib     bin/libvlc.dylib
-    cp "$VLC"/lib/libvlccore.9.dylib bin/libvlccore.dylib
+    cp "$path"/libvlc*.dylib bin
 
 elif [ $1 = "linux" ]; then
 
@@ -184,9 +147,50 @@ elif [ $1 = "linux" ]; then
     rm -rf bin/vlc
     mkdir  bin/vlc
 
-    cp -r "$VLC"/vlc bin
+    cp -r "$path"/vlc bin
 
-    cp "$VLC"/lib*.so.* bin
+    cp "$path"/libvlc*.so* bin
+    cp "$path"/libidn.so*  bin
+fi
+
+#--------------------------------------------------------------------------------------------------
+# libtorrent
+#--------------------------------------------------------------------------------------------------
+
+if [ $os = "windows" ]; then
+
+    echo "COPYING libtorrent"
+
+    cp "$path"/*torrent-rasterbar.dll bin
+
+elif [ $1 = "macOS" ]; then
+
+    echo "COPYING libtorrent"
+
+    cp "$path"/libtorrent-rasterbar.dylib bin
+
+elif [ $1 = "linux" ]; then
+
+    echo "COPYING libtorrent"
+
+    cp "$path"/libtorrent-rasterbar*.so* bin
+fi
+
+#--------------------------------------------------------------------------------------------------
+# Boost
+#--------------------------------------------------------------------------------------------------
+
+if [ $1 = "macOS" ]; then
+
+    echo "COPYING Boost"
+
+    cp "$path"/libboost*.dylib bin
+
+elif [ $1 = "linux" ]; then
+
+    echo "COPYING Boost"
+
+    cp "$path"/libboost*.so* bin
 fi
 
 echo "---------------------"

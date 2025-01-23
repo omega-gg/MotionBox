@@ -48,7 +48,7 @@ else
     compiler="default"
 fi
 
-path="$Sky/deploy"
+deploy="$Sky/deploy"
 
 #--------------------------------------------------------------------------------------------------
 # Clean
@@ -91,9 +91,9 @@ if [ $compiler = "mingw" ]; then
 
     echo "COPYING MinGW"
 
-    cp "$path"/libgcc_s_*-1.dll    bin
-    cp "$path"/libstdc++-6.dll     bin
-    cp "$path"/libwinpthread-1.dll bin
+    cp "$deploy"/libgcc_s_*-1.dll    bin
+    cp "$deploy"/libstdc++-6.dll     bin
+    cp "$deploy"/libwinpthread-1.dll bin
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -106,11 +106,11 @@ if [ $os = "windows" ]; then
 
     if [ $qt = "qt4" ]; then
 
-        cp "$path"/libeay32.dll bin
-        cp "$path"/ssleay32.dll bin
+        cp "$deploy"/libeay32.dll bin
+        cp "$deploy"/ssleay32.dll bin
     else
-        cp "$path"/libssl*.dll    bin
-        cp "$path"/libcrypto*.dll bin
+        cp "$deploy"/libssl*.dll    bin
+        cp "$deploy"/libcrypto*.dll bin
     fi
 fi
 
@@ -125,9 +125,9 @@ if [ $os = "windows" ]; then
     rm -rf bin/plugins
     mkdir  bin/plugins
 
-    cp -r "$path"/plugins bin
+    cp -r "$deploy"/plugins bin
 
-    cp "$path"/libvlc*.dll bin
+    cp "$deploy"/libvlc*.dll bin
 
 elif [ $1 = "macOS" ]; then
 
@@ -136,9 +136,9 @@ elif [ $1 = "macOS" ]; then
     rm -rf bin/plugins
     mkdir  bin/plugins
 
-    cp -r "$path"/plugins bin
+    cp -r "$deploy"/plugins bin
 
-    cp "$path"/libvlc*.dylib bin
+    cp "$deploy"/libvlc*.dylib bin
 
 elif [ $1 = "linux" ]; then
 
@@ -147,13 +147,13 @@ elif [ $1 = "linux" ]; then
     rm -rf bin/vlc
     mkdir  bin/vlc
 
-    cp -r "$path"/vlc bin
+    cp -r "$deploy"/vlc bin
 
-    cp "$path"/libvlc*.so* bin
+    cp "$deploy"/libvlc*.so* bin
 
-    if [ -f "$path"/libidn.so* ]; then
+    if [ -f "$deploy"/libidn.so* ]; then
 
-        cp "$path"/libidn.so* bin
+        cp "$deploy"/libidn.so* bin
     fi
 fi
 
@@ -165,19 +165,19 @@ if [ $os = "windows" ]; then
 
     echo "COPYING libtorrent"
 
-    cp "$path"/*torrent-rasterbar.dll bin
+    cp "$deploy"/*torrent-rasterbar.dll bin
 
 elif [ $1 = "macOS" ]; then
 
     echo "COPYING libtorrent"
 
-    cp "$path"/libtorrent-rasterbar.dylib bin
+    cp "$deploy"/libtorrent-rasterbar.dylib bin
 
 elif [ $1 = "linux" ]; then
 
     echo "COPYING libtorrent"
 
-    cp "$path"/libtorrent-rasterbar*.so* bin
+    cp "$deploy"/libtorrent-rasterbar*.so* bin
 fi
 
 #--------------------------------------------------------------------------------------------------
@@ -188,13 +188,13 @@ if [ $1 = "macOS" ]; then
 
     echo "COPYING Boost"
 
-    cp "$path"/libboost*.dylib bin
+    cp "$deploy"/libboost*.dylib bin
 
 elif [ $1 = "linux" ]; then
 
     echo "COPYING Boost"
 
-    cp "$path"/libboost*.so* bin
+    cp "$deploy"/libboost*.so* bin
 fi
 
 echo "---------------------"

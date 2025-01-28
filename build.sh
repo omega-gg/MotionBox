@@ -53,6 +53,8 @@ compiler_win="mingw"
 
 qt="qt5"
 
+vlc="vlc3"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -256,9 +258,9 @@ export QT_SELECT="$qt"
 
 if [ $qt = "qt4" ]; then
 
-    config="CONFIG+=release"
+    config="CONFIG+=release $vlc"
 else
-    config="CONFIG+=release qtquickcompiler"
+    config="CONFIG+=release qtquickcompiler $vlc"
 fi
 
 if [ $compiler = "mingw" ]; then

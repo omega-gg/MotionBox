@@ -244,13 +244,13 @@ Item
 
         if (controllerPlaylist.textIsVbmlHash(vbml))
         {
-            core.saveTag(pGetTitle(), vbml, st.picture_tagLite, "", pPrefix, 16);
+            core.saveTag(pGetTitle(), vbml, Qt.resolvedUrl(st.picture_tagLite), "", pPrefix, 16);
         }
         else if (embedCover)
         {
-            core.saveTag(pGetTitle(), vbml, st.picture_tag, pCover, pPrefix);
+            core.saveTag(pGetTitle(), vbml, Qt.resolvedUrl(st.picture_tag), pCover, pPrefix);
         }
-        else core.saveTag(pGetTitle(), vbml, st.picture_tag, "", pPrefix);
+        else core.saveTag(pGetTitle(), vbml, Qt.resolvedUrl(st.picture_tag), "", pPrefix);
     }
 
 //#MOBILE

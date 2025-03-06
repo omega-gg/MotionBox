@@ -112,8 +112,13 @@ VideoOutput
         var x = (width  - size) / 2;
         var y = (height - size) / 2;
 
+//#QT_OLD
         filter.target = filter.mapRectToSource(sourceRect, contentRect, Qt.rect(x, y, size, size),
                                                orientation);
+//#ELSE
+        filter.target = filter.mapRectToSource(sourceRect, contentRect, Qt.rect(x, y, size, size),
+                                               filter.orientation);
+//#END
     }
 
 //#QT_6

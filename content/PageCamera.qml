@@ -221,6 +221,10 @@ VideoOutput
 
             panelBrowse.browse(text);
         }
+
+//#QT_6
+        onOrientationChanged: pUpdateTarget()
+//#END
     }
 
     ImageScale

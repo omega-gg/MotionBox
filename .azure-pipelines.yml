@@ -3,22 +3,24 @@
 #--------------------------------------------------------------------------------------------------
 
 jobs:
-- job: win32_qt5
+- job: win32_qt6
   pool:
     vmImage: "windows-latest"
   steps:
   - bash: |
+      sh environment.sh qt6
       sh build.sh win32 all
       cd deploy
       7z a ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-win32-qt5
 
-- job: win64_qt5
+- job: win64_qt6
   pool:
     vmImage: "windows-latest"
   steps:
   - bash: |
+      sh environment.sh qt6
       sh build.sh win64 all
       cd deploy
       7z a ../MotionBox.zip *
@@ -56,7 +58,20 @@ jobs:
 # Linux
 #--------------------------------------------------------------------------------------------------
 
-- job: linux32_qt5
+- job: linux64_qt5
+  pool:
+    vmImage: "ubuntu-latest"
+  steps:
+  - bash: |
+      sh build.sh linux all
+      cd deploy
+      zip -rq ../MotionBox.zip *
+  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
+    artifact: MotionBox-linux64-qt6
+
+#--------------------------------------------------------------------------------------------------
+
+- job: linux32_qt6
   pool:
     vmImage: "ubuntu-latest"
   steps:
@@ -65,13 +80,14 @@ jobs:
       docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
+                                     sh environment.sh qt6;
                                      sh build.sh linux all;
                                      cd deploy;
                                      zip -rq ../MotionBox.zip *"
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux32-qt5
 
-- job: linux64_qt5
+- job: linux64_qt6
   pool:
     vmImage: "ubuntu-latest"
   steps:
@@ -81,25 +97,12 @@ jobs:
       docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;
+                                     sh environment.sh qt6;
                                      sh build.sh linux all;
                                      cd deploy;
                                      zip -rq ../MotionBox.zip *"
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux64-qt5
-
-#--------------------------------------------------------------------------------------------------
-
-- job: linux64_qt6
-  pool:
-    vmImage: "ubuntu-latest"
-  steps:
-  - bash: |
-      sh environment.sh qt6
-      sh build.sh linux all
-      cd deploy
-      zip -rq ../MotionBox.zip *
-  - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
-    artifact: MotionBox-linux64-qt6
 
 #--------------------------------------------------------------------------------------------------
 # Android

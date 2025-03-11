@@ -256,8 +256,6 @@ Item
                      scrollFolder.currentIndex = -1;
                 }
                 else scrollFolder.currentIndex = index;
-
-                panelSubtitles.collapse();
             }
         }
 

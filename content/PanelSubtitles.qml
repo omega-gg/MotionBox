@@ -104,20 +104,6 @@ PanelSettingsAction
             {
                 pIndex = 0;
 
-                for (var i = 0; i < pCount; i++)
-                {
-                    var subtitle = subtitles[i];
-
-                    // NOTE: Do not select auto-generated subtitles by default.
-                    if (subtitle.title.indexOf("(auto-generated)") != -1) continue;
-
-                    applySubtitle(subtitle.source, i);
-
-                    pUpdateView();
-
-                    return;
-                }
-
                 applySubtitle("", -1);
             }
 
@@ -140,6 +126,8 @@ PanelSettingsAction
     {
         if (currentIndex == 0 && page) page.clearSubtitle();
     }
+
+    function applyIndex(index) { pIndex = index }
 
     function clearIndex() { pIndex = -1 }
 

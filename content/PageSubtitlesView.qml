@@ -113,15 +113,13 @@ Item
 
     function pApplyItem(index)
     {
+        panelSubtitles.applyIndex(index);
+
         if (index == -1)
         {
-            playerTab.subtitle = "";
-
-            panelSubtitles.clearIndex();
+             panelSubtitles.applySubtitle("", index);
         }
-        else playerTab.subtitle = player.subtitlesData[index].source;
-
-        gui.updateTrackSubtitle(index);
+        else panelSubtitles.applySubtitle(player.subtitlesData[index].source, index);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -154,9 +152,6 @@ Item
                 }
 
                 list.currentIndex = index;
-
-                // NOTE: We want to hide the panel right away.
-                panelSubtitles.collapse();
             }
         }
 

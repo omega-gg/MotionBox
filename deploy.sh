@@ -166,8 +166,8 @@ if [ $os = "windows" ]; then
 
             mkdir -p $deploy/mediaservice
         else
-            mkdir -p $deploy/multimedia
             mkdir -p $deploy/tls
+            mkdir -p $deploy/multimedia
 
             mkdir -p $deploy/QtQml/WorkerScript
         fi
@@ -215,10 +215,10 @@ if [ $os = "windows" ]; then
 
             cp "$path"/mediaservice/dsengine.dll $deploy/mediaservice
         else
-            cp "$path"/multimedia/ffmpegmediaplugin.dll $deploy/multimedia
-
             cp "$path"/tls/qopensslbackend.dll  $deploy/tls
             cp "$path"/tls/qschannelbackend.dll $deploy/tls
+
+            cp "$path"/multimedia/ffmpegmediaplugin.dll $deploy/multimedia
         fi
 
         cp "$path"/$QtQuick/qtquick2plugin.dll $deploy/$QtQuick
@@ -247,8 +247,8 @@ elif [ $1 = "macOS" ]; then
 
             mkdir -p $deploy/mediaservice
         else
-            mkdir -p $deploy/multimedia
             mkdir -p $deploy/tls
+            mkdir -p $deploy/multimedia
 
             mkdir -p $deploy/QtQml/WorkerScript
         fi
@@ -295,9 +295,9 @@ elif [ $1 = "macOS" ]; then
 
             cp "$path"/mediaservice/libqavfcamera.dylib $deploy/mediaservice
         else
-            cp "$path"/multimedia/libffmpegmediaplugin.dylib $deploy/multimedia
-
             cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
+
+            cp "$path"/multimedia/libffmpegmediaplugin.dylib $deploy/multimedia
         fi
 
         cp "$path"/$QtQuick/libqtquick2plugin.dylib $deploy/$QtQuick
@@ -346,8 +346,8 @@ elif [ $1 = "linux" ]; then
 
             mkdir -p $deploy/mediaservice
         else
-            mkdir -p $deploy/multimedia
             mkdir -p $deploy/tls
+            mkdir -p $deploy/multimedia
 
             mkdir -p $deploy/QtQml/WorkerScript
         fi
@@ -411,9 +411,9 @@ elif [ $1 = "linux" ]; then
 
             cp "$path"/mediaservice/libgstcamerabin.so $deploy/mediaservice
         else
-            cp "$path"/tls/libffmpegmediaplugin.so $deploy/multimedia
-
             cp "$path"/tls/libqopensslbackend.so $deploy/tls
+
+            cp "$path"/multimedia/libffmpegmediaplugin.so $deploy/multimedia
         fi
 
         cp "$path"/xcbglintegrations/libqxcb-egl-integration.so $deploy/xcbglintegrations

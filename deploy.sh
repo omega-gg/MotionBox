@@ -295,7 +295,8 @@ elif [ $1 = "macOS" ]; then
 
             cp "$path"/mediaservice/libqavfcamera.dylib $deploy/mediaservice
         else
-            cp "$path"/tls/libqopensslbackend.dylib $deploy/tls
+            cp "$path"/tls/libqopensslbackend.dylib         $deploy/tls
+            cp "$path"/tls/libqsecuretransportbackend.dylib $deploy/tls
 
             cp "$path"/multimedia/libffmpegmediaplugin.dylib $deploy/multimedia
         fi

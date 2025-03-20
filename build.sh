@@ -293,7 +293,7 @@ $WindowsKit/Lib/$WindowsKit_version/um/$abi"
 
 elif [ $1 = "macOS" ]; then
 
-    spec=macx-clang
+    spec="macx-clang QMAKE_APPLE_DEVICE_ARCHS=x86_64"
 
     export PATH="$Qt/bin:$PATH"
 

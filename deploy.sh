@@ -176,6 +176,10 @@ if [ $os = "windows" ]; then
 
             cp "$path"/libEGL.dll    deploy
             cp "$path"/libGLESv2.dll deploy
+        else
+            # FFmpeg
+            cp "$path"/sw*.dll deploy
+            cp "$path"/av*.dll deploy
         fi
 
         cp "$path/$QtX"Core.dll            $deploy

@@ -1302,9 +1302,7 @@ BaseList
         {
             var index = indexAt(indexHover);
 
-            if ((mouse.button & Qt.LeftButton) == false
-                ||
-                playlist.trackIsDefault(index)) return;
+            if ((mouse.button & Qt.LeftButton) == false) return;
 
             indexPreview = indexHover;
 

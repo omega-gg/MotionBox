@@ -504,7 +504,12 @@ ScrollPlaylist
             else scrollTo(0);
         }
 
-        onItemClicked: window.clearFocus()
+        /* QML_EVENT */ onItemClicked: function(index)
+        {
+            currentIndex = index;
+
+            window.clearFocus();
+        }
 
         onCurrentIndexChanged: scrollToItem(currentIndex)
     }

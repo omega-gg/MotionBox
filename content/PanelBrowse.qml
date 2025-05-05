@@ -1736,8 +1736,10 @@ MouseArea
             else scrollTo(0);
         }
 
-        onItemClicked:
+        /* QML_EVENT */ onItemClicked: function(index)
         {
+            currentIndex = index;
+
             lineEdit.selectAll();
 
             pSearch();

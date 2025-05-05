@@ -302,6 +302,11 @@ Item
             else scrollTo(0);
         }
 
-        onItemClicked: pStartSearch(lineEdit.text)
+        /* QML_EVENT */ onItemClicked: function(index)
+        {
+            currentIndex = index;
+
+            pStartSearch(lineEdit.text)
+        }
     }
 }

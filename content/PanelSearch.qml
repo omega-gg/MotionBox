@@ -331,7 +331,12 @@ Panel
             lineEditSearch.moveCursorAtEnd();
         }
 
-        onItemClicked: search()
+        /* QML_EVENT */ onItemClicked: function(index)
+        {
+            currentIndex = index;
+
+            search();
+        }
     }
 
     BorderVertical

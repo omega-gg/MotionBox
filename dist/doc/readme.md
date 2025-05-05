@@ -1,4 +1,4 @@
-# [MotionBox] 3.0.0-1
+# [MotionBox] 3.0.0-2
 
 ### english / [français](documents/fr/Readme.html)
 

@@ -294,6 +294,12 @@ Item
             {
                 if (mouse.button & Qt.LeftButton)
                 {
+//#MAC
+                    // FIXME macOS: Setting fullscreen from the double click event seems to skip
+                    //              the mouse release event. So we wait a bit.
+                    sk.wait(100);
+//#END
+
                     gui.toggleFullScreen();
                 }
             }

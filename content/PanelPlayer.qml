@@ -297,7 +297,7 @@ Item
 //#MAC
                     // FIXME macOS: Setting fullscreen from the double click event seems to skip
                     //              the mouse release event. So we wait a bit.
-                    sk.wait(100);
+                    sk.wait(200);
 //#END
 
                     gui.toggleFullScreen();

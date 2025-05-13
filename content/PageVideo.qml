@@ -60,7 +60,7 @@ ColumnScroll
             // NOTE VLC: We boost the colors to avoid the washed out effect.
             player.applyAdjust(true, 1.6, 1.2, 0.0, 2.4, 0.8);
 
-            popup.showText(qsTr("Color boost enabled (HDR compatibility)"));
+            popup.showText(qsTr("Color boost enabled (HDR)"));
         }
         else
         {

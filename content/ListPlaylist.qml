@@ -1291,7 +1291,8 @@ BaseList
             else return st.itemList_colorBorder;
         }
 
-        background.visible: containsMouse
+        // NOTE Qt6: containsMouse seems to missbehave after dragging the window around.
+        background.visible: hoverActive
         borders   .visible: background.visible
 
         onHoverEntered: pUpdatePreview()

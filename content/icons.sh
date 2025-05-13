@@ -55,6 +55,8 @@ cp "$solid"/camera-rotate.svg icons
 
 cp "$solid"/pen.svg icons
 
+cp "$solid"/palette.svg icons
+
 cp "$solid"/tv.svg     icons
 cp "$solid"/folder.svg icons
 cp "$solid"/rss.svg    icons

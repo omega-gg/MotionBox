@@ -33,6 +33,8 @@ ColumnScroll
     /* read */ property int contentWidth : st.dp192
     /* read */ property int contentHeight: row.y + row.height
 
+    property bool boost: false
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -46,6 +48,27 @@ ColumnScroll
     // NOTE Qt5.9: We need to forceLayout and processEvents to get the proper contentHeight.
     Component.onCompleted: if (typeof forceLayout == "function") forceLayout()
 //#END
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+    //---------------------------------------------------------------------------------------------
+
+    onBoostChanged:
+    {
+        if (boost)
+        {
+            // NOTE VLC: We boost the colors to avoid the washed out effect.
+            player.applyAdjust(true, 1.6, 1.2, 0.0, 2.4, 0.8);
+
+            popup.showText(qsTr("Color boost enabled (HDR compatibility)"));
+        }
+        else
+        {
+            player.applyAdjust(false);
+
+            popup.showText(qsTr("Color boost disabled"));
+        }
+    }
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -329,7 +352,7 @@ ColumnScroll
 
     BarSettings { text: qsTr("Ratio") }
 
-    ButtonSettings
+    ButtonSettingsExtra
     {
         settings: [{ "title": qsTr("Fit")     },
                    { "title": qsTr("Expand")  },
@@ -338,6 +361,14 @@ ColumnScroll
         text: pRatioString()
 
         currentIndex: pRatioIndex()
+
+        buttonIcon.checkable: true
+        buttonIcon.checked  : boost
+
+        buttonIcon.icon          : st.icon16x16_palette
+        buttonIcon.iconSourceSize: st.size16x16
+
+        buttonIcon.onPressed: boost = !(boost)
 
         function onSelect(index) { pRatioSelect(index) }
     }

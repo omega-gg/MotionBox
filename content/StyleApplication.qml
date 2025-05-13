@@ -164,6 +164,8 @@ StyleComponents
 
     property url icon_pen: "icons/pen.svg"
 
+    property url icon_palette: "icons/palette.svg"
+
     property url icon_playlist: "icons/tv.svg"
     property url icon_folder  : "icons/folder.svg"
     property url icon_feed    : "icons/rss.svg"
@@ -210,6 +212,8 @@ StyleComponents
     property url icon16x16_rotate: icon_rotate
 
     property url icon16x16_pen: icon_pen
+
+    property url icon16x16_palette: icon_palette
 
     property url icon16x16_playlist: icon_playlist
     property url icon16x16_folder  : icon_folder

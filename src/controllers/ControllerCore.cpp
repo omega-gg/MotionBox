@@ -821,18 +821,18 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE */ void ControllerCore::saveVbml(const QString & title, const QString & vbml)
 {
 #if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-    QString permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+    QString permission = "android.permission.READ_MEDIA_IMAGES";
 
     if (QtAndroid::checkPermission(permission) == QtAndroid::PermissionResult::Denied)
     {
         QtAndroid::requestPermissions(QStringList(permission),
                                       [this, permission, title, vbml]
                                       (QtAndroid::PermissionResultMap hash)
-                                      {
-                                          if (hash.value(permission) != QtAndroid::PermissionResult::Granted) return;
+        {
+            if (hash.value(permission) != QtAndroid::PermissionResult::Granted) return;
 
-                                          this->writeVbml(title, vbml);
-                                      });
+            this->writeVbml(title, vbml);
+        });
 
         return;
     }
@@ -848,7 +848,7 @@ ControllerCore::ControllerCore() : WController()
                                                const QString & prefix, int padding)
 {
 #if defined(Q_OS_ANDROID) && defined(QT_5) && QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
-    QString permission = "android.permission.WRITE_EXTERNAL_STORAGE";
+    QString permission = "android.permission.READ_MEDIA_IMAGES";
 
     if (QtAndroid::checkPermission(permission) == QtAndroid::PermissionResult::Denied)
     {

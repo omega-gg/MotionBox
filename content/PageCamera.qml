@@ -114,10 +114,10 @@ VideoOutput
 
 //#QT_OLD
         filter.target = filter.mapRectToSource(sourceRect, contentRect, Qt.rect(x, y, size, size),
-                                               orientation);
+                                               0, orientation);
 //#ELSE
         filter.target = filter.mapRectToSource(sourceRect, contentRect, Qt.rect(x, y, size, size),
-                                               filter.orientation);
+                                               filter.orientation, 0);
 //#END
     }
 

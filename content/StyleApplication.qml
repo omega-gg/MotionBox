@@ -309,6 +309,9 @@ StyleComponents
         else if (index == 1 || index == 2)
         {
             applyNight();
+
+            // NOTE: We need a darker background to contrast with the player default background.
+            window_color = "#323232";
         }
         else // if (index == 3)
         {

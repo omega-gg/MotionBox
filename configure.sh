@@ -5,6 +5,8 @@ set -e
 # Settings
 #--------------------------------------------------------------------------------------------------
 
+target="MotionBox"
+
 Sky="../Sky"
 
 external="../3rdparty"
@@ -84,7 +86,7 @@ fi
 # MinGW
 #--------------------------------------------------------------------------------------------------
 
-echo "CONFIGURING MotionBox"
+echo "CONFIGURING $target"
 echo "---------------------"
 
 if [ $compiler = "mingw" ]; then

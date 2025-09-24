@@ -25,73 +25,10 @@ import Sky     1.0
 
 Item
 {
-    id: buttonCheckSettings
-
-    //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-
-    property int padding: st.buttonPiano_padding
-
-    //---------------------------------------------------------------------------------------------
-    // Aliases
-    //---------------------------------------------------------------------------------------------
-
-    property alias checked: button.checked
-
-    property alias text: itemText.text
-    property alias font: itemText.font
-
-    //---------------------------------------------------------------------------------------------
-
-    property alias itemText: itemText
-    property alias button  : button
-
-    //---------------------------------------------------------------------------------------------
-    // Signals
-    //---------------------------------------------------------------------------------------------
-
-    signal checkClicked
-
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
 
     anchors.left : parent.left
     anchors.right: parent.right
-
-    height: st.buttonPiano_height
-
-    //---------------------------------------------------------------------------------------------
-    // Children
-    //---------------------------------------------------------------------------------------------
-
-    TextBase
-    {
-        id: itemText
-
-        anchors.left  : parent.left
-        anchors.right : button.left
-        anchors.top   : parent.top
-        anchors.bottom: parent.bottom
-
-        anchors.leftMargin: buttonCheckSettings.padding
-
-        verticalAlignment: Text.AlignVCenter
-
-        color: st.labelRoundInfo_colorText
-    }
-
-    ButtonCheck
-    {
-        id: button
-
-        anchors.right: parent.right
-
-        anchors.verticalCenter: itemText.verticalCenter
-
-        enabled: parent.enabled
-
-        onCheckClicked: buttonCheckSettings.checkClicked()
-    }
 }

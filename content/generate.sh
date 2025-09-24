@@ -277,6 +277,7 @@ $SkyComponents/ButtonPianoWindow.qml \
 $SkyComponents/ButtonPianoReset.qml \
 $SkyComponents/ButtonRound.qml \
 $SkyComponents/ButtonCheck.qml \
+$SkyComponents/ButtonCheckText.qml \
 $SkyComponents/ButtonCheckLabel.qml \
 $SkyComponents/ButtonImage.qml \
 $SkyComponents/ButtonImageBorders.qml \

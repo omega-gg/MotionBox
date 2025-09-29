@@ -589,7 +589,7 @@ ControllerCore::ControllerCore() : WController()
 
         _backends->setCurrentIndex(0);
 
-        WControllerFileReply * reply = copyBackends(_path + "/backend/");
+        WControllerFileReply * reply = copyBackends(_path + "/backend");
 
         connect(reply, SIGNAL(complete(bool)), this, SLOT(onLoaded()));
     }
@@ -755,7 +755,7 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::resetBackends() const
 {
-    WControllerFileReply * reply = copyBackends(_path + "/backend/");
+    WControllerFileReply * reply = copyBackends(_path + "/backend");
 
     connect(reply, SIGNAL(complete(bool)), this, SLOT(onReload()));
 }

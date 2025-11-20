@@ -6,7 +6,7 @@
 
 [MotionBox] is a [Video Browser] built for [Motion Freedom].
 
-Designed to access, organize and share multiple video resources.
+Designed to stream, organize and share multiple video resources.
 
 [omega] is building MotionBox to empower people.
 

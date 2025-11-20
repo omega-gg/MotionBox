@@ -6,7 +6,7 @@
 [![GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl.html)
 
 [MotionBox](https://omega.gg/MotionBox) is a [Video Browser](https://omega.gg/about/VideoBrowser) built for [Motion Freedom](https://omega.gg/about/MotionFreedom).<br>
-Designed to access, organize and share multiple video resources.<br>
+Designed to stream, organize and share multiple video resources.<br>
 [omega](https://omega.gg/about) is building MotionBox to empower people.<br>
 
 ## MotionBox Video Browser

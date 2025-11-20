@@ -4,7 +4,7 @@
 
 #
 
-[MotionBox] is a [Video Browser] built for desktop computer.
+[MotionBox] is a [Video Browser] built for desktop computers.
 
 Designed to stream, organize and share multiple video resources.
 

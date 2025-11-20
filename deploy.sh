@@ -270,8 +270,8 @@ elif [ $1 = "macOS" ]; then
         cp "$path"/QtSvg.dylib             $deploy
         cp "$path"/QtWidgets.dylib         $deploy
         cp "$path"/QtXml.dylib             $deploy
-        cp "$path/"QtMultimedia.dylib      $deploy
-        cp "$path/"QtMultimediaQuick.dylib $deploy
+        cp "$path"/QtMultimedia.dylib      $deploy
+        cp "$path"/QtMultimediaQuick.dylib $deploy
         cp "$path"/QtDBus.dylib            $deploy
         cp "$path"/QtPrintSupport.dylib    $deploy
 

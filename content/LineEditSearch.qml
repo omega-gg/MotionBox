@@ -64,12 +64,7 @@ LineEditBox
 
                 panelSearch.checkText = true;
             }
-            else
-            {
-                lineEditSearch.text = "";
-
-                panelSearch.visible = true;
-            }
+            else lineEditSearch.text = "";
         }
         else panelSearch.visible = false;
     }

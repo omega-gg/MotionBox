@@ -221,32 +221,9 @@ Item
 
         panelTag.collapse();
 
-        if (playlist)
-        {
-            var index = tabs.indexOf(currentTab) + 1;
+        if (itemTabs.openTab() == false) return;
 
-            if (itemTabs.openTabAt(index) == false) return;
-
-            if (playlist.isEmpty == false)
-            {
-                wall.asynchronous = false;
-
-                index = playlist.lastSelected;
-
-                if (index != -1)
-                {
-                    gui.setCurrentTrack(playlist, index);
-                }
-                else if (playlist.currentIndex != -1)
-                {
-                    gui.setCurrentTrack(playlist, playlist.currentIndex);
-                }
-                else gui.setCurrentTrack(playlist, 0);
-
-                wall.asynchronous = true;
-            }
-        }
-        else if (itemTabs.openTab() == false) return;
+        gui.focusSearch();
 
         startActionCue(st.duration_normal);
     }

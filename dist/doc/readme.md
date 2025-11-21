@@ -4,11 +4,11 @@
 
 #
 
-[MotionBox] is a [Video Browser] built for desktop computers.
+[MotionBox] is a [Video Browser] for desktop computers.
 
 Designed to stream, organize and share multiple video resources.
 
-Built for [Motion Freedom] and part of the [tevolution] initiative.
+Built for [Motion Freedom] and part of the [tevolution initiative].
 
 [omega] is building MotionBox to empower people.
 
@@ -71,7 +71,7 @@ Video Browser: [https://omega.gg/about/VideoBrowser][Video Browser]
 
 Motion Freedom: [https://omega.gg/about/MotionFreedom][Motion Freedom]
 
-tevolution: [https://omega.gg/about/tevolution][tevolution]
+tevolution initiative: [https://omega.gg/about/tevolution][tevolution initiative]
 
 [MotionBox]: https://omega.gg/MotionBox
 
@@ -79,7 +79,7 @@ tevolution: [https://omega.gg/about/tevolution][tevolution]
 
 [Motion Freedom]: https://omega.gg/about/MotionFreedom
 
-[tevolution]: https://omega.gg/about/tevolution
+[tevolution initiative]: https://omega.gg/about/tevolution
 
 ---
 

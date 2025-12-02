@@ -176,7 +176,7 @@ Item
 
             enabled: (currentTab != null && currentTab.hasPreviousBookmark)
 
-            highlighted: (enabled && player.isPlaying)
+            highlighted: (enabled && player.hasStarted)
 
             icon          : st.icon16x16_goBackward
             iconSourceSize: st.size16x16
@@ -199,7 +199,7 @@ Item
 
             enabled: (currentTab != null && currentTab.hasNextBookmark)
 
-            highlighted: (enabled && player.isPlaying)
+            highlighted: (enabled && player.hasStarted)
 
             icon          : st.icon16x16_goForward
             iconSourceSize: st.size16x16

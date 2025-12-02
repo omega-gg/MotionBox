@@ -417,7 +417,7 @@ Item
 
                 visible: (playlist != null)
 
-                highlighted: (player.isPlaying && player.playlist == playlist)
+                highlighted: (player.hasStarted && player.playlist == playlist)
 
                 checkable: true
 

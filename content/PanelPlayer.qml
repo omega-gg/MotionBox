@@ -215,7 +215,7 @@ Item
 
             loading: panelBrowse.isSelecting
 
-            enablePress: (player.isPlaying && wall.isExposed == false)
+            enablePress: (player.hasStarted && wall.isExposed == false)
 
             enableTitle: (currentTab.playlist != null)
 

@@ -195,7 +195,7 @@ MouseArea
 
             enabled: player.hasPreviousTrack
 
-            highlighted: (enabled && player.isPlaying)
+            highlighted: (enabled && player.hasStarted)
 
             icon          : st.icon12x12_backward
             iconSourceSize: st.size12x12
@@ -219,7 +219,7 @@ MouseArea
 
             enabled: player.hasNextTrack
 
-            highlighted: (enabled && player.isPlaying)
+            highlighted: (enabled && player.hasStarted)
 
             icon: (player.shuffle) ? st.icon16x16_shuffle
                                    : st.icon12x12_forward

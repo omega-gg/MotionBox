@@ -4,9 +4,11 @@
 
 #
 
-[MotionBox] est un [Navigateur Vidéo] pensé pour la [Liberté Médiatique].
+[MotionBox] est un [Navigateur Vidéo] pour l'ordinateur de bureau.
 
-Conçu pour accéder, organiser et partager une multitude de ressources vidéo.
+Conçu pour diffuser, organiser et partager une multitude de ressources vidéo.
+
+Pensé pour la [Liberté Médiatique] et partie intégrante de l'[initiative tévolution].
 
 [omega] développe MotionBox au service de l'utilisateur.
 
@@ -69,11 +71,15 @@ Navigateur Vidéo: [https://omega.gg/about/VideoBrowser/fr][Navigateur Vidéo]
 
 Liberté Médiatique: [https://omega.gg/about/MotionFreedom/fr][Liberté Médiatique]
 
+initiative tévolution: [https://omega.gg/about/tevolution/fr][initiative tévolution]
+
 [MotionBox]: https://omega.gg/MotionBox/fr
 
 [Navigateur Vidéo]: https://omega.gg/about/VideoBrowser/fr
 
 [Liberté Médiatique]: https://omega.gg/about/MotionFreedom/fr
+
+[initiative tévolution]: https://omega.gg/about/tevolution/fr
 
 ---
 

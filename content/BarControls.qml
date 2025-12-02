@@ -160,7 +160,7 @@ MouseArea
 
             enabled: (player.source != "")
 
-            highlighted: (enabled && player.isPlaying)
+            highlighted: (enabled && player.hasStarted)
 
             icon: (player.isPlaying) ? st.icon16x16_pause
                                      : st.icon16x16_play
@@ -292,7 +292,7 @@ MouseArea
 
             height: st.sliderStream_height
 
-            active: player.isPlaying
+            active: player.hasStarted
 
             live: (active && isChannel)
 

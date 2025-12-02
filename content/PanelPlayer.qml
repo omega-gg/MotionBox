@@ -286,7 +286,7 @@ Item
                 }
                 else if (mouse.button & Qt.MiddleButton)
                 {
-                    gui.pause();
+                    gui.stop();
                 }
             }
 

@@ -581,6 +581,8 @@ Item
                 restoreBars();
             }
 
+            restoreTrackData();
+
             panelSearch.setText(currentTab.source);
 
             loadTabItems(currentTab);
@@ -1379,11 +1381,11 @@ Item
 
     function stop()
     {
-        var tab = playerTab;
+        //var tab = playerTab;
 
         player.stop();
 
-        tab.currentTime = -1;
+        //tab.currentTime = -1;
 
         setCurrentTrack(player.playlist, player.trackIndex);
     }
@@ -2198,7 +2200,7 @@ Item
         // NOTE: We make sure that history has been created.
         if (history == null) return;
 
-        var source = currentTab.source;
+        var source = playerTab.source;
 
         // NOTE: Track has to be valid and on top of the history.
         if (checkSource(source, history.trackSource(0))) return;
@@ -2221,7 +2223,7 @@ Item
         // NOTE: We make sure that history has been created.
         if (history == null) return;
 
-        var source = currentTab.source;
+        var source = playerTab.source;
 
         // NOTE: Track has to be valid and on top of the history.
         if (checkSource(source, history.trackSource(0))) return;
@@ -2241,14 +2243,14 @@ Item
         // NOTE: We are only restoring time on history tracks.
         //if (currentPlaylist != history) return;
 
-        if (currentTab.currentTime == -1)
+        if (playerTab.currentTime == -1)
         {
-            var time = extractTime(currentTab.source);
+            var time = extractTime(playerTab.source);
 
-            if (time) currentTab.currentTime = time;
+            if (time) playerTab.currentTime = time;
         }
 
-        var subtitle = controllerNetwork.extractFragmentValue(currentTab.source, "sub");
+        var subtitle = controllerNetwork.extractFragmentValue(playerTab.source, "sub");
 
         if (subtitle)
         {
@@ -2686,9 +2688,9 @@ Item
 
     function onBeforeTabClose(index)
     {
-        if (player.isPlaying && player.tabIndex == index)
+        if (player.hasStarted && player.tabIndex == index)
         {
-            pause();
+            stop();
 
             return false;
         }

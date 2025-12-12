@@ -280,7 +280,7 @@ Item
                 {
                     if (pContextualTag(scannerPlayer.getTextHovered())) return;
 
-                    gui.restoreBars();
+                    //gui.restoreBars();
 
                     pContextualTab(playerTab);
                 }

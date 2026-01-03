@@ -24,15 +24,15 @@ make_arguments="-j 4"
 
 ProgramFiles="/c/Program Files (x86)"
 
-BuildTools="$ProgramFiles/Microsoft Visual Studio/2019/BuildTools"
+BuildTools="$ProgramFiles/Microsoft Visual Studio/2022/BuildTools"
 
 #--------------------------------------------------------------------------------------------------
 
 MinGW_version="13.1.0"
 
-jom_version="1.1.3"
+jom_version="1.1.5"
 
-MSVC_version="14"
+MSVC_version="15"
 
 WindowsKit_version="10"
 

@@ -19,6 +19,58 @@ compiler_win="mingw"
 qt="qt6"
 
 #--------------------------------------------------------------------------------------------------
+# Functions
+#--------------------------------------------------------------------------------------------------
+
+deployMacOS()
+{
+    installMacOS "$target" ""
+
+    if [ -f "QtWebEngineProcess" ]; then
+
+        installMacOS "QtWebEngineProcess" ""
+    fi
+
+    for file in *.dylib; do
+
+        [ -e "$file" ] || continue
+
+        installMacOS "$file" ""
+    done
+
+    find platforms \
+         imageformats \
+         tls \
+         multimedia \
+         QtQuick \
+         QtQml \
+         QtMultimedia \
+         QtWebView \
+         QtWebEngine \
+         QtWebChannel \
+    -name "*.dylib" | while read -r plugin; do
+
+        case "$plugin" in
+            */*/*/*) path="../../" ;;
+            *)       path="../"    ;;
+        esac
+
+        installMacOS "$plugin" "$path"
+    done
+}
+
+installMacOS()
+{
+    list=$(otool -L "$1" | grep -o "Qt[A-Za-z0-9]*\.framework" | sed 's/\.framework//' | sort -u)
+
+    for library in $list; do
+
+        install_name_tool -change "@rpath/$library.framework/Versions/$qx/$library" \
+                                  "@loader_path/${2}${library}.dylib" "$1" 2>/dev/null
+    done
+}
+
+#--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
 
@@ -534,137 +586,7 @@ elif [ $1 = "macOS" ]; then
 
     cd $deploy
 
-    #----------------------------------------------------------------------------------------------
-    # target
-
-    install_name_tool -change @rpath/QtCore.framework/Versions/$qx/QtCore \
-                              @loader_path/QtCore.dylib $target
-
-    install_name_tool -change @rpath/QtGui.framework/Versions/$qx/QtGui \
-                              @loader_path/QtGui.dylib $target
-
-    install_name_tool -change @rpath/QtNetwork.framework/Versions/$qx/QtNetwork \
-                              @loader_path/QtNetwork.dylib $target
-
-    install_name_tool -change @rpath/QtOpenGL.framework/Versions/$qx/QtOpenGL \
-                              @loader_path/QtOpenGL.dylib $target
-
-    install_name_tool -change @rpath/QtQml.framework/Versions/$qx/QtQml \
-                              @loader_path/QtQml.dylib $target
-
-    if [ -f QtQmlModels.dylib ]; then
-
-        install_name_tool -change @rpath/QtQmlModels.framework/Versions/$qx/QtQmlModels \
-                                  @loader_path/QtQmlModels.dylib $target
-    fi
-
-    install_name_tool -change @rpath/QtQuick.framework/Versions/$qx/QtQuick \
-                              @loader_path/QtQuick.dylib $target
-
-    install_name_tool -change @rpath/QtSvg.framework/Versions/$qx/QtSvg \
-                              @loader_path/QtSvg.dylib $target
-
-    install_name_tool -change @rpath/QtWidgets.framework/Versions/$qx/QtWidgets \
-                              @loader_path/QtWidgets.dylib $target
-
-    install_name_tool -change @rpath/QtXml.framework/Versions/$qx/QtXml \
-                              @loader_path/QtXml.dylib $target
-
-    install_name_tool -change @rpath/QtMultimedia.framework/Versions/$qx/QtMultimedia \
-                              @loader_path/QtMultimedia.dylib $target
-
-    if [ $qt = "qt5" ]; then
-
-        install_name_tool -change @rpath/QtXmlPatterns.framework/Versions/$qx/QtXmlPatterns \
-                                  @loader_path/QtXmlPatterns.dylib $target
-    else
-        install_name_tool -change @rpath/QtCore5Compat.framework/Versions/$qx/QtCore5Compat \
-                                  @loader_path/QtCore5Compat.dylib $target
-
-        install_name_tool -change @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-                                  @loader_path/QtQmlWorkerScript.dylib $target
-
-        install_name_tool -change @rpath/QtQmlMeta.framework/Versions/$qx/QtQmlMeta \
-                                  @loader_path/QtQmlMeta.dylib $target
-    fi
-
-    otool -L $target
-
-    #----------------------------------------------------------------------------------------------
-    # QtGui
-
-    if [ $qt = "qt6" ]; then
-
-        install_name_tool -change @rpath/QtDBus.framework/Versions/$qx/QtDBus \
-                                  @loader_path/QtDBus.dylib QtGui.dylib
-    fi
-
-    otool -L QtGui.dylib
-
-    #----------------------------------------------------------------------------------------------
-    # platforms
-
-    if [ $qt = "qt5" ]; then
-
-        install_name_tool -change @rpath/QtDBus.framework/Versions/$qx/QtDBus \
-                                  @loader_path/../QtDBus.dylib platforms/libqcocoa.dylib
-
-        install_name_tool -change @rpath/QtPrintSupport.framework/Versions/$qx/QtPrintSupport \
-                                  @loader_path/../QtPrintSupport.dylib platforms/libqcocoa.dylib
-    fi
-
-    otool -L platforms/libqcocoa.dylib
-
-    #----------------------------------------------------------------------------------------------
-    # QtQml
-
-    #if [ $qt = "qt6" ]; then
-    #
-    #    install_name_tool -change \
-    #                      @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-    #                      @loader_path/../../QtQmlWorkerScript.dylib \
-    #                      QtQml/WorkerScript/libworkerscriptplugin.dylib
-    #
-    #    otool -L QtQml/WorkerScript/libworkerscriptplugin.dylib
-    #fi
-
-    #----------------------------------------------------------------------------------------------
-    # QtQuick
-
-    if [ $qt = "qt5" ]; then
-
-        if [ -f QtQmlModels.dylib ]; then
-
-            install_name_tool -change \
-                              @rpath/QtQmlWorkerScript.framework/Versions/$qx/QtQmlWorkerScript \
-                              @loader_path/../QtQmlWorkerScript.dylib \
-                              $QtQuick/libqtquick2plugin.dylib
-        fi
-    fi
-
-    otool -L $QtQuick/libqtquick2plugin.dylib
-
-    #----------------------------------------------------------------------------------------------
-    # QtMultimedia
-
-    if [ $qt = "qt5" ]; then
-
-        libmultimedia="libdeclarative_multimedia"
-    else
-        libmultimedia="libquickmultimediaplugin"
-    fi
-
-    install_name_tool -change \
-                      @rpath/QtMultimedia.framework/Versions/$qx/QtMultimedia \
-                      @loader_path/../QtMultimedia.dylib \
-                      QtMultimedia/$libmultimedia.dylib
-
-    install_name_tool -change \
-                      @rpath/QtMultimediaQuick.framework/Versions/$qx/QtMultimediaQuick \
-                      @loader_path/../QtMultimediaQuick.dylib \
-                      QtMultimedia/$libmultimedia.dylib
-
-    otool -L QtMultimedia/$libmultimedia.dylib
+    deployMacOS
 
     #----------------------------------------------------------------------------------------------
     # VLC
@@ -685,6 +607,8 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
 
     cd -
+
+    codesign --force --deep --sign - deploy/$target.app
 
 elif [ $1 = "linux" ]; then
 

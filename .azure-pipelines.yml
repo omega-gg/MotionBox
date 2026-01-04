@@ -122,6 +122,7 @@ jobs:
     artifact: MotionBox-android-qt5
 
 - job: android_qt6
+  timeoutInMinutes: 120
   pool:
     vmImage: "ubuntu-latest"
   steps:

@@ -30,9 +30,9 @@ BuildTools="$ProgramFiles/Microsoft Visual Studio/2022/BuildTools"
 
 MinGW_version="13.1.0"
 
-jom_version="1.1.5"
+jom_version="1.1.4"
 
-MSVC_version="15"
+MSVC_version="14"
 
 WindowsKit_version="10"
 

@@ -156,15 +156,19 @@ else
     if [ $1 = "linux" ]; then
 
         imports="QtQuick=2.7"
-    else
+
+    elif [ $qt = "qt5" ]; then
+
         imports="QtQuick=2.14"
+    else
+        imports="QtQuick"
     fi
 
     if [ $qt = "qt5" ]; then
 
         imports="$imports QtMultimedia=5.4"
     else
-        imports="$imports QtMultimedia=6.0"
+        imports="$imports QtMultimedia"
     fi
 fi
 

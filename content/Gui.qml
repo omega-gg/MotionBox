@@ -1390,6 +1390,24 @@ Item
         setCurrentTrack(player.playlist, player.trackIndex);
     }
 
+    function pressPlay()
+    {
+        if (buttonPlay.visible)
+        {
+            buttonPlay.returnPressed();
+        }
+        else player.play();
+    }
+
+    function pressPause()
+    {
+        if (buttonPlay.visible)
+        {
+            buttonPlay.returnPressed();
+        }
+        else pause();
+    }
+
     function reload(playlist, index)
     {
         if (playlist) playlist.reloadTrack(index);
@@ -3000,16 +3018,13 @@ Item
         {
             event.accepted = true;
 
-            barControls.buttonPlay.returnPressed();
+            pressPlay();
         }
         else if (event.key == Qt.Key_MediaPause || event.key == Qt.Key_MediaStop)
         {
             event.accepted = true;
 
-            if (player.isPlaying)
-            {
-                barControls.buttonPlay.returnPressed();
-            }
+            pressPause();
         }
 
         if (event.accepted)
@@ -3241,13 +3256,13 @@ Item
         {
             if (player.isPlaying)
             {
-                buttonPlay.returnPressed();
+                pressPlay();
 
                 window.idle = false;
             }
             else
             {
-                buttonPlay.returnPressed();
+                pressPause();
 
                 if (window.idle)
                 {

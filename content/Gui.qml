@@ -1390,24 +1390,6 @@ Item
         setCurrentTrack(player.playlist, player.trackIndex);
     }
 
-    function pressPlay()
-    {
-        if (buttonPlay.visible)
-        {
-            buttonPlay.returnPressed();
-        }
-        else player.play();
-    }
-
-    function pressPause()
-    {
-        if (buttonPlay.visible)
-        {
-            buttonPlay.returnPressed();
-        }
-        else pause();
-    }
-
     function reload(playlist, index)
     {
         if (playlist) playlist.reloadTrack(index);
@@ -2947,7 +2929,7 @@ Item
             }
             else if (window.fullScreen)
             {
-                 buttonFullScreen.returnPressed();
+                buttonFullScreen.returnPressed();
             }
         }
         else if (event.key == Qt.Key_F10) // Maximize
@@ -2956,11 +2938,7 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            if (buttonMaximize.visible)
-            {
-                buttonMaximize.returnPressed();
-            }
-            else toggleMaximize();
+            buttonMaximize.returnPressed();
         }
         else if (event.key == Qt.Key_F11) // FullScreen
         {
@@ -2968,11 +2946,7 @@ Item
 
             if (event.isAutoRepeat) return;
 
-            if (buttonFullScreen.visible)
-            {
-                buttonFullScreen.returnPressed();
-            }
-            else toggleFullScreen();
+            buttonFullScreen.returnPressed();
         }
         else if (event.key == Qt.Key_F12) // Expand
         {
@@ -3018,13 +2992,16 @@ Item
         {
             event.accepted = true;
 
-            pressPlay();
+            barControls.buttonPlay.returnPressed();
         }
         else if (event.key == Qt.Key_MediaPause || event.key == Qt.Key_MediaStop)
         {
             event.accepted = true;
 
-            pressPause();
+            if (player.isPlaying)
+            {
+                barControls.buttonPlay.returnPressed();
+            }
         }
 
         if (event.accepted)
@@ -3256,13 +3233,13 @@ Item
         {
             if (player.isPlaying)
             {
-                pressPlay();
+                buttonPlay.returnPressed();
 
                 window.idle = false;
             }
             else
             {
-                pressPause();
+                buttonPlay.returnPressed();
 
                 if (window.idle)
                 {

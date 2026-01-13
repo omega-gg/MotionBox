@@ -28,13 +28,6 @@ BasePanelSettings
     id: panelSettingsSplit
 
     //---------------------------------------------------------------------------------------------
-    // Properties
-    //---------------------------------------------------------------------------------------------
-    // Private
-
-    property bool pShowList: (panelContextual.visible == false && panelLoader.visible == false)
-
-    //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
@@ -77,11 +70,7 @@ BasePanelSettings
 
         if (item)
         {
-            if (pShowList)
-            {
-                 return borderSizeWidth + list.width + border.size + item.contentWidth;
-            }
-            else return borderSizeWidth + item.contentWidth;
+             return borderSizeWidth + list.width + border.size + item.contentWidth;
         }
         else return borderSizeWidth + list.width;
     }
@@ -106,13 +95,31 @@ BasePanelSettings
     // Children
     //---------------------------------------------------------------------------------------------
 
+    LoaderWipe
+    {
+        id: loader
+
+        anchors.left  : parent.left
+        anchors.right : border.left
+        anchors.top   : parent.top
+        anchors.bottom: parent.bottom
+    }
+
+    BorderVertical
+    {
+        id: border
+
+        anchors.right: list.left
+    }
+
     List
     {
         id: list
 
-        // NOTE: We hide the list when a contextual panel is potentially over it to avoid
-        //       confusion.
-        width: (pShowList) ? st.dp160 : 0
+        anchors.right: parent.right
+
+        // NOTE: We adjust the size to fit the BarControls buttons section.
+        width: st.dp183
 
         currentIndex: panelSettingsSplit.currentIndex
 
@@ -131,26 +138,5 @@ BasePanelSettings
 //#END
             }
         }
-    }
-
-    BorderVertical
-    {
-        id: border
-
-        anchors.left: list.right
-
-        visible: pShowList
-    }
-
-    LoaderWipe
-    {
-        id: loader
-
-        anchors.left: (pShowList) ? border.right
-                                  : parent.left
-
-        anchors.right : parent.right
-        anchors.top   : parent.top
-        anchors.bottom: parent.bottom
     }
 }

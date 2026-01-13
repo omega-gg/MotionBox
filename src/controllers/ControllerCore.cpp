@@ -411,6 +411,9 @@ ControllerCore::ControllerCore() : WController()
 
     player->setBackend(backend);
 
+    // NOTE: First arrived first served for the WHookOutput, player creation order matters.
+    if (_output) return;
+
     QList<WAbstractHook *> list;
 
     _output = new WHookOutputBarcode(backend);

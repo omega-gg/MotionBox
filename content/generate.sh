@@ -222,6 +222,7 @@ $SkyBase/BaseConsole.qml \
 $SkyBase/ColumnAuto.qml \
 $SkyBase/BaseSlider.qml \
 $SkyBase/BasePlayerBrowser.qml \
+$SkyBase/Subtitle.qml \
 $SkyBase/AnimatedSlide.qml \
 $SkyBase/AnimatedSlideImage.qml \
 $SkyBase/AnimatedLoader.qml \

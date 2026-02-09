@@ -285,7 +285,7 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterType<WDeclarativeImageSvgScale>("Sky", 1,0, "ImageSvgScale");
 #endif
 
-    qmlRegisterType<WDeclarativeBorderImage>     ("Sky", 1,0, "BorderImage");
+    qmlRegisterType<WDeclarativeBorderImage>     ("Sky", 1,0, "SkyBorderImage");
     qmlRegisterType<WDeclarativeBorderImageScale>("Sky", 1,0, "BorderImageScale");
     qmlRegisterType<WDeclarativeBorderGrid>      ("Sky", 1,0, "BorderGrid");
 

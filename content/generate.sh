@@ -250,7 +250,7 @@ $SkyComponents/PanelContextual.qml \
 $SkyComponents/PanelContextualLoader.qml \
 $SkyComponents/PanelImage.qml \
 $SkyComponents/BaseToolTip.qml \
-$SkyComponents/ToolTip.qml \
+$SkyComponents/SkyToolTip.qml \
 $SkyComponents/BarTitle.qml \
 $SkyComponents/BarTitleSmall.qml \
 $SkyComponents/BarTitleText.qml \

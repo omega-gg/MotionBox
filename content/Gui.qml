@@ -3920,7 +3920,7 @@ Item
 
     PanelPreview { id: panelPreview }
 
-    ToolTip
+    SkyToolTip
     {
         id: toolTip
 

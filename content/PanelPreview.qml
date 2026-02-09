@@ -470,7 +470,7 @@ PanelImage
         }
     }
 
-    MouseArea
+    SkyMouseArea
     {
         anchors.fill: imageFront
 

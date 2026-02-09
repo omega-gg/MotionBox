@@ -262,7 +262,7 @@ ControllerCore::ControllerCore() : WController()
     //---------------------------------------------------------------------------------------------
     // Declarative
 
-    qmlRegisterType<WDeclarativeMouseArea>   ("Sky", 1,0, "MouseArea");
+    qmlRegisterType<WDeclarativeMouseArea>   ("Sky", 1,0, "SkyMouseArea");
     qmlRegisterType<WDeclarativeMouseWatcher>("Sky", 1,0, "MouseWatcher");
 
     qmlRegisterType<WDeclarativeListHorizontal>("Sky", 1,0, "ListHorizontal");

@@ -277,7 +277,7 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterUncreatableType<WDeclarativeImageBase>("Sky", 1,0, "ImageBase",
                                                       "ImageBase is abstract");
 
-    qmlRegisterType<WDeclarativeImage>     ("Sky", 1,0, "Image");
+    qmlRegisterType<WDeclarativeImage>     ("Sky", 1,0, "SkyImage");
     qmlRegisterType<WDeclarativeImageScale>("Sky", 1,0, "ImageScale");
     qmlRegisterType<WDeclarativeImageSvg>  ("Sky", 1,0, "ImageSvg");
 

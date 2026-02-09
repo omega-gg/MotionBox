@@ -87,8 +87,8 @@ ComponentLibraryItem
 
     text: st.getTrackTitle(title, loadState, source)
 
-    iconFillMode: (isCurrent) ? Image.PreserveAspectFit
-                              : Image.PreserveAspectCrop
+    iconFillMode: (isCurrent) ? SkyImage.PreserveAspectFit
+                              : SkyImage.PreserveAspectCrop
 
     textMargin: (index == indexActive) ? width + st.border_size - checkBox.x
                                        : st.dp8

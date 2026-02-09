@@ -818,7 +818,7 @@ PanelContextual
                 else return title;
             }
 
-            iconFillMode: Image.PreserveAspectCrop
+            iconFillMode: SkyImage.PreserveAspectCrop
 
             //-------------------------------------------------------------------------------------
 

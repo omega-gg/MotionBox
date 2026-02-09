@@ -83,8 +83,8 @@ PanelImage
 
     hoverEnabled: (type)
 
-    fillMode: (type) ? Image.PreserveAspectFit
-                     : Image.PreserveAspectCrop
+    fillMode: (type) ? SkyImage.PreserveAspectFit
+                     : SkyImage.PreserveAspectCrop
 
     color: st.panel_color
 

@@ -65,7 +65,7 @@ Item
 
         source: st.logoApplication
 
-        fillMode: Image.PreserveAspectFit
+        fillMode: SkyImage.PreserveAspectFit
 
         onClicked: gui.openUrl("https://omega.gg/MotionBox")
     }

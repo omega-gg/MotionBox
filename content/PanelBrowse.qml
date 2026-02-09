@@ -1870,7 +1870,7 @@ SkyMouseArea
 
         source: (buttonOpen.visible) ? playlist.cover : ""
 
-        fillMode: Image.PreserveAspectFit
+        fillMode: SkyImage.PreserveAspectFit
 
         asynchronous: true
 

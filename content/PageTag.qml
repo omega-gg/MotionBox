@@ -404,7 +404,7 @@ Item
 
         source: (visible) ? pCover : ""
 
-        fillMode: Image.PreserveAspectCrop
+        fillMode: SkyImage.PreserveAspectCrop
 
         asynchronous: gui.asynchronous
 
@@ -419,7 +419,7 @@ Item
             pUpdateCover = true;
         }
 
-        // NOTE: We clear the cover manually because of Image.LoadVisible.
+        // NOTE: We clear the cover manually because of SkyImage.LoadVisible.
         onVisibleChanged:
         {
             if (visible) return;
@@ -454,7 +454,7 @@ Item
         asynchronous: gui.asynchronous
     }
 
-    Image
+    SkyImage
     {
         id: imageTag
 

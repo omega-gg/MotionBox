@@ -78,7 +78,7 @@ Item
 
             sourceSize.height: st.dp64
 
-            fillMode: Image.PreserveAspectFit
+            fillMode: SkyImage.PreserveAspectFit
 
             onClicked: gui.openUrl(url)
         }

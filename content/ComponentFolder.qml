@@ -86,8 +86,8 @@ ComponentLibraryItem
         else return qsTr("Invalid Item");
     }
 
-    iconFillMode: (isActive) ? Image.PreserveAspectFit
-                             : Image.PreserveAspectCrop
+    iconFillMode: (isActive) ? SkyImage.PreserveAspectFit
+                             : SkyImage.PreserveAspectCrop
 
     textMargin:
     {

@@ -316,7 +316,7 @@ $SkyComponents/ListContextual.qml \
 $SkyComponents/BaseGrid.qml \
 $SkyComponents/GridPlaylist.qml \
 $SkyComponents/ScrollArea.qml \
-$SkyComponents/ScrollBar.qml \
+$SkyComponents/SkyScrollBar.qml \
 $SkyComponents/ScrollList.qml \
 $SkyComponents/ScrollListDefault.qml \
 $SkyComponents/ScrollCompletion.qml \

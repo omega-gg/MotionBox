@@ -322,7 +322,7 @@ $SkyComponents/ScrollListDefault.qml \
 $SkyComponents/ScrollCompletion.qml \
 $SkyComponents/ScrollerVertical.qml \
 $SkyComponents/ScrollerList.qml \
-$SkyComponents/Slider.qml \
+$SkyComponents/SkySlider.qml \
 $SkyComponents/SliderVolume.qml \
 $SkyComponents/SliderStream.qml \
 $SkyComponents/SliderWide.qml \

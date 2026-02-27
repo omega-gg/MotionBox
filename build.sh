@@ -22,9 +22,9 @@ make_arguments="-j 4"
 #--------------------------------------------------------------------------------------------------
 # Windows
 
-ProgramFiles="/c/Program Files (x86)"
+BuildTools="/c/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools"
 
-BuildTools="$ProgramFiles/Microsoft Visual Studio/2022/BuildTools"
+WindowsKit="/c/Program Files (x86)/Windows Kits"
 
 #--------------------------------------------------------------------------------------------------
 
@@ -178,7 +178,7 @@ if [ $1 = "win32" -o $1 = "win64" ]; then
 
         MSVC="$BuildTools/VC/Tools/MSVC/$MSVC_version"
 
-        WindowsKit="$ProgramFiles/Windows Kits/$WindowsKit_version"
+        WindowsKit="$WindowsKit/$WindowsKit_version"
 
         WindowsKit_version=$(getPath "$WindowsKit/bin" $WindowsKit_version)
 

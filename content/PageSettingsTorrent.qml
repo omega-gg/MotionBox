@@ -133,11 +133,11 @@ BasePageSettings
 
         borderTop: 0
 
-        enabled: (editCache.editText != 1000)
+        enabled: (editCache.editText != 2000)
 
         text: qsTr("Torrent settings")
 
-        onReset: editCache.editText = 1000
+        onReset: editCache.editText = 2000
     }
 
     LineEditValue
@@ -148,8 +148,7 @@ BasePageSettings
         anchors.right: buttonCache.left
         anchors.top  : bar.bottom
 
-        anchors.leftMargin: st.dp3
-        anchors.topMargin : st.dp3
+        anchors.margins: st.dp8
 
         width: labelWidth + st.dp64
 
@@ -171,7 +170,7 @@ BasePageSettings
         anchors.right: parent.right
         anchors.top  : editCache.top
 
-        anchors.rightMargin: st.dp3
+        anchors.rightMargin: st.dp8
 
         width: st.dp110
 
@@ -195,7 +194,7 @@ BasePageSettings
         anchors.right: parent.right
         anchors.top  : editCache.bottom
 
-        anchors.topMargin: st.dp3
+        anchors.topMargin: st.dp8
 
         enabled: (editConnections.editText != "500"
                   ||
@@ -216,8 +215,7 @@ BasePageSettings
         anchors.right: buttonUpload.left
         anchors.top  : barLimits.bottom
 
-        anchors.leftMargin: st.dp3
-        anchors.topMargin : st.dp3
+        anchors.margins: st.dp8
 
         labelWidth: st.dp108
 
@@ -239,7 +237,7 @@ BasePageSettings
         anchors.right: parent.right
         anchors.top  : editUpload.top
 
-        anchors.rightMargin: st.dp3
+        anchors.rightMargin: st.dp8
 
         checked: local.torrentUploadActive
 
@@ -254,7 +252,7 @@ BasePageSettings
         anchors.right: buttonDownload.left
         anchors.top  : editUpload.bottom
 
-        anchors.leftMargin: st.dp3
+        anchors.margins: st.dp8
 
         width: editUpload.width
 
@@ -278,7 +276,7 @@ BasePageSettings
         anchors.right: parent.right
         anchors.top  : editDownload.top
 
-        anchors.rightMargin: st.dp3
+        anchors.rightMargin: st.dp8
 
         checked: local.torrentDownloadActive
 
@@ -292,7 +290,7 @@ BasePageSettings
         anchors.left: parent.left
         anchors.top : buttonDownload.bottom
 
-        anchors.leftMargin: st.dp3
+        anchors.margins: st.dp8
 
         width: labelWidth + st.dp32
 

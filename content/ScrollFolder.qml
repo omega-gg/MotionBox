@@ -221,7 +221,7 @@ ScrollArea
 
         anchors.top: list.bottom
 
-        anchors.topMargin: st.dp8
+        anchors.topMargin: st.dp16
 
         anchors.horizontalCenter: parent.horizontalCenter
 

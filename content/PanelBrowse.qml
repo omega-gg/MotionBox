@@ -1884,8 +1884,8 @@ SkyMouseArea
         anchors.top: (buttonCover.visible) ? buttonCover.bottom
                                            : scrollPlaylist.top
 
-        anchors.topMargin: (buttonCover.visible) ? st.dp11
-                                                 : pItemText.y + pItemText.height + st.dp15
+        anchors.topMargin: (buttonCover.visible) ? st.dp12
+                                                 : pItemText.y + pItemText.height + st.dp16
 
         anchors.horizontalCenter: scrollPlaylist.horizontalCenter
 

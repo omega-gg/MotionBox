@@ -112,13 +112,16 @@ PanelSettingsAction
         onTriggered: player.scanOutput = false
     }
 
-    ButtonPushIcon
+    ButtonPianoIcon
     {
         anchors.right: parent.right
         anchors.top  : parent.top
 
         width : st.dp32
         height: st.dp32
+
+        borderLeft : borderSize
+        borderRight: 0
 
         visible: (hasSettings == false)
 

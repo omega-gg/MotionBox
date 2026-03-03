@@ -350,8 +350,8 @@ SkyMouseArea
 
             anchors.rightMargin: st.dp12
 
-            width : st.dp36
-            height: st.dp34
+            width : st.dp34
+            height: width
 
             checkable: true
             checked  : panelTag.isExposed

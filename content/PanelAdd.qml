@@ -1554,8 +1554,13 @@ PanelContextual
         {
             id: label
 
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
+            anchors.left: parent.left
+
+            anchors.leftMargin: st.dp4
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            height: st.dp24
 
             enableAnimation: false
 

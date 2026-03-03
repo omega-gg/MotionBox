@@ -270,7 +270,7 @@ Item
 
         anchors.top: parent.top
 
-        anchors.topMargin: scrollFolder.list.height + st.dp8
+        anchors.topMargin: scrollFolder.list.height + st.dp16
 
         anchors.horizontalCenter: scrollFolder.horizontalCenter
 

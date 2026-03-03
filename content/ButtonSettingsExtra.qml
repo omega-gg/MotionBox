@@ -35,6 +35,8 @@ ButtonWideExtra
 
     property bool active: false
 
+    property int margins: st.dp8
+
     property int marginY: 0
 
     property int currentIndex: -1
@@ -44,10 +46,18 @@ ButtonWideExtra
     // Settings
     //---------------------------------------------------------------------------------------------
 
+    height: st.buttonPush_height + margins * 2
+
     checkable: true
     checked  : (areaContextual.item == buttonSettings)
 
     itemText.horizontalAlignment: Text.AlignLeft
+
+    buttonText.anchors.top: buttonText.parent.top
+    buttonIcon.anchors.top: buttonIcon.parent.top
+
+    buttonText.anchors.margins: margins
+    buttonIcon.anchors.margins: margins
 
     itemText.color: st.getTextColor(isHighlighted, active)
 

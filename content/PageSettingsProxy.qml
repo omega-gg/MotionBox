@@ -152,9 +152,9 @@ BasePageSettings
 
         anchors.left : parent.left
         anchors.right: editPort.left
-        anchors.top  : editPort.top
+        anchors.top  : bar.bottom
 
-        anchors.leftMargin: st.dp3
+        anchors.margins: st.dp8
 
         text: qsTr("Host")
 
@@ -169,10 +169,9 @@ BasePageSettings
         id: editPort
 
         anchors.right: parent.right
-        anchors.top  : bar.bottom
+        anchors.top  : editHost.top
 
-        anchors.rightMargin: st.dp3
-        anchors.topMargin  : st.dp3
+        anchors.rightMargin: st.dp8
 
         width: st.dp128
 
@@ -197,6 +196,8 @@ BasePageSettings
         anchors.left : editHost.left
         anchors.right: editPort.right
         anchors.top  : editHost.bottom
+
+        anchors.topMargin: st.dp8
 
         text: qsTr("Password")
 
@@ -231,6 +232,8 @@ BasePageSettings
         anchors.right: buttonActive.left
         anchors.top  : buttonActive.top
 
+        anchors.rightMargin: st.dp8
+
         width: st.dp100
 
         checked   : pStream
@@ -248,7 +251,7 @@ BasePageSettings
         anchors.right: parent.right
         anchors.top  : editPassword.bottom
 
-        anchors.rightMargin: st.dp3
+        anchors.margins: st.dp8
 
         checked: local.proxyActive
 

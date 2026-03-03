@@ -324,7 +324,7 @@ Item
 
                 panelContextual.loadPageTab(tab);
 
-                if (areaContextual.showPanelMargins(panelContextual, buttonsItem, -st.dp4, 0))
+                if (areaContextual.showPanelFrom(panelContextual, buttonsItem))
                 {
                     setIndexContextual(indexHover);
 

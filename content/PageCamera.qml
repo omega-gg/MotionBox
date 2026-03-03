@@ -253,7 +253,7 @@ VideoOutput
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        width : st.dp44
+        width : st.dp36
         height: width
 
         icon          : st.icon16x16_rotate

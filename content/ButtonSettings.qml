@@ -35,6 +35,8 @@ ButtonPushFull
 
     property bool active: false
 
+    property int margins: st.dp8
+
     property int marginY: 0
 
     property int currentIndex: -1
@@ -47,8 +49,14 @@ ButtonPushFull
     anchors.left : parent.left
     anchors.right: parent.right
 
+    height: st.buttonPush_height + margins * 2
+
+    padding: st.buttonPush_padding + margins
+
     checkable: true
     checked  : (areaContextual.item == buttonSettings)
+
+    background.anchors.margins: margins
 
     itemText.color: st.getTextColor(isHighlighted, active)
 

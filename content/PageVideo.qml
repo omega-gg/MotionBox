@@ -449,11 +449,14 @@ ColumnScroll
         anchors.left : parent.left
         anchors.right: parent.right
 
+        padding: st.dp8
+        spacing: st.dp8
+
         ButtonPushFull
         {
             id: buttonShuffle
 
-            width: Math.round(parent.width / 2)
+            width: Math.round((parent.width - st.dp24) / 2)
 
             checkable: true
             checked  : local.shuffle

@@ -606,9 +606,7 @@ Item
         anchors.left  : background.right
         anchors.bottom: background.top
 
-        anchors.margins: -st.dp4
-
-        width : st.dp44
+        width : st.dp36
         height: width
 
         checkable: true
@@ -628,7 +626,7 @@ Item
 
         anchors.horizontalCenter: parent.horizontalCenter
 
-        width : st.dp44
+        width : st.dp36
         height: width
 
         checkable: true

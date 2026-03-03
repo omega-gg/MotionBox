@@ -985,7 +985,7 @@ BaseList
 
         anchors.rightMargin: st.dp4
 
-        y: itemWatcher.y + st.border_size
+        y: itemWatcher.y + st.border_size + st.dp4
 
         visible: (enableContextual && gui.dragList != list && itemWatcher.visible
                   &&
@@ -993,8 +993,8 @@ BaseList
 
         checked: (indexContextual != -1)
 
-        width : st.dp28
-        height: st.dp28
+        width : st.dp22
+        height: st.dp22
 
         icon          : st.icon10x10_contextualDown
         iconSourceSize: st.size10x10

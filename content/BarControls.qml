@@ -182,14 +182,13 @@ SkyMouseArea
             id: buttonPrevious
 
             anchors.left: buttonPlay.right
-            anchors.top : buttonPlay.top
 
-            anchors.leftMargin: st.dp6
+            anchors.leftMargin: st.dp12
 
-            width : st.dp48
-            height: width
+            anchors.verticalCenter: parent.verticalCenter
 
-            margins: st.dp6
+            width : st.dp42
+            height: st.dp36
 
             showBorder: false
 
@@ -207,13 +206,11 @@ SkyMouseArea
         {
             id: buttonNext
 
-            anchors.left: buttonPrevious.right
-            anchors.top : buttonPrevious.top
+            anchors.left  : buttonPrevious.right
+            anchors.top   : buttonPrevious.top
+            anchors.bottom: buttonPrevious.bottom
 
-            width : st.dp48
-            height: width
-
-            margins: st.dp6
+            width: st.dp42
 
             showBorder: false
 
@@ -250,7 +247,7 @@ SkyMouseArea
             anchors.left: buttonNext.right
             anchors.top : parent.top
 
-            anchors.leftMargin: st.dp4
+            anchors.leftMargin: st.dp10
             anchors.topMargin : st.dp8
 
             width: st.dp150
@@ -286,8 +283,8 @@ SkyMouseArea
             anchors.right: buttonTag.left
             anchors.top  : parent.top
 
-            anchors.leftMargin : st.dp7
-            anchors.rightMargin: st.dp2
+            anchors.leftMargin : st.dp12
+            anchors.rightMargin: st.dp12
             anchors.topMargin  : st.dp8
 
             height: st.sliderStream_height
@@ -351,10 +348,10 @@ SkyMouseArea
             anchors.right: borderB.left
             anchors.top  : buttonSettings.top
 
-            anchors.rightMargin: st.dp7
+            anchors.rightMargin: st.dp12
 
-            width : st.dp44
-            height: width
+            width : st.dp36
+            height: st.dp34
 
             checkable: true
             checked  : panelTag.isExposed
@@ -375,7 +372,7 @@ SkyMouseArea
 
             anchors.right: buttonSubtitles.left
 
-            anchors.rightMargin: st.dp7
+            anchors.rightMargin: st.dp12
         }
 
         ButtonPushLeftIcon
@@ -385,8 +382,8 @@ SkyMouseArea
             anchors.right: buttonSettings.left
             anchors.top  : buttonSettings.top
 
-            width : st.dp44
-            height: width
+            width : st.dp38
+            height: st.dp34
 
             showBorder: false
 
@@ -411,7 +408,7 @@ SkyMouseArea
             anchors.top  : buttonOutput.top
 
             width : st.dp38
-            height: st.dp44
+            height: st.dp34
 
             showBorder: false
 
@@ -436,7 +433,7 @@ SkyMouseArea
             anchors.top  : buttonFullScreen.top
 
             width : st.dp38
-            height: st.dp44
+            height: st.dp34
 
             showBorder: false
 
@@ -460,13 +457,13 @@ SkyMouseArea
             id: buttonFullScreen
 
             anchors.right: parent.right
-            anchors.top  : parent.top
 
-            anchors.rightMargin: st.dp12
-            anchors.topMargin  : st.dp2
+            anchors.rightMargin: st.dp16
 
-            width : st.dp44
-            height: width
+            anchors.verticalCenter: parent.verticalCenter
+
+            width : st.dp38
+            height: st.dp34
 
             showBorder: false
 

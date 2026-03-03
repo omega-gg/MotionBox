@@ -1356,8 +1356,8 @@ BaseList
 
         anchors.top: buttonContextual.top
 
-        anchors.rightMargin: 0
-        anchors.topMargin  : st.dp3
+        anchors.rightMargin: st.dp4
+        anchors.topMargin  : 0
 
         visible: (gui.dragList != list && itemWatcher.visible && timer.running == false)
 
@@ -1394,10 +1394,10 @@ BaseList
 
         anchors.rightMargin: st.dp4
 
-        width : st.dp28
-        height: st.dp28
+        width : st.dp22
+        height: st.dp22
 
-        y: itemWatcher.y + st.border_size
+        y: itemWatcher.y + st.border_size + st.dp4
 
         visible: (enableContextual && checkBox.visible)
 

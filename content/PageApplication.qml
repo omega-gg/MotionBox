@@ -135,7 +135,7 @@ ColumnScroll
         text: qsTr("Content")
     }
 
-    ButtonWide
+    ButtonAction
     {
         text: qsTr("View storage")
 
@@ -144,7 +144,7 @@ ColumnScroll
 
     BarSettings { text: qsTr("Cache") }
 
-    ButtonsCheck
+    ButtonsAction
     {
         id: buttonsClear
 
@@ -187,7 +187,7 @@ ColumnScroll
         }
     }
 
-    ButtonWide
+    ButtonAction
     {
         text: qsTr("Clear both")
 

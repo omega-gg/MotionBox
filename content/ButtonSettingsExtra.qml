@@ -35,7 +35,7 @@ ButtonWideExtra
 
     property bool active: false
 
-    property int margins: st.dp8
+    property int margins: st.dp4
 
     property int marginY: 0
 

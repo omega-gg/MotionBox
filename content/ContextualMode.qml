@@ -92,7 +92,7 @@ ColumnAuto
         }
     }
 
-    ButtonsCheck
+    ButtonsAction
     {
         anchors.left : parent.left
         anchors.right: parent.right

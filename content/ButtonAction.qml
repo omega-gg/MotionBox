@@ -23,24 +23,13 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPushFull
+ButtonPush
 {
-    id: buttonSettings
-
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* mandatory */ property variant settings
-
-    property bool active: false
-
     property int margins: st.dp4
-
-    property int marginY: 0
-
-    property int currentIndex: -1
-    property int activeIndex : -1
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -51,35 +40,5 @@ ButtonPushFull
 
     height: st.buttonPush_height + margins * 2
 
-    padding: st.buttonPush_padding + margins
-
-    checkable: true
-    checked  : (areaContextual.item == buttonSettings)
-
     background.anchors.margins: margins
-
-    itemText.color: st.getTextColor(isHighlighted, active)
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    onPressed: onPress()
-
-    //---------------------------------------------------------------------------------------------
-    // Functions
-    //---------------------------------------------------------------------------------------------
-
-    function showPanel()
-    {
-        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                         activeIndex);
-    }
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-
-    /* virtual */ function onPress() { showPanel() }
-
-    /* virtual */ function onSelect(index) {}
 }

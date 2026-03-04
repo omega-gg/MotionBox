@@ -80,7 +80,7 @@ Item
         }
     }
 
-    ButtonWide
+    ButtonAction
     {
         id: button
 

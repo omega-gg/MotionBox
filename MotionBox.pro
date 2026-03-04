@@ -237,6 +237,9 @@ OTHER_FILES += 3rdparty.sh \
                content/ButtonLogo.qml \
                content/ButtonOutput.qml \
                content/ButtonWideSource.qml \
+               content/ButtonAction.qml \
+               content/ButtonActionFull.qml \
+               content/ButtonsAction.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
                content/ButtonSettingsExtra.qml \

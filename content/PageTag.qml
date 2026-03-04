@@ -511,11 +511,8 @@ Item
 
             anchors.margins: st.border_size
 
-            ButtonPushFull
+            ButtonActionFull
             {
-                anchors.left : parent.left
-                anchors.right: parent.right
-
                 checkable: true
                 checked  : panelTag.showCover
 
@@ -554,11 +551,8 @@ Item
                 onCheckClicked: applyEmbedCover(checked)
             }
 
-            ButtonPushFull
+            ButtonActionFull
             {
-                anchors.left : parent.left
-                anchors.right: parent.right
-
                 enabled: saveIsEnabled
 
                 icon          : st.icon16x16_download
@@ -569,11 +563,8 @@ Item
                 onClicked: saveTag()
             }
 
-            ButtonPushFull
+            ButtonActionFull
             {
-                anchors.left : parent.left
-                anchors.right: parent.right
-
                 enabled: exportIsEnabled
 
                 icon          : st.icon16x16_download
@@ -584,11 +575,8 @@ Item
                 onClicked: exportVbml()
             }
 
-            ButtonPushFull
+            ButtonActionFull
             {
-                anchors.left : parent.left
-                anchors.right: parent.right
-
                 enabled: shareIsEnabled
 
                 icon          : st.icon16x16_link

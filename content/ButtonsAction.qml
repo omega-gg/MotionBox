@@ -23,24 +23,15 @@
 import QtQuick 1.0
 import Sky     1.0
 
-ButtonPushFull
+ButtonsCheck
 {
-    id: buttonSettings
-
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
 
-    /* mandatory */ property variant settings
-
-    property bool active: false
-
     property int margins: st.dp4
 
-    property int marginY: 0
-
-    property int currentIndex: -1
-    property int activeIndex : -1
+    property int margins2x: margins * 2
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -49,37 +40,28 @@ ButtonPushFull
     anchors.left : parent.left
     anchors.right: parent.right
 
-    height: st.buttonPush_height + margins * 2
+    height: st.buttonPush_height + margins2x
 
-    padding: st.buttonPush_padding + margins
+    buttonWidth: (width - margins2x) / count
 
-    checkable: true
-    checked  : (areaContextual.item == buttonSettings)
-
-    background.anchors.margins: margins
-
-    itemText.color: st.getTextColor(isHighlighted, active)
-
-    //---------------------------------------------------------------------------------------------
-    // Events
-    //---------------------------------------------------------------------------------------------
-
-    onPressed: onPress()
+    repeater.anchors.margins: margins
 
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+    // ButtonsCheck reimplementation
 
-    function showPanel()
+    function pGetWidth(index, x)
     {
-        areaContextual.showPanelSettings(buttonSettings, marginY, settings, currentIndex,
-                                         activeIndex);
+        if (index == count - 1)
+        {
+            return parent.width - x - margins;
+        }
+        else return buttonWidth;
     }
 
-    //---------------------------------------------------------------------------------------------
-    // Events
-
-    /* virtual */ function onPress() { showPanel() }
-
-    /* virtual */ function onSelect(index) {}
+    function pGetX(index)
+    {
+        return index * buttonWidth + margins;
+    }
 }

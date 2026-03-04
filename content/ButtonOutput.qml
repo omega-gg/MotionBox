@@ -32,7 +32,6 @@ ButtonPianoFull
     anchors.left : parent.left
     anchors.right: parent.right
 
-    borderRight : 0
     borderBottom: borderSize
 
     highlighted: true

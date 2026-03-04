@@ -498,8 +498,6 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            borderRight: 0
-
             checkable: true
             checked  : isExpanded
 
@@ -516,8 +514,6 @@ Panel
             anchors.left  : buttonLeft.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
-
-            borderRight: 0
 
             enabled: (isAnimated == false && playlist != null && playlist.isLoading == false
                       &&
@@ -537,8 +533,6 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            borderRight: 0
-
             enabled: (isAnimated == false && playlist != null && playlist.isLoading == false
                       &&
                       related.hasNextPlaylist)
@@ -556,6 +550,8 @@ Panel
             anchors.left  : buttonForward.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
+
+            borderRight: borderSize
 
             enabled: (isAnimated == false && currentTab.isValid)
 

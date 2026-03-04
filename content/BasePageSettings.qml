@@ -101,6 +101,8 @@ SkyMouseArea
 
             width: st.dp100
 
+            borderRight: borderSize
+
             text: qsTr("Cancel")
 
             KeyNavigation.backtab: buttonOk
@@ -119,8 +121,7 @@ SkyMouseArea
 
             width: st.dp100
 
-            borderLeft : borderSize
-            borderRight: 0
+            borderLeft: borderSize
 
             text: qsTr("OK")
 

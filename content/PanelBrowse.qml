@@ -1325,8 +1325,6 @@ SkyMouseArea
 
         width: st.dp32 + borderSizeWidth
 
-        borderRight: 0
-
         checkable: true
         checked  : (panelContextual.item == buttonHome)
 
@@ -1349,8 +1347,6 @@ SkyMouseArea
         anchors.left  : buttonHome.right
         anchors.top   : buttonClose.top
         anchors.bottom: buttonClose.bottom
-
-        borderRight: 0
 
         checkable: true
         checked  : (pButtonsIndex == -1 && pSearchHidden == false)
@@ -1416,8 +1412,7 @@ SkyMouseArea
 
         width: st.dp32 + borderSizeWidth
 
-        borderLeft : borderSize
-        borderRight: 0
+        borderLeft: borderSize
 
         visible: (pFolder != null && pFolder.currentItem != null)
 
@@ -1445,8 +1440,7 @@ SkyMouseArea
         anchors.top   : buttonClose.top
         anchors.bottom: buttonClose.bottom
 
-        borderLeft : borderSize
-        borderRight: 0
+        borderLeft: borderSize
 
         visible: (playlist != null && playlist.selectedCount)
 
@@ -1472,8 +1466,7 @@ SkyMouseArea
         anchors.top   : buttonClose.top
         anchors.bottom: buttonClose.bottom
 
-        borderLeft : (buttonAddTrack.visible) ? 0 : borderSize
-        borderRight: 0
+        borderLeft: (buttonAddTrack.visible) ? 0 : borderSize
 
         visible: buttonPlaylist.visible
 
@@ -1496,8 +1489,7 @@ SkyMouseArea
         anchors.top   : buttonClose.top
         anchors.bottom: buttonClose.bottom
 
-        borderLeft : (buttonAddTrack.visible || buttonTag.visible) ? 0 : borderSize
-        borderRight: 0
+        borderLeft: (buttonAddTrack.visible || buttonTag.visible) ? 0 : borderSize
 
         checkable: true
         checked  : panelTracks.isExpanded
@@ -1520,6 +1512,8 @@ SkyMouseArea
         anchors.topMargin   : bar.borderTop
         anchors.bottomMargin: bar.borderBottom
 
+        borderRight: borderSize
+
         icon          : st.icon12x12_close
         iconSourceSize: st.size12x12
 
@@ -1535,6 +1529,8 @@ SkyMouseArea
         anchors.bottom: buttonClose.bottom
 
         width: st.dp56 + borderSizeWidth
+
+        borderRight: borderSize
 
         visible: (playlist != null && playlist.isPlaylistSearch == false)
 

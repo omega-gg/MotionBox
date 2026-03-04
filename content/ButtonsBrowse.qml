@@ -491,8 +491,6 @@ Item
 
                     anchors.fill: parent
 
-                    borderRight: 0
-
                     spacing: padding
 
                     checkable: true

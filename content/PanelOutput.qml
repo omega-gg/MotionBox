@@ -120,8 +120,7 @@ PanelSettingsAction
         width : st.dp32
         height: st.dp32
 
-        borderLeft : borderSize
-        borderRight: 0
+        borderLeft: borderSize
 
         visible: (hasSettings == false)
 

@@ -152,6 +152,8 @@ Item
 
             width: st.dp100
 
+            borderRight: borderSize
+
             text: qsTr("Back")
 
             onClicked: pageAbout.loadMain()

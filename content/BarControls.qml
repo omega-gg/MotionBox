@@ -158,6 +158,8 @@ SkyMouseArea
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
+            borderRight: borderSize
+
             enabled: (player.source != "")
 
             highlighted: (enabled && player.hasStarted)

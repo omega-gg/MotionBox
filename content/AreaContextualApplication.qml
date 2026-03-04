@@ -1130,8 +1130,7 @@ AreaContextual
 
             height: st.barTitle_height
 
-            borderLeft : borderSize
-            borderRight: 0
+            borderLeft: borderSize
 
             visible: (panelContextual.posX != -1 || panelContextual.posY != -1)
 
@@ -1151,8 +1150,7 @@ AreaContextual
             anchors.right : parent.right
             anchors.bottom: parent.bottom
 
-            borderRight: 0
-            borderTop  : borderSize
+            borderTop: borderSize
 
             visible: pButtonsVisible
 

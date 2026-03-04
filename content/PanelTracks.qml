@@ -201,6 +201,8 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
+                borderRight: borderSize
+
                 visible: (folder != null)
 
                 checkable: true
@@ -242,8 +244,7 @@ Item
 
                 width: st.dp32 + borderSizeWidth
 
-                borderLeft : borderSize
-                borderRight: 0
+                borderLeft: borderSize
 
                 visible: buttonFolder.visible
 
@@ -311,6 +312,8 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
+                borderRight: borderSize
+
                 width: Math.round((parent.width - buttonAdd.width) / 2)
 
                 visible: scrollFolder.isCreating
@@ -336,8 +339,6 @@ Item
                 anchors.right : buttonAdd.left
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
-
-                borderRight: 0
 
                 visible: buttonAddPlaylist.visible
 
@@ -461,6 +462,8 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
+                borderRight: borderSize
+
                 visible: pPlaylistLocal()
 
                 checkable: true
@@ -505,8 +508,7 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                borderLeft : borderSize
-                borderRight: 0
+                borderLeft: borderSize
 
                 visible: buttonPlaylist.visible
 
@@ -529,8 +531,7 @@ Item
                 anchors.top   : parent.top
                 anchors.bottom: parent.bottom
 
-                borderLeft : (buttonTag.visible) ? 0 : borderSize
-                borderRight: 0
+                borderLeft: (buttonTag.visible) ? 0 : borderSize
 
                 checkable: true
                 checked  : isExpanded
@@ -550,6 +551,8 @@ Item
                 anchors.bottom: parent.bottom
 
                 anchors.rightMargin: st.dp16
+
+                borderRight: borderSize
 
                 icon          : st.icon12x12_close
                 iconSourceSize: st.size12x12

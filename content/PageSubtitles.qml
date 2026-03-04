@@ -436,8 +436,7 @@ Item
 
         width: buttonSearch.width
 
-        borderLeft : borderSize
-        borderRight: 0
+        borderLeft: borderSize
 
         enabled: pEnable
 
@@ -467,8 +466,6 @@ Item
         anchors.right : parent.right
         anchors.top   : lineEdit.top
         anchors.bottom: lineEdit.bottom
-
-        borderRight: 0
 
         enabled: pEnable
 

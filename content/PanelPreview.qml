@@ -555,8 +555,7 @@ PanelImage
         anchors.right : parent.right
         anchors.bottom: parent.bottom
 
-        borderRight: 0
-        borderTop  : st.border_size
+        borderTop: st.border_size
 
         padding: st.dp6
 

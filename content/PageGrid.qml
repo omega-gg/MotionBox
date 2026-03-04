@@ -258,7 +258,6 @@ Item
         anchors.bottom: bar.bottom
 
         borderLeft  : borderSize
-        borderRight : 0
         borderBottom: borderSize
 
         visible: (playlist != null)
@@ -284,6 +283,7 @@ Item
 
         borderLeft: (buttonTag.visible) ? 0 : borderSize
 
+        borderRight : borderSize
         borderBottom: borderSize
 
         icon          : st.icon12x12_close

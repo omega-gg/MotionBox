@@ -296,6 +296,8 @@ ScrollPlaylist
     {
         id: button
 
+        borderRight: borderSize
+
         spacing: padding
 
         iconSourceSize: st.size32x32

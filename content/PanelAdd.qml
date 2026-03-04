@@ -871,8 +871,7 @@ PanelContextual
 
             height: st.barTitle_height
 
-            borderLeft : borderSize
-            borderRight: 0
+            borderLeft: borderSize
 
             visible: (item != barControls && (posX != -1 || posY != -1))
 
@@ -1598,8 +1597,7 @@ PanelContextual
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            borderLeft : borderSize
-            borderRight: 0
+            borderLeft: borderSize
 
             spacing: st.dp2
 

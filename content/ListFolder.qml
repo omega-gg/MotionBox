@@ -911,6 +911,7 @@ BaseList
 
         y: indexHover * itemSize
 
+        borderRight : borderSize
         borderBottom: borderSize
 
         visible: (enablePreview && itemHovered != null)

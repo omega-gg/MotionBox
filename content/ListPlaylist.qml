@@ -1337,7 +1337,7 @@ BaseList
         }
     }
 
-    CheckBox
+    SkyCheckBox
     {
         id: checkBox
 

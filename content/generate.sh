@@ -300,7 +300,7 @@ $SkyComponents/LabelLoadingButton.qml \
 $SkyComponents/LabelStream.qml \
 $SkyComponents/LabelWide.qml \
 $SkyComponents/SkyPopup.qml \
-$SkyComponents/CheckBox.qml \
+$SkyComponents/SkyCheckBox.qml \
 $SkyComponents/LineEdit.qml \
 $SkyComponents/LineEditLabel.qml \
 $SkyComponents/LineEditValue.qml \

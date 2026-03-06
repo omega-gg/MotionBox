@@ -49,7 +49,7 @@ ButtonPushFull
     anchors.left : parent.left
     anchors.right: parent.right
 
-    height: st.buttonPush_height + margins * 2
+    height: st.buttonPush_size + margins * 2
 
     padding: st.buttonPush_padding + margins
 

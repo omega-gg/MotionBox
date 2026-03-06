@@ -46,7 +46,7 @@ ButtonWideExtra
     // Settings
     //---------------------------------------------------------------------------------------------
 
-    height: st.buttonPush_height + margins * 2
+    height: st.buttonPush_size + margins * 2
 
     checkable: true
     checked  : (areaContextual.item == buttonSettings)

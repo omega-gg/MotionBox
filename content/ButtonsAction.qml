@@ -40,7 +40,7 @@ ButtonsCheck
     anchors.left : parent.left
     anchors.right: parent.right
 
-    height: st.buttonPush_height + margins2x
+    height: st.buttonPush_size + margins2x
 
     buttonWidth: (width - margins2x) / count
 

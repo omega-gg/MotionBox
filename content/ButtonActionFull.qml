@@ -41,4 +41,7 @@ ButtonPushFull
     height: st.buttonPush_size + margins * 2
 
     background.anchors.margins: margins
+
+    itemIcon.anchors.left : background.left
+    itemText.anchors.right: background.right
 }

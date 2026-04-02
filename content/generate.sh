@@ -153,13 +153,13 @@ else
         defines="QT_6 QT_NEW"
     fi
 
-    if [ $1 = "linux" ]; then
+    if [ $qt = "qt5" ]; then
 
-        imports="QtQuick=2.7"
+        if [ $1 = "linux" ]; then
 
-    elif [ $qt = "qt5" ]; then
-
-        imports="QtQuick=2.14"
+            imports="QtQuick=2.7"
+        else
+            imports="QtQuick=2.14"
     else
         imports="QtQuick"
     fi

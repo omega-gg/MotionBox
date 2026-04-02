@@ -160,6 +160,7 @@ else
             imports="QtQuick=2.7"
         else
             imports="QtQuick=2.14"
+        fi
     else
         imports="QtQuick"
     fi

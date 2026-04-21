@@ -1,4 +1,4 @@
-# [MotionBox] 3.0.0-2
+# [MotionBox] 3.0.0-3
 
 ### [english](../../Readme.html) / français
 

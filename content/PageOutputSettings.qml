@@ -93,7 +93,7 @@ ColumnScroll
 
     ButtonOutput { onClicked: panelOutput.selectTab(0) }
 
-    ButtonWideFull
+    ButtonActionFull
     {
         icon          : st.icon16x16_unlink
         iconSourceSize: st.size16x16
@@ -167,7 +167,7 @@ ColumnScroll
         onCheckClicked: pOutput.videoTag = checked
     }
 
-    ButtonWide
+    ButtonAction
     {
         id: buttonAdvanced
 

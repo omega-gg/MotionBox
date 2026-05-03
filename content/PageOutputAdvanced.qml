@@ -76,7 +76,7 @@ ColumnScroll
         onClicked: panelOutput.selectTab(1)
     }
 
-    ButtonWide
+    ButtonAction
     {
         id: buttonClear
 

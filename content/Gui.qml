@@ -1056,7 +1056,7 @@ Item
         {
             if (window.fullScreen)
             {
-                window.setWindowMaximize(true);
+                //window.setWindowMaximize(true);
 
                 window.visible = false;
 
@@ -1125,7 +1125,7 @@ Item
 
         wall.enableAnimation = false;
 
-        if (sk.osWin) window.setWindowSnap(false);
+        //if (sk.osWin) window.setWindowSnap(false);
 
         st.animate = false;
 
@@ -1144,7 +1144,7 @@ Item
     {
         if (window.fullScreen == false || actionCue.tryPush(actionFullScreenRestore)) return;
 
-        if (sk.osWin) window.setWindowSnap(true);
+        //if (sk.osWin) window.setWindowSnap(true);
 
         wall.clearDrag();
 

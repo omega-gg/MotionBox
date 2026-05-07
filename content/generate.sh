@@ -175,15 +175,15 @@ fi
 
 if [ $os = "windows" ]; then
 
-    defines="$defines DESKTOP WINDOWS"
+    defines="$defines DESKTOP WINDOWS WINDOW_NATIVE"
 
 elif [ $1 = "macOS" ]; then
 
-    defines="$defines DESKTOP MAC"
+    defines="$defines DESKTOP MAC WINDOW_NATIVE"
 
 elif [ $1 = "linux" ]; then
 
-    defines="$defines DESKTOP LINUX"
+    defines="$defines DESKTOP LINUX WINDOW_NATIVE"
 else
     defines="$defines MOBILE ANDROID"
 fi

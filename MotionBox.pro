@@ -53,6 +53,10 @@ DEFINES += QUAZIP_BUILD \
            SK_MULTIMEDIA_LIBRARY SK_TORRENT_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
+!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+    DEFINES += QWK_CORE_LIBRARY QWK_QUICK_LIBRARY
+}
+
 win32-msvc* {
     # libtorrent: This fixes the winsock2 and std::min errors.
     DEFINES += WIN32_LEAN_AND_MEAN NOMINMAX
@@ -65,13 +69,8 @@ win32-msvc* {
 
 #DEFINES += SK_SOFTWARE
 
-contains(QT_MAJOR_VERSION, 4) {
-    CONFIG(release, debug|release) {
-
-        win32:DEFINES += SK_WIN_NATIVE
-    }
-} else {
-    win32:DEFINES += SK_WIN_NATIVE
+!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+    DEFINES += SK_WINDOW_NATIVE
 }
 
 deploy|android {
@@ -105,6 +104,10 @@ include(src/3rdparty/quazip/quazip.pri)
 include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 include(src/3rdparty/zxing-cpp/zxing-cpp.pri)
 
+!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+    include(src/3rdparty/qwindowkit/qwindowkit.pri)
+}
+
 INCLUDEPATH += $$SK/include/SkCore \
                $$SK/include/SkGui \
                $$SK/include/SkBarcode \
@@ -135,6 +138,13 @@ unix:!macx:!ios:!android:greaterThan(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/$$QTX/QtDBus
 }
 
+!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+    INCLUDEPATH += $$SK/include/SkGui/QWKCore \
+                   $$SK/include/SkGui/QWKCore/private \
+                   $$SK/include/SkGui/QWKQuick \
+                   $$SK/include/SkGui/QWKQuick/private
+}
+
 #win32:contains(QT_MAJOR_VERSION, 5) {
 #    LIBS += -lopengl32
 #}
@@ -150,6 +160,9 @@ win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
 
 # Windows dependency for ShellExecuteA and SystemParametersInfo
 win32-msvc*:LIBS += shell32.lib User32.lib
+
+# Windows dependency for qwindowkit
+win32-g++:LIBS += -lgdi32
 
 unix:!ios:!android:LIBS += -L$$SK/lib -lvlc \
                            -L$$SK/lib -ltorrent-rasterbar \

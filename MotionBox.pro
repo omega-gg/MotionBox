@@ -53,7 +53,7 @@ DEFINES += QUAZIP_BUILD \
            SK_MULTIMEDIA_LIBRARY SK_TORRENT_LIBRARY \
            SK_CHARSET SK_BACKEND_LOCAL #SK_BACKEND_LOG
 
-!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+win32|macx:contains(QT_MAJOR_VERSION, 6) {
     DEFINES += QWK_CORE_LIBRARY QWK_QUICK_LIBRARY
 }
 
@@ -69,7 +69,7 @@ win32-msvc* {
 
 #DEFINES += SK_SOFTWARE
 
-!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+win32|macx:contains(QT_MAJOR_VERSION, 6) {
     DEFINES += SK_WINDOW_NATIVE
 }
 
@@ -104,7 +104,7 @@ include(src/3rdparty/quazip/quazip.pri)
 include(src/3rdparty/libcharsetdetect/libcharsetdetect.pri)
 include(src/3rdparty/zxing-cpp/zxing-cpp.pri)
 
-!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+win32|macx:contains(QT_MAJOR_VERSION, 6) {
     include(src/3rdparty/qwindowkit/qwindowkit.pri)
 }
 
@@ -138,7 +138,7 @@ unix:!macx:!ios:!android:greaterThan(QT_MAJOR_VERSION, 4) {
     INCLUDEPATH += $$SK/include/$$QTX/QtDBus
 }
 
-!ios:!android:contains(QT_MAJOR_VERSION, 6) {
+win32|macx:contains(QT_MAJOR_VERSION, 6) {
     INCLUDEPATH += $$SK/include/SkGui/QWKCore \
                    $$SK/include/SkGui/QWKCore/private \
                    $$SK/include/SkGui/QWKQuick \

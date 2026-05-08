@@ -24,9 +24,9 @@ win32:HEADERS += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_windows.h \
 
 macx:HEADERS += $$SK_GUI/3rdparty/qwindowkit/core/contexts/cocoawindowcontext_p.h \
 
-unix:!android:HEADERS += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_linux.h \
-                         $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxwaylandcontext_p.h \
-                         $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxx11context_p.h \
+unix:!macx:!android:HEADERS += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_linux.h \
+                               $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxwaylandcontext_p.h \
+                               $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxx11context_p.h \
 
 SOURCES += $$SK_GUI/3rdparty/qwindowkit/core/qwkglobal.cpp \
            $$SK_GUI/3rdparty/qwindowkit/core/windowagentbase.cpp \
@@ -47,6 +47,6 @@ win32:SOURCES += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_windows.cpp \
 macx:SOURCES += $$SK_GUI/3rdparty/qwindowkit/core/contexts/cocoawindowcontext.mm \
                 $$SK_GUI/3rdparty/qwindowkit/core/quick/quickwindowagent_mac.cpp \
 
-unix:!android:SOURCES += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_linux.cpp \
-                         $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxwaylandcontext.cpp \
-                         $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxx11context.cpp \
+unix:!macx:!android:SOURCES += $$SK_GUI/3rdparty/qwindowkit/core/qwindowkit_linux.cpp \
+                               $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxwaylandcontext.cpp \
+                               $$SK_GUI/3rdparty/qwindowkit/core/contexts/linuxx11context.cpp \

@@ -183,7 +183,7 @@ elif [ $1 = "macOS" ]; then
 
 elif [ $1 = "linux" ]; then
 
-    defines="$defines DESKTOP LINUX WINDOW_NATIVE"
+    defines="$defines DESKTOP LINUX"
 else
     defines="$defines MOBILE ANDROID"
 fi

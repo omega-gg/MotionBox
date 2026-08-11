@@ -119,7 +119,7 @@ BasePanelSettings
         anchors.right: parent.right
 
         // NOTE: We adjust the size to fit the BarControls buttons section.
-        width: st.dp183
+        width: st.dp180
 
         currentIndex: panelSettingsSplit.currentIndex
 

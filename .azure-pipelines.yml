@@ -93,11 +93,12 @@ jobs:
   steps:
   # NOTE: We need an older version to package the application.
   # NOTE Qt6: Ubuntu 22.04 is required for glibc.
+  # NOTE FFmpeg: libva comes from the system, the linker needs it.
   - bash: |
       docker run -d --name ubuntu -v $PWD:/MotionBox amd64/ubuntu:22.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
-                                     apt-get -y install sudo curl zip git;
+                                     apt-get -y install sudo curl zip git libva2 libva-drm2;
                                      sh environment.sh qt6;
                                      sh build.sh linux all;
                                      cd deploy;

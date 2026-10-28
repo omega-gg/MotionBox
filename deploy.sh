@@ -548,31 +548,30 @@ fi
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-if [ $engine = "ffmpeg" ]; then
+if [ $engine = "vlc" ]; then
 
-    echo "SKIPPING VLC"
+    if [ $os = "windows" ]; then
 
-elif [ $os = "windows" ]; then
+        cp -r "$path"/plugins $deploy
 
-    cp -r "$path"/plugins $deploy
+        cp "$path"/libvlc*.dll $deploy
 
-    cp "$path"/libvlc*.dll $deploy
+    elif [ $1 = "macOS" ]; then
 
-elif [ $1 = "macOS" ]; then
+        cp -r "$path"/plugins $deploy
 
-    cp -r "$path"/plugins $deploy
+        cp "$path"/libvlc*.dylib $deploy
 
-    cp "$path"/libvlc*.dylib $deploy
+    elif [ $1 = "linux" ]; then
 
-elif [ $1 = "linux" ]; then
+        cp -r "$path"/vlc $deploy
 
-    cp -r "$path"/vlc $deploy
+        cp "$path"/libvlc*.so* $deploy
 
-    cp "$path"/libvlc*.so* $deploy
+        if [ -f "$path"/libidn.so* ]; then
 
-    if [ -f "$path"/libidn.so* ]; then
-
-        cp "$path"/libidn.so* $deploy
+            cp "$path"/libidn.so* $deploy
+        fi
     fi
 fi
 

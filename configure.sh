@@ -149,46 +149,45 @@ fi
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-if [ $engine = "ffmpeg" ]; then
+if [ $engine = "vlc" ]; then
 
-    echo "SKIPPING VLC"
+    if [ $os = "windows" ]; then
 
-elif [ $os = "windows" ]; then
+        echo "COPYING VLC"
 
-    echo "COPYING VLC"
+        rm -rf bin/plugins
+        mkdir  bin/plugins
 
-    rm -rf bin/plugins
-    mkdir  bin/plugins
+        cp -r "$deploy"/plugins bin
 
-    cp -r "$deploy"/plugins bin
+        cp "$deploy"/libvlc*.dll bin
 
-    cp "$deploy"/libvlc*.dll bin
+    elif [ $1 = "macOS" ]; then
 
-elif [ $1 = "macOS" ]; then
+        echo "COPYING VLC"
 
-    echo "COPYING VLC"
+        rm -rf bin/plugins
+        mkdir  bin/plugins
 
-    rm -rf bin/plugins
-    mkdir  bin/plugins
+        cp -r "$deploy"/plugins bin
 
-    cp -r "$deploy"/plugins bin
+        cp "$deploy"/libvlc*.dylib bin
 
-    cp "$deploy"/libvlc*.dylib bin
+    elif [ $1 = "linux" ]; then
 
-elif [ $1 = "linux" ]; then
+        echo "COPYING VLC"
 
-    echo "COPYING VLC"
+        rm -rf bin/vlc
+        mkdir  bin/vlc
 
-    rm -rf bin/vlc
-    mkdir  bin/vlc
+        cp -r "$deploy"/vlc bin
 
-    cp -r "$deploy"/vlc bin
+        cp "$deploy"/libvlc*.so* bin
 
-    cp "$deploy"/libvlc*.so* bin
+        if [ -f "$deploy"/libidn.so* ]; then
 
-    if [ -f "$deploy"/libidn.so* ]; then
-
-        cp "$deploy"/libidn.so* bin
+            cp "$deploy"/libidn.so* bin
+        fi
     fi
 fi
 

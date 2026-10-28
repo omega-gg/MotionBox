@@ -627,10 +627,13 @@ elif [ $1 = "macOS" ]; then
     #----------------------------------------------------------------------------------------------
     # VLC
 
-    install_name_tool -change @rpath/libvlccore.dylib \
-                              @loader_path/libvlccore.dylib libvlc.dylib
+    if [ $engine = "vlc" ]; then
 
-    otool -L libvlc.dylib
+        install_name_tool -change @rpath/libvlccore.dylib \
+                                  @loader_path/libvlccore.dylib libvlc.dylib
+
+        otool -L libvlc.dylib
+    fi
 
     #----------------------------------------------------------------------------------------------
     # libtorrent

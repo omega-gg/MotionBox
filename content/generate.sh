@@ -22,6 +22,8 @@ bin="../bin"
 
 qt="qt6"
 
+player="ffmpeg"
+
 #--------------------------------------------------------------------------------------------------
 # Syntax
 #--------------------------------------------------------------------------------------------------
@@ -191,6 +193,11 @@ fi
 if [ "$2" = "deploy" ]; then
 
     defines="$defines DEPLOY"
+fi
+
+if [ $player != "ffmpeg" -o $qt != "qt6" ]; then
+
+    defines="$defines VLC"
 fi
 
 defines="$defines BarWindow pictures_tag icons_slide icons_scale icons_add icons_external icons_playback"

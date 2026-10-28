@@ -71,7 +71,11 @@
 #include <WAbstractTab>
 #include <WTabsTrack>
 #include <WTabTrack>
+#ifdef SK_VLC
 #include <WBackendVlc>
+#else
+#include <WBackendFfmpeg>
+#endif
 #include <WBackendSubtitle>
 #include <WBackendIndex>
 #include <WBackendTorrent>
@@ -354,7 +358,11 @@ ControllerCore::ControllerCore() : WController()
     qmlRegisterUncreatableType<WBackendIndex>("Sky", 1,0, "BackendIndex",
                                               "BackendIndex is not creatable");
 
+#ifdef SK_VLC
     qmlRegisterType<WBackendVlc>     ("Sky", 1,0, "BackendVlc");
+#else
+    qmlRegisterType<WBackendFfmpeg>  ("Sky", 1,0, "BackendFfmpeg");
+#endif
     qmlRegisterType<WBackendSubtitle>("Sky", 1,0, "BackendSubtitle");
 
 #ifndef QT_4

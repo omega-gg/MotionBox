@@ -18,6 +18,8 @@ compiler_win="mingw"
 
 qt="qt6"
 
+player="ffmpeg"
+
 #--------------------------------------------------------------------------------------------------
 # Functions
 #--------------------------------------------------------------------------------------------------
@@ -121,6 +123,13 @@ elif [ $qt = "qt6" ]; then
     else
         qx="6"
     fi
+fi
+
+if [ $player = "ffmpeg" -a $qt = "qt6" ]; then
+
+    engine="ffmpeg"
+else
+    engine="vlc"
 fi
 
 # NOTE windows: Ensure we use the proper find.
@@ -520,10 +529,30 @@ elif [ $1 = "linux" ]; then
 fi
 
 #--------------------------------------------------------------------------------------------------
+# FFmpeg
+#--------------------------------------------------------------------------------------------------
+
+if [ $engine = "ffmpeg" ]; then
+
+    if [ $os = "windows" ]; then
+
+        cp "$path"/sk-*.dll $deploy
+
+    elif [ $1 = "macOS" -o $1 = "linux" ]; then
+
+        cp -P "$path"/libsk-* $deploy
+    fi
+fi
+
+#--------------------------------------------------------------------------------------------------
 # VLC
 #--------------------------------------------------------------------------------------------------
 
-if [ $os = "windows" ]; then
+if [ $engine = "ffmpeg" ]; then
+
+    echo "SKIPPING VLC"
+
+elif [ $os = "windows" ]; then
 
     cp -r "$path"/plugins $deploy
 

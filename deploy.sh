@@ -205,6 +205,9 @@ if [ $os = "windows" ]; then
         cp "$path"/libgcc_s_*-1.dll    $deploy
         cp "$path"/libstdc++-6.dll     $deploy
         cp "$path"/libwinpthread-1.dll $deploy
+    else
+        cp "$path"/vcruntime140*.dll $deploy
+        cp "$path"/msvcp140*.dll     $deploy
     fi
 
     if [ $qt = "qt4" ]; then

@@ -52,12 +52,14 @@ Layout:
   up from `border.top` to the bottom of `buttonBackward`.
 - `itemTrack` is an `ItemTab` showing the current track, as the tab strip did. Left press selects
   the track, right press and the contextual button open the menu, middle press and the close button
-  call `gui.closeTrack()`. Its width is `Math.min(st.dp256, parent.width / 6)`, to leave the search
+  call `gui.closeTrack()`. Double click restores an expanded `PanelTracks`, otherwise it plays the
+  track. Its width is `Math.min(st.dp256, parent.width / 6)`, to leave the search
   bar some room at the minimum window width. Key_Menu opens the same menu on it, through
   `barWindow.showTrackMenu()`. `ItemTab` and `ButtonsItem` go back in `generate.sh`, which replaces
   the `ItemTab` and `icons_contextual` defines.
-- `itemTrack` is rounded on the right, with the technique of `ButtonPushRight`: it clips, and its
-  background has the radius of a push button and extends past the left edge by that radius. The
+- `itemTrack` is rounded on the right. Its background has the radius of a push button and extends
+  past the left edge by that radius, like `ButtonPushRight`, but without clipping: `lineEditSearch`
+  is declared after it and covers the left corners, so this relies on the declaration order. The
   background draws the outline, so the tab is 34 dp tall, and `itemIcon.x` puts the cover back in
   place. With no track it shows "New Track", set in the bar because `getTabTitle` is in Sky's shared
   `Style.qml`.
@@ -112,7 +114,8 @@ The bar keeps its own background (`barWindow_color*`, including the inactive win
   the pointing hand.
 - The search panel still opens under the bar, which leaves a gap below the search box.
 - Related and expand are swapped, with F2 for Related and F3 for expand.
-- Double clicking the track item does nothing, unlike the old tab.
+- Double clicking the track item restores an expanded `PanelTracks` and otherwise plays the track,
+  as the old tab did. The old tab's wall toggle is gone.
 
 ## Verification
 
@@ -126,6 +129,8 @@ Close any running MotionBox first: the app is single instance and test runs use 
    - Previous and next, search with its completion panel lined up with the box.
    - Browse, Related and expand, with F1, F2 and F3.
    - The track item: selecting the track, its menu, close, and the buttons showing on hover.
+   - Double click on the track item: `PanelTracks` expanded, then stopped, paused, playing and with
+     no track.
    - The rounded track item, the row borders and their color, and the separator.
    - Window drag and double click on the gap and on the strips above and below the row, then minimize,
      maximize and close.

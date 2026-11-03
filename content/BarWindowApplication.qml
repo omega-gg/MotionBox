@@ -581,18 +581,6 @@ Item
         }
     }
 
-    LineEditSearch
-    {
-        id: lineEditSearch
-
-        anchors.left: (buttonMessage.visible) ? buttonMessage.right
-                                              : buttonMessage.left
-
-        anchors.right: itemTrack.left
-
-        anchors.verticalCenter: buttonBackward.verticalCenter
-    }
-
     ItemTab
     {
         id: itemTrack
@@ -609,8 +597,7 @@ Item
 
         borderRight: 0
 
-        clip: true
-
+        // NOTE: lineEditSearch is declared after this item, it covers the rounded left corners.
         background.anchors.leftMargin: -(background.radius)
 
         background.radius: st.buttonPush_radius
@@ -668,6 +655,17 @@ Item
             }
         }
 
+        /* QML_EVENT */ onDoubleClicked: function(mouse)
+        {
+            if ((mouse.button & Qt.LeftButton) == 0) return;
+
+            if (panelTracks.isExpanded)
+            {
+                panelTracks.restore();
+            }
+            else player.play();
+        }
+
         RectangleLive
         {
             anchors.right : itemTrack.itemIcon.right
@@ -696,6 +694,18 @@ Item
 
             onClose: gui.closeTrack()
         }
+    }
+
+    LineEditSearch
+    {
+        id: lineEditSearch
+
+        anchors.left: (buttonMessage.visible) ? buttonMessage.right
+                                              : buttonMessage.left
+
+        anchors.right: itemTrack.left
+
+        anchors.verticalCenter: buttonBackward.verticalCenter
     }
 
     BorderHorizontal

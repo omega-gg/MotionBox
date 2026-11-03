@@ -591,7 +591,7 @@ Item
 
         anchors.verticalCenter: buttonBackward.verticalCenter
 
-        width: Math.min(st.dp256, parent.width / 6)
+        width: Math.min(st.dp256, Math.round(parent.width / 6))
 
         height: st.dp34
 
@@ -657,13 +657,14 @@ Item
 
         /* QML_EVENT */ onDoubleClicked: function(mouse)
         {
-            if ((mouse.button & Qt.LeftButton) == 0) return;
-
-            if (panelTracks.isExpanded)
+            if (mouse.button & Qt.LeftButton)
             {
-                panelTracks.restore();
+                if (panelTracks.isExpanded)
+                {
+                    panelTracks.restore();
+                }
+                else player.play();
             }
-            else player.play();
         }
 
         RectangleLive

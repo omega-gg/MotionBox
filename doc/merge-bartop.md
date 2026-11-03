@@ -53,7 +53,7 @@ Layout:
 - `itemTrack` is an `ItemTab` showing the current track, as the tab strip did. Left press selects
   the track, right press and the contextual button open the menu, middle press and the close button
   call `gui.closeTrack()`. Double click restores an expanded `PanelTracks`, otherwise it plays the
-  track. Its width is `Math.min(st.dp256, parent.width / 6)`, to leave the search
+  track. Its width is `Math.min(st.dp256, Math.round(parent.width / 6))`, to leave the search
   bar some room at the minimum window width. Key_Menu opens the same menu on it, through
   `barWindow.showTrackMenu()`. `ItemTab` and `ButtonsItem` go back in `generate.sh`, which replaces
   the `ItemTab` and `icons_contextual` defines.

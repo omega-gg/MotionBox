@@ -202,19 +202,22 @@ Item
 
     function pPlayerDoubleClicked(mouse)
     {
-        if (player.hasStarted == false || (mouse.button & Qt.LeftButton) == 0) return;
+        if (player.hasStarted == false) return;
 
-        pPosition = pGetPosition();
+        if (mouse.button & Qt.LeftButton)
+        {
+            pPosition = pGetPosition();
 
-        if (pCheckAreaClick()) return;
+            if (pCheckAreaClick()) return;
 
 //#MAC
-        // FIXME macOS: Setting fullscreen from the double click event seems to skip the mouse
-        //              release event. So we wait a bit.
-        sk.wait(200);
+            // FIXME macOS: Setting fullscreen from the double click event seems to skip the mouse
+            //              release event. So we wait a bit.
+            sk.wait(200);
 //#END
 
-        gui.toggleFullScreen();
+            gui.toggleFullScreen();
+        }
     }
 
     function pContextualTrack()
@@ -279,21 +282,8 @@ Item
 
         var index = pCheckArea(position.x, position.y);
 
-        if (index == 0)
-        {
-            areaBackward.hovered = false;
-            areaForward .hovered = false;
-        }
-        else if (index == 1)
-        {
-            areaBackward.hovered = true;
-            areaForward .hovered = false;
-        }
-        else // if (index == 2)
-        {
-            areaBackward.hovered = false;
-            areaForward .hovered = true;
-        }
+        areaBackward.hovered = (index == 1);
+        areaForward .hovered = (index == 2);
     }
 //#END
 

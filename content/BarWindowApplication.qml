@@ -224,6 +224,8 @@ Item
 
     Rectangle
     {
+        id: barBackground
+
         anchors.left  : parent.left
         anchors.right : parent.right
         anchors.top   : parent.top
@@ -295,13 +297,20 @@ Item
         }
     }
 
-    ButtonPianoIcon
+    ButtonPushLeftIcon
     {
         id: buttonBackward
 
-        anchors.bottom: border.top
+        anchors.left: parent.left
 
-        borderTop: borderSize
+        anchors.leftMargin: st.dp7
+
+        anchors.verticalCenter: barBackground.verticalCenter
+
+        width : st.dp38
+        height: st.dp34
+
+        showBorder: false
 
         enabled: (currentTab != null && currentTab.hasPreviousBookmark)
 
@@ -320,15 +329,18 @@ Item
         }
     }
 
-    ButtonPianoIcon
+    ButtonPushCenterIcon
     {
         id: buttonForward
 
-        anchors.left  : buttonBackward.right
-        anchors.bottom: border.top
+        anchors.left: buttonBackward.right
 
-        borderRight: borderSize
-        borderTop  : borderSize
+        anchors.verticalCenter: buttonBackward.verticalCenter
+
+        width : st.dp38
+        height: st.dp34
+
+        showBorder: false
 
         enabled: (currentTab != null && currentTab.hasNextBookmark)
 
@@ -345,8 +357,9 @@ Item
 
             currentTab.setNextBookmark();
         }
-    }
 
+        BorderVertical { anchors.right: parent.right }
+    }
 
     ButtonPiano
     {
@@ -355,8 +368,9 @@ Item
         anchors.left: buttonForward.right
         anchors.top : border.top
 
-        borderRight: borderSize
-        borderTop  : borderSize
+        borderRight : borderSize
+        borderTop   : borderSize
+        borderBottom: borderSize
 
 //#WINDOWS
         // NOTE windows/uwp: Updates are handled by the store.
@@ -381,7 +395,7 @@ Item
                 target: buttonVersion
 
                 anchors.top   : undefined
-                anchors.bottom: border.top
+                anchors.bottom: buttonBackward.bottom
             }
         }
 
@@ -423,8 +437,9 @@ Item
 
         height: buttonVersion.height
 
-        borderRight: borderSize
-        borderTop  : borderSize
+        borderRight : borderSize
+        borderTop   : borderSize
+        borderBottom: borderSize
 
         visible: false
 
@@ -441,7 +456,7 @@ Item
                 target: buttonUpdate
 
                 anchors.top   : undefined
-                anchors.bottom: border.top
+                anchors.bottom: buttonBackward.bottom
             }
         }
 
@@ -508,11 +523,11 @@ Item
 
         height: buttonVersion.height
 
-        borderRight: borderSize
+        borderRight : borderSize
+        borderTop   : borderSize
+        borderBottom: borderSize
 
         maximumWidth: st.dp192
-
-        borderTop: borderSize
 
         visible: pMessage
 
@@ -536,7 +551,7 @@ Item
                 target: buttonMessage
 
                 anchors.top   : undefined
-                anchors.bottom: border.top
+                anchors.bottom: buttonBackward.bottom
             }
         }
 
@@ -573,20 +588,37 @@ Item
         anchors.left: (buttonMessage.visible) ? buttonMessage.right
                                               : buttonMessage.left
 
-        anchors.right : itemTrack.left
-        anchors.bottom: border.top
+        anchors.right: itemTrack.left
+
+        anchors.verticalCenter: buttonBackward.verticalCenter
     }
 
     ItemTab
     {
         id: itemTrack
 
-        anchors.right : buttons.left
-        anchors.bottom: border.top
+        anchors.right: borderButtons.left
+
+        anchors.rightMargin: st.dp12
+
+        anchors.verticalCenter: buttonBackward.verticalCenter
 
         width: Math.min(st.dp256, parent.width / 6)
 
+        height: st.dp34
+
         borderRight: 0
+
+        clip: true
+
+        background.anchors.leftMargin: -(background.radius)
+
+        background.radius: st.buttonPush_radius
+
+        background.border.width: st.border_size
+        background.border.color: st.border_color
+
+        itemIcon.x: background.radius
 
         isHovered: (hoverActive || pContextual)
         isCurrent: true
@@ -607,7 +639,14 @@ Item
 
         iconCache: (currentTab.cover != "")
 
-        text: st.getTabTitle(currentTab.title, currentTab.state, currentTab.source)
+        text:
+        {
+            if (currentTab.isValid)
+            {
+                return st.getTabTitle(currentTab.title, currentTab.state, currentTab.source);
+            }
+            else return qsTr("New Track");
+        }
 
         textMargin: (buttonsTrack.visible) ? buttonsTrack.width + st.dp16 : st.dp8
 
@@ -631,10 +670,8 @@ Item
 
         RectangleLive
         {
-            anchors.left  : parent.left
+            anchors.right : itemTrack.itemIcon.right
             anchors.bottom: parent.bottom
-
-            anchors.leftMargin: itemTrack.iconWidth - width
 
             trackType: currentTab.type
         }
@@ -664,97 +701,114 @@ Item
     BorderHorizontal
     {
         anchors.left  : lineEditSearch.left
-        anchors.right : itemTrack.right
+        anchors.right : lineEditSearch.right
         anchors.bottom: lineEditSearch.top
 
         color: st.border_color
     }
 
-    Item
+    BorderHorizontal
     {
-        id: buttons
+        anchors.left : lineEditSearch.left
+        anchors.right: lineEditSearch.right
+        anchors.top  : lineEditSearch.bottom
 
-        anchors.right : buttonIconify.left
-        anchors.bottom: border.top
+        color: st.border_color
+    }
 
-        anchors.rightMargin: st.dp48
+    BorderVertical
+    {
+        id: borderButtons
 
-        width: buttonBrowse.width + buttonExpand.width + buttonRelated.width
+        anchors.right: buttonBrowse.left
 
-        height: buttonBrowse.height
+        anchors.rightMargin: st.dp12
+    }
 
-        ButtonPianoIcon
+    ButtonPushLeftIcon
+    {
+        id: buttonBrowse
+
+        anchors.right: buttonRelated.left
+        anchors.top  : buttonRelated.top
+
+        width : st.dp38
+        height: st.dp34
+
+        showBorder: false
+
+        checkable: true
+
+        checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
+
+        icon          : st.icon20x20_search
+        iconSourceSize: st.size20x20
+
+        onPressed:
         {
-            id: buttonBrowse
-
-            anchors.right: buttonRelated.left
-
-            borderLeft: borderSize
-            borderTop : borderSize
-
-            checkable: true
-
-            checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
-
-            icon          : st.icon20x20_search
-            iconSourceSize: st.size20x20
-
-            onPressed:
+            if (gui.isExpanded)
             {
-                if (gui.isExpanded)
-                {
-                    timer.start();
+                timer.start();
 
-                    gui.restore();
+                gui.restore();
 
-                    panelBrowse.expose();
-                }
-                else panelBrowse.toggleExpose();
+                panelBrowse.expose();
             }
+            else panelBrowse.toggleExpose();
         }
+    }
 
-        ButtonPianoIcon
+    ButtonPushCenterIcon
+    {
+        id: buttonRelated
+
+        anchors.right: buttonExpand.left
+        anchors.top  : buttonExpand.top
+
+        width : st.dp38
+        height: st.dp34
+
+        showBorder: false
+
+        checkable: true
+        checked  : panelRelated.isExposed
+
+        icon          : st.icon20x20_related
+        iconSourceSize: st.size20x20
+
+        onPressed:
         {
-            id: buttonRelated
-
-            anchors.right: buttonExpand.left
-
-            borderTop: borderSize
-
-            checkable: true
-            checked  : panelRelated.isExposed
-
-            icon          : st.icon20x20_related
-            iconSourceSize: st.size20x20
-
-            onPressed:
+            if (panelTracks.isExpanded)
             {
-                if (panelTracks.isExpanded)
-                {
-                    panelRelated.expose();
-                }
-                else panelRelated.toggleExpose();
+                panelRelated.expose();
             }
+            else panelRelated.toggleExpose();
         }
+    }
 
-        ButtonPianoIcon
-        {
-            id: buttonExpand
+    ButtonPushRightIcon
+    {
+        id: buttonExpand
 
-            anchors.right: parent.right
+        anchors.right: buttonIconify.left
 
-            borderRight: borderSize
-            borderTop  : borderSize
+        anchors.rightMargin: st.dp32
 
-            checkable: true
+        anchors.verticalCenter: buttonBackward.verticalCenter
 
-            checked: gui.isExpanded
+        width : st.dp38
+        height: st.dp34
 
-            icon          : st.icon20x20_expand
-            iconSourceSize: st.size20x20
+        showBorder: false
 
-            onPressed: gui.toggleExpand()
-        }
+        checkable: true
+
+        checked: gui.isExpanded
+
+        icon          : st.icon20x20_expand
+        iconSourceSize: st.size20x20
+
+        onPressed: gui.toggleExpand()
     }
 
     ButtonPianoWindow

@@ -86,7 +86,8 @@ Remove `TabsPlayer itemTabs`, `buttonAdd`, `pMargin`, `pContextualTab`, `pContex
 - **Keys:**
   - Remove Alt+Left, Alt+Right (`selectPrevious`, `selectNext`) and Ctrl+T.
   - Remove `buttonWall` and `barWindow.buttonAdd` press and release handling.
-  - F3 keeps only its `//#!DEPLOY` Ctrl+F3 block.
+  - F3 is now Related (it keeps its `//#!DEPLOY` Ctrl+F3 block), F4 is Select and F5 toggles the
+    VideoTag button in `BarControls`.
   - Return and Space drop the `wall.isExposed` branch and keep `expandBars` and `toggleBars`.
   - Key_Menu calls `panelPlayer.showContextualPlayer()`, so the menu opens at the top left of the
     player and not at the mouse cursor.
@@ -97,6 +98,7 @@ Remove `TabsPlayer itemTabs`, `buttonAdd`, `pMargin`, `pContextualTab`, `pContex
 
 ### 4. Other QML
 
+- **`BarControls.qml`:** expose `buttonTag` as an alias, so that F5 can press it.
 - **`BarTop.qml`:** remove `buttonWall`, its alias and its width. `buttonExpand` anchors to
   `buttonRelated`.
 - **`PanelRelated.qml`:** remove the `wallExpand` and `wallRestore` calls and the now unused
@@ -157,8 +159,10 @@ Remove the `expand.svg` line from `icons.sh` and delete `content/icons/expand.sv
 
 ## Behavior changes
 
-- **Removed:** tabs, the Wall and F3, the split view, Ctrl+T, Alt+Left, Alt+Right, middle click
+- **Removed:** tabs, the Wall, the split view, Ctrl+T, Alt+Left, Alt+Right, middle click
   "open in a new tab", "Close other Tabs" and "Close all Tabs".
+- **Function keys:** F3 opens Related (was F4), F4 selects the current track (was F5) and F5 toggles
+  the VideoTag panel (new).
 - **Closing:** Ctrl+W and the new Close menu item stop playback first, then clear the track.
 - **Tags:** middle click on a tag browses to it, like a left click.
 - **Double click:** the player only reacts to the left button.
@@ -193,5 +197,6 @@ Remove the `expand.svg` line from `icons.sh` and delete `content/icons/expand.sv
    - Cursor hiding when expanded.
    - Style switch, UI scale, maximize, window drag from the title bar.
    - Ctrl+W twice, the context menu's Close, Key_Menu.
+   - F3, F4 and F5, with F5 closing on a second press and its button not staying pressed.
 5. Restart with an old `tabs` file holding several tabs: one tab loads and its track restores.
 6. `sh generate.sh win64 deploy` succeeds, then regenerate the dev output.

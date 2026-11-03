@@ -2666,25 +2666,26 @@ Item
 
             buttonExpand.returnPressed();
         }
+        else if (event.key == Qt.Key_F3) // Related
+        {
+            event.accepted = true;
+
 //#!DEPLOY
-        else if (event.key == Qt.Key_F3 && event.modifiers == Qt.ControlModifier)
-        {
-            event.accepted = true;
+            if (event.modifiers == Qt.ControlModifier)
+            {
+                pSetDesktop();
 
-            pSetDesktop();
+                player.volume = 0.0;
 
-            player.volume = 0.0;
-        }
+                return;
+            }
 //#END
-        else if (event.key == Qt.Key_F4) // Related
-        {
-            event.accepted = true;
 
             restoreBars();
 
             buttonRelated.returnPressed();
         }
-        else if (event.key == Qt.Key_F5) // Select
+        else if (event.key == Qt.Key_F4) // Select
         {
             event.accepted = true;
 
@@ -2696,6 +2697,14 @@ Item
             selectTrack(playerTab);
 
             //panelCover.buttonTrack.returnPressed();
+        }
+        else if (event.key == Qt.Key_F5) // VideoTag
+        {
+            event.accepted = true;
+
+            restoreBars();
+
+            barControls.buttonTag.returnPressed();
         }
         else if (event.key == Qt.Key_F6) // Get
         {
@@ -2899,6 +2908,10 @@ Item
         else if (buttonSettings.isReturnPressed)
         {
             buttonSettings.returnReleased();
+        }
+        else if (barControls.buttonTag.isReturnPressed)
+        {
+            barControls.buttonTag.returnReleased();
         }
         else if (buttonSubtitles.isReturnPressed)
         {

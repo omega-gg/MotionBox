@@ -44,6 +44,7 @@ SkyMouseArea
     property alias buttonPrevious: buttonPrevious
     property alias buttonNext    : buttonNext
 
+    property alias buttonTag       : buttonTag
     property alias buttonSubtitles : buttonSubtitles
     property alias buttonSettings  : buttonSettings
     property alias buttonOutput    : buttonOutput

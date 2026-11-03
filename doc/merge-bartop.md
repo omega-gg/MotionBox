@@ -98,7 +98,9 @@ The bar keeps its own background (`barWindow_color*`, including the inactive win
 - **`PanelPlayer.qml`:** `barTop.isExpanded` becomes `barWindow.isExpanded`.
 - **`PanelAdd.qml`:** `topMargin: barWindow.height - barWindow.border.size`.
 - **`PanelPreview.qml`:** `minY` uses `barWindow.y + barWindow.height`.
-- **`PanelSearch.qml`:** no change. It follows `lineEditSearch.x` and `lineEditSearch.width`.
+- **`PanelSearch.qml`:** it follows `lineEditSearch.x` and `lineEditSearch.width`. It moves out of
+  `itemContent`, right after `barWindow` in `Gui.qml`, and its `y` sits under the search bar's bottom
+  line, so that it has no gap with the search bar. `z: 1` is removed, so it stays under `AreaPanel`.
 
 ### 4. Delete `content/BarTop.qml`
 
@@ -112,7 +114,6 @@ The bar keeps its own background (`barWindow_color*`, including the inactive win
 - The window drags from the gap and the strips above and below the row.
 - Previous, next and the search buttons are push buttons, which use the arrow cursor rather than
   the pointing hand.
-- The search panel still opens under the bar, which leaves a gap below the search box.
 - Related and expand are swapped, with F2 for Related and F3 for expand.
 - Double clicking the track item restores an expanded `PanelTracks` and otherwise plays the track,
   as the old tab did. The old tab's wall toggle is gone.

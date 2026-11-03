@@ -3665,13 +3665,13 @@ Item
         PanelSettings { id: panelSettings }
 
         PanelOutput { id: panelOutput }
-
-        PanelSearch { id: panelSearch }
     }
 
     BarControls { id: barControls }
 
     BarWindowApplication { id: barWindow }
+
+    PanelSearch { id: panelSearch }
 
     AreaPanel
     {

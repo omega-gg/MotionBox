@@ -40,7 +40,9 @@ Panel
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pIndexFocus: -1
+    property bool pBackends: false
+
+    property bool pCompletion: (lineEditSearch.text != "" && pBackends == false)
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -54,7 +56,7 @@ Panel
 
     x: lineEditSearch.x - borderLeft
 
-    z: 1
+    y: barWindow.y + lineEditSearch.y + lineEditSearch.height + barWindow.border.size
 
     visible: false
 
@@ -72,7 +74,7 @@ Panel
 
         panelTag.collapse();
 
-        pIndexFocus = 1;
+        pBackends = false;
 
         // NOTE: We select the default backend when the text query is not a URL.
         if (core.checkUrl(lineEditSearch.text) == false)
@@ -82,8 +84,6 @@ Panel
         }
 
         action = 0;
-
-        visible = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -96,6 +96,8 @@ Panel
 
         /* QML_CONNECTION */ function onTextChanged()
         {
+            pBackends = false;
+
             if (checkText == false) return;
 
             var text = lineEditSearch.text;
@@ -136,7 +138,7 @@ Panel
 
     function selectPrevious()
     {
-        if (pIndexFocus == 1)
+        if (lineEditSearch.text == "")
         {
              selectPreviousBackend();
         }
@@ -145,7 +147,7 @@ Panel
 
     function selectNext()
     {
-        if (pIndexFocus == 1)
+        if (lineEditSearch.text == "")
         {
              selectNextBackend();
         }
@@ -156,25 +158,20 @@ Panel
 
     function selectPreviousCompletion()
     {
-        if (pIndexFocus == 0)
-        {
-            pIndexFocus = -1;
+        pBackends = false;
 
+        scrollCompletion.selectPrevious();
+
+        if (scrollCompletion.currentIndex == -1)
+        {
             pRestoreQuery();
-        }
-        else
-        {
-            scrollCompletion.selectPrevious();
-
-            if (scrollCompletion.currentIndex == -1)
-            {
-                pRestoreQuery();
-            }
         }
     }
 
     function selectNextCompletion()
     {
+        pBackends = false;
+
         scrollCompletion.selectNext();
 
         if (scrollCompletion.currentIndex == -1)
@@ -198,6 +195,8 @@ Panel
 
     function selectPreviousBackend()
     {
+        pShowBackends();
+
         var index = pBackendIndex() - 1;
 
         selectBackend(index);
@@ -205,6 +204,8 @@ Panel
 
     function selectNextBackend()
     {
+        pShowBackends();
+
         var index = pBackendIndex() + 1;
 
         selectBackend(index);
@@ -279,10 +280,11 @@ Panel
         checkText = true;
     }
 
-    function pUpdateFocus()
+    function pShowBackends()
     {
-        if (scrollCompletion.count) pIndexFocus = -1;
-        else                        pIndexFocus =  1;
+        visible = true;
+
+        pBackends = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -300,16 +302,14 @@ Panel
     {
         id: scrollCompletion
 
+        anchors.left  : parent.left
+        anchors.right : parent.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
         anchors.bottomMargin: -st.border_size
 
-        width: Math.max(st.dp256, parent.width - st.dp256)
-
-        textDefault: qsTr("Type something to watch")
-
-        onQueryCompleted: pUpdateFocus()
+        visible: pCompletion
 
         onCompletionChanged:
         {
@@ -319,8 +319,6 @@ Panel
 
                 return;
             }
-
-            pIndexFocus = -1;
 
             checkText = false;
 
@@ -339,13 +337,6 @@ Panel
         }
     }
 
-    BorderVertical
-    {
-        id: border
-
-        anchors.left: scrollCompletion.right
-    }
-
     ScrollList
     {
         id: scrollBackends
@@ -355,12 +346,14 @@ Panel
         property int indexHover: (itemHovered) ? itemHovered.getIndex()
                                                : -1
 
-        anchors.left  : border.right
+        anchors.left  : parent.left
         anchors.right : parent.right
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
         anchors.bottomMargin: -st.border_size
+
+        visible: (pCompletion == false)
 
         model: ModelLibraryFolder { folder: backends }
 
@@ -368,7 +361,7 @@ Panel
         {
             isSelected: (id == backend)
 
-            isFocused: (pIndexFocus == 1)
+            isFocused: true
 
             icon: cover
 
@@ -381,10 +374,6 @@ Panel
             text: title
 
             onPressed: backend = id
-
-            onClicked: if (isFocused == false) search()
-
-            onDoubleClicked: search()
         }
     }
 }

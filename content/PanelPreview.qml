@@ -375,7 +375,7 @@ PanelImage
             y = pos.y - height;
         }
 
-        var minY = barTop.y + barTop.height - st.border_size;
+        var minY = barWindow.y + barWindow.height - st.border_size;
 
         var maxY = barControls.y + st.border_size;
 

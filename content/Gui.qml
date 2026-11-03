@@ -58,7 +58,7 @@ Item
 
     // NOTE: This is the panel maximum height. We get a binding loop in BasePanelSettings when
     //       using itemContent directly.
-    /* read */ property int panelHeight: itemContent.height + barTop.border.size
+    /* read */ property int panelHeight: itemContent.height + barWindow.border.size
 
     //---------------------------------------------------------------------------------------------
     // PageTag
@@ -201,7 +201,6 @@ Item
     //---------------------------------------------------------------------------------------------
 
     property alias barWindow: barWindow
-    property alias barTop   : barTop
 
     property alias itemContent: itemContent
 
@@ -216,19 +215,16 @@ Item
     //---------------------------------------------------------------------------------------------
     // BarWindowApplication
 
+    property alias buttonBackward: barWindow.buttonBackward
+    property alias buttonForward : barWindow.buttonForward
+
+    property alias lineEditSearch: barWindow.lineEditSearch
+
+    property alias buttonBrowse : barWindow.buttonBrowse
+    property alias buttonRelated: barWindow.buttonRelated
+    property alias buttonExpand : barWindow.buttonExpand
+
     property alias buttonMaximize: barWindow.buttonMaximize
-
-    //---------------------------------------------------------------------------------------------
-    // BarTop
-
-    property alias buttonBackward: barTop.buttonBackward
-    property alias buttonForward : barTop.buttonForward
-
-    property alias lineEditSearch: barTop.lineEditSearch
-
-    property alias buttonBrowse : barTop.buttonBrowse
-    property alias buttonExpand : barTop.buttonExpand
-    property alias buttonRelated: barTop.buttonRelated
 
     //---------------------------------------------------------------------------------------------
     // PanelLibrary
@@ -912,9 +908,9 @@ Item
             return;
         }
 
-        if (barTop.isExpanded || actionCue.tryPush(actionBarsExpand)) return;
+        if (barWindow.isExpanded || actionCue.tryPush(actionBarsExpand)) return;
 
-        barTop     .expand();
+        barWindow  .expand();
         barControls.expand();
 
         window.idle = true;
@@ -924,9 +920,9 @@ Item
 
     function restoreBars()
     {
-        if (barTop.isExpanded == false || actionCue.tryPush(actionBarsRestore)) return;
+        if (barWindow.isExpanded == false || actionCue.tryPush(actionBarsRestore)) return;
 
-        barTop     .restore();
+        barWindow  .restore();
         barControls.restore();
 
         window.idle = false;
@@ -936,7 +932,7 @@ Item
 
     function toggleBars()
     {
-        if (barTop.isExpanded) restoreBars();
+        if (barWindow.isExpanded) restoreBars();
         else                   expandBars ();
     }
 
@@ -1538,7 +1534,7 @@ Item
 
     function focusSearch()
     {
-        if (barTop.isExpanded)
+        if (barWindow.isExpanded)
         {
             restoreBars();
 
@@ -2647,7 +2643,7 @@ Item
             }
             else buttonBrowse.returnPressed();
         }
-        else if (event.key == Qt.Key_F2) // Expand
+        else if (event.key == Qt.Key_F2) // Related
         {
             event.accepted = true;
 
@@ -2664,9 +2660,9 @@ Item
 
             restoreBars();
 
-            buttonExpand.returnPressed();
+            buttonRelated.returnPressed();
         }
-        else if (event.key == Qt.Key_F3) // Related
+        else if (event.key == Qt.Key_F3) // Expand
         {
             event.accepted = true;
 
@@ -2683,7 +2679,7 @@ Item
 
             restoreBars();
 
-            buttonRelated.returnPressed();
+            buttonExpand.returnPressed();
         }
         else if (event.key == Qt.Key_F4) // Select
         {
@@ -2987,7 +2983,7 @@ Item
 
                 sliderVolume.volumeUp();
             }
-            else if (barTop.isExpanded)
+            else if (barWindow.isExpanded)
             {
                 restoreBars();
             }
@@ -3102,7 +3098,7 @@ Item
             {
                 panelTracks.restore();
             }
-            else if (barTop.isExpanded)
+            else if (barWindow.isExpanded)
             {
                 restoreBars();
             }
@@ -3140,11 +3136,11 @@ Item
             }
             else panelAddShow();
         }
-        else if (event.key == Qt.Key_Menu && barTop.isExpanded == false)
+        else if (event.key == Qt.Key_Menu && barWindow.isExpanded == false)
         {
             if (areaContextual.isActive == false)
             {
-                panelPlayer.showContextualPlayer();
+                barWindow.showTrackMenu();
             }
         }
     }
@@ -3644,7 +3640,7 @@ Item
     {
         id: itemContent
 
-        anchors.top   : barTop.bottom
+        anchors.top   : barWindow.bottom
         anchors.bottom: barControls.top
 
         anchors.left : parent.left
@@ -3673,8 +3669,6 @@ Item
         PanelSearch { id: panelSearch }
     }
 
-    BarTop { id: barTop }
-
     BarControls { id: barControls }
 
     BarWindowApplication { id: barWindow }
@@ -3685,7 +3679,7 @@ Item
 
         anchors.fill: parent
 
-        marginTop: barTop.y + barTop.height + st.dp16
+        marginTop: barWindow.y + barWindow.height + st.dp16
     }
 
     AreaDrag { id: areaDrag }

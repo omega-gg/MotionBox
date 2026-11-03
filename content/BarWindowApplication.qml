@@ -30,6 +30,10 @@ Item
     //---------------------------------------------------------------------------------------------
     // Properties
     //---------------------------------------------------------------------------------------------
+
+    /* read */ property bool isExpanded: false
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     property bool pVersion: (online.version && online.version != sk.version)
@@ -38,16 +42,29 @@ Item
 
     property bool pMessage: (online.messageUrl != "")
 
+    property bool pContextual: false
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
+    property alias buttonBackward: buttonBackward
+    property alias buttonForward : buttonForward
+
     property alias buttonVersion: buttonVersion
     property alias buttonMessage: buttonMessage
+
+    property alias lineEditSearch: lineEditSearch
+
+    property alias buttonBrowse : buttonBrowse
+    property alias buttonRelated: buttonRelated
+    property alias buttonExpand : buttonExpand
 
     property alias buttonIconify : buttonIconify
     property alias buttonMaximize: buttonMaximize
     property alias buttonClose   : buttonClose
+
+    property alias border: border
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -56,9 +73,7 @@ Item
     anchors.left : parent.left
     anchors.right: parent.right
 
-    anchors.bottomMargin: barTop.height
-
-    height: st.dp32 + border.size
+    height: st.dp48 + border.size
 
     //---------------------------------------------------------------------------------------------
     // States
@@ -66,7 +81,7 @@ Item
 
     states: State
     {
-        name: "hidden"; when: (window.fullScreen && barTop.isExpanded)
+        name: "hidden"; when: isExpanded
 
         AnchorChanges
         {
@@ -85,6 +100,11 @@ Item
                 duration: st.duration_normal
 
                 easing.type: st.easing
+            }
+
+            ScriptAction
+            {
+                script: if (isExpanded) visible = false
             }
         }
     }
@@ -137,6 +157,43 @@ Item
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
+
+    function expand()
+    {
+        if (isExpanded) return;
+
+        isExpanded = true;
+    }
+
+    function restore()
+    {
+        if (isExpanded == false) return;
+
+        isExpanded = false;
+
+        visible = true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function showTrackMenu()
+    {
+        panelContextual.loadPageTab(currentTab);
+
+        if (areaContextual.showPanelAt(panelContextual, itemTrack, -1, -1, false))
+        {
+            pContextual = true;
+
+            areaContextual.parentContextual = barWindow;
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+    // Events
+
+    function onContextualClear() { pContextual = false; }
+
+    //---------------------------------------------------------------------------------------------
     // Private
 
     function pRestoreMaximize()
@@ -157,6 +214,13 @@ Item
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
+
+    Timer
+    {
+        id: timer
+
+        interval: st.duration_normal
+    }
 
     Rectangle
     {
@@ -192,11 +256,104 @@ Item
         }
     }
 
+    ViewDrag
+    {
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+//#QT_4
+        height: parent.height
+//#ELSE
+        // FIXME Qt5: Clickable area is larger than item height.
+        height: parent.height - border.size
+//#END
+
+        y: -(parent.y)
+
+        dragEnabled: (window.fullScreen == false)
+
+        acceptedButtons: Qt.LeftButton | Qt.RightButton
+
+        /* QML_EVENT */ onPressed: function(mouse)
+        {
+            window.clearFocus();
+
+            if (window.resizer.visible && window.isTouching
+                &&
+                mouse.x < buttonIconify.x)
+            {
+                window.toggleTouch();
+            }
+        }
+
+        /* QML_EVENT */ onDoubleClicked: function(mouse)
+        {
+            if (mouse.button & Qt.LeftButton)
+            {
+                pRestoreMaximize();
+            }
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        id: buttonBackward
+
+        anchors.bottom: border.top
+
+        borderTop: borderSize
+
+        enabled: (currentTab != null && currentTab.hasPreviousBookmark)
+
+        highlighted: (enabled && player.hasStarted)
+
+        icon          : st.icon16x16_goBackward
+        iconSourceSize: st.size16x16
+
+        onClicked:
+        {
+            panelTag.collapse();
+
+            gui.saveTrackData();
+
+            currentTab.setPreviousBookmark();
+        }
+    }
+
+    ButtonPianoIcon
+    {
+        id: buttonForward
+
+        anchors.left  : buttonBackward.right
+        anchors.bottom: border.top
+
+        borderRight: borderSize
+        borderTop  : borderSize
+
+        enabled: (currentTab != null && currentTab.hasNextBookmark)
+
+        highlighted: (enabled && player.hasStarted)
+
+        icon          : st.icon16x16_goForward
+        iconSourceSize: st.size16x16
+
+        onClicked:
+        {
+            panelTag.collapse();
+
+            gui.saveTrackData();
+
+            currentTab.setNextBookmark();
+        }
+    }
+
+
     ButtonPiano
     {
         id: buttonVersion
 
-        anchors.top: border.top
+        anchors.left: buttonForward.right
+        anchors.top : border.top
 
         borderRight: borderSize
         borderTop  : borderSize
@@ -345,7 +502,7 @@ Item
         id: buttonMessage
 
         anchors.left: (buttonVersion.visible) ? buttonVersion.right
-                                              : parent.left
+                                              : buttonForward.right
 
         anchors.top: border.top
 
@@ -353,7 +510,7 @@ Item
 
         borderRight: borderSize
 
-        maximumWidth: buttonIconify.x - x + borderRight
+        maximumWidth: st.dp192
 
         borderTop: borderSize
 
@@ -409,46 +566,194 @@ Item
         }
     }
 
-    ViewDrag
+    LineEditSearch
     {
-        id: viewDrag
+        id: lineEditSearch
 
         anchors.left: (buttonMessage.visible) ? buttonMessage.right
                                               : buttonMessage.left
 
-        anchors.right: parent.right
+        anchors.right : itemTrack.left
+        anchors.bottom: border.top
+    }
 
-//#QT_4
-        height: parent.height
-//#ELSE
-        // FIXME Qt5: Clickable area is larger than item height.
-        height: parent.height - border.size
-//#END
+    ItemTab
+    {
+        id: itemTrack
 
-        y: -(parent.y)
+        anchors.right : buttons.left
+        anchors.bottom: border.top
 
-        dragEnabled: (window.fullScreen == false)
+        width: Math.min(st.dp256, parent.width / 6)
 
-        acceptedButtons: Qt.LeftButton | Qt.RightButton
+        borderRight: 0
+
+        isHovered: (hoverActive || pContextual)
+        isCurrent: true
+
+        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
+        icon: (currentTab.cover == "") ? currentTab.videoShot
+                                       : currentTab.cover
+
+        iconDefault    : st.icon16x16_track
+        iconDefaultSize: st.size16x16
+
+        iconWidth: st.dp56
+
+        iconFillMode: SkyImage.PreserveAspectCrop
+
+        iconAsynchronous: true
+
+        iconCache: (currentTab.cover != "")
+
+        text: st.getTabTitle(currentTab.title, currentTab.state, currentTab.source)
+
+        textMargin: (buttonsTrack.visible) ? buttonsTrack.width + st.dp16 : st.dp8
 
         /* QML_EVENT */ onPressed: function(mouse)
         {
             window.clearFocus();
 
-            if (window.resizer.visible && window.isTouching
-                &&
-                (viewDrag.x + mouse.x) < buttonIconify.x)
+            if (mouse.button & Qt.LeftButton)
             {
-                window.toggleTouch();
+                gui.selectCurrentTrack();
+            }
+            else if (mouse.button & Qt.RightButton)
+            {
+                showTrackMenu();
+            }
+            else if (mouse.button & Qt.MiddleButton)
+            {
+                gui.closeTrack();
             }
         }
 
-        /* QML_EVENT */ onDoubleClicked: function(mouse)
+        RectangleLive
         {
-            if (mouse.button & Qt.LeftButton)
+            anchors.left  : parent.left
+            anchors.bottom: parent.bottom
+
+            anchors.leftMargin: itemTrack.iconWidth - width
+
+            trackType: currentTab.type
+        }
+
+        ButtonsItem
+        {
+            id: buttonsTrack
+
+            anchors.right: parent.right
+
+            anchors.rightMargin: st.dp5
+
+            anchors.verticalCenter: parent.verticalCenter
+
+            visible: itemTrack.isHovered
+
+            checked: pContextual
+
+            buttonClose.enabled: currentTab.isValid
+
+            onContextual: showTrackMenu()
+
+            onClose: gui.closeTrack()
+        }
+    }
+
+    BorderHorizontal
+    {
+        anchors.left  : lineEditSearch.left
+        anchors.right : itemTrack.right
+        anchors.bottom: lineEditSearch.top
+
+        color: st.border_color
+    }
+
+    Item
+    {
+        id: buttons
+
+        anchors.right : buttonIconify.left
+        anchors.bottom: border.top
+
+        anchors.rightMargin: st.dp48
+
+        width: buttonBrowse.width + buttonExpand.width + buttonRelated.width
+
+        height: buttonBrowse.height
+
+        ButtonPianoIcon
+        {
+            id: buttonBrowse
+
+            anchors.right: buttonRelated.left
+
+            borderLeft: borderSize
+            borderTop : borderSize
+
+            checkable: true
+
+            checked: (timer.running || (gui.isExpanded == false && panelBrowse.isExposed))
+
+            icon          : st.icon20x20_search
+            iconSourceSize: st.size20x20
+
+            onPressed:
             {
-                pRestoreMaximize();
+                if (gui.isExpanded)
+                {
+                    timer.start();
+
+                    gui.restore();
+
+                    panelBrowse.expose();
+                }
+                else panelBrowse.toggleExpose();
             }
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonRelated
+
+            anchors.right: buttonExpand.left
+
+            borderTop: borderSize
+
+            checkable: true
+            checked  : panelRelated.isExposed
+
+            icon          : st.icon20x20_related
+            iconSourceSize: st.size20x20
+
+            onPressed:
+            {
+                if (panelTracks.isExpanded)
+                {
+                    panelRelated.expose();
+                }
+                else panelRelated.toggleExpose();
+            }
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonExpand
+
+            anchors.right: parent.right
+
+            borderRight: borderSize
+            borderTop  : borderSize
+
+            checkable: true
+
+            checked: gui.isExpanded
+
+            icon          : st.icon20x20_expand
+            iconSourceSize: st.size20x20
+
+            onPressed: gui.toggleExpand()
         }
     }
 

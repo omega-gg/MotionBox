@@ -200,8 +200,8 @@ if [ $player != "ffmpeg" -o $qt != "qt6" ]; then
     defines="$defines VLC"
 fi
 
-defines="$defines BarWindow ItemTab pictures_tag icons_slide icons_scale icons_navigate \
-icons_contextual icons_add icons_external icons_playback"
+defines="$defines BarWindow pictures_tag icons_slide icons_scale icons_navigate \
+icons_add icons_external icons_playback"
 
 files="\
 $SkyBase/Style.qml \
@@ -297,6 +297,7 @@ $SkyComponents/ButtonImageBorders.qml \
 $SkyComponents/ButtonMask.qml \
 $SkyComponents/ButtonStream.qml \
 $SkyComponents/ButtonsCheck.qml \
+$SkyComponents/ButtonsItem.qml \
 $SkyComponents/BaseLabelRound.qml \
 $SkyComponents/LabelRound.qml \
 $SkyComponents/LabelRoundAnimated.qml \
@@ -336,6 +337,7 @@ $SkyComponents/SliderWide.qml \
 $SkyComponents/PlayerBrowser.qml \
 $SkyComponents/ItemList.qml \
 $SkyComponents/ItemGrid.qml \
+$SkyComponents/ItemTab.qml \
 $SkyComponents/ComponentList.qml \
 $SkyComponents/ComponentListFull.qml \
 $SkyComponents/ComponentContextual.qml \

@@ -11,6 +11,9 @@ directly in its view, with a single tab.
 tab strip. The single tab is what removes the split logic: with one tab `highlightedTab` can never
 be set.
 
+`BarTop` was later merged into `BarWindowApplication`, which also brought `ItemTab` and `ButtonsItem`
+back. See `doc/merge-bartop.md`.
+
 ## Scope
 
 - **Edited:** MotionBox only (`content/`, `src/`).
@@ -57,8 +60,9 @@ Keep the full screen `Connections` on `scanner` that restores the bars. Drop the
 `pExpanded`, `rectangleShot` and `hideTimer` code, the exposed states, and `ButtonsItem`,
 `IconOverlay` and the extend button.
 
-Add `showContextual(x, y)`, which replaces `pContextualTab` and `barWindow.showTabMenu`. It calls
-`panelContextual.loadPageTab(currentTab)` then `areaContextual.showPanelAt` at that position.
+Add `pContextualTrack`, which replaces `pContextualTab` and `barWindow.showTabMenu`. It calls
+`panelContextual.loadPageTab(currentTab)` then opens the panel at the mouse position, through
+`pShowContextual`.
 
 ### 2. `content/BarWindowApplication.qml`: remove the tab strip
 
@@ -86,11 +90,10 @@ Remove `TabsPlayer itemTabs`, `buttonAdd`, `pMargin`, `pContextualTab`, `pContex
 - **Keys:**
   - Remove Alt+Left, Alt+Right (`selectPrevious`, `selectNext`) and Ctrl+T.
   - Remove `buttonWall` and `barWindow.buttonAdd` press and release handling.
-  - F3 is now Related (it keeps its `//#!DEPLOY` Ctrl+F3 block), F4 is Select and F5 toggles the
-    VideoTag button in `BarControls`.
+  - F2 is now Related and F3 is expand (both keep their `//#!DEPLOY` Ctrl blocks), F4 is Select and
+    F5 toggles the VideoTag button in `BarControls`.
   - Return and Space drop the `wall.isExposed` branch and keep `expandBars` and `toggleBars`.
-  - Key_Menu calls `panelPlayer.showContextualPlayer()`, so the menu opens at the top left of the
-    player and not at the mouse cursor.
+  - Key_Menu opens the track menu. See `doc/merge-bartop.md`.
 - **Track refresh:** `TabsTrack.qml` reloaded the track at startup and every minute. A `Timer`
   keeps the periodic part, calling `currentTab.reloadTrack()`. At startup the track is not loaded yet,
   so that first call did nothing and is not kept.
@@ -161,16 +164,14 @@ Remove the `expand.svg` line from `icons.sh` and delete `content/icons/expand.sv
 
 - **Removed:** tabs, the Wall, the split view, Ctrl+T, Alt+Left, Alt+Right, middle click
   "open in a new tab", "Close other Tabs" and "Close all Tabs".
-- **Function keys:** F3 opens Related (was F4), F4 selects the current track (was F5) and F5 toggles
-  the VideoTag panel (new).
+- **Function keys:** F2 opens Related (was F4), F3 toggles expand (was F2), F4 selects the current
+  track (was F5) and F5 toggles the VideoTag panel (new).
 - **Closing:** Ctrl+W and the new Close menu item stop playback first, then clear the track.
 - **Tags:** middle click on a tag browses to it, like a left click.
 - **Double click:** the player only reacts to the left button.
 - **Saved tabs:** on first launch, tabs other than the current one are dropped from the tab list.
   Their files stay on disk, because `deleteTab` only removes the files of a loaded tab and tabs
   are not loaded yet at that point. They are small and never read again.
-- **Title bar:** with no tab strip it becomes a drag area. The current track title no longer shows
-  there during playback.
 
 ## Follow-ups
 

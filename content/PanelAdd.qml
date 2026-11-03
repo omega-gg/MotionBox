@@ -78,7 +78,7 @@ PanelContextual
 
     preferredHeight: pGetPreferredHeight()
 
-    topMargin: barWindow.height + barTop.height - barTop.border.size
+    topMargin: barWindow.height - barWindow.border.size
 
     bottomMargin: barControls.height - barControls.border.size
 

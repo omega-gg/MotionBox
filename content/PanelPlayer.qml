@@ -171,22 +171,6 @@ Item
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-
-    function showContextual(x, y)
-    {
-        panelContextual.loadPageTab(currentTab);
-
-        areaContextual.showPanelAt(panelContextual, itemPlayer, x, y, true);
-    }
-
-    function showContextualPlayer()
-    {
-        var position = itemPlayer.mapToItem(gui, 0, 0);
-
-        showContextual(position.x, position.y);
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Private
 
     function pPlayerClicked()
@@ -208,7 +192,7 @@ Item
         {
             if (pContextualTag(scanner.getTextHovered())) return;
 
-            showContextual(window.contentMouseX(), window.contentMouseY());
+            pContextualTrack();
         }
         else if (pButton & Qt.MiddleButton)
         {
@@ -233,16 +217,28 @@ Item
         gui.toggleFullScreen();
     }
 
+    function pContextualTrack()
+    {
+        panelContextual.loadPageTab(currentTab);
+
+        pShowContextual();
+    }
+
     function pContextualTag(text)
     {
         if (text == "") return false;
 
         panelContextual.loadPageTag(text);
 
-        areaContextual.showPanelAt(panelContextual, itemPlayer, window.contentMouseX(),
-                                   window.contentMouseY(), true);
+        pShowContextual();
 
         return true;
+    }
+
+    function pShowContextual()
+    {
+        areaContextual.showPanelAt(panelContextual, itemPlayer, window.contentMouseX(),
+                                   window.contentMouseY(), true);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -359,7 +355,7 @@ Item
 
             anchors.rightMargin: (panelRelated.isExposed == false) ? st.dp16 : 0
 
-            anchors.bottomMargin: (barTop.isExpanded) ? st.dp16 : 0
+            anchors.bottomMargin: (barWindow.isExpanded) ? st.dp16 : 0
 
             hoverEnabled: player.hasStarted
             hoverRetain : true
@@ -621,7 +617,7 @@ Item
             {
                 if (pContextualTag(scanner.getTextHovered())) return;
 
-                showContextual(window.contentMouseX(), window.contentMouseY());
+                pContextualTrack();
             }
         }
     }

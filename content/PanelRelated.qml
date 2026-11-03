@@ -472,25 +472,8 @@ Panel
 
         ButtonPianoIcon
         {
-            id: buttonLeft
-
-            anchors.top   : parent.top
-            anchors.bottom: parent.bottom
-
-            checkable: true
-            checked  : isExpanded
-
-            icon          : st.icon12x12_slideLeft
-            iconSourceSize: st.size12x12
-
-            onClicked: toggleExpand()
-        }
-
-        ButtonPianoIcon
-        {
             id: buttonBackward
 
-            anchors.left  : buttonLeft.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
@@ -512,6 +495,8 @@ Panel
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
+            borderRight: borderSize
+
             enabled: (isAnimated == false && playlist != null && playlist.isLoading == false
                       &&
                       related.hasNextPlaylist)
@@ -522,15 +507,25 @@ Panel
             onClicked: setNextPlaylist()
         }
 
+        BarTitleText
+        {
+            anchors.left  : buttonForward.right
+            anchors.right : buttonRefresh.left
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            text: qsTr("Related")
+        }
+
         ButtonPianoIcon
         {
             id: buttonRefresh
 
-            anchors.left  : buttonForward.right
+            anchors.right : buttonLeft.left
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            borderRight: borderSize
+            borderLeft: borderSize
 
             enabled: (isAnimated == false && currentTab.isValid)
 
@@ -540,14 +535,39 @@ Panel
             onClicked: refresh()
         }
 
-        BarTitleText
+        ButtonPianoIcon
         {
-            anchors.left  : buttonRefresh.right
+            id: buttonLeft
+
+            anchors.right : buttonClose.left
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            checkable: true
+            checked  : isExpanded
+
+            icon          : st.icon_slideLeft
+            iconSourceSize: st.size10x10
+
+            onClicked: toggleExpand()
+        }
+
+        ButtonPianoIcon
+        {
+            id: buttonClose
+
             anchors.right : parent.right
             anchors.top   : parent.top
             anchors.bottom: parent.bottom
 
-            text: qsTr("Related")
+            anchors.rightMargin: st.dp16
+
+            borderRight: borderSize
+
+            icon          : st.icon12x12_close
+            iconSourceSize: st.size12x12
+
+            onClicked: collapse()
         }
     }
 

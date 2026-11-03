@@ -53,6 +53,8 @@ Item
 
     property bool pShare: false
 
+    property int pTime: -1
+
     // NOTE: We only show the cover when we have a valid one.
     property bool pShowCover: (cover.isSourceDefault == false)
 
@@ -149,6 +151,13 @@ Item
 
         /* QML_CONNECTION */ function onCurrentTimeChanged()
         {
+            var time = player.currentTime;
+
+            // NOTE: We don't need to update the tag on every player tick.
+            if (Math.abs(time - pTime) < 200) return;
+
+            pTime = time;
+
             pUpdateTag();
         }
     }
@@ -273,8 +282,6 @@ Item
     {
         if ((playerTab.isValid == false || playerTab.title == "") && gui.tagType == -1)
         {
-            timer.stop();
-
             pEnableExport = false;
             pEnableSave   = false;
 
@@ -285,7 +292,7 @@ Item
             return;
         }
 
-        timer.restart();
+        core.generateTag(pGetVbml(), pPrefix);
     }
 
     function pUpdateSave()
@@ -363,15 +370,6 @@ Item
     //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
-
-    Timer
-    {
-        id: timer
-
-        interval: 100
-
-        onTriggered: core.generateTag(pGetVbml(), pPrefix)
-    }
 
     ImageScale
     {

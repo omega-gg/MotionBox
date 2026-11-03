@@ -590,7 +590,7 @@ SkyMouseArea
         isSearching = true;
         isSelecting = pSelect;
 
-        if (pSelect && pPlay == false && player.isPlaying && highlightedTab == null)
+        if (pSelect && pPlay == false && player.isPlaying)
         {
             gui.restore();
         }
@@ -701,7 +701,7 @@ SkyMouseArea
                     }
                     else gui.showGrid(listPlaylist, playlist, -1);
                 }
-                else if (player.isPlaying == false || highlightedTab)
+                else if (player.isPlaying == false)
                 {
                     gui.setCurrentTrack(playlist, 0);
                 }
@@ -720,11 +720,9 @@ SkyMouseArea
         {
             gui.setCurrentTrack(playlist, index);
 
-            if (highlightedTab) tabs.highlightedTab = null;
-
             player.play();
         }
-        else if (player.isPlaying == false || highlightedTab)
+        else if (player.isPlaying == false)
         {
             gui.setCurrentTrack(playlist, index);
         }

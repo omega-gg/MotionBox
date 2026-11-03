@@ -32,31 +32,18 @@ Item
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property int pMargin: buttonAdd.width - st.border_size
-
     property bool pVersion: (online.version && online.version != sk.version)
 
     property bool pUpdate: false
 
     property bool pMessage: (online.messageUrl != "")
 
-    property TabTrack pContextualTab : null
-    property variant  pContextualItem: null
-
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias tabs: itemTabs.tabs
-
-    //---------------------------------------------------------------------------------------------
-
     property alias buttonVersion: buttonVersion
     property alias buttonMessage: buttonMessage
-
-    property alias itemTabs: itemTabs
-
-    property alias buttonAdd: buttonAdd
 
     property alias buttonIconify : buttonIconify
     property alias buttonMaximize: buttonMaximize
@@ -150,85 +137,7 @@ Item
     //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
-
-    function openTab()
-    {
-        if (actionCue.tryPush(actionTabOpen) || itemTabs.openTab() == false) return;
-
-        startActionCue(st.duration_normal);
-    }
-
-    function openTabCurrent()
-    {
-        if (actionCue.tryPush(actionTabOpen)) return;
-
-        var index = tabs.indexOf(currentTab) + 1;
-
-        if (itemTabs.openTabAt(index) == false) return;
-
-        startActionCue(st.duration_normal);
-    }
-
-    function openTabPlaylist()
-    {
-        if (tabs.isFull) return;
-
-        pOpenTabPlaylist(currentPlaylist);
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function showTabMenu(tab, item, x, y, isCursorChild)
-    {
-        panelContextual.loadPageTab(tab);
-
-        if (areaContextual.showPanelAt(panelContextual, item, x, y, isCursorChild)
-            &&
-            x == -1 && y == -1)
-        {
-            var index = tabs.indexOf(tab);
-
-            itemTabs.setIndexContextual(index);
-
-            areaContextual.parentContextual = itemTabs;
-        }
-    }
-
-    function showCurrentTabMenu()
-    {
-        if (pContextualTab)
-        {
-            showTabMenu(pContextualTab, pContextualItem, -1, -1, false);
-
-            pContextualTab = null;
-        }
-        else
-        {
-            var index = tabs.currentIndex;
-
-            var item = itemTabs.itemAt(index);
-
-            showTabMenu(currentTab, item, -1, -1, false);
-        }
-    }
-
-    //---------------------------------------------------------------------------------------------
     // Private
-
-    function pOpenTabPlaylist(playlist)
-    {
-        if (actionCue.tryPush(actionTabOpen)) return;
-
-        panelTag.collapse();
-
-        if (itemTabs.openTab() == false) return;
-
-        gui.focusSearch();
-
-        startActionCue(st.duration_normal);
-    }
-
-    //---------------------------------------------------------------------------------------------
 
     function pRestoreMaximize()
     {
@@ -500,124 +409,13 @@ Item
         }
     }
 
-    TabsPlayer
-    {
-        id: itemTabs
-
-        //-------------------------------------------------------------------------------------
-        // Settings
-        //-------------------------------------------------------------------------------------
-
-        anchors.left: (buttonMessage.visible) ? buttonMessage.right
-                                              : buttonMessage.left
-
-        anchors.right: buttonIconify.left
-
-        anchors.leftMargin: -st.border_size
-
-        anchors.rightMargin: (window.fullScreen) ? pMargin + st.dp16
-                                                 : pMargin + st.dp32
-
-        tabs: core.tabs
-
-        delegate: ComponentTabTrack
-        {
-            text: st.getTabTitle(item.title, item.state, item.source)
-        }
-
-        player: gui.player
-
-        iconDefault: st.icon16x16_track
-
-        asynchronous: true
-
-        //-------------------------------------------------------------------------------------
-        // Events
-        //-------------------------------------------------------------------------------------
-
-        /* QML_EVENT */ onTabPressed: function(index)
-        {
-            if (tabs.currentIndex == index)
-            {
-                gui.selectCurrentTrack();
-
-                return;
-            }
-
-            if (player.tabIndex == index)
-            {
-                gui.restoreBars();
-            }
-
-            panelTag.collapse();
-
-            wall.updateCurrentPage();
-        }
-
-        onTabDoubleClicked:
-        {
-            if (tabs.highlightedIndex == indexHover) return;
-
-            if (panelTracks.isExpanded)
-            {
-                panelTracks.restore();
-            }
-            else gui.playTab();
-        }
-
-        //-------------------------------------------------------------------------------------
-
-        onContextual:
-        {
-            var tab = tabs.tabAt(indexHover);
-
-            showTabMenu(tab, itemHovered, -1, -1, false);
-        }
-
-        //-------------------------------------------------------------------------------------
-        // Functions
-        //-------------------------------------------------------------------------------------
-
-        function onBeforeTabClose(index)
-        {
-            return gui.onBeforeTabClose(index);
-        }
-    }
-
-    ButtonPianoIcon
-    {
-        id: buttonAdd
-
-        x: itemTabs.x + itemTabs.tabsWidth - borderLeft
-
-        borderLeft : borderSize
-        borderRight: borderSize
-
-        enabled: (tabs.isFull == false)
-
-        icon          : st.icon16x16_addBold
-        iconSourceSize: st.size16x16
-
-        Behavior on x
-        {
-            enabled: itemTabs.isAnimated
-
-            PropertyAnimation
-            {
-                duration: itemTabs.durationAnimation
-
-                easing.type: st.easing
-            }
-        }
-
-        onClicked: pOpenTabPlaylist(currentPlaylist)
-    }
-
     ViewDrag
     {
         id: viewDrag
 
-        anchors.left : buttonAdd.right
+        anchors.left: (buttonMessage.visible) ? buttonMessage.right
+                                              : buttonMessage.left
+
         anchors.right: parent.right
 
 //#QT_4

@@ -174,8 +174,6 @@ Panel
 
         visible = true;
 
-        panelPlayer.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
-
         isExposed = true;
 
         if (pCheckRefresh()) pRefresh();
@@ -194,8 +192,6 @@ Panel
         if (isExposed == false || actionCue.tryPush(gui.actionRelatedCollapse)) return;
 
         pClearRefresh();
-
-        panelPlayer.wallExpand(parent.width, wall.height);
 
         isExposed  = false;
         isExpanded = false;
@@ -220,8 +216,6 @@ Panel
             ||
             actionCue.tryPush(gui.actionRelatedExpand)) return;
 
-        panelPlayer.wallExpand(Math.round(parent.width / 2), wall.height);
-
         isExpanded = true;
 
         local.relatedExpanded = true;
@@ -234,8 +228,6 @@ Panel
         if (isExpanded == false || isExposed == false
             ||
             actionCue.tryPush(gui.actionRelatedRestore)) return;
-
-        panelPlayer.wallExpand(parent.width - pGetWidth(parent.width), wall.height);
 
         isExpanded = false;
 
@@ -320,17 +312,6 @@ Panel
 
     //---------------------------------------------------------------------------------------------
 
-    function getWidth(width)
-    {
-        if (isExpanded)
-        {
-             return Math.round(width / 2);
-        }
-        else return pGetWidth(width);
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function saveScroll()
     {
         list.saveScroll();
@@ -397,8 +378,6 @@ Panel
     function pCompleteTransition()
     {
         if (isExposed == false) visible = false;
-
-        parent.wallRestore();
     }
 
     //---------------------------------------------------------------------------------------------

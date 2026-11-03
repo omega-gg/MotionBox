@@ -44,6 +44,13 @@ StyleComponents
     property color splash_colorB: (local.style == 3) ? "#323232" : logo_colorA
 
     //---------------------------------------------------------------------------------------------
+    // PanelPlayer
+
+    property int panelPlayer_interval: 10000 // 10 seconds
+
+    property color panelPlayer_color: "black"
+
+    //---------------------------------------------------------------------------------------------
     // PanelRelated
 
     property int panelRelated_duration: 2000
@@ -89,7 +96,7 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // SliderStream
 
-    property int sliderStream_intervalA: wallVideo_interval
+    property int sliderStream_intervalA: panelPlayer_interval
     property int sliderStream_intervalB: 30000
 
     //---------------------------------------------------------------------------------------------
@@ -126,7 +133,6 @@ StyleComponents
     property url icon_goRelated: "icons/arrow-right.svg"
 
     property url icon_expand : "icons/expand-alt.svg"
-    property url icon_wall   : "icons/expand.svg"
     property url icon_related: "icons/bars.svg"
 
     property url icon_refresh: "icons/redo.svg"
@@ -234,7 +240,6 @@ StyleComponents
     // 20x20
 
     property url icon20x20_expand : icon_expand
-    property url icon20x20_wall   : icon_wall
     property url icon20x20_related: icon_related
 
     property url icon20x20_addList: icon_addList

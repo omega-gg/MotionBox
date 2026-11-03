@@ -49,7 +49,6 @@ class DataLocal : public WLocalObject
     Q_PROPERTY(bool maximized READ maximized WRITE setMaximized NOTIFY maximizedChanged)
 
     Q_PROPERTY(bool expanded READ expanded WRITE setExpanded NOTIFY expandedChanged)
-    Q_PROPERTY(bool macro    READ macro    WRITE setMacro    NOTIFY macroChanged)
 
     Q_PROPERTY(bool related READ related WRITE setRelated NOTIFY relatedChanged)
 
@@ -150,7 +149,6 @@ signals:
     void maximizedChanged();
 
     void expandedChanged();
-    void macroChanged   ();
 
     void relatedChanged        ();
     void relatedExpandedChanged();
@@ -225,9 +223,6 @@ public: // Properties
 
     bool expanded() const;
     void setExpanded(bool expanded);
-
-    bool macro() const;
-    void setMacro(bool macro);
 
     bool related() const;
     void setRelated(bool related);
@@ -336,7 +331,6 @@ private: // Variables
     bool _maximized;
 
     bool _expanded;
-    bool _macro;
 
     bool _related;
     bool _relatedExpanded;

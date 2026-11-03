@@ -39,8 +39,9 @@ Item
 
     property bool asynchronous: true
 
-    /* read */ property TabTrack currentTab    : tabs.currentTab
-    /* read */ property TabTrack highlightedTab: tabs.highlightedTab
+    /* read */ property variant tabs: core.tabs
+
+    /* read */ property TabTrack currentTab: tabs.currentTab
 
     /* read */ property TabTrack playerTab: player.tab
 
@@ -96,9 +97,6 @@ Item
     /* read */ property int actionBarsExpand : 2
     /* read */ property int actionBarsRestore: 3
 
-    /* read */ property int actionWallExpose : 4
-    /* read */ property int actionWallRestore: 5
-
     /* read */ property int actionRelatedExpose  : 6
     /* read */ property int actionRelatedCollapse: 7
 
@@ -134,9 +132,6 @@ Item
     /* read */ property int actionFullScreenExpose : 27
     /* read */ property int actionFullScreenRestore: 28
 
-    /* read */ property int actionTabOpen: 29
-    /* read */ property int actionTabMenu: 30
-
     /* read */ property int actionZoom: 31
 
     //---------------------------------------------------------------------------------------------
@@ -155,8 +150,6 @@ Item
     //---------------------------------------------------------------------------------------------
 
     property bool pExpanded: true
-
-    property bool pWall: false
 
     property bool pRelated        : false
     property bool pRelatedExpanded: false
@@ -223,10 +216,6 @@ Item
     //---------------------------------------------------------------------------------------------
     // BarWindowApplication
 
-    property alias tabs: barWindow.tabs
-
-    property alias itemTabs: barWindow.itemTabs
-
     property alias buttonMaximize: barWindow.buttonMaximize
 
     //---------------------------------------------------------------------------------------------
@@ -239,7 +228,6 @@ Item
 
     property alias buttonBrowse : barTop.buttonBrowse
     property alias buttonExpand : barTop.buttonExpand
-    property alias buttonWall   : barTop.buttonWall
     property alias buttonRelated: barTop.buttonRelated
 
     //---------------------------------------------------------------------------------------------
@@ -254,13 +242,13 @@ Item
 
     property alias playlistRelated: panelPlayer.playlistRelated
 
-    property alias wall: panelPlayer.wall
-
     property alias player         : panelPlayer.player
     property alias playerBrowser  : panelPlayer.playerBrowser
     property alias playerMouseArea: panelPlayer.playerMouseArea
 
     property alias subtitle: panelPlayer.subtitle
+
+    property alias scanner: panelPlayer.scanner
 
     property alias panelRelated: panelPlayer.panelRelated
 
@@ -591,6 +579,12 @@ Item
 
             panelRelated.refreshLater();
         }
+
+        /* QML_CONNECTION */ function onLoaded()
+        {
+            // NOTE: Previous versions could save several tabs, we only keep the current one.
+            if (tabs.count > 1) tabs.closeOtherTabs(currentTab);
+        }
     }
 
     Connections
@@ -653,7 +647,9 @@ Item
         // NOTE: We want to clear the previous selection when the playback changes.
         /* QML_CONNECTION */ function onStateLoadChanged()
         {
-            if (player.isDefault) wall.scan();
+            if (player.isDefault
+                &&
+                scanner.visible) scanner.scan();
         }
 //#END
 
@@ -739,8 +735,6 @@ Item
 
         st.animate = false;
 
-        wall.enableAnimation = false;
-
         scaleBefore();
 
         st.scale = scale;
@@ -755,8 +749,6 @@ Item
         window.setMinimumSize(st.minimumWidth, st.minimumHeight);
 
         window.setDefaultGeometry();
-
-        pRestoreWall();
 
         st.animate = true;
 
@@ -799,8 +791,6 @@ Item
 
         pZoomLater = zoomAfter;
 
-        wall.enableAnimation = false;
-
         asynchronous = false;
 
         scaleBefore();
@@ -814,8 +804,6 @@ Item
             asynchronous = true;
         }
         else window.zoomTo(scale, x, y, duration, easing, true);
-
-        pRestoreWall();
 
         panelPreview.update();
 
@@ -842,14 +830,6 @@ Item
 
         isExpanded = true;
 
-        if (panelRelated.isExposed)
-        {
-            var width = itemContent.width;
-
-            panelPlayer.wallExpand(width - panelRelated.getWidth(width), itemContent.height);
-        }
-        else panelPlayer.wallExpand(itemContent.width, itemContent.height);
-
         local.expanded = true;
 
         startActionCue(st.duration_normal);
@@ -872,15 +852,6 @@ Item
         panelLibrary.visible = true;
 
         isExpanded = false;
-
-        if (panelRelated.isExposed)
-        {
-            var width = itemContent.width - panelLibrary.width;
-
-            panelPlayer.wallExpand(width - panelRelated.getWidth(width), panelPlayer.heightPlayer);
-        }
-        else panelPlayer.wallExpand(itemContent.width - panelLibrary.width,
-                                    panelPlayer.heightPlayer);
 
         window.idle = false;
 
@@ -914,12 +885,6 @@ Item
         else if (panelTracks.isExpanded)
         {
             panelTracks.restore();
-
-            return;
-        }
-        else if (highlightedTab)
-        {
-            tabs.currentTab = highlightedTab;
 
             return;
         }
@@ -977,40 +942,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function exposeWall()
-    {
-        panelTag.collapse();
-
-        panelTracks.restore();
-
-        if (wall.isExposed || actionCue.tryPush(actionWallExpose)) return;
-
-        wall.expose();
-
-        clearExpand();
-
-        startActionCue(st.duration_normal);
-    }
-
-    function restoreWall()
-    {
-        panelTag.collapse();
-
-        if (wall.isExposed == false || actionCue.tryPush(actionWallRestore)) return;
-
-        wall.restore();
-
-        startActionCue(st.duration_normal);
-    }
-
-    function toggleWall()
-    {
-        if (wall.isExposed) restoreWall();
-        else                exposeWall ();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function panelAddShow()
     {
         if (actionCue.tryPush(actionAddShow)) return;
@@ -1047,10 +978,6 @@ Item
     {
         if (window.maximized || actionCue.tryPush(actionMaximizeExpose)) return;
 
-        wall.clearDrag();
-
-        wall.enableAnimation = false;
-
         // FIXME Windows: Hiding the window to avoid the animation.
         if (sk.osWin)
         {
@@ -1074,8 +1001,6 @@ Item
         }
         else window.maximized = true;
 
-        pRestoreWall();
-
         pSaveSize();
 
         local.maximized = true;
@@ -1087,13 +1012,7 @@ Item
     {
         if (window.maximized == false || actionCue.tryPush(actionMaximizeRestore)) return;
 
-        wall.clearDrag();
-
-        wall.enableAnimation = false;
-
         window.maximized = false;
-
-        pRestoreWall();
 
         pSaveSize();
 
@@ -1121,10 +1040,6 @@ Item
     {
         if (window.fullScreen || actionCue.tryPush(actionFullScreenExpose)) return;
 
-        wall.clearDrag();
-
-        wall.enableAnimation = false;
-
         //if (sk.osWin) window.setWindowSnap(false);
 
         st.animate = false;
@@ -1135,8 +1050,6 @@ Item
 
         st.animate = true;
 
-        pRestoreWall();
-
         startActionCue(st.duration_faster);
     }
 
@@ -1146,13 +1059,7 @@ Item
 
         //if (sk.osWin) window.setWindowSnap(true);
 
-        wall.clearDrag();
-
-        wall.enableAnimation = false;
-
         pRestoreFullScreen();
-
-        pRestoreWall();
 
         startActionCue(st.duration_faster);
     }
@@ -1184,8 +1091,6 @@ Item
 
         pExpanded = true;
 
-        pWall = false;
-
         pRelated         = false;
         pRelatedExpanded = false;
     }
@@ -1194,13 +1099,9 @@ Item
 
     function clearTabs()
     {
-        wall.enableAnimation = false;
-
         player.stop();
 
         tabs.closeTabs();
-
-        wall.enableAnimation = true;
     }
 
     function clearCache()
@@ -1287,8 +1188,6 @@ Item
 
         saveTrackData();
 
-        if (highlightedTab) tabs.currentTab = playerTab;
-
         playlist.currentIndex = index;
 
         playerTab.playlist = playlist;
@@ -1340,8 +1239,6 @@ Item
         {
             saveTrackData();
 
-            if (highlightedTab) tabs.currentTab = playerTab;
-
             if (playlist.currentIndex == -1)
             {
                 playlist.currentIndex = 0;
@@ -1353,19 +1250,6 @@ Item
         }
 
         playlist.tryDelete();
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function playTab()
-    {
-        if (currentTab.isValid == false || (player.isPlaying && highlightedTab == null))
-        {
-            restoreBars();
-
-            toggleWall();
-        }
-        else playerBrowser.play();
     }
 
     //---------------------------------------------------------------------------------------------
@@ -1388,6 +1272,15 @@ Item
         //tab.currentTime = -1;
 
         setCurrentTrack(player.playlist, player.trackIndex);
+    }
+
+    function closeTrack()
+    {
+        if (player.hasStarted)
+        {
+            stop();
+        }
+        else currentTab.clearBookmarks();
     }
 
     function reload(playlist, index)
@@ -1483,24 +1376,9 @@ Item
         panelTag.exposePage(2); // PageTag
     }
 
-    function showTagTab(tab)
+    function showTagTab()
     {
         clearTag();
-
-        if (playerTab == tab)
-        {
-            panelTag.exposePage(2); // PageTag
-
-            return;
-        }
-
-        // NOTE: Applying these values before the item to avoid updating the cover and the label.
-        tagType =  2;
-        tagId   = -1;
-
-        tagItem = tab;
-
-        panelTag.showCover = true;
 
         panelTag.exposePage(2); // PageTag
     }
@@ -1577,7 +1455,7 @@ Item
 
     function browse(url)
     {
-        if (player.isPlaying && highlightedTab == null)
+        if (player.isPlaying)
         {
              panelBrowse.search(panelSearch.backendAt(0), url, true, true);
         }
@@ -2277,17 +2155,6 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    function updateColor()
-    {
-        if (wall.isActive)
-        {
-             window.color = st.window_color;
-        }
-        else window.color = "black";
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function updateScreenDim()
     {
         if (window.isActive && panelTracks.isExpanded == false && player.isPlaying)
@@ -2566,7 +2433,7 @@ Item
 
         if (controllerPlaylist.urlIsTrack(text))
         {
-            if (player.isPlaying && highlightedTab == null)
+            if (player.isPlaying)
             {
                 toolTip.show(qsTr("Play Track"), st.icon16x16_play, st.dp16, st.dp12);
 
@@ -2665,7 +2532,7 @@ Item
         window.updateHover();
 
 //#DESKTOP
-        if (playerMouseArea.hoverActive && wall.isScannerHovered == false)
+        if (playerMouseArea.hoverActive && scanner.isHovered == false)
 //#ELSE
         if (playerMouseArea.hoverActive)
 //#END
@@ -2680,28 +2547,9 @@ Item
     {
         if (isExpanded == false) return;
 
-        window.idle = wall.isScannerClicking;
+        window.idle = scanner.isClicking;
     }
 //#END
-
-    //---------------------------------------------------------------------------------------------
-
-    function onBeforeTabClose(index)
-    {
-        if (player.hasStarted && player.tabIndex == index)
-        {
-            stop();
-
-            return false;
-        }
-
-        if (highlightedTab && tabs.currentIndex == index)
-        {
-            tabs.currentTab = highlightedTab;
-        }
-
-        return true;
-    }
 
     //---------------------------------------------------------------------------------------------
     // Keys
@@ -2710,15 +2558,7 @@ Item
     {
         if (event.key == Qt.Key_Left)
         {
-            if (event.modifiers == sk.keypad(Qt.AltModifier))
-            {
-                event.accepted = true;
-
-                restoreBars();
-
-                itemTabs.selectPrevious();
-            }
-            else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
+            if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -2727,15 +2567,7 @@ Item
         }
         else if (event.key == Qt.Key_Right)
         {
-            if (event.modifiers == sk.keypad(Qt.AltModifier))
-            {
-                event.accepted = true;
-
-                restoreBars();
-
-                itemTabs.selectNext();
-            }
-            else if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
+            if (event.modifiers == sk.keypad(Qt.ControlModifier | Qt.AltModifier))
             {
                 event.accepted = true;
 
@@ -2752,21 +2584,13 @@ Item
 
             toggleFullScreen();
         }
-        else if (event.key == Qt.Key_T && event.modifiers == Qt.ControlModifier)
-        {
-            event.accepted = true;
-
-            restoreBars();
-
-            barWindow.buttonAdd.returnPressed();
-        }
         else if (event.key == Qt.Key_W && event.modifiers == Qt.ControlModifier)
         {
             event.accepted = true;
 
             restoreBars();
 
-            barWindow.itemTabs.closeCurrentTab();
+            closeTrack();
         }
         else if (event.key == Qt.Key_R && event.modifiers == Qt.ControlModifier)
         {
@@ -2842,25 +2666,16 @@ Item
 
             buttonExpand.returnPressed();
         }
-        else if (event.key == Qt.Key_F3) // Wall
+//#!DEPLOY
+        else if (event.key == Qt.Key_F3 && event.modifiers == Qt.ControlModifier)
         {
             event.accepted = true;
 
-//#!DEPLOY
-            if (event.modifiers == Qt.ControlModifier)
-            {
-                pSetDesktop();
+            pSetDesktop();
 
-                player.volume = 0.0;
-
-                return;
-            }
-//#END
-
-            restoreBars();
-
-            buttonWall.returnPressed();
+            player.volume = 0.0;
         }
+//#END
         else if (event.key == Qt.Key_F4) // Related
         {
             event.accepted = true;
@@ -3037,10 +2852,6 @@ Item
         {
             buttonForward.returnReleased();
         }
-        else if (barWindow.buttonAdd.isReturnPressed)
-        {
-            barWindow.buttonAdd.returnReleased();
-        }
         else if (buttonBrowse.isReturnPressed)
         {
             buttonBrowse.returnReleased();
@@ -3048,10 +2859,6 @@ Item
         else if (buttonExpand.isReturnPressed)
         {
             buttonExpand.returnReleased();
-        }
-        else if (buttonWall.isReturnPressed)
-        {
-            buttonWall.returnReleased();
         }
         else if (buttonRelated.isReturnPressed)
         {
@@ -3222,11 +3029,7 @@ Item
             }
             else if (player.isPlaying)
             {
-                if (wall.isExposed)
-                {
-                    restoreWall();
-                }
-                else expandBars();
+                expandBars();
             }
         }
         else if (event.key == Qt.Key_Space)
@@ -3261,11 +3064,7 @@ Item
             }
             else if (player.isPlaying)
             {
-                if (wall.isExposed)
-                {
-                    restoreWall();
-                }
-                else toggleBars();
+                toggleBars();
             }
         }
         else if (event.key == Qt.Key_Escape)
@@ -3289,10 +3088,6 @@ Item
             else if (panelTracks.isExpanded)
             {
                 panelTracks.restore();
-            }
-            else if (highlightedTab)
-            {
-                tabs.currentTab = playerTab;
             }
             else if (barTop.isExpanded)
             {
@@ -3336,7 +3131,7 @@ Item
         {
             if (areaContextual.isActive == false)
             {
-                barWindow.showCurrentTabMenu();
+                panelPlayer.showContextualPlayer();
             }
         }
     }
@@ -3408,14 +3203,10 @@ Item
     {
         pExpanded = isExpanded;
 
-        pWall = wall.isExposed;
-
         pRelated         = panelRelated.isExposed;
         pRelatedExpanded = panelRelated.isExpanded;
 
         expand();
-
-        wall.restore();
 
         panelRelated.collapse();
 
@@ -3444,28 +3235,12 @@ Item
 
         if (pExpanded == false) restore();
 
-        if (pWall) wall.expose();
-
         if (pRelated)
         {
             panelRelated.expose();
 
             if (pRelatedExpanded) panelRelated.expand();
         }
-    }
-
-    //---------------------------------------------------------------------------------------------
-
-    function pRestoreWall()
-    {
-//#QT_NEW
-        // FIXME Qt5: Waiting for resize to be applied.
-        sk.processEvents();
-//#END
-
-        wall.updateView();
-
-        wall.enableAnimation = true;
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3766,9 +3541,6 @@ Item
             else if (id == actionBarsExpand)  expandBars ();
             else if (id == actionBarsRestore) restoreBars();
 
-            else if (id == actionWallExpose)  exposeWall ();
-            else if (id == actionWallRestore) restoreWall();
-
             else if (id == actionRelatedExpose)   panelRelated.expose  ();
             else if (id == actionRelatedCollapse) panelRelated.collapse();
             else if (id == actionRelatedExpand)   panelRelated.expand  ();
@@ -3802,10 +3574,6 @@ Item
 
             else if (id == actionFullScreenExpose)  exposeFullScreen ();
             else if (id == actionFullScreenRestore) restoreFullScreen();
-
-            else if (id == actionTabOpen) barWindow.openTabPlaylist();
-
-            else if (id == actionTabMenu) barWindow.showCurrentTabMenu();
 
             else if (id == actionZoom) zoom(pZoomScale, pZoomX, pZoomY, pZoomDuration, pZoomEasing,
                                             pZoomAfter);
@@ -3845,6 +3613,18 @@ Item
         interval: 1000
 
         onTriggered: pUpdateHistory()
+    }
+
+    // NOTE: We want to reload the current track periodically.
+    Timer
+    {
+        interval: 60000 // 1 minute
+
+        repeat: true
+
+        running: true
+
+        onTriggered: currentTab.reloadTrack()
     }
 
     Item

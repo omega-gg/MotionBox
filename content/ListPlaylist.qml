@@ -289,7 +289,7 @@ BaseList
 
             var index = indexFromIndex(playlist.lastSelected);
 
-            if (player.isPlaying == false || highlightedTab)
+            if (player.isPlaying == false)
             {
                 pSetCurrentTrack(index);
             }
@@ -368,7 +368,7 @@ BaseList
 
         /* QML_CONNECTION */ function onCurrentBookmarkChanged()
         {
-            if (playlist && pSelect && (player.isPlaying == false || highlightedTab))
+            if (playlist && pSelect && player.isPlaying == false)
             {
                 if (currentTab.playlist == playlist)
                 {
@@ -795,21 +795,6 @@ BaseList
 
     //---------------------------------------------------------------------------------------------
 
-    function openInTab(index)
-    {
-        if (index < 0 || index >= count) return;
-
-        barWindow.openTabCurrent();
-
-        wall.asynchronous = false;
-
-        playlist.selectSingleTrack(indexAt(index));
-
-        wall.asynchronous = true;
-    }
-
-    //---------------------------------------------------------------------------------------------
-
     function scrollToCurrentItem()
     {
         if (playlist == null) return;
@@ -910,7 +895,7 @@ BaseList
 
     function pUpdateCurrentTrack(index)
     {
-        if (player.isPlaying == false || highlightedTab)
+        if (player.isPlaying == false)
         {
             pSelect = false;
 
@@ -997,8 +982,6 @@ BaseList
 
     function pPlay()
     {
-        if (highlightedTab) tabs.highlightedTab = null;
-
         player.play();
 
         window.clearFocus();

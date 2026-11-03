@@ -90,7 +90,6 @@
 #include <WModelPlaylist>
 #include <WModelCompletionGoogle>
 #include <WModelContextual>
-#include <WModelTabs>
 #include <WImageFilterColor>
 #include <WDeclarativeApplication>
 #include <WDeclarativeMouseArea>
@@ -327,8 +326,6 @@ ControllerCore::ControllerCore() : WController()
 
     qmlRegisterType<WModelContextual>("Sky", 1,0, "ModelContextual");
 
-    qmlRegisterType<WModelTabs>("Sky", 1,0, "ModelTabs");
-
     //---------------------------------------------------------------------------------------------
     // Multimedia
 
@@ -547,7 +544,7 @@ ControllerCore::ControllerCore() : WController()
 
     _tabs->setId(1);
 
-    _tabs->setMaxCount(32);
+    _tabs->setMaxCount(1);
 
     _tabs->addTab();
 

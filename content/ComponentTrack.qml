@@ -203,12 +203,6 @@ ComponentLibraryItem
                 pSelectSingleTrack(index);
             }
         }
-        else if (mouse.button & Qt.MiddleButton)
-        {
-            focusList();
-
-            openInTab(index);
-        }
     }
 
     function pDoubleClicked(mouse)

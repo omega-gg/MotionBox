@@ -70,9 +70,6 @@ ColumnAuto
             // FIXME: This is a hack to keep the current frame while loading the other sources.
             if (player.hasStarted)
             {
-                // NOTE: We close the split view before reloading the track.
-                if (highlightedTab) tabs.currentTab = highlightedTab;
-
                 if (player.isPlaying)
                 {
                     player.stop();

@@ -587,7 +587,7 @@ AreaContextual
 
             array.push
             (
-                { "type": ContextualPage.Category, "title": qsTr("Tab") },
+                { "type": ContextualPage.Category, "title": qsTr("Track") },
 
                 { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
                   "title": qsTr("Add to ...") },
@@ -616,9 +616,7 @@ AreaContextual
                 { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                   "title": qsTr("Save VBML") },
 
-                { "id": 9, "title": qsTr("Close other Tabs") },
-
-                { "id": 10, "title": qsTr("Close all Tabs") }
+                { "id": 9, "title": qsTr("Close") }
             );
 
             page.values = array;
@@ -662,11 +660,8 @@ AreaContextual
                 page.setItemEnabled(6, false); // Sources
                 page.setItemEnabled(7, false); // Reload
                 page.setItemEnabled(8, false); // Reset timeline
-
-                if (tabs.count == 1)
-                {
-                    page.setItemEnabled(9, false); // Close other Tabs
-                }
+                page.setItemEnabled(9, false); // Save VBML
+                page.setItemEnabled(10, false); // Close
             }
 
             currentId = 3;
@@ -707,9 +702,7 @@ AreaContextual
             (
                 { "type": ContextualPage.Category, "title": qsTr("VideoTag") },
 
-                { "id": 0, "iconSize": st.size18x18, "title": qsTr("Open in a new tab") },
-
-                { "id": 1, "icon": st.icon16x16_link, "iconSize": st.size16x16,
+                { "id": 0, "icon": st.icon16x16_link, "iconSize": st.size16x16,
                   "title": qsTr("Copy link") }
             );
 
@@ -942,7 +935,7 @@ AreaContextual
             }
             else if (id == 2) // VideoTag
             {
-                gui.showTagTab(pItem);
+                gui.showTagTab();
             }
             else if (id == 3) // Open link
             {
@@ -968,43 +961,21 @@ AreaContextual
             }
             else if (id == 7) // Reset timeline
             {
-                // NOTE: When clearing the player tab we want to stop playback first.
-                if (player.tab == pItem)
-                {
-                    player.stop();
+                player.stop();
 
-                    pClearContextTab(pItem);
+                pClearContextTab(pItem);
 
-                    currentTab.currentTime = -1;
+                currentTab.currentTime = -1;
 
-                    player.reloadSource();
-                }
-                else
-                {
-                    pClearContextTab(pItem);
-
-                    currentTab.currentTime = -1;
-                }
+                player.reloadSource();
             }
             else if (id == 8) // Save VBML
             {
                 core.saveVbml(pItem.title, pItem.toVbml());
             }
-            else if (id == 9) // Close other tabs
+            else if (id == 9) // Close
             {
-                wall.enableAnimation = false;
-
-                tabs.closeOtherTabs(pItem);
-
-                wall.enableAnimation = true;
-            }
-            else if (id == 10) // Close all tabs
-            {
-                wall.enableAnimation = false;
-
-                tabs.closeTabs();
-
-                wall.enableAnimation = true;
+                gui.closeTrack();
             }
 
             return true;
@@ -1050,13 +1021,7 @@ AreaContextual
 
         function onTagClicked(id)
         {
-            if (id == 0) // Open in new tab
-            {
-                barWindow.openTab();
-
-                gui.browse(pText);
-            }
-            else if (id == 1) // Copy link
+            if (id == 0) // Copy link
             {
                 gui.applyLink(pText);
             }

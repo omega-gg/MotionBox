@@ -161,9 +161,7 @@ Item
                 {
                     if (mouse.y < border.y)
                     {
-                        if (highlightedTab
-                            ||
-                            controllerPlaylist.cleanMatch(source, currentTab.source) == false)
+                        if (controllerPlaylist.cleanMatch(source, currentTab.source) == false)
                         {
                             gui.setCurrentTrack(playlist, view.model.indexAt(index));
                         }
@@ -188,12 +186,6 @@ Item
                                                    window.contentMouseY(), true) == false) return;
 
                     areaContextual.parentContextual = list;
-                }
-                else if (mouse.button & Qt.MiddleButton)
-                {
-                    barWindow.openTabCurrent();
-
-                    playlist.selectSingleTrack(view.model.indexAt(index));
                 }
             }
         }

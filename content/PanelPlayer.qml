@@ -34,6 +34,21 @@ Item
     property int heightPlayer: parent.height / 1.7
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    property int pAreaWidth: player.width / 8
+
+    property int pButton: Qt.NoButton
+
+    property variant pPosition
+
+    property bool pAudio: (player.output == AbstractBackend.OutputAudio
+                           ||
+                           player.outputActive == AbstractBackend.OutputAudio
+                           ||
+                           player.isAudio || player.hasOutput)
+
+    //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
@@ -41,13 +56,13 @@ Item
 
     //---------------------------------------------------------------------------------------------
 
-    property alias wall: wall
+    property alias player         : player
+    property alias playerBrowser  : playerBrowser
+    property alias playerMouseArea: playerMouseArea
 
-    property alias player         : wall.player
-    property alias playerBrowser  : wall.playerBrowser
-    property alias playerMouseArea: wall.playerMouseArea
+    property alias subtitle: subtitle
 
-    property alias subtitle: wall.subtitle
+    property alias scanner: scanner
 
     property alias panelRelated: panelRelated
 
@@ -127,46 +142,95 @@ Item
     }
 
     //---------------------------------------------------------------------------------------------
+    // Connections
+    //---------------------------------------------------------------------------------------------
+
+//#DESKTOP
+    Connections
+    {
+        target: window
+
+        /* QML_CONNECTION */ function onMousePosChanged() { pCheckAreaHover() }
+    }
+
+    Connections
+    {
+        target: (window.fullScreen) ? scanner : null
+
+        /* QML_CONNECTION */ function onPositionChanged(mouse)
+        {
+            var y = mouse.y;
+
+            if (y < st.dp64
+                ||
+                playerMouseArea.height - y < st.dp64) gui.restoreBars();
+        }
+    }
+//#END
+
+    //---------------------------------------------------------------------------------------------
     // Functions
     //---------------------------------------------------------------------------------------------
 
-    function wallExpand(width, height)
+    function showContextual(x, y)
     {
-        if (st.animate && wall.isExposed)
-        {
-            wall.clearDrag();
+        panelContextual.loadPageTab(currentTab);
 
-            wall.isFixedSize = false;
-
-            wall.startAnimation();
-
-            wall.anchors.fill = undefined;
-
-            wall.width  = width;
-            wall.height = height;
-
-            wall.updateView();
-
-            wall.enableAnimation = false;
-        }
+        areaContextual.showPanelAt(panelContextual, itemPlayer, x, y, true);
     }
 
-    function wallRestore()
+    function showContextualPlayer()
     {
-        if (wall.anchors.fill == undefined)
-        {
-            wall.anchors.fill = itemSplit;
+        var position = itemPlayer.mapToItem(gui, 0, 0);
 
-            wall.enableAnimation = true;
-        }
+        showContextual(position.x, position.y);
     }
 
     //---------------------------------------------------------------------------------------------
     // Private
 
-    function pContextualTab(tab)
+    function pPlayerClicked()
     {
-        barWindow.showTabMenu(tab, wall, window.contentMouseX(), window.contentMouseY(), true);
+        if (player.hasStarted == false)
+        {
+            window.clearFocus();
+
+            return;
+        }
+
+        if (pButton & Qt.LeftButton)
+        {
+            gui.expandBars();
+
+            window.clearFocus();
+        }
+        else if (pButton & Qt.RightButton)
+        {
+            if (pContextualTag(scanner.getTextHovered())) return;
+
+            showContextual(window.contentMouseX(), window.contentMouseY());
+        }
+        else if (pButton & Qt.MiddleButton)
+        {
+            gui.stop();
+        }
+    }
+
+    function pPlayerDoubleClicked(mouse)
+    {
+        if (player.hasStarted == false || (mouse.button & Qt.LeftButton) == 0) return;
+
+        pPosition = pGetPosition();
+
+        if (pCheckAreaClick()) return;
+
+//#MAC
+        // FIXME macOS: Setting fullscreen from the double click event seems to skip the mouse
+        //              release event. So we wait a bit.
+        sk.wait(200);
+//#END
+
+        gui.toggleFullScreen();
     }
 
     function pContextualTag(text)
@@ -175,10 +239,101 @@ Item
 
         panelContextual.loadPageTag(text);
 
-        areaContextual.showPanelAt(panelContextual, wall, window.contentMouseX(),
+        areaContextual.showPanelAt(panelContextual, itemPlayer, window.contentMouseX(),
                                    window.contentMouseY(), true);
 
         return true;
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pCheckArea(mouseX, mouseY)
+    {
+        if (mouseX < 0 || mouseX >= player.width) return 0;
+
+        var mouseArea = areaBackward.mouseArea;
+
+        var y = mouseArea.y;
+
+        if (mouseY < y || mouseY >= y + mouseArea.height) return 0;
+
+        if (mouseX < areaBackward.width)
+        {
+            return 1;
+        }
+        else if (mouseX >= areaForward.x)
+        {
+            return 2;
+        }
+        else return 0;
+    }
+
+//#DESKTOP
+    function pCheckAreaHover()
+    {
+        if (areaBackward.visible == false || scanner.isHovered)
+        {
+            areaBackward.hovered = false;
+            areaForward .hovered = false;
+
+            return;
+        }
+
+        var position = pGetPosition();
+
+        var index = pCheckArea(position.x, position.y);
+
+        if (index == 0)
+        {
+            areaBackward.hovered = false;
+            areaForward .hovered = false;
+        }
+        else if (index == 1)
+        {
+            areaBackward.hovered = true;
+            areaForward .hovered = false;
+        }
+        else // if (index == 2)
+        {
+            areaBackward.hovered = false;
+            areaForward .hovered = true;
+        }
+    }
+//#END
+
+    function pCheckAreaClick()
+    {
+        if (areaBackward.visible == false) return false;
+
+        var index = pCheckArea(pPosition.x, pPosition.y);
+
+        if (index == 0)
+        {
+            return false;
+        }
+        else if (index == 1)
+        {
+            areaBackward.flash();
+
+            player.seek(player.currentTime - st.panelPlayer_interval);
+
+            return true;
+        }
+        else // if (index == 2)
+        {
+            areaForward.flash();
+
+            player.seek(player.currentTime + st.panelPlayer_interval);
+
+            return true;
+        }
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function pGetPosition()
+    {
+        return window.mapToItem(itemPlayer, window.mouseX, window.mouseY);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -187,73 +342,267 @@ Item
 
     Item
     {
-        id: itemSplit
+        id: itemPlayer
 
         anchors.left  : parent.left
         anchors.right : panelRelated.left
         anchors.top   : parent.top
         anchors.bottom: parent.bottom
 
-        WallVideo
+        SkyMouseArea
         {
-            id: wall
-
-            //-------------------------------------------------------------------------------------
-            // Settings
-            //-------------------------------------------------------------------------------------
+            id: playerMouseArea
 
             anchors.fill: parent
 
-            delegate: ComponentWallBookmarkTrack
+            anchors.leftMargin: (gui.isExpanded) ? st.dp16 : 0
+
+            anchors.rightMargin: (panelRelated.isExposed == false) ? st.dp16 : 0
+
+            anchors.bottomMargin: (barTop.isExpanded) ? st.dp16 : 0
+
+            hoverEnabled: player.hasStarted
+            hoverRetain : true
+
+            acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+
+            cursor: (player.hasStarted) ? Qt.PointingHandCursor
+                                        : Qt.ArrowCursor
+
+            /* QML_EVENT */ onClicked: function(mouse)
             {
-                text: st.getTabTitle(item.title, item.state, item.source)
+                pButton = mouse.button;
+
+                pPosition = pGetPosition();
+
+                // NOTE: If it's a RightButton we skip the tags and the seek areas.
+                if ((pButton & Qt.RightButton) == 0
+                    &&
+                    ((scanner.visible && scanner.click()) || pCheckAreaClick())) return;
+
+                pPlayerClicked();
             }
 
-            isExposed: local.macro
+            /* QML_EVENT */ onDoubleClicked: function(mouse) { pPlayerDoubleClicked(mouse); }
+        }
 
-            itemTabs: gui.itemTabs
+        Player
+        {
+            id: player
 
-            loading: panelBrowse.isSelecting
+            anchors.fill: parent
 
-            enablePress: (player.hasStarted && wall.isExposed == false)
+            visible: hasStarted
 
-            enableTitle: (currentTab.playlist != null)
+            tabs: core.tabs
 
-            asynchronous: true
+            autoPlay: local.autoPlay
 
-            player.autoPlay: local.autoPlay
+            shuffle: (isPlaying) ? local.shuffle : false
 
-            player.shuffle: (player.isPlaying) ? local.shuffle : false
+            pauseTimeout: 600000 // 10 minutes
+        }
 
-            playerMouseArea.anchors.leftMargin: (gui.isExpanded) ? st.dp16 : 0
+        Rectangle
+        {
+            id: back
 
-            playerMouseArea.anchors.rightMargin: (panelRelated.isExposed == false) ? st.dp16 : 0
+            anchors.fill: parent
 
-            playerMouseArea.anchors.bottomMargin: (barTop.isExpanded) ? st.dp16 : 0
+            visible: (player.isStopped || player.isStarting || player.isResuming || pAudio)
 
-            playerMouseArea.acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
-
-            playerBackground.visible: (isActive && player.visible)
-
-            //-------------------------------------------------------------------------------------
-            // Events
-            //-------------------------------------------------------------------------------------
-
-            onIsActiveChanged: gui.updateColor()
-
-            onIsExposedChanged: local.macro = isExposed
-
-            //-------------------------------------------------------------------------------------
-
-            onItemDoubleClicked:
+            gradient: Gradient
             {
-                if (tabs.highlightedIndex != indexHover)
+                GradientStop
                 {
-                    gui.playTab();
+                    position: 0.0
+
+                    color: (cover.isSourceDefault) ? st.logo_colorA
+                                                   : st.panelPlayer_color
+                }
+
+                GradientStop
+                {
+                    position: 1.0
+
+                    color: (cover.isSourceDefault) ? st.logo_colorB
+                                                   : st.panelPlayer_color
                 }
             }
 
-            //-------------------------------------------------------------------------------------
+            ImageScale
+            {
+                id: cover
+
+                anchors.fill: parent
+
+                anchors.leftMargin: (isSourceDefault) ? parent.width / st.logoRatio : 0
+
+                anchors.rightMargin: anchors.leftMargin
+
+                clip: (fillMode == SkyImage.PreserveAspectCrop)
+
+                source: (pAudio) ? currentTab.cover
+                                 : currentTab.coverShot
+
+                sourceDefault: st.logo
+
+                fillMode: (isSourceDefault) ? SkyImage.PreserveAspectFit
+                                            : player.fillMode
+
+                asynchronous: gui.asynchronous
+
+                cache: false
+
+                scaling: isSourceDefault
+
+                onVisibleChanged: if (visible) loadNow()
+            }
+        }
+
+        RectangleShadowClick
+        {
+            id: areaBackward
+
+            anchors.left  : player.left
+            anchors.top   : player.top
+            anchors.bottom: player.bottom
+
+            width: pAreaWidth
+
+            visible: (sk.cursorVisible && player.isPlaying && player.duration != -1)
+
+            interactive: false
+
+            direction: Sk.Right
+
+            filter: st.icon_filterActive
+        }
+
+        RectangleShadowClick
+        {
+            id: areaForward
+
+            anchors.right : player.right
+            anchors.top   : player.top
+            anchors.bottom: player.bottom
+
+            width: pAreaWidth
+
+            visible: areaBackward.visible
+
+            interactive: false
+
+            filter: st.icon_filterActive
+        }
+
+        Subtitle
+        {
+            id: subtitle
+
+            player: player
+
+            /* QML_EVENT */ onLoaded: function(ok)
+            {
+                if (ok == false) panelSubtitles.clearSubtitle();
+            }
+
+            function onUpdateMargin()
+            {
+                margin = applySize(player, cover);
+            }
+        }
+
+        AnimatedLoader
+        {
+            anchors.left  : player.left
+            anchors.right : player.right
+            anchors.bottom: player.bottom
+
+            height: Math.max(st.dp3, player.height / 128)
+
+            opacity: (player.isPlaying && player.isLoading)
+        }
+
+        ItemScan
+        {
+            id: scanner
+
+            anchors.fill: parent
+
+            visible: (player.visible || (back.visible && cover.isSourceDefault == false))
+
+            player: player
+            cover : cover
+
+//#DESKTOP
+            cursor: (areaBackward.hovered || areaForward.hovered) ? Qt.PointingHandCursor
+                                                                  : Qt.ArrowCursor
+//#END
+
+            /* QML_EVENT */ onClicked: function(text)
+            {
+                if (text)
+                {
+                    gui.browse(text);
+                }
+                else if (pCheckAreaClick() == false)
+                {
+                    pPlayerClicked();
+                }
+            }
+
+//#DESKTOP+QT_NEW
+            onIsHoveredChanged:
+            {
+                // NOTE: This prevents a binding loop on sk.cursorVisible.
+                Qt.callLater(gui.onScannerHoveredChanged);
+
+                pCheckAreaHover();
+            }
+//#ELIF DESKTOP
+            onIsHoveredChanged:
+            {
+                gui.onScannerHoveredChanged();
+
+                pCheckAreaHover();
+            }
+//#END
+        }
+
+        PlayerBrowser
+        {
+            id: playerBrowser
+
+            anchors.fill: parent
+
+            visible: (player.hasStarted == false)
+
+            opacity: (visible)
+
+            player: player
+
+            tab: currentTab
+
+            loading: panelBrowse.isSelecting
+
+            enableTitle: (currentTab.playlist != null)
+
+            barTitle.visible: (buttonPlay.visible && title)
+
+            barDetails.visible: (barTitle.visible && tab && tab.isLoaded)
+
+            areaForward.anchors.top: barTitle.bottom
+
+            Behavior on opacity
+            {
+                PropertyAnimation
+                {
+                    duration: (visible) ? st.duration_fast : 0
+
+                    easing.type: st.easing
+                }
+            }
 
             onBrowse:
             {
@@ -268,119 +617,11 @@ Item
             onTitleClicked : gui.selectCurrentTrack()
             onAuthorClicked: gui.browseCurrentFeed ()
 
-            /* QML_EVENT */ onPlayerClicked: function(mouse)
-            {
-                if (mouse.button & Qt.LeftButton)
-                {
-                    gui.expandBars();
-
-                    window.clearFocus();
-                }
-                else if (mouse.button & Qt.RightButton)
-                {
-                    if (pContextualTag(scannerPlayer.getTextHovered())) return;
-
-                    //gui.restoreBars();
-
-                    pContextualTab(playerTab);
-                }
-                else if (mouse.button & Qt.MiddleButton)
-                {
-                    gui.stop();
-                }
-            }
-
-            /* QML_EVENT */ onPlayerDoubleClicked: function(mouse)
-            {
-                if (mouse.button & Qt.LeftButton)
-                {
-//#MAC
-                    // FIXME macOS: Setting fullscreen from the double click event seems to skip
-                    //              the mouse release event. So we wait a bit.
-                    sk.wait(200);
-//#END
-
-                    gui.toggleFullScreen();
-                }
-            }
-
-            /* QML_EVENT */ onTagClicked: function(mouse, text)
-            {
-                if (mouse.button & Qt.MiddleButton)
-                {
-                    barWindow.openTabCurrent();
-                }
-
-                gui.browse(text);
-            }
-
-            //-------------------------------------------------------------------------------------
-
             onContextual:
             {
-                if (pContextualTag(scannerPlayer.getTextHovered()) || isExposed == false) return;
+                if (pContextualTag(scanner.getTextHovered())) return;
 
-                var tab = tabs.tabAt(indexHover);
-
-                panelContextual.loadPageTab(tab);
-
-                if (areaContextual.showPanelFrom(panelContextual, buttonsItem))
-                {
-                    setIndexContextual(indexHover);
-
-                    areaContextual.parentContextual = wall;
-                }
-            }
-
-            onContextualBrowser:
-            {
-                if (pContextualTag(scannerBrowser.getTextHovered())) return;
-
-                pContextualTab(currentTab);
-            }
-
-            /* QML_EVENT */ onSubtitleLoaded: function(ok)
-            {
-                if (ok) return;
-
-                panelSubtitles.clearSubtitle();
-            }
-
-            //-------------------------------------------------------------------------------------
-
-//#DESKTOP+QT_NEW
-            // NOTE: This prevents a binding loop on sk.cursorVisible.
-            onIsScannerHoveredChanged: Qt.callLater(gui.onScannerHoveredChanged)
-//#ELIF DESKTOP
-            onIsScannerHoveredChanged: gui.onScannerHoveredChanged()
-//#END
-
-            //-------------------------------------------------------------------------------------
-            // Functions
-            //-------------------------------------------------------------------------------------
-            // Events
-
-            function onBeforeItemClose(index)
-            {
-                return gui.onBeforeTabClose(index);
-            }
-
-            //-------------------------------------------------------------------------------------
-            // Connections
-            //-------------------------------------------------------------------------------------
-
-            Connections
-            {
-                target: (window.fullScreen) ? wall.scannerPlayer : null
-
-                /* QML_CONNECTION */ function onPositionChanged(mouse)
-                {
-                    var y = mouse.y;
-
-                    if (y < st.dp64
-                        ||
-                        playerMouseArea.height - y < st.dp64) gui.restoreBars();
-                }
+                showContextual(window.contentMouseX(), window.contentMouseY());
             }
         }
     }

@@ -100,8 +100,6 @@ ColumnScroll
     {
         st.applyStyle(index);
 
-        gui.updateColor();
-
         local.style = index;
     }
 
@@ -159,12 +157,12 @@ ColumnScroll
         {
 //#QT_4
             // NOTE Qt4: We can only append items one by one.
-            model.append({ "title": qsTr("Clear tabs") });
+            model.append({ "title": qsTr("Clear track") });
             model.append({ "title": qsTr("Clear cache") });
 //#ELSE
             model.append(
             [
-                { "title": qsTr("Clear tabs")  },
+                { "title": qsTr("Clear track") },
                 { "title": qsTr("Clear cache") }
             ]);
 //#END

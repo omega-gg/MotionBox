@@ -21,7 +21,6 @@ cp "$solid"/arrow-left.svg  icons
 cp "$solid"/arrow-right.svg icons
 
 cp "$solid"/up-right-and-down-left-from-center.svg icons/expand-alt.svg
-cp "$solid"/arrows-to-dot.svg                      icons/expand.svg
 cp "$solid"/bars.svg                               icons
 
 cp "$solid"/rotate-right.svg icons/redo.svg

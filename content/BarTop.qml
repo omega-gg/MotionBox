@@ -44,7 +44,6 @@ Item
 
     property alias buttonBrowse : buttonBrowse
     property alias buttonExpand : buttonExpand
-    property alias buttonWall   : buttonWall
     property alias buttonRelated: buttonRelated
 
     property alias border: border
@@ -232,7 +231,7 @@ Item
 
             anchors.rightMargin: st.dp16 + buttonRelated.borderSize
 
-            width: buttonBrowse.width + buttonExpand.width + buttonWall.width + buttonRelated.width
+            width: buttonBrowse.width + buttonExpand.width + buttonRelated.width
 
             ButtonPianoIcon
             {
@@ -267,7 +266,7 @@ Item
             {
                 id: buttonExpand
 
-                anchors.right: buttonWall.left
+                anchors.right: buttonRelated.left
 
                 checkable: true
 
@@ -277,28 +276,6 @@ Item
                 iconSourceSize: st.size20x20
 
                 onPressed: gui.toggleExpand()
-            }
-
-            ButtonPianoIcon
-            {
-                id: buttonWall
-
-                anchors.right: buttonRelated.left
-
-                checkable: true
-                checked  : wall.isExposed
-
-                icon          : st.icon20x20_wall
-                iconSourceSize: st.size20x20
-
-                onPressed:
-                {
-                    if (panelTracks.isExpanded)
-                    {
-                        gui.exposeWall();
-                    }
-                    else gui.toggleWall();
-                }
             }
 
             ButtonPianoIcon

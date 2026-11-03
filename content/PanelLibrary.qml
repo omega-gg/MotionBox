@@ -116,8 +116,6 @@ Panel
                         visible = false;
                     }
                     else restoreScroll();
-
-                    panelPlayer.wallRestore();
                 }
             }
         }

@@ -85,7 +85,6 @@ public: // Variables
     bool maximized;
 
     bool expanded;
-    bool macro;
 
     bool related;
     bool relatedExpanded;
@@ -184,7 +183,6 @@ public: // Variables
     stream.writeTextElement("maximized", QString::number(maximized));
 
     stream.writeTextElement("expanded", QString::number(expanded));
-    stream.writeTextElement("macro",    QString::number(macro));
 
     stream.writeTextElement("related",         QString::number(related));
     stream.writeTextElement("relatedExpanded", QString::number(relatedExpanded));
@@ -267,7 +265,6 @@ public: // Variables
     _maximized = false;
 
     _expanded = false;
-    _macro    = false;
 
     _related         = false;
     _relatedExpanded = false;
@@ -397,7 +394,6 @@ public: // Variables
     action->maximized = _maximized;
 
     action->expanded = _expanded;
-    action->macro    = _macro;
 
     action->related         = _related;
     action->relatedExpanded = _relatedExpanded;
@@ -547,13 +543,6 @@ bool DataLocal::extract(const QByteArray & array)
     if (WControllerXml::readNextStartElement(&stream, "expanded") == false) return false;
 
     _expanded = WControllerXml::readNextInt(&stream);
-
-    //---------------------------------------------------------------------------------------------
-    // macro
-
-    if (WControllerXml::readNextStartElement(&stream, "macro") == false) return false;
-
-    _macro = WControllerXml::readNextInt(&stream);
 
     //---------------------------------------------------------------------------------------------
     // related
@@ -878,24 +867,6 @@ void DataLocal::setExpanded(bool expanded)
 
     save();
 }
-
-bool DataLocal::macro() const
-{
-    return _macro;
-}
-
-void DataLocal::setMacro(bool macro)
-{
-    if (_macro == macro) return;
-
-    _macro = macro;
-
-    emit macroChanged();
-
-    save();
-}
-
-//-------------------------------------------------------------------------------------------------
 
 bool DataLocal::related() const
 {

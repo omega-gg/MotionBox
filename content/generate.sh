@@ -200,7 +200,8 @@ if [ $player != "ffmpeg" -o $qt != "qt6" ]; then
     defines="$defines VLC"
 fi
 
-defines="$defines BarWindow pictures_tag icons_slide icons_scale icons_add icons_external icons_playback"
+defines="$defines BarWindow ItemTab pictures_tag icons_slide icons_scale icons_navigate \
+icons_contextual icons_add icons_external icons_playback"
 
 files="\
 $SkyBase/Style.qml \
@@ -248,7 +249,6 @@ $SkyComponents/WindowScale.qml \
 $SkyComponents/RectangleLogo.qml \
 $SkyComponents/RectangleLive.qml \
 $SkyComponents/Icon.qml \
-$SkyComponents/IconOverlay.qml \
 $SkyComponents/IconLoading.qml \
 $SkyComponents/TextRich.qml \
 $SkyComponents/TextDate.qml \
@@ -297,7 +297,6 @@ $SkyComponents/ButtonImageBorders.qml \
 $SkyComponents/ButtonMask.qml \
 $SkyComponents/ButtonStream.qml \
 $SkyComponents/ButtonsCheck.qml \
-$SkyComponents/ButtonsItem.qml \
 $SkyComponents/BaseLabelRound.qml \
 $SkyComponents/LabelRound.qml \
 $SkyComponents/LabelRoundAnimated.qml \
@@ -334,30 +333,15 @@ $SkyComponents/SkySlider.qml \
 $SkyComponents/SliderVolume.qml \
 $SkyComponents/SliderStream.qml \
 $SkyComponents/SliderWide.qml \
-$SkyComponents/BaseTabs.qml \
-$SkyComponents/TabsBrowser.qml \
-$SkyComponents/TabsTrack.qml \
-$SkyComponents/TabsPlayer.qml \
-$SkyComponents/BaseWall.qml \
-$SkyComponents/Wall.qml \
-$SkyComponents/WallBookmarkTrack.qml \
-$SkyComponents/WallVideo.qml \
 $SkyComponents/PlayerBrowser.qml \
 $SkyComponents/ItemList.qml \
 $SkyComponents/ItemGrid.qml \
-$SkyComponents/ItemTab.qml \
-$SkyComponents/ItemWall.qml \
 $SkyComponents/ComponentList.qml \
 $SkyComponents/ComponentListFull.qml \
 $SkyComponents/ComponentContextual.qml \
 $SkyComponents/ComponentCompletion.qml \
 $SkyComponents/ComponentGrid.qml \
 $SkyComponents/ComponentGridTrack.qml \
-$SkyComponents/ComponentTab.qml \
-$SkyComponents/ComponentTabBrowser.qml \
-$SkyComponents/ComponentTabTrack.qml \
-$SkyComponents/ComponentWall.qml \
-$SkyComponents/ComponentWallBookmarkTrack.qml \
 $SkyComponents/ContextualCategory.qml \
 $SkyComponents/ContextualItem.qml \
 $SkyComponents/ContextualItemCover.qml \

@@ -303,7 +303,7 @@ Item
 
         anchors.left: parent.left
 
-        anchors.leftMargin: st.dp7
+        anchors.leftMargin: st.dp16
 
         anchors.verticalCenter: barBackground.verticalCenter
 

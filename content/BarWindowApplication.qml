@@ -44,6 +44,8 @@ Item
 
     property bool pContextual: false
 
+    property int pSize: st.dp32 + st.border_size * 2
+
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
@@ -180,7 +182,7 @@ Item
     {
         panelContextual.loadPageTab(currentTab);
 
-        if (areaContextual.showPanelAt(panelContextual, itemTrack, -1, -1, false))
+        if (areaContextual.showPanelMargins(panelContextual, itemTrack, 0, -st.border_size))
         {
             pContextual = true;
 
@@ -308,7 +310,7 @@ Item
         anchors.verticalCenter: barBackground.verticalCenter
 
         width : st.dp38
-        height: st.dp34
+        height: pSize
 
         showBorder: false
 
@@ -338,7 +340,7 @@ Item
         anchors.verticalCenter: buttonBackward.verticalCenter
 
         width : st.dp38
-        height: st.dp34
+        height: pSize
 
         showBorder: false
 
@@ -593,7 +595,7 @@ Item
 
         width: Math.min(st.dp256, Math.round(parent.width / 6))
 
-        height: st.dp34
+        height: pSize
 
         borderRight: 0
 
@@ -670,7 +672,7 @@ Item
         RectangleLive
         {
             anchors.right : itemTrack.itemIcon.right
-            anchors.bottom: parent.bottom
+            anchors.bottom: itemTrack.itemIcon.bottom
 
             trackType: currentTab.type
         }
@@ -744,7 +746,7 @@ Item
         anchors.top  : buttonRelated.top
 
         width : st.dp38
-        height: st.dp34
+        height: pSize
 
         showBorder: false
 
@@ -777,7 +779,7 @@ Item
         anchors.top  : buttonExpand.top
 
         width : st.dp38
-        height: st.dp34
+        height: pSize
 
         showBorder: false
 
@@ -808,7 +810,7 @@ Item
         anchors.verticalCenter: buttonBackward.verticalCenter
 
         width : st.dp38
-        height: st.dp34
+        height: pSize
 
         showBorder: false
 

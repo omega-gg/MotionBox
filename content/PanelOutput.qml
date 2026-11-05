@@ -69,6 +69,7 @@ PanelSettingsAction
 
         panelSettings .collapse();
         panelSubtitles.collapse();
+        panelDownloads.collapse();
 
         loadPage();
 

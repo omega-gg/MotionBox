@@ -170,6 +170,13 @@ AreaContextual
                          panelContextual.isCursorChild);
     }
 
+    function pCheckDownload(data)
+    {
+        return (core.canDownload && data.source != ""
+                                 && st.getTrackActive(data.type) == false
+                                 && controllerNetwork.urlIsFile(data.source) == false);
+    }
+
     function pCheckContext(source)
     {
         return (controllerNetwork.hasFragment(source, 't')   ||
@@ -211,6 +218,7 @@ AreaContextual
     {
         if      (currentId == 6) return "ContextualMode.qml";
         else if (currentId == 7) return "ContextualLinks.qml";
+        else if (currentId == 8) return "ContextualDownload.qml";
         else                     return "";
     }
 
@@ -541,7 +549,10 @@ AreaContextual
                       "title": qsTr("Reset timeline") },
 
                     { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                      "title": qsTr("Save VBML") }
+                      "title": qsTr("Save VBML") },
+
+                    { "id": 11, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                      "title": qsTr("Download") }
                 );
 
                 if (playlist.isLocal)
@@ -571,6 +582,11 @@ AreaContextual
                 else if (pCheckContext(playlist.trackSource(index)) == false)
                 {
                     page.setItemEnabled(8, false); // Reset timeline
+                }
+
+                if (pCheckDownload(data) == false)
+                {
+                    page.setItemEnabled(10, false); // Download
                 }
 
                 currentId = 1;
@@ -616,7 +632,10 @@ AreaContextual
                 { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
                   "title": qsTr("Save VBML") },
 
-                { "id": 9, "title": qsTr("Close") }
+                { "id": 10, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+                  "title": qsTr("Download") },
+
+                { "id": 9, "title": qsTr("Close Track") }
             );
 
             page.values = array;
@@ -645,6 +664,11 @@ AreaContextual
                 {
                     page.setItemEnabled(8, false); // Reset timeline
                 }
+
+                if (pCheckDownload(data) == false)
+                {
+                    page.setItemEnabled(10, false); // Download
+                }
             }
             else
             {
@@ -661,7 +685,8 @@ AreaContextual
                 page.setItemEnabled(7, false); // Reload
                 page.setItemEnabled(8, false); // Reset timeline
                 page.setItemEnabled(9, false); // Save VBML
-                page.setItemEnabled(10, false); // Close
+                page.setItemEnabled(10, false); // Download
+                page.setItemEnabled(11, false); // Close
             }
 
             currentId = 3;
@@ -885,6 +910,16 @@ AreaContextual
             {
                 pItem.removeTrack(pIndex, true);
             }
+            else if (id == 11) // Download
+            {
+                currentId = 8;
+
+                pShowPanel(panelLoader);
+
+                panelLoader.item.loadTrack(pItem.playlist.trackData(pIndex));
+
+                return false;
+            }
 
             return true;
         }
@@ -976,6 +1011,16 @@ AreaContextual
             else if (id == 9) // Close
             {
                 gui.closeTrack();
+            }
+            else if (id == 10) // Download
+            {
+                currentId = 8;
+
+                pShowPanel(panelLoader);
+
+                panelLoader.item.loadTrack(pItem.trackData);
+
+                return false;
             }
 
             return true;

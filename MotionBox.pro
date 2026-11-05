@@ -269,6 +269,7 @@ OTHER_FILES += 3rdparty.sh \
                content/PanelSettings.qml \
                content/PanelSubtitles.qml \
                content/PanelOutput.qml \
+               content/PanelDownloads.qml \
                content/PanelEdit.qml \
                content/PanelAdd.qml \
                content/PanelPreview.qml \
@@ -285,6 +286,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ButtonAction.qml \
                content/ButtonActionFull.qml \
                content/ButtonsAction.qml \
+               content/LabelAction.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
                content/ButtonSettingsExtra.qml \
@@ -300,7 +302,9 @@ OTHER_FILES += 3rdparty.sh \
                #content/ComponentDiscover.qml \
                content/ComponentLibraryItem.qml \
                content/ComponentTrack.qml \
+               content/ComponentDownload.qml \
                content/ComponentFolder.qml \
+               content/ItemDownloadProgress.qml \
                content/PageCamera.qml \
                content/PageTag.qml \
                content/PageGrid.qml \
@@ -321,9 +325,12 @@ OTHER_FILES += 3rdparty.sh \
                content/PageOutput.qml \
                content/PageOutputSettings.qml \
                content/PageOutputAdvanced.qml \
+               content/PageDownloads.qml \
                content/PageAmbient.qml \
                content/ContextualMode.qml \
+               content/BaseContextualLinks.qml \
                content/ContextualLinks.qml \
+               content/ContextualDownload.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \
                dist/extension/chromium/manifest.json \

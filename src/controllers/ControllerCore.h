@@ -25,6 +25,7 @@
 
 // Qt includes
 #include <QDateTime>
+#include <QPointer>
 
 // Sk includes
 #include <WController>
@@ -58,6 +59,9 @@ class WLibraryFolderRelated;
 class WTabsTrack;
 class WDeclarativeImage;
 class WDeclarativePlayer;
+class WMediaReply;
+class WTorrentReply;
+class WFfmpegDownload;
 class DataOnline;
 
 #ifdef QT_6
@@ -66,6 +70,30 @@ Q_MOC_INCLUDE("WLibraryFolderRelated")
 Q_MOC_INCLUDE("WBackendIndex")
 Q_MOC_INCLUDE("WHookOutput")
 #endif
+
+//-------------------------------------------------------------------------------------------------
+// ControllerCoreDownload
+//-------------------------------------------------------------------------------------------------
+
+struct ControllerCoreDownload
+{
+    QVariantMap track;
+
+    // NOTE: The file path, without an extension.
+    QString path;
+
+    QStringList options;
+
+    qint64 received;
+
+    WFfmpegDownload * thread;
+
+    QPointer<WTorrentReply> torrent;
+};
+
+//-------------------------------------------------------------------------------------------------
+// ControllerCore
+//-------------------------------------------------------------------------------------------------
 
 class ControllerCore : public WController
 {
@@ -103,6 +131,8 @@ class ControllerCore : public WController
     Q_PROPERTY(QString pathSplash  READ pathSplash  CONSTANT)
     Q_PROPERTY(QString pathShots   READ pathShots   CONSTANT)
 
+    Q_PROPERTY(bool canDownload READ canDownload CONSTANT)
+
 private:
     ControllerCore();
 
@@ -118,6 +148,12 @@ public: // Interface
     Q_INVOKABLE void loadTrack(WPlaylist * playlist, const QString & text);
 
     Q_INVOKABLE void loadLinks(const QString & source, bool safe);
+
+    // NOTE: This uses the links we loaded last, the quality is the index they came with. It returns
+    //       the download id, or -1 when it can't start.
+    Q_INVOKABLE int download(const QVariantMap & track, int quality, bool audio);
+
+    Q_INVOKABLE void abortDownload(int id);
 
     Q_INVOKABLE void reload(const QString & label);
 
@@ -217,6 +253,22 @@ private: // Functions
 
     QString getFile(const QString & title, const QString & filter);
 
+#ifndef SK_NO_FFMPEGDOWNLOAD
+    void startDownload(int id, const QStringList & urls, bool progress = true);
+
+#ifndef SK_NO_TORRENT
+    void startTorrent(int id, const QString & url);
+
+    void applyTorrent(int id, WTorrentReply * reply, const QString & url);
+#endif
+
+    void applyDownload(int id, const QString & fileName);
+
+    void clearDownloads();
+
+    QString getDownloadPath(const QString & title) const;
+#endif
+
 private slots:
     void onLoaded     ();
     void onIndexLoaded();
@@ -241,9 +293,12 @@ private slots:
 signals:
     void tagUpdated(const QImage & image, const QString & text);
 
-    void linksLoaded(QStringList medias, QStringList audios);
+    void linksLoaded(QStringList medias, QStringList audios, bool canDownload);
 
     void linkReady(const QString & text);
+
+    void downloadProgress(int id, int percent, qint64 received, qint64 total);
+    void downloadFinished(int id, bool ok, const QString & source, qint64 size);
 
     void vbmlSaved(bool ok, const QString & path);
     void tagSaved (bool ok, const QString & path);
@@ -303,6 +358,8 @@ public: // Properties
     QString pathSplash () const;
     QString pathShots  () const;
 
+    bool canDownload() const;
+
 private: // Variables
 #ifdef SK_DESKTOP
     QString _argument;
@@ -350,6 +407,14 @@ private: // Variables
     WBackendIndex * _index;
 
     WHookOutput * _output;
+
+    QPointer<WMediaReply> _replyLinks;
+
+#ifndef SK_NO_FFMPEGDOWNLOAD
+    QHash<int, ControllerCoreDownload> _downloads;
+
+    int _downloadId;
+#endif
 
     QDateTime _dateCover;
     QDateTime _datePreview;

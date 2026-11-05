@@ -40,6 +40,9 @@ Panel
 
     /* read */ property int currentIndex: 0
 
+    // NOTE: The panel comes from the top of its parent instead of the bottom.
+    property bool isTop: false
+
     //---------------------------------------------------------------------------------------------
     // Private
 
@@ -56,7 +59,7 @@ Panel
     // FIXME Qt5.12 Win8: Panel size changes for no reason when hidden.
     x: parent.width - width
 
-    y: parent.height + height
+    y: (isTop) ? -height : parent.height + height
 //#END
 
     width : getWidth ()
@@ -91,7 +94,7 @@ Panel
         {
             target: basePanelSettings
 
-            y: parent.height - basePanelSettings.height
+            y: (isTop) ? 0 : parent.height - basePanelSettings.height
         }
 //#END
     }

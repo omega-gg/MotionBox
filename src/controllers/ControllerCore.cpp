@@ -75,6 +75,7 @@
 #include <WBackendVlc>
 #else
 #include <WBackendFfmpeg>
+#include <WFfmpegDownload>
 #endif
 #include <WBackendSubtitle>
 #include <WBackendIndex>
@@ -133,6 +134,116 @@ static const QString PATH_BACKEND = "../../backend";
 #endif
 #endif
 
+#ifndef SK_NO_FFMPEGDOWNLOAD
+
+static const int CORE_DOWNLOAD_NAME = 100;
+
+// NOTE: The progress we leave for the copy out of the torrent cache.
+static const int CORE_DOWNLOAD_TORRENT = 99;
+
+// NOTE: The received bytes of a torrent go out with every megabyte.
+static const int CORE_DOWNLOAD_STEP = 1048576;
+
+//-------------------------------------------------------------------------------------------------
+// Static functions
+
+// NOTE: A file name from a title: '#', '?' and '%' are valid on most systems but they would be
+//       taken for a part of the URL once the file is a source.
+static QString getDownloadName(const QString & title)
+{
+    static const QString invalid = "<>:\"/\\|?*#%";
+
+    QString name;
+
+    foreach (const QChar & character, title.simplified())
+    {
+        if (character.unicode() < 32 || invalid.contains(character)) continue;
+
+        name.append(character);
+    }
+
+    name = name.left(CORE_DOWNLOAD_NAME);
+
+    if (name.isEmpty() == false && name.at(name.length() - 1).isHighSurrogate())
+    {
+        name.chop(1);
+    }
+
+    while (name.endsWith('.') || name.endsWith(' '))
+    {
+        name.chop(1);
+    }
+
+    while (name.startsWith('.') || name.startsWith(' '))
+    {
+        name.remove(0, 1);
+    }
+
+    if (name.isEmpty()) return "Track";
+
+    // NOTE: Windows reserves these names, whatever the extension is.
+    QString base = name.section('.', 0, 0).trimmed().toUpper();
+
+    if (base == "CON" || base == "PRN" || base == "AUX" || base == "NUL"
+        ||
+        (base.length() == 4 && (base.startsWith("COM") || base.startsWith("LPT"))
+         &&
+         base.at(3).isDigit()))
+    {
+        name.prepend('_');
+    }
+
+    return name;
+}
+
+// NOTE: A value starting with one of these is read as a structure, unless it's in a block.
+static void addDownloadValue(QString & vbml, const QString & key, const QString & value)
+{
+    QString string = value.simplified();
+
+    if (string.startsWith('#') || string.startsWith('|') || string.startsWith('>'))
+    {
+        string.prepend("|\n    ");
+    }
+
+    Sk::bmlPair(vbml, key, string, "\n\n");
+}
+
+static QString getDownloadVbml(const QVariantMap & track, const QString & fileName)
+{
+    QString vbml = WControllerPlaylist::vbml();
+
+    Sk::bmlPair(vbml, "type", "track", "\n\n");
+
+    // NOTE: The origin is where the file came from, it takes over when the file is gone.
+    addDownloadValue(vbml, "origin",
+                     WControllerPlaylist::cleanSource(track.value("source").toString()));
+
+    // NOTE: The file is next to the VBML. There's no duration because the file has it and it would
+    //       turn this into a timeline.
+    addDownloadValue(vbml, "source", fileName.mid(fileName.lastIndexOf('/') + 1));
+
+    addDownloadValue(vbml, "title", track.value("title").toString());
+    addDownloadValue(vbml, "cover", track.value("cover").toString());
+
+    addDownloadValue(vbml, "author", track.value("author").toString());
+    addDownloadValue(vbml, "feed",   track.value("feed")  .toString());
+
+    QDateTime date = track.value("date").toDateTime();
+
+    if (date.isValid())
+    {
+        Sk::bmlPair(vbml, "date", Sk::bmlDate(date), "\n\n");
+    }
+
+    // NOTE: We clear the last '\n'.
+    vbml.chop(1);
+
+    return vbml;
+}
+
+#endif
+
 //-------------------------------------------------------------------------------------------------
 // Ctor / dtor
 //-------------------------------------------------------------------------------------------------
@@ -164,6 +275,13 @@ ControllerCore::ControllerCore() : WController()
     _index = NULL;
 
     _output = NULL;
+
+#ifndef SK_NO_FFMPEGDOWNLOAD
+    _downloadId = 0;
+
+    // NOTE: This has to happen while the torrent controller is still there.
+    connect(sk, &WControllerApplication::aboutToQuit, this, [this] { clearDownloads(); });
+#endif
 
     //---------------------------------------------------------------------------------------------
     // Settings
@@ -702,6 +820,9 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::loadLinks(const QString & source, bool safe)
 {
+    // NOTE: There's no reply for an empty source.
+    if (source.isEmpty()) return;
+
     WMediaReply * reply;
 
     int currentTime = WControllerPlaylist::extractTime(source);
@@ -712,11 +833,101 @@ ControllerCore::ControllerCore() : WController()
     }
     else reply = wControllerMedia->getMedia(source, WAbstractBackend::SourceDefault, currentTime);
 
+    // NOTE: The links of a previous source can't come after this one. We may be called from the
+    //       signal of that reply, so we delete it later. We keep the last reply for the download
+    //       function.
+    if (_replyLinks)
+    {
+        disconnect(_replyLinks, 0, this, 0);
+
+        _replyLinks->deleteLater();
+    }
+
+    _replyLinks = reply;
+
     if (reply->isLoaded())
     {
         onMediaLoaded(reply);
     }
     else connect(reply, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMediaLoaded(WMediaReply *)));
+}
+
+/* Q_INVOKABLE */ int ControllerCore::download(const QVariantMap & track, int quality, bool audio)
+{
+#ifdef SK_NO_FFMPEGDOWNLOAD
+    Q_UNUSED(track); Q_UNUSED(quality); Q_UNUSED(audio);
+
+    return -1;
+#else
+    if (_replyLinks.isNull()) return -1;
+
+    WAbstractBackend::Quality value = static_cast<WAbstractBackend::Quality> (quality);
+
+    QString urlAudio = _replyLinks->audios().value(value);
+
+    QStringList urls;
+
+    if (audio == false)
+    {
+        urls.append(_replyLinks->medias().value(value));
+    }
+
+    if (urlAudio.isEmpty() == false)
+    {
+        urls.append(urlAudio);
+    }
+
+    if (urls.isEmpty() || urls.first().isEmpty()) return -1;
+
+    QDir().mkpath(WControllerFile::pathDownloads());
+
+    ControllerCoreDownload data;
+
+    data.track = track;
+
+    data.path = getDownloadPath(track.value("title").toString());
+
+    data.options = _replyLinks->options();
+
+    data.received = 0;
+
+    data.thread = NULL;
+
+    int id = _downloadId;
+
+    _downloadId++;
+
+    _downloads.insert(id, data);
+
+#ifndef SK_NO_TORRENT
+    if (WControllerPlaylist::urlIsTorrent(urls.first()))
+    {
+        startTorrent(id, urls.first());
+
+        return id;
+    }
+#endif
+
+    startDownload(id, urls);
+
+    return id;
+#endif
+}
+
+/* Q_INVOKABLE */ void ControllerCore::abortDownload(int id)
+{
+#ifdef SK_NO_FFMPEGDOWNLOAD
+    Q_UNUSED(id);
+#else
+    if (_downloads.contains(id) == false) return;
+
+    ControllerCoreDownload data = _downloads.take(id);
+
+    delete data.torrent;
+
+    // NOTE: The thread removes its files and deletes itself, we don't wait for it.
+    if (data.thread) data.thread->abort();
+#endif
 }
 
 /* Q_INVOKABLE */ void ControllerCore::reload(const QString & label)
@@ -1307,6 +1518,211 @@ void ControllerCore::writeVbmlFile(const QString & title, const QString & vbml)
     connect(reply, SIGNAL(complete(bool)), this, SLOT(onVbmlSaved(bool)));
 }
 
+#ifndef SK_NO_FFMPEGDOWNLOAD
+
+void ControllerCore::startDownload(int id, const QStringList & urls, bool progress)
+{
+    ControllerCoreDownload & data = _downloads[id];
+
+    WFfmpegDownload * thread = new WFfmpegDownload(urls, data.path, data.options, this);
+
+    if (_local._proxyActive)
+    {
+        thread->setProxy(_local._proxyHost + ':' + QString::number(_local._proxyPort),
+                         _local._proxyPassword);
+    }
+
+    data.thread = thread;
+
+    // NOTE: The file stays in the torrent cache as long as its reply is there.
+    if (data.torrent) data.torrent->setParent(thread);
+
+    if (progress)
+    {
+        connect(thread, &WFfmpegDownload::progress, this,
+                [this, id](int percent, qint64 received, qint64 total)
+        {
+            if (_downloads.contains(id)) emit downloadProgress(id, percent, received, total);
+        });
+    }
+
+    connect(thread, &QThread::finished, this, [this, id, thread]
+    {
+        applyDownload(id, thread->fileName());
+    });
+
+    connect(thread, &QThread::finished, thread, &QObject::deleteLater);
+
+    thread->start();
+}
+
+#ifndef SK_NO_TORRENT
+
+void ControllerCore::startTorrent(int id, const QString & url)
+{
+    WTorrentReply * reply = wControllerTorrent->getTorrent(url, this, WTorrent::Default);
+
+    _downloads[id].torrent = reply;
+
+    connect(reply, &WTorrentReply::destroyed, this, [this, id]
+    {
+        // NOTE: The cache can be cleared while we're waiting for the torrent.
+        if (_downloads.contains(id) == false) return;
+
+        const ControllerCoreDownload & data = _downloads.value(id);
+
+        if (data.thread == NULL && data.torrent.isNull()) applyDownload(id, QString());
+    });
+
+    connect(reply, &WTorrentReply::buffer, this, [this, id, reply](qint64 pieces)
+    {
+        qint64 size = reply->torrent()->size();
+
+        if (size <= 0 || _downloads.contains(id) == false) return;
+
+        ControllerCoreDownload & data = _downloads[id];
+
+        // NOTE: This comes with every piece.
+        if (pieces - data.received < CORE_DOWNLOAD_STEP) return;
+
+        data.received = pieces;
+
+        emit downloadProgress(id, pieces * CORE_DOWNLOAD_TORRENT / size, pieces, size);
+    });
+
+    // NOTE: Without a file index we get every file of the torrent, so we pick the first media.
+    if (url.contains('#') == false)
+    {
+        connect(reply, &WTorrentReply::added, this, [this, id, reply, url]
+        {
+            foreach (const QString & path, reply->torrent()->paths())
+            {
+                QString extension = WControllerNetwork::extractUrlExtension(path);
+
+                if (WControllerPlaylist::extensionIsMedia(extension) == false) continue;
+
+                QString source = url + '#' + path.mid(path.lastIndexOf('/') + 1);
+
+                ControllerCoreDownload & data = _downloads[id];
+
+                data.torrent = NULL;
+
+                // NOTE: The origin has to be that file, a torrent alone is a playlist.
+                data.track.insert("source", source);
+
+                reply->deleteLater();
+
+                startTorrent(id, source);
+
+                return;
+            }
+        });
+    }
+
+    connect(reply, &WTorrentReply::loaded, this, [this, id, url](WTorrentReply * reply)
+    {
+        applyTorrent(id, reply, url);
+    });
+}
+
+void ControllerCore::applyTorrent(int id, WTorrentReply * reply, const QString & url)
+{
+    // NOTE: The reply may be one we replaced in startTorrent.
+    if (_downloads.value(id).torrent != reply) return;
+
+    WTorrent * torrent = reply->torrent();
+
+    QStringList paths = torrent->paths();
+
+    if (torrent->hasError() || paths.isEmpty())
+    {
+        qWarning("ControllerCore::applyTorrent: Failed to load %s.", url.C_STR);
+
+        applyDownload(id, QString());
+
+        reply->deleteLater();
+
+        return;
+    }
+
+    // NOTE: The progress is the torrent's, the copy that follows is short.
+    startDownload(id, QStringList(paths.first()), false);
+}
+
+#endif
+
+void ControllerCore::applyDownload(int id, const QString & fileName)
+{
+    // NOTE: The download has been aborted.
+    if (_downloads.contains(id) == false) return;
+
+    ControllerCoreDownload data = _downloads.take(id);
+
+    if (fileName.isEmpty())
+    {
+        emit downloadFinished(id, false, QString(), 0);
+
+        return;
+    }
+
+    QString vbml = getDownloadVbml(data.track, fileName);
+
+    QString path = WControllerNetwork::removeFileExtension(fileName) + ".vbml";
+
+    qint64 size = QFile(fileName).size();
+
+    WControllerFileReply * reply = wControllerFile->startWriteFile(path, vbml.toUtf8());
+
+    connect(reply, &WControllerFileReply::complete, this, [this, id, path, size](bool ok)
+    {
+        emit downloadFinished(id, ok, WControllerFile::fileUrl(path), size);
+    });
+}
+
+void ControllerCore::clearDownloads()
+{
+    QHash<int, ControllerCoreDownload> downloads = _downloads;
+
+    _downloads.clear();
+
+    // NOTE: Each one aborts and waits for its thread to remove its files. That's also true for the
+    //       ones we aborted earlier, they're no longer in the list. This deletes the replies they
+    //       own.
+    qDeleteAll(findChildren<WFfmpegDownload *>());
+
+    foreach (const ControllerCoreDownload & data, downloads)
+    {
+        delete data.torrent;
+    }
+}
+
+QString ControllerCore::getDownloadPath(const QString & title) const
+{
+    QString base = WControllerFile::pathDownloads() + '/' + getDownloadName(title);
+
+    QString path = base;
+
+    int index = 2;
+
+    while (true)
+    {
+        bool taken = QFile::exists(path + ".vbml");
+
+        foreach (const ControllerCoreDownload & data, _downloads)
+        {
+            if (data.path == path) taken = true;
+        }
+
+        if (taken == false) return path;
+
+        path = base + " (" + QString::number(index) + ')';
+
+        index++;
+    }
+}
+
+#endif
+
 void ControllerCore::writeTag(const QString & title,      const QString & vbml,
                               const QString & background, const QString & cover,
                               const QString & prefix,     int             padding)
@@ -1566,7 +1982,15 @@ void ControllerCore::onMediaLoaded(WMediaReply * reply)
 
     }
 
-    emit linksLoaded(listA, listB);
+    // NOTE: We can't download a timeline as a file, nor what's already a file.
+    bool canDownload = (reply->timeB() == -1 && reply->typeSource() <= WTrack::Track);
+
+    foreach (const QString & media, medias)
+    {
+        if (WControllerNetwork::urlIsFile(media)) canDownload = false;
+    }
+
+    emit linksLoaded(listA, listB, canDownload);
 }
 
 void ControllerCore::onQueryEnded()
@@ -1757,4 +2181,15 @@ QString ControllerCore::pathSplash() const
 QString ControllerCore::pathShots() const
 {
     return _path + "/screenshots";
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool ControllerCore::canDownload() const
+{
+#ifdef SK_NO_FFMPEGDOWNLOAD
+    return false;
+#else
+    return true;
+#endif
 }

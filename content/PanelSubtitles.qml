@@ -140,8 +140,9 @@ PanelSettingsAction
 
         gui.panelAddHide();
 
-        panelSettings.collapse();
-        panelOutput  .collapse();
+        panelSettings .collapse();
+        panelOutput   .collapse();
+        panelDownloads.collapse();
 
         loadPage();
 
@@ -149,8 +150,8 @@ PanelSettingsAction
 
         z = 1;
 
-        panelSettings.z = 0;
-        panelOutput  .z = 0;
+        panelSettings .z = 0;
+        panelOutput   .z = 0;
 
         visible = true;
 

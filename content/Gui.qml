@@ -132,6 +132,9 @@ Item
     /* read */ property int actionFullScreenExpose : 27
     /* read */ property int actionFullScreenRestore: 28
 
+    /* read */ property int actionDownloadsExpose  : 29
+    /* read */ property int actionDownloadsCollapse: 30
+
     /* read */ property int actionZoom: 31
 
     //---------------------------------------------------------------------------------------------
@@ -902,6 +905,12 @@ Item
 
             return;
         }
+        else if (panelDownloads.isExposed)
+        {
+            panelDownloads.collapse();
+
+            return;
+        }
         // NOTE: We don't want to expand further when expanded or the panelRelated is exposed.
         else if (window.fullScreen == false || isExpanded == false || panelRelated.isExposed)
         {
@@ -945,6 +954,7 @@ Item
         panelSettings .collapse();
         panelSubtitles.collapse();
         panelOutput   .collapse();
+        panelDownloads.collapse();
 
         playlistTemp.clearTracks();
 
@@ -1073,6 +1083,7 @@ Item
         panelSettings .collapse();
         panelSubtitles.collapse();
         panelOutput   .collapse();
+        panelDownloads.collapse();
 
         panelTag.collapse();
 
@@ -3090,6 +3101,10 @@ Item
             {
                 panelOutput.collapse();
             }
+            else if (panelDownloads.isExposed)
+            {
+                panelDownloads.collapse();
+            }
             else if (panelTag.isExposed)
             {
                 panelTag.collapse();
@@ -3576,6 +3591,9 @@ Item
             else if (id == actionOutputExpose)   panelOutput.expose  ();
             else if (id == actionOutputCollapse) panelOutput.collapse();
 
+            else if (id == actionDownloadsExpose)   panelDownloads.expose  ();
+            else if (id == actionDownloadsCollapse) panelDownloads.collapse();
+
             else if (id == actionSearchExpose) lineEditSearch.setFocus();
 
             else if (id == actionMaximizeExpose)  exposeMaximize ();
@@ -3665,6 +3683,16 @@ Item
         PanelSettings { id: panelSettings }
 
         PanelOutput { id: panelOutput }
+
+        // NOTE: This panel comes from the top, it must not slide over the barWindow.
+        Item
+        {
+            anchors.fill: parent
+
+            clip: true
+
+            PanelDownloads { id: panelDownloads }
+        }
     }
 
     BarControls { id: barControls }

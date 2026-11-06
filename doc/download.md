@@ -169,7 +169,7 @@ and folder choices are app policy.
     - Add "Download" after "Save VBML" in `ContextualTrack.qml` and `ContextualTab.qml`. The player
       and the upper tab both reach the tab menu.
     - Don't renumber ids: use id 11 on the track menu and 10 on the tab menu. An item is disabled
-      through its `enabled` value.
+      through its `enabled` value, which Sky's `ContextualPage` now reads from `values`.
     - Rename the tab menu's "Close" to "Close Track".
     - `currentId` 8 maps to `ContextualDownload.qml` in `pGetSource`.
 12. **New `BaseContextualLinks.qml`,** shared by `ContextualLinks.qml` and the new
@@ -177,6 +177,7 @@ and folder choices are app policy.
     - A "Safe mode" toggle at the top that reloads the links, then a "Video" section with the
       qualities and an "Audio" section with "Audio 1", "Audio 2".
     - Safe mode starts disabled in both: it skips adaptive sources, so it only offers lower qualities.
+    - A `title` shows in the fixed header: "Download", and "Sources" when opened from a menu.
     - `onMediaLoaded` already lists each distinct audio once, from the lowest quality up.
     - The "Nothing here" and "Loading..." label uses the new `LabelAction.qml`, and
       `ButtonWideSource.qml` gets its margins back. Both follow `ButtonAction`, since push buttons

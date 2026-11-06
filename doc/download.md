@@ -164,11 +164,13 @@ and folder choices are app policy.
 ### MotionBox QML (`content/`)
 
 11. **`AreaContextualApplication.qml`:**
-    - Add "Download" after "Save VBML" in `loadPageTrack` and `loadPageTab`. The player and the
-      upper tab both reach `loadPageTab`.
-    - Don't renumber ids: use id 11 on the track page and 10 on the tab page.
-    - The insert shifts the positional `setItemEnabled` indexes: Download is 10 and Close moves to 11.
-    - Rename the tab page's "Close" to "Close Track".
+    - Each menu is its own `Contextual*.qml`, loaded by `currentId` into a single
+      `PanelContextualLoader`. Only the items scroll, the title and the author stay.
+    - Add "Download" after "Save VBML" in `ContextualTrack.qml` and `ContextualTab.qml`. The player
+      and the upper tab both reach the tab menu.
+    - Don't renumber ids: use id 11 on the track menu and 10 on the tab menu. An item is disabled
+      through its `enabled` value.
+    - Rename the tab menu's "Close" to "Close Track".
     - `currentId` 8 maps to `ContextualDownload.qml` in `pGetSource`.
 12. **New `BaseContextualLinks.qml`,** shared by `ContextualLinks.qml` and the new
     `ContextualDownload.qml`, which only differ by their row:

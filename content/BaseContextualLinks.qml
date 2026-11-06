@@ -45,6 +45,9 @@ ColumnAuto
                                           qsTr("1440p"),
                                           qsTr("2160p")]
 
+    // NOTE: The panel shows the title above the links, when there's one.
+    property string title
+
     /* mandatory */ property Component delegate
 
     // NOTE: We only want the links when they can be downloaded.

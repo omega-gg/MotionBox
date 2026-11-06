@@ -36,6 +36,8 @@ BaseContextualLinks
     // Settings
     //---------------------------------------------------------------------------------------------
 
+    title: qsTr("Download")
+
     checkDownload: true
 
     delegate: ButtonAction

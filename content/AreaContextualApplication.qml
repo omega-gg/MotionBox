@@ -53,10 +53,10 @@ AreaContextual
 
     property variant pItem: panelContextual.loader.item
 
-    // NOTE: A list scenario has a title, the border of its last item goes under the panel border.
-    property bool pIsList: (pItem != null && pItem.title !== undefined)
+    // NOTE: The border of the last item of a list goes under the panel border.
+    property bool pIsList: (pItem != null && pItem.currentPage !== undefined)
 
-    property bool pHeader: (pIsList && pItem.title != "")
+    property bool pHeader: (pItem != null && pItem.title !== undefined && pItem.title != "")
 
     property bool pFeed: (pItem != null && pItem.feed !== undefined)
 
@@ -122,14 +122,15 @@ AreaContextual
                                  marginY);
     }
 
-    function showPanelVideo(source, button, marginY)
+    function showPanelVideo(source, button)
     {
         item = button;
 
         pLoad(7).load(gui.applyTime(source));
 
+        // NOTE: We align with the setting the button belongs to, like the mode panel.
         showPanelPositionMargins(panelContextual, button, Sk.BottomLeftCorner, -(button.x),
-                                 marginY);
+                                 -(button.y));
     }
 
     //---------------------------------------------------------------------------------------------
@@ -137,7 +138,11 @@ AreaContextual
 
     function showPanelLinks(source)
     {
-        pLoad(7).load(source);
+        var links = pLoad(7);
+
+        links.title = qsTr("Sources");
+
+        links.load(source);
     }
 
     function showPanelDownload(track)

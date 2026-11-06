@@ -94,9 +94,9 @@ feed: https://...
 date: ...
 ```
 
-- **`origin`:** the source URL of the track, without its `#t=` position. A `source` that is a local
-  file we have takes over the origin, and the origin plays when that file is gone. Related tracks
-  still come from the origin.
+- **`origin`:** the source URL of the track, without its `#t=` position. The `source` plays first,
+  and the origin when that file is gone. Related tracks still come from the origin. A remote source
+  that fails to load doesn't fall back yet.
 - **No `duration`:** `toVbml` writes milliseconds but a bare number reads as seconds, and a `duration`
   with a `source` takes the timeline path. The player gets it from the file.
 - **Safe values:** a title starting with `#`, `|` or `>` is read as YAML structure and swallows the
@@ -129,8 +129,8 @@ rename, and the VBML follows the final name.
    - `vbmlSource`: a value with no scheme, no `/` and a media extension resolves to
      `baseUrl + '/' + url`, when `baseUrl` contains `://`. Limiting it to media extensions keeps values
      like `youtube.com` and `cover: image.jpg` unchanged.
-   - `vbmlSourceIsLocal`: true when the source resolves to a local file that exists. `applyVbml` and
-     `WControllerMedia` only follow the `origin` when it's false.
+   - `vbmlSourceResolves`: false when the source is empty or a local file that's gone. `applyVbml`
+     and `WControllerMedia` only follow the `origin` then, so the source comes first.
    - `applyFolder`: when a `.vbml` and a media file share a base name, point the media entry at the
      VBML and drop the VBML from `files`. Without this each download shows twice with raw names. With
      it, one track loads the VBML's title and cover. A folder with no text-type files skips this.
@@ -219,7 +219,8 @@ and folder choices are app policy.
 
 ### VBML
 
-18. **`doc/track.md`:** under `origin`, note that a local source that exists takes over the origin.
+18. **`doc/track.md`:** under `origin`, note that the source plays first and the origin when it
+    doesn't resolve.
 
 ### Plan copy
 

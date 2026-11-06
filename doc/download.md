@@ -91,7 +91,8 @@ feed: https://...
 date: ...
 ```
 
-- **No `origin`:** it would always play instead of the file.
+- **No `origin`:** it would always play instead of the file. A track whose file is gone doesn't
+  play.
 - **No `duration`:** `toVbml` writes milliseconds but a bare number reads as seconds, and a `duration`
   with a `source` takes the timeline path. The player gets it from the file.
 - **Safe values:** a title starting with `#`, `|` or `>` is read as YAML structure and swallows the
@@ -258,6 +259,7 @@ Not tested:
 
 - **Real mouse:** selecting a row, the double click to play, the drag to a playlist, the hover X and
   the track list's right click. The tests called these paths directly.
-- **Since the last cleanups:** HLS and the `.mkv` fallback weren't run again.
+- **Since the last cleanups:** HLS and the `.mkv` fallback weren't run again. The `origin` revert
+  and the `applyFolder` loop are only compiled.
 - **Never:** a real proxy, a dead magnet, and which codecs trigger MP4's "experimental" error.
 - **Platforms:** Android and macOS.

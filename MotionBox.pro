@@ -327,6 +327,14 @@ OTHER_FILES += 3rdparty.sh \
                content/PageOutputAdvanced.qml \
                content/PageDownloads.qml \
                content/PageAmbient.qml \
+               content/BaseContextualList.qml \
+               content/ContextualFolder.qml \
+               content/ContextualTrack.qml \
+               content/ContextualTracks.qml \
+               content/ContextualTab.qml \
+               content/ContextualBrowse.qml \
+               content/ContextualTag.qml \
+               content/ContextualSettings.qml \
                content/ContextualMode.qml \
                content/BaseContextualLinks.qml \
                content/ContextualLinks.qml \

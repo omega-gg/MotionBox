@@ -39,33 +39,32 @@ AreaContextual
     // 4: Browse
     // 5: Tag
     // 6: Mode
+    // 7: Links
+    // 8: Download
+    // 9: Settings
 
     /* read */ property variant item: null
+
+    // NOTE: The page of a list scenario.
+    /* read */ property variant currentPage: (pIsList) ? pItem.currentPage : null
 
     //---------------------------------------------------------------------------------------------
     // Private
 
-    property variant pItem : null
-    property int     pIndex: -1
+    property variant pItem: panelContextual.loader.item
 
-    property string pSource
-    property string pAuthor
-    property string pFeed
+    // NOTE: A list scenario has a title, the border of its last item goes under the panel border.
+    property bool pIsList: (pItem != null && pItem.title !== undefined)
 
-    property string pText
+    property bool pHeader: (pIsList && pItem.title != "")
 
-    property bool pButtonsVisible: (currentId == 1 || currentId == 3) // Track or Tab
+    property bool pFeed: (pItem != null && pItem.feed !== undefined)
 
     //---------------------------------------------------------------------------------------------
     // Aliases
     //---------------------------------------------------------------------------------------------
 
-    property alias currentPage: listContextual.currentPage
-
-    //---------------------------------------------------------------------------------------------
-
     property alias panelContextual: panelContextual
-    property alias panelLoader    : panelLoader
     property alias panelAdd       : panelAdd
 
     //---------------------------------------------------------------------------------------------
@@ -100,30 +99,7 @@ AreaContextual
 
         areaContextual.item = item;
 
-        var array = new Array;
-
-        for (var i = 0; i < settings.length; i++)
-        {
-            var data = settings[i];
-
-            var icon = data.icon;
-
-            // NOTE: We make sure id(s) are equivalent to index(es).
-            if (icon)
-            {
-                 array.push({ "id": i, "title": data.title, "icon": icon,
-                              "iconSize": data.iconSize });
-            }
-            else array.push({ "id": i, "title": data.title });
-        }
-
-        page.values = array;
-
-        // NOTE: We make sure id(s) are equivalent to index(es).
-        page.selectedId = currentIndex;
-        page.currentId  = activeIndex;
-
-        currentId = -1;
+        pLoad(9).load(settings, currentIndex, activeIndex);
 
         var panel = pGetPanel();
 
@@ -138,46 +114,59 @@ AreaContextual
 
     function showPanelMode(button, marginY)
     {
-        currentId = 6;
-
         item = button;
 
-        showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
+        pLoad(6);
+
+        showPanelPositionMargins(panelContextual, button, Sk.BottomLeftCorner, -(button.x),
+                                 marginY);
     }
 
     function showPanelVideo(source, button, marginY)
     {
-        currentId = 7;
-
         item = button;
 
-        showPanelPositionMargins(panelLoader, button, Sk.BottomLeftCorner, -(button.x), marginY);
+        pLoad(7).load(gui.applyTime(source));
 
-        panelLoader.item.load(gui.applyTime(source));
+        showPanelPositionMargins(panelContextual, button, Sk.BottomLeftCorner, -(button.x),
+                                 marginY);
     }
 
     //---------------------------------------------------------------------------------------------
-    // Private
+    // NOTE: These are called from a scenario, the panel stays where it is.
 
-    function pShowPanel(panel)
+    function showPanelLinks(source)
     {
-        showPanel(panel, panelContextual.item,
-                         panelContextual.position,
-                         panelContextual.posX,
-                         panelContextual.posY,
-                         panelContextual.marginX,
-                         panelContextual.marginY,
-                         panelContextual.isCursorChild);
+        pLoad(7).load(source);
     }
 
-    function pCheckDownload(data)
+    function showPanelDownload(track)
     {
-        return (core.canDownload && data.source != ""
-                                 && st.getTrackActive(data.type) == false
-                                 && controllerNetwork.urlIsFile(data.source) == false);
+        pLoad(8).loadTrack(track);
     }
 
-    function pCheckContext(source)
+    function showPanelAdd(type, target, index)
+    {
+        panelAdd.setSource(type, target, index);
+
+        showPanel(panelAdd, currentItem, panelContextual.position,
+                                         panelContextual.posX,
+                                         panelContextual.posY,
+                                         panelContextual.marginX,
+                                         panelContextual.marginY,
+                                         panelContextual.isCursorChild);
+    }
+
+    //---------------------------------------------------------------------------------------------
+
+    function searchMore(playlist, source, title)
+    {
+        gui.restore();
+
+        panelBrowse.searchMore(playlist, source, title);
+    }
+
+    function checkContext(source)
     {
         return (controllerNetwork.hasFragment(source, 't')   ||
                 controllerNetwork.hasFragment(source, 'ctx') ||
@@ -185,40 +174,43 @@ AreaContextual
                 controllerNetwork.hasFragment(source, 'sid'));
     }
 
-    function pClearContext(playlist, index)
+    function checkDownload(data)
     {
-        var source = gui.clearContext(playlist.trackSource(index));
-
-        playlist.setTrackSource(index, source);
-
-        // NOTE: We reload the track to ensure that the duration is accurate.
-        gui.reload(playlist, index);
-    }
-
-    function pClearContextTab(tab)
-    {
-        tab.source = gui.clearContext(tab.source);
-
-        // NOTE: We reload the track to ensure that the duration is accurate.
-        gui.reloadTab(tab);
+        return (core.canDownload && data.source != ""
+                                 && st.getTrackActive(data.type) == false
+                                 && controllerNetwork.urlIsFile(data.source) == false);
     }
 
     //---------------------------------------------------------------------------------------------
+    // Private
 
-    function pSearchMore(playlist, source, title)
+    // NOTE: We reload the scenario, the same one can come again for another item.
+    function pLoad(id)
     {
-        gui.restore();
+        currentId = -1;
+        currentId = id;
 
-        panelBrowse.searchMore(playlist, source, title);
+        panelContextual.area.scrollToTop();
+
+        if (pIsList && panelContextual.isActive) pItem.setFocus();
+
+        return pItem;
     }
 
     //---------------------------------------------------------------------------------------------
 
     function pGetSource()
     {
-        if      (currentId == 6) return "ContextualMode.qml";
+        if      (currentId == 0) return "ContextualFolder.qml";
+        else if (currentId == 1) return "ContextualTrack.qml";
+        else if (currentId == 2) return "ContextualTracks.qml";
+        else if (currentId == 3) return "ContextualTab.qml";
+        else if (currentId == 4) return "ContextualBrowse.qml";
+        else if (currentId == 5) return "ContextualTag.qml";
+        else if (currentId == 6) return "ContextualMode.qml";
         else if (currentId == 7) return "ContextualLinks.qml";
         else if (currentId == 8) return "ContextualDownload.qml";
+        else if (currentId == 9) return "ContextualSettings.qml";
         else                     return "";
     }
 
@@ -233,7 +225,7 @@ AreaContextual
     // Children
     //---------------------------------------------------------------------------------------------
 
-    PanelContextual
+    PanelContextualLoader
     {
         id: panelContextual
 
@@ -241,25 +233,26 @@ AreaContextual
         // Settings
         //-----------------------------------------------------------------------------------------
 
-        minimumWidth : st.dp160 + borderSizeWidth
+        minimumWidth : ((pIsList) ? st.dp160 : st.dp192) + borderSizeWidth
         minimumHeight: st.list_itemHeight
 
-        preferredHeight: pGetPreferredHeight()
+        preferredHeight: area.contentHeight + borderSizeHeight + area.anchors.topMargin
+                         +
+                         area.anchors.bottomMargin
 
         clip: true
+
+        source: pGetSource()
+
+        // NOTE: The header and the author don't scroll with the items.
+        area.anchors.topMargin   : (pHeader) ? header.height : 0
+        area.anchors.bottomMargin: pGetBottomMargin()
 
         //-----------------------------------------------------------------------------------------
         // Events
         //-----------------------------------------------------------------------------------------
 
-        onIsActiveChanged:
-        {
-            if (isActive)
-            {
-                listContextual.setFocus();
-            }
-            else currentPage.clearItems();
-        }
+        onIsActiveChanged: if (isActive && pIsList) pItem.setFocus()
 
         //-----------------------------------------------------------------------------------------
         // Functions
@@ -267,871 +260,63 @@ AreaContextual
 
         function loadPageFolder(list, index)
         {
-            pItem  = list;
-            pIndex = index;
-
-            var array = new Array;
-
-            var folder = list.folder;
-
-            var type = core.itemType(folder, index);
-
-            if (folder.isFolderBase)
-            {
-                if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
-                {
-                    if (type == LibraryItem.PlaylistFeed)
-                    {
-                        array.push({ "type": ContextualPage.Category,
-                                      "title": qsTr("Feed") });
-                    }
-                    else array.push({ "type": ContextualPage.Category,
-                                      "title": qsTr("Playlist") });
-
-                    array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                                 "title": qsTr("Play") });
-
-                    if (folder.itemIsLocal(index))
-                    {
-                        if (folder == feeds)
-                        {
-                            array.push ({ "id": 3, "icon": st.icon16x16_tag,
-                                          "iconSize": st.size16x16, "title": qsTr("VideoTag") });
-
-                            var label = folder.itemLabel(index);
-
-                            if (label == "suggest" || label == "recent" || label == "interactive")
-                            {
-                                array.push({ "id": 6, "icon": st.icon16x16_refresh,
-                                             "iconSize": st.size16x16, "title": qsTr("Reload") });
-                            }
-
-                            array.push ({ "id": 9, "icon": st.icon16x16_download,
-                                          "iconSize": st.size16x16, "title": qsTr("Save VBML") });
-                        }
-                        else array.push
-                        (
-                            { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                              "title": qsTr("VideoTag") },
-
-                            { "id": 7, "title": qsTr("Rename")      },
-                            { "id": 8, "title": qsTr("Move to ...") },
-
-                            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                              "title": qsTr("Save VBML") }
-                        );
-
-                        if (type == LibraryItem.PlaylistFeed)
-                        {
-                             array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                          "title": "Delete Feed" });
-                        }
-                        else array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                          "title": "Delete Playlist" });
-                    }
-                    else
-                    {
-
-                        if (folder == feeds)
-                        {
-                            array.push
-                            (
-                                { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                                  "title": qsTr("Add to ...") },
-
-                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                                   "title": qsTr("More like this") },
-
-                                { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                                  "title": qsTr("VideoTag") },
-
-                                { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                                  "title": qsTr("Open link") },
-
-                                { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") },
-
-                                { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                                  "title": qsTr("Reload") },
-
-                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                                  "title": qsTr("Save VBML") },
-                            );
-                        }
-                        else
-                        {
-                            array.push
-                            (
-                                { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                                  "title": qsTr("More like this") },
-
-                                { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                                  "title": qsTr("VideoTag") },
-
-                                { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                                  "title": qsTr("Open link") },
-
-                                { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                                  "title": qsTr("Copy link") },
-
-                                { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                                  "title": qsTr("Reload") },
-
-                                { "id": 8, "title": qsTr("Move to ...") },
-
-                                { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                                  "title": qsTr("Save VBML") },
-                            );
-                        }
-
-                        if (type == LibraryItem.PlaylistFeed)
-                        {
-                             array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                          "title": "Remove Feed" });
-                        }
-                        else array.push({ "id": 10, "type": ContextualPage.ItemConfirm,
-                                          "title": "Remove Playlist" });
-                    }
-                }
-                else // Folder
-                {
-                    array.push
-                    (
-                        { "type": ContextualPage.Category, "title": qsTr("Folder") },
-
-                        { "id": 7, "title": qsTr("Rename") },
-
-                        { "id": 10, "type": ContextualPage.ItemConfirm,
-                          "title": qsTr("Delete Folder") }
-                    );
-                }
-            }
-            else if (type == LibraryItem.Playlist || type == LibraryItem.PlaylistFeed)
-            {
-                if (type == LibraryItem.PlaylistFeed)
-                {
-                    array.push({ "type": ContextualPage.Category,
-                                 "title": qsTr("Feed") });
-                }
-                else array.push({ "type": ContextualPage.Category,
-                                  "title": qsTr("Playlist") });
-
-                array.push({ "id": 0, "icon": st.icon16x16_play, "iconSize": st.size16x16,
-                             "title": qsTr("Play") });
-
-                array.push({ "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                             "title": qsTr("Add to ...") });
-
-                if (folder.itemIsLocal(index) == false)
-                {
-                    array.push
-                    (
-                        { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                           "title": qsTr("More like this") },
-
-                        { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                          "title": qsTr("VideoTag") },
-
-                        { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                          "title": qsTr("Open link") },
-
-                        { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                          "title": qsTr("Copy link") },
-
-                        { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                          "title": qsTr("Reload") },
-
-                        { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                          "title": qsTr("Save VBML") },
-                    );
-                }
-            }
-            else // Folder
-            {
-                array.push({ "type": ContextualPage.Category, "title": qsTr("Folder") });
-
-                if (folder.itemIsLocal(index) == false)
-                {
-                    array.push
-                    (
-                        { "id": 2, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                          "title": qsTr("More like this") },
-
-                        { "id": 3, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                          "title": qsTr("VideoTag") },
-
-                        { "id": 4, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                          "title": qsTr("Open link") },
-
-                        { "id": 5, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                          "title": qsTr("Copy link") },
-
-                        { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                          "title": qsTr("Reload") }
-                    );
-                }
-            }
-
-            page.values = array;
-
-            currentId = 0;
+            pLoad(0).load(list, index);
         }
 
         function loadPageTrack(list, index)
         {
-            pItem  = list;
-            pIndex = index;
-
-            var array = new Array;
-
             var playlist = list.playlist;
 
-            var selectedCount = playlist.selectedCount;
-
-            if (selectedCount > 1 && playlist.indexSelected(index))
+            if (playlist.selectedCount > 1 && playlist.indexSelected(index))
             {
-                var title = selectedCount + " " + qsTr("Tracks");
-
-                array.push
-                (
-                    { "type": ContextualPage.Category, "title": title },
-
-                    { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                      "title": qsTr("Add to ...") }
-                );
-
-                if (gui.listPlaylist == list)
-                {
-                    title = qsTr("Remove") + " " + title;
-
-                    array.push({ "id": 1, "type" : ContextualPage.ItemConfirm, "title": title });
-                }
-
-                page.values = array;
-
-                currentId = 2;
+                 pLoad(2).load(list);
             }
-            else
-            {
-                var data = playlist.trackData(index);
-
-                pSource = data.source;
-                pFeed   = data.feed;
-
-                pAuthor = gui.getTrackAuthor(data.author, pFeed);
-
-                array.push
-                (
-                    { "type": ContextualPage.Category, "title": qsTr("Track") },
-
-                    { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                      "title": qsTr("Add to ...") },
-
-                    { "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                      "title": qsTr("More like this") },
-
-                    { "id": 2, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                      "title": qsTr("VideoTag") },
-
-                    { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                      "title": qsTr("Open link") },
-
-                    { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                      "title": qsTr("Copy link") },
-
-                    { "id": 5, "icon": st.icon16x16_list, "iconSize": st.size16x16,
-                      "title": qsTr("Sources") },
-
-                    { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                      "title": qsTr("Reload") },
-
-                    { "id": 7, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
-                      "title": qsTr("Reset timeline") },
-
-                    { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                      "title": qsTr("Save VBML") },
-
-                    { "id": 11, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                      "title": qsTr("Download") }
-                );
-
-                if (playlist.isLocal)
-                {
-                    array.push
-                    (
-                        { "id":  9, "title": qsTr("Set as Cover") },
-                        { "id": 10, "title": qsTr("Remove Track") }
-                    );
-                }
-
-                page.values = array;
-
-                if (data.title == "")
-                {
-                    page.setItemEnabled(2, false); // More like this
-                }
-
-                if (pSource == "")
-                {
-                    page.setItemEnabled(4, false); // Open link
-                    page.setItemEnabled(5, false); // Copy link
-                    page.setItemEnabled(6, false); // Sources
-                    page.setItemEnabled(7, false); // Reload
-                    page.setItemEnabled(8, false); // Reset timeline
-                }
-                else if (pCheckContext(playlist.trackSource(index)) == false)
-                {
-                    page.setItemEnabled(8, false); // Reset timeline
-                }
-
-                if (pCheckDownload(data) == false)
-                {
-                    page.setItemEnabled(10, false); // Download
-                }
-
-                currentId = 1;
-            }
+            else pLoad(1).load(list, index);
         }
-
-        //-----------------------------------------------------------------------------------------
 
         function loadPageTab(tab)
         {
-            pItem = tab;
-
-            var array = new Array;
-
-            array.push
-            (
-                { "type": ContextualPage.Category, "title": qsTr("Track") },
-
-                { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                  "title": qsTr("Add to ...") },
-
-                { "id": 1, "icon": st.icon16x16_addBold, "iconSize": st.size16x16,
-                  "title": qsTr("More like this") },
-
-                { "id": 2, "icon": st.icon16x16_tag, "iconSize": st.size16x16,
-                  "title": qsTr("VideoTag") },
-
-                { "id": 3, "icon": st.icon16x16_external, "iconSize": st.size16x16,
-                  "title": qsTr("Open link") },
-
-                { "id": 4, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                  "title": qsTr("Copy link") },
-
-                { "id": 5, "icon": st.icon16x16_list, "iconSize": st.size16x16,
-                  "title": qsTr("Sources") },
-
-                { "id": 6, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                  "title": qsTr("Reload") },
-
-                { "id": 7, "icon": st.icon16x16_recent, "iconSize": st.size16x16,
-                  "title": qsTr("Reset timeline") },
-
-                { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                  "title": qsTr("Save VBML") },
-
-                { "id": 10, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-                  "title": qsTr("Download") },
-
-                { "id": 9, "title": qsTr("Close Track") }
-            );
-
-            page.values = array;
-
-            if (tab.isValid)
-            {
-                var data = tab.trackData;
-
-                pSource = data.source;
-                pFeed   = data.feed;
-
-                pAuthor = gui.getTrackAuthor(data.author, pFeed);
-
-                if (tab.title == "")
-                {
-                    page.setItemEnabled(2, false); // More like this
-                }
-
-                if (pSource == "")
-                {
-                    page.setItemEnabled(4, false); // Open link
-                    page.setItemEnabled(5, false); // Copy link
-                    page.setItemEnabled(6, false); // Sources
-                }
-                else if (pCheckContext(tab.source) == false)
-                {
-                    page.setItemEnabled(8, false); // Reset timeline
-                }
-
-                if (pCheckDownload(data) == false)
-                {
-                    page.setItemEnabled(10, false); // Download
-                }
-            }
-            else
-            {
-                pSource = "";
-                pAuthor = "";
-                pFeed   = "";
-
-                page.setItemEnabled(1, false); // Add to ...
-                page.setItemEnabled(2, false); // More like this
-                page.setItemEnabled(3, false); // VideoTag
-                page.setItemEnabled(4, false); // Open link
-                page.setItemEnabled(5, false); // Copy link
-                page.setItemEnabled(6, false); // Sources
-                page.setItemEnabled(7, false); // Reload
-                page.setItemEnabled(8, false); // Reset timeline
-                page.setItemEnabled(9, false); // Save VBML
-                page.setItemEnabled(10, false); // Download
-                page.setItemEnabled(11, false); // Close
-            }
-
-            currentId = 3;
+            pLoad(3).load(tab);
         }
-
-        //-----------------------------------------------------------------------------------------
 
         function loadPageBrowse()
         {
-            var array = new Array;
-
-            array.push
-            (
-                { "id": 0, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                  "title": qsTr("Open File") },
-
-                { "id": 1, "icon": st.icon18x18_addIn, "iconSize": st.size18x18,
-                  "title": qsTr("Open Folder") },
-
-                { "id": 2, "icon": st.icon16x16_refresh, "iconSize": st.size16x16,
-                  "title": qsTr("Update Backends") },
-
-                { "id": 3, "title": qsTr("Reset Backends") }
-            );
-
-            page.values = array;
-
-            currentId = 4;
+            pLoad(4);
         }
 
         function loadPageTag(text)
         {
-            pText = text;
-
-            var array = new Array;
-
-            array.push
-            (
-                { "type": ContextualPage.Category, "title": qsTr("VideoTag") },
-
-                { "id": 0, "icon": st.icon16x16_link, "iconSize": st.size16x16,
-                  "title": qsTr("Copy link") }
-            );
-
-            page.values = array;
-
-            currentId = 5;
-        }
-
-        //-----------------------------------------------------------------------------------------
-        // Events
-
-        function onFolderClicked(id)
-        {
-            if (id == 0) // Play
-            {
-                var folder = pItem.folder;
-
-                folder.loadCurrentIndex(pIndex, true);
-
-                gui.playItem(folder, pIndex);
-
-                folder.currentItem.selectCurrentTrack();
-            }
-            else if (id == 1) // Add to ...
-            {
-                panelAdd.setSource(1, pItem.folder, pIndex);
-
-                pShowPanel(panelAdd);
-
-                return false;
-            }
-            else if (id == 2) // More like this
-            {
-                /* var */ folder = pItem.folder;
-
-                pSearchMore(null, folder.itemSource(pIndex), folder.itemTitle(pIndex));
-            }
-            else if (id == 3) // VideoTag
-            {
-                gui.showTagPlaylist(pItem.folder, pIndex);
-            }
-            else if (id == 4) // Open link
-            {
-                var source = pItem.folder.itemSource(pIndex);
-
-                gui.openSource(source);
-            }
-            else if (id == 5) // Copy link
-            {
-                /* var */ source = pItem.folder.itemSource(pIndex);
-
-                gui.applyLink(source);
-            }
-            else if (id == 6) // Reload
-            {
-                /* var */ folder = pItem.folder;
-
-                folder.loadCurrentIndex(pIndex, true);
-
-                var item = folder.currentItem;
-
-                if (item.source)
-                {
-                    item.reloadQuery();
-                }
-                else core.reload(item.label);
-            }
-            else if (id == 7) // Rename
-            {
-                pItem.renameItem(pIndex);
-            }
-            else if (id == 8) // Move to ...
-            {
-                panelAdd.setSource(2, pItem.folder, pIndex);
-
-                pShowPanel(panelAdd);
-
-                return false;
-            }
-            else if (id == 9) // Save VBML
-            {
-                var playlist = gui.createItemAt(pItem.folder, pIndex);
-
-                core.saveVbml(playlist.title, playlist.toVbml(2));
-
-                playlist.tryDelete();
-            }
-            else if (id == 10) // Remove
-            {
-                pItem.removeItem(pIndex, true);
-
-                if (pItem.folder == feeds && pIndex == 0 && history)
-                {
-                    history.tryDelete();
-
-                    history = null;
-                }
-            }
-
-            return true;
-        }
-
-        function onTrackClicked(id)
-        {
-            if (id == 0) // Add to ...
-            {
-                var playlist = pItem.playlist;
-
-                if (playlist.indexSelected(pIndex))
-                {
-                     panelAdd.setSource(0, playlist, -1);
-                }
-                else panelAdd.setSource(0, playlist, pIndex);
-
-                pShowPanel(panelAdd);
-
-                return false;
-            }
-            else if (id == 1) // More like this
-            {
-                /* var */ playlist = pItem.playlist;
-
-                pSearchMore(playlist, playlist.trackSource(pIndex), playlist.trackTitle(pIndex));
-            }
-            else if (id == 2) // VideoTag
-            {
-                gui.showTagTrack(pItem.playlist, pIndex);
-            }
-            else if (id == 3) // Open link
-            {
-                var source = pItem.playlist.trackSource(pIndex);
-
-                gui.openSource(source);
-            }
-            else if (id == 4) // Copy link
-            {
-                /* var */ source = pItem.playlist.trackSource(pIndex);
-
-                gui.applyLink(source);
-            }
-            else if (id == 5) // Sources
-            {
-                currentId = 7;
-
-                pShowPanel(panelLoader);
-
-                panelLoader.item.load(pItem.playlist.trackSource(pIndex));
-
-                return false;
-            }
-            else if (id == 6) // Reload
-            {
-                gui.reload(pItem.playlist, pIndex);
-            }
-            else if (id == 7) // Reset timeline
-            {
-                pClearContext(pItem.playlist, pIndex);
-
-                currentTab.currentTime = -1;
-            }
-            else if (id == 8) // Save VBML
-            {
-                /* var */ playlist = pItem.playlist;
-
-                core.saveVbml(playlist.trackTitle(pIndex), playlist.trackVbml(pIndex));
-            }
-            else if (id == 9) // Set as Cover
-            {
-                /* var */ playlist = pItem.playlist;
-
-                var cover = playlist.trackCover(pIndex);
-
-                if (cover != "")
-                {
-                    playlist.cover = cover;
-                }
-
-            }
-            else if (id == 10) // Remove
-            {
-                pItem.removeTrack(pIndex, true);
-            }
-            else if (id == 11) // Download
-            {
-                currentId = 8;
-
-                pShowPanel(panelLoader);
-
-                panelLoader.item.loadTrack(pItem.playlist.trackData(pIndex));
-
-                return false;
-            }
-
-            return true;
-        }
-
-        function onTracksClicked(id)
-        {
-            if (id == 0) // Add to ...
-            {
-                panelAdd.setSource(0, pItem.playlist, -1);
-
-                pShowPanel(panelAdd);
-
-                return false;
-            }
-            else if (id == 1) // Remove selected
-            {
-                pItem.removeSelected(true);
-            }
-
-            return true;
-        }
-
-        //-----------------------------------------------------------------------------------------
-
-        function onTabClicked(id)
-        {
-            if (id == 0) // Add to ...
-            {
-                var playlist = pItem.playlist;
-
-                if (playlist == null)
-                {
-                    playlistTemp.clearTracks();
-
-                    pItem.copyTrackTo(playlistTemp);
-
-                    panelAdd.setSource(0, playlistTemp, 0);
-                }
-                else panelAdd.setSource(0, playlist, pItem.trackIndex);
-
-                pShowPanel(panelAdd);
-
-                return false;
-            }
-            else if (id == 1) // More like this
-            {
-                pSearchMore(pItem.playlist, pItem.source, pItem.title);
-            }
-            else if (id == 2) // VideoTag
-            {
-                gui.showTagTab();
-            }
-            else if (id == 3) // Open link
-            {
-                gui.openSource(pItem.source);
-            }
-            else if (id == 4) // Copy link
-            {
-                gui.applyLink(pItem.source);
-            }
-            else if (id == 5) // Sources
-            {
-                currentId = 7;
-
-                pShowPanel(panelLoader);
-
-                panelLoader.item.load(pItem.source);
-
-                return false;
-            }
-            else if (id == 6) // Reload
-            {
-                gui.reload(pItem.playlist, pItem.trackIndex);
-            }
-            else if (id == 7) // Reset timeline
-            {
-                player.stop();
-
-                pClearContextTab(pItem);
-
-                currentTab.currentTime = -1;
-
-                player.reloadSource();
-            }
-            else if (id == 8) // Save VBML
-            {
-                core.saveVbml(pItem.title, pItem.toVbml());
-            }
-            else if (id == 9) // Close
-            {
-                gui.closeTrack();
-            }
-            else if (id == 10) // Download
-            {
-                currentId = 8;
-
-                pShowPanel(panelLoader);
-
-                panelLoader.item.loadTrack(pItem.trackData);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        //-----------------------------------------------------------------------------------------
-
-        function onBrowseClicked(id)
-        {
-            if (id == 0) // Open File
-            {
-                listContextual.setSelectedId(0);
-
-//#QT_4
-                gui.browseFile();
-//#ELSE
-                // NOTE: We call this later to avoid a crash when the ContextualItem gets deleted.
-                Qt.callLater(gui.browseFile);
-//#END
-            }
-            else if (id == 1) // Open Folder
-            {
-                listContextual.setSelectedId(1);
-
-//#QT_4
-                gui.browseFolder();
-//#ELSE
-                // NOTE: We call this later to avoid a crash when the ContextualItem gets deleted.
-                Qt.callLater(gui.browseFolder);
-//#END
-            }
-            else if (id == 2) // Update Backends
-            {
-                core.updateBackends();
-            }
-            else if (id == 3) // Reset Backends
-            {
-                core.resetBackends();
-            }
-
-            return true;
-        }
-
-        function onTagClicked(id)
-        {
-            if (id == 0) // Copy link
-            {
-                gui.applyLink(pText);
-            }
-
-            return true;
+            pLoad(5).load(text);
         }
 
         //-----------------------------------------------------------------------------------------
         // Private
 
-        function pGetPreferredHeight()
+        function pGetBottomMargin()
         {
-            if (pButtonsVisible)
+            if (pFeed)
             {
-                 return listContextual.height + borderSizeHeight + buttonFeed.height
-                        -
-                        buttonFeed.borderTop;
+                return buttonFeed.height - buttonFeed.borderTop;
             }
-            else return listContextual.height + borderSizeHeight - borderBottom;
+            // NOTE: The border of the last item goes under the panel border.
+            else if (pIsList)
+            {
+                return -borderBottom;
+            }
+            else return 0;
         }
 
         //-----------------------------------------------------------------------------------------
         // Children
         //-----------------------------------------------------------------------------------------
 
-        ListContextual
+        ContextualCategory
         {
-            id: listContextual
+            id: header
 
-            //-------------------------------------------------------------------------------------
-            // Settings
-            //-------------------------------------------------------------------------------------
+            visible: pHeader
 
-            anchors.left : parent.left
-            anchors.right: parent.right
-
-            currentPage: ContextualPage { id: page }
-
-            //-------------------------------------------------------------------------------------
-            // Events
-            //-------------------------------------------------------------------------------------
-
-            /* QML_EVENT */ onItemClicked: function(id)
-            {
-                var clear;
-
-                if (currentId == -1)
-                {
-                    var item = areaContextual.item;
-
-                    if (item) item.onSelect(id);
-
-                    areaContextual.hidePanels();
-                }
-
-                if      (currentId == 0) clear = panelContextual.onFolderClicked(id);
-                else if (currentId == 1) clear = panelContextual.onTrackClicked (id);
-                else if (currentId == 2) clear = panelContextual.onTracksClicked(id);
-                else if (currentId == 3) clear = panelContextual.onTabClicked   (id);
-                else if (currentId == 4) clear = panelContextual.onBrowseClicked(id);
-                else if (currentId == 5) clear = panelContextual.onTagClicked   (id);
-                else                     clear = true;
-
-                if (clear) areaContextual.hidePanels();
-            }
+            itemText.text: (pHeader) ? pItem.title : ""
         }
 
         ButtonPianoIcon
@@ -1162,34 +347,21 @@ AreaContextual
 
             borderTop: borderSize
 
-            visible: pButtonsVisible
+            visible: pFeed
 
-            enabled: (pFeed != "")
+            enabled: (pFeed && pItem.feed != "")
 
-            text: pAuthor
+            text: (pFeed) ? pItem.author : ""
 
             itemText.horizontalAlignment: Text.AlignLeft
 
             onClicked:
             {
-                if (currentId == 3) // Tab
-                {
-                     gui.browseFeed(pItem);
-                }
-                else gui.browseFeedTrack(pFeed, pSource);
+                pItem.browseFeed();
 
                 areaContextual.hidePanels();
             }
         }
-    }
-
-    PanelContextualLoader
-    {
-        id: panelLoader
-
-        minimumWidth: st.dp192 + borderSizeWidth
-
-        source: pGetSource()
     }
 
     PanelAdd { id: panelAdd }

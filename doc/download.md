@@ -67,8 +67,7 @@ inactive torrents.
 
 `Sequential` and `Default` had no callers, so the engine needed fixes (step 1). A track with no
 `#id.ext` fragment selects all files, so it picks the first media file and requests it again with the
-fragment. That fragment also goes into the saved `origin`: a torrent alone opens as a playlist, which
-doesn't start playing when the file is gone.
+fragment.
 
 ### Saved VBML
 
@@ -78,8 +77,6 @@ The file is written once the media has its final name:
 # vbml 1.0.6
 
 type: track
-
-origin: https://...
 
 source: Big Buck Bunny.mp4
 
@@ -94,9 +91,7 @@ feed: https://...
 date: ...
 ```
 
-- **`origin`:** the source URL of the track, without its `#t=` position. The `source` plays first,
-  and the origin when that file is gone. Related tracks still come from the origin. A remote source
-  that fails to load doesn't fall back yet.
+- **No `origin`:** it would always play instead of the file.
 - **No `duration`:** `toVbml` writes milliseconds but a bare number reads as seconds, and a `duration`
   with a `source` takes the timeline path. The player gets it from the file.
 - **Safe values:** a title starting with `#`, `|` or `>` is read as YAML structure and swallows the
@@ -129,8 +124,6 @@ rename, and the VBML follows the final name.
    - `vbmlSource`: a value with no scheme, no `/` and a media extension resolves to
      `baseUrl + '/' + url`, when `baseUrl` contains `://`. Limiting it to media extensions keeps values
      like `youtube.com` and `cover: image.jpg` unchanged.
-   - `vbmlSourceResolves`: false when the source is empty or a local file that's gone. `applyVbml`
-     and `WControllerMedia` only follow the `origin` then, so the source comes first.
    - `applyFolder`: when a `.vbml` and a media file share a base name, point the media entry at the
      VBML and drop the VBML from `files`. Without this each download shows twice with raw names. With
      it, one track loads the VBML's title and cover. A folder with no text-type files skips this.
@@ -217,14 +210,9 @@ and folder choices are app policy.
 17. **Register** the new QML in `OTHER_FILES`, and run the generate step. `dist/qrc/MotionBox.qrc` is
     generated.
 
-### VBML
-
-18. **`doc/track.md`:** under `origin`, note that the source plays first and the origin when it
-    doesn't resolve.
-
 ### Plan copy
 
-19. Copy this plan to `doc/download.md` in MotionBox, next to the other plans.
+18. Copy this plan to `doc/download.md` in MotionBox, next to the other plans.
 
 ## Verification
 
@@ -237,8 +225,7 @@ first 30 seconds for errors. No test needs the Windows-only paths beyond the bui
 3. **HLS:** a VOD `.m3u8` source.
 4. **Names:** spaces, Unicode, brackets, a title starting with `#`, a title with only symbols, and the
    same track twice.
-5. **VBML:** the file reads back with its bare `source` and plays from it. With the file gone, it
-   plays its `origin`.
+5. **VBML:** the file reads back with its bare `source` and plays from it.
 6. **Downloads folder:** Show download folder gives one entry per download, with the right title and
    cover, and it plays. A folder with unrelated media still lists as before.
 7. **Abort and quit:** during copy, during mux and during a torrent. No `.part` files remain and no
@@ -252,7 +239,6 @@ first 30 seconds for errors. No test needs the Windows-only paths beyond the bui
       answers whether a copy can start before the last blocks reach disk.
     - A magnet with no fragment, two downloads of one torrent, and the same torrent streaming at once.
     - Progress on the file alone, not on the whole torrent, and a resume without a speed spike.
-    - The `origin` fallback once the file and the torrent cache are gone, with and without a fragment.
 
 ## Results
 
@@ -263,8 +249,6 @@ Tested in the app, on Windows with MinGW:
 - **BitTorrent:** checksums match the source from an empty cache, while streaming the same torrent
   and with a second row aborted. A magnet with no index picks the media file. Resume shows no speed
   spike.
-- **Fallback:** a VBML whose file is gone plays its `origin`, for YouTube and for torrents with and
-  without a fragment.
 - **UI:** both panels with Safe mode on and off, the menus, the ring, the button in the four styles,
   the panel from the top, the tooltip, the selected row, and the downloads folder with a VBML and its
   media listed once.

@@ -215,10 +215,6 @@ static QString getDownloadVbml(const QVariantMap & track, const QString & fileNa
 
     Sk::bmlPair(vbml, "type", "track", "\n\n");
 
-    // NOTE: The origin is where the file came from, it takes over when the file is gone.
-    addDownloadValue(vbml, "origin",
-                     WControllerPlaylist::cleanSource(track.value("source").toString()));
-
     // NOTE: The file is next to the VBML. There's no duration because the file has it and it would
     //       turn this into a timeline.
     addDownloadValue(vbml, "source", fileName.mid(fileName.lastIndexOf('/') + 1));
@@ -1603,12 +1599,7 @@ void ControllerCore::startTorrent(int id, const QString & url)
 
                 QString source = url + '#' + path.mid(path.lastIndexOf('/') + 1);
 
-                ControllerCoreDownload & data = _downloads[id];
-
-                data.torrent = NULL;
-
-                // NOTE: The origin has to be that file, a torrent alone is a playlist.
-                data.track.insert("source", source);
+                _downloads[id].torrent = NULL;
 
                 reply->deleteLater();
 

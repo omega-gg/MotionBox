@@ -68,7 +68,7 @@ ItemList
 
         if (total > 0) text += " / " + panelDownloads.getSize(total);
 
-        if (speed > 0) text += ", " + panelDownloads.getSize(speed) + "/s";
+        if (speed > 0) return panelDownloads.getSize(speed) + "/s, " + text;
 
         return text;
     }

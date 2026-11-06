@@ -134,6 +134,7 @@ rename, and the VBML follows the final name.
    - `applyFolder`: when a `.vbml` and a media file share a base name, point the media entry at the
      VBML and drop the VBML from `files`. Without this each download shows twice with raw names. With
      it, one track loads the VBML's title and cover. A folder with no text-type files skips this.
+     Folders and files now share a single list, sorted by name and ignoring case.
 3. **`SkMedia/src/ffmpeg/WFfmpegPlayer.cpp`:** move the input options, the `header=` loop and the
    proxy format into static helpers, with no behavior change. They stay in this file because other
    projects have their own `ffmpeg.pri` and would otherwise fail to link.
@@ -183,7 +184,8 @@ and folder choices are app policy.
     - `onMediaLoaded` already lists each distinct audio once, from the lowest quality up.
     - The "Nothing here" and "Loading..." label uses the new `LabelAction.qml`, and
       `ButtonWideSource.qml` gets its margins back. Both follow `ButtonAction`, since push buttons
-      lost their own margins.
+      lost their own margins. The "Track added" label of `ScrollFolderCreate.qml` gets its inset
+      back the same way.
 13. **New `PanelDownloads.qml`** on `PanelSettingsAction`, like `PanelSubtitles`:
     - It holds the `ListModel`, so the state survives the page loader. The most recent download goes
       first.
@@ -195,14 +197,16 @@ and folder choices are app policy.
       function of `PanelSubtitles`, `PanelSettings` and `PanelOutput`.
 14. **New `PageDownloads.qml`:** `ScrollList` plus a bottom "Show download folder" button, which
     collapses the panel and opens the folder in Browse with `search(…, false, false)`, so the current
-    track stays.
+    track stays. `PanelBrowse.qml` no longer hides its search bar on local folders.
 15. **New `ComponentDownload.qml`** on `ItemList`, since `ComponentTrack` only works inside
     `ListPlaylist`:
     - Cover, title, `BarProgress` with its default blue colors, white on a selected row.
-    - The size and speed as `45 MB / 120 MB, 8 MB/s`, right aligned, and the X shown on hover. A
+    - The speed and size as `8 MB/s, 45 MB / 120 MB`, right aligned, and the X shown on hover. A
       finished row shows its size.
     - A click selects the row like a track, and a double click on a finished row plays its local
-      VBML.
+      VBML from a playlist of the panel's own, without opening Browse, and collapses the panel.
+    - A finished row drags to the playlists like a track of `ListPlaylist`. The drag carries its
+      VBML through a playlist of its own, which `onDragEnded` deletes.
 16. **`BarWindowApplication.qml`:** a standalone `ButtonPushIcon` left of the separator:
     - Hidden until the first download of the session, then visible until the application closes. It
       toggles the panel, and is only highlighted when the panel is shown, like the other buttons.
@@ -267,8 +271,8 @@ Tested in the app, on Windows with MinGW:
 
 Not tested:
 
-- **Real mouse:** selecting a row, the double click to play, the hover X and the track list's right
-  click. The tests called these paths directly.
+- **Real mouse:** selecting a row, the double click to play, the drag to a playlist, the hover X and
+  the track list's right click. The tests called these paths directly.
 - **Since the last cleanups:** HLS and the `.mkv` fallback weren't run again.
 - **Never:** a real proxy, a dead magnet, and which codecs trigger MP4's "experimental" error.
 - **Platforms:** Android and macOS.

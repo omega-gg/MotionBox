@@ -34,6 +34,28 @@ Item
     /* read */ property int contentHeight: list.contentHeight + button.height
 
     //---------------------------------------------------------------------------------------------
+    // Private
+
+    property int pDragX: -1
+    property int pDragY: -1
+
+    //---------------------------------------------------------------------------------------------
+    // Functions
+    //---------------------------------------------------------------------------------------------
+    // Private
+
+    function pDragCheck(index)
+    {
+        if (window.testDrag(Qt.point(pDragX, pDragY),
+                            Qt.point(window.mouseX, window.mouseY), st.dp10) == false) return;
+
+        pDragX = -1;
+        pDragY = -1;
+
+        panelDownloads.startDrag(index);
+    }
+
+    //---------------------------------------------------------------------------------------------
     // Children
     //---------------------------------------------------------------------------------------------
 
@@ -61,7 +83,17 @@ Item
                 list.currentIndex = index;
 
                 list.forceActiveFocus();
+
+                // NOTE: A download in progress has no file to drag yet.
+                if (source == "") return;
+
+                pDragX = window.mouseX;
+                pDragY = window.mouseY;
             }
+
+            onReleased: pDragX = -1
+
+            onPositionChanged: if (pDragX != -1) pDragCheck(index)
         }
     }
 

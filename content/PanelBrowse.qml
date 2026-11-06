@@ -60,10 +60,6 @@ SkyMouseArea
 
     property string pQuery
 
-    property bool pSearchHidden: (pFolderBrowse != null
-                                  &&
-                                  controllerNetwork.urlIsFile(pFolderBrowse.source))
-
     property bool pTextEvents: true
 
     //---------------------------------------------------------------------------------------------
@@ -958,15 +954,7 @@ SkyMouseArea
     {
         if (pButtonsIndex == index)
         {
-            if (pSearchHidden)
-            {
-                pClearSource();
-
-                setFocus();
-
-                return;
-            }
-            else if (lineEdit.isFocused)
+            if (lineEdit.isFocused)
             {
                 if (local.query == query)
                 {
@@ -1020,7 +1008,7 @@ SkyMouseArea
     {
         if (index == -1)
         {
-            if (pSearchHidden == false && query)
+            if (query)
             {
                 var source;
 
@@ -1125,49 +1113,7 @@ SkyMouseArea
         anchors.right: scrollBrowse.right
         anchors.top  : bar.bottom
 
-        anchors.topMargin: (pSearchHidden) ? -height : 0
-
         height: lineEdit.height + borderEdit.size
-
-        states: State { name: "Hidden"; when: pSearchHidden }
-
-        transitions: Transition
-        {
-            SequentialAnimation
-            {
-                PauseAnimation { duration: st.duration_fast }
-
-                ScriptAction
-                {
-                    script:
-                    {
-                        if (pSearchHidden)
-                        {
-                            itemEdit.visible = false;
-                        }
-
-                        panelBrowse.clip = false;
-                    }
-                }
-            }
-        }
-
-        onStateChanged:
-        {
-            panelBrowse.clip = true;
-
-            visible = true;
-        }
-
-        Behavior on anchors.topMargin
-        {
-            PropertyAnimation
-            {
-                duration: st.duration_fast
-
-                easing.type: st.easing
-            }
-        }
 
         LineEditBoxClear
         {
@@ -1175,8 +1121,6 @@ SkyMouseArea
 
             anchors.left : parent.left
             anchors.right: parent.right
-
-            enabled: (pSearchHidden == false)
 
             text: local.query
 
@@ -1217,7 +1161,9 @@ SkyMouseArea
                 pHideCompletion();
 
                 // NOTE: Avoid unselecting when loading a local file.
-                if (pSearchHidden == false)
+                if (pFolderBrowse == null
+                    ||
+                    controllerNetwork.urlIsFile(pFolderBrowse.source) == false)
                 {
                     isSelecting = false;
                 }
@@ -1347,14 +1293,13 @@ SkyMouseArea
         anchors.bottom: buttonClose.bottom
 
         checkable: true
-        checked  : (pButtonsIndex == -1 && pSearchHidden == false)
+        checked  : (pButtonsIndex == -1)
 
         text: qsTr("Browse")
 
         itemRight: buttonsBrowse
 
-        itemBottom: (pSearchHidden) ? scrollBrowse
-                                    : lineEdit
+        itemBottom: lineEdit
 
         font.pixelSize: st.barTitleText_pixelSize
 
@@ -1688,8 +1633,7 @@ SkyMouseArea
         itemRight: (scrollFolder.visible) ? scrollFolder
                                           : scrollPlaylist
 
-        itemTop: (pSearchHidden) ? buttonBrowse
-                                 : lineEdit
+        itemTop: lineEdit
 
         /* QML_EVENT */ Keys.onPressed: function(event)
         {

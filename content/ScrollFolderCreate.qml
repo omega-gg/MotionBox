@@ -901,13 +901,14 @@ ScrollFolder
     {
         id: label
 
-        height: st.dp32
+        // NOTE: The label is inset by dp4 in its row, like the one in PanelAdd.
+        height: st.dp24
 
-        x: st.dp32
+        x: st.dp36
 
-        y: (pDropItem) ? list.y + pDropItem.y : 0
+        y: (pDropItem) ? list.y + pDropItem.y + st.dp4 : 0
 
-        maximumWidth: (pDropItem) ? pDropItem.itemText.width : 0
+        maximumWidth: (pDropItem) ? pDropItem.itemText.width - st.dp8 : 0
 
         visible: (pDropItem != null)
 

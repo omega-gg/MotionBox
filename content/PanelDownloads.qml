@@ -43,6 +43,9 @@ PanelSettingsAction
 
     property int pActive: 0
 
+    property Playlist pPlaylist    : null
+    property Playlist pPlaylistDrag: null
+
     //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
@@ -163,13 +166,50 @@ PanelSettingsAction
         pUpdateProgress();
     }
 
+    // NOTE: The track plays from a playlist of its own, as the track of a list.
     function play(source)
     {
+        if (pPlaylist == null)
+        {
+            pPlaylist = controllerPlaylist.createPlaylist();
+        }
+        else pPlaylist.clearTracks();
+
+        pPlaylist.addSource(source, true);
+
+        gui.setCurrentTrack(pPlaylist, 0);
+
+        player.play();
+
         collapse();
 
-        gui.restore();
+        window.clearFocus();
+    }
 
-        panelBrowse.play(source);
+    // NOTE: The track is dragged from a playlist of its own, as the tracks of a list. The drag
+    //       ends with a tryDelete on it.
+    function startDrag(index)
+    {
+        var item = model.get(index);
+
+        pPlaylistDrag = controllerPlaylist.createPlaylist();
+
+        pPlaylistDrag.addSource(item.source);
+
+        pPlaylistDrag.setTrackTitle(0, item.title);
+        pPlaylistDrag.setTrackCover(0, item.cover);
+
+        gui.drag      = 0;
+        gui.dragItem  = pPlaylistDrag;
+        gui.dragIndex = panelLibrary.index;
+        gui.dragData  = [ 0 ];
+
+        toolTip.showIcon(item.title, st.icon16x16_track, st.dp16, st.dp16,
+                         item.cover, st.dp56, st.dp32);
+
+        window.startDrag(item.source, Qt.CopyAction);
+
+        panelLibrary.select(1);
     }
 
     function showFolder()

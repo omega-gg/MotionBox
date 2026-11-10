@@ -51,6 +51,8 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_TORRENT/media/WBackendTorrent_p.h \
            $$SK_TORRENT/media/WHookTorrent.h \
            $$SK_TORRENT/media/WHookTorrent_p.h \
+           $$SK_TORRENT/media/WDownloadHookTorrent.h \
+           $$SK_TORRENT/media/WDownloadHookTorrent_p.h \
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     HEADERS += $$SK_MULTIMEDIA/media/WFilterBarcode.h \
@@ -89,6 +91,7 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_MEDIA/media/WBackendSubtitle.cpp \
            $$SK_TORRENT/media/WBackendTorrent.cpp \
            $$SK_TORRENT/media/WHookTorrent.cpp \
+           $$SK_TORRENT/media/WDownloadHookTorrent.cpp \
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     SOURCES += $$SK_MULTIMEDIA/media/WFilterBarcode.cpp

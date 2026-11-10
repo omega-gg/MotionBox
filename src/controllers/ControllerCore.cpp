@@ -66,6 +66,7 @@
 #include <WLoaderTracks>
 #include <WHookOutputBarcode>
 #include <WHookTorrent>
+#include <WDownloadHookTorrent>
 #include <WLibraryFolderRelated>
 #include <WAbstractTabs>
 #include <WAbstractTab>
@@ -75,6 +76,7 @@
 #include <WBackendVlc>
 #else
 #include <WBackendFfmpeg>
+#include <WMediaDownload>
 #endif
 #include <WBackendSubtitle>
 #include <WBackendIndex>
@@ -522,6 +524,10 @@ ControllerCore::ControllerCore() : WController()
 
     wControllerPlaylist->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
     wControllerTorrent ->registerLoader(WBackendNetQuery::TypeTorrent, loaderTorrent);
+
+#ifndef SK_NO_DOWNLOADHOOKTORRENT
+    wControllerMedia->registerDownloadHook(new WDownloadHookTorrent(this));
+#endif
 #endif
 
     //---------------------------------------------------------------------------------------------
@@ -702,6 +708,9 @@ ControllerCore::ControllerCore() : WController()
 
 /* Q_INVOKABLE */ void ControllerCore::loadLinks(const QString & source, bool safe)
 {
+    // NOTE: There's no reply for an empty source.
+    if (source.isEmpty()) return;
+
     WMediaReply * reply;
 
     int currentTime = WControllerPlaylist::extractTime(source);
@@ -712,11 +721,36 @@ ControllerCore::ControllerCore() : WController()
     }
     else reply = wControllerMedia->getMedia(source, WAbstractBackend::SourceDefault, currentTime);
 
+    // NOTE: The links of a previous source can't come after this one. We may be called from the
+    //       signal of that reply, so we delete it later. We keep the last reply for the download
+    //       function.
+    if (_replyLinks)
+    {
+        disconnect(_replyLinks, 0, this, 0);
+
+        _replyLinks->deleteLater();
+    }
+
+    _replyLinks = reply;
+
     if (reply->isLoaded())
     {
         onMediaLoaded(reply);
     }
     else connect(reply, SIGNAL(loaded(WMediaReply *)), this, SLOT(onMediaLoaded(WMediaReply *)));
+}
+
+/* Q_INVOKABLE */
+QObject * ControllerCore::download(const QVariantMap & track, int quality, bool audio)
+{
+#ifdef SK_NO_MEDIADOWNLOAD
+    Q_UNUSED(track); Q_UNUSED(quality); Q_UNUSED(audio);
+
+    return NULL;
+#else
+    return wControllerMedia->startDownload(_replyLinks, track,
+                                           static_cast<WAbstractBackend::Quality> (quality), audio);
+#endif
 }
 
 /* Q_INVOKABLE */ void ControllerCore::reload(const QString & label)
@@ -973,6 +1007,15 @@ ControllerCore::ControllerCore() : WController()
 /* Q_INVOKABLE */ void ControllerCore::applyProxy(bool active)
 {
     wControllerMedia->clearMedias();
+
+#ifndef SK_NO_MEDIADOWNLOAD
+    if (active)
+    {
+        wControllerMedia->setDownloadProxy(_local._proxyHost,
+                                           _local._proxyPort, _local._proxyPassword);
+    }
+    else wControllerMedia->clearDownloadProxy();
+#endif
 
     if (active)
     {
@@ -1566,7 +1609,7 @@ void ControllerCore::onMediaLoaded(WMediaReply * reply)
 
     }
 
-    emit linksLoaded(listA, listB);
+    emit linksLoaded(listA, listB, reply->canDownload());
 }
 
 void ControllerCore::onQueryEnded()
@@ -1757,4 +1800,15 @@ QString ControllerCore::pathSplash() const
 QString ControllerCore::pathShots() const
 {
     return _path + "/screenshots";
+}
+
+//-------------------------------------------------------------------------------------------------
+
+bool ControllerCore::canDownload() const
+{
+#ifdef SK_NO_MEDIADOWNLOAD
+    return false;
+#else
+    return true;
+#endif
 }

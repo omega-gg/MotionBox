@@ -25,6 +25,7 @@
 
 // Qt includes
 #include <QDateTime>
+#include <QPointer>
 
 // Sk includes
 #include <WController>
@@ -58,6 +59,7 @@ class WLibraryFolderRelated;
 class WTabsTrack;
 class WDeclarativeImage;
 class WDeclarativePlayer;
+class WMediaReply;
 class DataOnline;
 
 #ifdef QT_6
@@ -103,6 +105,8 @@ class ControllerCore : public WController
     Q_PROPERTY(QString pathSplash  READ pathSplash  CONSTANT)
     Q_PROPERTY(QString pathShots   READ pathShots   CONSTANT)
 
+    Q_PROPERTY(bool canDownload READ canDownload CONSTANT)
+
 private:
     ControllerCore();
 
@@ -118,6 +122,10 @@ public: // Interface
     Q_INVOKABLE void loadTrack(WPlaylist * playlist, const QString & text);
 
     Q_INVOKABLE void loadLinks(const QString & source, bool safe);
+
+    // NOTE: This uses the links we loaded last, the quality is the index they came with. It returns
+    //       a WMediaDownload, or NULL when it can't start.
+    Q_INVOKABLE QObject * download(const QVariantMap & track, int quality, bool audio);
 
     Q_INVOKABLE void reload(const QString & label);
 
@@ -241,7 +249,7 @@ private slots:
 signals:
     void tagUpdated(const QImage & image, const QString & text);
 
-    void linksLoaded(QStringList medias, QStringList audios);
+    void linksLoaded(QStringList medias, QStringList audios, bool canDownload);
 
     void linkReady(const QString & text);
 
@@ -303,6 +311,8 @@ public: // Properties
     QString pathSplash () const;
     QString pathShots  () const;
 
+    bool canDownload() const;
+
 private: // Variables
 #ifdef SK_DESKTOP
     QString _argument;
@@ -350,6 +360,8 @@ private: // Variables
     WBackendIndex * _index;
 
     WHookOutput * _output;
+
+    QPointer<WMediaReply> _replyLinks;
 
     QDateTime _dateCover;
     QDateTime _datePreview;

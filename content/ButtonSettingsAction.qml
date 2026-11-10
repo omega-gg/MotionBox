@@ -48,6 +48,10 @@ ButtonPianoAction
     // NOTE: We disable the button when we have a single source.
     enabled: (settings.length > 1)
 
+    // NOTE: A single source looks like a BarTitle.
+    colorA: (enabled) ? st.buttonPiano_colorA : st.barTitle_colorA
+    colorB: (enabled) ? st.buttonPiano_colorB : st.barTitle_colorB
+
     checkable: true
     checked  : (areaContextual.item == buttonSettingsAction)
 

@@ -203,22 +203,26 @@ The download logic is in Sky, so other players can use it. ControllerCore only w
       `ButtonWideSource.qml` gets its margins back. Both follow `ButtonAction`, since push buttons
       lost their own margins. The "Track added" label of `ScrollFolderCreate.qml` gets its inset
       back the same way.
-13. **New `PanelDownloads.qml`** on `PanelSettingsAction`, like `PanelSubtitles`:
+13. **New `PanelDownloads.qml`** on `BasePanelSettings` with a plain `Loader`, like
+    `PanelSettingsSplit`, since its page has its own bar:
     - It holds the `ListModel`, so the state survives the page loader. The most recent download goes
       first. A row keeps its `WMediaDownload`, which the delegate reads, and removing it calls
       `remove()` on it. Removing a running row lowers the active count itself, since `abort()`
       doesn't emit `ended()`.
     - A one second timer works out the speed of each running row from its bytes, smoothed.
     - A finished download shows the usual popup with the folder, or "Failed to download".
-    - A "Clear" `ButtonPiano` sits on the right of the bar, over the title button, like the close
-      button of the contextual panels. `clear()` removes every row and resets `hasDownloaded`.
+    - `clear()` removes every row and resets `hasDownloaded`.
     - It slides down from under the bar through a new `isTop` property of `BasePanelSettings`. The
       bar comes after it in `Gui.qml`, so it's drawn on top.
     - Wire it in `Gui.qml` (declaration, two free action ids, sibling collapses) and in the expose
       function of `PanelSubtitles`, `PanelSettings` and `PanelOutput`.
-14. **New `PageDownloads.qml`:** `ScrollList` plus a bottom "Show download folder" button, which
-    collapses the panel and opens the folder in Browse with `search(…, false, false)`, so the current
-    track stays. `PanelBrowse.qml` no longer hides its search bar on local folders.
+14. **New `PageDownloads.qml`:** a `BarTitle` with the "Downloads" title and a "Clear"
+    `ButtonPiano` on its right, a `ScrollList`, and a bottom "Show downloads folder" button,
+    which opens the folder in the file explorer with `gui.openFile`. The downloads are also listed
+    in the Downloads feed, see `download-feed.md`. The bar comes with the page, so it's only
+    created when the panel first opens.
+    `PanelBrowse.qml` no longer hides its search bar on local folders, so a local folder can be
+    searched from Browse.
 15. **New `ComponentDownload.qml`** on `ItemList`, since `ComponentTrack` only works inside
     `ListPlaylist`:
     - Cover, title, `BarProgress` with its default blue colors, white on a selected row.
@@ -251,7 +255,7 @@ first 30 seconds for errors. No test needs the Windows-only paths beyond the bui
 4. **Names:** spaces, Unicode, brackets, a title starting with `#`, a title with only symbols, and the
    same track twice.
 5. **VBML:** the file reads back with its bare `source` and plays from it.
-6. **Downloads folder:** Show download folder gives one entry per download, with the right title and
+6. **Downloads folder:** browsing the folder gives one entry per download, with the right title and
    cover, and it plays. A folder with unrelated media still lists as before.
 7. **Abort and quit:** during copy, during mux and during a torrent. No `.part` files remain and no
    thread stays alive.

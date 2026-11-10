@@ -40,7 +40,8 @@ AreaContextual
     // 5: Tag
     // 6: Mode
     // 7: Links
-    // 8: Settings
+    // 8: Download
+    // 9: Settings
 
     /* read */ property variant item: null
 
@@ -98,7 +99,7 @@ AreaContextual
 
         areaContextual.item = item;
 
-        pLoad(8).load(settings, currentIndex, activeIndex);
+        pLoad(9).load(settings, currentIndex, activeIndex);
 
         var panel = pGetPanel();
 
@@ -144,6 +145,11 @@ AreaContextual
         links.load(source);
     }
 
+    function showPanelDownload(track)
+    {
+        pLoad(8).loadTrack(track);
+    }
+
     function showPanelAdd(type, target, index)
     {
         panelAdd.setSource(type, target, index);
@@ -171,6 +177,13 @@ AreaContextual
                 controllerNetwork.hasFragment(source, 'ctx') ||
                 controllerNetwork.hasFragment(source, 'id')  ||
                 controllerNetwork.hasFragment(source, 'sid'));
+    }
+
+    function checkDownload(data)
+    {
+        return (core.canDownload && data.source != ""
+                                 && st.getTrackActive(data.type) == false
+                                 && controllerNetwork.urlIsFile(data.source) == false);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -201,7 +214,8 @@ AreaContextual
         else if (currentId == 5) return "ContextualTag.qml";
         else if (currentId == 6) return "ContextualMode.qml";
         else if (currentId == 7) return "ContextualLinks.qml";
-        else if (currentId == 8) return "ContextualSettings.qml";
+        else if (currentId == 8) return "ContextualDownload.qml";
+        else if (currentId == 9) return "ContextualSettings.qml";
         else                     return "";
     }
 

@@ -234,7 +234,8 @@ StyleComponents
     //---------------------------------------------------------------------------------------------
     // 18x18
 
-    property url icon18x18_addIn: icon_addIn
+    property url icon18x18_addIn   : icon_addIn
+    property url icon18x18_download: icon_download
 
     //---------------------------------------------------------------------------------------------
     // 20x20

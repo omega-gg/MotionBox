@@ -109,7 +109,13 @@ BaseContextualList
         {
             core.saveVbml(pTab.title, pTab.toVbml());
         }
-        else if (id == 9) // Close
+        else if (id == 9) // Download
+        {
+            areaContextual.showPanelDownload(pTab.trackData);
+
+            return;
+        }
+        else if (id == 10) // Close
         {
             gui.closeTrack();
         }
@@ -131,6 +137,8 @@ BaseContextualList
 
         var hasContext = false;
 
+        var canDownload = false;
+
         if (isValid)
         {
             var data = tab.trackData;
@@ -143,6 +151,8 @@ BaseContextualList
 
             // NOTE: Reset timeline only needs a context when there's a source.
             hasContext = (hasSource == false || areaContextual.checkContext(tab.source));
+
+            canDownload = areaContextual.checkDownload(data);
         }
 
         currentPage.values =
@@ -174,7 +184,10 @@ BaseContextualList
             { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
               "title": qsTr("Save VBML"), "enabled": isValid },
 
-            { "id": 9, "title": qsTr("Close Track"), "enabled": isValid }
+            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+              "title": qsTr("Download"), "enabled": canDownload },
+
+            { "id": 10, "title": qsTr("Close Track"), "enabled": isValid }
         ];
     }
 

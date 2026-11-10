@@ -587,7 +587,8 @@ Item
     {
         id: itemTrack
 
-        anchors.right: borderButtons.left
+        anchors.right: (buttonDownloads.visible) ? buttonDownloads.left
+                                                 : borderButtons.left
 
         anchors.rightMargin: st.dp12
 
@@ -736,6 +737,44 @@ Item
         anchors.right: buttonBrowse.left
 
         anchors.rightMargin: st.dp12
+    }
+
+    ButtonPushIcon
+    {
+        id: buttonDownloads
+
+        anchors.right: borderButtons.left
+        anchors.top  : buttonBrowse.top
+
+        anchors.rightMargin: st.dp12
+
+        width : st.dp38
+        height: pSize
+
+        visible: panelDownloads.hasDownloaded
+
+        checkable: true
+        checked  : panelDownloads.isExposed
+
+        icon: st.icon18x18_download
+
+        // NOTE: The icon makes room for the progress.
+        iconSourceSize: (panelDownloads.isActive) ? st.size14x14
+                                                  : st.size18x18
+
+//#QT_4
+        onPressed: panelDownloads.toggleExpose()
+//#ELSE
+        onPressed: Qt.callLater(panelDownloads.toggleExpose)
+
+        // NOTE: We only want the progress while downloading.
+        Loader
+        {
+            anchors.centerIn: parent
+
+            source: (panelDownloads.isActive) ? "ItemDownloadProgress.qml" : ""
+        }
+//#END
     }
 
     ButtonPushLeftIcon

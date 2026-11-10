@@ -104,7 +104,13 @@ BaseContextualList
         {
             core.saveVbml(playlist.trackTitle(pIndex), playlist.trackVbml(pIndex));
         }
-        else if (id == 9) // Set as Cover
+        else if (id == 9) // Download
+        {
+            areaContextual.showPanelDownload(playlist.trackData(pIndex));
+
+            return;
+        }
+        else if (id == 10) // Set as Cover
         {
             var cover = playlist.trackCover(pIndex);
 
@@ -113,7 +119,7 @@ BaseContextualList
                 playlist.cover = cover;
             }
         }
-        else if (id == 10) // Remove
+        else if (id == 11) // Remove
         {
             pList.removeTrack(pIndex, true);
         }
@@ -170,13 +176,16 @@ BaseContextualList
               "enabled": (hasSource && areaContextual.checkContext(pSource)) },
 
             { "id": 8, "icon": st.icon16x16_download, "iconSize": st.size16x16,
-              "title": qsTr("Save VBML") }
+              "title": qsTr("Save VBML") },
+
+            { "id": 9, "icon": st.icon16x16_download, "iconSize": st.size16x16,
+              "title": qsTr("Download"), "enabled": areaContextual.checkDownload(data) }
         ];
 
         if (playlist.isLocal)
         {
-            array.push({ "id": 9, "title": qsTr("Set as Cover") },
-                       { "id": 10, "title": qsTr("Remove Track") });
+            array.push({ "id": 10, "title": qsTr("Set as Cover") },
+                       { "id": 11, "title": qsTr("Remove Track") });
         }
 
         currentPage.values = array;

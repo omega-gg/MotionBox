@@ -50,6 +50,9 @@ ColumnAuto
 
     /* mandatory */ property Component delegate
 
+    // NOTE: We only want the links when they can be downloaded.
+    property bool checkDownload: false
+
     //---------------------------------------------------------------------------------------------
     // Connections
     //---------------------------------------------------------------------------------------------
@@ -58,50 +61,38 @@ ColumnAuto
     {
         target: core
 
-        /* QML_CONNECTION */ function onLinksLoaded(medias, audios)
+        /* QML_CONNECTION */ function onLinksLoaded(medias, audios, canDownload)
         {
-            var arrayA = new Array;
-            var arrayB = new Array;
-
-            for (var i = 0; i <= AbstractBackend.Quality2160; i++)
-            {
-                var title = titles[i];
-
-                var source = medias[i];
-
-                if (source) arrayA.push({ "title": title, "source": source});
-
-                source = audios[i];
-
-                if (source == "") continue;
-
-                var index = arrayB.length + 1;
-
-                arrayB.push({ "title": qsTr("Audio %1").arg(index), "source": source});
-            }
-
-//#QT_4
-            //-------------------------------------------------------------------------------------
-            // NOTE Qt4: We can only append items one by one.
-
-            for (/* var */ i = 0; i < arrayA.length; i++)
-            {
-                modelVideo.append(arrayA[i]);
-            }
-
-            for (/* var */ i = 0; i < arrayB.length; i++)
-            {
-                modelAudio.append(arrayB[i]);
-            }
-
-            //-------------------------------------------------------------------------------------
-//#ELSE
-            // NOTE: It's probably better to append everything at once.
-            modelVideo.append(arrayA);
-            modelAudio.append(arrayB);
-//#END
-
             isLoaded = true;
+
+            if (checkDownload && canDownload == false) return;
+
+            var i;
+
+            for (i = 0; i <= AbstractBackend.Quality2160; i++)
+            {
+                if (medias[i] == "") continue;
+
+                modelVideo.append({ "title"  : titles[i],
+                                    "source" : medias[i],
+                                    "quality": i,
+                                    "audio"  : false });
+            }
+
+            var index = 1;
+
+            // NOTE: The audios are listed once each, from the lowest quality to the highest.
+            for (i = 0; i <= AbstractBackend.Quality2160; i++)
+            {
+                if (audios[i] == "") continue;
+
+                modelAudio.append({ "title"  : qsTr("Audio %1").arg(index),
+                                    "source" : audios[i],
+                                    "quality": i,
+                                    "audio"  : true });
+
+                index++;
+            }
         }
     }
 
@@ -113,8 +104,7 @@ ColumnAuto
     {
         baseContextualLinks.source = source;
 
-        // NOTE: This call triggers pLoadLinks.
-        buttonSafe.checked = true;
+        pLoadLinks();
     }
 
     //---------------------------------------------------------------------------------------------

@@ -54,6 +54,7 @@ PanelSettingsSplit
 
         panelSubtitles.collapse();
         panelOutput   .collapse();
+        panelDownloads.collapse();
 
         loadPage();
 

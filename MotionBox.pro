@@ -332,6 +332,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ContextualTag.qml \
                content/ContextualSettings.qml \
                content/ContextualMode.qml \
+               content/BaseContextualLinks.qml \
                content/ContextualLinks.qml \
                dist/MotionBox.rc \
                dist/script/start.sh \

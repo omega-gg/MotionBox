@@ -36,6 +36,9 @@ ScrollFolder
     /* read */ property bool isCreating: false
     /* read */ property bool isDropping: false
 
+    // NOTE: The items before this index can't be moved, and nothing can be dropped above them.
+    property int indexLock: 0
+
     property bool enableAnimation: true
 
     //---------------------------------------------------------------------------------------------
@@ -119,6 +122,8 @@ ScrollFolder
                 if (folder == gui.dragItem)
                 {
                     if (count == 1) return;
+
+                    if (folder.indexFromId(gui.dragId) < indexLock) return;
 
                     pAcceptDrop(event);
 
@@ -618,8 +623,9 @@ ScrollFolder
 
         index = Math.round(y / list.itemSize);
 
-        if      (index < 0)     index = 0;
-        else if (index > count) index = count;
+        if (index < indexLock) index = indexLock;
+
+        if (index > count) index = count;
 
         if (lineDrop.visible && pDropIndex == index) return;
 

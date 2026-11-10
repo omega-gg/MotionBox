@@ -404,6 +404,9 @@ Panel
 
             folder: (pIsFeeds) ? feeds : library
 
+            // NOTE: The loader feeds stay on top.
+            indexLock: (pIsFeeds) ? gui.indexFeeds : 0
+
             listFolder  : gui.listFolder
             listPlaylist: gui.listPlaylist
 

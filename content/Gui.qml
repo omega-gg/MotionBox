@@ -50,6 +50,10 @@ Item
     /* read */ property LibraryFolder backends: core.backends
     /* read */ property LibraryFolder related : core.related
 
+    // NOTE: The loader feeds come first: tracks, suggest, recent and interactive. The feeds of the
+    //       played tracks start after them.
+    /* read */ property int indexFeeds: 4
+
     /* read */ property variant currentPlaylist: currentTab.playlist
 
     /* read */ property Playlist history: null
@@ -2039,7 +2043,7 @@ Item
 
             pAddPlaylist(core.urlType(feed), feed);
         }
-        else feeds.moveAt(index, 4); // After interactive
+        else feeds.moveAt(index, indexFeeds);
 
         return true;
     }
@@ -2068,7 +2072,7 @@ Item
 
             pAddPlaylist(type, url);
         }
-        else feeds.moveAt(index, 4); // After interactive
+        else feeds.moveAt(index, indexFeeds);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3272,14 +3276,25 @@ Item
     {
         if (feeds.itemLabel(0) != "tracks")
         {
-            if (history) history.tryDelete();
+            var index = feeds.indexFromLabel("tracks");
 
-            history = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
+            if (index == -1)
+            {
+                if (history) history.tryDelete();
 
-            history.title = qsTr("Tracks");
-            history.label = "tracks";
+                history = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
 
-            insertLibraryItem(0, history, listLibrary, feeds);
+                history.title = qsTr("Tracks");
+                history.label = "tracks";
+
+                insertLibraryItem(0, history, listLibrary, feeds);
+            }
+            else
+            {
+                feeds.moveAt(index, 0);
+
+                history = createItemAt(feeds, 0);
+            }
         }
         else history = createItemAt(feeds, 0);
 
@@ -3288,35 +3303,28 @@ Item
             feeds.currentIndex = 0;
         }
 
-        if (feeds.itemLabel(1) != "suggest")
+        pCreateFeed(1, LibraryItem.Playlist,     qsTr("Suggestions"), "suggest");
+        pCreateFeed(2, LibraryItem.PlaylistFeed, qsTr("Recents"),     "recent");
+        pCreateFeed(3, LibraryItem.PlaylistFeed, qsTr("Interactive"), "interactive");
+    }
+
+    // NOTE: A loader feed that moved goes back to its index, so they all stay on top.
+    function pCreateFeed(index, type, title, label)
+    {
+        if (feeds.itemLabel(index) == label) return;
+
+        var from = feeds.indexFromLabel(label);
+
+        if (from == -1)
         {
-            var playlist = controllerPlaylist.createPlaylist(LibraryItem.Playlist);
+            var playlist = controllerPlaylist.createPlaylist(type);
 
-            playlist.title = qsTr("Suggestions");
-            playlist.label = "suggest";
+            playlist.title = title;
+            playlist.label = label;
 
-            insertLibraryItem(1, playlist, listLibrary, feeds);
+            insertLibraryItem(index, playlist, listLibrary, feeds);
         }
-
-        if (feeds.itemLabel(2) != "recent")
-        {
-            /* var */ playlist = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
-
-            playlist.title = qsTr("Recents");
-            playlist.label = "recent";
-
-            insertLibraryItem(2, playlist, listLibrary, feeds);
-        }
-
-        if (feeds.itemLabel(3) != "interactive")
-        {
-            /* var */ playlist = controllerPlaylist.createPlaylist(LibraryItem.PlaylistFeed);
-
-            playlist.title = qsTr("Interactive");
-            playlist.label = "interactive";
-
-            insertLibraryItem(3, playlist, listLibrary, feeds);
-        }
+        else feeds.moveAt(from, index);
     }
 
     //---------------------------------------------------------------------------------------------
@@ -3363,7 +3371,7 @@ Item
     {
         var playlist = controllerPlaylist.createPlaylist(type);
 
-        insertLibraryItem(4, playlist, listLibrary, feeds); // After interactive
+        insertLibraryItem(indexFeeds, playlist, listLibrary, feeds);
 
         playlist.loadSource(url);
 

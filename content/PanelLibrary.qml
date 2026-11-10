@@ -438,7 +438,9 @@ Panel
                                           &&
                                           (label == "tracks" || label == "suggest"
                                            ||
-                                           label == "recent" || label == "interactive"))
+                                           label == "recent" || label == "interactive"
+                                           ||
+                                           label == "downloads"))
 
                 icon: (visible && isActive == false && pIsLoader == false) ? cover : ""
 
@@ -461,6 +463,10 @@ Panel
                         else if (label == "interactive")
                         {
                             return st.icon16x16_hub;
+                        }
+                        else if (label == "downloads")
+                        {
+                            return st.icon16x16_download;
                         }
                         else return st.icon16x16_feed;
                     }

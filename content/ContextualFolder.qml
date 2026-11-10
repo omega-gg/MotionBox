@@ -155,7 +155,9 @@ BaseContextualList
                 {
                     var label = folder.itemLabel(index);
 
-                    if (label == "suggest" || label == "recent" || label == "interactive")
+                    if (label == "suggest" || label == "recent" || label == "interactive"
+                        ||
+                        label == "downloads")
                     {
                         array.push(pGetItem(6, st.icon16x16_refresh, st.size16x16, qsTr("Reload")));
                     }

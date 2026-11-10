@@ -24,6 +24,8 @@ HEADERS += $$SK_GUI/media/WBackendNet.h \
            $$SK_GUI/media/WLoaderRecent_p.h \
            $$SK_GUI/media/WLoaderTracks.h \
            $$SK_GUI/media/WLoaderTracks_p.h \
+           $$SK_GUI/media/WLoaderDownloads.h \
+           $$SK_GUI/media/WLoaderDownloads_p.h \
            $$SK_GUI/media/WPlayer.h \
            $$SK_GUI/media/WPlayer_p.h \
            $$SK_GUI/media/WAbstractBackend.h \
@@ -76,6 +78,7 @@ SOURCES += $$SK_GUI/media/WBackendNet.cpp \
            $$SK_GUI/media/WLoaderSuggest.cpp \
            $$SK_GUI/media/WLoaderRecent.cpp \
            $$SK_GUI/media/WLoaderTracks.cpp \
+           $$SK_GUI/media/WLoaderDownloads.cpp \
            $$SK_GUI/media/WPlayer.cpp \
            $$SK_GUI/media/WAbstractBackend.cpp \
            $$SK_GUI/media/WAbstractHook.cpp \

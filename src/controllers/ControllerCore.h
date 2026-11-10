@@ -53,6 +53,7 @@ class WLoaderWeb;
 class WLoaderSuggest;
 class WLoaderRecent;
 class WLoaderTracks;
+class WLoaderDownloads;
 class WBackendIndex;
 class WBackendNet;
 class WLibraryFolderRelated;
@@ -353,9 +354,10 @@ private: // Variables
     WLoaderNetwork * _loaderMedia;
     //WLoaderWeb     * _loaderWeb;
 
-    WLoaderSuggest * _loaderSuggest;
-    WLoaderRecent  * _loaderRecent;
-    WLoaderTracks  * _loaderInteractive;
+    WLoaderSuggest   * _loaderSuggest;
+    WLoaderRecent    * _loaderRecent;
+    WLoaderTracks    * _loaderInteractive;
+    WLoaderDownloads * _loaderDownloads;
 
     WBackendIndex * _index;
 

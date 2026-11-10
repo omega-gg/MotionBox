@@ -64,6 +64,7 @@
 #include <WLoaderSuggest>
 #include <WLoaderRecent>
 #include <WLoaderTracks>
+#include <WLoaderDownloads>
 #include <WHookOutputBarcode>
 #include <WHookTorrent>
 #include <WDownloadHookTorrent>
@@ -162,6 +163,7 @@ ControllerCore::ControllerCore() : WController()
     _loaderSuggest     = NULL;
     _loaderRecent      = NULL;
     _loaderInteractive = NULL;
+    _loaderDownloads   = NULL;
 
     _index = NULL;
 
@@ -766,6 +768,10 @@ QObject * ControllerCore::download(const QVariantMap & track, int quality, bool 
     else if (label == "interactive")
     {
         if (_loaderInteractive) _loaderInteractive->reload();
+    }
+    else if (label == "downloads")
+    {
+        if (_loaderDownloads) _loaderDownloads->reload();
     }
 }
 
@@ -1551,6 +1557,12 @@ void ControllerCore::onFeedChanged()
 
         _loaderInteractive->start();
     }
+    else if (label == "downloads" && _loaderDownloads == NULL)
+    {
+        _loaderDownloads = new WLoaderDownloads(_feeds, _feeds->currentId());
+
+        _loaderDownloads->start();
+    }
 }
 
 void ControllerCore::onFeedUpdated()
@@ -1582,6 +1594,13 @@ void ControllerCore::onFeedUpdated()
         delete _loaderInteractive;
 
         _loaderInteractive = NULL;
+    }
+
+    if (_feeds->itemLabel(4) != "downloads" && _loaderDownloads)
+    {
+        delete _loaderDownloads;
+
+        _loaderDownloads = NULL;
     }
 }
 

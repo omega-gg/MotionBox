@@ -103,8 +103,8 @@ Item
 
         anchors.bottom: parent.bottom
 
-        text: qsTr("Show download folder")
+        text: qsTr("Show downloads folder")
 
-        onClicked: panelDownloads.showFolder()
+        onClicked: gui.openFile(controllerFile.pathDownloads())
     }
 }

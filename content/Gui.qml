@@ -50,9 +50,9 @@ Item
     /* read */ property LibraryFolder backends: core.backends
     /* read */ property LibraryFolder related : core.related
 
-    // NOTE: The loader feeds come first: tracks, suggest, recent and interactive. The feeds of the
-    //       played tracks start after them.
-    /* read */ property int indexFeeds: 4
+    // NOTE: The loader feeds come first: tracks, suggest, recent, interactive and downloads. The
+    //       feeds of the played tracks start after them.
+    /* read */ property int indexFeeds: 5
 
     /* read */ property variant currentPlaylist: currentTab.playlist
 
@@ -3306,6 +3306,7 @@ Item
         pCreateFeed(1, LibraryItem.Playlist,     qsTr("Suggestions"), "suggest");
         pCreateFeed(2, LibraryItem.PlaylistFeed, qsTr("Recents"),     "recent");
         pCreateFeed(3, LibraryItem.PlaylistFeed, qsTr("Interactive"), "interactive");
+        pCreateFeed(4, LibraryItem.PlaylistFeed, qsTr("Downloads"),   "downloads");
     }
 
     // NOTE: A loader feed that moved goes back to its index, so they all stay on top.

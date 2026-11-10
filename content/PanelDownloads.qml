@@ -190,17 +190,6 @@ PanelSettingsAction
         panelLibrary.select(1);
     }
 
-    function showFolder()
-    {
-        collapse();
-
-        gui.restore();
-
-        // NOTE: We only want to show the folder, the current track stays where it is.
-        panelBrowse.search(panelSearch.backendAt(0),
-                           controllerFile.fileUrl(controllerFile.pathDownloads()), false, false);
-    }
-
     //---------------------------------------------------------------------------------------------
     // BasePanelSettings reimplementation
 

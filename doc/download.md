@@ -14,6 +14,8 @@ BitTorrent sources work.
   `WControllerFile::pathDownloads()`.
 - **X button:** on a running row it aborts, removes the partial files and removes the row. On a
   finished or failed row it removes the row and keeps the files. "Cleared" never deletes a download.
+- **Clear button:** in the panel's bar, enabled when nothing runs. It removes every row, keeps the
+  files, collapses the panel and hides the bar button until the next download.
 - **Failed downloads:** the row stays with a "Failed" label until it is cleared.
 - **Session only:** the list isn't kept across restarts. Quitting aborts running downloads and removes
   their partial files, with no prompt.
@@ -208,6 +210,8 @@ The download logic is in Sky, so other players can use it. ControllerCore only w
       doesn't emit `ended()`.
     - A one second timer works out the speed of each running row from its bytes, smoothed.
     - A finished download shows the usual popup with the folder, or "Failed to download".
+    - A "Clear" `ButtonPiano` sits on the right of the bar, over the title button, like the close
+      button of the contextual panels. `clear()` removes every row and resets `hasDownloaded`.
     - It slides down from under the bar through a new `isTop` property of `BasePanelSettings`. The
       bar comes after it in `Gui.qml`, so it's drawn on top.
     - Wire it in `Gui.qml` (declaration, two free action ids, sibling collapses) and in the expose
@@ -225,7 +229,7 @@ The download logic is in Sky, so other players can use it. ControllerCore only w
     - A finished row drags to the playlists like a track of `ListPlaylist`. The drag carries its
       VBML through a playlist of its own, which `onDragEnded` deletes.
 16. **`BarWindowApplication.qml`:** a standalone `ButtonPushIcon` left of the separator:
-    - Hidden until the first download of the session, then visible until the application closes. It
+    - Hidden until the first download of the session, then visible until the list is cleared. It
       toggles the panel, and is only highlighted when the panel is shown, like the other buttons.
     - The icon is `icon18x18_download`, a new alias in `StyleApplication.qml`.
     - While a download is active a `Loader` creates `ItemDownloadProgress.qml`, a ring with the

@@ -206,7 +206,7 @@ Item
                 visible: (folder != null)
 
                 checkable: true
-                checked  : (panelContextual.item == buttonFolder)
+                checked  : (areaContextual.currentItem == buttonFolder)
 
                 icon          : st.icon16x16_folder
                 iconSourceSize: st.size16x16
@@ -422,9 +422,7 @@ Item
 
                 checkable: true
 
-                checked: (panelContextual.item == buttonPlaylist
-                          ||
-                          panelAdd.item == buttonPlaylist)
+                checked: (areaContextual.currentItem == buttonPlaylist)
 
                 icon: (playlist != null && playlist.isFeed) ? st.icon16x16_feed
                                                             : st.icon16x16_playlist

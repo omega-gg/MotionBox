@@ -1270,7 +1270,7 @@ SkyMouseArea
         width: st.dp32 + borderSizeWidth
 
         checkable: true
-        checked  : (panelContextual.item == buttonHome)
+        checked  : (areaContextual.currentItem == buttonHome)
 
         icon          : st.icon20x20_url
         iconSourceSize: st.size20x20
@@ -1480,7 +1480,7 @@ SkyMouseArea
         highlighted: (player.isPlaying && player.playlist == playlist)
 
         checkable: true
-        checked  : (panelContextual.item == buttonPlaylist || panelAdd.item == buttonPlaylist)
+        checked  : (areaContextual.currentItem == buttonPlaylist)
 
         icon: (playlist != null && playlist.isFeed) ? st.icon16x16_feed
                                                     : st.icon16x16_playlist

@@ -114,11 +114,34 @@ PanelSettingsAction
 
         if (download.isRunning) pActive--;
 
-        download.remove();
-
+        // NOTE: The row goes first, so its delegate is deleted before the download it reads.
         model.remove(index);
 
+        download.remove();
+
         pUpdateProgress();
+    }
+
+    // NOTE: This is only enabled when nothing runs, so the files stay where they are.
+    function clear()
+    {
+        var downloads = new Array;
+
+        for (var i = 0; i < model.count; i++)
+        {
+            downloads.push(model.get(i).download);
+        }
+
+        model.clear();
+
+        for (/* var */ i = 0; i < downloads.length; i++)
+        {
+            downloads[i].remove();
+        }
+
+        hasDownloaded = false;
+
+        collapse();
     }
 
     // NOTE: The track plays from a playlist of its own, as the track of a list.
@@ -270,5 +293,19 @@ PanelSettingsAction
         running: isActive
 
         onTriggered: pUpdateSpeed()
+    }
+
+    ButtonPiano
+    {
+        anchors.right: parent.right
+        anchors.top  : parent.top
+
+        borderLeft: borderSize
+
+        enabled: (panelDownloads.isActive == false)
+
+        text: qsTr("Clear")
+
+        onClicked: panelDownloads.clear()
     }
 }

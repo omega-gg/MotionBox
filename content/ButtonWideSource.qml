@@ -26,12 +26,26 @@ import Sky     1.0
 ButtonWideExtra
 {
     //---------------------------------------------------------------------------------------------
+    // Properties
+    //---------------------------------------------------------------------------------------------
+
+    property int margins: st.dp4
+
+    //---------------------------------------------------------------------------------------------
     // Settings
     //---------------------------------------------------------------------------------------------
+
+    height: st.buttonPush_size + margins * 2
 
     text: title
 
     itemText.horizontalAlignment: Text.AlignLeft
+
+    buttonText.anchors.top: buttonText.parent.top
+    buttonIcon.anchors.top: buttonIcon.parent.top
+
+    buttonText.anchors.margins: margins
+    buttonIcon.anchors.margins: margins
 
     buttonIcon.icon          : st.icon16x16_external
     buttonIcon.iconSourceSize: st.size16x16

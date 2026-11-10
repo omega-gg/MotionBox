@@ -177,7 +177,7 @@ ColumnAuto
         ButtonWideSource {}
     }
 
-    LabelWide
+    LabelAction
     {
         text: (isLoaded) ? qsTr("Nothing here")
                          : qsTr("Loading...")

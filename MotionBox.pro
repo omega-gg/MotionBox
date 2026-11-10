@@ -285,6 +285,7 @@ OTHER_FILES += 3rdparty.sh \
                content/ButtonAction.qml \
                content/ButtonActionFull.qml \
                content/ButtonsAction.qml \
+               content/LabelAction.qml \
                content/ButtonSettings.qml \
                content/ButtonSettingsAction.qml \
                content/ButtonSettingsExtra.qml \

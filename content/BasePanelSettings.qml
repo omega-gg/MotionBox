@@ -201,15 +201,17 @@ Panel
         }
         else loader.loadRight(source);
 
+        var item = loader.item;
+
         // NOTE: We check if the 'onShow' function is defined.
-        if (page.onShow) page.onShow();
+        if (item.onShow) item.onShow();
 
         pAnimate = false;
 
         // NOTE: We apply the current index after the animation.
         currentIndex = index;
 
-        loader.item.forceActiveFocus();
+        item.forceActiveFocus();
     }
 
     function loadPage()
@@ -221,8 +223,10 @@ Panel
             loader.item.forceActiveFocus();
         }
 
+        var item = loader.item;
+
         // NOTE: We check if the 'onShow' function is defined.
-        if (page.onShow) page.onShow();
+        if (item.onShow) item.onShow();
     }
 
     //---------------------------------------------------------------------------------------------

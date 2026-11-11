@@ -31,7 +31,7 @@ Item
     // NOTE: We have to rely on these properties to avoid binding loops in BasePanelSettings.
 
     /* read */ property int contentWidth : st.dp480
-    /* read */ property int contentHeight: list.contentHeight + button.height
+    /* read */ property int contentHeight: bar.height + list.contentHeight + button.height
 
     //---------------------------------------------------------------------------------------------
     // Private
@@ -59,13 +59,47 @@ Item
     // Children
     //---------------------------------------------------------------------------------------------
 
+    BarTitle
+    {
+        id: bar
+
+        anchors.left : parent.left
+        anchors.right: parent.right
+
+        height: st.dp32 + borderSizeHeight
+
+        borderTop: 0
+
+        BarTitleText
+        {
+            anchors.fill: parent
+
+            text: qsTr("Downloads")
+        }
+
+        ButtonPiano
+        {
+            anchors.right : parent.right
+            anchors.top   : parent.top
+            anchors.bottom: parent.bottom
+
+            borderLeft: borderSize
+
+            enabled: (panelDownloads.isActive == false)
+
+            text: qsTr("Clear")
+
+            onClicked: panelDownloads.clear()
+        }
+    }
+
     ScrollList
     {
         id: list
 
         anchors.left  : parent.left
         anchors.right : parent.right
-        anchors.top   : parent.top
+        anchors.top   : bar.bottom
         anchors.bottom: button.top
 
         currentIndex: -1

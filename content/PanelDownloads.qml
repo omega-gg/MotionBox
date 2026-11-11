@@ -23,7 +23,7 @@
 import QtQuick 1.0
 import Sky     1.0
 
-PanelSettingsAction
+BasePanelSettings
 {
     //---------------------------------------------------------------------------------------------
     // Properties
@@ -55,9 +55,9 @@ PanelSettingsAction
     borderTop   : 0
     borderBottom: borderSize
 
-    sources: [ Qt.resolvedUrl("PageDownloads.qml") ]
+    loader: loader
 
-    titles: [ qsTr("Downloads") ]
+    sources: [ Qt.resolvedUrl("PageDownloads.qml") ]
 
     //---------------------------------------------------------------------------------------------
     // Functions
@@ -65,8 +65,8 @@ PanelSettingsAction
 
     function getSize(bytes)
     {
-        if      (bytes < 1048576)    return Math.round(bytes / 1024) + " KB";
-        else if (bytes < 1073741824) return Math.round(bytes / 1048576) + " MB";
+        if      (bytes < 1048576)    return Math.round(bytes / 1024)        + " KB";
+        else if (bytes < 1073741824) return Math.round(bytes / 1048576)     + " MB";
         else                         return (bytes / 1073741824).toFixed(1) + " GB";
     }
 
@@ -284,17 +284,11 @@ PanelSettingsAction
         onTriggered: pUpdateSpeed()
     }
 
-    ButtonPiano
+    // NOTE: The page has its own bar, with the title and the clear button.
+    Loader
     {
-        anchors.right: parent.right
-        anchors.top  : parent.top
+        id: loader
 
-        borderLeft: borderSize
-
-        enabled: (panelDownloads.isActive == false)
-
-        text: qsTr("Clear")
-
-        onClicked: panelDownloads.clear()
+        anchors.fill: parent
     }
 }

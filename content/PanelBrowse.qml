@@ -697,11 +697,16 @@ SkyMouseArea
                     }
                     else gui.showGrid(listPlaylist, playlist, -1);
                 }
-                else if (player.isPlaying == false)
+                else
                 {
-                    gui.setCurrentTrack(playlist, 0);
+                    if (player.isPlaying == false)
+                    {
+                        gui.setCurrentTrack(playlist, 0);
+                    }
+                    else gui.restore();
+
+                    scrollPlaylist.setFocus();
                 }
-                else gui.restore();
 
                 return;
             }

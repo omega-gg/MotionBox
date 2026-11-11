@@ -196,7 +196,7 @@ Item
         }
         else if (pButton & Qt.MiddleButton)
         {
-            gui.stop();
+            player.stop();
         }
     }
 

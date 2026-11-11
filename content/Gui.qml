@@ -1273,22 +1273,11 @@ Item
         else player.pause();
     }
 
-    function stop()
-    {
-        //var tab = playerTab;
-
-        player.stop();
-
-        //tab.currentTime = -1;
-
-        setCurrentTrack(player.playlist, player.trackIndex);
-    }
-
     function closeTrack()
     {
         if (player.hasStarted)
         {
-            stop();
+            player.stop();
         }
         else currentTab.clearBookmarks();
     }
@@ -2246,11 +2235,15 @@ Item
 
     function applyTime(source)
     {
-        // NOTE: We want to save the current time in seconds and floored.
-        var time = Math.floor(player.currentTime / 1000);
+        var time = player.currentTime;
 
-        // NOTE: When stopping the player the currentTime is set to -1 before changing the
-        //       state. So the player state might still be 'paused' with an invalid time.
+        // NOTE: After a stop the player has no time, the tab kept it.
+        if (time == -1) time = playerTab.currentTime;
+
+        // NOTE: We want to save the current time in seconds and floored.
+        time = Math.floor(time / 1000);
+
+        // NOTE: The track has no time yet, or it was reset.
         if (time < 0)
         {
             return source;
@@ -3136,7 +3129,7 @@ Item
         }
         else if (event.key == Qt.Key_Backspace && player.isStopped == false)
         {
-            stop();
+            player.stop();
         }
         else if (event.key == Qt.Key_Tab || event.key == Qt.Key_Backtab)
         {

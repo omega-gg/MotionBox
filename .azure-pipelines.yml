@@ -33,7 +33,7 @@ jobs:
 
 - job: macOS_qt5
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt5
@@ -45,7 +45,7 @@ jobs:
 
 - job: macOS_qt6
   pool:
-    vmImage: "macOS-14"
+    vmImage: "macOS-15"
   steps:
   - bash: |
       sh environment.sh qt6
@@ -63,8 +63,9 @@ jobs:
   pool:
     vmImage: "ubuntu-latest"
   steps:
+  # NOTE: i386 DNS resolution fails under the default seccomp profile.
   - bash: |
-      docker run -d --name ubuntu -v $PWD:/MotionBox i386/ubuntu:20.04 tail -f /dev/null
+      docker run -d --name ubuntu --security-opt seccomp=unconfined -v $PWD:/MotionBox i386/ubuntu:20.04 tail -f /dev/null
       docker exec -t ubuntu bash -c "cd /MotionBox;
                                      apt-get update;
                                      apt-get -y install sudo curl zip git;

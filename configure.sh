@@ -214,21 +214,4 @@ elif [ $1 = "linux" ]; then
     cp "$deploy"/libtorrent-rasterbar*.so* bin
 fi
 
-#--------------------------------------------------------------------------------------------------
-# Boost
-#--------------------------------------------------------------------------------------------------
-
-if [ $1 = "macOS" ]; then
-
-    echo "COPYING Boost"
-
-    cp "$deploy"/libboost*.dylib bin
-
-elif [ $1 = "linux" ]; then
-
-    echo "COPYING Boost"
-
-    cp "$deploy"/libboost*.so* bin
-fi
-
 echo "---------------------"

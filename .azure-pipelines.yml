@@ -39,7 +39,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh macOS all
       cd deploy
-      zip -rq ../MotionBox.zip *
+      zip -rqy ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-macOS-qt5
 
@@ -51,7 +51,7 @@ jobs:
       sh environment.sh qt6
       sh build.sh macOS all
       cd deploy
-      zip -rq ../MotionBox.zip *
+      zip -rqy ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-macOS-qt6
 
@@ -72,7 +72,7 @@ jobs:
                                      sh environment.sh qt5;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../MotionBox.zip *"
+                                     zip -rqy ../MotionBox.zip *"
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux32-qt5
 
@@ -84,7 +84,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh linux all
       cd deploy
-      zip -rq ../MotionBox.zip *
+      zip -rqy ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux64-qt5
 
@@ -103,7 +103,7 @@ jobs:
                                      sh environment.sh qt6;
                                      sh build.sh linux all;
                                      cd deploy;
-                                     zip -rq ../MotionBox.zip *"
+                                     zip -rqy ../MotionBox.zip *"
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-linux64-qt6
 
@@ -119,7 +119,7 @@ jobs:
       sh environment.sh qt5
       sh build.sh android all
       cd deploy
-      zip -rq ../MotionBox.zip *
+      zip -rqy ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-android-qt5
 
@@ -132,6 +132,6 @@ jobs:
       sh environment.sh qt6
       sh build.sh android all
       cd deploy
-      zip -rq ../MotionBox.zip *
+      zip -rqy ../MotionBox.zip *
   - publish: $(System.DefaultWorkingDirectory)/MotionBox.zip
     artifact: MotionBox-android-qt6

@@ -176,8 +176,7 @@ contains(DEFINES, SK_VLC) {
 win32:LIBS += -L$$SK/lib $$ENGINE \
               -lmswsock -lws2_32
 
-win32:LIBS += -L$$SK/lib -ltorrent \
-              -L$$SK/lib -lboost_system
+win32:LIBS += -L$$SK/lib -ltorrent
 
 # Windows dependency for qwindowkit
 win32:LIBS += -lgdi32
@@ -189,8 +188,7 @@ win32-msvc*:LIBS += Advapi32.lib Iphlpapi.lib
 win32-msvc*:LIBS += shell32.lib User32.lib
 
 unix:!ios:!android:LIBS += -L$$SK/lib $$ENGINE \
-                           -L$$SK/lib -ltorrent-rasterbar \
-                           -L$$SK/lib -lboost_system
+                           -L$$SK/lib -ltorrent-rasterbar
 
 android:LIBS += -L$$SK/lib/$$ABI $$ENGINE \
                 -L$$SK/lib/$$ABI -ltorrent-rasterbar \
@@ -213,11 +211,8 @@ contains(DEFINES, SK_VLC) {
     QMAKE_POST_LINK = install_name_tool -add_rpath @loader_path $$PATH/$${TARGET};
 }
 
-    QMAKE_POST_LINK += install_name_tool -change libtorrent-rasterbar.dylib.2.0.11 \
+    QMAKE_POST_LINK += install_name_tool -change libtorrent-rasterbar.dylib.2.1.0 \
                        @loader_path/libtorrent-rasterbar.dylib $$PATH/$${TARGET};
-
-    QMAKE_POST_LINK += install_name_tool -change libboost_system.dylib \
-                       @loader_path/libboost_system.dylib $$PATH/$${TARGET};
 
 contains(DEFINES, SK_VLC) {
     QMAKE_POST_LINK += $${QMAKE_COPY} -r $${DESTDIR}/plugins $$PATH;

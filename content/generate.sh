@@ -287,6 +287,8 @@ $SkyComponents/ButtonPianoIcon.qml \
 $SkyComponents/ButtonPianoFull.qml \
 $SkyComponents/ButtonPianoAction.qml \
 $SkyComponents/ButtonPianoWindow.qml \
+$SkyComponents/ButtonWindowMac.qml \
+$SkyComponents/ButtonsWindowMac.qml \
 $SkyComponents/ButtonPianoReset.qml \
 $SkyComponents/ButtonRound.qml \
 $SkyComponents/ButtonCheck.qml \

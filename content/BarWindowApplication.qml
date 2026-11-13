@@ -62,9 +62,15 @@ Item
     property alias buttonRelated: buttonRelated
     property alias buttonExpand : buttonExpand
 
+//#MAC
+    property alias buttonIconify : buttonsWindow.buttonIconify
+    property alias buttonMaximize: buttonsWindow.buttonMaximize
+    property alias buttonClose   : buttonsWindow.buttonClose
+//#ELSE
     property alias buttonIconify : buttonIconify
     property alias buttonMaximize: buttonMaximize
     property alias buttonClose   : buttonClose
+//#END
 
     property alias border: border
 
@@ -303,9 +309,15 @@ Item
     {
         id: buttonBackward
 
+//#MAC
+        anchors.left: buttonsWindow.right
+
+        anchors.leftMargin: st.dp32
+//#ELSE
         anchors.left: parent.left
 
         anchors.leftMargin: st.dp16
+//#END
 
         anchors.verticalCenter: barBackground.verticalCenter
 
@@ -842,9 +854,15 @@ Item
     {
         id: buttonExpand
 
+//#MAC
+        anchors.right: parent.right
+
+        anchors.rightMargin: st.dp16
+//#ELSE
         anchors.right: buttonIconify.left
 
         anchors.rightMargin: st.dp32
+//#END
 
         anchors.verticalCenter: buttonBackward.verticalCenter
 
@@ -863,6 +881,23 @@ Item
         onPressed: gui.toggleExpand()
     }
 
+//#MAC
+    ButtonsWindowMac
+    {
+        id: buttonsWindow
+
+        anchors.left: parent.left
+
+        anchors.leftMargin: st.dp16
+
+        anchors.verticalCenter: barBackground.verticalCenter
+
+        function onMaximize()
+        {
+            pRestoreMaximize();
+        }
+    }
+//#ELSE
     ButtonPianoWindow
     {
         id: buttonIconify
@@ -927,6 +962,7 @@ Item
 
         onClicked: window.close()
     }
+//#END
 
     BorderHorizontal
     {

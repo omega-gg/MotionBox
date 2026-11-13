@@ -43,7 +43,7 @@ Item
 
         /* QML_CONNECTION */ function onLogChanged(message)
         {
-            itemConsole.append(message);
+            itemConsole.append("\n" + message);
         }
     }
 

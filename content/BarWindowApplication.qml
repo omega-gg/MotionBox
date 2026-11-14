@@ -602,7 +602,12 @@ Item
         anchors.right: (buttonDownloads.visible) ? buttonDownloads.left
                                                  : borderButtons.left
 
+//#MAC
+        anchors.rightMargin: (buttonDownloads.visible) ? st.dp12
+                                                       : st.dp32
+//#ELSE
         anchors.rightMargin: st.dp12
+//#END
 
         anchors.verticalCenter: buttonBackward.verticalCenter
 
@@ -758,7 +763,11 @@ Item
         anchors.right: borderButtons.left
         anchors.top  : buttonBrowse.top
 
+//#MAC
+        anchors.rightMargin: st.dp32
+//#ELSE
         anchors.rightMargin: st.dp12
+//#END
 
         width : st.dp38
         height: pSize
